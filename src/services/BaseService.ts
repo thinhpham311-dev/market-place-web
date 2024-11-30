@@ -1,8 +1,8 @@
 import axios from 'axios'
 import appConfig from '@/configs/app.config'
-import { TOKEN_TYPE, REQUEST_HEADER_AUTH_KEY } from '@/constants/api/api.constant'
-import { PERSIST_STORE_NAME } from '@/constants/app/app.constant'
-import deepParseJson from '@/utils/deepParseJson'
+// import { TOKEN_TYPE, REQUEST_HEADER_AUTH_KEY } from '@/constants/api/api.constant'
+// import { PERSIST_STORE_NAME } from '@/constants/app/app.constant'
+// import deepParseJson from '@/utils/deepParseJson'
 import store from '../store'
 import { onSignOutSuccess } from '@/store/auth/sessionSlice'
 
@@ -18,14 +18,14 @@ const BaseService = axios.create({
 })
 
 BaseService.interceptors.request.use(config => {
-    const rawPersistData = localStorage.getItem(PERSIST_STORE_NAME)
-    const persistData = deepParseJson(rawPersistData) as any
+    // const rawPersistData = localStorage.getItem(PERSIST_STORE_NAME)
+    // const persistData = deepParseJson(rawPersistData)
 
-    const accessToken = persistData.auth.session.token
+    // const accessToken = persistData.auth.session.token
 
-    if (accessToken) {
-        config.headers[REQUEST_HEADER_AUTH_KEY] = `${TOKEN_TYPE}${accessToken}`
-    }
+    // if (accessToken) {
+    //     config.headers[REQUEST_HEADER_AUTH_KEY] = `${TOKEN_TYPE}${accessToken}`
+    // }
 
     return config
 }, error => {
