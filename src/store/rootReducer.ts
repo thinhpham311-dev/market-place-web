@@ -1,10 +1,10 @@
-import { combineReducers, Reducer, AnyAction } from 'redux';
+import { combineReducers, Reducer } from 'redux';
 import auth from './auth';
 
 export type AuthState = ReturnType<typeof auth>;
 
 export type AsyncReducers = {
-    [key: string]: Reducer<any, AnyAction>;
+    [key: string]: Reducer;
 };
 
 export type RootReducerState = {

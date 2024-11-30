@@ -13,10 +13,9 @@ import { ArrowRight } from "lucide-react"
 interface IListProps {
     title?: string,
     article?: string,
-    data?: string
 }
 
-export default function List({ title, article, data, ...props }: IListProps) {
+export default function List({ title, article }: IListProps) {
     return (
         <div className="md:p-10 p-5 w-full">
             <Card className="border-0">
