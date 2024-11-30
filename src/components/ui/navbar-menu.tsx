@@ -5,7 +5,7 @@ import { Sheet, SheetTitle, SheetContent, SheetTrigger } from '@/components/ui/s
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input'
 import { Menu as MenuIcon } from 'lucide-react';
-import { Search, Filter } from "lucide-react"
+import { Search, Filter, User } from "lucide-react"
 
 const mobileItems = ['Home', 'Categories', 'About Us'];
 
@@ -26,13 +26,19 @@ export function NavbarMenu() {
                     <SheetTitle className="font-bold uppercase heading-3 ">  Market Place</SheetTitle>
 
                 </div>
-                <div className=" md:hidden flex items-center space-x-2 py-3">
+                <div className=" md:hidden flex items-center space-x-2 py-3 mb-5">
                     <Input type="text" placeholder="Search" className="flex-1" />
                     <Button enterKeyHint="search" variant="outline" type="submit" size="icon"><Search className="h-[2rem] w-[2rem]" /></Button>
                     <Button variant="outline" type="button" size="icon"><Filter className="h-[2rem] w-[2rem]" /></Button>
                 </div>
+                <div className='flex space-x-2 w-full'>
+                    <Button variant="outline" className='flex-1' type="button">Sign In</Button>
+                    <Button variant="outline" className='flex-1' type="button">Sign Up</Button>
+                    <Button variant="outline" size="icon" type="button"><User className="h-[2rem] w-[2rem]" /></Button>
+                </div>
 
-                <div className="flex flex-col items-start justify-center py-3">
+                <div className="flex flex-col items-start justify-center py-3 gap-3">
+
                     {mobileItems.map((item, index) => (
                         <Button
                             key={index}
@@ -44,6 +50,8 @@ export function NavbarMenu() {
                             {item}
                         </Button>
                     ))}
+
+
                 </div>
             </SheetContent>
 

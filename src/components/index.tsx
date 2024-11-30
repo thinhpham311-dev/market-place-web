@@ -1,2 +1,4 @@
 export { default as Header } from "@/components/header"
-export { default as Panel } from "@/components/panel"
+export { default as Banner } from "@/components/banner"
+export { default as List } from "@/components/list";
+export { default as Footer } from "@/components/footer"

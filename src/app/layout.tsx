@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/ui/theme-provider"
-import { Header } from "@/components"
+import { Header, Footer } from "@/components"
 import "./globals.css";
 
 
@@ -26,6 +26,7 @@ export default function RootLayout({
         >
           <Header />
           {children}
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

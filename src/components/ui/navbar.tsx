@@ -2,12 +2,12 @@ import Image from "next/image"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { ModeToggle } from "@/components/ui/mode-toggle"
-import { Search, User } from "lucide-react"
+import { Search, ShoppingCart } from "lucide-react"
 import { NavbarMenu } from "@/components/ui/navbar-menu"
 
 export function Navbar() {
     return (
-        <div className="mr-4 flex gap-2 w-full justify-between">
+        <div className=" flex gap-2 w-full justify-between">
             <div className="flex items-center space-x-2">
                 <NavbarMenu />
                 <div className="md:flex hidden  items-center space-x-2 ">
@@ -21,9 +21,7 @@ export function Navbar() {
             </div>
             <div className="flex items-center space-x-2">
                 <ModeToggle />
-                <Button variant="outline" size="icon" type="button"><User className="h-[2rem] w-[2rem]" /></Button>
-                <Button variant="outline" type="button">Sign In</Button>
-                <Button variant="outline" type="button">Sign Up</Button>
+                <Button variant="outline" size="icon"><ShoppingCart /></Button>
             </div>
         </div>
     )
