@@ -19,8 +19,8 @@ export default function List({ title, article }: IListProps) {
     return (
         <div className="md:p-10 p-5 w-full">
             <Card className="border-0">
-                <CardHeader className="flex-row justify-between items-center px-0 pb-5">
-                    <div className="p-0">
+                <CardHeader className="flex-row justify-between items-center px-0 pb-5 space-x-3">
+                    <div className="p-0 flex-1">
                         <CardTitle className="mb-3">{title}</CardTitle>
                         <CardDescription>{article}</CardDescription>
                     </div>
