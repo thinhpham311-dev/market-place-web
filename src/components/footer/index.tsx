@@ -7,7 +7,7 @@ export default function Footer() {
                 <div className="flex flex-col lg:flex-row justify-between items-center lg:items-start">
                     {/* Logo or Brand */}
                     <div className="mb-4 lg:mb-0 md:px-10 px-5 lg:w-1/3 w-full">
-                        <h2 className="text-xl font-semibold">Market Place</h2>
+                        <h2 className="text-xl font-semibold mb-2">Market Place</h2>
                         <p className="text-sm text-muted-foreground">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id urna non sem accumsan dictum. Nunc eget nibh ornare, accumsan odio ac, vestibulum sem
                         </p>
