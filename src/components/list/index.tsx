@@ -14,15 +14,14 @@ interface IListProps {
     title?: string,
     article?: string,
 }
-
-export default function List({ title, article }: IListProps) {
+const List = ({ title, article }: IListProps) => {
     return (
         <div className="md:p-10 p-5 w-full">
             <Card className="border-0">
                 <CardHeader className="flex-row justify-between items-center px-0 pb-5 space-x-3">
                     <div className="p-0 flex-1">
                         <CardTitle className="mb-3">{title}</CardTitle>
-                        <CardDescription>{article}</CardDescription>
+                        <CardDescription className="lg:w-1/3 w-full">{article}</CardDescription>
                     </div>
                     <Button variant="outline" size="icon" className="float-end">
                         <ArrowRight className="h-4 w-4" />
@@ -49,3 +48,6 @@ export default function List({ title, article }: IListProps) {
         </div>
     );
 }
+
+
+export default List

@@ -1,5 +1,6 @@
 
 import * as React from "react"
+import { memo } from "react"
 import Image from 'next/image'
 import Autoplay from "embla-carousel-autoplay"
 
@@ -12,7 +13,7 @@ import {
 } from "@/components/ui/carousel"
 import { bannerSliderData } from '@/constants/data'
 
-export default function Banner() {
+const Banner = () => {
     const plugin = React.useRef(
         Autoplay({ delay: 2000, stopOnInteraction: true })
     )
@@ -26,7 +27,7 @@ export default function Banner() {
             >
                 <CarouselContent>
                     {bannerSliderData.map((item, index) => (
-                        <CarouselItem key={index} className="md:h-[400px] h-[200px] bg-slate-600 ">
+                        <CarouselItem key={index} className="md:h-[400px] h-[300px] bg-slate-600 ">
                             <Image src={item.source} alt={item.title} width={1100} height={300} className="h-full w-full  overflow-hidden object-contain rounded-md object-center" />
                         </CarouselItem>
                     ))}
@@ -37,3 +38,5 @@ export default function Banner() {
         </div>
     );
 }
+
+export default memo(Banner)

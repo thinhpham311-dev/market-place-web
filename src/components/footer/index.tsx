@@ -6,7 +6,7 @@ export default function Footer() {
             <div className=" mx-auto py-8">
                 <div className="flex flex-col lg:flex-row justify-between items-center lg:items-start">
                     {/* Logo or Brand */}
-                    <div className="mb-4 lg:mb-0 px-10">
+                    <div className="mb-4 lg:mb-0 md:px-10 px-5 lg:w-1/3 w-full">
                         <h2 className="text-xl font-semibold">Market Place</h2>
                         <p className="text-sm text-muted-foreground">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id urna non sem accumsan dictum. Nunc eget nibh ornare, accumsan odio ac, vestibulum sem
@@ -14,9 +14,9 @@ export default function Footer() {
                     </div>
 
                     {/* Links */}
-                    <div className="grid grid-cols-2 gap-8 text-sm md:grid-cols-4">
+                    <div className="grid grid-cols-2 gap-8 text-sm md:grid-cols-4 lg:w-2/3 w-full md:px-10 px-5">
                         <div>
-                            <h3 className="text-md font-semibold mb-2">Company</h3>
+                            <h3 className="text-lg font-semibold mb-2">Company</h3>
                             <ul className="space-y-2">
                                 <li>
                                     <a href="#" className="hover:underline">
@@ -36,7 +36,7 @@ export default function Footer() {
                             </ul>
                         </div>
                         <div>
-                            <h3 className="text-md font-semibold mb-2">Resources</h3>
+                            <h3 className="text-lg font-semibold mb-2">Resources</h3>
                             <ul className="space-y-2">
                                 <li>
                                     <a href="#" className="hover:underline">
@@ -56,7 +56,7 @@ export default function Footer() {
                             </ul>
                         </div>
                         <div>
-                            <h3 className="text-md font-semibold mb-2">Legal</h3>
+                            <h3 className="text-lg font-semibold mb-2">Legal</h3>
                             <ul className="space-y-2">
                                 <li>
                                     <a href="#" className="hover:underline">
@@ -76,7 +76,7 @@ export default function Footer() {
                             </ul>
                         </div>
                         <div>
-                            <h3 className="text-md font-semibold mb-2">Social</h3>
+                            <h3 className="text-lg font-semibold mb-2">Social</h3>
                             <ul className="space-y-2">
                                 <li>
                                     <a href="#" className="hover:underline">
