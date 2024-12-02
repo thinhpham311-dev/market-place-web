@@ -2,11 +2,11 @@ import * as React from "react";
 
 export default function Footer() {
     return (
-        <footer className="border-t ">
+        <footer className="border-t md:px-12 px-6">
             <div className=" mx-auto py-8">
                 <div className="flex flex-col lg:flex-row justify-between items-center lg:items-start">
                     {/* Logo or Brand */}
-                    <div className="mb-4 lg:mb-0 md:px-10 px-5 lg:w-1/3 w-full">
+                    <div className="mb-4 lg:mb-0  lg:w-1/3 w-full">
                         <h2 className="text-xl font-semibold mb-2">Market Place</h2>
                         <p className="text-sm text-muted-foreground">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id urna non sem accumsan dictum. Nunc eget nibh ornare, accumsan odio ac, vestibulum sem
@@ -14,7 +14,7 @@ export default function Footer() {
                     </div>
 
                     {/* Links */}
-                    <div className="grid grid-cols-2 gap-8 text-sm md:grid-cols-4 lg:w-2/3 w-full md:px-10 px-5">
+                    <div className="grid grid-cols-2 gap-8 text-sm md:grid-cols-4 lg:w-2/3 w-full ">
                         <div>
                             <h3 className="text-lg font-semibold mb-2">Company</h3>
                             <ul className="space-y-2">
@@ -99,7 +99,7 @@ export default function Footer() {
                 </div>
 
                 {/* Bottom Section */}
-                <div className="mt-8 px-10 flex flex-col items-center justify-between border-t pt-4 text-center text-sm text-muted-foreground lg:flex-row">
+                <div className="mt-8 flex flex-col items-center justify-between border-t pt-4 text-center text-sm text-muted-foreground lg:flex-row">
                     <p>&copy; {new Date().getFullYear()} BrandName. All rights reserved.</p>
                     <div className="flex space-x-4">
                         <a href="#" className="hover:underline">

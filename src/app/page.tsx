@@ -1,12 +1,16 @@
 'use client'
-
+//components
 import { Banner, List } from '@/components'
+
+//datas
+import { productData } from '@/constants/data';
+
 export default function Home() {
   return (
-    <div>
+    <div className="space-y-10">
       <Banner />
-      <List isCarousel isViewMore title="Popular Products" article='Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id urna non sem accumsan dictum.' />
-      <List title={<span className="block text-center">tip today</span>} article={<span className="block text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit</span>} />
+      <List type="carousel" title="Popular products" article='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque aliquet lobortis erat, sed varius arcu iaculis id' data={productData} />
+      <List type="grid" title="Suggestion today" data={productData} />
     </div>
   );
 }

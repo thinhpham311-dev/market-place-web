@@ -1,1 +1,2 @@
-export { bannerSliderData } from "./banner"
+export { bannerData } from "./banner"
+export { productData } from "./product"
