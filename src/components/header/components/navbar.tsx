@@ -1,9 +1,6 @@
 import Image from "next/image"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
 import DropdownMode from "./dropdownMode"
 import DrawerToggle from "./drawer"
-import { Search } from "lucide-react"
 import { NavbarMenu } from "@/components/ui/navbar-menu"
 import SearchLive from "./search"
 

@@ -4,9 +4,6 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import List from "./list"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
-const tags = Array.from({ length: 50 }).map(
-    (_, i, a) => `v1.2.0-beta.${a.length - i}`
-)
 
 const ScrollAreaList = () => {
     return (
