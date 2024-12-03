@@ -1,5 +1,5 @@
 import React from "react";
-import { GridList, CarouselList } from "./components"
+import { GridList, CarouselList, RowList } from "./components"
 import { IProduct } from "@/types/product";
 
 interface IListProps {
@@ -16,6 +16,8 @@ const List = ({ title, article, data, type }: IListProps) => {
                 return <CarouselList title={title} article={article} data={data} />;
             case "grid":
                 return <GridList title={title} data={data} />;
+            case "row":
+                return <RowList title={title} data={data} />;
             default:
                 return <div>Default Component</div>;
         }

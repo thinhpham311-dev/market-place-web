@@ -16,7 +16,7 @@ import {
     CardDescription
 } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import Item from "./Item"
+import CarouselListItem from "./Item"
 
 //icons
 import { ArrowRight } from "lucide-react"
@@ -31,10 +31,12 @@ interface ICarouselListProps {
 }
 
 const CarouselList = ({ title, article, data }: ICarouselListProps) => {
+
+
     return (
         <div className="md:px-12 px-6">
             <Card className="border-0">
-                <CardHeader className="flex-row  items-center px-0 space-x-3 mb-3">
+                <CardHeader className="flex-row  items-center px-0 space-x-3 mb-3" >
                     <div className="p-0 flex-1">
                         <CardTitle className="mb-3 capitalize">{title}</CardTitle>
                         <CardDescription className="normal-case">{article}</CardDescription>
@@ -47,7 +49,7 @@ const CarouselList = ({ title, article, data }: ICarouselListProps) => {
                     <Carousel>
                         <CarouselContent className="-ml-2">
                             {data?.map((item, index) => (
-                                <Item key={index} item={item} />
+                                <CarouselListItem key={index} item={item} />
                             ))}
                         </CarouselContent>
                         <CarouselPrevious className=" top-1/2 -translate-y-1/2 md:-left-5 -left-3 " />

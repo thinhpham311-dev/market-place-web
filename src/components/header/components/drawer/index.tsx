@@ -14,11 +14,15 @@ import {
     DrawerTitle,
     DrawerTrigger,
 } from "@/components/ui/drawer"
-import ScrollAreaList from "./scrollAreaList"
+import List from "@/components/list"
 import CardDetail from "./card"
 import TooltipElement from "../tooltip"
+
 //icons
 import { ShoppingCart, Expand } from "lucide-react"
+
+//datas
+import { productData } from "@/constants/data"
 
 
 const DrawerToggle = () => {
@@ -31,20 +35,24 @@ const DrawerToggle = () => {
                     </Button>
                 </DrawerTrigger>
             </TooltipElement>
-            <DrawerContent >
+            <DrawerContent className="md:mx-10 mx-0">
                 <div className="mx-auto w-full">
                     <DrawerHeader className="flex flex-row justify-between py-0">
-                        <div className="px-5">
-                            <DrawerTitle className="flex flex-row gap-x-2 items-center mb-3"><span><ShoppingCart /></span>Detail Cart</DrawerTitle>
-
-                            <DrawerDescription className="text-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vehicula</DrawerDescription>
+                        <div className="px-0 flex items-center gap-x-3">
+                            <span><ShoppingCart size={30} /></span>
+                            <div>
+                                <DrawerTitle className="flex flex-row items-center">Detail Cart</DrawerTitle>
+                                <DrawerDescription className="text-left md:line-clamp-2 line-clamp-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vehicula</DrawerDescription>
+                            </div>
                         </div>
                         <TooltipElement content="Refresh to payment detail page">
                             <Button variant="outline" size="icon"><Expand /></Button>
                         </TooltipElement>
                     </DrawerHeader>
                     <div className="p-4 pb-0 grid lg:grid-cols-6 grid-cols-1 gap-5">
-                        <ScrollAreaList />
+                        <div className="lg:col-span-4 col-span-6">
+                            <List title="Products List" type="row" data={productData} />
+                        </div>
                         <CardDetail />
                     </div>
                     <DrawerFooter className="flex flex-row justify-end">
