@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/ui/theme-provider"
 import { Header, Footer } from "@/components"
+import { TooltipProvider } from "@/components/ui/tooltip"
 import "./globals.css";
 
 
@@ -24,11 +25,13 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
-          <main>
-            {children}
-          </main>
-          <Footer />
+          <TooltipProvider>
+            <Header />
+            <main>
+              {children}
+            </main>
+            <Footer />
+          </TooltipProvider>
         </ThemeProvider>
       </body>
     </html>

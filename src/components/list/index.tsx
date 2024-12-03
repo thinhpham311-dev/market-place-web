@@ -10,7 +10,7 @@ interface IListProps {
 }
 
 const List = ({ title, article, data, type }: IListProps) => {
-    return <div>{(() => {
+    return <>{(() => {
         switch (type) {
             case "carousel":
                 return <CarouselList title={title} article={article} data={data} />;
@@ -19,7 +19,7 @@ const List = ({ title, article, data, type }: IListProps) => {
             default:
                 return <div>Default Component</div>;
         }
-    })()}</div>;
+    })()}</>;
 };
 
 export default List;

@@ -16,7 +16,7 @@ interface IGridListProps {
 const GridList = ({ title, data }: IGridListProps) => {
 
     return (
-        <div className="md:px-10 px-6">
+        <div className="md:px-12 px-6">
             <Card className="border-0">
                 <CardHeader className="flex-row  items-center px-0 space-x-3 mb-3">
                     <CardTitle className="mb-3 capitalize text-center mx-auto">{title}</CardTitle>
