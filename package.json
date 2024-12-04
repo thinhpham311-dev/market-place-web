@@ -1,6 +1,8 @@
 {
   "name": "web-marketplace",
-  "version": "0.1.0",
+  "description": "Your project description",
+  "version": "1.0.0",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "dev": "next dev",
