@@ -3,10 +3,10 @@ import * as React from "react"
 import { memo } from "react"
 import Image from 'next/image'
 import { CarouselItem } from "@/components/ui/molecules/carousel"
-import { IBanner } from "@/types/banner"
+import { IImage } from "@/types/banner"
 
 interface IItemProps {
-    item: IBanner
+    item: IImage
 }
 
 const SliderItem = ({ item: {

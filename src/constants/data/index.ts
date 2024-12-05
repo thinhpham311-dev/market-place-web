@@ -1,2 +1,2 @@
-export { bannerData } from "./banner"
+export * from "./banner"
 export { productData } from "./product"

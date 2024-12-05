@@ -8,10 +8,10 @@ import {
     CarouselPrevious,
 } from "@/components/ui/molecules/carousel"
 import SliderItem from "./Item"
-import { IBanner } from "@/types/banner"
+import { IImage } from "@/types/banner"
 
 interface ISliderProps {
-    data: Array<IBanner>
+    data: Array<IImage>
 }
 
 export const Slider = ({ data }: ISliderProps) => {
