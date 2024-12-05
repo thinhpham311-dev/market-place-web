@@ -2,6 +2,8 @@ export const productData = [
     {
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent consectetur nibh feugiat erat blandit lobortis. Nullam eu est nisl. Curabitur mauris ligula, ornare in justo nec, ornare pulvinar ipsum. Curabitur auctor mauris nec interdum condimentum. Donec ultrices nisl in mauris blandit aliquet. Aenean non lacus libero. Vestibulum congue maximus nulla, id tempus orci sollicitudin nec. Donec lobortis elit ullamcorper, finibus sem et, vulputate enim.",
         price: 2000,
         discountPrice: 2000,
         quantity: 30,
@@ -9,6 +11,8 @@ export const productData = [
     {
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent consectetur nibh feugiat erat blandit lobortis. Nullam eu est nisl. Curabitur mauris ligula, ornare in justo nec, ornare pulvinar ipsum. Curabitur auctor mauris nec interdum condimentum. Donec ultrices nisl in mauris blandit aliquet. Aenean non lacus libero. Vestibulum congue maximus nulla, id tempus orci sollicitudin nec. Donec lobortis elit ullamcorper, finibus sem et, vulputate enim.",
         price: 2000,
         discountPrice: 2000,
         quantity: 30,
@@ -16,6 +20,8 @@ export const productData = [
     {
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent consectetur nibh feugiat erat blandit lobortis. Nullam eu est nisl. Curabitur mauris ligula, ornare in justo nec, ornare pulvinar ipsum. Curabitur auctor mauris nec interdum condimentum. Donec ultrices nisl in mauris blandit aliquet. Aenean non lacus libero. Vestibulum congue maximus nulla, id tempus orci sollicitudin nec. Donec lobortis elit ullamcorper, finibus sem et, vulputate enim.",
         price: 2000,
         discountPrice: 2000,
         quantity: 30,
@@ -23,6 +29,8 @@ export const productData = [
     {
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent consectetur nibh feugiat erat blandit lobortis. Nullam eu est nisl. Curabitur mauris ligula, ornare in justo nec, ornare pulvinar ipsum. Curabitur auctor mauris nec interdum condimentum. Donec ultrices nisl in mauris blandit aliquet. Aenean non lacus libero. Vestibulum congue maximus nulla, id tempus orci sollicitudin nec. Donec lobortis elit ullamcorper, finibus sem et, vulputate enim.",
         price: 2000,
         discountPrice: 2000,
         quantity: 30,
@@ -30,6 +38,8 @@ export const productData = [
     {
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent consectetur nibh feugiat erat blandit lobortis. Nullam eu est nisl. Curabitur mauris ligula, ornare in justo nec, ornare pulvinar ipsum. Curabitur auctor mauris nec interdum condimentum. Donec ultrices nisl in mauris blandit aliquet. Aenean non lacus libero. Vestibulum congue maximus nulla, id tempus orci sollicitudin nec. Donec lobortis elit ullamcorper, finibus sem et, vulputate enim.",
         price: 2000,
         discountPrice: 2000,
         quantity: 30,
@@ -37,6 +47,8 @@ export const productData = [
     {
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent consectetur nibh feugiat erat blandit lobortis. Nullam eu est nisl. Curabitur mauris ligula, ornare in justo nec, ornare pulvinar ipsum. Curabitur auctor mauris nec interdum condimentum. Donec ultrices nisl in mauris blandit aliquet. Aenean non lacus libero. Vestibulum congue maximus nulla, id tempus orci sollicitudin nec. Donec lobortis elit ullamcorper, finibus sem et, vulputate enim.",
         price: 2000,
         discountPrice: 2000,
         quantity: 30,
@@ -44,6 +56,8 @@ export const productData = [
     {
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent consectetur nibh feugiat erat blandit lobortis. Nullam eu est nisl. Curabitur mauris ligula, ornare in justo nec, ornare pulvinar ipsum. Curabitur auctor mauris nec interdum condimentum. Donec ultrices nisl in mauris blandit aliquet. Aenean non lacus libero. Vestibulum congue maximus nulla, id tempus orci sollicitudin nec. Donec lobortis elit ullamcorper, finibus sem et, vulputate enim.",
         price: 2000,
         discountPrice: 2000,
         quantity: 30,
@@ -51,6 +65,8 @@ export const productData = [
     {
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent consectetur nibh feugiat erat blandit lobortis. Nullam eu est nisl. Curabitur mauris ligula, ornare in justo nec, ornare pulvinar ipsum. Curabitur auctor mauris nec interdum condimentum. Donec ultrices nisl in mauris blandit aliquet. Aenean non lacus libero. Vestibulum congue maximus nulla, id tempus orci sollicitudin nec. Donec lobortis elit ullamcorper, finibus sem et, vulputate enim.",
         price: 2000,
         discountPrice: 2000,
         quantity: 30,
@@ -58,6 +74,8 @@ export const productData = [
     {
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent consectetur nibh feugiat erat blandit lobortis. Nullam eu est nisl. Curabitur mauris ligula, ornare in justo nec, ornare pulvinar ipsum. Curabitur auctor mauris nec interdum condimentum. Donec ultrices nisl in mauris blandit aliquet. Aenean non lacus libero. Vestibulum congue maximus nulla, id tempus orci sollicitudin nec. Donec lobortis elit ullamcorper, finibus sem et, vulputate enim.",
         price: 2000,
         discountPrice: 2000,
         quantity: 30,
@@ -65,6 +83,8 @@ export const productData = [
     {
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent consectetur nibh feugiat erat blandit lobortis. Nullam eu est nisl. Curabitur mauris ligula, ornare in justo nec, ornare pulvinar ipsum. Curabitur auctor mauris nec interdum condimentum. Donec ultrices nisl in mauris blandit aliquet. Aenean non lacus libero. Vestibulum congue maximus nulla, id tempus orci sollicitudin nec. Donec lobortis elit ullamcorper, finibus sem et, vulputate enim.",
         price: 2000,
         discountPrice: 2000,
         quantity: 30,
@@ -72,6 +92,8 @@ export const productData = [
     {
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent consectetur nibh feugiat erat blandit lobortis. Nullam eu est nisl. Curabitur mauris ligula, ornare in justo nec, ornare pulvinar ipsum. Curabitur auctor mauris nec interdum condimentum. Donec ultrices nisl in mauris blandit aliquet. Aenean non lacus libero. Vestibulum congue maximus nulla, id tempus orci sollicitudin nec. Donec lobortis elit ullamcorper, finibus sem et, vulputate enim.",
         price: 2000,
         discountPrice: 2000,
         quantity: 30,
@@ -79,6 +101,8 @@ export const productData = [
     {
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent consectetur nibh feugiat erat blandit lobortis. Nullam eu est nisl. Curabitur mauris ligula, ornare in justo nec, ornare pulvinar ipsum. Curabitur auctor mauris nec interdum condimentum. Donec ultrices nisl in mauris blandit aliquet. Aenean non lacus libero. Vestibulum congue maximus nulla, id tempus orci sollicitudin nec. Donec lobortis elit ullamcorper, finibus sem et, vulputate enim.",
         price: 2000,
         discountPrice: 2000,
         quantity: 30,

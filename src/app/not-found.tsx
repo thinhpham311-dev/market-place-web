@@ -1,5 +1,5 @@
 'use client'
-import { Button } from "@/components/ui/button"; // Import Button từ shadcn/ui
+import { Button } from "@/components/ui/atoms/button"; // Import Button từ shadcn/ui
 import { useRouter } from "next/navigation";
 
 export default function NotFound() {
