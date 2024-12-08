@@ -15,7 +15,7 @@ export const Counter = ({ isButtonAdd }: ICounterProps) => {
     const decrement = () => setCount((prev) => Math.max(0, prev - 1));
 
     const renderControls = () => (
-        <div className="flex items-center space-x-1">
+        <div className="flex items-center space-x-1 flex-1">
             <Button
                 onClick={decrement}
                 size="icon"
@@ -45,7 +45,7 @@ export const Counter = ({ isButtonAdd }: ICounterProps) => {
     );
 
     return (
-        <div className=" border-none">
+        <>
             {isButtonAdd && count === 0 ? (
                 <Button
                     className="uppercase"
@@ -58,6 +58,6 @@ export const Counter = ({ isButtonAdd }: ICounterProps) => {
             ) : (
                 renderControls()
             )}
-        </div>
+        </>
     );
 };

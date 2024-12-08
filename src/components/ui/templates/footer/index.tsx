@@ -2,9 +2,9 @@ import * as React from "react";
 
 export default function Footer() {
     return (
-        <footer className="border-t md:px-12 px-6">
-            <div className=" mx-auto py-8">
-                <div className="flex flex-col lg:flex-row justify-between items-center lg:items-start  space-x-10">
+        <footer className="border-t bg-background">
+            <div className="container mx-auto  py-8 md:px-6 px-3 ">
+                <div className="flex flex-col lg:flex-row justify-between items-center lg:items-start md:gap-10 gap-5">
                     {/* Logo or Brand */}
                     <div className="mb-4 lg:mb-0  lg:w-1/3 w-full">
                         <h2 className="text-xl font-semibold mb-2">Market Place</h2>
@@ -14,7 +14,7 @@ export default function Footer() {
                     </div>
 
                     {/* Links */}
-                    <div className="grid grid-cols-2 gap-8 text-sm md:grid-cols-4 lg:w-2/3 w-full">
+                    <div className="grid grid-cols-2 gap-8 text-sm md:grid-cols-4 lg:w-2/3 w-full ml-0">
                         <div>
                             <h3 className="text-lg font-semibold mb-2">Company</h3>
                             <ul className="space-y-2">

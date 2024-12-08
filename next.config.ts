@@ -14,6 +14,10 @@ const nextConfig: NextConfig = {
         hostname: 'images2.thanhnien.vn',
         pathname: '**',
       },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+      },
     ],
   },
   env: {

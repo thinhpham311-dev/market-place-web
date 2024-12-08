@@ -15,7 +15,7 @@ export const SelectType = () => {
         <div>
             <Select>
                 <SelectTrigger className="space-x-2">
-                    <SelectValue placeholder="Categories" />
+                    <SelectValue placeholder="All" />
                 </SelectTrigger>
                 <SelectContent>
                     <SelectGroup>

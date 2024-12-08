@@ -4,7 +4,7 @@ import * as React from "react"
 import { useRouter } from "next/navigation"
 
 //components
-import { Button } from "@/components/ui/atoms"
+import { Button, Separator } from "@/components/ui/atoms"
 import {
     TooltipWrapper, Sheet,
     SheetClose,
@@ -16,13 +16,13 @@ import {
     SheetTrigger,
     ScrollArea
 } from "@/components/ui/molecules"
-import { CartListItem } from "./item"
 
 //icons
 import { ShoppingCart } from "lucide-react"
 
 //datas
 import { productData } from "@/constants/data"
+import { RowList } from "@/components/ui/organisms"
 
 
 export const Cart = () => {
@@ -40,7 +40,7 @@ export const Cart = () => {
             <SheetContent className=" p-2  w-full md:w-1/2 h-full">
                 <div className="mx-auto w-full flex flex-col justify-between h-full">
                     <SheetHeader className="flex flex-row justify-between mb-3">
-                        <div className=" flex items-center gap-x-5 px-5">
+                        <div className=" flex items-center gap-x-5 w-5/6">
                             <span><ShoppingCart size={30} /></span>
                             <div>
                                 <SheetTitle className="flex flex-row items-center">Detail Cart</SheetTitle>
@@ -48,12 +48,12 @@ export const Cart = () => {
                             </div>
                         </div>
                     </SheetHeader>
+                    <Separator className="mb-3" />
                     <ScrollArea className="flex-1">
-                        {productData?.map((item, index) => (
-                            <CartListItem key={index} item={item} />
-                        ))}
+                        <RowList data={productData} />
                     </ScrollArea>
-                    <SheetFooter className="flex flex-row justify-end p-3 border rounded-md space-x-3">
+                    <Separator className="mt-3" />
+                    <SheetFooter className="flex flex-row justify-end p-3 rounded-md space-x-3">
                         <Button variant="outline" >Payment</Button>
                         <SheetClose asChild>
                             <Button variant="outline" >Cancel</Button>

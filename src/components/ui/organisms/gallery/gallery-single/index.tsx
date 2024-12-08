@@ -31,8 +31,8 @@ export const Slider = ({ data }: ISliderProps) => {
                     <SliderItem key={item.title} item={item} />
                 ))}
             </CarouselContent>
-            <CarouselPrevious className=" top-1/2 -translate-y-1/2 md:left-5 left-3" />
-            <CarouselNext className=" top-1/2 -translate-y-1/2 md:right-5 right-3" />
+            <CarouselPrevious className=" top-1/2 -translate-y-1/2 md:left-2 left-0" />
+            <CarouselNext className=" top-1/2 -translate-y-1/2 md:right-2 right-0" />
         </Carousel>
 
     );
