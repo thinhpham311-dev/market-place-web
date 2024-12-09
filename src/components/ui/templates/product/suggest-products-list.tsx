@@ -2,7 +2,7 @@ import * as React from "react"
 
 //components
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/molecules"
-import { GridList } from "@/components/ui/organisms"
+import { GridListWithLoading } from "@/components/ui/organisms"
 
 //datas
 import { productData } from "@/constants/data"
@@ -17,7 +17,7 @@ const SuggestProductsList = () => {
                     <CardTitle className="mb-3 capitalize text-center mx-auto">Suggestion today</CardTitle>
                 </CardHeader>
                 <CardContent className="px-0">
-                    <GridList data={productData} />
+                    <GridListWithLoading data={productData} itemsPerPage={12} />
                 </CardContent>
             </Card >
         </div>

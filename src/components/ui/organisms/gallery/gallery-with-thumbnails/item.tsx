@@ -22,7 +22,7 @@ const GalleryItem = ({
             {images.map((image, index) => (
                 <CarouselItem
                     key={index}
-                    className={`relative aspect-square w-full ${isThumbnail ? "basis-1/4" : ""}`}
+                    className={`relative aspect-square w-full cursor-pointer ${isThumbnail ? "basis-1/4" : ""}`}
                     onClick={isThumbnail ? () => onImageClick?.(index) : undefined}
                 >
                     <Image

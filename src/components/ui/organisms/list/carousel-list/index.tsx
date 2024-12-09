@@ -14,14 +14,16 @@ import CarouselListItem from "./Item"
 import { IProduct } from "@/types/product"
 
 type ICarouselListProps = {
-    data: Array<IProduct>
+    data: Array<IProduct>,
+    itemsPerPage?: number;
 }
 
-export const CarouselList = ({ data }: ICarouselListProps) => {
+export const CarouselList = ({ data, itemsPerPage = 12 }: ICarouselListProps) => {
+
     return (
         <Carousel>
             <CarouselContent className="-ml-2">
-                {data?.map((item, index) => (
+                {data?.slice(0, itemsPerPage).map((item, index) => (
                     <CarouselListItem key={index} item={item} />
                 ))}
             </CarouselContent>

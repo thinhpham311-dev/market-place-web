@@ -69,6 +69,7 @@ export const GalleryWithThumbnails = ({ data }: GalleryProps) => {
                             current={current}
                             isThumbnail
                             onImageClick={navigateTo}
+
                         />
                     </CarouselContent>
                 </Carousel>

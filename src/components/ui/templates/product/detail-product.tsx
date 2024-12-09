@@ -45,10 +45,12 @@ const DetailProduct = () => {
 
                             <div>
                                 <ButtonTagsList
+                                    className="space-y-3"
                                     label="Size"
                                     data={["Size S", "Size M", "Size L", "Size XL", "Size XXL"]}
                                 />
                                 <ButtonTagsList
+
                                     label="Color"
                                     data={["White", "Black", "Red", "Yellow"]}
                                 />

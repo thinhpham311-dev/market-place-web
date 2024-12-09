@@ -24,7 +24,7 @@ export const GridListItem = ({ item: { name, image, price, discountPrice } }: II
                 onClick={() => router.push("/products/1")}
                 src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"}
                 alt=""
-                className="w-full h-full rounded-t-lg cursor-pointer aspect-square"
+                className="w-full h-full rounded-t-lg aspect-square cursor-pointer"
             />
             <CardContent className="p-3">
                 <CardTitle onClick={() => router.push("/products/1")} className="mb-2 text-md capitalize cursor-pointer">{name}</CardTitle>

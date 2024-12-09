@@ -23,7 +23,7 @@ export const ButtonTagsList = ({ label, data, className }: IButtonOptionsListPro
 
     return (
         <div className={cn("font-semibold leading-none tracking-tight mb-5", className)}>
-            <Label className="block mb-3 font-bold" htmlFor="terms">{label}:</Label>
+            <Label className="block  font-bold" htmlFor="terms">{label}:</Label>
             <ToggleGroup type="single" className="justify-start flex-wrap">
                 {data.map((item) => (
                     <ToggleGroupItem

@@ -1,7 +1,6 @@
 export * from "./theme-provider"
 export * from "./list"
 export * from "./gallery"
-export * from "./filter-search"
 export * from "./dropdown-mode"
 export * from "./button-group"
 export * from "./sidebar"

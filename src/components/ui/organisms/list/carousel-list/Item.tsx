@@ -23,7 +23,7 @@ const CarouselListItem = ({ item: { name, image, price, discountPrice } }: IItem
     return (
         <CarouselItem className="pl-2  lg:basis-1/6  md:basis-1/3 basis-1/2">
             <Card >
-                <CardImage onClick={() => router.push("/products/1")} src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"} alt="" className="w-full h-full rounded-t-lg" />
+                <CardImage onClick={() => router.push("/products/1")} src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"} alt="" className="w-full h-full rounded-t-lg cursor-pointer" />
                 <CardContent className="p-3">
                     <CardTitle onClick={() => router.push("/products/1")} className="mb-2 text-md capitalize cursor-pointer">{name}</CardTitle>
                     <CardDescription className="space-x-3 mb-2">

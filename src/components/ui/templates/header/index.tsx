@@ -4,15 +4,14 @@ import { useRouter } from "next/navigation";
 
 
 //components
-import { Button } from "@/components/ui/atoms";
-import { SearchFormWithFilters, DropdownMode, SidebarTrigger, RowList } from "@/components/ui/organisms"
+import { Button, Select, SelectValue, SelectContent, SelectItem, SelectTrigger, Input } from "@/components/ui/atoms";
+import { DropdownMode, SidebarTrigger, RowList } from "@/components/ui/organisms"
 import {
   TooltipWrapper, Sheet,
   SheetContent,
   SheetTrigger,
   SheetTitle,
   SheetFooter,
-  SheetClose,
   SheetHeader,
   SheetDescription,
   ScrollArea,
@@ -22,7 +21,7 @@ import {
 import { productData } from "@/constants/data"
 
 //icons
-import { ShoppingCart } from "lucide-react"
+import { ShoppingCart, Search } from "lucide-react"
 
 export default function SiteHeader() {
   const router = useRouter()
@@ -37,7 +36,26 @@ export default function SiteHeader() {
               <h3 className="font-bold uppercase  ">Market Place</h3>
             </div>
           </div>
-          <SearchFormWithFilters />
+          <div className=" md:flex hidden  md:w-[40%] items-center space-x-2">
+            <div>
+              <Select>
+                <SelectTrigger className="space-x-2">
+                  <SelectValue placeholder="All" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="apple">Apple</SelectItem>
+                  <SelectItem value="banana">Banana</SelectItem>
+                  <SelectItem value="blueberry">Blueberry</SelectItem>
+                  <SelectItem value="grapes">Grapes</SelectItem>
+                  <SelectItem value="pineapple">Pineapple</SelectItem>
+                </SelectContent>
+              </Select >
+            </div>
+            <Input type="text" placeholder="Search" className="flex-1" />
+            <TooltipWrapper content="Search Button">
+              <Button onClick={() => router.push("/search")} enterKeyHint="search" variant="outline" type="submit" size="icon"><Search className="h-[2rem] w-[2rem]" /></Button>
+            </TooltipWrapper>
+          </div>
           <div className="flex items-center space-x-2">
             <DropdownMode />
             <Sheet>
@@ -62,11 +80,8 @@ export default function SiteHeader() {
                   <ScrollArea className="flex-1">
                     <RowList data={productData} />
                   </ScrollArea>
-                  <SheetFooter className="flex flex-row justify-end p-3 rounded-md space-x-3">
-                    <Button variant="outline" >Payment</Button>
-                    <SheetClose asChild>
-                      <Button variant="outline" >Cancel</Button>
-                    </SheetClose>
+                  <SheetFooter className="flex flex-row justify-end py-3 rounded-md space-x-3">
+                    <Button variant="outline" className="w-full">Check Out</Button>
                   </SheetFooter>
                 </div>
               </SheetContent>
