@@ -1,8 +1,8 @@
-import { ButtonSearch } from "./button"
-import { InputSearch } from "./input"
-import { SelectType } from "./select"
+import { ButtonSearch } from "./components/button"
+import { InputSearch } from "./components/input"
+import { SelectType } from "./components/select"
 
-export const FilterSearch = () => {
+export const SearchFormWithFilters = () => {
     return (
         <div className=" md:flex hidden  md:w-[40%] items-center space-x-2">
             <SelectType />

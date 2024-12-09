@@ -21,17 +21,17 @@ export const RowListItem = ({ item: { name, image, article, price, discountPrice
     const router = useRouter()
 
     return (
-        <Card layout="horizontal" className="relative mb-3 last:mb-0 items-center p-0">
+        <Card layout="horizontal" className="relative mb-3 last:mb-0 items-center p-0 grid grid-cols-3 gap-2">
             <CardImage
                 onClick={() => router.push("/products/1")}
                 src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"}
                 alt=""
-                className="w-1/2 rounded-l-lg aspect-square bg-slate-600 cursor-pointer p-0"
+                className=" rounded-l-lg aspect-square bg-slate-600 cursor-pointer p-0 col-span-1"
             />
-            <CardContent className=" p-3 w-1/2  h-full">
+            <CardContent className=" p-3   h-full col-span-2">
                 <CardTitle
                     onClick={() => router.push("/products/1")}
-                    className="mb-3 text-lg capitalize cursor-pointer">
+                    className="mb-2 text-lg capitalize cursor-pointer">
                     {name}
                 </CardTitle>
                 <CardDescription className="mb-3">
