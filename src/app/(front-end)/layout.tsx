@@ -32,7 +32,9 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <TooltipProvider>
-            <SidebarProvider defaultOpen={defaultOpen}>
+            <SidebarProvider
+
+              defaultOpen={defaultOpen}>
               <div>
                 <SidebarNavigation />
               </div>

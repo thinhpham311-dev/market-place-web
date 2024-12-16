@@ -6,7 +6,7 @@ import { VariantProps, cva } from "class-variance-authority"
 import { Menu } from "lucide-react"
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 
-import { useIsMobile } from "@/hooks/use-mobile"
+import { useIsMobile } from "@/utils/hooks/use-mobile"
 import { cn } from "@/lib/utils"
 import {
   Button, Input, Skeleton, Tooltip,

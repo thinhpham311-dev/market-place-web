@@ -1,5 +1,5 @@
 export { default as Header } from "./header"
-export { default as SidebarNavigation } from "./sidebar-navigation"
+export { default as SidebarNavigation } from "./sidebar"
 export { default as Banner } from "./banner"
 export { default as PopularProductList } from "./product/popular-products-list"
 export { default as SuggestProductsList } from "./product/suggest-products-list"
@@ -8,3 +8,4 @@ export { default as FilterAndSearchProductsList } from "./product/filter-and-sea
 export { default as DetailProduct } from "./product/detail-product"
 export { default as Footer } from "./footer"
 export { default as Cart } from "./cart"
+export { default as TabsAuth } from "./auth"

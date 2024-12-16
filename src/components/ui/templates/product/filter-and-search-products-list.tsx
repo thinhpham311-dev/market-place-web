@@ -64,7 +64,7 @@ export default function FilterAndSearchProductsList() {
 
                     </CardContent>
                 </Card>
-                <GridListWithPagination data={productData} itemsPerPage={18} />
+                <GridListWithPagination data={productData} itemsPerPage={18} className="lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-3" />
             </div>
         </div>
     );

@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useRouter } from "next/navigation"
 //components
 import {
     Card,
@@ -24,6 +25,9 @@ import { RowList } from "@/components/ui/organisms"
 
 
 const Cart = () => {
+
+    const router = useRouter()
+
     return (
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 md:px-6 px-3 ">
             <div className="lg:col-span-2 md:col-span-1 col-span-1">
@@ -94,7 +98,7 @@ const Cart = () => {
                         </CardDescription>
                         <Separator />
                         <div className="space-y-2">
-                            <Button className="w-full rounded-full">Checkout</Button>
+                            <Button className="w-full rounded-full" onClick={() => router.push("/cart")}>Checkout</Button>
                             <Button className="w-full rounded-full"><span><FaCcPaypal /></span> Pay Pal</Button>
                         </div>
                         <CardDescription>

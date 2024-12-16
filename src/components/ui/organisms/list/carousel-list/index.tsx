@@ -6,25 +6,32 @@ import {
     Carousel,
     CarouselContent,
     CarouselNext,
-    CarouselPrevious
+    CarouselPrevious,
+    CarouselItem
 } from "@/components/ui/molecules"
-import CarouselListItem from "./Item"
+import CardItem from "./Item"
 
 //types
 import { IProduct } from "@/types/product"
 
+import { cn } from "@/lib/utils"
+
+
 type ICarouselListProps = {
     data: Array<IProduct>,
     itemsPerPage?: number;
+    className?: string
 }
 
-export const CarouselList = ({ data, itemsPerPage = 12 }: ICarouselListProps) => {
+export const CarouselList = ({ data, itemsPerPage = 12, className }: ICarouselListProps) => {
 
     return (
         <Carousel>
             <CarouselContent className="-ml-2">
                 {data?.slice(0, itemsPerPage).map((item, index) => (
-                    <CarouselListItem key={index} item={item} />
+                    <CarouselItem key={index} className={cn("pl-2 ", className)}>
+                        <CardItem item={item} />
+                    </CarouselItem>
                 ))}
             </CarouselContent>
             <CarouselPrevious className=" top-1/2 -translate-y-1/2 md:-left-5 -left-3 " />

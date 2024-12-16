@@ -10,12 +10,15 @@ import { IProduct } from "@/types/product";
 //icons
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
+import { cn } from "@/lib/utils"
+
 interface IGridListProps {
     data: Array<IProduct>;
-    itemsPerPage?: number; // Tùy chọn số lượng mục trên mỗi trang
+    itemsPerPage?: number; // Tùy chọn số lượng mục trên mỗi trang,
+    className?: string
 }
 
-export const GridListWithPagination = ({ data, itemsPerPage = 12 }: IGridListProps) => {
+export const GridListWithPagination = ({ data, itemsPerPage = 12, className }: IGridListProps) => {
     const [currentPage, setCurrentPage] = React.useState(1);
 
     const totalPages = Math.ceil(data.length / itemsPerPage);
@@ -34,7 +37,7 @@ export const GridListWithPagination = ({ data, itemsPerPage = 12 }: IGridListPro
 
     return (
         <div>
-            <div className="grid lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-3 w-full">
+            <div className={cn("grid w-full", className)}>
                 {currentData.map((item, index) => (
                     <GridListItem key={index} item={item} />
                 ))}

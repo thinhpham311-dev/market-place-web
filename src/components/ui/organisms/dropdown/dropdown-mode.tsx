@@ -43,4 +43,3 @@ export const DropdownMode = () => {
     )
 }
 
-export default DropdownMode

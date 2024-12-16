@@ -37,7 +37,7 @@ export default function PopularProductList() {
                     </TooltipWrapper>
                 </CardHeader>
                 <CardContent className="px-0">
-                    <CarouselList data={productData} />
+                    <CarouselList data={productData} className=" lg:basis-1/6  md:basis-1/3 basis-1/2" />
                 </CardContent>
             </Card>
         </div>

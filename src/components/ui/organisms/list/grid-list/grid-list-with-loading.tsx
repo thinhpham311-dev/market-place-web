@@ -3,16 +3,18 @@ import * as React from "react";
 //components
 import { GridListItem } from "./item";
 import { Button } from "@/components/ui/atoms";
+import { cn } from "@/lib/utils"
 
 //types
 import { IProduct } from "@/types/product";
 
 interface IGridListProps {
     data: Array<IProduct>;
-    itemsPerPage?: number; // Tùy chọn số lượng mục trên mỗi trang
+    itemsPerPage?: number;
+    className?: string
 }
 
-export const GridListWithLoading = ({ data, itemsPerPage = 12 }: IGridListProps) => {
+export const GridListWithLoading = ({ data, itemsPerPage = 12, className }: IGridListProps) => {
     const [visibleItems, setVisibleItems] = React.useState(itemsPerPage);
 
     const handleLoadMore = () => {
@@ -20,7 +22,7 @@ export const GridListWithLoading = ({ data, itemsPerPage = 12 }: IGridListProps)
     };
 
     return (
-        <div className="grid lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-3 w-full">
+        <div className={cn("grid w-full", className)}>
             {data?.slice(0, visibleItems).map((item, index) => (
                 <GridListItem key={index} item={item} />
             ))}

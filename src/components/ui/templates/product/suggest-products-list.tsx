@@ -17,7 +17,7 @@ const SuggestProductsList = () => {
                     <CardTitle className="mb-3 capitalize text-center mx-auto">Suggestion today</CardTitle>
                 </CardHeader>
                 <CardContent className="px-0">
-                    <GridListWithLoading data={productData} itemsPerPage={12} />
+                    <GridListWithLoading data={productData} itemsPerPage={12} className="lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-3" />
                 </CardContent>
             </Card >
         </div>
