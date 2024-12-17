@@ -1,10 +1,8 @@
+
 import type { Metadata } from "next";
 import { cookies } from "next/headers"
-import { ThemeProvider } from "@/components/ui/organisms/theme-provider"
-import { Header, Footer } from "@/components/ui/templates"
-import { TooltipProvider } from "@/components/ui/atoms"
-import { SidebarProvider } from "@/components/ui/organisms"
-import { SidebarNavigation } from "@/components/ui/templates";
+import { Header, Footer, SidebarNavigation } from "@/components/ui/templates"
+import { SidebarProvider, ThemeProvider, TooltipProvider, Toaster } from "@/components/ui/organisms"
 import "../globals.css";
 
 
@@ -47,7 +45,9 @@ export default async function RootLayout({
               </div>
             </SidebarProvider>
           </TooltipProvider>
+          <Toaster />
         </ThemeProvider>
+
       </body>
     </html>
   );

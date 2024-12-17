@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/atoms";
 import { RowList } from "@/components/ui/organisms"
 import {
-    TooltipWrapper, Sheet,
+    Sheet,
     SheetContent,
     SheetTrigger,
     SheetTitle,
@@ -26,13 +26,13 @@ export function DrawerCart() {
     const router = useRouter()
     return (
         <Sheet>
-            <TooltipWrapper content="Cart">
-                <SheetTrigger asChild>
-                    <Button onClick={() => router.push("/")} variant="outline" size="icon" className="relative after:w-1.5 after:h-1.5 after:bg-red-600 after:absolute after:right-1 after:top-1 after:rounded-lg">
-                        <ShoppingCart />
-                    </Button>
-                </SheetTrigger>
-            </TooltipWrapper>
+
+            <SheetTrigger asChild>
+                <Button onClick={() => router.push("/")} variant="outline" size="icon" className="relative after:w-1.5 after:h-1.5 after:bg-red-600 after:absolute after:right-1 after:top-1 after:rounded-lg">
+                    <ShoppingCart />
+                </Button>
+            </SheetTrigger>
+
             <SheetContent className=" p-2  w-full h-full">
                 <div className="mx-auto w-full flex flex-col justify-between h-full">
                     <SheetHeader className="flex flex-row justify-between mb-3">

@@ -14,7 +14,7 @@ interface ISliderProps {
     data: Array<IImage>
 }
 
-export const Slider = ({ data }: ISliderProps) => {
+export const GallerySingle = ({ data }: ISliderProps) => {
 
     const plugin = React.useRef(
         Autoplay({ delay: 2000, stopOnInteraction: true })
