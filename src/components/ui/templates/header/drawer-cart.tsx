@@ -22,7 +22,7 @@ import { productData } from "@/constants/data"
 //icons
 import { ShoppingCart } from "lucide-react"
 
-export function DrawerCart() {
+export default function DrawerCart() {
     const router = useRouter()
     return (
         <Sheet>

@@ -1,6 +1,5 @@
 export * from "./list"
 export * from "./gallery"
 export * from "./button-group"
-export * from "./drawer-cart"
 export * from "./formik"
 export * from "./provider"

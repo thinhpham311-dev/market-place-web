@@ -41,7 +41,7 @@ export default function Page() {
                                     data={["Size S", "Size M", "Size L", "Size XL", "Size XXL"]}
                                 />
                                 <ButtonTagsList
-
+                                    className="space-y-3"
                                     label="Color"
                                     data={["White", "Black", "Red", "Yellow"]}
                                 />
@@ -50,7 +50,7 @@ export default function Page() {
                                 <Counter isButtonAdd />
                             </div>
                             <div >
-                                <Button variant="outline" size="lg" className="w-full md:w-[auto]"><span><MdAddShoppingCart /></span> Buy Now</Button>
+                                <Button variant="outline" size="sm" className="w-full md:w-[auto] uppercase"><span><MdAddShoppingCart /></span> Buy Now</Button>
                             </div>
                         </CardDescription>
                     </CardContent>

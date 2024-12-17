@@ -2,9 +2,10 @@
 import Image from "next/image"
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/atoms";
-import { SidebarTrigger, DrawerCart, FormGroup, FormSelect, FormInput } from "@/components/ui/organisms"
+import { SidebarTrigger, FormGroup, FormSelect, FormInput } from "@/components/ui/organisms"
 import DropdownMode from "./dropdown-mode"
 import DropdownUser from "./dropdown-user"
+import DrawerCart from "./drawer-cart"
 import { Search } from "lucide-react";
 import { z } from "zod";
 
