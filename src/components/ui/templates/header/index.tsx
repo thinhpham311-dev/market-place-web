@@ -41,7 +41,7 @@ export default function SiteHeader() {
             </div>
           </div>
 
-          <div className="w-1/2 lg:flex md:flex hidden items-center">
+          <div className="w-1/3 lg:flex md:flex hidden items-center">
             <FormGroup
               defaultValues={defaultValuesForSearchForm}
               onHandleSubmit={onSubmit}

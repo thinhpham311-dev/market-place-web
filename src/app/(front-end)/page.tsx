@@ -1,4 +1,6 @@
 'use client'
+import { useRouter } from "next/navigation";
+
 //components
 import { GallerySingle, CarouselList, GridListWithLoading } from "@/components/ui/organisms"
 import { Button } from "@/components/ui/atoms"
@@ -12,6 +14,7 @@ import { ArrowRight } from "lucide-react"
 import { productData } from "@/constants/data"
 
 export default function Home() {
+  const router = useRouter()
   return (
     <div className="space-y-10">
       <GallerySingle data={bannerData} />
@@ -22,7 +25,7 @@ export default function Home() {
             <CardDescription className="md:line-clamp-2 line-clamp-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque aliquet lobortis erat, sed varius arcu iaculis id</CardDescription>
           </div>
 
-          <Button variant="outline" size="icon" className="float-end">
+          <Button variant="outline" size="icon" className="float-end" onClick={() => router.push("/categories/1")}>
             <ArrowRight className="h-4 w-4" />
           </Button>
         </CardHeader>
