@@ -1,6 +1,8 @@
 "use client"
 import { useRouter } from "next/navigation";
 
+//store
+import { useAppSelector } from "@/lib/hooks"
 
 //components
 import { Button } from "@/components/ui/atoms";
@@ -16,13 +18,12 @@ import {
     ScrollArea,
 } from "@/components/ui/molecules"
 
-//datas
-import { productData } from "@/constants/data"
 
 //icons
 import { ShoppingCart } from "lucide-react"
 
 export default function DrawerCart() {
+    const { items } = useAppSelector((state) => state.order.cart);
     const router = useRouter()
     return (
         <Sheet>
@@ -45,7 +46,7 @@ export default function DrawerCart() {
                         </div>
                     </SheetHeader>
                     <ScrollArea className="flex-1">
-                        <RowList data={productData} />
+                        <RowList data={items} />
                     </ScrollArea>
                     <SheetFooter className="flex flex-row justify-end py-3 rounded-md space-x-3">
                         <Button variant="outline" className="w-full" onClick={() => router.push("/cart")}>Check Out</Button>

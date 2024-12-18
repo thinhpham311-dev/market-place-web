@@ -2,7 +2,7 @@
 import * as React from "react"
 import { memo } from "react"
 import Image from 'next/image'
-import { CarouselItem } from "@/components/ui/molecules/carousel"
+import { CarouselItem } from "@/components/ui/molecules"
 
 interface CarouselItemsProps {
     images: string[];
@@ -25,13 +25,15 @@ const GalleryItem = ({
                     className={`relative aspect-square w-full cursor-pointer ${isThumbnail ? "basis-1/4" : ""}`}
                     onClick={isThumbnail ? () => onImageClick?.(index) : undefined}
                 >
+
                     <Image
                         src={image}
                         alt={`Carousel ${isThumbnail ? "Thumbnail" : "Main"} Image ${index + 1}`}
                         fill
                         style={{ objectFit: "cover" }}
-                        className={isThumbnail && index === current ? "border-2" : ""}
+                        className={isThumbnail && index === current ? "border-2 border-blue-600" : ""}
                     />
+
                 </CarouselItem>
             ))}
         </>

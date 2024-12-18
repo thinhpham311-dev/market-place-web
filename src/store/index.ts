@@ -15,7 +15,7 @@ const persistConfig: PersistConfig<RootReducerState> = {
     key: PERSIST_STORE_NAME,
     keyPrefix: '',
     storage,
-    whitelist: ['auth'],
+    whitelist: ['auth', 'product'],
 };
 
 const store = configureStore({
@@ -46,5 +46,8 @@ export const injectReducer = (key: string, reducer: Reducer): typeof store | fal
     persistor.persist();
     return store;
 };
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
 export default store;

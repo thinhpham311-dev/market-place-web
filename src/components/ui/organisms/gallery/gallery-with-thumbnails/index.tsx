@@ -57,13 +57,13 @@ export const GalleryWithThumbnails = ({ data }: GalleryProps) => {
     return (
         <div className="w-full max-w-xl sm:w-auto">
             <Carousel setApi={setMainApi}>
-                <CarouselContent className="m-1">
+                <CarouselContent className="mx-1">
                     <GalleryItem images={data} current={current} />
                 </CarouselContent>
             </Carousel>
             <div className="relative">
                 <Carousel setApi={setThumbnailApi}>
-                    <CarouselContent className="m-1">
+                    <CarouselContent className="mx-1">
                         <GalleryItem
                             images={data}
                             current={current}

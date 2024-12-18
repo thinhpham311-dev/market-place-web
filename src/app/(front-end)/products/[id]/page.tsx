@@ -1,7 +1,14 @@
 'use client'
+
+import { useRef } from "react"
+
+//store
+import { useAppDispatch } from "@/lib/hooks"
+import { addItem } from "@/store/order/cartSlice"
+
 //components
 import { Button } from "@/components/ui/atoms"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, Counter } from "@/components/ui/molecules";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, Counter, CounterRef } from "@/components/ui/molecules";
 import { GalleryWithThumbnails, ButtonTagsList, CarouselList } from "@/components/ui/organisms";
 
 //icons
@@ -12,6 +19,15 @@ import { ArrowRight, CircleDollarSign } from "lucide-react"
 import { images, productData } from "@/constants/data";
 
 export default function Page() {
+    const dispatch = useAppDispatch();
+
+    const counterRef = useRef<CounterRef>(null);
+
+    const addItemToCart = (product: { id: number; name: string; price: number }) => {
+        console.log(counterRef.current?.getCount(), product);
+        dispatch(addItem({ ...product, quantity: 1 }))
+
+    };
     return (
         <div className="space-y-10 md:my-5">
             <Card layout="horizontal" className=" grid lg:grid-cols-3 md:grid-cols-4 grid-cols-1 gap-5 md:px-6 px-3 space-y-5 my-6 border-none">
@@ -47,10 +63,10 @@ export default function Page() {
                                 />
                             </div>
                             <div>
-                                <Counter isButtonAdd />
+                                <Counter ref={counterRef} isButtonAdd />
                             </div>
                             <div >
-                                <Button variant="outline" size="sm" className="w-full md:w-[auto] uppercase"><span><MdAddShoppingCart /></span> Buy Now</Button>
+                                <Button onClick={() => addItemToCart({ id: 1, name: "product1", price: 2000 })} variant="outline" size="sm" className="w-full md:w-[auto] uppercase"><span><MdAddShoppingCart /></span> Buy Now</Button>
                             </div>
                         </CardDescription>
                     </CardContent>
