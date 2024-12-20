@@ -1,5 +1,7 @@
 'use client'
+
 import { useRouter } from "next/navigation";
+
 
 //components
 import { GallerySingle, CarouselList, GridListWithLoading } from "@/components/ui/organisms"
@@ -14,6 +16,7 @@ import { ArrowRight } from "lucide-react"
 import { productData } from "@/constants/data"
 
 export default function Home() {
+
   const router = useRouter()
   return (
     <div className="space-y-10">

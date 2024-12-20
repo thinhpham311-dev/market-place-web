@@ -28,11 +28,15 @@ export const CarouselList = ({ data, itemsPerPage = 12, className }: ICarouselLi
     return (
         <Carousel>
             <CarouselContent className="-ml-2">
-                {data?.slice(0, itemsPerPage).map((item, index) => (
-                    <CarouselItem key={index} className={cn("pl-2 ", className)}>
-                        <CardItem item={item} />
-                    </CarouselItem>
-                ))}
+                {data?.slice(0, itemsPerPage).map((item, index) => {
+                    if (item.quantity > 0) {
+                        return (
+                            <CarouselItem key={index} className={cn("pl-2 ", className)}>
+                                <CardItem item={item} />
+                            </CarouselItem>
+                        )
+                    }
+                })}
             </CarouselContent>
             <CarouselPrevious className=" top-1/2 -translate-y-1/2 md:-left-5 -left-3 " />
             <CarouselNext className=" top-1/2 -translate-y-1/2 md:-right-5 -right-3" />

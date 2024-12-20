@@ -1,5 +1,9 @@
 import * as React from "react";
 
+//libs
+import { useUniqueId } from "@/lib/hooks";
+
+
 //components
 import { GridListItem } from "./item";
 import { Button } from "@/components/ui/atoms";
@@ -15,6 +19,7 @@ interface IGridListProps {
 }
 
 export const GridListWithLoading = ({ data, itemsPerPage = 12, className }: IGridListProps) => {
+    const id = useUniqueId()
     const [visibleItems, setVisibleItems] = React.useState(itemsPerPage);
 
     const handleLoadMore = () => {
@@ -23,9 +28,13 @@ export const GridListWithLoading = ({ data, itemsPerPage = 12, className }: IGri
 
     return (
         <div className={cn("grid w-full", className)}>
-            {data?.slice(0, visibleItems).map((item, index) => (
-                <GridListItem key={index} item={item} />
-            ))}
+            {data?.slice(0, visibleItems).map((item, index) => {
+                if (item.quantity > 0) {
+                    return (
+                        <GridListItem key={`${id}-${index}`} item={item} />
+                    )
+                }
+            })}
             {visibleItems < data.length && ( // Hiển thị nút nếu còn dữ liệu
                 <div className="lg:col-span-6 md:col-span-3 col-span-2 my-10">
                     <Button

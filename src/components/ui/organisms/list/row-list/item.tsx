@@ -1,6 +1,10 @@
 'use client'
-import * as React from "react"
+import { useCallback } from "react"
 import { useRouter } from "next/navigation"
+
+//stores
+import { useAppDispatch, useAppSelector } from "@/lib/hooks"
+import { toggleItemSelection, updateItemQuantity } from "@/store/order/cartSlice"
 
 //components
 import { Card, CardContent, CardDescription, CardImage, CardTitle, Counter } from "@/components/ui/molecules"
@@ -17,26 +21,43 @@ type IItemProps = {
     isCheckBox?: boolean
 };
 
-export const RowListItem = ({ item: { name, image, article, price, discountPrice }, isCheckBox }: IItemProps) => {
+export const RowListItem = ({ item: { name, image, article, price, discountPrice, id, quantity }, isCheckBox }: IItemProps) => {
+    const dispatch = useAppDispatch()
+    const { selectedItems } = useAppSelector((state) => state.order.cart); // Giả sử bạn có root state
     const router = useRouter()
 
+    const handleRouterLinkToDetail = () => {
+        router.push(`/products/${id}`)
+    }
+
+    const handleCheckboxChange = (id: string, checked: boolean) => {
+        dispatch(toggleItemSelection({ id, checked }))
+    };
+
+    const handleQuantityChange = useCallback((newQuantity: number) => {
+        if (newQuantity >= 0) {
+            dispatch(updateItemQuantity({ id, quantity: newQuantity }));
+        }
+    }, [dispatch]);
+
     return (
-        <Card layout="horizontal" className="relative mb-3 p-3  last:mb-0 items-center grid grid-cols-3 gap-3">
+        <Card layout="horizontal" className="relative mb-3  last:mb-0 items-center grid grid-cols-3 gap-3">
             <CardImage
-                onClick={() => router.push("/products/1")}
+                onClick={handleRouterLinkToDetail}
                 src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"}
                 alt=""
                 className=" rounded-l-lg h-full bg-slate-600 cursor-pointer p-0 col-span-1"
             />
             <CardContent className=" p-0  h-full col-span-2 content-center">
                 <CardTitle
-                    onClick={() => router.push("/products/1")}
+                    onClick={handleRouterLinkToDetail}
                     className="mb-2 text-lg capitalize cursor-pointer">
                     {name}
                 </CardTitle>
-                <CardDescription className="mb-3">
-                    <p className="line-clamp-2">{article}</p>
+                {article && <CardDescription className="mb-3">
+                    <p className="line-clamp-1">{article}</p>
                 </CardDescription>
+                }
                 <CardDescription className="space-x-3 mb-2">
                     <p className="inline-flex items-center gap-x-1 text-xs">
                         <CircleDollarSign size={10} />
@@ -47,11 +68,16 @@ export const RowListItem = ({ item: { name, image, article, price, discountPrice
                         <span>{price}</span>
                     </p>
                 </CardDescription>
-                <Counter />
+                <Counter value={quantity} onQuantityChange={handleQuantityChange} />
             </CardContent>
             {
                 isCheckBox &&
-                <Checkbox id="terms" className="absolute top-5 right-5" />
+                <Checkbox
+                    id={id}
+                    checked={selectedItems.includes(id)}
+                    className="absolute top-3 right-3"
+                    onCheckedChange={(checked) => handleCheckboxChange(id, Boolean(checked))}
+                />
             }
         </Card>
     );

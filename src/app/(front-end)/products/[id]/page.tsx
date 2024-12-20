@@ -1,6 +1,9 @@
 'use client'
 
-import { useRef } from "react"
+import { useRef, useMemo } from "react"
+
+//routers
+import { useParams } from "next/navigation"
 
 //store
 import { useAppDispatch } from "@/lib/hooks"
@@ -18,16 +21,36 @@ import { ArrowRight, CircleDollarSign } from "lucide-react"
 //datas
 import { images, productData } from "@/constants/data";
 
-export default function Page() {
-    const dispatch = useAppDispatch();
+//types
+import { IcartItem } from "@/types/cart"
 
+export default function Page() {
+    const { id } = useParams();
+
+    const product = useMemo(() => {
+        return productData?.find(item => item?.id === id); // Ensure type matches
+    }, [id]);
+
+    const dispatch = useAppDispatch();
     const counterRef = useRef<CounterRef>(null);
 
-    const addItemToCart = (product: { id: number; name: string; price: number }) => {
-        console.log(counterRef.current?.getCount(), product);
-        dispatch(addItem({ ...product, quantity: 1 }))
-
+    const addItemToCart = (product: { id: string; name: string; price: number, discountPrice: number }) => {
+        const quantity = counterRef.current?.getCount() || 0; // Ensure a valid number
+        const cartItem: IcartItem = {
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            discountPrice: product.discountPrice,
+            quantity,
+        };
+        dispatch(addItem(cartItem));
     };
+
+    // Fallback if product is not found
+    if (!product) {
+        return <div>Product not found</div>;
+    }
+
     return (
         <div className="space-y-10 md:my-5">
             <Card layout="horizontal" className=" grid lg:grid-cols-3 md:grid-cols-4 grid-cols-1 gap-5 md:px-6 px-3 space-y-5 my-6 border-none">
@@ -36,7 +59,7 @@ export default function Page() {
                 </div>
                 <div className="md:py-6 p-0 space-y-3 lg:col-span-2 md:col-span-2 col-span-1">
                     <CardContent >
-                        <CardTitle className="line-clamp-2 leading-8 mb-5">[Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</CardTitle>
+                        <CardTitle className="line-clamp-2 leading-8 mb-5">{product?.name}</CardTitle>
                         <CardDescription className="space-y-5">
                             <span className="flex items-center space-x-1">
                                 <MdOutlineStar size={20} />
@@ -46,8 +69,8 @@ export default function Page() {
                                 <MdOutlineStarBorder size={20} />
                             </span>
                             <div className="space-x-4">
-                                <p className="inline-flex items-center gap-x-1 text-md"><CircleDollarSign size={15} /> <span className="font-bold "> 80</span></p>
-                                <p className="inline-flex items-center gap-x-1 line-through text-md"><CircleDollarSign size={15} /><span>100</span></p>
+                                <p className="inline-flex items-center gap-x-1 text-md"><CircleDollarSign size={15} /> <span className="font-bold ">{product?.discountPrice}</span></p>
+                                <p className="inline-flex items-center gap-x-1 line-through text-md"><CircleDollarSign size={15} /><span>{product?.price}</span></p>
                             </div>
 
                             <div>
@@ -63,10 +86,17 @@ export default function Page() {
                                 />
                             </div>
                             <div>
-                                <Counter ref={counterRef} isButtonAdd />
+                                <Counter ref={counterRef} />
                             </div>
                             <div >
-                                <Button onClick={() => addItemToCart({ id: 1, name: "product1", price: 2000 })} variant="outline" size="sm" className="w-full md:w-[auto] uppercase"><span><MdAddShoppingCart /></span> Buy Now</Button>
+                                <Button onClick={() =>
+                                    addItemToCart({
+                                        id: product?.id,
+                                        name: product?.name,
+                                        price: product?.price,
+                                        discountPrice: product?.discountPrice
+                                    })
+                                } variant="outline" size="sm" className="w-full md:w-[auto] uppercase"><span><MdAddShoppingCart /></span> Buy Now</Button>
                             </div>
                         </CardDescription>
                     </CardContent>

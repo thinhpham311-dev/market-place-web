@@ -16,9 +16,13 @@ type IGridListProps = {
 export const RowList = ({ data }: IGridListProps) => {
     return (
         <ScrollArea>
-            {data?.map((item, index) => (
-                <RowListItem key={index} item={item} isCheckBox />
-            ))}
+            {data?.map((item, index) => {
+                if (item.quantity > 0) {
+                    return (
+                        <RowListItem key={index} item={item} isCheckBox />
+                    )
+                }
+            })}
         </ScrollArea>
     )
 }

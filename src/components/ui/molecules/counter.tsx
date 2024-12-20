@@ -1,11 +1,13 @@
-"use client";
-import React, { useState, forwardRef, useImperativeHandle } from "react";
+'use client';
+import React, { useState, useEffect, forwardRef, useImperativeHandle, useCallback, memo } from "react";
 import { Button } from "@/components/ui/atoms/button";
 import { Input } from "@/components/ui/atoms/input";
 import { Plus, Minus } from "lucide-react";
 
 interface ICounterProps {
     isButtonAdd?: boolean;
+    value?: number;
+    onQuantityChange?: (quantity: number) => void;
 }
 
 export interface CounterRef {
@@ -13,16 +15,31 @@ export interface CounterRef {
     getCount: () => number;
 }
 
-export const Counter = forwardRef<CounterRef, ICounterProps>(
-    ({ isButtonAdd }: ICounterProps, ref) => {
-        const [count, setCount] = useState<number>(0);
+export const Counter = memo(forwardRef<CounterRef, ICounterProps>(
+    ({ isButtonAdd, value, onQuantityChange }, ref) => {
+        const [count, setCount] = useState<number>(value || 1);
 
-        const increment = () => setCount((prev) => prev + 1);
-        const decrement = () => setCount((prev) => Math.max(0, prev - 1));
-        const reset = () => setCount(0);
-        const getCount = () => count;
+        // Trigger `onQuantityChange` only when `count` changes
+        useEffect(() => {
+            if (onQuantityChange) {
+                onQuantityChange(count);
+            }
+        }, [count, onQuantityChange]);
 
-        // Expose methods to the parent component through the ref
+        const increment = () => {
+            setCount((prev) => prev + 1);
+        };
+
+        const decrement = () => {
+            setCount((prev) => Math.max(0, prev - 1));
+        };
+
+        const reset = () => {
+            setCount(0);
+        };
+
+        const getCount = useCallback(() => count, [count]);
+
         useImperativeHandle(ref, () => ({
             reset,
             getCount,
@@ -36,6 +53,7 @@ export const Counter = forwardRef<CounterRef, ICounterProps>(
                     variant="outline"
                     className="w-6 h-6 rounded-xl"
                     aria-label="Decrement"
+                    disabled={count <= 0}
                 >
                     <Minus />
                 </Button>
@@ -75,6 +93,6 @@ export const Counter = forwardRef<CounterRef, ICounterProps>(
             </>
         );
     }
-);
+));
 
 Counter.displayName = "Counter";

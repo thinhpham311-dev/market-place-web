@@ -35,12 +35,18 @@ export const GridListWithPagination = ({ data, itemsPerPage = 12, className }: I
         return data.slice(startIndex, endIndex);
     }, [currentPage, itemsPerPage, data]);
 
+
+
     return (
         <div>
             <div className={cn("grid w-full", className)}>
-                {currentData.map((item, index) => (
-                    <GridListItem key={index} item={item} />
-                ))}
+                {currentData.map((item, index) => {
+                    if (item.quantity > 0) {
+                        return (
+                            <GridListItem key={index} item={item} />
+                        )
+                    }
+                })}
             </div>
 
             <div className="flex justify-center items-center mt-6 space-x-2">
