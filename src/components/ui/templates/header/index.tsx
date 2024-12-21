@@ -2,7 +2,8 @@
 import Image from "next/image"
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/atoms";
-import { SidebarTrigger, FormGroup, FormSelect, FormInput } from "@/components/ui/organisms"
+import { FormGroup, FormSelect, FormInput } from "@/components/ui/organisms"
+import { SidebarTrigger } from "@/components/provider"
 import DropdownMode from "./dropdown-mode"
 import DropdownUser from "./dropdown-user"
 import DrawerCart from "./drawer-cart"
@@ -55,8 +56,8 @@ export default function SiteHeader() {
           </div>
 
           <div className="flex items-center space-x-2">
-            <DropdownMode />
             <DrawerCart />
+            <DropdownMode />
             <DropdownUser />
           </div>
         </div>

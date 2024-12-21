@@ -2,7 +2,8 @@
 
 import * as React from "react"
 import { ThemeProvider as NextThemesProvider } from "next-themes"
-import { SidebarProvider } from "@/components/ui/organisms"
+import { SidebarProvider, Toaster } from "@/components/provider"
+import { Header, Footer, SidebarNavigation } from "@/components/ui/templates"
 import { Provider } from "react-redux"
 import store from "@/store"
 
@@ -28,7 +29,19 @@ export function ThemeProvider({ children, ...props }: React.ComponentProps<typeo
     return (
         <NextThemesProvider {...props}>
             <SidebarProvider defaultOpen={defaultOpen}>
-                <Provider store={store}>{children}</Provider>
+                <Provider store={store}>
+                    <div>
+                        <SidebarNavigation />
+                    </div>
+                    <div className="flex-1 w-full">
+                        <Header />
+                        <main className="container mx-auto">
+                            {children}
+                        </main>
+                        <Footer />
+                    </div>
+                    <Toaster />
+                </Provider>
             </SidebarProvider>
         </NextThemesProvider>
     )

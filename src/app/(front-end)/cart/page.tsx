@@ -1,12 +1,10 @@
 'use client'
 import * as React from "react"
 import { useRouter } from "next/navigation"
-
-//stores
 import { useAppSelector, useAppDispatch } from "@/lib/hooks"
 import { removeSelectedItems, removeAllItems } from "@/store/cart/stateSlice"
 
-//components
+// components
 import {
     Card,
     CardContent,
@@ -18,15 +16,12 @@ import {
 import { Separator, Button } from "@/components/ui/atoms"
 import { RowList, CarouselList } from "@/components/ui/organisms"
 
-//icons
+// icons
 import { CircleHelp, FilePenLine, ArrowRight, ArrowLeft, ShoppingCart } from "lucide-react"
-import { FaCcPaypal } from "react-icons/fa";
+import { FaCcPaypal } from "react-icons/fa"
 
-
-//datas
+// data
 import { productData } from "@/constants/data"
-
-
 
 export default function Page() {
     const dispatch = useAppDispatch()
@@ -39,17 +34,31 @@ export default function Page() {
         estimatedShipping,
         estimatedTax,
         total
-    } = useAppSelector((state) => state.cart.state);
+    } = useAppSelector((state) => state.cart.state)
     const router = useRouter()
+
+    // State to handle hydration mismatch
+    const [isClient, setIsClient] = React.useState(false)
+
+    // Set the component to render only on the client-side
+    React.useEffect(() => {
+        setIsClient(true)
+    }, [])
 
     const handleRemoveSelectedItems = () => {
         setTimeout(() => {
-            dispatch(removeSelectedItems(selectedItems));
+            dispatch(removeSelectedItems(selectedItems))
         }, 500)
     }
     const handleRemoveAllItems = () => {
         dispatch(removeAllItems())
     }
+
+    if (!isClient) {
+        // Render nothing or a loading skeleton until client-side hydration
+        return <div>Loading...</div>
+    }
+
     return (
         <div className="space-y-10 my-5">
             <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 md:px-6 px-3 ">
@@ -58,13 +67,11 @@ export default function Page() {
                         <CardContent className="w-full h-full p-0">
                             <div className="mx-auto w-full  h-full">
                                 <CardHeader className="mb-3 p-0">
-                                    <div className=" flex items-center gap-x-5 w-5/6 ">
+                                    <div className="flex items-center gap-x-5 w-5/6 ">
                                         <Button className="flex-none" variant="outline" size="icon" onClick={() => router.back()}><ArrowLeft /></Button>
                                         <div className="flex-none relative">
-
                                             <ShoppingCart size={30} />
                                             <span className="absolute -top-2 -right-2 bg-red-600 rounded-full w-1/2 h-1/2 text-sm  items-center flex justify-center text-white">{totalQuantity}</span>
-
                                         </div>
                                         <div className="grow flex-1">
                                             <CardTitle className="flex flex-row items-center"> Cart</CardTitle>
@@ -92,7 +99,6 @@ export default function Page() {
                             </CardDescription>
 
                             <Button variant="outline" size="icon" className="row-span-2"><FilePenLine /></Button>
-
                         </CardHeader>
                         <CardContent className="space-y-5 p-0">
                             <CardDescription className="flex items-center justify-between">
@@ -156,7 +162,7 @@ export default function Page() {
                 </div>
             </div >
             <Card className="border-0 md:px-6 px-3">
-                <CardHeader className="flex-row  items-center px-0 space-x-3 mb-3" >
+                <CardHeader className="flex-row items-center px-0 space-x-3 mb-3">
                     <div className="p-0 flex-1">
                         <CardTitle className="mb-3 capitalize">Relate Products</CardTitle>
                         <CardDescription className="md:line-clamp-2 line-clamp-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque aliquet lobortis erat, sed varius arcu iaculis id</CardDescription>
@@ -166,11 +172,9 @@ export default function Page() {
                     </Button>
                 </CardHeader>
                 <CardContent className="px-0">
-                    <CarouselList data={productData} className=" lg:basis-1/6  md:basis-1/3 basis-1/2" />
+                    <CarouselList data={productData} className="lg:basis-1/6 md:basis-1/3 basis-1/2" />
                 </CardContent>
             </Card>
         </div>
     );
 }
-
-

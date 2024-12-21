@@ -8,7 +8,7 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
-} from "@/components/ui/organisms";
+} from "@/components/provider";
 
 // Menu items.
 const items = [
