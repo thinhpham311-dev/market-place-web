@@ -1,8 +1,8 @@
 import { combineReducers } from '@reduxjs/toolkit'
-import cart from './cartSlice'
+import state from './stateSlice'
 
 const reducer = combineReducers({
-    cart
+    state
 })
 
 export default reducer

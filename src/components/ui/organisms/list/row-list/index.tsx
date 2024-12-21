@@ -19,7 +19,7 @@ export const RowList = ({ data }: IGridListProps) => {
             {data?.map((item, index) => {
                 if (item.quantity > 0) {
                     return (
-                        <RowListItem key={index} item={item} isCheckBox />
+                        <RowListItem key={index} item={item} totalItems={data.length} isCheckBox />
                     )
                 }
             })}

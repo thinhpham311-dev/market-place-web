@@ -3,7 +3,8 @@ import * as React from "react"
 import { useRouter } from "next/navigation"
 
 //stores
-import { useAppSelector } from "@/lib/hooks"
+import { useAppSelector, useAppDispatch } from "@/lib/hooks"
+import { removeSelectedItems, removeAllItems } from "@/store/cart/stateSlice"
 
 //components
 import {
@@ -18,7 +19,7 @@ import { Separator, Button } from "@/components/ui/atoms"
 import { RowList, CarouselList } from "@/components/ui/organisms"
 
 //icons
-import { CircleHelp, FilePenLine, ArrowRight, ShoppingCart } from "lucide-react"
+import { CircleHelp, FilePenLine, ArrowRight, ArrowLeft, ShoppingCart } from "lucide-react"
 import { FaCcPaypal } from "react-icons/fa";
 
 
@@ -28,11 +29,29 @@ import { productData } from "@/constants/data"
 
 
 export default function Page() {
-    const { items, totalQuantity, totalAmount, totalAmountDiscount, estimatedShipping, estimatedTax, total } = useAppSelector((state) => state.order.cart);
+    const dispatch = useAppDispatch()
+    const {
+        selectedItems,
+        items,
+        totalQuantity,
+        totalAmount,
+        totalAmountDiscount,
+        estimatedShipping,
+        estimatedTax,
+        total
+    } = useAppSelector((state) => state.cart.state);
     const router = useRouter()
 
+    const handleRemoveSelectedItems = () => {
+        setTimeout(() => {
+            dispatch(removeSelectedItems(selectedItems));
+        }, 500)
+    }
+    const handleRemoveAllItems = () => {
+        dispatch(removeAllItems())
+    }
     return (
-        <div className="space-y-10 md:my-5">
+        <div className="space-y-10 my-5">
             <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 md:px-6 px-3 ">
                 <div className="lg:col-span-2 md:col-span-1 col-span-1">
                     <Card className="w-full border-none h-full">
@@ -40,11 +59,14 @@ export default function Page() {
                             <div className="mx-auto w-full  h-full">
                                 <CardHeader className="mb-3 p-0">
                                     <div className=" flex items-center gap-x-5 w-5/6 ">
-                                        <div className="relative">
+                                        <Button className="flex-none" variant="outline" size="icon" onClick={() => router.back()}><ArrowLeft /></Button>
+                                        <div className="flex-none relative">
+
                                             <ShoppingCart size={30} />
                                             <span className="absolute -top-2 -right-2 bg-red-600 rounded-full w-1/2 h-1/2 text-sm  items-center flex justify-center text-white">{totalQuantity}</span>
+
                                         </div>
-                                        <div>
+                                        <div className="grow flex-1">
                                             <CardTitle className="flex flex-row items-center"> Cart</CardTitle>
                                             <CardDescription className="text-left line-clamp-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vehicula</CardDescription>
                                         </div>
@@ -119,6 +141,8 @@ export default function Page() {
                             </CardDescription>
                             <Separator />
                             <div className="space-y-2">
+                                {selectedItems.length > 0 ? <Button variant="outline" className="w-full rounded-full" onClick={handleRemoveSelectedItems}>Remove({selectedItems.length})</Button> : <></>}
+                                <Button variant="outline" className="w-full rounded-full" onClick={handleRemoveAllItems}> Clear All</Button>
                                 <Button className="w-full rounded-full" onClick={() => router.push("/cart")}>Checkout</Button>
                                 <Button className="w-full rounded-full"><span><FaCcPaypal /></span> Pay Pal</Button>
                             </div>

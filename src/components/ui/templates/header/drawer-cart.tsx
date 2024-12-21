@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 
 //store
 import { useAppSelector, useAppDispatch } from "@/lib/hooks"
-import { removeAllItems, removeSelectedItems } from "@/store/order/cartSlice"
+import { removeAllItems, removeSelectedItems } from "@/store/cart/stateSlice"
 
 //components
 import { Button } from "@/components/ui/atoms";
@@ -25,7 +25,7 @@ import { ShoppingCart } from "lucide-react"
 
 export default function DrawerCart() {
     const dispatch = useAppDispatch()
-    const { items, totalAmountDiscount, totalQuantity, selectedItems } = useAppSelector((state) => state.order.cart);
+    const { items, totalAmountDiscount, totalQuantity, selectedItems } = useAppSelector((state) => state.cart.state);
     const router = useRouter()
 
     const handleRemoveAllItems = () => {
@@ -41,7 +41,7 @@ export default function DrawerCart() {
     return (
         <Sheet>
             <SheetTrigger asChild>
-                <Button onClick={() => router.push("/")} variant="outline" size="icon" className="relative  ">
+                <Button variant="outline" size="icon" className="relative  ">
                     <ShoppingCart /><span className="absolute -top-2 -right-2 bg-red-600 rounded-full w-1/2 h-1/2 text-sm flex justify-center items-center text-white">{totalQuantity}</span>
                 </Button>
             </SheetTrigger>
@@ -75,8 +75,8 @@ export default function DrawerCart() {
                             <Button variant="default" className="w-full" onClick={() => router.push("/cart")}>Check Out</Button>
                         </SheetFooter>
                         <SheetFooter className="justify-end  rounded-md space-x-3">
-                            <Button variant="outline" className="w-full" onClick={handleRemoveAllItems}> Clear All</Button>
-                            {selectedItems.length > 0 ? <Button variant="outline" className="w-full" onClick={handleRemoveSelectedItems}>Remove({selectedItems.length})</Button> : <></>}
+                            {items.length > 0 && <Button variant="outline" className="w-full" onClick={handleRemoveAllItems}> Clear All</Button>}
+                            {items.length > 0 && selectedItems.length > 0 && <Button variant="outline" className="w-full" onClick={handleRemoveSelectedItems}>Remove({selectedItems.length})</Button>}
                         </SheetFooter>
                     </div>
                 </div>

@@ -7,7 +7,7 @@ import { useParams } from "next/navigation"
 
 //store
 import { useAppDispatch } from "@/lib/hooks"
-import { addItem } from "@/store/order/cartSlice"
+import { addItem } from "@/store/cart/stateSlice"
 
 //components
 import { Button } from "@/components/ui/atoms"

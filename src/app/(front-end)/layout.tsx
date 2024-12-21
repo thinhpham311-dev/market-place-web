@@ -1,8 +1,7 @@
 
 import type { Metadata } from "next";
-import { cookies } from "next/headers"
 import { Header, Footer, SidebarNavigation } from "@/components/ui/templates"
-import { SidebarProvider, ThemeProvider, TooltipProvider, Toaster } from "@/components/ui/organisms"
+import { ThemeProvider, Toaster } from "@/components/ui/organisms"
 import "../globals.css";
 
 
@@ -16,8 +15,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieStore = await cookies()
-  const defaultOpen = cookieStore.get("sidebar:state")?.value === "false"
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -29,22 +26,17 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <TooltipProvider>
-            <SidebarProvider
 
-              defaultOpen={defaultOpen}>
-              <div>
-                <SidebarNavigation />
-              </div>
-              <div className="flex-1 w-full">
-                <Header />
-                <main className="container mx-auto">
-                  {children}
-                </main>
-                <Footer />
-              </div>
-            </SidebarProvider>
-          </TooltipProvider>
+          <div>
+            <SidebarNavigation />
+          </div>
+          <div className="flex-1 w-full">
+            <Header />
+            <main className="container mx-auto">
+              {children}
+            </main>
+            <Footer />
+          </div>
           <Toaster />
         </ThemeProvider>
 

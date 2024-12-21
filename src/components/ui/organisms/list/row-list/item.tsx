@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation"
 
 //stores
 import { useAppDispatch, useAppSelector } from "@/lib/hooks"
-import { toggleItemSelection, updateItemQuantity } from "@/store/order/cartSlice"
+import { toggleItemSelection, updateItemQuantity } from "@/store/cart/stateSlice"
 
 //components
 import { Card, CardContent, CardDescription, CardImage, CardTitle, Counter } from "@/components/ui/molecules"
@@ -18,12 +18,13 @@ import { IProduct } from "@/types/product"
 
 type IItemProps = {
     item: IProduct
-    isCheckBox?: boolean
+    isCheckBox?: boolean,
+    totalItems?: number
 };
 
-export const RowListItem = ({ item: { name, image, article, price, discountPrice, id, quantity }, isCheckBox }: IItemProps) => {
+export const RowListItem = ({ item: { name, image, article, price, discountPrice, id, quantity }, isCheckBox, totalItems }: IItemProps) => {
     const dispatch = useAppDispatch()
-    const { selectedItems } = useAppSelector((state) => state.order.cart); // Giả sử bạn có root state
+    const { selectedItems } = useAppSelector((state) => state.cart.state); // Giả sử bạn có root state
     const router = useRouter()
 
     const handleRouterLinkToDetail = () => {
@@ -71,7 +72,7 @@ export const RowListItem = ({ item: { name, image, article, price, discountPrice
                 <Counter value={quantity} onQuantityChange={handleQuantityChange} />
             </CardContent>
             {
-                isCheckBox &&
+                totalItems && totalItems > 1 && isCheckBox &&
                 <Checkbox
                     id={id}
                     checked={selectedItems.includes(id)}

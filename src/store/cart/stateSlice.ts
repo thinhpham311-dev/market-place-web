@@ -32,7 +32,7 @@ const initialState: Icart = {
 };
 
 export const cartSlice = createSlice({
-    name: 'order/cart',
+    name: 'cart',
     initialState,
     reducers: {
         addItem: (state, action: PayloadAction<IcartItem>) => {
