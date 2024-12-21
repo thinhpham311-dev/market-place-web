@@ -24,9 +24,10 @@ import {
 import { ShoppingCart } from "lucide-react";
 
 export default function DrawerCart() {
+    const router = useRouter();
+
     const dispatch = useAppDispatch();
     const { items, totalAmountDiscount, totalQuantity, selectedItems } = useAppSelector((state) => state.cart.state);
-    const router = useRouter();
 
     const [quantity, setQuantity] = useState(0);
 

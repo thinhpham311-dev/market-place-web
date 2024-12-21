@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image"
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { Button } from "@/components/ui/atoms";
 import { FormGroup, FormSelect, FormInput } from "@/components/ui/organisms"
 import { SidebarTrigger } from "@/components/provider"
@@ -25,6 +25,7 @@ const defaultValuesForSearchForm = { categories: "", textsearch: "" };
 
 export default function SiteHeader() {
   const router = useRouter();
+  const path = usePathname()
 
   const onSubmit = (values: z.infer<typeof FormSchema>) => {
     console.log(values);
@@ -56,7 +57,7 @@ export default function SiteHeader() {
           </div>
 
           <div className="flex items-center space-x-2">
-            <DrawerCart />
+            {path !== "/cart" && <DrawerCart />}
             <DropdownMode />
             <DropdownUser />
           </div>

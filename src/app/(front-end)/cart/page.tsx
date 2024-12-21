@@ -37,26 +37,15 @@ export default function Page() {
     } = useAppSelector((state) => state.cart.state)
     const router = useRouter()
 
-    // State to handle hydration mismatch
-    const [isClient, setIsClient] = React.useState(false)
-
-    // Set the component to render only on the client-side
-    React.useEffect(() => {
-        setIsClient(true)
-    }, [])
 
     const handleRemoveSelectedItems = () => {
         setTimeout(() => {
             dispatch(removeSelectedItems(selectedItems))
         }, 500)
     }
+
     const handleRemoveAllItems = () => {
         dispatch(removeAllItems())
-    }
-
-    if (!isClient) {
-        // Render nothing or a loading skeleton until client-side hydration
-        return <div>Loading...</div>
     }
 
     return (
@@ -148,7 +137,11 @@ export default function Page() {
                             <Separator />
                             <div className="space-y-2">
                                 {selectedItems.length > 0 ? <Button variant="outline" className="w-full rounded-full" onClick={handleRemoveSelectedItems}>Remove({selectedItems.length})</Button> : <></>}
-                                <Button variant="outline" className="w-full rounded-full" onClick={handleRemoveAllItems}> Clear All</Button>
+                                {items.length > 0 && (
+                                    <Button variant="outline" className="w-full rounded-full" onClick={handleRemoveAllItems}>
+                                        Clear All
+                                    </Button>
+                                )}
                                 <Button className="w-full rounded-full" onClick={() => router.push("/cart")}>Checkout</Button>
                                 <Button className="w-full rounded-full"><span><FaCcPaypal /></span> Pay Pal</Button>
                             </div>
