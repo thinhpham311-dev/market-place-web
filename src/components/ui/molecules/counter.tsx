@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect, forwardRef, useImperativeHandle, useCallback, memo } from "react";
+import React, { useState, useEffect, forwardRef, useImperativeHandle, memo } from "react";
 import { Button } from "@/components/ui/atoms/button";
 import { Input } from "@/components/ui/atoms/input";
 import { Plus, Minus } from "lucide-react";
@@ -35,14 +35,14 @@ export const Counter = memo(forwardRef<CounterRef, ICounterProps>(
         };
 
         const reset = () => {
-            setCount(0);
+            setCount(1);
         };
 
-        const getCount = useCallback(() => count, [count]);
+        const getCount = () => count;
 
         useImperativeHandle(ref, () => ({
             reset,
-            getCount,
+            getCount
         }));
 
         const renderControls = () => (
