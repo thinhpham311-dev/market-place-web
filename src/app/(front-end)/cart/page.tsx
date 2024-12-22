@@ -142,7 +142,7 @@ export default function Page() {
                                         Clear All
                                     </Button>
                                 )}
-                                <Button className="w-full rounded-full" onClick={() => router.push("/cart")}>Checkout</Button>
+                                <Button className="w-full rounded-full" onClick={() => router.push("/checkout")}>Checkout</Button>
                                 <Button className="w-full rounded-full"><span><FaCcPaypal /></span> Pay Pal</Button>
                             </div>
                             <CardDescription>
