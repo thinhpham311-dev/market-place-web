@@ -8,6 +8,7 @@ import {
     SelectItem,
     SelectValue,
     Checkbox,
+    Textarea
 } from "@/components/ui/atoms";
 import {
     FormField,
@@ -109,6 +110,42 @@ export const FormInput = <T extends FieldValues>({
                         <FormControl>
                             <Input
                                 type={inputType}
+                                placeholder={placeholder}
+                                value={field.value}
+                                onChange={field.onChange} />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+        </div>
+    );
+};
+
+// FormInput Component
+export const FormInputTextarea = <T extends FieldValues>({
+    name,
+    label,
+    placeholder,
+    formSchema,
+    className
+}: IFormFieldProps<T>) => {
+    if (!formSchema) {
+        throw new Error("formSchema is required for FormInput Textarea.");
+    }
+
+    const { control } = useFormContext<T>(); // Use form context
+
+    return (
+        <div className={cn("flex", className)}>
+            <FormField
+                control={control}
+                name={name}
+                render={({ field }) => (
+                    <FormItem className="w-full">
+                        {label && <FormLabel>{label}</FormLabel>}
+                        <FormControl>
+                            <Textarea
                                 placeholder={placeholder}
                                 value={field.value}
                                 onChange={field.onChange} />
