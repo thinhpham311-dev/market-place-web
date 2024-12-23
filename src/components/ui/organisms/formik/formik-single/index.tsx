@@ -35,6 +35,7 @@ export interface OptionType {
 interface IFormFieldProps<T extends FieldValues> {
     label?: string;
     name: Path<T>;
+    character?: string;
     formControl?: Control<T>;
     placeholder?: string;
     className?: string;
@@ -85,38 +86,52 @@ export function FormGroup<T extends FieldValues>({
 }
 
 // FormInput Component
+
 export const FormInput = <T extends FieldValues>({
     name,
     label,
     placeholder,
     inputType = "text",
     formSchema,
-    className
+    className,
+    character = "",
 }: IFormFieldProps<T>) => {
     if (!formSchema) {
         throw new Error("formSchema is required for FormInput.");
     }
 
-    const { control } = useFormContext<T>(); // Use form context
+    const { control } = useFormContext<T>();
 
     return (
         <div className={cn("flex", className)}>
             <FormField
                 control={control}
                 name={name}
-                render={({ field }) => (
-                    <FormItem className="w-full">
-                        {label && <FormLabel>{label}</FormLabel>}
-                        <FormControl>
-                            <Input
-                                type={inputType}
-                                placeholder={placeholder}
-                                value={field.value}
-                                onChange={field.onChange} />
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                )}
+                render={({ field }) => {
+                    // Avoid directly concatenating `character` to `field.value`
+                    const displayValue = field.value ? `${character}${field.value}` : "";
+
+                    return (
+                        <FormItem className="w-full">
+                            {label && <FormLabel>{label}</FormLabel>}
+                            <FormControl>
+                                <Input
+                                    type={inputType}
+                                    placeholder={placeholder}
+                                    value={displayValue} // Display value with character
+                                    onChange={(e) => {
+                                        // Remove the `character` prefix before updating the value
+                                        const rawValue = e.target.value.startsWith(character)
+                                            ? e.target.value.slice(character.length)
+                                            : e.target.value;
+                                        field.onChange(rawValue);
+                                    }}
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    );
+                }}
             />
         </div>
     );
@@ -207,26 +222,33 @@ export const FormCheckBox = <T extends FieldValues>({
     name,
     label,
     className,
-    formSchema
+    formSchema,
 }: IFormFieldProps<T>) => {
     if (!formSchema) {
         throw new Error("formSchema is required for FormCheckBox.");
     }
-    const { control } = useFormContext<T>(); // Use form context
+    const { control } = useFormContext<T>();
 
     return (
-        <div className={cn("flex", className)}>
-
+        <div className={cn("flex items-center", className)}>
             <FormField
                 control={control}
                 name={name}
                 render={({ field }) => (
-                    <FormItem className="flex space-x-3 rounded-md">
-                        <FormControl className="mt-2">
-                            <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                    <FormItem className="flex items-center space-y-0 space-x-3">
+                        <FormControl>
+                            <Checkbox
+                                className="h-5 w-5 space-y-2" // Ensures consistent checkbox size
+                                checked={field.value}
+                                onCheckedChange={field.onChange}
+                            />
                         </FormControl>
+                        {label && (
+                            <FormLabel className="text-sm font-medium">
+                                {label}
+                            </FormLabel>
+                        )}
                         <FormMessage />
-                        {label && <FormLabel className="mb-3">{label}</FormLabel>}
                     </FormItem>
                 )}
             />
