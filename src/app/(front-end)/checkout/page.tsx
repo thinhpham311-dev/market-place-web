@@ -8,16 +8,28 @@ import { Button, Separator } from "@/components/ui/atoms"
 import { FormGroup, FormInput, FormInputTextarea } from "@/components/ui/organisms"
 import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/components/ui/molecules';
 
+//validations
+import { isValidPhoneNumber } from "@/lib/validation"
 
 //icons
 import { FilePenLine, CircleHelp } from "lucide-react"
 
 import { z } from "zod";
 
+const emailValidator = z.string().email()
 
 const FormSchema = z.object({
-    email: z.string(),
-    phone: z.string().max(20, "Please don't enter max 20 character "),
+    email: z
+        .string()
+        .nonempty("Email is required")
+        .refine(v => (v ? emailValidator.safeParse(v).success : true), "Invalid email"),
+    phone: z.string().nonempty("Phone number is required").refine(value => {
+        if (value) {
+            return isValidPhoneNumber(value, 'VN');
+        }
+
+        return true;
+    }, "Invalid number"),
     comment: z.string()
 });
 
@@ -50,7 +62,7 @@ export default function Page() {
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in purus fringilla,
                     </CardDescription>
                 </CardHeader>
-                <Separator/>
+                <Separator />
                 <CardContent className="px-0">
                     <div className="md:px-6 px-3 w-full grid md:grid-cols-10 grid-cols-1 gap-8">
                         <div className="md:col-span-6 col-span-1 md:block  hidden">
@@ -70,8 +82,8 @@ export default function Page() {
                                         onHandleSubmit={onSubmit}
                                         className="space-y-5">
                                         <FormInput label="Email" formSchema={FormSchema} inputType="email" name="email" placeholder="Please enter your email " />
-                                        <FormInput label="Phone" formSchema={FormSchema} name="phone" placeholder="Please enter your phone number"/>
-                                        <FormInputTextarea label="Comment" formSchema={FormSchema} name="comment" placeholder="Please enter your comment"/>
+                                        <FormInput label="Phone" formSchema={FormSchema} name="phone" placeholder="Please enter your phone number" />
+                                        <FormInputTextarea label="Comment" formSchema={FormSchema} name="comment" placeholder="Please enter your comment" />
                                         <Button type="submit" className="w-full" variant="outline">Submit</Button>
                                     </FormGroup>
                                 </CardContent>

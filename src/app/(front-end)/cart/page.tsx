@@ -136,14 +136,14 @@ export default function Page() {
                             </CardDescription>
                             <Separator />
                             <div className="space-y-2">
+                                <Button className="w-full rounded-full" onClick={() => router.push("/checkout")}>Checkout</Button>
+                                <Button className="w-full rounded-full"><span><FaCcPaypal /></span> Pay Pal</Button>
                                 {selectedItems.length > 0 ? <Button variant="outline" className="w-full rounded-full" onClick={handleRemoveSelectedItems}>Remove({selectedItems.length})</Button> : <></>}
                                 {items.length > 0 && (
                                     <Button variant="outline" className="w-full rounded-full" onClick={handleRemoveAllItems}>
                                         Clear All
                                     </Button>
                                 )}
-                                <Button className="w-full rounded-full" onClick={() => router.push("/checkout")}>Checkout</Button>
-                                <Button className="w-full rounded-full"><span><FaCcPaypal /></span> Pay Pal</Button>
                             </div>
                             <CardDescription>
                                 <small>
