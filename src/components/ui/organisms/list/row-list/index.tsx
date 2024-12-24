@@ -13,6 +13,20 @@ type IGridListProps = {
 };
 
 
+export const RowListCounter = ({ data }: IGridListProps) => {
+    return (
+        <ScrollArea>
+            {data?.map((item, index) => {
+                if (item.quantity > 0) {
+                    return (
+                        <RowListItem key={index} item={item} totalItems={data.length} isCounter isCheckBox />
+                    )
+                }
+            })}
+        </ScrollArea>
+    )
+}
+
 export const RowList = ({ data }: IGridListProps) => {
     return (
         <ScrollArea>

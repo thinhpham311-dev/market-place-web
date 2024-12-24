@@ -12,18 +12,23 @@ import { ArrowLeft } from "lucide-react"
 
 // Form schema for validation
 const FormSchema = z.object({
-    phone: z.string().nonempty("Phone number is required").refine(value => {
-        if (value) {
-            return isValidPhoneNumber(value, 'VN');
-        }
+    phone: z
+        .string()
+        .nonempty("Phone number is required")
+        .refine(value => {
+            if (value) {
+                return isValidPhoneNumber(value, 'VN');
+            }
 
-        return true;
-    }, "Invalid number"),
-    password: z.string()
+            return true;
+        }, "Invalid number"),
+    password: z
+        .string()
         .nonempty("Password is required")
         .min(10, "Please enter at least 10 characters")
         .max(25, "Please enter no more than 25 characters"),
-    remember: z.boolean(),
+    remember: z
+        .boolean(),
 });
 
 const defaultValuesForSignInForm = {
@@ -56,6 +61,7 @@ export default function Page() {
                             label="Phone"
                             placeholder="Please enter your phone number"
                             formSchema={FormSchema}
+                            isRequired
                             character="+84"
                         />
                         <FormInput
@@ -64,6 +70,7 @@ export default function Page() {
                             label="Password"
                             placeholder="Please enter your password"
                             formSchema={FormSchema}
+                            isRequired
                         />
                         <FormCheckBox
                             name="remember"

@@ -7,7 +7,7 @@ import { removeAllItems, removeSelectedItems } from "@/store/cart/stateSlice";
 
 //components
 import { Button } from "@/components/ui/atoms";
-import { RowList } from "@/components/ui/organisms";
+import { RowListCounter } from "@/components/ui/organisms";
 import {
     Sheet,
     SheetContent,
@@ -61,7 +61,7 @@ export default function DrawerCart() {
                         </div>
                     </SheetHeader>
                     <ScrollArea className="flex-1">
-                        <RowList data={items} />
+                        <RowListCounter data={items} />
                     </ScrollArea>
                     <div className="space-y-2">
                         <SheetFooter>

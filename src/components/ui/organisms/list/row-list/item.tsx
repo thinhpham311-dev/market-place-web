@@ -10,19 +10,20 @@ import { toggleItemSelection, updateItemQuantity } from "@/store/cart/stateSlice
 import { Card, CardContent, CardDescription, CardImage, CardTitle, Counter } from "@/components/ui/molecules"
 import { Checkbox } from "@/components/ui/atoms/checkbox"
 
-//icons
-import { CircleDollarSign } from "lucide-react"
-
 //types
 import { IProduct } from "@/types/product"
+
+//format
+import { formatToCurrency } from "@/lib/formats"
 
 type IItemProps = {
     item: IProduct
     isCheckBox?: boolean,
-    totalItems?: number
+    totalItems?: number,
+    isCounter?: boolean
 };
 
-export const RowListItem = ({ item: { name, image, article, price, discountPrice, id, quantity }, isCheckBox, totalItems }: IItemProps) => {
+export const RowListItem = ({ item: { name, image, article, price, discountPrice, id, quantity }, isCheckBox, totalItems, isCounter }: IItemProps) => {
     const dispatch = useAppDispatch()
     const { selectedItems } = useAppSelector((state) => state.cart.state); // Giả sử bạn có root state
     const router = useRouter()
@@ -61,15 +62,13 @@ export const RowListItem = ({ item: { name, image, article, price, discountPrice
                 }
                 <CardDescription className="space-x-3 mb-2">
                     <p className="inline-flex items-center gap-x-1 text-xs">
-                        <CircleDollarSign size={10} />
-                        <span className="font-bold "> {discountPrice}</span>
+                        <span className="font-bold "> {formatToCurrency(discountPrice)}</span>
                     </p>
                     <p className="inline-flex items-center gap-x-1 line-through text-xs">
-                        <CircleDollarSign size={10} />
-                        <span>{price}</span>
+                        <span>{formatToCurrency(price)}</span>
                     </p>
                 </CardDescription>
-                <Counter value={quantity} onQuantityChange={handleQuantityChange} />
+                {isCounter ? <Counter value={quantity} onQuantityChange={handleQuantityChange} /> : <small className="text-xs">Qty: ${quantity}</small>}
             </CardContent>
             {
                 totalItems && totalItems > 1 && isCheckBox &&

@@ -5,7 +5,7 @@ export interface IProduct {
     article: string,
     description?: string,
     image?: string,
-    price?: number,
-    discountPrice?: number,
+    price: number,
+    discountPrice: number,
     quantity: number,
 }

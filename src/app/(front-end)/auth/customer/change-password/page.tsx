@@ -12,18 +12,24 @@ import { z } from "zod";
 import { ArrowLeft } from "lucide-react"
 
 const FormSchema = z.object({
-    password: z.string().nonempty("Password is required")
+    password: z
+        .string()
+        .nonempty("Password is required")
         .min(10, "Please enter at least 10 characters")
         .max(25, "Please enter no more than 25 characters"),
-    newPassword: z.string().nonempty("New Password is required")
+    newPassword: z
+        .string()
+        .nonempty("New password is required")
         .min(10, "Please enter at least 10 characters")
         .max(25, "Please enter no more than 25 characters"),
-    confirmNewPassword: z.string().nonempty("New Password Confirmed Confirm is required")
+    confirmNewPassword: z
+        .string()
+        .nonempty("New password confirmed is required")
         .min(10, "Please enter at least 10 characters")
         .max(25, "Please enter no more than 25 characters"),
 }).refine((data) => data.newPassword === data.confirmNewPassword, {
     path: ["confirmNewPassword"], // Points to the field with the error
-    message: "New Passwords must match",
+    message: "New password must match",
 });;
 
 const defaultValuesForChangePasswordForm = {
@@ -56,6 +62,7 @@ export default function Page() {
                             label="Password"
                             placeholder="Please enter password"
                             formSchema={FormSchema}
+                            isRequired
                         />
                         <FormInput
                             inputType="password"
@@ -63,13 +70,15 @@ export default function Page() {
                             label="New Password"
                             placeholder="Please enter new password"
                             formSchema={FormSchema}
+                            isRequired
                         />
                         <FormInput
                             inputType="password"
                             name="confirmNewPassword"
                             label="Confirm New Password"
-                            placeholder="Please enter New Password Confirm"
+                            placeholder="Please enter new password confirm"
                             formSchema={FormSchema}
+                            isRequired
                         />
                         <Button className="w-full" type="submit" variant="outline">Submit</Button>
                     </FormGroup>

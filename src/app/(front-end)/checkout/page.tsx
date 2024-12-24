@@ -5,16 +5,20 @@ import { useAppSelector } from "@/lib/hooks"
 
 //components
 import { Button, Separator } from "@/components/ui/atoms"
-import { FormGroup, FormInput, FormInputTextarea } from "@/components/ui/organisms"
-import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/components/ui/molecules';
+import { FormGroup, FormInput, FormInputTextarea, RowList } from "@/components/ui/organisms"
+import { Card, CardHeader, CardContent, CardTitle, CardDescription, ScrollArea } from '@/components/ui/molecules';
 
 //validations
 import { isValidPhoneNumber } from "@/lib/validation"
 
 //icons
-import { FilePenLine, CircleHelp } from "lucide-react"
+import { FilePenLine, CircleHelp, ArrowLeft } from "lucide-react"
 
 import { z } from "zod";
+
+//format
+import { formatToCurrency } from "@/lib/formats"
+import { useRouter } from "next/navigation";
 
 const emailValidator = z.string().email()
 
@@ -23,24 +27,37 @@ const FormSchema = z.object({
         .string()
         .nonempty("Email is required")
         .refine(v => (v ? emailValidator.safeParse(v).success : true), "Invalid email"),
-    phone: z.string().nonempty("Phone number is required").refine(value => {
-        if (value) {
-            return isValidPhoneNumber(value, 'VN');
-        }
+    phone: z
+        .string()
+        .nonempty("Phone number is required")
+        .min(10, "Please enter at least 10 characters")
+        .max(25, "Please enter no more than 25 characters")
+        .refine(value => {
+            if (value) {
+                return isValidPhoneNumber(value, 'VN');
+            }
 
-        return true;
-    }, "Invalid number"),
+            return true;
+        }, "Invalid number"),
+    address: z
+        .string()
+        .nonempty("Address is required")
+        .min(10, "Please enter at least 10 characters")
+        .max(250, "Please enter no more than 250 characters"),
     comment: z.string()
 });
 
 const defaultValuesForCheckOutForm = {
     email: "",
     phone: "",
+    address: "",
     comment: ""
 }
 
 export default function Page() {
+    const router = useRouter()
     const {
+        items,
         totalAmount,
         totalAmountDiscount,
         estimatedShipping,
@@ -54,18 +71,19 @@ export default function Page() {
     return (
         <div className="space-y-10 container  md:p-6 p-3">
             <Card>
-                <CardHeader>
-                    <CardTitle>
+                <CardHeader className="grid grid-rows-2 grid-flow-col auto-cols-max gap-x-4 items-center">
+                    <Button className="row-span-2" variant="outline" size="icon" onClick={() => router.back()}><ArrowLeft /></Button>
+                    <CardTitle className="col-span-2">
                         Check Out
                     </CardTitle>
-                    <CardDescription>
+                    <CardDescription className="col-span-2 flex-wrap">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in purus fringilla,
                     </CardDescription>
                 </CardHeader>
                 <Separator />
                 <CardContent className="px-0">
                     <div className="md:px-6 px-3 w-full grid md:grid-cols-10 grid-cols-1 gap-8">
-                        <div className="md:col-span-6 col-span-1 md:block  hidden">
+                        <div className="md:col-span-6 col-span-1 ">
                             <Card className=" border-none">
                                 <CardHeader className="px-0">
                                     <CardTitle>
@@ -81,15 +99,16 @@ export default function Page() {
                                         defaultValues={defaultValuesForCheckOutForm}
                                         onHandleSubmit={onSubmit}
                                         className="space-y-5">
-                                        <FormInput label="Email" formSchema={FormSchema} inputType="email" name="email" placeholder="Please enter your email " />
-                                        <FormInput label="Phone" formSchema={FormSchema} name="phone" placeholder="Please enter your phone number" />
+                                        <FormInput label="Email" formSchema={FormSchema} inputType="email" name="email" placeholder="Please enter your email " isRequired />
+                                        <FormInput label="Phone" character="+84" formSchema={FormSchema} name="phone" placeholder="Please enter your phone number" isRequired />
+                                        <FormInput label="Address" formSchema={FormSchema} name="address" placeholder="Please enter your address" isRequired />
                                         <FormInputTextarea label="Comment" formSchema={FormSchema} name="comment" placeholder="Please enter your comment" />
                                         <Button type="submit" className="w-full" variant="outline">Submit</Button>
                                     </FormGroup>
                                 </CardContent>
                             </Card>
                         </div>
-                        <div className="md:col-span-4 col-span-1 md:block  hidden">
+                        <div className="md:col-span-4 col-span-1 ">
                             <Card className=" border-none">
                                 <CardHeader className="grid grid-rows-2 grid-flow-col px-0 justify-between items-start">
                                     <CardTitle className=" col-span-1 row-span-1">
@@ -108,7 +127,7 @@ export default function Page() {
                                             <CircleHelp size={20} />
                                         </div>
                                         <span>
-                                            ${totalAmount}
+                                            {formatToCurrency(totalAmount)}
                                         </span>
                                     </CardDescription>
                                     <CardDescription className="flex items-center justify-between">
@@ -117,7 +136,7 @@ export default function Page() {
                                             <CircleHelp size={20} />
                                         </div>
                                         <span>
-                                            ${totalAmountDiscount}
+                                            {formatToCurrency(totalAmountDiscount)}
                                         </span>
                                     </CardDescription>
                                     <CardDescription className="flex items-center justify-between">
@@ -125,7 +144,7 @@ export default function Page() {
                                             <strong>Estimated Shipping</strong>
                                         </div>
                                         <span>
-                                            ${estimatedShipping}
+                                            {formatToCurrency(estimatedShipping)}
                                         </span>
                                     </CardDescription>
                                     <CardDescription className="flex items-center justify-between">
@@ -134,7 +153,7 @@ export default function Page() {
                                             <CircleHelp size={20} />
                                         </div>
                                         <span>
-                                            ${estimatedTax}
+                                            {formatToCurrency(estimatedTax)}
                                         </span>
                                     </CardDescription>
                                     <Separator />
@@ -143,9 +162,12 @@ export default function Page() {
                                             <strong>Total</strong>
                                         </div>
                                         <strong>
-                                            ${total}
+                                            {formatToCurrency(total)}
                                         </strong>
                                     </CardDescription>
+                                    <ScrollArea className="flex-1">
+                                        <RowList data={items} />
+                                    </ScrollArea>
                                 </CardContent>
                             </Card>
                         </div>

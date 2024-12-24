@@ -14,7 +14,7 @@ import {
     ScrollArea,
 } from "@/components/ui/molecules"
 import { Separator, Button } from "@/components/ui/atoms"
-import { RowList, CarouselList } from "@/components/ui/organisms"
+import { CarouselList, RowListCounter } from "@/components/ui/organisms"
 
 // icons
 import { CircleHelp, FilePenLine, ArrowRight, ArrowLeft, ShoppingCart } from "lucide-react"
@@ -73,7 +73,7 @@ export default function Page() {
                                 </CardHeader>
                                 <CardContent className="flex items-center p-0">
                                     <ScrollArea className="flex-1">
-                                        <RowList data={items} />
+                                        <RowListCounter data={items} />
                                     </ScrollArea>
                                 </CardContent>
                             </div>

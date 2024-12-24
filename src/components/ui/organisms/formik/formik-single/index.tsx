@@ -45,7 +45,7 @@ interface IFormFieldProps<T extends FieldValues> {
     value?: string;
     children?: ReactNode;
     formSchema?: z.ZodType<T>;
-
+    isRequired?: boolean
 }
 
 interface IFormProps<T extends FieldValues> extends Omit<IFormFieldProps<T>, "name"> {
@@ -95,12 +95,13 @@ export const FormInput = <T extends FieldValues>({
     formSchema,
     className,
     character = "",
+    isRequired = false
 }: IFormFieldProps<T>) => {
     if (!formSchema) {
         throw new Error("formSchema is required for FormInput.");
     }
 
-    const { control } = useFormContext<T>();
+    const { control, formState: { errors } } = useFormContext<T>();
 
     return (
         <div className={cn("flex", className)}>
@@ -108,17 +109,23 @@ export const FormInput = <T extends FieldValues>({
                 control={control}
                 name={name}
                 render={({ field }) => {
-                    // Avoid directly concatenating `character` to `field.value`
                     const displayValue = field.value ? `${character}${field.value}` : "";
-
+                    const hasError = !!errors[name];
                     return (
                         <FormItem className="w-full">
-                            {label && <FormLabel>{label}</FormLabel>}
+                            {label && <FormLabel>
+                                {label}
+                                {isRequired && <span className="text-red-500"> *</span>} {/* Dấu * đỏ */}
+                            </FormLabel>}
                             <FormControl>
                                 <Input
                                     type={inputType}
                                     placeholder={placeholder}
                                     value={displayValue} // Display value with character
+                                    className={cn(
+                                        "border ",
+                                        hasError ? "border-red-500 focus:ring-red-500" : "border-gray-300"
+                                    )}
                                     onChange={(e) => {
                                         // Remove the `character` prefix before updating the value
                                         const rawValue = e.target.value.startsWith(character)
@@ -126,7 +133,7 @@ export const FormInput = <T extends FieldValues>({
                                             : e.target.value;
                                         field.onChange(rawValue);
                                     }}
-                                />
+                                    required={false} autoComplete="off" />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -143,31 +150,42 @@ export const FormInputTextarea = <T extends FieldValues>({
     label,
     placeholder,
     formSchema,
-    className
+    className,
+    isRequired = false
 }: IFormFieldProps<T>) => {
     if (!formSchema) {
         throw new Error("formSchema is required for FormInput Textarea.");
     }
 
-    const { control } = useFormContext<T>(); // Use form context
+    const { control, formState: { errors } } = useFormContext<T>(); // Use form context
 
     return (
         <div className={cn("flex", className)}>
             <FormField
                 control={control}
                 name={name}
-                render={({ field }) => (
-                    <FormItem className="w-full">
-                        {label && <FormLabel>{label}</FormLabel>}
-                        <FormControl>
-                            <Textarea
-                                placeholder={placeholder}
-                                value={field.value}
-                                onChange={field.onChange} />
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                )}
+                render={({ field }) => {
+                    const hasError = !!errors[name];
+                    return (
+                        <FormItem className="w-full">
+                            {label && <FormLabel>
+                                {label}
+                                {isRequired && <span className="text-red-500"> *</span>} {/* Dấu * đỏ */}
+                            </FormLabel>}
+                            <FormControl>
+                                <Textarea
+                                    className={cn(
+                                        "border ",
+                                        hasError ? "border-red-500 focus:ring-red-500" : "border-gray-300"
+                                    )}
+                                    placeholder={placeholder}
+                                    value={field.value}
+                                    onChange={field.onChange} autoComplete="off" />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )
+                }}
             />
         </div>
     );
@@ -180,38 +198,44 @@ export const FormSelect = <T extends FieldValues>({
     placeholder,
     options = [],
     formSchema,
-    className
+    className,
 }: IFormFieldProps<T>) => {
     if (!formSchema) {
         throw new Error("formSchema is required for FormSelect.");
     }
-    const { control } = useFormContext<T>(); // Use form context
+    const { control, formState: { errors } } = useFormContext<T>(); // Use form context
 
     return (
         <div className={cn("flex", className)}>
             <FormField
                 control={control}
                 name={name}
-                render={({ field }) => (
-                    <FormItem className="w-full">
-                        {label && <FormLabel>{label}</FormLabel>}
-                        <FormControl>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                <SelectTrigger id={name} className="space-x-3">
-                                    <SelectValue placeholder={placeholder} />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    {options.map(({ name, value }) => (
-                                        <SelectItem key={value} value={value}>
-                                            {name}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                )}
+                render={({ field }) => {
+                    const hasError = !!errors[name];
+                    return (
+                        <FormItem className="w-full">
+                            {label && <FormLabel>{label}</FormLabel>}
+                            <FormControl>
+                                <Select onValueChange={field.onChange} defaultValue={field.value} autoComplete="off" >
+                                    <SelectTrigger id={name} className={cn(
+                                        "border space-x-3",
+                                        hasError ? "border-red-500 focus:ring-red-500" : "border-gray-300"
+                                    )}>
+                                        <SelectValue placeholder={placeholder} />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {options.map(({ name, value }) => (
+                                            <SelectItem key={value} value={value}>
+                                                {name}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )
+                }}
             />
         </div>
     );
@@ -227,30 +251,36 @@ export const FormCheckBox = <T extends FieldValues>({
     if (!formSchema) {
         throw new Error("formSchema is required for FormCheckBox.");
     }
-    const { control } = useFormContext<T>();
+    const { control, formState: { errors } } = useFormContext<T>();
 
     return (
         <div className={cn("flex items-center", className)}>
             <FormField
                 control={control}
                 name={name}
-                render={({ field }) => (
-                    <FormItem className="flex items-center space-y-0 space-x-3">
-                        <FormControl>
-                            <Checkbox
-                                className="h-5 w-5 space-y-2" // Ensures consistent checkbox size
-                                checked={field.value}
-                                onCheckedChange={field.onChange}
-                            />
-                        </FormControl>
-                        {label && (
-                            <FormLabel className="text-sm font-medium">
-                                {label}
-                            </FormLabel>
-                        )}
-                        <FormMessage />
-                    </FormItem>
-                )}
+                render={({ field }) => {
+                    const hasError = !!errors[name];
+                    return (
+                        <FormItem className="flex items-center space-y-0 space-x-3">
+                            <FormControl>
+                                <Checkbox
+                                    className={cn(
+                                        "border h-5 w-5 space-y-2",
+                                        hasError ? "border-red-500 focus:ring-red-500" : "border-gray-300"
+                                    )}
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                />
+                            </FormControl>
+                            {label && (
+                                <FormLabel className="text-sm font-medium">
+                                    {label}
+                                </FormLabel>
+                            )}
+                            <FormMessage />
+                        </FormItem>
+                    )
+                }}
             />
         </div>
     );
