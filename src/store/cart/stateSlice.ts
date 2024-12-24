@@ -52,7 +52,7 @@ export const cartSlice = createSlice({
             // Recalculate estimated values
             state.estimatedShipping = calculateEstimatedShipping(state.totalAmount);
             state.estimatedTax = calculateEstimatedTax(state.totalAmount);
-            state.total = calculateTotal(state.totalAmount, state.estimatedShipping, state.estimatedTax);
+            state.total = calculateTotal(state.totalAmountDiscount, state.estimatedShipping, state.estimatedTax);
         },
         updateItemQuantity: (state, action: PayloadAction<{ id: string; quantity: number }>) => {
             const { id, quantity } = action.payload;
@@ -78,7 +78,7 @@ export const cartSlice = createSlice({
                 // Recalculate estimated values
                 state.estimatedShipping = calculateEstimatedShipping(state.totalAmount);
                 state.estimatedTax = calculateEstimatedTax(state.totalAmount);
-                state.total = calculateTotal(state.totalAmount, state.estimatedShipping, state.estimatedTax);
+                state.total = calculateTotal(state.totalAmountDiscount, state.estimatedShipping, state.estimatedTax);
             }
         },
         removeItem(state, action: PayloadAction<string>) {

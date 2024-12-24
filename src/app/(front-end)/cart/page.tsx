@@ -23,12 +23,15 @@ import { FaCcPaypal } from "react-icons/fa"
 // data
 import { productData } from "@/constants/data"
 
+//format
+import { formatToCurrency } from "@/lib/formats"
+
 export default function Page() {
     const dispatch = useAppDispatch()
     const {
         selectedItems,
         items,
-        totalQuantity,
+        // totalQuantity,
         totalAmount,
         totalAmountDiscount,
         estimatedShipping,
@@ -60,7 +63,7 @@ export default function Page() {
                                         <Button className="flex-none" variant="outline" size="icon" onClick={() => router.back()}><ArrowLeft /></Button>
                                         <div className="flex-none relative">
                                             <ShoppingCart size={30} />
-                                            <span className="absolute -top-2 -right-2 bg-red-600 rounded-full w-1/2 h-1/2 text-sm  items-center flex justify-center text-white">{totalQuantity}</span>
+                                            <span className="absolute -top-2 -right-2 bg-red-600 rounded-full w-1/2 h-1/2 text-sm  items-center flex justify-center text-white">{items.length}</span>
                                         </div>
                                         <div className="grow flex-1">
                                             <CardTitle className="flex flex-row items-center"> Cart</CardTitle>
@@ -96,7 +99,7 @@ export default function Page() {
                                     <CircleHelp size={20} />
                                 </div>
                                 <span>
-                                    ${totalAmount}
+                                    {formatToCurrency(totalAmount)}
                                 </span>
                             </CardDescription>
                             <CardDescription className="flex items-center justify-between">
@@ -105,7 +108,7 @@ export default function Page() {
                                     <CircleHelp size={20} />
                                 </div>
                                 <span>
-                                    ${totalAmountDiscount}
+                                    {formatToCurrency(totalAmountDiscount)}
                                 </span>
                             </CardDescription>
                             <CardDescription className="flex items-center justify-between">
@@ -113,7 +116,7 @@ export default function Page() {
                                     <strong>Estimated Shipping</strong>
                                 </div>
                                 <span>
-                                    ${estimatedShipping}
+                                    {formatToCurrency(estimatedShipping)}
                                 </span>
                             </CardDescription>
                             <CardDescription className="flex items-center justify-between">
@@ -122,7 +125,7 @@ export default function Page() {
                                     <CircleHelp size={20} />
                                 </div>
                                 <span>
-                                    ${estimatedTax}
+                                    {formatToCurrency(estimatedTax)}
                                 </span>
                             </CardDescription>
                             <Separator />
@@ -131,7 +134,7 @@ export default function Page() {
                                     <strong>Total</strong>
                                 </div>
                                 <strong>
-                                    ${total}
+                                    {formatToCurrency(total)}
                                 </strong>
                             </CardDescription>
                             <Separator />

@@ -1,5 +1,4 @@
 "use client"
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 //store
@@ -23,17 +22,14 @@ import {
 //icons
 import { ShoppingCart } from "lucide-react";
 
+//format
+import { formatToCurrency } from "@/lib/formats"
+
 export default function DrawerCart() {
     const router = useRouter();
 
     const dispatch = useAppDispatch();
-    const { items, totalAmountDiscount, totalQuantity, selectedItems } = useAppSelector((state) => state.cart.state);
-
-    const [quantity, setQuantity] = useState(0);
-
-    useEffect(() => {
-        setQuantity(totalQuantity);
-    }, [totalQuantity]);
+    const { items, totalAmountDiscount, selectedItems } = useAppSelector((state) => state.cart.state);
 
     return (
         <Sheet>
@@ -41,7 +37,7 @@ export default function DrawerCart() {
                 <Button variant="outline" size="icon" className="relative">
                     <ShoppingCart />
                     <span className="absolute -top-2 -right-2 bg-red-600 rounded-full w-1/2 h-1/2 text-sm flex justify-center items-center text-white">
-                        {quantity} {/* Display quantity from client-side state */}
+                        {items.length} {/* Display quantity from client-side state */}
                     </span>
                 </Button>
             </SheetTrigger>
@@ -53,7 +49,7 @@ export default function DrawerCart() {
                             <div className="relative">
                                 <ShoppingCart size={30} />
                                 <span className="absolute -top-2 -right-2 bg-red-600 rounded-full w-1/2 h-1/2 text-sm items-center flex justify-center text-white">
-                                    {quantity} {/* Display quantity from client-side state */}
+                                    {items.length} {/* Display quantity from client-side state */}
                                 </span>
                             </div>
                             <div>
@@ -71,12 +67,12 @@ export default function DrawerCart() {
                         <SheetFooter>
                             <div className="w-full flex justify-between">
                                 <span><strong>Total</strong></span>
-                                <span>{totalAmountDiscount}</span>
+                                <span>{formatToCurrency(totalAmountDiscount)} </span>
                             </div>
                         </SheetFooter>
                         <SheetFooter className="justify-end rounded-md space-x-3">
                             <Button variant="default" disabled={items && items.length <= 0} className="w-full" onClick={() => router.push("/cart")}>
-                                {quantity > 0 ? `(${quantity}) View Cart` : "View Cart"}
+                                {items.length > 0 ? `View Cart (${items.length}) ` : "View Cart"}
                             </Button>
                         </SheetFooter>
 
@@ -88,13 +84,13 @@ export default function DrawerCart() {
                             )}
                             {items.length > 0 && selectedItems.length > 0 && (
                                 <Button variant="outline" className="w-full" onClick={() => dispatch(removeSelectedItems(selectedItems))}>
-                                    Remove({selectedItems.length})
+                                    Remove ({selectedItems.length})
                                 </Button>
                             )}
                         </SheetFooter>
                     </div>
                 </div>
-            </SheetContent>
-        </Sheet>
+            </SheetContent >
+        </Sheet >
     );
 }

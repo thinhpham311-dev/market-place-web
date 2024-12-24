@@ -17,6 +17,7 @@ import { User, LogOut, LogIn } from "lucide-react";
 
 const menuItems = [
     { label: "Profile", icon: <User />, path: "/auth/customer/1" },
+    { label: "Change Password", icon: <User />, path: "/auth/customer/change-password" },
     { label: "Sign In", icon: <LogIn />, path: "/auth/customer/sign-in" },
     { label: "Sign Up", icon: <LogIn />, path: "/auth/customer/sign-up" },
     { label: "Sign Out", icon: <LogOut />, path: "/auth/customer/sign-in" },

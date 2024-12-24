@@ -16,7 +16,7 @@ import { GalleryWithThumbnails, ButtonTagsList, CarouselList } from '@/component
 
 // Icons
 import { MdOutlineStar, MdOutlineStarBorder, MdAddShoppingCart } from 'react-icons/md';
-import { ArrowRight, CircleDollarSign } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 // Data
 import { images, productData } from '@/constants/data';
@@ -24,6 +24,9 @@ import { images, productData } from '@/constants/data';
 // Types
 import { IcartItem } from '@/types/cart';
 import { IProduct } from '@/types/product';
+
+//format
+import { formatToCurrency } from "@/lib/formats"
 
 export default function Page() {
     const { id } = useParams();
@@ -78,10 +81,10 @@ export default function Page() {
                             </span>
                             <div className="space-x-4">
                                 <p className="inline-flex items-center gap-x-1 text-md">
-                                    <CircleDollarSign size={15} /> <span className="font-bold">{product.discountPrice}</span>
+                                    <span className="font-bold">{formatToCurrency(product.discountPrice)}</span>
                                 </p>
                                 <p className="inline-flex items-center gap-x-1 line-through text-md">
-                                    <CircleDollarSign size={15} /> <span>{product.price}</span>
+                                    <span>{formatToCurrency(product.price)}</span>
                                 </p>
                             </div>
                             <div>
