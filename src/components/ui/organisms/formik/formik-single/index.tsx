@@ -115,7 +115,7 @@ export const FormInput = <T extends FieldValues>({
                         <FormItem className="w-full">
                             {label && <FormLabel>
                                 {label}
-                                {isRequired && <span className="text-red-500"> *</span>} {/* Dấu * đỏ */}
+                                {isRequired && <span className="text-red-500"> *</span>}
                             </FormLabel>}
                             <FormControl>
                                 <Input
@@ -170,7 +170,7 @@ export const FormInputTextarea = <T extends FieldValues>({
                         <FormItem className="w-full">
                             {label && <FormLabel>
                                 {label}
-                                {isRequired && <span className="text-red-500"> *</span>} {/* Dấu * đỏ */}
+                                {isRequired && <span className="text-red-500"> *</span>}
                             </FormLabel>}
                             <FormControl>
                                 <Textarea
@@ -199,6 +199,7 @@ export const FormSelect = <T extends FieldValues>({
     options = [],
     formSchema,
     className,
+    isRequired = false
 }: IFormFieldProps<T>) => {
     if (!formSchema) {
         throw new Error("formSchema is required for FormSelect.");
@@ -214,7 +215,10 @@ export const FormSelect = <T extends FieldValues>({
                     const hasError = !!errors[name];
                     return (
                         <FormItem className="w-full">
-                            {label && <FormLabel>{label}</FormLabel>}
+                            {label && <FormLabel>
+                                {label}
+                                {isRequired && <span className="text-red-500"> *</span>}
+                            </FormLabel>}
                             <FormControl>
                                 <Select onValueChange={field.onChange} defaultValue={field.value} autoComplete="off" >
                                     <SelectTrigger id={name} className={cn(
