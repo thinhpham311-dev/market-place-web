@@ -8,7 +8,6 @@ export default function productsFakeApi(server, apiPrefix) {
         const { pageIndex, pageSize, sort, query } = body
         const { order, key } = sort
         const products = schema.db.productsData
-        console.log(products)
         const sanitizeProducts = products.filter(elm => typeof elm !== 'function')
         let data = sanitizeProducts
         let total = products.length

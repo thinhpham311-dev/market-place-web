@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 
-
 //components
 import { GallerySingle, CarouselList, GridListWithLoading } from "@/components/ui/organisms"
 import { Button } from "@/components/ui/atoms"
@@ -18,8 +17,9 @@ import { productData } from "@/constants/data"
 export default function Home() {
 
   const router = useRouter()
+
   return (
-    <div className="space-y-10">
+    <div className="space-y-10 w-full">
       <GallerySingle data={bannerData} />
       <Card className="border-0 md:px-6 px-3 w-full">
         <CardHeader className="flex-row  items-center px-0 space-x-3 mb-3" >
