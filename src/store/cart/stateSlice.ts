@@ -45,8 +45,14 @@ export const cartSlice = createSlice({
 
             if (existingItem) {
                 existingItem.quantity += newItem.quantity;
+                existingItem.totalPrice = existingItem.price * existingItem.quantity;
+                existingItem.discountedTotalPrice = existingItem.discountPrice * existingItem.quantity;
             } else {
-                state.items.push({ ...newItem });
+                state.items.push({
+                    ...newItem,
+                    totalPrice: newItem.price * newItem.quantity,
+                    discountedTotalPrice: newItem.discountPrice * newItem.quantity,
+                });
             }
 
             // Recalculate estimated values
@@ -62,17 +68,17 @@ export const cartSlice = createSlice({
                 const quantityDiff = quantity - itemToUpdate.quantity;
 
                 if (quantity === 0) {
-                    // Remove the item if the quantity is zero
                     state.items = state.items.filter(item => item.id !== id);
                     state.totalQuantity -= itemToUpdate.quantity;
                     state.totalAmount -= itemToUpdate.price * itemToUpdate.quantity;
                     state.totalAmountDiscount -= itemToUpdate.discountPrice * itemToUpdate.quantity;
                 } else {
-                    // Update the quantity and recalculate totals
                     state.totalQuantity += quantityDiff;
                     state.totalAmount += quantityDiff * itemToUpdate.price;
                     state.totalAmountDiscount += quantityDiff * itemToUpdate.discountPrice;
                     itemToUpdate.quantity = quantity;
+                    itemToUpdate.totalPrice = itemToUpdate.price * quantity;
+                    itemToUpdate.discountedTotalPrice = itemToUpdate.discountPrice * quantity;
                 }
 
                 // Recalculate estimated values

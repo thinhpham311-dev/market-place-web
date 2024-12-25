@@ -65,7 +65,7 @@ export default function DrawerCart() {
                     </ScrollArea>
                     <div className="space-y-2">
                         <SheetFooter>
-                            <div className="w-full flex justify-between">
+                            <div className="w-full flex justify-between py-3">
                                 <span><strong>Total</strong></span>
                                 <span>{formatToCurrency(totalAmountDiscount)} </span>
                             </div>
@@ -75,6 +75,13 @@ export default function DrawerCart() {
                                 {items.length > 0 ? `View Cart (${items.length}) ` : "View Cart"}
                             </Button>
                         </SheetFooter>
+                        {items && items.length > 0 &&
+                            <SheetFooter className="justify-end rounded-md space-x-3">
+                                <Button variant="default" className="w-full" onClick={() => router.push("/checkout")}>
+                                    Checkout
+                                </Button>
+                            </SheetFooter>
+                        }
 
                         <SheetFooter className="justify-end rounded-md space-x-3">
                             {items.length > 0 && (

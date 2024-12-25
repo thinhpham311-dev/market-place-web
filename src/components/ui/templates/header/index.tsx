@@ -57,7 +57,7 @@ export default function SiteHeader() {
           </div>
 
           <div className="flex items-center space-x-2">
-            {path !== "/cart" && <DrawerCart />}
+            {path !== "/cart" && path !== "/checkout" && <DrawerCart />}
             <DropdownMode />
             <DropdownUser />
           </div>

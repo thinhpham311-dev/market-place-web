@@ -1,10 +1,9 @@
+import { IProduct } from "./product";
 
-export interface IcartItem {
-    id: string;
-    name: string;
-    price: number;
-    discountPrice: number;
-    quantity: number;
+
+export interface IcartItem extends IProduct {
+    totalPrice?: number;
+    discountedTotalPrice?: number;
 }
 
 export interface Icart {

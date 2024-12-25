@@ -71,7 +71,7 @@ export default function Page() {
     return (
         <div className="space-y-10 container  md:p-6 p-3">
             <Card>
-                <CardHeader className="grid grid-rows-2 grid-flow-col auto-cols-max gap-x-4 items-center">
+                <CardHeader className="grid grid-rows-2 grid-flow-col auto-cols-max gap-x-4 items-center md:px-6 px-3">
                     <Button className="row-span-2" variant="outline" size="icon" onClick={() => router.back()}><ArrowLeft /></Button>
                     <CardTitle className="col-span-2">
                         Check Out
@@ -118,7 +118,7 @@ export default function Page() {
                                         Lorem ipsum dolor sit amet
                                     </CardDescription>
 
-                                    <Button variant="outline" size="icon" className="row-span-2"><FilePenLine /></Button>
+                                    <Button onClick={() => router.push("/cart")} variant="outline" size="icon" className="row-span-2"><FilePenLine /></Button>
                                 </CardHeader>
                                 <CardContent className="p-0 space-y-5">
                                     <CardDescription className="flex items-center justify-between">

@@ -4,7 +4,6 @@ import {
     SidebarContent,
     SidebarGroup,
     SidebarGroupContent,
-    SidebarGroupLabel,
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
@@ -24,9 +23,7 @@ export default function SidebarNavigation() {
         <Sidebar aria-label="Main Navigation" >
             <SidebarContent>
                 <SidebarGroup>
-                    <SidebarGroupLabel id="application-group">
-                        Application
-                    </SidebarGroupLabel>
+
                     <SidebarGroupContent>
                         <SidebarMenu aria-labelledby="application-group">
                             {items.map((item) => (

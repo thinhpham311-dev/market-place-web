@@ -11,19 +11,19 @@ import { Card, CardContent, CardDescription, CardImage, CardTitle, Counter } fro
 import { Checkbox } from "@/components/ui/atoms/checkbox"
 
 //types
-import { IProduct } from "@/types/product"
+import { IcartItem } from "@/types/cart"
 
 //format
 import { formatToCurrency } from "@/lib/formats"
 
 type IItemProps = {
-    item: IProduct
+    item: IcartItem
     isCheckBox?: boolean,
     totalItems?: number,
     isCounter?: boolean
 };
 
-export const RowListItem = ({ item: { name, image, article, price, discountPrice, id, quantity }, isCheckBox, totalItems, isCounter }: IItemProps) => {
+export const RowListItem = ({ item: { name, image, price, discountPrice, id, quantity, totalPrice = 0, discountedTotalPrice = 0 }, isCheckBox, totalItems, isCounter }: IItemProps) => {
     const dispatch = useAppDispatch()
     const { selectedItems } = useAppSelector((state) => state.cart.state); // Giả sử bạn có root state
     const router = useRouter()
@@ -50,25 +50,22 @@ export const RowListItem = ({ item: { name, image, article, price, discountPrice
                 alt=""
                 className=" rounded-l-lg h-full bg-slate-600 cursor-pointer p-0 col-span-1"
             />
-            <CardContent className=" p-0  h-full col-span-2 content-center">
+            <CardContent className=" p-0  h-full col-span-2 content-center space-y-2">
                 <CardTitle
                     onClick={handleRouterLinkToDetail}
-                    className="mb-2 text-lg capitalize cursor-pointer">
+                    className=" text-lg capitalize cursor-pointer">
                     {name}
                 </CardTitle>
-                {article && <CardDescription className="mb-3">
-                    <p className="line-clamp-1">{article}</p>
+                <CardDescription className="space-x-3 mb-2 inline ">
+                    <p className="inline-flex items-center gap-x-1 text-xs"> <span className="font-bold "> {formatToCurrency(discountPrice)}</span></p>
+                    <p className="inline-flex items-center gap-x-1 line-through text-xs"><span>{formatToCurrency(price)}</span></p>
                 </CardDescription>
-                }
-                <CardDescription className="space-x-3 mb-2">
-                    <p className="inline-flex items-center gap-x-1 text-xs">
-                        <span className="font-bold "> {formatToCurrency(discountPrice)}</span>
-                    </p>
-                    <p className="inline-flex items-center gap-x-1 line-through text-xs">
-                        <span>{formatToCurrency(price)}</span>
-                    </p>
-                </CardDescription>
-                {isCounter ? <Counter value={quantity} onQuantityChange={handleQuantityChange} /> : <small className="text-xs">Qty: ${quantity}</small>}
+                {isCounter ? <div className="py-3"><Counter value={quantity} onQuantityChange={handleQuantityChange} /> </div> :
+                    <div className="space-y-2">
+                        <p className="text-xs">Qty: {quantity}</p>
+                        <p className="text-xs">Total: {formatToCurrency(totalPrice)}</p>
+                        <p className="text-xs">Discount Total: {formatToCurrency(discountedTotalPrice)}</p>
+                    </div>}
             </CardContent>
             {
                 totalItems && totalItems > 1 && isCheckBox &&

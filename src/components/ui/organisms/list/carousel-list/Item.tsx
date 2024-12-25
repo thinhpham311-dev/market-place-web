@@ -25,7 +25,7 @@ const CardItem = ({ item: { name, image, price, discountPrice, id } }: IItemProp
         <Card >
             <CardImage onClick={handleRouterLinkToDetail} src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"} alt="" className="w-full h-full rounded-t-lg cursor-pointer" />
             <CardContent className="py-3 px-0">
-                <CardTitle onClick={handleRouterLinkToDetail} className="mb-2 text-md capitalize cursor-pointer mx-3">{name}</CardTitle>
+                <CardTitle onClick={handleRouterLinkToDetail} className="text-md capitalize cursor-pointer mx-3">{name}</CardTitle>
                 <CardDescription className="space-x-3 mb-2 inline mx-3">
                     <p className="inline-flex items-center gap-x-1 text-xs"> <span className="font-bold "> {formatToCurrency(discountPrice)}</span></p>
                     <p className="inline-flex items-center gap-x-1 line-through text-xs"><span>{formatToCurrency(price)}</span></p>

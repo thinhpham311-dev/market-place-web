@@ -5,11 +5,11 @@ import { RowListItem } from "./item"
 import { ScrollArea } from "@/components/ui/molecules/scroll-area"
 
 //types
-import { IProduct } from "@/types/product"
+import { IcartItem } from "@/types/cart";
 
 
 type IGridListProps = {
-    data: Array<IProduct>
+    data: Array<IcartItem>
 };
 
 
@@ -33,7 +33,7 @@ export const RowList = ({ data }: IGridListProps) => {
             {data?.map((item, index) => {
                 if (item.quantity > 0) {
                     return (
-                        <RowListItem key={index} item={item} totalItems={data.length} isCheckBox />
+                        <RowListItem key={index} item={item} totalItems={data.length} />
                     )
                 }
             })}

@@ -1,9 +1,10 @@
 'use client';
 
 import { useRef, useMemo, useCallback } from 'react';
+import Image from 'next/image';
 
 // Routers
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 // Store
 import { useAppDispatch } from '@/lib/hooks';
@@ -25,13 +26,17 @@ import { images, productData } from '@/constants/data';
 import { IcartItem } from '@/types/cart';
 import { IProduct } from '@/types/product';
 
-//format
+//format & hooks
 import { formatToCurrency } from "@/lib/formats"
+import { useToast } from "@/lib/hooks";
+
 
 export default function Page() {
     const { id } = useParams();
     const dispatch = useAppDispatch();
     const counterRef = useRef<CounterRef>(null);
+    const { toast } = useToast();
+    const router = useRouter()
 
     const { product } = useMemo(() => {
         const product = productData?.find((item: IProduct) => item?.id === id);
@@ -58,8 +63,41 @@ export default function Page() {
         };
 
         dispatch(addItem(cartItem))
+        toast({
+            title: `${product.name} added to cart`,
+            description: <div className="grid grid-rows-3 grid-flow-col auto-cols-max gap-4 space-y-2 my-3">
+                <Image src={product.image} width={100} height={100} alt="" className='row-span-3' />
+                <div className=' row-span-3 space-y-1'>
+                    <p className='text-md mb-3'><strong> {product.name}</strong></p>
+                    <p className='space-x-2 text-xs'>
+                        <span className='line-through'>
+                            ${product.price}
+                        </span>
+                        <span>${product.discountPrice}</span>
+                    </p>
+                    <p className='text-xs'>Qty:{updatedQuantity}</p>
+                </div>
+            </div>,
+        });
         counterRef.current?.reset()
     }, [dispatch, product]);
+
+    const handleBuyNow = () => {
+        if (!product) {
+            return;
+        }
+
+        const cartItem: IcartItem = {
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            discountPrice: product.discountPrice,
+            quantity: 1,
+        };
+
+        dispatch(addItem(cartItem))
+        router.push("/cart")
+    }
 
 
     if (!product) return <div>Product not found</div>;
@@ -94,14 +132,23 @@ export default function Page() {
                             <div>
                                 <Counter ref={counterRef} />
                             </div>
-                            <Button
-                                onClick={handleAddToCart}
-                                variant="outline"
-                                size="sm"
-                                className="w-full md:w-auto uppercase"
-                            >
-                                <MdAddShoppingCart /> Buy Now
-                            </Button>
+                            <div className='space-x-3 flex items-center'>
+                                <Button
+                                    onClick={handleAddToCart}
+                                    variant="outline"
+                                    size="sm"
+                                    className="w-full md:w-auto uppercase"
+                                >
+                                    <MdAddShoppingCart /> Add to cart
+                                </Button>
+                                <Button
+                                    onClick={handleBuyNow}
+                                    size="sm"
+                                    className="w-full md:w-auto uppercase"
+                                >
+                                    Buy Now
+                                </Button>
+                            </div>
                         </CardDescription>
                     </CardContent>
                 </div>

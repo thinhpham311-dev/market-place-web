@@ -29,9 +29,9 @@ export const GridListItem = ({ item: { name, image, price, discountPrice, id } }
                 alt=""
                 className="w-full h-full rounded-t-lg aspect-square cursor-pointer"
             />
-            <CardContent className="p-3">
-                <CardTitle onClick={handleRouterLinkToDetail} className="mb-2 text-md capitalize cursor-pointer">{name}</CardTitle>
-                <CardDescription className="space-x-3 mb-2">
+            <CardContent className="py-3 px-0">
+                <CardTitle onClick={handleRouterLinkToDetail} className=" text-md capitalize cursor-pointer mx-3">{name}</CardTitle>
+                <CardDescription className="space-x-3 mb-2 inline mx-3">
                     <p className="inline-flex items-center gap-x-1 text-xs"> <span className="font-bold "> {formatToCurrency(discountPrice)}</span></p>
                     <p className="inline-flex items-center gap-x-1 line-through text-xs"><span>{formatToCurrency(price)}</span></p>
                 </CardDescription>
