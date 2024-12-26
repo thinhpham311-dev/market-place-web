@@ -63,7 +63,12 @@ export default function Page() {
                             <ButtonTagsList
                                 label="Sort"
                                 className="mb-0 flex items-center gap-3"
-                                data={["Newest", "Lowest", "Highest", "Rating"]}
+                                data={[
+                                    { label: "Newest", value: "newest" },
+                                    { label: "Lowest", value: "lowest" },
+                                    { label: "Highest", value: "highest" },
+                                    { label: "Rating", value: "rating" }
+                                ]}
                             />
 
                         </CardContent>

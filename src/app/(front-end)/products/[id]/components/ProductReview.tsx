@@ -1,10 +1,24 @@
 import React, { useState, useMemo } from 'react';
 import { Button, Textarea, Progress } from '@/components/ui/atoms';
 import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/components/ui/molecules';
-import { StarRating } from '@/components/ui/molecules';
+import { ButtonTagsList, StarRating } from "@/components/ui/organisms"
+
+interface Review {
+    rating: number;
+    comment: string;
+    user: string;
+}
 
 interface ReviewFormProps {
     onSubmit: (review: { rating: number; comment: string }) => void;
+}
+
+interface ReviewListProps {
+    reviews: Review[];
+}
+
+interface ReviewStatisticsProps {
+    reviews: Review[];
 }
 
 const ReviewForm = ({ onSubmit }: ReviewFormProps) => {
@@ -36,22 +50,50 @@ const ReviewForm = ({ onSubmit }: ReviewFormProps) => {
         </div>
     );
 };
-
-interface Review {
-    rating: number;
-    comment: string;
-    user: string;
-}
-
-interface ReviewListProps {
-    reviews: Review[];
-}
-
 const ReviewList = ({ reviews }: ReviewListProps) => {
+    const [filter, setFilter] = useState<string | null>(null); // Số sao được chọn (null = Tất cả)
+
+    const filteredReviews = useMemo(() => {
+        return filter === null
+            ? reviews
+            : reviews.filter((review) => review.rating === Number(filter));
+    }, [reviews, filter]);
+
     return (
         <div className="space-y-4">
-            {reviews.length === 0 && <p>No reviews yet. Be the first to review!</p>}
-            {reviews.map((review, index) => (
+            <div className="flex items-center justify-between">
+                <ButtonTagsList
+                    label="Filter by rating"
+                    data={[{
+                        label: "All",
+                        value: "All"
+                    },
+                    {
+                        label: "5 Sao",
+                        value: "5"
+                    },
+                    {
+                        label: "4 Sao",
+                        value: "4"
+                    },
+                    {
+                        label: "3 Sao",
+                        value: "3"
+                    },
+                    {
+                        label: "2 Sao",
+                        value: "2"
+                    },
+                    {
+                        label: "1 Sao",
+                        value: "1"
+                    }]}
+                    onChange={(value) => setFilter(value === "All" ? null : value)}
+                    className="max-w-md"
+                />
+            </div>
+            {filteredReviews.length === 0 && <p>No reviews found for the selected rating.</p>}
+            {filteredReviews.map((review, index) => (
                 <div key={index} className="p-4 border rounded-md">
                     <div className="flex items-center space-x-2">
                         <StarRating rating={review.rating} readOnly />
@@ -64,9 +106,7 @@ const ReviewList = ({ reviews }: ReviewListProps) => {
     );
 };
 
-interface ReviewStatisticsProps {
-    reviews: Review[];
-}
+
 const ReviewStatistics = ({ reviews }: ReviewStatisticsProps) => {
     const totalReviews = reviews.length;
 
@@ -84,11 +124,10 @@ const ReviewStatistics = ({ reviews }: ReviewStatisticsProps) => {
     }, [reviews]);
 
     return (
-        <Card className="md:py-6 p-0 space-y-6  border-none">
+        <Card className="p-5 space-y-6 sticky top-[70px]">
             <CardHeader className="p-0">
                 <CardTitle className="text-lg font-bold">Average Rating</CardTitle>
                 <CardDescription>
-
                     <div className="flex items-center space-x-2">
                         <StarRating rating={Number(averageRating)} readOnly />
                         <span>{averageRating} / 5</span>
@@ -117,12 +156,7 @@ const ReviewStatistics = ({ reviews }: ReviewStatisticsProps) => {
     );
 };
 
-interface ProductReviewProps {
-    initialReviews: Review[];
-    onSubmitReview: (review: { rating: number; comment: string }) => void;
-}
-
-const ProductReview = ({ initialReviews, onSubmitReview }: ProductReviewProps) => {
+const ProductReview = ({ initialReviews, onSubmitReview }: { initialReviews: Review[]; onSubmitReview: (review: { rating: number; comment: string }) => void }) => {
     const [reviews, setReviews] = useState<Review[]>(initialReviews);
 
     const handleNewReview = (review: { rating: number; comment: string }) => {
@@ -132,9 +166,9 @@ const ProductReview = ({ initialReviews, onSubmitReview }: ProductReviewProps) =
     };
 
     return (
-        <div className="p-0 space-y-6 grid md:grid-cols-3 grid-cols-1 gap-5 lg:col-span-3 md:col-span-3 col-span-1">
+        <div className="p-0 grid md:grid-cols-3  grid-cols-1 gap-5 lg:col-span-3 md:col-span-3 col-span-1">
             <div className="md:col-span-2 col-span-1 space-y-5">
-                <Card className="md:py-6 p-0 space-y-6  border-none">
+                <Card className="md:py-6 p-5 space-y-6 ">
                     <CardHeader className="p-0">
                         <CardTitle>Product Review</CardTitle>
                     </CardHeader>
@@ -144,7 +178,9 @@ const ProductReview = ({ initialReviews, onSubmitReview }: ProductReviewProps) =
                     </CardContent>
                 </Card>
             </div>
-            <div className="col-span-1 "> <ReviewStatistics reviews={reviews} /></div>
+            <div className="col-span-1 my-0 relative">
+                <ReviewStatistics reviews={reviews} />
+            </div>
         </div>
     );
 };

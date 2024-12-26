@@ -10,7 +10,7 @@ import { productData } from '@/constants/data';
 
 export default function RelatedProductsList() {
     return (
-        <Card className="border-0 md:px-6 px-3">
+        <Card className="border-0 md:px-6 px-3 shadow-none">
             <CardHeader className="flex-row items-center px-0 space-x-3 mb-3">
                 <div className="p-0 flex-1">
                     <CardTitle className="mb-3 capitalize">Relate Products</CardTitle>
