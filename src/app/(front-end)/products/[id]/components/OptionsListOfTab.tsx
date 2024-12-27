@@ -34,7 +34,7 @@ export const OptionsListOfTab = React.forwardRef<HTMLDivElement, IOptionsListOfT
         return (
             <div
                 ref={ref}
-                className={cn("font-semibold leading-none tracking-tight mb-5", className)}
+                className={cn("font-semibold leading-none tracking-tight ", className)}
             >
                 <Label className="block font-bold mb-3" htmlFor="terms">
                     {label}:

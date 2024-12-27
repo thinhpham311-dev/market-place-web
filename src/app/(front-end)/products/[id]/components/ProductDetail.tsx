@@ -82,7 +82,7 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
         dispatch(addItem(cartItem));
         toast({
             title: `${product.name} added to cart`,
-            description: <div className="grid grid-cols-3 gap-4 ">
+            description: <div className="grid grid-cols-3 gap-4 py-5">
                 <Image className="col-span-1" src={product.image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"} alt={product?.name ?? ""} width={100} height={100} />
                 <div className=' col-span-2 space-y-1'>
                     <p className='text-md mb-3'><strong> {product.name}</strong></p>
@@ -124,7 +124,7 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
                             <span>{formatToCurrency(product.price)}</span>
                         </p>
                     </div>
-                    <div>
+                    <div className='space-y-5'>
                         <OptionsListOfTab label="Size" data={[
                             { label: "Size S", value: "size-s" },
                             { label: "Size M", value: "size-m" },

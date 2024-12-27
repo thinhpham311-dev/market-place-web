@@ -1,25 +1,18 @@
-// Primer function that accepts any value and returns a transformed value
-type PrimerFunction<T> = (value: T) => T;
 
 export function sortBy<T>(
-    field: keyof T,
-    reverse: boolean = false,
-    primer?: PrimerFunction<T> // PrimerFunction now works for any type T
+    key: keyof T,
+    descending: boolean,
+    primer?: (item: T[keyof T]) => string | number
 ): (a: T, b: T) => number {
-    // If a primer is provided, use it to transform the field value
-    const key = primer
-        ? (x: T) => primer(x[field] as T)
-        : (x: T) => x[field];
+    return (a, b) => {
+        const aValue = primer ? primer(a[key]) : a[key];
+        const bValue = primer ? primer(b[key]) : b[key];
 
-    const reverseMultiplier = reverse ? -1 : 1;
-
-    return (a: T, b: T): number => {
-        const keyA = key(a);
-        const keyB = key(b);
-
-        // Perform comparison and return the result, considering reverse order
-        return reverseMultiplier * ((keyA > keyB ? 1 : 0) - (keyA < keyB ? 1 : 0));
+        if (aValue < bValue) return descending ? 1 : -1;
+        if (aValue > bValue) return descending ? -1 : 1;
+        return 0;
     };
 }
+
 
 export default sortBy;

@@ -72,7 +72,7 @@ const ReviewList = ({ data, itemsPerPage = 12 }: ReviewListProps) => {
         handlePageChange,
     });
     return (
-        <div className="space-y-4">
+        <div className="space-y-2">
             <div className="flex items-center justify-between">
                 <OptionsListOfTab
                     label="Filter by rating"

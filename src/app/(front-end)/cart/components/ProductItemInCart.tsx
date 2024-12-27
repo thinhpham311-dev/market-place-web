@@ -42,13 +42,13 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, id, quan
     }, [dispatch]);
 
     return (
-        <Card layout="horizontal" className=" mb-3  last:mb-0 items-center grid grid-cols-8 gap-3">
+        <Card layout="horizontal" className=" mb-3  last:mb-0 items-center grid grid-cols-8 gap-3 p-5">
             <CardImage
                 onClick={handleRouterLinkToDetail}
                 src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"}
                 alt=""
 
-                className=" rounded-l-lg h-full bg-slate-600 cursor-pointer p-0 col-span-1"
+                className=" rounded-lg h-full bg-slate-600 cursor-pointer p-0 col-span-1"
             />
             <CardContent className="grid grid-cols-12 items-center p-0  h-full col-span-7  space-y-2 ">
                 <CardTitle

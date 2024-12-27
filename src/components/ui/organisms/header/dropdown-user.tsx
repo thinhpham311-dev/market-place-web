@@ -16,11 +16,11 @@ import {
 import { User, LogOut, LogIn } from "lucide-react";
 
 const menuItems = [
-    { label: "Profile", icon: <User />, path: "/auth/customer/1" },
-    { label: "Change Password", icon: <User />, path: "/auth/customer/change-password" },
-    { label: "Sign In", icon: <LogIn />, path: "/auth/customer/sign-in" },
-    { label: "Sign Up", icon: <LogIn />, path: "/auth/customer/sign-up" },
-    { label: "Sign Out", icon: <LogOut />, path: "/auth/customer/sign-in" },
+    { label: "Profile", icon: <User />, path: "/user/1" },
+    { label: "Change Password", icon: <User />, path: "/user/change-password" },
+    { label: "Sign In", icon: <LogIn />, path: "/user/sign-in" },
+    { label: "Sign Up", icon: <LogIn />, path: "/user/sign-up" },
+    { label: "Sign Out", icon: <LogOut />, path: "/user/sign-in" },
 ];
 
 export default function DropdownUser() {
