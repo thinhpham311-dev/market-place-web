@@ -2,7 +2,7 @@
 import * as React from "react"
 import { ThemeProvider as NextThemesProvider } from "next-themes"
 import { SidebarProvider, Toaster } from "@/components/provider"
-import { Header, Footer, SidebarNavigation } from "@/components/ui/templates"
+import { Header, Footer, SidebarNavigation } from "@/components/ui/organisms"
 import { Provider } from "react-redux"
 import { cn } from "@/lib/utils"
 import store from "@/store"

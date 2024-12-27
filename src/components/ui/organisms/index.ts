@@ -1,4 +1,4 @@
-export * from "./list"
-export * from "./gallery"
-export * from "./button-group"
 export * from "./formik"
+export { default as Header } from "./header"
+export { default as SidebarNavigation } from "./sidebar"
+export { default as Footer } from "./footer"

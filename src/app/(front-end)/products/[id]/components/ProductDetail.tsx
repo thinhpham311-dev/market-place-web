@@ -13,8 +13,9 @@ import { addItem } from '@/store/cart/stateSlice';
 // Components
 import { Button } from '@/components/ui/atoms';
 import { Card, CardContent, CardTitle, CardDescription, Counter, CounterRef, CardHeader } from '@/components/ui/molecules';
-import { GalleryWithThumbnails, ButtonTagsList } from '@/components/ui/organisms';
+import { OptionsListOfTab } from './OptionsListOfTab';
 import ProductReview from './ProductReview'
+import ProductImagesListWithThumbnails from "./ProductImagesListWithThumbnails"
 
 // Data
 import { images, productData } from '@/constants/data';
@@ -106,7 +107,7 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
     return (
         <Card layout="horizontal" className=' grid lg:grid-cols-3 md:grid-cols-4 grid-cols-1 gap-5  p-5'>
             <div className="space-y-4 lg:col-span-1 md:col-span-2 col-span-1 ">
-                <GalleryWithThumbnails data={images} />
+                <ProductImagesListWithThumbnails data={images} />
             </div>
             <CardContent className='lg:col-span-2 md:col-span-2 col-span-1 md:px-5 px-0'>
                 <CardTitle className="line-clamp-2 leading-8 mb-5  ">{product.name}</CardTitle>
@@ -124,13 +125,13 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
                         </p>
                     </div>
                     <div>
-                        <ButtonTagsList label="Size" data={[
+                        <OptionsListOfTab label="Size" data={[
                             { label: "Size S", value: "size-s" },
                             { label: "Size M", value: "size-m" },
                             { label: "Size L", value: "size-l" },
                             { label: "Size XL", value: "size-xl" },
                             { label: "Size XXL", value: "size-xxl" }]} />
-                        <ButtonTagsList label="Color" data={[
+                        <OptionsListOfTab label="Color" data={[
                             { label: "White", value: "white" },
                             { label: "Black", value: "black" },
                             { label: "Red", value: "red" },

@@ -1,5 +1,5 @@
 import ProductDetail from './components/ProductDetail';
-import RelatedProductsList from './components/RelatedProductsList';
+import ProductItemsListRelated from './components/ProductItemsListRelated';
 
 export default function Page() {
 
@@ -8,7 +8,7 @@ export default function Page() {
             {/* Product Details Card */}
             <ProductDetail />
             {/* Related Products Card */}
-            <RelatedProductsList />
+            <ProductItemsListRelated />
         </div>
     );
 }
