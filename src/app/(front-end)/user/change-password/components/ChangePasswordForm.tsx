@@ -6,6 +6,9 @@ import { FormInput, FormGroup } from "@/components/ui/organisms";
 //validations
 import { z } from "zod";
 
+//icons
+import { Save } from "lucide-react";
+
 
 const FormSchema = z.object({
     password: z
@@ -43,7 +46,7 @@ export default function ChangePasswordForm() {
         <FormGroup
             defaultValues={defaultValuesForChangePasswordForm}
             onHandleSubmit={onSubmit}
-            className="space-y-5"
+            className="gap-5 grid grid-cols-3 "
             formSchema={FormSchema}
         >
             <FormInput
@@ -51,6 +54,7 @@ export default function ChangePasswordForm() {
                 name="password"
                 label="Password"
                 placeholder="Please enter password"
+                className="col-span-1"
                 formSchema={FormSchema}
                 isRequired
             />
@@ -58,6 +62,7 @@ export default function ChangePasswordForm() {
                 inputType="password"
                 name="newPassword"
                 label="New Password"
+                className="col-span-1"
                 placeholder="Please enter new password"
                 formSchema={FormSchema}
                 isRequired
@@ -66,11 +71,14 @@ export default function ChangePasswordForm() {
                 inputType="password"
                 name="confirmNewPassword"
                 label="Confirm New Password"
+                className="col-span-1"
                 placeholder="Please enter new password confirm"
                 formSchema={FormSchema}
                 isRequired
             />
-            <Button className="w-full" type="submit" variant="outline">Submit</Button>
+            <div className="col-span-3">
+                <Button type="submit" variant="outline" className="float-right"><span><Save /></span>Save</Button>
+            </div>
         </FormGroup>
 
     );

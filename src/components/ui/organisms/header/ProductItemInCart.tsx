@@ -49,7 +49,7 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, id, quan
                 alt=""
                 className=" rounded-l-lg h-full bg-slate-600 cursor-pointer p-0 col-span-1"
             />
-            <CardContent className=" p-0  h-full col-span-2 content-center space-y-2">
+            <CardContent className=" py-3 px-0  h-full col-span-2 content-center space-y-2">
                 <CardTitle
                     onClick={handleRouterLinkToDetail}
                     className=" text-lg capitalize cursor-pointer">
@@ -59,7 +59,7 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, id, quan
                     <p className="inline-flex items-center gap-x-1 text-xs"> <span className="font-bold "> {formatToCurrency(discountPrice)}</span></p>
                     <p className="inline-flex items-center gap-x-1 line-through text-xs"><span>{formatToCurrency(price)}</span></p>
                 </CardDescription>
-                <div className="py-3"><Counter value={quantity} onQuantityChange={handleQuantityChange} /></div>
+                <Counter value={quantity} onQuantityChange={handleQuantityChange} />
             </CardContent>
             {
                 totalItems && totalItems > 1 &&

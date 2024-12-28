@@ -7,6 +7,9 @@ import { FormInput, FormGroup, FormSelect } from "@/components/ui/organisms";
 import { z } from "zod";
 import { isValidPhoneNumber } from "@/lib/validation"
 
+//icons
+import { Save } from "lucide-react";
+
 const emailValidator = z.string().email()
 
 const FormSchema = z.object({
@@ -15,6 +18,11 @@ const FormSchema = z.object({
         .nonempty("Fullname is required")
         .min(10, "Please enter at least 10 characters")
         .max(250, "Please enter no more than 250 characters"),
+    username: z
+        .string()
+        .nonempty("Username is required")
+        .min(10, "Please enter at least 10 characters")
+        .max(25, "Please enter no more than 25 characters"),
     email: z
         .string()
         .nonempty("Email is required")
@@ -42,6 +50,7 @@ const FormSchema = z.object({
 
 const defaultValuesForUpdateProfileForm = {
     fullname: "",
+    username: "",
     email: "",
     phone: "",
     gender: "",
@@ -57,15 +66,18 @@ export default function UpdateProfileForm() {
         <FormGroup
             defaultValues={defaultValuesForUpdateProfileForm}
             onHandleSubmit={onSubmit}
-            className="space-y-5"
+            className="gap-5 grid grid-cols-2"
             formSchema={FormSchema}
         >
-            <FormInput name="fullname" label="FullName" placeholder="Please enter your fullname" formSchema={FormSchema} isRequired />
-            <FormInput name="email" label="Email" placeholder="Please enter your email" formSchema={FormSchema} isRequired />
-            <FormInput name="phone" character="+84" label="Phone Number" placeholder="Please enter your phone number" formSchema={FormSchema} isRequired />
-            <FormSelect name="gender" options={[{ name: "male", value: "male" }, { name: "female", value: "female" }]} label="Choose gender" placeholder="Please your choose gender" formSchema={FormSchema} isRequired />
-            <FormInput name="address" label="Address" placeholder="Please enter your address" formSchema={FormSchema} isRequired />
-            <Button className="w-full" type="submit" variant="outline">Submit</Button>
+            <FormInput className="md:col-span-1 col-span-2" name="fullname" label="Full Name" placeholder="Please enter your fullname" formSchema={FormSchema} isRequired />
+            <FormInput className="md:col-span-1 col-span-2" name="username" label="User Name" placeholder="Please enter your username" formSchema={FormSchema} isRequired />
+            <FormInput className="md:col-span-1 col-span-2" name="phone" character="+84" label="Phone Number" placeholder="Please enter your phone number" formSchema={FormSchema} isRequired />
+            <FormSelect className="md:col-span-1 col-span-2" name="gender" options={[{ name: "male", value: "male" }, { name: "female", value: "female" }]} label="Choose gender" placeholder="Please your choose gender" formSchema={FormSchema} isRequired />
+            <FormInput className="md:col-span-1 col-span-2" name="email" label="Email" placeholder="Please enter your email" formSchema={FormSchema} isRequired />
+            <FormInput className="md:col-span-1 col-span-2" name="address" label="Address" placeholder="Please enter your address" formSchema={FormSchema} isRequired />
+            <div className="col-span-2">
+                <Button type="submit" className="float-right md:w-[auto] w-full" variant="outline"><span><Save /></span>Save</Button>
+            </div>
         </FormGroup>
 
     );

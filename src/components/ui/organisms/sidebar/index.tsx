@@ -1,6 +1,10 @@
 'use client'
-import { usePathname } from "next/navigation";
-import { ShoppingBasket, Store, User, Receipt } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { ShoppingBasket, Store, User, Receipt, ArrowLeft } from "lucide-react";
+import { TbPasswordUser } from "react-icons/tb";
+import { MdOutlinePrivacyTip, MdLogout } from "react-icons/md";
+
+
 import {
     Sidebar,
     SidebarContent,
@@ -9,7 +13,9 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
+    SidebarGroupLabel
 } from "@/components/provider";
+import { Button } from "../../atoms";
 
 // Định nghĩa kiểu cho mục menu
 interface MenuItem {
@@ -43,13 +49,28 @@ const items: MenuItem[] = [
 const profileMenuItems: MenuItem[] = [
     {
         title: "Profile Info",
-        url: "/profile/info",
+        url: "/user/profile",
         icon: User,
     },
     {
+        title: "Change Password",
+        url: "/user/change-password",
+        icon: TbPasswordUser,
+    },
+    {
         title: "Order History",
-        url: "/profile/orders",
+        url: "/user/orders",
         icon: Receipt,
+    },
+    {
+        title: "Privacy Settings",
+        url: "/user/orders",
+        icon: MdOutlinePrivacyTip,
+    },
+    {
+        title: "Log Out",
+        url: "/user/orders",
+        icon: MdLogout,
     }
 ];
 
@@ -64,7 +85,7 @@ function SidebarMenuItemComponent({ item, isActive }: SidebarMenuItemProps) {
             <SidebarMenuButton asChild>
                 <a
                     href={item.url || "#"}
-                    className={`flex items-center space-x-2 p-2 rounded-md ${isActive ? 'bg-gray-200' : 'hover:bg-gray-100'}`}
+                    className={`flex items-center space-x-2 p-2 rounded-md ${isActive ? 'bg-background' : 'hover:bg-background'}`}
                     aria-current={isActive ? "page" : undefined}
                 >
                     {item.icon && <item.icon className="h-5 w-5" aria-hidden="true" />}
@@ -88,14 +109,22 @@ function SidebarMenuItemComponent({ item, isActive }: SidebarMenuItemProps) {
 
 export default function SidebarNavigation() {
     const pathname = usePathname()
-
-
-    const menuToRender = pathname === "/auth" ? profileMenuItems : items;
+    const router = useRouter()
+    const conditionMenu = pathname.split("/")[1] === "user"
+    const menuToRender = conditionMenu ? profileMenuItems : items;
 
     return (
         <Sidebar aria-label="Main Navigation">
             <SidebarContent>
-                <SidebarGroup>
+                <SidebarGroup className="space-y-3">
+                    {
+                        conditionMenu && <SidebarGroupLabel className="font-bold text-xl px-0">
+                            <Button type="button" className="w-full" variant="outline" onClick={() => router.push("/")}>
+                                <span><ArrowLeft /></span>
+                                Back to Home
+                            </Button>
+                        </SidebarGroupLabel>
+                    }
                     <SidebarGroupContent>
                         <SidebarMenu aria-labelledby="application-group">
                             {menuToRender.map((item) => (

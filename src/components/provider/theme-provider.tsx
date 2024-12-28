@@ -7,6 +7,7 @@ import { Provider } from "react-redux"
 import { cn } from "@/lib/utils"
 import store from "@/store"
 import mockServer from "@/mock"
+import Panel from "../ui/organisms/panel"
 
 function getCookie(name: string): string | undefined {
     const value = `; ${document.cookie}`
@@ -81,6 +82,7 @@ export function ThemeProvider({ children, ...props }: React.ComponentProps<typeo
                         <SidebarNavigation />
                     </div>
                     <div className="flex-1 w-full">
+                        <Panel />
                         <Header />
                         <main className="container mx-auto">{children}</main>
                         <Footer />
