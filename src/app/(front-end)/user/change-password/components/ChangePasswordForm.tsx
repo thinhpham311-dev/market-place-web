@@ -46,7 +46,7 @@ export default function ChangePasswordForm() {
         <FormGroup
             defaultValues={defaultValuesForChangePasswordForm}
             onHandleSubmit={onSubmit}
-            className="gap-5 grid grid-cols-3 "
+            className="space-y-5"
             formSchema={FormSchema}
         >
             <FormInput
@@ -54,7 +54,6 @@ export default function ChangePasswordForm() {
                 name="password"
                 label="Password"
                 placeholder="Please enter password"
-                className="col-span-1"
                 formSchema={FormSchema}
                 isRequired
             />
@@ -62,7 +61,6 @@ export default function ChangePasswordForm() {
                 inputType="password"
                 name="newPassword"
                 label="New Password"
-                className="col-span-1"
                 placeholder="Please enter new password"
                 formSchema={FormSchema}
                 isRequired
@@ -71,13 +69,12 @@ export default function ChangePasswordForm() {
                 inputType="password"
                 name="confirmNewPassword"
                 label="Confirm New Password"
-                className="col-span-1"
                 placeholder="Please enter new password confirm"
                 formSchema={FormSchema}
                 isRequired
             />
-            <div className="col-span-3">
-                <Button type="submit" variant="outline" className="float-right"><span><Save /></span>Save</Button>
+            <div className="col-span-2">
+                <Button type="submit" variant="outline" className="w-full"><span><Save /></span>Save</Button>
             </div>
         </FormGroup>
 

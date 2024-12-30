@@ -32,7 +32,7 @@ export default function SiteHeader() {
   };
 
   return (
-    <header className="w-full border-b sticky top-0 z-50 bg-background">
+    <header className="w-full border-b sticky top-0 bg-background z-10">
       <div className="flex h-14 items-center md:px-6 px-3 container mx-auto">
         <div className="flex gap-2 w-full justify-between">
           <div className="flex items-center space-x-5">

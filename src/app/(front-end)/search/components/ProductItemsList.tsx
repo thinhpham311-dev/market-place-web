@@ -43,7 +43,7 @@ const GridListWithPagination = ({ data, itemsPerPage = 12, className }: IGridLis
                     }
                 })}
             </div>
-            {pagination}
+            <div className="flex items-center justify-center">{pagination}</div>
         </div>
     );
 };

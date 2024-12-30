@@ -38,7 +38,7 @@ export default function ProductItemsListInCart({ data, itemsPerPage = 5 }: IProd
                     }
                 })}
             </ScrollArea>
-            {pagination}
+            <div className="flex items-center justify-center">{pagination}</div>
         </div>
 
     )
