@@ -11,11 +11,13 @@ import {
     NavigationMenuLink,
     NavigationMenuList,
     NavigationMenuTrigger,
-    NavigationMenuViewport
+    NavigationMenuViewport,
+    ScrollArea
 } from "@/components/ui/molecules"
 
 //icons
 import { Bell, Globe } from "lucide-react"
+import Image from "next/image"
 
 const components: { title: string; href: string; description: string }[] = [
     {
@@ -62,37 +64,29 @@ export default function Toolbar() {
                 <NavigationMenuItem>
                     <NavigationMenuTrigger className="space-x-2 px-2"><Bell size={15} /><span className="md:block hidden">Notifition</span></NavigationMenuTrigger>
                     <NavigationMenuContent >
-
-                        <ul className="w-[400px]  md:w-[300px] lg:w-[300px] ">
-                            {components.map((component) => (
-                                <ListItem
-                                    className="col-span-1"
-                                    key={component.title}
-                                    title={component.title}
-                                    href={component.href}
-                                >
-                                    {component.description}
-                                </ListItem>
-                            ))}
-                        </ul>
+                        <ScrollArea className="h-72 rounded-md border">
+                            <ul className="w-[400px]  md:w-[300px] lg:w-[300px] ">
+                                {components.map((component) => (
+                                    <ListItem
+                                        className="col-span-1"
+                                        key={component.title}
+                                        title={component.title}
+                                        href={component.href}
+                                    >
+                                        {component.description}
+                                    </ListItem>
+                                ))}
+                            </ul>
+                        </ScrollArea>
                     </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                     <NavigationMenuTrigger className="space-x-2 px-2"><Globe size={15} /><span className="md:block hidden">Lucation</span></NavigationMenuTrigger>
                     <NavigationMenuContent>
                         <ul className="w-[400px] md:w-[300px] lg:w-[200px]  ">
-
-                            <ListItem href="/docs" title="Introduction">
-                                Re-usable components built using Radix UI and Tailwind CSS.
-                            </ListItem>
-                            <ListItem href="/docs/installation" title="Installation">
-                                How to install dependencies and structure your app.
-                            </ListItem>
-                            <ListItem href="/docs/primitives/typography" title="Typography">
-                                Styles for headings, paragraphs, lists...etc
-                            </ListItem>
+                            <ListItem href="/docs" title="English" imageLink="https://res.cloudinary.com/dgincjt1i/image/upload/v1735697230/inkjssy1xcvlwadmr9vz.png" />
+                            <ListItem href="/docs/installation" title="Vietnamese" imageLink="https://res.cloudinary.com/dgincjt1i/image/upload/v1735697230/oaootrvk6dkjqtlaihwu.png" />
                         </ul>
-
                     </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuViewport className="absolute right-0 left-auto" />
@@ -102,25 +96,45 @@ export default function Toolbar() {
     )
 }
 
+interface ListItemProps extends React.ComponentPropsWithoutRef<"a"> {
+    title: string;
+    imageLink?: string;
+    imageClassName?: string
+}
+
 const ListItem = React.forwardRef<
     React.ElementRef<"a">,
-    React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, ...props }, ref) => {
+    ListItemProps
+>(({ className, title, imageLink, children, imageClassName, ...props }, ref) => {
     return (
         <li>
             <NavigationMenuLink asChild>
                 <a
                     ref={ref}
                     className={cn(
-                        "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+                        "flex items-center gap-x-3 select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
                         className
                     )}
                     {...props}
                 >
-                    <div className="text-sm font-medium leading-none">{title}</div>
-                    <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                        {children}
-                    </p>
+                    <Image
+                        className={cn("aspect-video	object-cover bg-no-repeat", imageClassName)}
+                        src={imageLink ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1735697706/images_zxsvly.png"}
+                        width={40}
+                        height={30}
+                        alt={title} />
+                    <div className="text-sm font-medium leading-none">
+                        <p>
+                            <strong>
+                                {title}
+                            </strong>
+                        </p>
+                        {
+                            children && <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-2">
+                                {children}
+                            </p>
+                        }
+                    </div>
                 </a>
             </NavigationMenuLink>
         </li>

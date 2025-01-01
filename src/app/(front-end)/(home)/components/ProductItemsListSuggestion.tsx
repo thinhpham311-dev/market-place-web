@@ -2,7 +2,7 @@
 //components
 import { useState } from "react";
 import { Button } from "@/components/ui/atoms";
-import { Card, CardHeader, CardContent, CardTitle } from '@/components/ui/molecules';
+import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/components/ui/molecules';
 import ProductItem from "./ProductItem";
 
 //datas
@@ -59,8 +59,9 @@ export default function ProductItemsListSuggestion() {
 
     return (
         <Card className="border-0 shadow-none md:px-6 px-3">
-            <CardHeader className="flex-row  items-center px-0 space-x-3 mb-3" >
+            <CardHeader className="items-center px-0 space-x-3 mb-3" >
                 <CardTitle className="mb-3 capitalize text-center mx-auto">Suggestion today</CardTitle>
+                <CardDescription className="mb-3 capitalize text-center mx-auto">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc facilisis sem sit amet leo rhoncus, non luctus magna tempus. </CardDescription>
             </CardHeader>
             <CardContent className="px-0">
                 <GridListWithLoading data={productData} itemsPerPage={12} className="lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-3" />

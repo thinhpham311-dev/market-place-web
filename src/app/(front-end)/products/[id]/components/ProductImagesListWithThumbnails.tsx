@@ -111,10 +111,10 @@ export default function ProductImagesListWithThumbnails({ data }: GalleryProps) 
                         />
                     </CarouselContent>
                 </Carousel>
-                <Button onClick={() => navigateTo((current - 1 + data.length) % data.length)} className="p-2 absolute top-1/2 -translate-y-1/2 -left-3 z-10 rounded-full  w-7 h-7" size="icon" variant="outline">
+                <Button onClick={() => navigateTo((current - 1 + data.length) % data.length)} className="p-2 absolute top-1/2 -translate-y-1/2 -left-3 z-1 rounded-full  w-7 h-7" size="icon" variant="outline">
                     <ArrowLeft />
                 </Button>
-                <Button onClick={() => navigateTo((current + 1) % data.length)} className="p-2 absolute top-1/2 -translate-y-1/2 -right-3 z-10 rounded-full w-7 h-7" size="icon" variant="outline">
+                <Button onClick={() => navigateTo((current + 1) % data.length)} className="p-2 absolute top-1/2 -translate-y-1/2 -right-3 z-1 rounded-full w-7 h-7" size="icon" variant="outline">
                     <ArrowRight />
                 </Button>
             </div>
