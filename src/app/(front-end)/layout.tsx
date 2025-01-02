@@ -4,6 +4,7 @@ import "../globals.css";
 
 
 export const metadata: Metadata = {
+  icons: "",
   title: "Market Place",
   description: "Market Place",
 };

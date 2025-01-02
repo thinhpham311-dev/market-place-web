@@ -34,15 +34,18 @@ const ProductImageItem = ({
             {images.map((image, index) => (
                 <CarouselItem
                     key={index}
-                    className={`relative aspect-square w-full cursor-pointer ${isThumbnail ? "basis-1/4" : ""}`}
+                    className={`relative aspect-square w-full cursor-pointer pl-0 ${isThumbnail ? "basis-1/4" : ""}`}
                     onClick={isThumbnail ? () => onImageClick?.(index) : undefined}
                 >
 
                     <Image
-                        src={image}
+                        src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"}
+                        overrideSrc={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"}
                         alt={`Carousel ${isThumbnail ? "Thumbnail" : "Main"} Image ${index + 1}`}
-                        fill
-                        style={{ objectFit: "cover" }}
+                        height={500}
+                        width={500}
+                        loading="lazy"
+                        style={{ objectFit: "cover", width: "100%", height: "100%" }}
                         className={isThumbnail && index === current ? "border-2 border-blue-600" : ""}
                     />
 

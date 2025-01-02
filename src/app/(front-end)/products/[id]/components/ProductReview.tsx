@@ -7,6 +7,9 @@ import { OptionsListOfTab } from "./OptionsListOfTab"
 import { usePagination, usePaginationRender } from "@/lib/hooks";
 
 
+//types
+import { IOption } from "@/types/product"
+
 interface IReview {
     rating: number;
     comment: string;
@@ -54,7 +57,7 @@ const ReviewForm = ({ onSubmit }: IReviewFormProps) => {
     );
 };
 const ReviewList = ({ data, itemsPerPage = 12 }: ReviewListProps) => {
-    const [filter, setFilter] = useState<string | null>(null); // Số sao được chọn (null = Tất cả)
+    const [filter, setFilter] = useState<string | null | Array<IOption> | undefined>(null); // Số sao được chọn (null = Tất cả)
     const { currentPage, totalPages, currentData, handlePageChange } = usePagination<IReview>({
         data,
         itemsPerPage,
@@ -114,7 +117,7 @@ const ReviewList = ({ data, itemsPerPage = 12 }: ReviewListProps) => {
                     <p className="mt-2 text-gray-800">{item.comment}</p>
                 </div>
             ))}
-            {pagination}
+            <div className="flex items-center justify-center">{pagination}</div>
         </div>
     );
 };

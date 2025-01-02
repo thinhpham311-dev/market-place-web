@@ -91,7 +91,9 @@ const CardImage = React.forwardRef<
   >
     <Image
       src={src}
+      overrideSrc={src}
       alt={alt || "Card image"}
+      loading="lazy"
       className={cn("object-cover w-full h-full")}
       width={200}
       height={200}

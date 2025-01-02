@@ -125,18 +125,14 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
                         </p>
                     </div>
                     <div className='space-y-5'>
-                        <OptionsListOfTab label="Size" data={[
-                            { label: "Size S", value: "size-s" },
-                            { label: "Size M", value: "size-m" },
-                            { label: "Size L", value: "size-l" },
-                            { label: "Size XL", value: "size-xl" },
-                            { label: "Size XXL", value: "size-xxl" }]} />
-                        <OptionsListOfTab label="Color" data={[
-                            { label: "White", value: "white" },
-                            { label: "Black", value: "black" },
-                            { label: "Red", value: "red" },
-                            { label: "Yellow", value: "Yellow" }]} />
-
+                        {
+                            product.options?.map((item, index) => {
+                                if (Array.isArray(item.value))
+                                    return (
+                                        <OptionsListOfTab key={index} label={item.label} data={item.value ?? []} />
+                                    )
+                            })
+                        }
                     </div>
                     <div>
                         <Counter ref={counterRef} />

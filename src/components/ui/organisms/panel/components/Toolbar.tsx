@@ -122,6 +122,7 @@ const ListItem = React.forwardRef<
                         src={imageLink ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1735697706/images_zxsvly.png"}
                         width={40}
                         height={30}
+                        loading="lazy"
                         alt={title} />
                     <div className="text-sm font-medium leading-none">
                         <p>

@@ -113,12 +113,13 @@ export const FormInput = <T extends FieldValues>({
                     const hasError = !!errors[name];
                     return (
                         <FormItem className="w-full">
-                            {label && <FormLabel>
+                            {label && <FormLabel htmlFor={name.split("").join("-")}>
                                 {label}
                                 {isRequired && <span className="text-red-500"> *</span>}
                             </FormLabel>}
                             <FormControl>
                                 <Input
+                                    id={name.split("").join("-")}
                                     type={inputType}
                                     placeholder={placeholder}
                                     value={displayValue} // Display value with character
@@ -168,12 +169,13 @@ export const FormInputTextarea = <T extends FieldValues>({
                     const hasError = !!errors[name];
                     return (
                         <FormItem className="w-full">
-                            {label && <FormLabel>
+                            {label && <FormLabel htmlFor={name.split("").join("-")}>
                                 {label}
                                 {isRequired && <span className="text-red-500"> *</span>}
                             </FormLabel>}
                             <FormControl>
                                 <Textarea
+                                    id={name.split("").join("-")}
                                     className={cn(
                                         "border ",
                                         hasError ? "border-red-500 focus:ring-red-500" : "border-gray-300"
@@ -215,13 +217,13 @@ export const FormSelect = <T extends FieldValues>({
                     const hasError = !!errors[name];
                     return (
                         <FormItem className="w-full">
-                            {label && <FormLabel>
+                            {label && <FormLabel htmlFor={name.split("").join("-")}>
                                 {label}
                                 {isRequired && <span className="text-red-500"> *</span>}
                             </FormLabel>}
                             <FormControl>
                                 <Select onValueChange={field.onChange} defaultValue={field.value} autoComplete="off" >
-                                    <SelectTrigger id={name} className={cn(
+                                    <SelectTrigger id={name.split("").join("-")} className={cn(
                                         "border space-x-3",
                                         hasError ? "border-red-500 focus:ring-red-500" : "border-gray-300"
                                     )}>
@@ -268,6 +270,7 @@ export const FormCheckBox = <T extends FieldValues>({
                         <FormItem className="flex items-center space-y-0 space-x-3">
                             <FormControl>
                                 <Checkbox
+                                    id={name.split("").join("-")}
                                     className={cn(
                                         "border h-5 w-5 space-y-2",
                                         hasError ? "border-red-500 focus:ring-red-500" : "border-gray-300"
@@ -277,7 +280,7 @@ export const FormCheckBox = <T extends FieldValues>({
                                 />
                             </FormControl>
                             {label && (
-                                <FormLabel className="text-sm font-medium">
+                                <FormLabel className="text-sm font-medium" htmlFor={name.split("").join("-")}>
                                     {label}
                                 </FormLabel>
                             )}

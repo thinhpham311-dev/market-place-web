@@ -23,7 +23,7 @@ const GalleryItem = ({ item: {
 } }: IItemProps) => {
     return (
         <CarouselItem className="md:h-[400px] h-[270px] bg-slate-600 ">
-            <Image src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"} alt="" width={200} height={200} className="w-full h-full object-contain rounded-t-sm" />
+            <Image src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"} overrideSrc={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"} alt="" width={200} height={200} className="w-full h-full object-contain rounded-t-sm" />
         </CarouselItem>
     );
 }
