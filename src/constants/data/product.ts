@@ -1,6 +1,6 @@
 export const productData = [
     {
-        id: "1",
+        _id: "1",
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
@@ -46,7 +46,7 @@ export const productData = [
         quantity: 30,
     },
     {
-        id: "2",
+        _id: "2",
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
@@ -92,7 +92,7 @@ export const productData = [
         quantity: 30,
     },
     {
-        id: "3",
+        _id: "3",
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
@@ -138,7 +138,7 @@ export const productData = [
         quantity: 30,
     },
     {
-        id: "4",
+        _id: "4",
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
@@ -184,7 +184,7 @@ export const productData = [
         quantity: 30,
     },
     {
-        id: "5",
+        _id: "5",
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
@@ -230,7 +230,7 @@ export const productData = [
         quantity: 30,
     },
     {
-        id: "6",
+        _id: "6",
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
@@ -276,7 +276,7 @@ export const productData = [
         quantity: 30,
     },
     {
-        id: "7",
+        _id: "7",
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
@@ -322,7 +322,7 @@ export const productData = [
         quantity: 30,
     },
     {
-        id: "8",
+        _id: "8",
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
@@ -368,7 +368,7 @@ export const productData = [
         quantity: 30,
     },
     {
-        id: "9",
+        _id: "9",
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
@@ -414,7 +414,7 @@ export const productData = [
         quantity: 30,
     },
     {
-        id: "10",
+        _id: "10",
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
@@ -460,7 +460,7 @@ export const productData = [
         quantity: 30,
     },
     {
-        id: "11",
+        _id: "11",
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
@@ -506,7 +506,7 @@ export const productData = [
         quantity: 30,
     },
     {
-        id: "12",
+        _id: "12",
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
@@ -552,7 +552,7 @@ export const productData = [
         quantity: 30,
     },
     {
-        id: "13",
+        _id: "13",
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
@@ -598,7 +598,7 @@ export const productData = [
         quantity: 30,
     },
     {
-        id: "14",
+        _id: "14",
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
@@ -644,7 +644,7 @@ export const productData = [
         quantity: 30,
     },
     {
-        id: "15",
+        _id: "15",
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
@@ -690,7 +690,7 @@ export const productData = [
         quantity: 30,
     },
     {
-        id: "16",
+        _id: "16",
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
@@ -736,7 +736,7 @@ export const productData = [
         quantity: 30,
     },
     {
-        id: "17",
+        _id: "17",
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
@@ -747,7 +747,7 @@ export const productData = [
     },
     {
 
-        id: "18",
+        _id: "18",
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
@@ -758,7 +758,7 @@ export const productData = [
     },
     {
 
-        id: "19",
+        _id: "19",
         name: "Product",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",

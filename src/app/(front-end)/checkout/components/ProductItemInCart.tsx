@@ -22,13 +22,13 @@ interface IProductItemInCartProps {
 };
 
 
-function ProductItemInCart({ item: { name, image, price, discountPrice, id, quantity }, totalItems }: IProductItemInCartProps) {
+function ProductItemInCart({ item: { name, image, price, discountPrice, _id, quantity }, totalItems }: IProductItemInCartProps) {
     const dispatch = useAppDispatch()
     const { selectedItems } = useAppSelector((state) => state.cart.state); // Giả sử bạn có root state
     const router = useRouter()
 
     const handleRouterLinkToDetail = () => {
-        router.push(`/products/${id}`)
+        router.push(`/products/${_id}`)
     }
 
     const handleCheckboxChange = (id: string, checked: boolean) => {
@@ -37,7 +37,7 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, id, quan
 
     const handleQuantityChange = useCallback((newQuantity: number) => {
         if (newQuantity >= 0) {
-            dispatch(updateItemQuantity({ id, quantity: newQuantity }));
+            dispatch(updateItemQuantity({ id: _id, quantity: newQuantity }));
         }
     }, [dispatch]);
 
@@ -64,10 +64,10 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, id, quan
             {
                 totalItems && totalItems > 1 &&
                 <Checkbox
-                    id={id}
-                    checked={selectedItems.includes(id)}
+                    id={_id}
+                    checked={selectedItems.includes(_id)}
                     className="absolute top-3 right-3"
-                    onCheckedChange={(checked) => handleCheckboxChange(id, Boolean(checked))}
+                    onCheckedChange={(checked) => handleCheckboxChange(_id, Boolean(checked))}
                 />
             }
         </Card>

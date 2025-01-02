@@ -3,7 +3,7 @@ export interface IOption {
     value: string | Array<IOption>;
 }
 export interface IProduct {
-    id: string,
+    _id: string,
     name?: string,
     article?: string,
     description?: string,

@@ -37,7 +37,7 @@ export const cartSlice = createSlice({
     reducers: {
         addItem: (state, action: PayloadAction<IcartItem>) => {
             const newItem = action.payload;
-            const existingItem = state.items.find(item => item.id === newItem.id);
+            const existingItem = state.items.find(item => item._id === newItem._id);
 
             state.totalQuantity += newItem.quantity;
             state.totalAmount += newItem.price * newItem.quantity;
@@ -62,13 +62,13 @@ export const cartSlice = createSlice({
         },
         updateItemQuantity: (state, action: PayloadAction<{ id: string; quantity: number }>) => {
             const { id, quantity } = action.payload;
-            const itemToUpdate = state.items.find(item => item.id === id);
+            const itemToUpdate = state.items.find(item => item._id === id);
 
             if (itemToUpdate) {
                 const quantityDiff = quantity - itemToUpdate.quantity;
 
                 if (quantity === 0) {
-                    state.items = state.items.filter(item => item.id !== id);
+                    state.items = state.items.filter(item => item._id !== id);
                     state.totalQuantity -= itemToUpdate.quantity;
                     state.totalAmount -= itemToUpdate.price * itemToUpdate.quantity;
                     state.totalAmountDiscount -= itemToUpdate.discountPrice * itemToUpdate.quantity;
@@ -89,13 +89,13 @@ export const cartSlice = createSlice({
         },
         removeItem(state, action: PayloadAction<string>) {
             const id = action.payload;
-            const existingItem = state.items.find(item => item.id === id);
+            const existingItem = state.items.find(item => item._id === id);
 
             if (existingItem) {
                 state.totalQuantity -= existingItem.quantity;
                 state.totalAmount -= existingItem.price * existingItem.quantity;
                 state.totalAmountDiscount -= existingItem.discountPrice * existingItem.quantity;
-                state.items = state.items.filter(item => item.id !== id);
+                state.items = state.items.filter(item => item._id !== id);
             }
 
             // Recalculate estimated values
@@ -123,7 +123,7 @@ export const cartSlice = createSlice({
             }
         },
         removeSelectedItems: (state) => {
-            state.items = state.items.filter(item => !state.selectedItems.includes(item.id));
+            state.items = state.items.filter(item => !state.selectedItems.includes(item._id));
             state.selectedItems = []; // Xóa các id đã chọn sau khi xóa các mục
 
             // Tính toán lại các giá trị sau khi xóa

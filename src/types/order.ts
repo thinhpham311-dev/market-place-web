@@ -1,8 +1,9 @@
+import { IProduct } from "./product"
 
-export type Order = {
+export interface IOrder {
     _id: string
     user?: { name: string }
-    items: [OrderItem]
+    items: Array<IOrderItem>
     shippingAddress: {
         fullName: string
         address: string
@@ -23,14 +24,10 @@ export type Order = {
     createdAt: string
 }
 
-export type OrderItem = {
-    name: string
+export interface IOrderItem extends IProduct {
     slug: string
     qty: number
-    image: string
-    price: number
-    color: string
-    size: string
+    countInStock: number
 }
 
 export type ShippingAddress = {

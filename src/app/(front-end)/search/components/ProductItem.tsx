@@ -16,10 +16,10 @@ interface IItemProps {
     item: IProduct
 }
 
-const ProductItem = ({ item: { name, image, price, discountPrice, id } }: IItemProps) => {
+const ProductItem = ({ item: { name, image, price, discountPrice, _id } }: IItemProps) => {
     const router = useRouter()
     const handleRouterLinkToDetail = () => {
-        router.push(`/products/${id}`)
+        router.push(`/products/${_id}`)
     }
     return (
         <Card >

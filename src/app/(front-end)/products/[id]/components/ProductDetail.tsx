@@ -72,7 +72,7 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
         }
 
         const cartItem: IcartItem = {
-            id: product.id,
+            _id: product._id,
             name: product.name,
             price: product.price,
             discountPrice: product.discountPrice,
@@ -231,7 +231,7 @@ export default function ProductDetail() {
     const { id } = useParams();
 
     const { product } = useMemo(() => {
-        const product = productData?.find((item: IProduct) => item?.id === id);
+        const product = productData?.find((item: IProduct) => item?._id === id);
         return { product };
     }, [id]);
 
