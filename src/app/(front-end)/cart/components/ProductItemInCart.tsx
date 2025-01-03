@@ -24,7 +24,7 @@ interface IProductItemInCartProps {
 
 function ProductItemInCart({ item: { name, image, price, discountPrice, _id, quantity }, totalItems }: IProductItemInCartProps) {
     const dispatch = useAppDispatch()
-    const { selectedItems } = useAppSelector((state) => state.cart.state); // Giả sử bạn có root state
+    const { selectedItems, } = useAppSelector((state) => state.cart.state); // Giả sử bạn có root state
     const router = useRouter()
 
     const handleRouterLinkToDetail = () => {

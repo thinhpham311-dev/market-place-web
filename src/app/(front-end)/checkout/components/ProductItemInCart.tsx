@@ -1,14 +1,12 @@
 'use client'
-import { useCallback, memo } from "react"
+import { memo } from "react"
 import { useRouter } from "next/navigation"
 
 //stores
-import { useAppDispatch, useAppSelector } from "@/lib/hooks"
-import { toggleItemSelection, updateItemQuantity } from "@/store/cart/stateSlice"
+import { useAppSelector } from "@/lib/hooks"
 
 //components
-import { Card, CardContent, CardDescription, CardImage, CardTitle, Counter } from "@/components/ui/molecules"
-import { Checkbox } from "@/components/ui/atoms/checkbox"
+import { Card, CardContent, CardDescription, CardImage, CardTitle } from "@/components/ui/molecules"
 
 //types
 import { IcartItem } from "@/types/cart"
@@ -22,24 +20,15 @@ interface IProductItemInCartProps {
 };
 
 
-function ProductItemInCart({ item: { name, image, price, discountPrice, _id, quantity }, totalItems }: IProductItemInCartProps) {
-    const dispatch = useAppDispatch()
-    const { selectedItems } = useAppSelector((state) => state.cart.state); // Giả sử bạn có root state
+function ProductItemInCart({ item: { name, image, price, discountPrice, _id, quantity } }: IProductItemInCartProps) {
+    const {
+        totalAmount
+    } = useAppSelector((state) => state.cart.state)
     const router = useRouter()
 
     const handleRouterLinkToDetail = () => {
         router.push(`/products/${_id}`)
     }
-
-    const handleCheckboxChange = (id: string, checked: boolean) => {
-        dispatch(toggleItemSelection({ id, checked }))
-    };
-
-    const handleQuantityChange = useCallback((newQuantity: number) => {
-        if (newQuantity >= 0) {
-            dispatch(updateItemQuantity({ id: _id, quantity: newQuantity }));
-        }
-    }, [dispatch]);
 
     return (
         <Card layout="horizontal" className="relative mb-3  last:mb-0 items-center grid grid-cols-3 gap-3">
@@ -55,21 +44,20 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
                     className=" text-lg capitalize cursor-pointer">
                     {name}
                 </CardTitle>
-                <CardDescription className="space-x-3 mb-2 inline ">
+                <CardDescription className="space-x-2 inline ">
                     <p className="inline-flex items-center gap-x-1 text-xs"> <span className="font-bold "> {formatToCurrency(discountPrice)}</span></p>
                     <p className="inline-flex items-center gap-x-1 line-through text-xs"><span>{formatToCurrency(price)}</span></p>
+                    <span>x</span>
+                    <strong className="inline-flex items-center gap-x-1 text-xs ">
+                        {quantity}
+                    </strong>
                 </CardDescription>
-                <div className="py-3"><Counter value={quantity} onQuantityChange={handleQuantityChange} /></div>
+                <CardDescription>
+                    <p className=" items-center gap-x-1 text-xs">
+                        Total: {formatToCurrency(totalAmount)}
+                    </p>
+                </CardDescription>
             </CardContent>
-            {
-                totalItems && totalItems > 1 &&
-                <Checkbox
-                    id={_id}
-                    checked={selectedItems.includes(_id)}
-                    className="absolute top-3 right-3"
-                    onCheckedChange={(checked) => handleCheckboxChange(_id, Boolean(checked))}
-                />
-            }
         </Card>
     );
 }

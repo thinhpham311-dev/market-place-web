@@ -67,7 +67,7 @@ export default function DetailCartCheckOut() {
                                 </CardDescription>
                                 <Button onClick={() => router.push("/cart")} variant="outline" size="icon" className="row-span-2"><FilePenLine /></Button>
                             </CardHeader>
-                            <CardContent>
+                            <CardContent className="px-0">
                                 <OrderSummary
                                     totalAmount={totalAmount}
                                     totalAmountDiscount={totalAmountDiscount}
@@ -75,11 +75,10 @@ export default function DetailCartCheckOut() {
                                     estimatedTax={estimatedTax}
                                     total={total} />
                             </CardContent>
-                            <CardContent>
+                            <CardContent className="px-0">
                                 <ProductItemsListInCart data={items} />
                             </CardContent>
                         </Card>
-
                     </div>
                 </div>
             </CardContent>

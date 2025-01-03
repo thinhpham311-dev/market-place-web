@@ -1,7 +1,6 @@
 'use client';
 
 import { useMemo, useRef, useCallback } from 'react';
-import Image from 'next/image';
 // Routers
 import { useParams, useRouter } from 'next/navigation';
 
@@ -23,6 +22,7 @@ import { images, productData } from '@/constants/data';
 // Types
 import { IProduct } from '@/types/product';
 import { IcartItem } from "@/types/cart"
+import ToastMessage from './ToastMessage';
 
 //format & hooks
 import { formatToCurrency } from "@/lib/formats"
@@ -30,13 +30,6 @@ import { useToast } from "@/lib/hooks";
 
 // Icons
 import { MdOutlineStar, MdOutlineStarBorder, MdAddShoppingCart } from 'react-icons/md';
-
-// interface ISroreInfoProps {
-//     name: string,
-//     address: string,
-//     phone: string,
-//     openingHours: string
-// }
 
 interface IProductDetailProps {
     product: IProduct
@@ -81,20 +74,8 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
 
         dispatch(addItem(cartItem));
         toast({
-            title: `${product.name} added to cart`,
-            description: <div className="grid grid-cols-3 gap-4 py-5">
-                <Image className="col-span-1" src={product.image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"} alt={product?.name ?? ""} width={100} height={100} />
-                <div className=' col-span-2 space-y-1'>
-                    <p className='text-md mb-3'><strong> {product.name}</strong></p>
-                    <p className='space-x-2 text-xs'>
-                        <span className='line-through'>
-                            ${product.price}
-                        </span>
-                        <span>${product.discountPrice}</span>
-                    </p>
-                    <p className='text-xs'>Qty:{updatedQuantity}</p>
-                </div>
-            </div>,
+            title: `${product.name} added to cart:`,
+            description: <ToastMessage product={product} updatedQuantity={updatedQuantity} />,
         });
         counterRef.current?.reset();
     }, [dispatch, product]);

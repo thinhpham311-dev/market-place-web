@@ -47,41 +47,43 @@ export const usePaginationRender = ({
     handlePageChange,
 }: IUsePaginationRenderProps): ReactNode => {
     return (
-        <div className="flex justify-center items-center mt-6 space-x-2" >
-            <Button
-                variant="outline"
-                className="text-xs"
-                size="icon"
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 1}
-            >
-                <ChevronLeft />
-            </Button>
-
+        <>
             {
-                totalPages ?
-                    Array.from({ length: totalPages }, (_, index) => (
-                        <Button
-                            key={index}
-                            variant={currentPage === index + 1 ? "default" : "outline"}
-                            className="text-xs"
-                            size="icon"
-                            onClick={() => handlePageChange(index + 1)}
-                        >
-                            {index + 1}
-                        </Button>
-                    )) : <Button variant="outline" size="icon">...</Button>
+                totalPages &&
+                <div className="flex justify-center items-center mt-6 space-x-2" >
+                    <Button
+                        variant="outline"
+                        className="text-xs"
+                        size="icon"
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                    >
+                        <ChevronLeft />
+                    </Button>
+                    {
+                        Array.from({ length: totalPages }, (_, index) => (
+                            <Button
+                                key={index}
+                                variant={currentPage === index + 1 ? "default" : "outline"}
+                                className="text-xs"
+                                size="icon"
+                                onClick={() => handlePageChange(index + 1)}
+                            >
+                                {index + 1}
+                            </Button>
+                        ))
+                    }
+                    <Button
+                        variant="outline"
+                        className="text-xs"
+                        size="icon"
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                    >
+                        <ChevronRight />
+                    </Button>
+                </div>
             }
-
-            <Button
-                variant="outline"
-                className="text-xs"
-                size="icon"
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages}
-            >
-                <ChevronRight />
-            </Button>
-        </div>
+        </>
     );
 };

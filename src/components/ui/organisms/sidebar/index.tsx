@@ -13,7 +13,9 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
-    SidebarGroupLabel
+    SidebarGroupLabel,
+    SidebarFooter,
+    SidebarHeader
 } from "@/components/provider";
 import { Button } from "../../atoms";
 
@@ -64,13 +66,8 @@ const profileMenuItems: MenuItem[] = [
     },
     {
         title: "Privacy Settings",
-        url: "/user/orders",
+        url: "/user/privacy-settings",
         icon: MdOutlinePrivacyTip,
-    },
-    {
-        title: "Log Out",
-        url: "/user/orders",
-        icon: MdLogout,
     }
 ];
 
@@ -115,18 +112,20 @@ export default function SidebarNavigation() {
 
     return (
         <Sidebar aria-label="Main Navigation">
+            <SidebarHeader>
+                {
+                    conditionMenu && <SidebarGroupLabel className="font-bold text-xl px-0">
+                        <Button type="button" className="w-full" variant="outline" onClick={() => router.push("/")}>
+                            <span><ArrowLeft /></span>
+                            Back to Home
+                        </Button>
+                    </SidebarGroupLabel>
+                }
+            </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup className="space-y-3">
-                    {
-                        conditionMenu && <SidebarGroupLabel className="font-bold text-xl px-0">
-                            <Button type="button" className="w-full" variant="outline" onClick={() => router.push("/")}>
-                                <span><ArrowLeft /></span>
-                                Back to Home
-                            </Button>
-                        </SidebarGroupLabel>
-                    }
-                    <SidebarGroupContent>
-                        <SidebarMenu aria-labelledby="application-group">
+                    <SidebarGroupContent className="flex flex-col h-full">
+                        <SidebarMenu className="flex-1" aria-labelledby="application-group">
                             {menuToRender.map((item) => (
                                 <SidebarMenuItemComponent
                                     key={item.title}
@@ -138,6 +137,12 @@ export default function SidebarNavigation() {
                     </SidebarGroupContent>
                 </SidebarGroup>
             </SidebarContent>
+            <SidebarFooter>
+                <SidebarMenuButton className="space-x-2 bg-red-500 hover:bg-red-700" >
+                    <MdLogout className="h-5 w-5" aria-hidden="true" />
+                    <span>Log Out</span>
+                </SidebarMenuButton>
+            </SidebarFooter>
         </Sidebar>
     );
 }

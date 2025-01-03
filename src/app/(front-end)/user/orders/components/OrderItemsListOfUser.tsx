@@ -13,71 +13,60 @@ import {
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
-import { Button, Checkbox } from "@/components/ui/atoms";
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
     Table,
     TableBody,
     TableCell,
     TableHead,
     TableHeader,
     TableRow,
+    Card,
+    CardContent,
+    CardHeader,
+    CardTitle,
+    CardFooter
 } from "@/components/ui/molecules";
+import DropDownMenuOfItem from "./DropDownMenuOfItem";
 import { IOrder } from "@/types/order";
 import { orderData } from "@/constants/data/order";
 import { formatDateTime } from "@/lib/formats";
 import Toolbar from "./Toolbar";
 import Pagination from "./Pagination";
 
+//lib
+import { formatToCurrency } from "@/lib/formats"
+
 // Table Columns
 export const columns: ColumnDef<IOrder>[] = [
     {
-        id: "select",
-        header: ({ table }) => (
-            <Checkbox
-                checked={
-                    table.getIsAllPageRowsSelected() ||
-                    (table.getIsSomePageRowsSelected() && "indeterminate")
-                }
-                onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-                aria-label="Select all"
-            />
-        ),
-        cell: ({ row }) => (
-            <Checkbox
-                checked={row.getIsSelected()}
-                onCheckedChange={(value) => row.toggleSelected(!!value)}
-                aria-label="Select row"
-            />
-        ),
-        enableSorting: false,
-        enableHiding: false,
+        accessorKey: "user",
+        header: "Full Name",
+        cell: ({ row }) => {
+            const { user } = row.original
+            return (
+                <div className="capitalize">{user?.name}</div>
+            )
+        }
     },
     {
         accessorKey: "totalPrice",
         header: "Total Price",
         cell: ({ row }) => (
-            <div className="capitalize">{row.getValue("totalPrice")}</div>
+            <div className="capitalize">{formatToCurrency(row.getValue("totalPrice"))}</div>
         ),
     },
     {
         accessorKey: "shippingPrice",
         header: "Shipping Price",
         cell: ({ row }) => (
-            <div className="capitalize">{row.getValue("shippingPrice")}</div>
+            <div className="capitalize">{formatToCurrency(row.getValue("shippingPrice"))}</div>
         ),
     },
     {
         accessorKey: "taxPrice",
         header: "Tax Price",
         cell: ({ row }) => (
-            <div className="capitalize">{row.getValue("taxPrice")}</div>
+            <div className="capitalize">{formatToCurrency(row.getValue("taxPrice"))}</div>
         ),
     },
     {
@@ -98,29 +87,9 @@ export const columns: ColumnDef<IOrder>[] = [
         id: "actions",
         enableHiding: false,
         cell: ({ row }) => {
-            const payment = row.original;
+            const order = row.original;
 
-            return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
-                            <MoreHorizontal />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem
-                            onClick={() => navigator.clipboard.writeText(payment._id)}
-                        >
-                            Copy payment ID
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>View customer</DropdownMenuItem>
-                        <DropdownMenuItem>View payment details</DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            );
+            return <DropDownMenuOfItem order={order} />
         },
     },
 ];
@@ -155,9 +124,14 @@ export default function OrderItemsListOfUser() {
     });
 
     return (
-        <div className="w-full">
-            <Toolbar table={table} />
-            <div className="rounded-md border">
+        <Card className="w-full">
+            <CardHeader className="flex flex-row items-center justify-between py-0">
+                <CardTitle>
+                    Order History List
+                </CardTitle>
+                <Toolbar table={table} />
+            </CardHeader>
+            <CardContent className="rounded-md">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
@@ -206,8 +180,10 @@ export default function OrderItemsListOfUser() {
                         )}
                     </TableBody>
                 </Table>
-            </div>
-            <Pagination table={table} />
-        </div>
+            </CardContent>
+            <CardFooter className="py-0">
+                <Pagination table={table} />
+            </CardFooter>
+        </Card>
     );
 }
