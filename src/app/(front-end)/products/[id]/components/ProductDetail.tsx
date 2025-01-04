@@ -5,13 +5,13 @@ import { useMemo, useRef, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 
 // Store
-import { useAppDispatch } from '@/lib/hooks';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { addItem } from '@/store/cart/stateSlice';
 
 
 // Components
 import { Button } from '@/components/ui/atoms';
-import { Card, CardContent, CardTitle, CardDescription, Counter, CounterRef, CardHeader } from '@/components/ui/molecules';
+import { Card, CardContent, CardTitle, CardDescription, Counter, CounterRef, CardHeader, StarRating } from '@/components/ui/molecules';
 import { OptionsListOfTab } from './OptionsListOfTab';
 import ProductReview from './ProductReview'
 import ProductImagesListWithThumbnails from "./ProductImagesListWithThumbnails"
@@ -20,7 +20,7 @@ import ProductImagesListWithThumbnails from "./ProductImagesListWithThumbnails"
 import { images, productData } from '@/constants/data';
 
 // Types
-import { IProduct } from '@/types/product';
+import { IProduct, IReview } from '@/types/product';
 import { IcartItem } from "@/types/cart"
 import ToastMessage from './ToastMessage';
 
@@ -29,7 +29,7 @@ import { formatToCurrency } from "@/lib/formats"
 import { useToast } from "@/lib/hooks";
 
 // Icons
-import { MdOutlineStar, MdOutlineStarBorder, MdAddShoppingCart } from 'react-icons/md';
+import { MdAddShoppingCart } from 'react-icons/md';
 
 interface IProductDetailProps {
     product: IProduct
@@ -53,6 +53,8 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
     const counterRef = useRef<CounterRef>(null);
     const { toast } = useToast();
     const router = useRouter();
+    const reviews = useAppSelector((state) => state.product.state.reviews)
+    const totalReviews = reviews?.length;
     const handleAddToCart = useCallback(() => {
         if (!product) {
             return;
@@ -85,6 +87,12 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
         router.push("/cart");
     };
 
+
+    const averageRating = useMemo(() => {
+        const totalRating = reviews?.reduce((sum: number, review: IReview) => sum + review.rating, 0);
+        return totalReviews > 0 ? (totalRating / totalReviews).toFixed(1) : '0.0';
+    }, [reviews]);
+
     return (
         <Card layout="horizontal" className=' grid lg:grid-cols-3 md:grid-cols-4 grid-cols-1 gap-5  p-5'>
             <div className="space-y-4 lg:col-span-1 md:col-span-2 col-span-1 ">
@@ -93,10 +101,7 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
             <CardContent className='lg:col-span-2 md:col-span-2 col-span-1 md:px-5 px-0'>
                 <CardTitle className="line-clamp-2 leading-8 mb-5  ">{product.name}</CardTitle>
                 <CardDescription className="space-y-5">
-                    <span className="flex items-center space-x-1">
-                        {[...Array(2)].map((_, i) => <MdOutlineStar key={i} size={20} />)}
-                        {[...Array(3)].map((_, i) => <MdOutlineStarBorder key={i} size={20} />)}
-                    </span>
+                    <StarRating rating={Number(averageRating)} readOnly />
                     <div className="space-x-4">
                         <p className="inline-flex items-center gap-x-1 text-md">
                             <span className="font-bold">{formatToCurrency(product.discountPrice)}</span>
@@ -216,20 +221,15 @@ export default function ProductDetail() {
         return { product };
     }, [id]);
 
-    const handleReviewSubmission = (review: { rating: number; comment: string }) => {
-        console.log('New review submitted:', review);
-        // Logic to save the review, e.g., an API call
-    };
 
     if (!product) return <div>Product not found</div>
 
     return (
         <Card className=" border-none shadow-none md:px-6 px-3 space-y-5 my-6">
-
             <ProductDetailInfo product={product} />
             <StoreInfo />
             <ProductDetailDescription />
-            <ProductReview initialReviews={initialReviews} onSubmitReview={handleReviewSubmission} />
+            <ProductReview initialReviews={initialReviews} />
         </Card>
     );
 }

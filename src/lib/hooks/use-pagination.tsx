@@ -11,7 +11,7 @@ interface IUsePaginationProps<T> {
 export const usePagination = <T,>({ data, itemsPerPage = 12 }: IUsePaginationProps<T>) => {
     const [currentPage, setCurrentPage] = useState(1);
 
-    const totalPages = useMemo(() => Math.ceil(data.length / itemsPerPage), [data.length, itemsPerPage]);
+    const totalPages = useMemo(() => Math.ceil(data?.length / itemsPerPage), [data?.length, itemsPerPage]);
 
     const handlePageChange = (page: number) => {
         if (page > 0 && page <= totalPages) {
@@ -22,7 +22,7 @@ export const usePagination = <T,>({ data, itemsPerPage = 12 }: IUsePaginationPro
     const currentData = useMemo(() => {
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
-        return data.slice(startIndex, endIndex);
+        return data?.slice(startIndex, endIndex);
     }, [currentPage, itemsPerPage, data]);
 
     return {

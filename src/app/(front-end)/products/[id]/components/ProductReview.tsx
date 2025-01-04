@@ -1,14 +1,12 @@
-import React, { useState, useMemo } from 'react';
-import { Button, Textarea, Progress } from '@/components/ui/atoms';
-import { Card, CardHeader, CardContent, CardTitle, CardDescription, StarRating } from '@/components/ui/molecules';
-import { OptionsListOfTab } from "./OptionsListOfTab"
-
-//hooks
-import { usePagination, usePaginationRender } from "@/lib/hooks";
-
-
-//types
-import { IOption } from "@/types/product"
+// src/components/ProductReview.tsx
+import React from 'react';
+import { RootState } from '@/store';
+import { Button, Progress, Textarea } from '@/components/ui/atoms';
+import { Card, CardHeader, CardContent, CardTitle, CardDescription, StarRating } from "@/components/ui/molecules"
+import { addReview, setInitialReviews } from '@/store/product/stateSlice';
+import { OptionsListOfTab } from './OptionsListOfTab';
+import { IOption } from '@/types/product';
+import { usePagination, usePaginationRender, useAppDispatch, useAppSelector } from "@/lib/hooks"
 
 interface IReview {
     rating: number;
@@ -28,8 +26,8 @@ interface ReviewListProps {
 
 
 const ReviewForm = ({ onSubmit }: IReviewFormProps) => {
-    const [rating, setRating] = useState(0);
-    const [comment, setComment] = useState('');
+    const [rating, setRating] = React.useState(0);
+    const [comment, setComment] = React.useState('');
 
     const handleSubmit = () => {
         if (rating === 0 || !comment.trim()) {
@@ -57,13 +55,15 @@ const ReviewForm = ({ onSubmit }: IReviewFormProps) => {
     );
 };
 const ReviewList = ({ data, itemsPerPage = 12 }: ReviewListProps) => {
-    const [filter, setFilter] = useState<string | null | Array<IOption> | undefined>(null); // Số sao được chọn (null = Tất cả)
+    const [filter, setFilter] = React.useState<string | null | Array<IOption> | undefined>(null); // Số sao được chọn (null = Tất cả)
+
+    console.log(data)
     const { currentPage, totalPages, currentData, handlePageChange } = usePagination<IReview>({
         data,
         itemsPerPage,
     });
 
-    const filteredReviews = useMemo(() => {
+    const filteredReviews = React.useMemo(() => {
         return filter === null
             ? currentData
             : currentData.filter((item) => item.rating === Number(filter));
@@ -107,14 +107,14 @@ const ReviewList = ({ data, itemsPerPage = 12 }: ReviewListProps) => {
                     className="max-w-md"
                 />
             </div>
-            {filteredReviews.length === 0 && <p>No reviews found for the selected rating.</p>}
-            {filteredReviews.map((item, index) => (
+            {filteredReviews?.length === 0 && <p>No reviews found for the selected rating.</p>}
+            {filteredReviews?.map((item, index) => (
                 <div key={index} className="p-4 border rounded-md">
                     <div className="flex items-center space-x-2">
                         <StarRating rating={item.rating} readOnly />
                         <span className="text-sm text-gray-500">by {item.user}</span>
                     </div>
-                    <p className="mt-2 text-gray-800">{item.comment}</p>
+                    <p className="mt-2 ">{item.comment}</p>
                 </div>
             ))}
             <div className="flex items-center justify-center">{pagination}</div>
@@ -124,18 +124,18 @@ const ReviewList = ({ data, itemsPerPage = 12 }: ReviewListProps) => {
 
 
 const ReviewStatistics = ({ data }: ReviewListProps) => {
-    const totalReviews = data.length;
+    const totalReviews = data?.length;
 
-    const ratingDistribution = useMemo(() => {
+    const ratingDistribution = React.useMemo(() => {
         const distribution = Array(5).fill(0);
-        data.forEach((review) => {
+        data?.forEach((review) => {
             distribution[review.rating - 1]++;
         });
         return distribution.reverse(); // Reverse the distribution to show higher ratings first
     }, [data]);
 
-    const averageRating = useMemo(() => {
-        const totalRating = data.reduce((sum, review) => sum + review.rating, 0);
+    const averageRating = React.useMemo(() => {
+        const totalRating = data?.reduce((sum, review) => sum + review.rating, 0);
         return totalReviews > 0 ? (totalRating / totalReviews).toFixed(1) : '0.0';
     }, [data]);
 
@@ -172,19 +172,23 @@ const ReviewStatistics = ({ data }: ReviewListProps) => {
     );
 };
 
-const ProductReview = ({ initialReviews, onSubmitReview }: { initialReviews: IReview[]; onSubmitReview: (review: { rating: number; comment: string }) => void }) => {
-    const [reviews, setReviews] = useState<IReview[]>(initialReviews);
+
+const ProductReview = ({ initialReviews }: { initialReviews: IReview[] }) => {
+    const dispatch = useAppDispatch();
+    const reviews = useAppSelector((state: RootState) => state.product.state.reviews);
+
+    React.useEffect(() => {
+        dispatch(setInitialReviews(initialReviews));
+    }, [initialReviews, dispatch]);
 
     const handleNewReview = (review: { rating: number; comment: string }) => {
-        const newReview = { ...review, user: 'Anonymous' }; // Replace with actual user data
-        setReviews([newReview, ...reviews]);
-        onSubmitReview(review);
+        dispatch(addReview(review));
     };
 
     return (
-        <div className="p-0 grid md:grid-cols-3  grid-cols-1 gap-5 lg:col-span-3 md:col-span-3 col-span-1">
+        <div className="p-0 grid md:grid-cols-3 grid-cols-1 gap-5 lg:col-span-3 md:col-span-3 col-span-1">
             <div className="md:col-span-2 col-span-1 space-y-5">
-                <Card className="md:py-6 p-5 space-y-6 ">
+                <Card className="md:py-6 p-5 space-y-6">
                     <CardHeader className="p-0">
                         <CardTitle>Product Review</CardTitle>
                     </CardHeader>
