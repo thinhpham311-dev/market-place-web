@@ -74,10 +74,12 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
             quantity: updatedQuantity,
         };
 
+        const totalCurrentPrice = updatedQuantity * product.price
+
         dispatch(addItem(cartItem));
         toast({
             title: `${product.name} added to cart:`,
-            description: <ToastMessage product={product} updatedQuantity={updatedQuantity} />,
+            description: <ToastMessage product={product} updatedQuantity={updatedQuantity} totalCurrentPrice={totalCurrentPrice} />,
         });
         counterRef.current?.reset();
     }, [dispatch, product]);

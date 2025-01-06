@@ -1,24 +1,32 @@
-import { IProduct } from '@/types/product';
-import { Card, CardContent, CardImage, CardTitle, CardDescription } from '@/components/ui/molecules';
 import React from 'react';
-import { formatToCurrency } from "@/lib/formats"
 import { useRouter } from 'next/navigation';
+
+
+//components
+import { Card, CardContent, CardImage, CardTitle, CardDescription } from '@/components/ui/molecules';
+
+//lib
+import { formatToCurrency } from "@/lib/formats"
+
+//types
+import { IProduct } from '@/types/product';
 
 interface IToastMessage {
     updatedQuantity?: number
     product: IProduct
+    totalCurrentPrice?: number
 }
 
-export default function ToastMessage({ product, updatedQuantity }: IToastMessage) {
+export default function ToastMessage({ product, updatedQuantity, totalCurrentPrice = 0 }: IToastMessage) {
     const router = useRouter()
     const handleRouterLinkToDetail = () => {
         router.push(`/products/${product._id}`)
     }
 
     return (
-        <Card className="grid grid-cols-3 gap-3">
+        <Card className="grid grid-cols-4 gap-3">
             <CardImage className="col-span-1" src={product.image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"} alt={product.name ?? ""} />
-            <CardContent className=' col-span-2 space-y-1 p-0'>
+            <CardContent className=' col-span-3 space-y-1 p-0'>
                 <CardTitle
                     onClick={handleRouterLinkToDetail}
                     className=" text-lg capitalize cursor-pointer">
@@ -31,6 +39,9 @@ export default function ToastMessage({ product, updatedQuantity }: IToastMessage
                     <strong className="inline-flex items-center gap-x-1 text-xs ">
                         {updatedQuantity}
                     </strong>
+                </CardDescription>
+                <CardDescription>
+                    <p className='block space-x-0 text-xs'>  Total: {formatToCurrency(totalCurrentPrice)}</p>
                 </CardDescription>
             </CardContent>
         </Card>
