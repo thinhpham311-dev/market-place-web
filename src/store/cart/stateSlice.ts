@@ -1,20 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-//types
+// types
 import { Icart, IcartItem } from '@/types/cart';
+import { IOption } from '@/types/product';
 
 // Utility functions for estimated calculations
 const calculateEstimatedShipping = (totalAmount: number): number => {
-    // Example logic: Free shipping for orders over $100, otherwise $10
     return totalAmount > 100 ? 0 : 10;
 };
 
 const calculateEstimatedTax = (totalAmount: number): number => {
-    // Example logic: 10% tax
     return totalAmount * 0.1;
 };
 
-// Recalculate the final total
 const calculateTotal = (totalAmount: number, estimatedShipping: number, estimatedTax: number): number => {
     return totalAmount + estimatedShipping + estimatedTax;
 };
@@ -25,7 +23,7 @@ const initialState: Icart = {
     totalAmount: 0,
     totalAmountDiscount: 0,
     totalSelectItems: 0,
-    total: 0, // New field for the final total
+    total: 0,
     estimatedShipping: 0,
     estimatedTax: 0,
     selectedItems: [],
@@ -37,7 +35,11 @@ export const cartSlice = createSlice({
     reducers: {
         addItem: (state, action: PayloadAction<IcartItem>) => {
             const newItem = action.payload;
-            const existingItem = state.items.find(item => item._id === newItem._id);
+            const existingItem = state.items.find(
+                item =>
+                    item._id === newItem._id &&
+                    JSON.stringify(item.options) === JSON.stringify(newItem.options)
+            );
 
             state.totalQuantity += newItem.quantity;
             state.totalAmount += newItem.price * newItem.quantity;
@@ -55,20 +57,27 @@ export const cartSlice = createSlice({
                 });
             }
 
-            // Recalculate estimated values
             state.estimatedShipping = calculateEstimatedShipping(state.totalAmount);
             state.estimatedTax = calculateEstimatedTax(state.totalAmount);
             state.total = calculateTotal(state.totalAmountDiscount, state.estimatedShipping, state.estimatedTax);
         },
-        updateItemQuantity: (state, action: PayloadAction<{ id: string; quantity: number }>) => {
-            const { id, quantity } = action.payload;
-            const itemToUpdate = state.items.find(item => item._id === id);
+        updateItemQuantity: (state, action: PayloadAction<{ id: string; options: IOption[]; quantity: number }>) => {
+            const { id, options, quantity } = action.payload;
+            const itemToUpdate = state.items.find(
+                item =>
+                    item._id === id &&
+                    JSON.stringify(item.options) === JSON.stringify(options)
+            );
 
             if (itemToUpdate) {
                 const quantityDiff = quantity - itemToUpdate.quantity;
 
                 if (quantity === 0) {
-                    state.items = state.items.filter(item => item._id !== id);
+                    state.items = state.items.filter(
+                        item =>
+                            item._id !== id ||
+                            JSON.stringify(item.options) !== JSON.stringify(options)
+                    );
                     state.totalQuantity -= itemToUpdate.quantity;
                     state.totalAmount -= itemToUpdate.price * itemToUpdate.quantity;
                     state.totalAmountDiscount -= itemToUpdate.discountPrice * itemToUpdate.quantity;
@@ -81,38 +90,42 @@ export const cartSlice = createSlice({
                     itemToUpdate.discountedTotalPrice = itemToUpdate.discountPrice * quantity;
                 }
 
-                // Recalculate estimated values
                 state.estimatedShipping = calculateEstimatedShipping(state.totalAmount);
                 state.estimatedTax = calculateEstimatedTax(state.totalAmount);
                 state.total = calculateTotal(state.totalAmountDiscount, state.estimatedShipping, state.estimatedTax);
             }
         },
-        removeItem(state, action: PayloadAction<string>) {
-            const id = action.payload;
-            const existingItem = state.items.find(item => item._id === id);
+        removeItem: (state, action: PayloadAction<{ id: string; options: IOption[] }>) => {
+            const { id, options } = action.payload;
+            const existingItem = state.items.find(
+                item =>
+                    item._id === id &&
+                    JSON.stringify(item.options) === JSON.stringify(options)
+            );
 
             if (existingItem) {
                 state.totalQuantity -= existingItem.quantity;
                 state.totalAmount -= existingItem.price * existingItem.quantity;
                 state.totalAmountDiscount -= existingItem.discountPrice * existingItem.quantity;
-                state.items = state.items.filter(item => item._id !== id);
+                state.items = state.items.filter(
+                    item =>
+                        item._id !== id ||
+                        JSON.stringify(item.options) !== JSON.stringify(options)
+                );
             }
 
-            // Recalculate estimated values
             state.estimatedShipping = calculateEstimatedShipping(state.totalAmount);
             state.estimatedTax = calculateEstimatedTax(state.totalAmount);
-            state.total = calculateTotal(state.totalAmount, state.estimatedShipping, state.estimatedTax);
+            state.total = calculateTotal(state.totalAmountDiscount, state.estimatedShipping, state.estimatedTax);
         },
-        removeAllItems(state) {
+        removeAllItems: (state) => {
             state.items = [];
             state.totalQuantity = 0;
             state.totalAmount = 0;
             state.totalAmountDiscount = 0;
-
-            // Reset estimated values
             state.estimatedShipping = 0;
             state.estimatedTax = 0;
-            state.total = 0; // Reset final total
+            state.total = 0;
         },
         toggleItemSelection: (state, action: PayloadAction<{ id: string; checked: boolean }>) => {
             const { id, checked } = action.payload;
@@ -124,17 +137,16 @@ export const cartSlice = createSlice({
         },
         removeSelectedItems: (state) => {
             state.items = state.items.filter(item => !state.selectedItems.includes(item._id));
-            state.selectedItems = []; // Xóa các id đã chọn sau khi xóa các mục
+            state.selectedItems = [];
 
-            // Tính toán lại các giá trị sau khi xóa
+            // Recalculate totals
             state.totalQuantity = state.items.reduce((sum, item) => sum + item.quantity, 0);
             state.totalAmount = state.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             state.totalAmountDiscount = state.items.reduce((sum, item) => sum + (item.discountPrice * item.quantity), 0);
 
-            // Recalculate estimated values
             state.estimatedShipping = calculateEstimatedShipping(state.totalAmount);
             state.estimatedTax = calculateEstimatedTax(state.totalAmount);
-            state.total = calculateTotal(state.totalAmount, state.estimatedShipping, state.estimatedTax);
+            state.total = calculateTotal(state.totalAmountDiscount, state.estimatedShipping, state.estimatedTax);
         },
     },
 });

@@ -1,6 +1,5 @@
 import { IProduct } from "./product";
 
-
 export interface IcartItem extends IProduct {
     totalPrice?: number;
     discountedTotalPrice?: number;

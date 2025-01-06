@@ -51,7 +51,6 @@ const profileMenuItems: MenuItem[] = [
         children: [
             { title: "Profile Info", url: "/user/account/profile" },
             { title: "Change Password", url: "/user/account/change-password" },
-            { title: "Order History", url: "/user/account/orders" },
             { title: "Privacy Settings", url: "/user/account/privacy-settings" },
         ],
     },
@@ -150,10 +149,11 @@ export default function SidebarNavigation() {
                 </SidebarGroup>
             </SidebarContent>
             <SidebarFooter>
-                <SidebarMenuButton className="space-x-2 bg-red-500 hover:bg-red-700">
+                {conditionMenu && <SidebarMenuButton className="space-x-2 bg-red-500 hover:bg-red-700">
                     <MdLogout className="h-5 w-5" aria-hidden="true" />
                     <span>Log Out</span>
                 </SidebarMenuButton>
+                }
             </SidebarFooter>
         </Sidebar>
     );

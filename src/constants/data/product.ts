@@ -29,7 +29,7 @@ export const productData = [
                         label: "Size XXL",
                         value: "size-xxl"
                     }
-                ]
+                ],
             },
             {
                 label: "Color",
@@ -38,7 +38,7 @@ export const productData = [
                     { label: "Black", value: "black" },
                     { label: "Red", value: "red" },
                     { label: "Yellow", value: "Yellow" }
-                ]
+                ],
             }
         ],
         price: 20,
@@ -75,7 +75,7 @@ export const productData = [
                         label: "Size XXL",
                         value: "size-xxl"
                     }
-                ]
+                ],
             },
             {
                 label: "Color",
@@ -84,7 +84,7 @@ export const productData = [
                     { label: "Black", value: "black" },
                     { label: "Red", value: "red" },
                     { label: "Yellow", value: "Yellow" }
-                ]
+                ],
             }
         ],
         price: 2000,
@@ -121,7 +121,7 @@ export const productData = [
                         label: "Size XXL",
                         value: "size-xxl"
                     }
-                ]
+                ],
             },
             {
                 label: "Color",
@@ -130,7 +130,7 @@ export const productData = [
                     { label: "Black", value: "black" },
                     { label: "Red", value: "red" },
                     { label: "Yellow", value: "Yellow" }
-                ]
+                ],
             }
         ],
         price: 2000,
@@ -167,7 +167,7 @@ export const productData = [
                         label: "Size XXL",
                         value: "size-xxl"
                     }
-                ]
+                ],
             },
             {
                 label: "Color",
@@ -176,7 +176,7 @@ export const productData = [
                     { label: "Black", value: "black" },
                     { label: "Red", value: "red" },
                     { label: "Yellow", value: "Yellow" }
-                ]
+                ],
             }
         ],
         price: 2000,
@@ -213,7 +213,7 @@ export const productData = [
                         label: "Size XXL",
                         value: "size-xxl"
                     }
-                ]
+                ],
             },
             {
                 label: "Color",
@@ -222,7 +222,7 @@ export const productData = [
                     { label: "Black", value: "black" },
                     { label: "Red", value: "red" },
                     { label: "Yellow", value: "Yellow" }
-                ]
+                ],
             }
         ],
         price: 2000,
@@ -259,7 +259,7 @@ export const productData = [
                         label: "Size XXL",
                         value: "size-xxl"
                     }
-                ]
+                ],
             },
             {
                 label: "Color",
@@ -268,7 +268,7 @@ export const productData = [
                     { label: "Black", value: "black" },
                     { label: "Red", value: "red" },
                     { label: "Yellow", value: "Yellow" }
-                ]
+                ],
             }
         ],
         price: 2000,
@@ -305,7 +305,7 @@ export const productData = [
                         label: "Size XXL",
                         value: "size-xxl"
                     }
-                ]
+                ],
             },
             {
                 label: "Color",
@@ -314,7 +314,7 @@ export const productData = [
                     { label: "Black", value: "black" },
                     { label: "Red", value: "red" },
                     { label: "Yellow", value: "Yellow" }
-                ]
+                ],
             }
         ],
         price: 2000,
@@ -351,7 +351,7 @@ export const productData = [
                         label: "Size XXL",
                         value: "size-xxl"
                     }
-                ]
+                ],
             },
             {
                 label: "Color",
@@ -360,7 +360,7 @@ export const productData = [
                     { label: "Black", value: "black" },
                     { label: "Red", value: "red" },
                     { label: "Yellow", value: "Yellow" }
-                ]
+                ],
             }
         ],
         price: 2000,
@@ -397,7 +397,7 @@ export const productData = [
                         label: "Size XXL",
                         value: "size-xxl"
                     }
-                ]
+                ],
             },
             {
                 label: "Color",
@@ -406,7 +406,7 @@ export const productData = [
                     { label: "Black", value: "black" },
                     { label: "Red", value: "red" },
                     { label: "Yellow", value: "Yellow" }
-                ]
+                ],
             }
         ],
         price: 2000,
@@ -443,7 +443,7 @@ export const productData = [
                         label: "Size XXL",
                         value: "size-xxl"
                     }
-                ]
+                ],
             },
             {
                 label: "Color",
@@ -452,7 +452,7 @@ export const productData = [
                     { label: "Black", value: "black" },
                     { label: "Red", value: "red" },
                     { label: "Yellow", value: "Yellow" }
-                ]
+                ],
             }
         ],
         price: 2000,
@@ -489,7 +489,7 @@ export const productData = [
                         label: "Size XXL",
                         value: "size-xxl"
                     }
-                ]
+                ],
             },
             {
                 label: "Color",
@@ -498,7 +498,7 @@ export const productData = [
                     { label: "Black", value: "black" },
                     { label: "Red", value: "red" },
                     { label: "Yellow", value: "Yellow" }
-                ]
+                ],
             }
         ],
         price: 2000,
@@ -535,7 +535,7 @@ export const productData = [
                         label: "Size XXL",
                         value: "size-xxl"
                     }
-                ]
+                ],
             },
             {
                 label: "Color",
@@ -544,7 +544,7 @@ export const productData = [
                     { label: "Black", value: "black" },
                     { label: "Red", value: "red" },
                     { label: "Yellow", value: "Yellow" }
-                ]
+                ],
             }
         ],
         price: 2000,
@@ -581,7 +581,7 @@ export const productData = [
                         label: "Size XXL",
                         value: "size-xxl"
                     }
-                ]
+                ],
             },
             {
                 label: "Color",
@@ -590,7 +590,7 @@ export const productData = [
                     { label: "Black", value: "black" },
                     { label: "Red", value: "red" },
                     { label: "Yellow", value: "Yellow" }
-                ]
+                ],
             }
         ],
         price: 2000,
@@ -627,7 +627,7 @@ export const productData = [
                         label: "Size XXL",
                         value: "size-xxl"
                     }
-                ]
+                ],
             },
             {
                 label: "Color",
@@ -636,7 +636,7 @@ export const productData = [
                     { label: "Black", value: "black" },
                     { label: "Red", value: "red" },
                     { label: "Yellow", value: "Yellow" }
-                ]
+                ],
             }
         ],
         price: 2000,
@@ -673,7 +673,7 @@ export const productData = [
                         label: "Size XXL",
                         value: "size-xxl"
                     }
-                ]
+                ],
             },
             {
                 label: "Color",
@@ -682,7 +682,7 @@ export const productData = [
                     { label: "Black", value: "black" },
                     { label: "Red", value: "red" },
                     { label: "Yellow", value: "Yellow" }
-                ]
+                ],
             }
         ],
         price: 2000,
@@ -719,7 +719,7 @@ export const productData = [
                         label: "Size XXL",
                         value: "size-xxl"
                     }
-                ]
+                ],
             },
             {
                 label: "Color",
@@ -728,7 +728,7 @@ export const productData = [
                     { label: "Black", value: "black" },
                     { label: "Red", value: "red" },
                     { label: "Yellow", value: "Yellow" }
-                ]
+                ],
             }
         ],
         price: 2000,

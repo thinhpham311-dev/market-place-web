@@ -55,9 +55,8 @@ const ReviewForm = ({ onSubmit }: IReviewFormProps) => {
     );
 };
 const ReviewList = ({ data, itemsPerPage = 12 }: ReviewListProps) => {
-    const [filter, setFilter] = React.useState<string | null | Array<IOption> | undefined>(null); // Số sao được chọn (null = Tất cả)
+    const [filter, setFilter] = React.useState<IOption | null>(null); // Số sao được chọn (null = Tất cả)
 
-    console.log(data)
     const { currentPage, totalPages, currentData, handlePageChange } = usePagination<IReview>({
         data,
         itemsPerPage,
@@ -103,7 +102,7 @@ const ReviewList = ({ data, itemsPerPage = 12 }: ReviewListProps) => {
                         label: "1 Sao",
                         value: "1"
                     }]}
-                    onChange={(value) => setFilter(value === "All" ? null : value)}
+                    onChange={(item) => setFilter(item?.value === "All" ? null : item)}
                     className="max-w-md"
                 />
             </div>

@@ -1,5 +1,5 @@
 'use client'
-import { useCallback, memo } from "react"
+import { useCallback, memo, useMemo } from "react"
 import { useRouter } from "next/navigation"
 
 //stores
@@ -8,13 +8,19 @@ import { toggleItemSelection, updateItemQuantity } from "@/store/cart/stateSlice
 
 //components
 import { Card, CardContent, CardDescription, CardImage, CardTitle, Counter } from "@/components/ui/molecules"
-import { Checkbox } from "@/components/ui/atoms/checkbox"
+import { Checkbox, Badge } from "@/components/ui/atoms"
+import { OptionsListOfTab } from "./OptionsListOfTab"
+import DropdownOptionsList from "./DropdownOptionsList"
 
 //types
 import { IcartItem } from "@/types/cart"
+import { IProduct } from "@/types/product"
 
 //format
 import { formatToCurrency } from "@/lib/formats"
+
+//datas
+import { productData } from "@/constants/data"
 
 interface IProductItemInCartProps {
     item: IcartItem
@@ -22,10 +28,15 @@ interface IProductItemInCartProps {
 };
 
 
-function ProductItemInCart({ item: { name, image, price, discountPrice, _id, quantity }, totalItems }: IProductItemInCartProps) {
+function ProductItemInCart({ item: { name, image, price, discountPrice, _id, quantity, options }, totalItems }: IProductItemInCartProps) {
     const dispatch = useAppDispatch()
     const { selectedItems, } = useAppSelector((state) => state.cart.state); // Giả sử bạn có root state
     const router = useRouter()
+
+    const { product } = useMemo(() => {
+        const product: IProduct | undefined = productData?.find((item) => item?._id === _id);
+        return { product };
+    }, [_id]);
 
     const handleRouterLinkToDetail = () => {
         router.push(`/products/${_id}`)
@@ -37,7 +48,7 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
 
     const handleQuantityChange = useCallback((newQuantity: number) => {
         if (newQuantity >= 0) {
-            dispatch(updateItemQuantity({ id: _id, quantity: newQuantity }));
+            dispatch(updateItemQuantity({ id: _id, quantity: newQuantity, options: options || [] }));
         }
     }, [dispatch]);
 
@@ -54,7 +65,20 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
                 <CardTitle
                     onClick={handleRouterLinkToDetail}
                     className=" text-lg capitalize cursor-pointer col-span-5">
-                    {name}
+                    <p>
+                        {name}
+                    </p>
+                    <div className="space-x-1">
+
+                        {options?.map((option) =>
+                            <Badge key={option.label.split("").join("-")}>{option.label}</Badge>
+                        )}
+                        <DropdownOptionsList btnTitle="Update" >
+                            {product?.options?.map((item) => (
+                                <OptionsListOfTab key={item.label} label={item.label} data={item.value || []} />
+                            ))}
+                        </DropdownOptionsList>
+                    </div>
                 </CardTitle>
                 <div className="py-3 col-span-3"><Counter value={quantity} onQuantityChange={handleQuantityChange} /></div>
                 <CardDescription className="space-x-3 mb-2 inline col-span-3">

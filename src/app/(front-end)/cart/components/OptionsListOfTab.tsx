@@ -13,18 +13,25 @@ import { IOption } from "@/types/product";
 interface IOptionsListOfTabProps {
     label?: string;
     data: Array<IOption>;
+    defaultValue?: IOption | null;
     className?: string;
-    onChange?: (value: IOption | null) => void; // Callback to pass selected value
+    onChange?: (value: IOption | null) => void;
 }
 
 export const OptionsListOfTab = React.forwardRef<HTMLDivElement, IOptionsListOfTabProps>(
-    ({ label, data, className, onChange }, ref) => {
-        const [selectedValue, setSelectedValue] = React.useState<IOption | null>(null);
+    ({ label, data, defaultValue = null, className, onChange }, ref) => {
+        const [selectedValue, setSelectedValue] = React.useState<IOption | null>(defaultValue);
+
+        React.useEffect(() => {
+            if (defaultValue) {
+                setSelectedValue(defaultValue);
+            }
+        }, [defaultValue]);
 
         const handleToggleItem = (item: IOption) => {
             const newValue = selectedValue?.value === item.value ? null : item;
             setSelectedValue(newValue);
-            onChange?.(newValue); // Pass value back to parent
+            onChange?.(newValue);
         };
 
         return (
@@ -36,24 +43,20 @@ export const OptionsListOfTab = React.forwardRef<HTMLDivElement, IOptionsListOfT
                     {label}:
                 </Label>
                 <ToggleGroup type="single" className="justify-start flex-wrap">
-                    {data.map((item, index) => {
-
-                        return (
-                            <ToggleGroupItem
-                                variant="outline"
-                                key={index}
-                                value={item.value?.toString().split("").join("-")}
-                                onClick={() => handleToggleItem(item)}
-                                className={cn("capitalize", {
-                                    "bg-blue-500 text-white": selectedValue?.value === item.value, // Example selected style
-                                })}
-                                size="sm"
-                            >
-                                {item.label}
-                            </ToggleGroupItem>
-                        )
-
-                    })}
+                    {data.map((item: IOption) => (
+                        <ToggleGroupItem
+                            variant="outline"
+                            key={item.label}
+                            value={item.value?.toString().split("").join("-")}
+                            onClick={() => handleToggleItem(item)}
+                            className={cn("capitalize", {
+                                "bg-blue-500 text-white": selectedValue?.value === item.value
+                            })}
+                            size="sm"
+                        >
+                            {item.label}
+                        </ToggleGroupItem>
+                    ))}
                 </ToggleGroup>
             </div>
         );

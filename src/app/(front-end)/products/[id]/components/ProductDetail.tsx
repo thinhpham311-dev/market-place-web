@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useRef, useCallback } from 'react';
+import { useMemo, useRef, useCallback, useState } from 'react';
 // Routers
 import { useParams, useRouter } from 'next/navigation';
 
@@ -20,7 +20,7 @@ import ProductImagesListWithThumbnails from "./ProductImagesListWithThumbnails"
 import { images, productData } from '@/constants/data';
 
 // Types
-import { IProduct, IReview } from '@/types/product';
+import { IOption, IProduct, IReview } from '@/types/product';
 import { IcartItem } from "@/types/cart"
 import ToastMessage from './ToastMessage';
 
@@ -51,18 +51,81 @@ const initialReviews = [
 function ProductDetailInfo({ product }: IProductDetailProps) {
     const dispatch = useAppDispatch();
     const counterRef = useRef<CounterRef>(null);
+    // State to store selected options
+    const [selectedOptions, setSelectedOptions] = useState<(IOption | null)[]>([]);
+    const [validationErrors, setValidationErrors] = useState<string[]>([]);
+
     const { toast } = useToast();
     const router = useRouter();
     const reviews = useAppSelector((state) => state.product.state.reviews)
     const totalReviews = reviews?.length;
+
+    const handleChooseOption = (index: number, selectedValue: IOption | null) => {
+        if (!product.options) {
+            return; // Thoát nếu không có options
+        }
+
+        // Cập nhật tùy chọn đã chọn
+        const newSelectedOptions = [...selectedOptions];
+        newSelectedOptions[index] = selectedValue;
+
+        // Tạo danh sách lỗi mới chỉ với những tùy chọn chưa được chọn
+        const newValidationErrors = product.options
+            .map((option, idx) => {
+                // Nếu tùy chọn chưa được chọn, thêm lỗi vào danh sách
+                if (!newSelectedOptions[idx]) {
+                    return option.label;
+                }
+                return null;
+            })
+            .filter(Boolean) as string[]; // Loại bỏ giá trị null hoặc undefined
+
+        // Cập nhật lại các trạng thái
+        setSelectedOptions(newSelectedOptions);
+        setValidationErrors(newValidationErrors);
+    };
+
+
+    const validateOptions = () => {
+        const errors: string[] = [];
+
+        // Kiểm tra các tùy chọn chưa được chọn
+        product.options?.forEach((option, index) => {
+            if (!selectedOptions[index]) {
+                errors.push(option.label); // Nếu tùy chọn chưa được chọn, thêm lỗi vào danh sách
+            }
+        });
+
+        return errors;
+    };
+
+
     const handleAddToCart = useCallback(() => {
         if (!product) {
+            return;
+        }
+
+        // Validate các tùy chọn đã chọn
+        const errors = validateOptions();
+
+        if (errors.length > 0) {
+            setValidationErrors(errors); // Cập nhật trạng thái lỗi
+            toast({
+                title: "Error",
+                description: `Please select a value for: ${errors.join(", ")}`,
+                variant: "destructive",
+            });
             return;
         }
 
         const updatedQuantity = counterRef.current?.getCount() || 0;
 
         if (updatedQuantity <= 0) {
+            toast({
+                title: "Error",
+                description: "Please select a valid quantity.",
+                variant: "destructive",
+            });
             return;
         }
 
@@ -72,9 +135,10 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
             price: product.price,
             discountPrice: product.discountPrice,
             quantity: updatedQuantity,
+            options: selectedOptions && [], // Pass the selected options
         };
 
-        const totalCurrentPrice = updatedQuantity * product.price
+        const totalCurrentPrice = updatedQuantity * product.price;
 
         dispatch(addItem(cartItem));
         toast({
@@ -82,7 +146,9 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
             description: <ToastMessage product={product} updatedQuantity={updatedQuantity} totalCurrentPrice={totalCurrentPrice} />,
         });
         counterRef.current?.reset();
-    }, [dispatch, product]);
+    }, [dispatch, product, selectedOptions, validateOptions]);
+
+
 
     const handleBuyNow = () => {
         handleAddToCart()
@@ -113,15 +179,27 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
                         </p>
                     </div>
                     <div className='space-y-5'>
-                        {
-                            product.options?.map((item, index) => {
-                                if (Array.isArray(item.value))
-                                    return (
-                                        <OptionsListOfTab key={index} label={item.label} data={item.value ?? []} />
-                                    )
-                            })
-                        }
+                        {product?.options?.map((item, index) => {
+                            if (Array.isArray(item.value)) {
+                                return (
+                                    <div key={index}>
+                                        <OptionsListOfTab
+                                            label={item.label}
+                                            data={item.value}
+                                            onChange={(selectedValue) => handleChooseOption(index, selectedValue)}
+                                        />
+                                        {validationErrors.includes(item.label) && (
+                                            <p className="text-red-500 text-xs my-2">{`${item.label} is required.`}</p>
+                                        )}
+                                    </div>
+                                );
+                            }
+                            return null;
+                        })}
+
+
                     </div>
+
                     <div>
                         <Counter ref={counterRef} />
                     </div>
@@ -219,7 +297,7 @@ export default function ProductDetail() {
     const { id } = useParams();
 
     const { product } = useMemo(() => {
-        const product = productData?.find((item: IProduct) => item?._id === id);
+        const product: IProduct | undefined = productData?.find((item) => item?._id === id);
         return { product };
     }, [id]);
 
