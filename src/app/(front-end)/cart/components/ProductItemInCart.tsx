@@ -71,7 +71,7 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
                     <div className="space-x-1">
 
                         {options?.map((option) =>
-                            <Badge key={option.label.split("").join("-")}>{option.label}</Badge>
+                            <Badge variant="outline" key={option.label.split("").join("-")}>{option.label}</Badge>
                         )}
                         <DropdownOptionsList btnTitle="Update" >
                             {product?.options?.map((item) => (

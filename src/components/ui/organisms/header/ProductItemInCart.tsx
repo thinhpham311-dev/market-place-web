@@ -63,7 +63,7 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
                 <Counter value={quantity} onQuantityChange={handleQuantityChange} />
                 <CardDescription className="gap-1 flex flex-row">
                     {options?.map((option) =>
-                        <Badge key={option.label.split("").join("-")}>{option.label}</Badge>
+                        <Badge variant="outline" key={option.label.split("").join("-")}>{option.label}</Badge>
                     )}
 
                 </CardDescription>
