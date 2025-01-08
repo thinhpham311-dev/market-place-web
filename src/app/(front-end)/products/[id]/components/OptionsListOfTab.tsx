@@ -6,7 +6,6 @@ import {
     ToggleGroup,
     ToggleGroupItem,
 } from "@/components/ui/molecules";
-import { Label } from "@/components/ui/atoms";
 import { cn } from "@/lib/utils";
 import { IOption } from "@/types/product";
 
@@ -32,9 +31,9 @@ export const OptionsListOfTab = React.forwardRef<HTMLDivElement, IOptionsListOfT
                 ref={ref}
                 className={cn("font-semibold leading-none tracking-tight", className)}
             >
-                <Label className="block font-bold mb-3" htmlFor="terms">
+                <p className="block font-bold mb-3" >
                     {label}:
-                </Label>
+                </p>
                 <ToggleGroup type="single" className="justify-start flex-wrap">
                     {data.map((item, index) => {
 

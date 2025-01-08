@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation"
 
 //stores
 import { useAppDispatch, useAppSelector } from "@/lib/hooks"
-import { toggleItemSelection, updateItemQuantity } from "@/store/cart/stateSlice"
+import { toggleItemSelection, updateItem } from "@/store/cart/stateSlice"
 
 //components
 import { Card, CardContent, CardDescription, CardImage, CardTitle, Counter } from "@/components/ui/molecules"
@@ -28,9 +28,9 @@ interface IProductItemInCartProps {
 };
 
 
-function ProductItemInCart({ item: { name, image, price, discountPrice, _id, quantity, options }, totalItems }: IProductItemInCartProps) {
+function ProductItemInCart({ item: { name, image, price, discountPrice, _id, quantity, options = [], uniqueKey }, totalItems }: IProductItemInCartProps) {
     const dispatch = useAppDispatch()
-    const { selectedItems, } = useAppSelector((state) => state.cart.state); // Giả sử bạn có root state
+    const { selectedItems } = useAppSelector((state) => state.cart.state); // Giả sử bạn có root state
     const router = useRouter()
 
     const { product } = useMemo(() => {
@@ -42,15 +42,15 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
         router.push(`/products/${_id}`)
     }
 
-    const handleCheckboxChange = (id: string, checked: boolean) => {
-        dispatch(toggleItemSelection({ id, checked }))
+    const handleCheckboxChange = (uniqueKey: string, checked: boolean) => {
+        dispatch(toggleItemSelection({ uniqueKey, checked }))
     };
 
     const handleQuantityChange = useCallback((newQuantity: number) => {
         if (newQuantity >= 0) {
-            dispatch(updateItemQuantity({ id: _id, quantity: newQuantity, options: options || [] }));
+            dispatch(updateItem({ uniqueKey, quantity: newQuantity, options }));
         }
-    }, [dispatch]);
+    }, [dispatch, uniqueKey]);
 
     return (
         <Card layout="horizontal" className=" mb-3  last:mb-0 items-center grid grid-cols-8 gap-3 p-5">
@@ -80,18 +80,24 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
                         </DropdownOptionsList>
                     </div>
                 </CardTitle>
-                <div className="py-3 col-span-3"><Counter value={quantity} onQuantityChange={handleQuantityChange} /></div>
-                <CardDescription className="space-x-3 mb-2 inline col-span-3">
-                    <p className="inline-flex items-center gap-x-1 text-xs"> <span className="font-bold "> {formatToCurrency(discountPrice)}</span></p>
-                    <p className="inline-flex items-center gap-x-1 line-through text-xs"><span>{formatToCurrency(price)}</span></p>
-                </CardDescription>
+                <div className="py-3 col-span-3">
+                    <span className="text-xs font-bold">Qty:</span>
+                    <Counter value={quantity} onQuantityChange={handleQuantityChange} />
+                </div>
+                <div className="col-span-3 block">
+                    <span className="text-xs font-bold">Price:</span>
+                    <CardDescription className="space-x-3 mb-2">
+                        <p className="inline-flex items-center gap-x-1 text-xs"> <span className="font-bold "> {formatToCurrency(discountPrice)}</span></p>
+                        <p className="inline-flex items-center gap-x-1 line-through text-xs"><span>{formatToCurrency(price)}</span></p>
+                    </CardDescription>
+                </div>
                 <div className="col-span-1 flex  justify-center">
                     {
                         totalItems && totalItems > 1 &&
                         <Checkbox
-                            id={_id}
-                            checked={selectedItems.includes(_id)}
-                            onCheckedChange={(checked) => handleCheckboxChange(_id, Boolean(checked))}
+                            id={uniqueKey}
+                            checked={selectedItems.includes(uniqueKey)}
+                            onCheckedChange={(checked) => handleCheckboxChange(uniqueKey, Boolean(checked))}
                         />
                     }
                 </div>

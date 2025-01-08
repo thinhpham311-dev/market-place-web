@@ -15,10 +15,11 @@ interface IProductItemsListInCartProps {
 export default function ProductItemsListInCart({ data }: IProductItemsListInCartProps) {
     return (
         <ScrollArea className="w-full h-full">
-            {data?.map((item, index) => {
+            {data?.map((item) => {
+                const uniqueKey = `${item._id}-${item.options?.map(option => `${option?.value}`).join('|').toLocaleLowerCase().trim()}`
                 if (item.quantity > 0) {
                     return (
-                        <ProductItemInCart key={index} item={item} totalItems={data.length} />
+                        <ProductItemInCart key={uniqueKey} item={item} totalItems={data.length} />
                     )
                 }
             })}

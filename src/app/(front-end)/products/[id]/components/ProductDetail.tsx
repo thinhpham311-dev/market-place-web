@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useRef, useCallback, useState } from 'react';
+
 // Routers
 import { useParams, useRouter } from 'next/navigation';
 
@@ -15,6 +16,7 @@ import { Card, CardContent, CardTitle, CardDescription, Counter, CounterRef, Car
 import { OptionsListOfTab } from './OptionsListOfTab';
 import ProductReview from './ProductReview'
 import ProductImagesListWithThumbnails from "./ProductImagesListWithThumbnails"
+import ShareSocialsList from "./ShareSocialsList"
 
 // Data
 import { images, productData } from '@/constants/data';
@@ -85,7 +87,6 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
         setValidationErrors(newValidationErrors);
     };
 
-
     const validateOptions = () => {
         const errors: string[] = [];
 
@@ -98,7 +99,6 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
 
         return errors;
     };
-
 
     const handleAddToCart = useCallback(() => {
         if (!product) {
@@ -128,33 +128,32 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
             });
             return;
         }
+        const uniqueKey = `${product._id}-${selectedOptions?.map(option => `${option?.value}`).join('|').toLocaleLowerCase().trim()}`
 
         const cartItem: IcartItem = {
             _id: product._id,
+            uniqueKey,
             name: product.name,
             price: product.price,
             discountPrice: product.discountPrice,
             quantity: updatedQuantity,
-            options: selectedOptions && [], // Pass the selected options
         };
 
-        const totalCurrentPrice = updatedQuantity * product.price;
+        dispatch(addItem({ cartItem: cartItem, options: selectedOptions || [] }));
 
-        dispatch(addItem(cartItem));
+        const totalCurrentPrice = updatedQuantity * product.price;
         toast({
             title: `${product.name} added to cart:`,
             description: <ToastMessage product={product} updatedQuantity={updatedQuantity} totalCurrentPrice={totalCurrentPrice} />,
         });
+
         counterRef.current?.reset();
-    }, [dispatch, product, selectedOptions, validateOptions]);
-
-
+    }, [dispatch, product, selectedOptions, validateOptions, counterRef]);
 
     const handleBuyNow = () => {
         handleAddToCart()
         router.push("/cart");
     };
-
 
     const averageRating = useMemo(() => {
         const totalRating = reviews?.reduce((sum: number, review: IReview) => sum + review.rating, 0);
@@ -165,6 +164,7 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
         <Card layout="horizontal" className=' grid lg:grid-cols-3 md:grid-cols-4 grid-cols-1 gap-5  p-5'>
             <div className="space-y-4 lg:col-span-1 md:col-span-2 col-span-1 ">
                 <ProductImagesListWithThumbnails data={images} />
+                <ShareSocialsList />
             </div>
             <CardContent className='lg:col-span-2 md:col-span-2 col-span-1 md:px-5 px-0'>
                 <CardTitle className="line-clamp-2 leading-8 mb-5  ">{product.name}</CardTitle>

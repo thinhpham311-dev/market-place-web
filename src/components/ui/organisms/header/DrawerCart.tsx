@@ -3,7 +3,10 @@ import { useRouter } from "next/navigation";
 
 //store
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
-import { removeAllItems, removeSelectedItems } from "@/store/cart/stateSlice";
+import {
+    removeAllItems,
+    removeSelectedItems
+} from "@/store/cart/stateSlice";
 
 //components
 import { Button } from "@/components/ui/atoms";
@@ -30,11 +33,11 @@ export default function DrawerCart() {
 
     const dispatch = useAppDispatch();
     const { items, totalAmountDiscount, selectedItems } = useAppSelector((state) => state.cart.state);
-
+    console.log("items list", items)
     return (
         <Sheet>
             <SheetTrigger asChild>
-                <Button variant="outline" size="icon" className="relative">
+                <Button type="button" variant="outline" size="icon" className="relative">
                     <ShoppingCart />
                     <span className="absolute -top-2 -right-2 bg-red-600 rounded-full w-1/2 h-1/2 text-sm flex justify-center items-center text-white">
                         {items.length} {/* Display quantity from client-side state */}
@@ -75,13 +78,13 @@ export default function DrawerCart() {
                                 {items.length > 0 ? `View Cart (${items.length}) ` : "View Cart"}
                             </Button>
                         </SheetFooter>
-                        {items && items.length > 0 &&
+                        {/* {items && items.length > 0 &&
                             <SheetFooter className="justify-end rounded-md space-x-3">
                                 <Button variant="default" className="w-full" onClick={() => router.push("/checkout")}>
                                     Checkout
                                 </Button>
                             </SheetFooter>
-                        }
+                        } */}
 
                         <SheetFooter className="justify-end rounded-md space-x-3">
                             {items.length > 0 && (
@@ -90,7 +93,11 @@ export default function DrawerCart() {
                                 </Button>
                             )}
                             {items.length > 0 && selectedItems.length > 0 && (
-                                <Button variant="outline" className="w-full" onClick={() => dispatch(removeSelectedItems(selectedItems))}>
+                                <Button
+                                    variant="outline"
+                                    className="w-full"
+                                    onClick={() => dispatch(removeSelectedItems())} // Truyền selectedItems dưới dạng mảng
+                                >
                                     Remove ({selectedItems.length})
                                 </Button>
                             )}

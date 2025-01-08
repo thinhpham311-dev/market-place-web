@@ -30,10 +30,11 @@ export default function ProductItemsListInCart({ data, itemsPerPage = 5 }: IProd
     return (
         <div className="space-y-5">
             <ScrollArea className="w-full h-full">
-                {currentData?.map((item, index) => {
+                {currentData?.map((item) => {
+                    const uniqueKey = `${item._id}-${item.options?.map(option => `${option?.value}`).join('|').toLocaleLowerCase().trim()}`
                     if (item.quantity > 0) {
                         return (
-                            <ProductCartItem key={index} item={item} totalItems={data.length} />
+                            <ProductCartItem key={uniqueKey} item={item} totalItems={data.length} />
                         )
                     }
                 })}

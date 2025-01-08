@@ -3,6 +3,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 // types
 import { Icart, IcartItem } from '@/types/cart';
 import { IOption } from '@/types/product';
+import { WritableDraft } from 'immer';
+
 
 // Utility functions for estimated calculations
 const calculateEstimatedShipping = (totalAmount: number): number => {
@@ -29,127 +31,109 @@ const initialState: Icart = {
     selectedItems: [],
 };
 
+const recalculateTotals = (state: Icart) => {
+    state.totalQuantity = state.items.reduce((sum, item) => sum + item.quantity, 0);
+    state.totalAmount = state.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    state.totalAmountDiscount = state.items.reduce((sum, item) => sum + item.discountPrice * item.quantity, 0);
+    state.totalSelectItems = state.selectedItems.length;
+
+    state.estimatedShipping = calculateEstimatedShipping(state.totalAmount);
+    state.estimatedTax = calculateEstimatedTax(state.totalAmount);
+    state.total = calculateTotal(state.totalAmountDiscount, state.estimatedShipping, state.estimatedTax);
+};
+
+
+
 export const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
-        addItem: (state, action: PayloadAction<IcartItem>) => {
-            const newItem = action.payload;
-            const existingItem = state.items.find(
-                item =>
-                    item._id === newItem._id &&
-                    JSON.stringify(item.options) === JSON.stringify(newItem.options)
+        addItem: (state, action: PayloadAction<{ cartItem: IcartItem; options: (IOption | null)[] }>) => {
+            const newItem = { ...action.payload.cartItem };
+            const { options } = action.payload;
+            const optionsType = options as WritableDraft<{
+                label: string;
+                value: IOption[];
+            }>[] | undefined;
+            const existingItem = state.items.find(item =>
+                item.uniqueKey === newItem.uniqueKey
             );
-
-            state.totalQuantity += newItem.quantity;
-            state.totalAmount += newItem.price * newItem.quantity;
-            state.totalAmountDiscount += newItem.discountPrice * newItem.quantity;
 
             if (existingItem) {
                 existingItem.quantity += newItem.quantity;
                 existingItem.totalPrice = existingItem.price * existingItem.quantity;
                 existingItem.discountedTotalPrice = existingItem.discountPrice * existingItem.quantity;
             } else {
-                state.items.push({
+                state.items.unshift({
                     ...newItem,
+                    uniqueKey: newItem.uniqueKey,
+                    options: optionsType,
                     totalPrice: newItem.price * newItem.quantity,
                     discountedTotalPrice: newItem.discountPrice * newItem.quantity,
                 });
             }
 
-            state.estimatedShipping = calculateEstimatedShipping(state.totalAmount);
-            state.estimatedTax = calculateEstimatedTax(state.totalAmount);
-            state.total = calculateTotal(state.totalAmountDiscount, state.estimatedShipping, state.estimatedTax);
+            recalculateTotals(state);
         },
-        updateItemQuantity: (state, action: PayloadAction<{ id: string; options: IOption[]; quantity: number }>) => {
-            const { id, options, quantity } = action.payload;
-            const itemToUpdate = state.items.find(
-                item =>
-                    item._id === id &&
-                    JSON.stringify(item.options) === JSON.stringify(options)
-            );
 
+        updateItem: (state, action: PayloadAction<{ uniqueKey: string; options: (IOption | null)[]; quantity: number }>) => {
+            const { uniqueKey, options, quantity } = action.payload;
+            const itemToUpdate = state.items.find(item => item.uniqueKey === uniqueKey);
+            const optionsType = options as WritableDraft<{
+                label: string;
+                value: IOption[];
+            }>[] | undefined;
             if (itemToUpdate) {
-                const quantityDiff = quantity - itemToUpdate.quantity;
-
                 if (quantity === 0) {
-                    state.items = state.items.filter(
-                        item =>
-                            item._id !== id ||
-                            JSON.stringify(item.options) !== JSON.stringify(options)
-                    );
-                    state.totalQuantity -= itemToUpdate.quantity;
-                    state.totalAmount -= itemToUpdate.price * itemToUpdate.quantity;
-                    state.totalAmountDiscount -= itemToUpdate.discountPrice * itemToUpdate.quantity;
+                    state.items = state.items.filter(item => item.uniqueKey !== uniqueKey);
                 } else {
-                    state.totalQuantity += quantityDiff;
-                    state.totalAmount += quantityDiff * itemToUpdate.price;
-                    state.totalAmountDiscount += quantityDiff * itemToUpdate.discountPrice;
+                    itemToUpdate.options = optionsType;
                     itemToUpdate.quantity = quantity;
                     itemToUpdate.totalPrice = itemToUpdate.price * quantity;
                     itemToUpdate.discountedTotalPrice = itemToUpdate.discountPrice * quantity;
                 }
-
-                state.estimatedShipping = calculateEstimatedShipping(state.totalAmount);
-                state.estimatedTax = calculateEstimatedTax(state.totalAmount);
-                state.total = calculateTotal(state.totalAmountDiscount, state.estimatedShipping, state.estimatedTax);
-            }
-        },
-        removeItem: (state, action: PayloadAction<{ id: string; options: IOption[] }>) => {
-            const { id, options } = action.payload;
-            const existingItem = state.items.find(
-                item =>
-                    item._id === id &&
-                    JSON.stringify(item.options) === JSON.stringify(options)
-            );
-
-            if (existingItem) {
-                state.totalQuantity -= existingItem.quantity;
-                state.totalAmount -= existingItem.price * existingItem.quantity;
-                state.totalAmountDiscount -= existingItem.discountPrice * existingItem.quantity;
-                state.items = state.items.filter(
-                    item =>
-                        item._id !== id ||
-                        JSON.stringify(item.options) !== JSON.stringify(options)
-                );
             }
 
-            state.estimatedShipping = calculateEstimatedShipping(state.totalAmount);
-            state.estimatedTax = calculateEstimatedTax(state.totalAmount);
-            state.total = calculateTotal(state.totalAmountDiscount, state.estimatedShipping, state.estimatedTax);
+            recalculateTotals(state);
         },
+
+        removeItem: (state, action: PayloadAction<{ uniqueKey: string }>) => {
+            state.items = state.items.filter(item => item.uniqueKey !== action.payload.uniqueKey);
+            recalculateTotals(state);
+        },
+
         removeAllItems: (state) => {
             state.items = [];
-            state.totalQuantity = 0;
-            state.totalAmount = 0;
-            state.totalAmountDiscount = 0;
-            state.estimatedShipping = 0;
-            state.estimatedTax = 0;
-            state.total = 0;
+            state.selectedItems = [];
+            recalculateTotals(state);
         },
-        toggleItemSelection: (state, action: PayloadAction<{ id: string; checked: boolean }>) => {
-            const { id, checked } = action.payload;
-            if (checked && !state.selectedItems.includes(id)) {
-                state.selectedItems.push(id);
+
+        toggleItemSelection: (state, action: PayloadAction<{ uniqueKey: string; checked: boolean }>) => {
+            const { uniqueKey, checked } = action.payload;
+            if (checked && !state.selectedItems.includes(uniqueKey)) {
+                state.selectedItems.unshift(uniqueKey);
             } else if (!checked) {
-                state.selectedItems = state.selectedItems.filter(itemId => itemId !== id);
+                state.selectedItems = state.selectedItems.filter(id => id !== uniqueKey);
             }
+            recalculateTotals(state);
         },
         removeSelectedItems: (state) => {
-            state.items = state.items.filter(item => !state.selectedItems.includes(item._id));
+            const selectedSet = new Set(state.selectedItems);
+            const remainingItems = state.items.filter(item => !selectedSet.has(item.uniqueKey));
+            state.items = remainingItems
             state.selectedItems = [];
-
-            // Recalculate totals
-            state.totalQuantity = state.items.reduce((sum, item) => sum + item.quantity, 0);
-            state.totalAmount = state.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            state.totalAmountDiscount = state.items.reduce((sum, item) => sum + (item.discountPrice * item.quantity), 0);
-
-            state.estimatedShipping = calculateEstimatedShipping(state.totalAmount);
-            state.estimatedTax = calculateEstimatedTax(state.totalAmount);
-            state.total = calculateTotal(state.totalAmountDiscount, state.estimatedShipping, state.estimatedTax);
+            recalculateTotals(state);
         },
+
     },
 });
 
-export const { addItem, removeItem, removeAllItems, updateItemQuantity, toggleItemSelection, removeSelectedItems } = cartSlice.actions;
+export const {
+    addItem,
+    removeAllItems,
+    // removeItem,
+    updateItem,
+    toggleItemSelection,
+    removeSelectedItems
+} = cartSlice.actions;
 export default cartSlice.reducer;
