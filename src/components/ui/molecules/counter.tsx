@@ -53,7 +53,7 @@ export const Counter = memo(forwardRef<CounterRef, ICounterProps>(
                     variant="outline"
                     className="w-6 h-6 rounded-xl"
                     aria-label="Decrement"
-                    disabled={count <= 0}
+                    disabled={count <= 1}
                 >
                     <Minus />
                 </Button>

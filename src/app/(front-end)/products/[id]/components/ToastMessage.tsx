@@ -3,21 +3,23 @@ import { useRouter } from 'next/navigation';
 
 
 //components
+import { Badge } from "@/components/ui/atoms"
 import { Card, CardContent, CardImage, CardTitle, CardDescription } from '@/components/ui/molecules';
 
 //lib
 import { formatToCurrency } from "@/lib/formats"
 
 //types
-import { IProduct } from '@/types/product';
+import { IProduct, IOption } from '@/types/product';
 
 interface IToastMessage {
     updatedQuantity?: number
     product: IProduct
     totalCurrentPrice?: number
+    options: (IOption | null)[]
 }
 
-export default function ToastMessage({ product, updatedQuantity, totalCurrentPrice = 0 }: IToastMessage) {
+export default function ToastMessage({ product, updatedQuantity, totalCurrentPrice = 0, options }: IToastMessage) {
     const router = useRouter()
     const handleRouterLinkToDetail = () => {
         router.push(`/products/${product._id}`)
@@ -32,6 +34,11 @@ export default function ToastMessage({ product, updatedQuantity, totalCurrentPri
                     className=" text-lg capitalize cursor-pointer">
                     {product.name}
                 </CardTitle>
+                <CardDescription className="gap-1 flex flex-row">
+                    {options?.map((option) =>
+                        <Badge variant="outline" key={option?.label.split("").join("-")}>{option?.label}</Badge>
+                    )}
+                </CardDescription>
                 <CardDescription className="space-x-2 inline ">
                     <p className="inline-flex items-center gap-x-1 text-xs"> <span className="font-bold "> {formatToCurrency(product.discountPrice)}</span></p>
                     <p className="inline-flex items-center gap-x-1 line-through text-xs"><span>{formatToCurrency(product.price)}</span></p>

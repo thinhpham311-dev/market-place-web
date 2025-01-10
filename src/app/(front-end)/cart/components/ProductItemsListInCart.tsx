@@ -36,6 +36,8 @@ export default function ProductItemsListInCart({ data, itemsPerPage = 5 }: IProd
                         return (
                             <ProductCartItem key={uniqueKey} item={item} totalItems={data.length} />
                         )
+                    } else {
+                        return (<p>Products List Not Found</p>)
                     }
                 })}
             </ScrollArea>

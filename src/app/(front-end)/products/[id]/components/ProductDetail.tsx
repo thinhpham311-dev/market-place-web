@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useRef, useCallback, useState } from 'react';
+import { useMemo, useRef, useCallback, useState, ReactElement } from 'react';
 
 // Routers
 import { useParams, useRouter } from 'next/navigation';
@@ -11,11 +11,13 @@ import { addItem } from '@/store/cart/stateSlice';
 
 
 // Components
-import { Button } from '@/components/ui/atoms';
+import { Button, Avatar, AvatarImage, AvatarFallback, Separator } from '@/components/ui/atoms';
 import { Card, CardContent, CardTitle, CardDescription, Counter, CounterRef, CardHeader, StarRating } from '@/components/ui/molecules';
 import { OptionsListOfTab } from './OptionsListOfTab';
 import ProductReview from './ProductReview'
 import ProductImagesListWithThumbnails from "./ProductImagesListWithThumbnails"
+import ProductItemsListBundleDeals from "./ProductItemsListBundleDeals"
+import ProductItemsListTopPicksFromShop from "./ProductItemsListTopPicksFromShop"
 import ShareSocialsList from "./ShareSocialsList"
 
 // Data
@@ -32,6 +34,7 @@ import { useToast } from "@/lib/hooks";
 
 // Icons
 import { MdAddShoppingCart } from 'react-icons/md';
+import { MessageCircleMore, Store } from "lucide-react"
 
 interface IProductDetailProps {
     product: IProduct
@@ -143,8 +146,11 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
 
         const totalCurrentPrice = updatedQuantity * product.price;
         toast({
-            title: `${product.name} added to cart:`,
-            description: <ToastMessage product={product} updatedQuantity={updatedQuantity} totalCurrentPrice={totalCurrentPrice} />,
+            description: <ToastMessage
+                product={product}
+                options={selectedOptions || []}
+                updatedQuantity={updatedQuantity}
+                totalCurrentPrice={totalCurrentPrice} />,
         });
 
         counterRef.current?.reset();
@@ -196,8 +202,6 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
                             }
                             return null;
                         })}
-
-
                     </div>
 
                     <div>
@@ -226,69 +230,106 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
     );
 }
 
+interface IProductDetailDescriptionProps {
+    product?: IProduct | string;
+}
 
-function ProductDetailDescription() {
+function ProductDetailDescription({ product }: IProductDetailDescriptionProps) {
+    let content: ReactElement | null = null;
+
+    if (typeof product === 'object' && product?.description) {
+        content = (
+            <CardDescription
+                dangerouslySetInnerHTML={{ __html: product.description }}
+            />
+        );
+    } else if (typeof product === 'string') {
+        content = <CardDescription>{product}</CardDescription>;
+    } else {
+        content = <CardDescription>No product details available</CardDescription>;
+    }
+
     return (
-        <Card className='p-5 space-y-3 lg:col-span-3 md:col-span-3 col-span-1'>
-            <CardContent className="p-0 space-y-5">
-                <CardTitle>THÔNG TIN SẢN PHẨM</CardTitle>
-                <CardDescription >
-                    <div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
-                    </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
-                        </p><p>- Thành phần tự nhiên 100% cotton, chất bông mềm mịn.</p><p>
-                        </p><p>- Miếng bông có thiết kế hình vuông, kích thước 6x5cm, cực kỳ vừa vặn khi sử dụng.</p><p>
-                        </p><p>- Hai mặt bông được ép chặt, không bị xơ khi tẩy trang tiện dụng với thiết kế 3 lớp 2 mặt đa năng.</p><p>
-                        </p><p>- Bông tẩy trang 222 miếng an toàn cho da với thành phần tự nhiên và siêu tiết kiệm.</p><p>
-                        </p><p>2. Thành phần của sản phẩm</p><p>
-                        </p><p>- Bông Tẩy Trang 222 Miếng Cotton Pads là sản phẩm bông làm từ 100% cotton, không sử dụng chất tẩy trắng.</p><p>
-                        </p><p>- Sợi bông mềm mại được tiệt trùng, đảm bảo an toàn và lành tính cho da.</p><p>
-                        </p><p>3. Công dụng</p><p>
-                        </p><p>- Sử dụng dễ dàng, thoải mái cho da nhờ độ mềm và dai.</p><p>
-                        </p><p>- Khả năng thấm hút cực tốt nên sẽ không khiến dung dịch tẩy trang bị lãng phí.</p><p>
-                        </p><p>- Không bị vỡ, rách, tung lớp bông ra nên dùng được lâu và không ảnh hưởng tới da mặt.</p><p>
-                        </p><p>- Lấy đi từng lớp cặn trang điểm trên bề mặt, bụi bẩn và tế bào chết đang làm tắc nghẽn lỗ chân lông.</p><p>
-                        </p><p>4. Phù hợp với ai, với đối tượng nào</p><p>
-                        </p><p>- Dùng cho cả nam và nữ.</p><p>
-                        </p><p>- Phù hợp với nhiều đối tượng có nhu cầu sử dụng để tẩy trang, làm sạch da.</p><p>
-                        </p><p>- Dành cho người thường xuyên trang điểm, chăm sóc da.</p><p>
-                        </p><p>- Thích hợp cho nhiều loại da kể cả da nhạy cảm.</p><p>
-                        </p><p>- Dùng được cho cả trẻ nhỏ.</p><p>
-                        </p><p>5. Hướng dẫn sử dụng</p><p>
-                        </p><p>- Khi dưỡng da</p><p>
-                        </p><p>  + Tẩm nước hoa hồng cơ bản lên miếng bông tẩy trang rồi sử dụng để massage mặt.</p><p>
-                        </p><p>  + Để ngấm nước hoa hồng toàn bộ bông tẩy trang rồi đắp lên mặt 10-15p là bạn có thể thay mặt nạ dưỡng ẩm giúp da mịn màng hơn.</p><p>
-                        </p><p>- Khi tẩy trang</p><p>
-                        </p><p>  + Dùng dung dịch tẩy trang massage mặt, tiếp theo đó sử dụng bông tẩy trang lau sạch.</p><p>
-                        </p><p>  + Thấm dung dịch tẩy trang lên bông, sau đó dùng bông lau những vùng da cần tẩy trang.</p><p>
-                        </p><p>6. Quy cách &amp; thông tin, thông số chi tiết:</p><p>
-                        </p><p>- Bông Tẩy Trang 222 Miếng Cotton Pads gồm 222 miếng được đóng gói trong bao bì nylon tiện lợi</p><p>
-                        </p><p>- Miếng bông có kích thước nhỏ gọn 5x6cm dễ dàng sử dụng.</p><p>
-                        </p><p>7. Hướng dẫn bảo quản &amp; thời hạn sử dụng</p><p>
-                        </p><p>- Bảo quản nơi khô ráo, tránh ánh nắng mặt trời trực tiếp và nhiệt độ cao.</p><p>
-                        </p><p>- Thời hạn sử dụng là 3 năm kể từ ngày sản xuất</p><p>
-                        </p><p>✪ Lưu ý khi mua hàng: Khách tham khảo kỹ bảng size, mô tả sản phẩm và ảnh cận chất liệu để lựa chọn sản phẩm phù hợp với mình (tránh trường hợp mua sản phẩm không phù hợp với ý thích). Mọi thắc mắc khác vui lòng liên hệ qua Shopee chat để được trả lời nhanh nhất.</p><p>#shopeechoice #shopeechoicevietnam #choicevietnam</p></div></div>
-                </CardDescription>
+        <Card className="p-5  lg:col-span-3 md:col-span-3 col-span-1 grid grid-cols-3 md:gap-10 gap-3 relative">
+            <CardContent className="p-0 space-y-5 col-span-2 static">
+                <CardTitle className='bg-sidebar-foreground text-background p-3'>Product Description</CardTitle>
+                {content}
+            </CardContent>
+            <CardContent className="p-0 space-y-5 col-span-1 ">
+                <div className='sticky top-[60px] left-0 space-y-5'>
+                    <CardTitle className='bg-sidebar-foreground text-background p-3'>Product Specifications</CardTitle>
+                    <CardDescription className='grid grid-cols-2 px-3'>
+                        <strong className='col-span-1'>Category</strong>
+                        <span className='col-span-1'>
+                            Shopee
+                            icon arrow right
+                            Men Clothes
+                            icon arrow right
+                            Socks</span>
+                    </CardDescription>
+                    <Separator />
+                    <CardDescription className='grid grid-cols-2  px-3'>
+                        <strong className='col-span-1'>Stock</strong>
+                        <span className='col-span-1'>939</span>
+                    </CardDescription>
+                    <Separator />
+                    <CardDescription className='grid grid-cols-2  px-3'>
+                        <strong className='col-span-1'>Socks Length</strong>
+                        <span className='col-span-1'>Ankle</span>
+                    </CardDescription>
+                    <Separator />
+                    <CardDescription className='grid grid-cols-2  px-3'>
+                        <strong className='col-span-1'>Socks Type</strong>
+                        <span className='col-span-1'>Sports Socks</span>
+                    </CardDescription>
+                    <Separator />
+                    <CardDescription className='grid grid-cols-2  px-3'>
+                        <strong className='col-span-1'>Ships From</strong>
+                        <span className='col-span-1'>Overseas</span>
+                    </CardDescription>
+                </div>
+
             </CardContent>
         </Card>
     );
 }
 
+
 const StoreInfo = (
     // { name, address, phone, openingHours }: ISroreInfoProps
 ) => (
-    <Card>
-        <CardHeader>
-            <CardTitle>
-                Store Information
-            </CardTitle>
-            <CardDescription>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam iaculis aliquet quam id imperdiet. Cras vulputate neque ut erat molestie malesuada. Suspendisse sit amet vehicula ante. Proin convallis faucibus rhoncus. Duis mollis finibus quam vel pulvinar. Morbi nisl lacus, lobortis eget massa sit amet, egestas fermentum ex. Phasellus nec tellus sapien. Nulla efficitur felis sit amet bibendum euismod. Praesent scelerisque, risus eget semper sagittis, massa urna pellentesque leo, eget aliquam est diam et est.
-            </CardDescription>
+    <Card className='grid grid-cols-12 md:p-6 md:gap-10 gap-5 p-3'>
+        <CardHeader className='flex flex-row flex-wrap md:col-span-4 col-span-12 gap-x-5 p-0'>
+            <div className='col-span-1 my-3'>
+                <Avatar>
+                    <AvatarImage src="https://res.cloudinary.com/dgincjt1i/image/upload/v1735697706/images_zxsvly.png" />
+                    <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+            </div>
+            <CardContent className='grid grid-cols-2  flex-1 p-0 '>
+                <CardTitle className='text-lg col-span-2'>
+                    Mỹ Phẩm Chính Hãng
+                </CardTitle>
+                <CardDescription className='col-span-2'>
+                    <small className=' text-xs'>Active 57 minutes ago</small>
+                </CardDescription>
+            </CardContent>
+            <CardContent className='grid grid-cols-2 w-full gap-3 p-0'>
+                <Button className='col-span-1' variant="outline" ><MessageCircleMore /><span>Chat Now</span></Button>
+                <Button className='col-span-1' variant="outline"><Store /><span>View Shop</span></Button>
+            </CardContent>
         </CardHeader>
-        {/* <p><strong>Name:</strong> {name}</p>
-        <p><strong>Address:</strong> {address}</p>
-        <p><strong>Phone:</strong> <a href={`tel:${phone}`}>{phone}</a></p>
-        <p><strong>Opening Hours:</strong> {openingHours}</p> */}
+        <CardContent className=' md:col-span-8 col-span-12 grid md:gap-10 gap-3 md:grid-cols-3 grid-cols-2 items-center md:p-3 p-0'>
+            <CardDescription className='md:col-span-1 col-span-2 flex flex-row flex-wrap justify-between capitalize'><strong>ratings:</strong> 1,5k</CardDescription>
+            <CardDescription className='md:col-span-1 col-span-2 flex flex-row flex-wrap justify-between capitalize'><strong>response rate:</strong> 92%</CardDescription>
+            <CardDescription className='md:col-span-1 col-span-2 flex flex-row flex-wrap justify-between capitalize'><strong>joined:</strong> 6 years ago</CardDescription>
+            <CardDescription className='md:col-span-1 col-span-2 flex flex-row flex-wrap justify-between capitalize'><strong>products:</strong> 55</CardDescription>
+            <CardDescription className='md:col-span-1 col-span-2 flex flex-row flex-wrap justify-between capitalize'><strong>response time:</strong> within hours</CardDescription>
+            <CardDescription className='md:col-span-1 col-span-2 flex flex-row flex-wrap justify-between capitalize'><strong>follower:</strong> 4,8k</CardDescription>
+        </CardContent>
+        <CardContent className='col-span-12 p-0'>
+            <ProductItemsListTopPicksFromShop />
+        </CardContent>
     </Card>
 );
 
@@ -307,8 +348,9 @@ export default function ProductDetail() {
     return (
         <Card className=" border-none shadow-none md:px-6 px-3 space-y-5 my-6">
             <ProductDetailInfo product={product} />
+            <ProductItemsListBundleDeals />
             <StoreInfo />
-            <ProductDetailDescription />
+            <ProductDetailDescription product={product} />
             <ProductReview initialReviews={initialReviews} />
         </Card>
     );
