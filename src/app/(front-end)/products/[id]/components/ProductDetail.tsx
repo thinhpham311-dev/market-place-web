@@ -250,12 +250,12 @@ function ProductDetailDescription({ product }: IProductDetailDescriptionProps) {
     }
 
     return (
-        <Card className="p-5  lg:col-span-3 md:col-span-3 col-span-1 grid grid-cols-3 md:gap-10 gap-3 relative">
-            <CardContent className="p-0 space-y-5 col-span-2 static">
+        <Card className="p-5  lg:col-span-3 md:col-span-3 col-span-1 grid grid-cols-3 gap-10 ">
+            <CardContent className="p-0 space-y-5 lg:col-span-2 md:col-span-3 col-span-3 lg:order-1 md:order-2 order-2">
                 <CardTitle className='bg-sidebar-foreground text-background p-3'>Product Description</CardTitle>
                 {content}
             </CardContent>
-            <CardContent className="p-0 space-y-5 col-span-1 ">
+            <CardContent className="p-0 space-y-5 lg:col-span-1 md:col-span-3 col-span-3 lg:order-2 md:order-1 order-1 relative">
                 <div className='sticky top-[60px] left-0 space-y-5'>
                     <CardTitle className='bg-sidebar-foreground text-background p-3'>Product Specifications</CardTitle>
                     <CardDescription className='grid grid-cols-2 px-3'>
