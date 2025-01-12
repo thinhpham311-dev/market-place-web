@@ -67,7 +67,7 @@ export default function DetailCart() {
     return (
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 md:px-6 px-3">
             <div className="lg:col-span-2 md:col-span-1 col-span-1">
-                <Card className="w-full border-none h-full">
+                <Card className="w-full border-none h-full shadow-none">
                     <CardContent className="w-full h-full p-0">
                         <div className="mx-auto w-full h-full">
                             <CardHeader className="mb-3 p-0">
