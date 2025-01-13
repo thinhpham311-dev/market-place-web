@@ -33,7 +33,7 @@ export default function DrawerCart() {
 
     const dispatch = useAppDispatch();
     const { items, totalAmountDiscount, selectedItems } = useAppSelector((state) => state.cart.state);
-    console.log("items list", items)
+
     return (
         <Sheet>
             <SheetTrigger asChild>
