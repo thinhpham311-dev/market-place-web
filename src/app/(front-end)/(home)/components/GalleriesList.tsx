@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/molecules"
 import { IImage } from "@/types/banner"
 import { bannerData } from "@/constants/data"
+import { NotFound } from "@/components/ui/organisms"
 
 interface IItemProps {
     item: IImage
@@ -33,22 +34,26 @@ export default function GalleriesList() {
         Autoplay({ delay: 2000, stopOnInteraction: true })
     )
     return (
-        <Card className="border-0 shadow-none md:px-6 px-3">
-            <Carousel
-                plugins={[plugin.current]}
-                className="w-full mx-auto "
-                onMouseEnter={plugin.current.stop}
-                onMouseLeave={plugin.current.reset}
-            >
-                <CarouselContent>
-                    {bannerData.map((item) => (
-                        <GalleryItem key={item.title?.split("").join("-")} item={item} />
-                    ))}
-                </CarouselContent>
-                <CarouselPrevious className=" top-1/2 -translate-y-1/2 md:-left-5 -left-3 " />
-                <CarouselNext className=" top-1/2 -translate-y-1/2 md:-right-5 -right-3" />
-            </Carousel>
-        </Card>
+        <>
+            {bannerData && bannerData.length > 0 ?
+                <Card className="border-0 shadow-none md:px-6 px-3">
+                    <Carousel
+                        plugins={[plugin.current]}
+                        className="w-full mx-auto "
+                        onMouseEnter={plugin.current.stop}
+                        onMouseLeave={plugin.current.reset}
+                    >
+                        <CarouselContent>
+                            {bannerData.map((item) => (
+                                <GalleryItem key={item.title?.split("").join("-")} item={item} />
+                            ))}
+                        </CarouselContent>
+                        <CarouselPrevious className=" top-1/2 -translate-y-1/2 md:-left-5 -left-3 " />
+                        <CarouselNext className=" top-1/2 -translate-y-1/2 md:-right-5 -right-3" />
+                    </Carousel>
+                </Card>
+                : <NotFound />}
+        </>
     );
 }
 

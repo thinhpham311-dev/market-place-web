@@ -27,17 +27,16 @@ export default function ProductItemsListInCart({ data, itemsPerPage = 5 }: IProd
         totalPages,
         handlePageChange,
     });
+
+
     return (
         <div className="space-y-5">
             <ScrollArea className="w-full h-full">
                 {currentData?.map((item) => {
-                    const uniqueKey = `${item._id}-${item.options?.map(option => `${option?.value}`).join('|').toLocaleLowerCase().trim()}`
                     if (item.quantity > 0) {
                         return (
-                            <ProductCartItem key={uniqueKey} item={item} totalItems={data.length} />
+                            <ProductCartItem key={item.uniqueKey} item={item} totalItems={data.length} />
                         )
-                    } else {
-                        return (<p>Products List Not Found</p>)
                     }
                 })}
             </ScrollArea>

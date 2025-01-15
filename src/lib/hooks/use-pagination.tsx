@@ -49,7 +49,7 @@ export const usePaginationRender = ({
     return (
         <>
             {
-                totalPages &&
+                totalPages > 0 &&
                 <div className="flex justify-center items-center mt-6 space-x-2" >
                     <Button
                         variant="outline"
@@ -83,6 +83,7 @@ export const usePaginationRender = ({
                         <ChevronRight />
                     </Button>
                 </div>
+
             }
         </>
     );

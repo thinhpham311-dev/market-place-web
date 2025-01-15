@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/molecules"
 import ProductItem from "./ProductItem"
 import { Button } from "@/components/ui/atoms"
+import { NotFound } from "@/components/ui/organisms"
 
 // icons
 import { ArrowRight } from "lucide-react"
@@ -71,9 +72,8 @@ export default function ProductItemsListRelated() {
                 </Button>
             </CardHeader>
             <CardContent className="px-0">
-                <CarouselList data={productData} className="lg:basis-1/6 md:basis-1/3 basis-1/2" />
+                {productData && productData.length > 0 ? <CarouselList data={productData} className="lg:basis-1/6 md:basis-1/3 basis-1/2" /> : <NotFound />}
             </CardContent>
         </Card>
-
     );
 }

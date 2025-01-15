@@ -30,7 +30,7 @@ export const OptionsListOfTab = React.forwardRef<HTMLDivElement, IOptionsListOfT
 
         const handleToggleItem = (item: IOption) => {
             // Cập nhật lại giá trị nếu người dùng chọn lại một mục đã được chọn trước đó
-            const newValue = selectedValue?.value === item.value ? item : item; // Đảm bảo luôn cập nhật lại giá trị
+            const newValue = selectedValue?.value === item.value ? null : item; // Đảm bảo luôn cập nhật lại giá trị
             setSelectedValue(newValue); // Cập nhật lại selectedValue
             onChange?.(newValue); // Gửi giá trị mới lên hàm onChange nếu có
         };

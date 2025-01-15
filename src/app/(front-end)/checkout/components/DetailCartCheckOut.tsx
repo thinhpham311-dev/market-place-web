@@ -15,6 +15,7 @@ import { FilePenLine, ArrowLeft } from "lucide-react"
 //format
 import { useRouter } from "next/navigation";
 import DeliveryInfoForm from "./DeliveryInfoForm";
+import { NotFound } from "@/components/ui/organisms";
 
 export default function DetailCartCheckOut() {
     const router = useRouter()
@@ -76,7 +77,7 @@ export default function DetailCartCheckOut() {
                                     total={total} />
                             </CardContent>
                             <CardContent className="px-0">
-                                <ProductItemsListInCart data={items} />
+                                {items && items.length > 0 ? <ProductItemsListInCart data={items} /> : <NotFound />}
                             </CardContent>
                         </Card>
                     </div>

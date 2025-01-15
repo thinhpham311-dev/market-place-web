@@ -19,6 +19,7 @@ import OptionsListOfPayment from "./OptionsListOfPayment"
 
 // icons
 import { ArrowLeft, ShoppingCart } from "lucide-react";
+import { NotFound } from "@/components/ui/organisms";
 
 type ShoppingCartHeaderProps = {
     itemsCount: number;
@@ -73,8 +74,8 @@ export default function DetailCart() {
                             <CardHeader className="mb-3 p-0">
                                 <ShoppingCartHeader itemsCount={items.length} onBack={() => router.back()} />
                             </CardHeader>
-                            <CardContent className="flex items-center p-0">
-                                <ProductItemsListInCart data={items} />
+                            <CardContent className="flex items-center justify-between p-0">
+                                {items && items.length > 0 ? <ProductItemsListInCart data={items} /> : <NotFound />}
                             </CardContent>
                         </div>
                     </CardContent>

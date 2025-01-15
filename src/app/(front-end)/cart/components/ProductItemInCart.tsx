@@ -31,16 +31,16 @@ interface IProductItemInCartProps {
 };
 
 function ProductItemInCart({ item: { name, image, price, discountPrice, _id, quantity, options = [], uniqueKey }, totalItems }: IProductItemInCartProps) {
+    const product = useMemo(() => {
+        return productData?.find((item) => item?._id === _id);
+    }, [_id]);
+
     const dispatch = useAppDispatch();
     const { toast } = useToast();
     const { selectedItems } = useAppSelector((state) => state.cart.state);
     const [selectedOptions, setSelectedOptions] = useState<(IOption | null)[]>(options);
     const [validationErrors, setValidationErrors] = useState<string[]>([]);
     const router = useRouter();
-
-    const product = useMemo(() => {
-        return productData?.find((item) => item?._id === _id);
-    }, [_id]);
 
     const handleChooseOption = useCallback((index: number, selectedValue: IOption | null) => {
         if (index < 0 || index >= options.length) {
@@ -92,7 +92,7 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
         dispatch(toggleItemSelection({ uniqueKey, checked }));
     }, [dispatch, uniqueKey]);
 
-    const handleQuantityChange = useCallback((newQuantity: number) => {
+    const handleChange = useCallback((newQuantity: number) => {
         if (newQuantity >= 0) {
             dispatch(updateItem({ uniqueKey, quantity: newQuantity, options }));
         }
@@ -144,7 +144,7 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
                 </div>
                 <div className="md:col-span-3 col-span-12">
                     <span className="text-xs font-bold">Qty:</span>
-                    <Counter value={quantity} onQuantityChange={handleQuantityChange} />
+                    <Counter value={quantity} onQuantityChange={handleChange} />
                 </div>
                 <div className="md:col-span-3 col-span-12 block">
                     <span className="text-xs font-bold">Price:</span>

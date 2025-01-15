@@ -29,6 +29,7 @@ import { IProduct } from "@/types/product"
 
 //libs
 import { cn } from "@/lib/utils"
+import { NotFound } from "@/components/ui/organisms"
 
 interface ICarouselListProps {
     data: Array<IProduct>,
@@ -71,7 +72,7 @@ export default function ProductItemsListRelated() {
                 </Button>
             </CardHeader>
             <CardContent className="px-0">
-                <CarouselList data={productData} className="lg:basis-1/6 md:basis-1/3 basis-1/2" />
+                {productData && productData.length > 0 ? <CarouselList data={productData} className="lg:basis-1/6 md:basis-1/3 basis-1/2" /> : <NotFound />}
             </CardContent>
         </Card>
 

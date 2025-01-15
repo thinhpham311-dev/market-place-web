@@ -14,6 +14,7 @@ import { productData } from "@/constants/data";
 
 //hooks
 import { usePagination, usePaginationRender } from "@/lib/hooks";
+import { NotFound } from "@/components/ui/organisms";
 
 
 interface IGridListProps {
@@ -50,10 +51,15 @@ const GridListWithPagination = ({ data, itemsPerPage = 12, className }: IGridLis
 
 export default function ProductItemsList() {
     return (
-        <GridListWithPagination
-            data={productData}
-            itemsPerPage={18}
-            className="lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-3"
-        />
+        <>
+            {productData && productData.length > 0 ?
+                <GridListWithPagination
+                    data={productData}
+                    itemsPerPage={18}
+                    className="lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-3"
+                />
+                : <NotFound />
+            }
+        </>
     )
 };

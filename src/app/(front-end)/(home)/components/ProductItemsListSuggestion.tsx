@@ -12,6 +12,7 @@ import { IProduct } from "@/types/product";
 //libs
 import { useUniqueId } from "@/lib/hooks";
 import { cn } from "@/lib/utils"
+import { NotFound } from "@/components/ui/organisms";
 
 
 
@@ -64,7 +65,7 @@ export default function ProductItemsListSuggestion() {
                 <CardDescription className="mb-3 capitalize text-center mx-auto">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc facilisis sem sit amet leo rhoncus, non luctus magna tempus. </CardDescription>
             </CardHeader>
             <CardContent className="px-0">
-                <GridListWithLoading data={productData} itemsPerPage={12} className="lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-3" />
+                {productData && productData.length > 0 ? <GridListWithLoading data={productData} itemsPerPage={12} className="lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-3" /> : <NotFound />}
             </CardContent>
         </Card >
     );

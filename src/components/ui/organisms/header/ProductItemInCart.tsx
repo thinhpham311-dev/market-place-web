@@ -42,7 +42,7 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
         dispatch(toggleItemSelection({ uniqueKey, checked })); // Sử dụng uniqueKey từ prop
     };
 
-    const handleQuantityChange = useCallback((newQuantity: number) => {
+    const handleChange = useCallback((newQuantity: number) => {
         if (newQuantity >= 0) {
             dispatch(updateItem({ uniqueKey, quantity: newQuantity, options })); // Sử dụng uniqueKey từ prop
         }
@@ -70,7 +70,7 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
                         <span>{formatToCurrency(price)}</span>
                     </p>
                 </CardDescription>
-                <Counter value={quantity} onQuantityChange={handleQuantityChange} />
+                <Counter value={quantity} onQuantityChange={handleChange} />
                 <CardDescription className="gap-1 flex flex-row">
                     {options?.map((option) =>
                         <Badge variant="outline" key={option.label.split("").join("-")}>{option.label}</Badge>

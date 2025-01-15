@@ -27,6 +27,7 @@ import { ShoppingCart } from "lucide-react";
 
 //format
 import { formatToCurrency } from "@/lib/formats"
+import { NotFound } from "@/components/ui/organisms";
 
 export default function DrawerCart() {
     const router = useRouter();
@@ -64,7 +65,7 @@ export default function DrawerCart() {
                         </div>
                     </SheetHeader>
                     <ScrollArea className="flex-1">
-                        <ProductItemsListInCart data={items} />
+                        {items && items.length > 0 ? <ProductItemsListInCart data={items} /> : <NotFound />}
                     </ScrollArea>
                     <div className="space-y-2">
                         <SheetFooter>

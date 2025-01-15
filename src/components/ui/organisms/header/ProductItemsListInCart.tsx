@@ -13,16 +13,18 @@ interface IProductItemsListInCartProps {
 }
 
 export default function ProductItemsListInCart({ data }: IProductItemsListInCartProps) {
+
     return (
         <ScrollArea className="w-full h-full">
-            {data?.map((item) => {
-                const uniqueKey = `${item._id}-${item.options?.map(option => `${option?.value}`).join('|').toLocaleLowerCase().trim()}`
-                if (item.quantity > 0) {
-                    return (
-                        <ProductItemInCart key={uniqueKey} item={item} totalItems={data.length} />
-                    )
-                }
-            })}
+            {
+                data?.map((item) => {
+                    if (item.quantity > 0) {
+                        return (
+                            <ProductItemInCart key={item.uniqueKey} item={item} totalItems={data.length} />
+                        )
+                    }
+                })
+            }
         </ScrollArea>
     )
 }
