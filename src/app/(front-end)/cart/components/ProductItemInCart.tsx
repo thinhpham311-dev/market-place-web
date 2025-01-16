@@ -28,6 +28,7 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
     const [validationErrors, setValidationErrors] = useState<string[]>([]);
     const router = useRouter();
 
+
     const handleChooseOption = useCallback(
         (index: number, selectedValue: IOption | null) => {
             setSelectedOptions((prev) => {
@@ -53,7 +54,8 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
             const newQuantity = updates.quantity ?? quantity;
             const newOptions = updates.options ?? options;
 
-            if (newQuantity === quantity && newOptions === options) {
+            // Nếu không có thay đổi, thoát sớm
+            if (newQuantity === quantity && JSON.stringify(newOptions) === JSON.stringify(options)) {
                 return;
             }
 
@@ -67,6 +69,7 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
         },
         [dispatch, uniqueKey, quantity, options, toast]
     );
+
 
     const handleUpdateOptions = useCallback(() => handleUpdateItem({ options: selectedOptions }), [handleUpdateItem, selectedOptions]);
     const handleUpdateQuantity = useCallback((newQuantity: number) => handleUpdateItem({ quantity: newQuantity }), [handleUpdateItem]);

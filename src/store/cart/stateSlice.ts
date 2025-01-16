@@ -95,24 +95,42 @@ export const cartSlice = createSlice({
         updateItem: (state, action: PayloadAction<{ uniqueKey: string; options: (IOption | null)[]; quantity: number }>) => {
             const { uniqueKey, options, quantity } = action.payload;
             const itemToUpdate = state.items.find(item => item.uniqueKey === uniqueKey);
+
             const optionsType = options as WritableDraft<{
                 label: string;
                 value: IOption[];
             }>[] | undefined;
+
             if (itemToUpdate) {
+                // Nếu số lượng là 0, xóa item khỏi danh sách
                 if (quantity === 0) {
                     state.items = state.items.filter(item => item.uniqueKey !== uniqueKey);
                 } else {
-                    itemToUpdate.options = optionsType;
-                    itemToUpdate.quantity = quantity;
-                    itemToUpdate.totalPrice = itemToUpdate.price * quantity;
-                    itemToUpdate.discountedTotalPrice = itemToUpdate.discountPrice * quantity;
+                    // Kiểm tra trùng lặp options
+                    const duplicateItem = state.items.find(
+                        item => item.uniqueKey !== uniqueKey && JSON.stringify(item.options) === JSON.stringify(optionsType)
+                    );
+
+                    if (duplicateItem) {
+                        // Gộp quantity với item trùng
+                        duplicateItem.quantity += quantity;
+                        duplicateItem.totalPrice = duplicateItem.price * duplicateItem.quantity;
+                        duplicateItem.discountedTotalPrice = duplicateItem.discountPrice * duplicateItem.quantity;
+                        // Xóa item hiện tại khỏi danh sách
+                        state.items = state.items.filter(item => item.uniqueKey !== uniqueKey);
+                    }
+                    else {
+                        // Cập nhật item hiện tại
+                        itemToUpdate.options = optionsType;
+                        itemToUpdate.quantity = quantity;
+                        itemToUpdate.totalPrice = itemToUpdate.price * quantity;
+                        itemToUpdate.discountedTotalPrice = itemToUpdate.discountPrice * quantity;
+                    }
                 }
             }
+
             recalculateTotals(state);
         },
-
-
 
 
         removeItem: (state, action: PayloadAction<{ uniqueKey: string }>) => {

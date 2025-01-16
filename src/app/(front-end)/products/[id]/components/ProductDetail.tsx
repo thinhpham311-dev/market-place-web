@@ -102,17 +102,16 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
 
         return errors;
     };
-
     const handleAddToCart = useCallback(() => {
         if (!product) {
             return;
         }
 
-        // Validate các tùy chọn đã chọn
+        // Validate options
         const errors = validateOptions();
 
         if (errors.length > 0) {
-            setValidationErrors(errors); // Cập nhật trạng thái lỗi
+            setValidationErrors(errors); // Update error state
             toast({
                 title: "Error",
                 description: `Please select a value for: ${errors.join(", ")}`,
@@ -131,7 +130,7 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
             });
             return;
         }
-        const uniqueKey = `${product._id}-${selectedOptions?.map(option => option ? `${option.label}-${option.value}` : "").join("|")}`
+        const uniqueKey = `${product._id}-${selectedOptions?.map(option => option ? `${option.label}-${option.value}` : "").join("|")}`;
 
         const cartItem: IcartItem = {
             _id: product._id,
@@ -157,9 +156,23 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
     }, [dispatch, product, selectedOptions, validateOptions, counterRef]);
 
     const handleBuyNow = () => {
-        handleAddToCart()
-        router.push("/cart");
+        // Validate before proceeding
+        const errors = validateOptions();
+
+        if (errors.length > 0) {
+            setValidationErrors(errors); // Update error state
+            toast({
+                title: "Error",
+                description: `Please select a value for: ${errors.join(", ")}`,
+                variant: "destructive",
+            });
+            return;
+        }
+
+        handleAddToCart(); // Add to cart first
+        router.push("/cart"); // Then navigate to the cart
     };
+
 
     const averageRating = useMemo(() => {
         const totalRating = reviews?.reduce((sum: number, review: IReview) => sum + review.rating, 0);
