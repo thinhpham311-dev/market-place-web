@@ -94,47 +94,24 @@ export const cartSlice = createSlice({
 
         updateItem: (state, action: PayloadAction<{ uniqueKey: string; options: (IOption | null)[]; quantity: number }>) => {
             const { uniqueKey, options, quantity } = action.payload;
-
-            // Tìm item gốc cần cập nhật
             const itemToUpdate = state.items.find(item => item.uniqueKey === uniqueKey);
-
-            if (!itemToUpdate) {
-                return;
-            } // Nếu không tìm thấy item, không làm gì cả
-
-            // Tạo `uniqueKey` mới từ options (nếu có)
-            const newOptionsKey = options.map(option => option ? `${option.label}-${option.value}` : "").join("|");
-            const updatedUniqueKey = `${itemToUpdate._id}-${newOptionsKey}`;
-
-            // Kiểm tra nếu item trùng với `uniqueKey` mới này, nếu có thì gộp số lượng
-            const existingItem = state.items.find(item => item.uniqueKey === updatedUniqueKey);
-
-            if (existingItem) {
-                // Gộp số lượng của item trùng
-                existingItem.uniqueKey = updatedUniqueKey;
-                existingItem.quantity += quantity;
-                existingItem.totalPrice = existingItem.price * existingItem.quantity;
-                existingItem.discountedTotalPrice = existingItem.discountPrice * existingItem.quantity;
-
-                // Xóa item cũ nếu đã gộp xong
-                state.items = state.items.filter(item => item.uniqueKey !== uniqueKey);
-                state.items = [...state.items];
-
-            } else {
-                // Nếu không trùng, cập nhật item
-                itemToUpdate.options = options as WritableDraft<{
-                    label: string;
-                    value: IOption[];
-                }>[];
-                itemToUpdate.uniqueKey = updatedUniqueKey;
-                itemToUpdate.quantity = quantity;
-                itemToUpdate.totalPrice = itemToUpdate.price * quantity;
-                itemToUpdate.discountedTotalPrice = itemToUpdate.discountPrice * quantity;
+            const optionsType = options as WritableDraft<{
+                label: string;
+                value: IOption[];
+            }>[] | undefined;
+            if (itemToUpdate) {
+                if (quantity === 0) {
+                    state.items = state.items.filter(item => item.uniqueKey !== uniqueKey);
+                } else {
+                    itemToUpdate.options = optionsType;
+                    itemToUpdate.quantity = quantity;
+                    itemToUpdate.totalPrice = itemToUpdate.price * quantity;
+                    itemToUpdate.discountedTotalPrice = itemToUpdate.discountPrice * quantity;
+                }
             }
-
-            // Tính toán lại tổng sau khi cập nhật
             recalculateTotals(state);
         },
+
 
 
 
