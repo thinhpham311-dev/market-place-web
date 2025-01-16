@@ -46,7 +46,6 @@ export const OptionsListOfTab = React.forwardRef<HTMLDivElement, IOptionsListOfT
                 </Label>
                 <ToggleGroup type="single" className="justify-start flex-wrap">
                     {data.map((item: IOption) => {
-
                         return (
                             <ToggleGroupItem
                                 variant="outline"
@@ -54,9 +53,11 @@ export const OptionsListOfTab = React.forwardRef<HTMLDivElement, IOptionsListOfT
                                 value={item.value?.toString()}
                                 onClick={() => handleToggleItem(item)}
                                 className={cn("capitalize", {
-                                    "bg-blue-500 text-white": selectedValue?.value === item.value
+                                    "bg-sidebar-border": selectedValue?.value === item.value
                                 })}
                                 size="sm"
+                                aria-selected={selectedValue?.value === item.value}
+                                role="option"
                             >
                                 {item.label}
                             </ToggleGroupItem>

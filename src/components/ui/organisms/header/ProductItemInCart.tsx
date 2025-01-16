@@ -1,52 +1,43 @@
-'use client'
-import { useCallback, memo } from "react"
-import { useRouter } from "next/navigation"
-
-//stores
-import { useAppDispatch, useAppSelector } from "@/lib/hooks"
-import {
-    toggleItemSelection,
-    updateItem
-} from "@/store/cart/stateSlice"
-
-//components
+import { useCallback, memo } from "react";
+import { useRouter } from "next/navigation";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { toggleItemSelection, updateItem } from "@/store/cart/stateSlice";
 import {
     Card, CardContent, CardDescription, CardImage, CardTitle, Counter,
-} from "@/components/ui/molecules"
-import { Checkbox, Badge } from "@/components/ui/atoms"
-// import CollapsibleChooseOptions from "./CollapsibleChooseOptions"
-
-//types
-import { IcartItem } from "@/types/cart"
-
-//format
-import { formatToCurrency } from "@/lib/formats"
-
-
+} from "@/components/ui/molecules";
+import { Checkbox, Badge } from "@/components/ui/atoms";
+import { formatToCurrency } from "@/lib/formats";
+import { IcartItem } from "@/types/cart";
 
 interface IProductItemInCartProps {
-    item: IcartItem
-    totalItems?: number,
-};
+    item: IcartItem;
+    totalItems?: number;
+}
 
 function ProductItemInCart({ item: { name, image, price, discountPrice, _id, quantity, options = [], uniqueKey }, totalItems }: IProductItemInCartProps) {
     const dispatch = useAppDispatch();
-    const { selectedItems } = useAppSelector((state) => state.cart.state); // Giả sử bạn có root state
+    const { selectedItems } = useAppSelector((state) => state.cart.state);
     const router = useRouter();
 
-    const handleRouterLinkToDetail = () => {
+    const handleRouterLinkToDetail = useCallback(() => {
         router.push(`/products/${_id}`);
-    };
+    }, [router, _id]);
 
-    const handleCheckboxChange = (uniqueKey: string, checked: boolean) => {
-        dispatch(toggleItemSelection({ uniqueKey, checked })); // Sử dụng uniqueKey từ prop
-    };
+    const handleCheckboxChange = useCallback(
+        (checked: boolean) => {
+            dispatch(toggleItemSelection({ uniqueKey, checked }));
+        },
+        [dispatch, uniqueKey]
+    );
 
-    const handleChange = useCallback((newQuantity: number) => {
-        if (newQuantity >= 0) {
-            dispatch(updateItem({ uniqueKey, quantity: newQuantity, options })); // Sử dụng uniqueKey từ prop
-        }
-    }, [dispatch, options, uniqueKey]);
+    const handleChange = useCallback(
+        (newQuantity: number) => {
+            if (newQuantity >= 0 && newQuantity !== quantity) {
+                dispatch(updateItem({ uniqueKey, quantity: newQuantity, options }));
+            }
+        },
+        [dispatch, uniqueKey, options, quantity] // Ensure dependencies include the current `quantity`.
+    );
 
     return (
         <Card layout="horizontal" className="relative mb-3 last:mb-0 items-start grid grid-cols-3 gap-3">
@@ -57,9 +48,7 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
                 className="rounded-sm bg-slate-600 cursor-pointer p-0 col-span-1 my-2 mx-2"
             />
             <CardContent className="py-2 px-0 h-full col-span-2 content-center space-y-2">
-                <CardTitle
-                    onClick={handleRouterLinkToDetail}
-                    className="text-lg capitalize cursor-pointer">
+                <CardTitle onClick={handleRouterLinkToDetail} className="text-lg capitalize cursor-pointer">
                     {name}
                 </CardTitle>
                 <CardDescription className="space-x-2 mb-2 inline">
@@ -72,9 +61,9 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
                 </CardDescription>
                 <Counter value={quantity} onQuantityChange={handleChange} />
                 <CardDescription className="gap-1 flex flex-row">
-                    {options?.map((option) =>
-                        <Badge variant="outline" key={option.label.split("").join("-")}>{option.label}</Badge>
-                    )}
+                    {options.map((option, index) => (
+                        <Badge variant="outline" key={`${option?.label.split("").join("-")}-${index}`}>{option?.label}</Badge>
+                    ))}
                 </CardDescription>
             </CardContent>
             {totalItems && totalItems > 1 && (
@@ -82,15 +71,11 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
                     id={uniqueKey}
                     checked={selectedItems.includes(uniqueKey)}
                     className="absolute top-3 right-3"
-                    onCheckedChange={(checked) => handleCheckboxChange(uniqueKey, Boolean(checked))}
+                    onCheckedChange={handleCheckboxChange}
                 />
             )}
-            {/* <CardFooter className="col-span-8">
-                <CollapsibleChooseOptions />
-            </CardFooter> */}
         </Card>
     );
 }
 
-
-export default memo(ProductItemInCart)
+export default memo(ProductItemInCart);

@@ -131,7 +131,7 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
             });
             return;
         }
-        const uniqueKey = `${product._id}-${selectedOptions?.map(option => `${option?.value}`).join('|').toLocaleLowerCase().trim()}`
+        const uniqueKey = `${product._id}-${selectedOptions?.map(option => option ? `${option.label}-${option.value}` : "").join("|")}`
 
         const cartItem: IcartItem = {
             _id: product._id,

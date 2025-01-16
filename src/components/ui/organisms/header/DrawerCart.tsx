@@ -87,7 +87,7 @@ export default function DrawerCart() {
                             </SheetFooter>
                         } */}
 
-                        <SheetFooter className="justify-end rounded-md space-x-3">
+                        <SheetFooter className="justify-end rounded-md gap-y-2 gap-x-1">
                             {items.length > 0 && (
                                 <Button variant="outline" className="w-full" onClick={() => dispatch(removeAllItems())}>
                                     Clear All
