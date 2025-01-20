@@ -31,6 +31,7 @@ export default function ProductItemsListInCart({ data, itemsPerPage = 5 }: IProd
 
     return (
         <div className="space-y-5">
+
             <ScrollArea className="w-full h-full">
                 {currentData?.map((item) => {
                     if (item.quantity > 0) {

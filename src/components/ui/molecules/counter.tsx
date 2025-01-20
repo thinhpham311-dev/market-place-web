@@ -1,12 +1,11 @@
 'use client';
-import React, { useState, useEffect, forwardRef, useImperativeHandle, memo } from "react";
+import React, { useState, forwardRef, useImperativeHandle, memo, useEffect } from "react";
 import { Button } from "@/components/ui/atoms/button";
 import { Input } from "@/components/ui/atoms/input";
 import { Plus, Minus } from "lucide-react";
 
 interface ICounterProps {
-    isButtonAdd?: boolean;
-    value?: number;
+    value: number;
     onQuantityChange?: (quantity: number) => void;
 }
 
@@ -15,84 +14,58 @@ export interface CounterRef {
     getCount: () => number;
 }
 
-export const Counter = memo(forwardRef<CounterRef, ICounterProps>(
-    ({ isButtonAdd, value, onQuantityChange }, ref) => {
-        const [count, setCount] = useState<number>(value || 1);
+export const Counter = memo(
+    forwardRef<CounterRef, ICounterProps>(({ onQuantityChange, value }, ref) => {
+        const [localCount, setLocalCount] = useState<number>(value);
 
-        // Trigger `onQuantityChange` only when `count` changes
         useEffect(() => {
-            if (onQuantityChange) {
-                onQuantityChange(count);
-            }
-        }, [count, onQuantityChange]);
+            setLocalCount(value);
+        }, [value]);
 
-        const increment = () => {
-            setCount((prev) => prev + 1);
+        const updateCount = (newCount: number) => {
+            setLocalCount(newCount);
+            onQuantityChange?.(newCount);
         };
 
-        const decrement = () => {
-            setCount((prev) => Math.max(0, prev - 1));
-        };
-
-        const reset = () => {
-            setCount(1);
-        };
-
-        const getCount = () => count;
+        const increment = () => updateCount(localCount + 1);
+        const decrement = () => updateCount(Math.max(0, localCount - 1));
+        const reset = () => updateCount(value); // Reset to initial value
+        const getCount = () => localCount;
 
         useImperativeHandle(ref, () => ({
             reset,
-            getCount
+            getCount,
         }));
 
-        const renderControls = () => (
-            <div className="flex items-center space-x-1 flex-1">
-                <Button
-                    onClick={decrement}
-                    size="icon"
-                    variant="outline"
-                    className="w-6 h-6 rounded-xl"
-                    aria-label="Decrement"
-                    disabled={count <= 1}
-                >
-                    <Minus />
-                </Button>
-                <Input
-                    type="text"
-                    value={count}
-                    readOnly
-                    className="text-center text-sm w-12 h-8"
-                    aria-label="Counter value"
-                />
-                <Button
-                    onClick={increment}
-                    size="icon"
-                    variant="outline"
-                    className="w-6 h-6 rounded-xl"
-                    aria-label="Increment"
-                >
-                    <Plus />
-                </Button>
-            </div>
-        );
-
-        return (
-            <>
-                {isButtonAdd && count === 0 ? (
-                    <Button
-                        className="uppercase"
-                        variant="outline"
-                        size="sm"
-                        onClick={increment}
-                    >
-                        Add to Cart
-                    </Button>
-                ) : (
-                    renderControls()
-                )}
-            </>
-        );
-    }
-));
+        return <div className="flex items-center space-x-1 flex-1">
+            <Button
+                onClick={decrement}
+                size="icon"
+                variant="outline"
+                className="w-6 h-6 rounded-xl"
+                aria-label="Decrement"
+                disabled={localCount <= 1}
+            >
+                <Minus />
+            </Button>
+            <Input
+                type="text"
+                value={localCount}
+                readOnly
+                className="text-center text-sm w-12 h-8"
+                aria-label="Counter value"
+            />
+            <Button
+                onClick={increment}
+                size="icon"
+                variant="outline"
+                className="w-6 h-6 rounded-xl"
+                aria-label="Increment"
+            >
+                <Plus />
+            </Button>
+        </div>
+    })
+);
 
 Counter.displayName = "Counter";

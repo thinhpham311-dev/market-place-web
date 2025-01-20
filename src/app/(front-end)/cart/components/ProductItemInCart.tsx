@@ -1,9 +1,9 @@
 'use client'
-import { useCallback, memo, useState, useMemo } from "react";
+import { useCallback, memo, useState, useMemo, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { toggleItemSelection, updateItem } from "@/store/cart/stateSlice";
-import { Card, CardContent, CardDescription, CardImage, CardTitle, Counter } from "@/components/ui/molecules";
+import { Card, CardContent, CardDescription, CardImage, CardTitle, Counter, CounterRef } from "@/components/ui/molecules";
 import { Checkbox, Badge, Button, Separator } from "@/components/ui/atoms";
 import { OptionsListOfTab } from "./OptionsListOfTab";
 import DropdownOptionsList from "./DropdownOptionsList";
@@ -20,6 +20,7 @@ interface IProductItemInCartProps {
 
 
 function ProductItemInCart({ item: { name, image, price, discountPrice, _id, quantity, options = [], uniqueKey }, totalItems }: IProductItemInCartProps) {
+    const counterRef = useRef<CounterRef>(null);
     const product = useMemo(() => productData.find((item) => item._id === _id), [_id]);
     const dispatch = useAppDispatch();
     const { toast } = useToast();
@@ -72,7 +73,7 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
 
 
     const handleUpdateOptions = useCallback(() => handleUpdateItem({ options: selectedOptions }), [handleUpdateItem, selectedOptions]);
-    const handleUpdateQuantity = useCallback((newQuantity: number) => handleUpdateItem({ quantity: newQuantity }), [handleUpdateItem]);
+    const handleUpdateQuantity = useCallback((newQuantity: number) => handleUpdateItem({ quantity: newQuantity }), [handleUpdateItem, quantity]);
     const handleCheckboxChange = useCallback((checked: boolean) => dispatch(toggleItemSelection({ uniqueKey, checked })), [dispatch, uniqueKey]);
     const handleRouterLinkToDetail = useCallback(() => router.push(`/products/${_id}`), [_id, router]);
 
@@ -109,7 +110,7 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
                 </div>
                 <div className="md:col-span-3 col-span-12">
                     <span className="text-xs font-bold">Qty:</span>
-                    <Counter value={quantity} onQuantityChange={handleUpdateQuantity} />
+                    <Counter value={quantity} ref={counterRef} onQuantityChange={handleUpdateQuantity} />
                 </div>
                 <div className="md:col-span-3 col-span-12 block">
                     <span className="text-xs font-bold">Price:</span>

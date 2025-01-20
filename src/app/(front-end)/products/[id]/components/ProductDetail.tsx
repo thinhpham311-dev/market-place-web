@@ -218,7 +218,7 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
                     </div>
 
                     <div>
-                        <Counter ref={counterRef} />
+                        <Counter value={1} ref={counterRef} />
                     </div>
                     <div className='space-x-3 flex items-center'>
                         <Button
