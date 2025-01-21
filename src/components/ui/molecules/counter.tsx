@@ -1,11 +1,11 @@
 'use client';
-import React, { useState, forwardRef, useImperativeHandle, memo, useEffect } from "react";
+import React, { useState, useEffect, forwardRef, useImperativeHandle, memo } from "react";
 import { Button } from "@/components/ui/atoms/button";
 import { Input } from "@/components/ui/atoms/input";
 import { Plus, Minus } from "lucide-react";
 
 interface ICounterProps {
-    value: number;
+    initialValue?: number; // Dùng initialValue thay vì value
     onQuantityChange?: (quantity: number) => void;
 }
 
@@ -15,12 +15,12 @@ export interface CounterRef {
 }
 
 export const Counter = memo(
-    forwardRef<CounterRef, ICounterProps>(({ onQuantityChange, value }, ref) => {
-        const [localCount, setLocalCount] = useState<number>(value);
-
+    forwardRef<CounterRef, ICounterProps>(({ onQuantityChange, initialValue = 1 }, ref) => {
+        const [localCount, setLocalCount] = useState<number>(initialValue);
+        // Đồng bộ giá trị từ props vào state mỗi khi initialValue thay đổi
         useEffect(() => {
-            setLocalCount(value);
-        }, [value]);
+            setLocalCount(initialValue);
+        }, [initialValue]);
 
         const updateCount = (newCount: number) => {
             setLocalCount(newCount);
@@ -29,7 +29,7 @@ export const Counter = memo(
 
         const increment = () => updateCount(localCount + 1);
         const decrement = () => updateCount(Math.max(0, localCount - 1));
-        const reset = () => updateCount(value); // Reset to initial value
+        const reset = () => updateCount(initialValue); // Reset về giá trị ban đầu
         const getCount = () => localCount;
 
         useImperativeHandle(ref, () => ({
@@ -37,34 +37,36 @@ export const Counter = memo(
             getCount,
         }));
 
-        return <div className="flex items-center space-x-1 flex-1">
-            <Button
-                onClick={decrement}
-                size="icon"
-                variant="outline"
-                className="w-6 h-6 rounded-xl"
-                aria-label="Decrement"
-                disabled={localCount <= 1}
-            >
-                <Minus />
-            </Button>
-            <Input
-                type="text"
-                value={localCount}
-                readOnly
-                className="text-center text-sm w-12 h-8"
-                aria-label="Counter value"
-            />
-            <Button
-                onClick={increment}
-                size="icon"
-                variant="outline"
-                className="w-6 h-6 rounded-xl"
-                aria-label="Increment"
-            >
-                <Plus />
-            </Button>
-        </div>
+        return (
+            <div className="flex items-center space-x-1 flex-1">
+                <Button
+                    onClick={decrement}
+                    size="icon"
+                    variant="outline"
+                    className="w-6 h-6 rounded-xl"
+                    aria-label="Decrement"
+                    disabled={localCount <= 1}
+                >
+                    <Minus />
+                </Button>
+                <Input
+                    type="text"
+                    value={localCount}
+                    readOnly
+                    className="text-center text-sm w-12 h-8"
+                    aria-label="Counter value"
+                />
+                <Button
+                    onClick={increment}
+                    size="icon"
+                    variant="outline"
+                    className="w-6 h-6 rounded-xl"
+                    aria-label="Increment"
+                >
+                    <Plus />
+                </Button>
+            </div>
+        );
     })
 );
 

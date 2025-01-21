@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 
 
 //components
-import { Badge } from "@/components/ui/atoms"
+import { Badge, Separator } from "@/components/ui/atoms"
 import { Card, CardContent, CardImage, CardTitle, CardDescription } from '@/components/ui/molecules';
 
 //lib
@@ -15,11 +15,12 @@ import { IProduct, IOption } from '@/types/product';
 interface IToastMessage {
     updatedQuantity?: number
     product: IProduct
-    totalCurrentPrice?: number
+    totalPrice?: number;
+    discountedTotalPrice?: number;
     options: (IOption | null)[]
 }
 
-export default function ToastMessage({ product, updatedQuantity, totalCurrentPrice = 0, options }: IToastMessage) {
+export default function ToastMessage({ product, updatedQuantity, totalPrice = 0, discountedTotalPrice = 0, options }: IToastMessage) {
     const router = useRouter()
     const handleRouterLinkToDetail = () => {
         router.push(`/products/${product._id}`)
@@ -41,16 +42,19 @@ export default function ToastMessage({ product, updatedQuantity, totalCurrentPri
                         <Badge variant="outline" key={option?.label.split("").join("-")}>{option?.label}</Badge>
                     )}
                 </CardDescription>
-                <CardDescription className="space-x-2 inline ">
-                    <p className="inline-flex items-center gap-x-1 text-xs"> <span className="font-bold "> {formatToCurrency(product.discountPrice)}</span></p>
-                    <p className="inline-flex items-center gap-x-1 line-through text-xs"><span>{formatToCurrency(product.price)}</span></p>
+                <CardDescription className="space-x-2 inline-flex text-xs">
+                    <p className='space-x-1'>
+                        <strong>Price:</strong>
+                        <span className="inline-flex items-center gap-x-1 ">  {formatToCurrency(product.discountPrice)}</span>
+                        <span className="inline-flex items-center gap-x-1 line-through">{formatToCurrency(product.price)}</span>
+                    </p>
                     <span>x</span>
-                    <strong className="inline-flex items-center gap-x-1 text-xs ">
-                        {updatedQuantity}
-                    </strong>
+                    <p className="inline-flex items-center gap-x-1">  <strong >Qty:</strong>  {updatedQuantity}</p>
                 </CardDescription>
-                <CardDescription>
-                    <p className='block space-x-0 text-xs'>  <strong>Total:</strong> {formatToCurrency(totalCurrentPrice)}</p>
+                <Separator />
+                <CardDescription className='text-xs'>
+                    <p className='space-x-1 '>  <strong>Total:</strong> {formatToCurrency(totalPrice)}</p>
+                    <p className='space-x-1 '>  <strong>Discounted Total:</strong>{formatToCurrency(discountedTotalPrice)}</p>
                 </CardDescription>
             </CardContent>
         </Card>

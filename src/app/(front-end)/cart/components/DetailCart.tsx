@@ -67,7 +67,7 @@ export default function DetailCart() {
 
     return (
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 md:px-6 px-3">
-            <div className="lg:col-span-2 md:col-span-1 col-span-1">
+            <div className="lg:col-span-2 md:col-span-3 col-span-3">
                 <Card className="w-full border-none h-full shadow-none">
                     <CardContent className="w-full h-full p-0">
                         <div className="mx-auto w-full h-full">
@@ -81,7 +81,7 @@ export default function DetailCart() {
                     </CardContent>
                 </Card>
             </div>
-            <div className="lg:col-span-1 md:col-span-1 col-span-1 h-full">
+            <div className="lg:col-span-1 md:col-span-3 col-span-3 h-full">
                 <Card className="border-none gap-y-10 sticky top-[80px]">
                     <CardHeader className="grid grid-rows-2 grid-flow-col p-0 justify-between items-start">
                         <CardTitle className="col-span-1 row-span-1">

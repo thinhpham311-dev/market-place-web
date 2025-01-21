@@ -1,9 +1,9 @@
 'use client'
-import { useCallback, memo, useState, useMemo, useRef } from "react";
+import { useCallback, memo, useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { toggleItemSelection, updateItem } from "@/store/cart/stateSlice";
-import { Card, CardContent, CardDescription, CardImage, CardTitle, Counter, CounterRef } from "@/components/ui/molecules";
+import { Card, CardContent, CardDescription, CardImage, CardTitle, Counter } from "@/components/ui/molecules";
 import { Checkbox, Badge, Button, Separator } from "@/components/ui/atoms";
 import { OptionsListOfTab } from "./OptionsListOfTab";
 import DropdownOptionsList from "./DropdownOptionsList";
@@ -20,7 +20,6 @@ interface IProductItemInCartProps {
 
 
 function ProductItemInCart({ item: { name, image, price, discountPrice, _id, quantity, options = [], uniqueKey }, totalItems }: IProductItemInCartProps) {
-    const counterRef = useRef<CounterRef>(null);
     const product = useMemo(() => productData.find((item) => item._id === _id), [_id]);
     const dispatch = useAppDispatch();
     const { toast } = useToast();
@@ -28,7 +27,6 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
     const [selectedOptions, setSelectedOptions] = useState<(IOption | null)[]>(options);
     const [validationErrors, setValidationErrors] = useState<string[]>([]);
     const router = useRouter();
-
 
     const handleChooseOption = useCallback(
         (index: number, selectedValue: IOption | null) => {
@@ -71,14 +69,13 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
         [dispatch, uniqueKey, quantity, options, toast]
     );
 
-
     const handleUpdateOptions = useCallback(() => handleUpdateItem({ options: selectedOptions }), [handleUpdateItem, selectedOptions]);
     const handleUpdateQuantity = useCallback((newQuantity: number) => handleUpdateItem({ quantity: newQuantity }), [handleUpdateItem, quantity]);
     const handleCheckboxChange = useCallback((checked: boolean) => dispatch(toggleItemSelection({ uniqueKey, checked })), [dispatch, uniqueKey]);
     const handleRouterLinkToDetail = useCallback(() => router.push(`/products/${_id}`), [_id, router]);
 
     return (
-        <Card layout="horizontal" className="mb-3 last:mb-0 items-center grid grid-cols-8 gap-3 p-5">
+        <Card layout="horizontal" className="mb-3 last:mb-0 grid grid-cols-8 gap-5 p-5">
             <CardImage onClick={handleRouterLinkToDetail} src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"} alt={name} className="rounded-lg aspect-square bg-slate-600 cursor-pointer p-0 md:col-span-1 col-span-3" />
             <CardContent className="grid grid-cols-12 items-center p-0 h-full md:col-span-7 col-span-5 gap-x-2 relative">
                 <div className="md:col-span-5 col-span-12">
@@ -110,7 +107,7 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
                 </div>
                 <div className="md:col-span-3 col-span-12">
                     <span className="text-xs font-bold">Qty:</span>
-                    <Counter value={quantity} ref={counterRef} onQuantityChange={handleUpdateQuantity} />
+                    <Counter initialValue={quantity} onQuantityChange={handleUpdateQuantity} />
                 </div>
                 <div className="md:col-span-3 col-span-12 block">
                     <span className="text-xs font-bold">Price:</span>

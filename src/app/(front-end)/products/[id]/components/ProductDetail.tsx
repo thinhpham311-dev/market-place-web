@@ -143,13 +143,16 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
 
         dispatch(addItem({ cartItem: cartItem, options: selectedOptions || [] }));
 
-        const totalCurrentPrice = updatedQuantity * product.price;
+        const totalPrice = updatedQuantity * product.price;
+        const discountedTotalPrice = updatedQuantity * product.discountPrice;
+        console.log("added to cart")
         toast({
             description: <ToastMessage
                 product={product}
                 options={selectedOptions || []}
                 updatedQuantity={updatedQuantity}
-                totalCurrentPrice={totalCurrentPrice} />,
+                totalPrice={totalPrice}
+                discountedTotalPrice={discountedTotalPrice} />,
         });
 
         counterRef.current?.reset();
@@ -218,7 +221,7 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
                     </div>
 
                     <div>
-                        <Counter value={1} ref={counterRef} />
+                        <Counter initialValue={1} ref={counterRef} />
                     </div>
                     <div className='space-x-3 flex items-center'>
                         <Button

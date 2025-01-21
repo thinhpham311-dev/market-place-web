@@ -2,9 +2,6 @@
 import { memo } from "react"
 import { useRouter } from "next/navigation"
 
-//stores
-import { useAppSelector } from "@/lib/hooks"
-
 //components
 import { Card, CardContent, CardDescription, CardImage, CardTitle } from "@/components/ui/molecules"
 
@@ -20,10 +17,7 @@ interface IProductItemInCartProps {
 };
 
 
-function ProductItemInCart({ item: { name, image, price, discountPrice, _id, quantity } }: IProductItemInCartProps) {
-    const {
-        totalAmount
-    } = useAppSelector((state) => state.cart.state)
+function ProductItemInCart({ item: { name, image, price, discountPrice, _id, quantity, totalPrice = 0, discountedTotalPrice = 0 } }: IProductItemInCartProps) {
     const router = useRouter()
 
     const handleRouterLinkToDetail = () => {
@@ -54,7 +48,10 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
                 </CardDescription>
                 <CardDescription>
                     <p className=" items-center gap-x-1 text-xs">
-                        Total: {formatToCurrency(totalAmount)}
+                        <strong> Total: </strong>{formatToCurrency(totalPrice)}
+                    </p>
+                    <p className=" items-center gap-x-1 text-xs">
+                        <strong> Discounted Total:</strong> {formatToCurrency(discountedTotalPrice)}
                     </p>
                 </CardDescription>
             </CardContent>

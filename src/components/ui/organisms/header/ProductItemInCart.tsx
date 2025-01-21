@@ -59,7 +59,7 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
                         <span>{formatToCurrency(price)}</span>
                     </p>
                 </CardDescription>
-                <Counter value={quantity} onQuantityChange={handleChange} />
+                <Counter initialValue={quantity} onQuantityChange={handleChange} />
                 <CardDescription className="gap-1 flex flex-row">
                     {options.map((option, index) => (
                         <Badge variant="outline" key={`${option?.label.split("").join("-")}-${index}`}>{option?.label}</Badge>
