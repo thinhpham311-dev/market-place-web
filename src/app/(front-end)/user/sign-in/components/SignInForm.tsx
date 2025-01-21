@@ -2,7 +2,7 @@
 //components
 import { Button } from "@/components/ui/atoms"
 import { FormGroup, FormInput, FormCheckBox } from "@/components/ui/organisms"
-import { isValidPhoneNumber } from "@/lib/validation"
+import { isValidPhoneNumber } from "@/lib/validate"
 import { z } from "zod";
 
 // Form schema for validation

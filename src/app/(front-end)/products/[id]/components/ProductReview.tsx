@@ -65,7 +65,7 @@ const ReviewList = ({ data, itemsPerPage = 12 }: ReviewListProps) => {
     const filteredReviews = React.useMemo(() => {
         return filter === null
             ? currentData
-            : currentData.filter((item) => item.rating === Number(filter));
+            : currentData.filter((item) => item.rating === Number(filter.value));
     }, [currentData, filter]);
 
     const pagination = usePaginationRender({

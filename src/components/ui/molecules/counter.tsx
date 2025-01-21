@@ -3,10 +3,12 @@ import React, { useState, useEffect, forwardRef, useImperativeHandle, memo } fro
 import { Button } from "@/components/ui/atoms/button";
 import { Input } from "@/components/ui/atoms/input";
 import { Plus, Minus } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface ICounterProps {
     initialValue?: number; // Dùng initialValue thay vì value
     onQuantityChange?: (quantity: number) => void;
+    className?: string
 }
 
 export interface CounterRef {
@@ -15,7 +17,7 @@ export interface CounterRef {
 }
 
 export const Counter = memo(
-    forwardRef<CounterRef, ICounterProps>(({ onQuantityChange, initialValue = 1 }, ref) => {
+    forwardRef<CounterRef, ICounterProps>(({ onQuantityChange, initialValue = 1, className }, ref) => {
         const [localCount, setLocalCount] = useState<number>(initialValue);
         // Đồng bộ giá trị từ props vào state mỗi khi initialValue thay đổi
         useEffect(() => {
@@ -38,7 +40,7 @@ export const Counter = memo(
         }));
 
         return (
-            <div className="flex items-center space-x-1 flex-1">
+            <div className={cn(className, "flex items-center space-x-1 ")}>
                 <Button
                     onClick={decrement}
                     size="icon"

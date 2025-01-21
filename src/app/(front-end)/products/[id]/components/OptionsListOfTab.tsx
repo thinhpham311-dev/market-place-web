@@ -23,7 +23,7 @@ export const OptionsListOfTab = React.forwardRef<HTMLDivElement, IOptionsListOfT
         const handleToggleItem = (item: IOption) => {
             const newValue = selectedValue?.value === item.value ? null : item;
             setSelectedValue(newValue);
-            onChange?.(newValue); // Pass value back to parent
+            onChange?.(newValue);
         };
 
         return (

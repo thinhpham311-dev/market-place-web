@@ -36,6 +36,9 @@ import { useToast } from "@/lib/hooks";
 import { MdAddShoppingCart } from 'react-icons/md';
 import { MessageCircleMore, Store } from "lucide-react"
 
+//libs
+import { PropertiesValidate } from "@/lib/validate"
+
 interface IProductDetailProps {
     product: IProduct
 }
@@ -91,24 +94,35 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
     };
 
     const validateOptions = () => {
-        const errors: string[] = [];
-
-        // Kiểm tra các tùy chọn chưa được chọn
-        product.options?.forEach((option, index) => {
-            if (!selectedOptions[index]) {
-                errors.push(option.label); // Nếu tùy chọn chưa được chọn, thêm lỗi vào danh sách
-            }
-        });
-
-        return errors;
+        return PropertiesValidate(
+            product.options || [],
+            (option, index) => (selectedOptions[index] ? null : `Tùy chọn ${option.label} chưa được chọn.`)
+        );
     };
+
+    const validateQuantity = () => {
+        const quantityCurrent = counterRef.current?.getCount()
+        if (quantityCurrent && product.quantity < quantityCurrent) {
+            return [`Số lượng vượt quá giới hạn: ${product.quantity}/${quantityCurrent}`];
+        }
+        return [];
+    };
+
+    const validateProduct = () => {
+        const optionErrors = validateOptions();
+        const quantityErrors = validateQuantity();
+
+        return [...optionErrors, ...quantityErrors];
+    };
+
+
     const handleAddToCart = useCallback(() => {
         if (!product) {
             return;
         }
 
         // Validate options
-        const errors = validateOptions();
+        const errors = validateProduct();
 
         if (errors.length > 0) {
             setValidationErrors(errors); // Update error state
@@ -145,7 +159,7 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
 
         const totalPrice = updatedQuantity * product.price;
         const discountedTotalPrice = updatedQuantity * product.discountPrice;
-        console.log("added to cart")
+
         toast({
             description: <ToastMessage
                 product={product}
@@ -194,10 +208,10 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
                     <StarRating rating={Number(averageRating)} readOnly />
                     <div className="space-x-4">
                         <p className="inline-flex items-center gap-x-1 text-md">
-                            <span className="font-bold">{formatToCurrency(product.discountPrice)}</span>
+                            <strong>{formatToCurrency(product.discountPrice)}</strong>
                         </p>
                         <p className="inline-flex items-center gap-x-1 line-through text-md">
-                            <span>{formatToCurrency(product.price)}</span>
+                            <strong>{formatToCurrency(product.price)}</strong>
                         </p>
                     </div>
                     <div className='space-y-5'>
@@ -220,8 +234,14 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
                         })}
                     </div>
 
-                    <div>
+                    <div className='flex flex-rows flex-wrap gap-3 items-center'>
+                        <p className='basis-full font-bold'>
+                            Quantity:
+                        </p>
+
                         <Counter initialValue={1} ref={counterRef} />
+                        <p >{product.quantity} pieces available</p>
+
                     </div>
                     <div className='space-x-3 flex items-center'>
                         <Button

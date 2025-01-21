@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/atoms";
 
 //validations
 import { z } from "zod";
-import { isValidPhoneNumber } from "@/lib/validation"
+import { isValidPhoneNumber } from "@/lib/validate"
 
 
 // Form schema for validation

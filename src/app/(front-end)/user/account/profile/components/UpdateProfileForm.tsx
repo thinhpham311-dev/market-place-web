@@ -3,9 +3,9 @@
 import { Button } from "@/components/ui/atoms";
 import { FormInput, FormGroup, FormSelect } from "@/components/ui/organisms";
 
-//validations
+//libs
 import { z } from "zod";
-import { isValidPhoneNumber } from "@/lib/validation"
+import { isValidPhoneNumber } from "@/lib/validate"
 
 //icons
 import { Save } from "lucide-react";
