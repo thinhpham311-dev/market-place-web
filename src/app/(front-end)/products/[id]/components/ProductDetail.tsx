@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useRef, useCallback, useState, ReactElement } from 'react';
+import { useMemo, useRef, useCallback, ReactElement } from 'react';
 
 // Routers
 import { useParams, useRouter } from 'next/navigation';
@@ -12,8 +12,9 @@ import { addItem } from '@/store/cart/stateSlice';
 
 // Components
 import { Button, Avatar, AvatarImage, AvatarFallback, Separator } from '@/components/ui/atoms';
-import { Card, CardContent, CardTitle, CardDescription, Counter, CounterRef, CardHeader, StarRating } from '@/components/ui/molecules';
-import { OptionsListOfTab } from './OptionsListOfTab';
+import { Card, CardContent, CardTitle, CardDescription, CardHeader, StarRating } from '@/components/ui/molecules';
+import ProductItemOptionsList, { IProductItemOptionsListRef } from "./ProductItemOptionsList"
+import ProductItemQuantity, { IProductItemQuantityRef } from "./ProductItemQuantity"
 import ProductReview from './ProductReview'
 import ProductImagesListWithThumbnails from "./ProductImagesListWithThumbnails"
 import ProductItemsListBundleDeals from "./ProductItemsListBundleDeals"
@@ -24,7 +25,7 @@ import ShareSocialsList from "./ShareSocialsList"
 import { images, productData } from '@/constants/data';
 
 // Types
-import { IOption, IProduct, IReview } from '@/types/product';
+import { IProduct, IReview } from '@/types/product';
 import { IcartItem } from "@/types/cart"
 import ToastMessage from './ToastMessage';
 
@@ -35,9 +36,6 @@ import { useToast } from "@/lib/hooks";
 // Icons
 import { MdAddShoppingCart } from 'react-icons/md';
 import { MessageCircleMore, Store } from "lucide-react"
-
-//libs
-import { PropertiesValidate } from "@/lib/validate"
 
 interface IProductDetailProps {
     product: IProduct
@@ -58,74 +56,38 @@ const initialReviews = [
 
 function ProductDetailInfo({ product }: IProductDetailProps) {
     const dispatch = useAppDispatch();
-    const counterRef = useRef<CounterRef>(null);
-    // State to store selected options
-    const [selectedOptions, setSelectedOptions] = useState<(IOption | null)[]>([]);
-    const [validationErrors, setValidationErrors] = useState<string[]>([]);
+    const productItemQuantityRef = useRef<IProductItemQuantityRef>(null);
+    const productItemOptionListRef = useRef<IProductItemOptionsListRef>(null)
 
     const { toast } = useToast();
     const router = useRouter();
     const reviews = useAppSelector((state) => state.product.state.reviews)
     const totalReviews = reviews?.length;
 
-    const handleChooseOption = (index: number, selectedValue: IOption | null) => {
-        if (!product.options) {
-            return; // Thoát nếu không có options
-        }
-
-        // Cập nhật tùy chọn đã chọn
-        const newSelectedOptions = [...selectedOptions];
-        newSelectedOptions[index] = selectedValue;
-
-        // Tạo danh sách lỗi mới chỉ với những tùy chọn chưa được chọn
-        const newValidationErrors = product.options
-            .map((option, idx) => {
-                // Nếu tùy chọn chưa được chọn, thêm lỗi vào danh sách
-                if (!newSelectedOptions[idx]) {
-                    return option.label;
-                }
-                return null;
-            })
-            .filter(Boolean) as string[]; // Loại bỏ giá trị null hoặc undefined
-
-        // Cập nhật lại các trạng thái
-        setSelectedOptions(newSelectedOptions);
-        setValidationErrors(newValidationErrors);
-    };
-
-    const validateOptions = () => {
-        return PropertiesValidate(
-            product.options || [],
-            (option, index) => (selectedOptions[index] ? null : `Tùy chọn ${option.label} chưa được chọn.`)
-        );
-    };
-
-    const validateQuantity = () => {
-        const quantityCurrent = counterRef.current?.getCount()
-        if (quantityCurrent && product.quantity < quantityCurrent) {
-            return [`Số lượng vượt quá giới hạn: ${product.quantity}/${quantityCurrent}`];
-        }
-        return [];
-    };
 
     const validateProduct = () => {
-        const optionErrors = validateOptions();
-        const quantityErrors = validateQuantity();
+        const optionErrors = productItemOptionListRef.current?.validateOptions?.() || [];
+        const quantityErrors = productItemQuantityRef.current?.validateQuantity?.() || [];
+
+        if (!Array.isArray(optionErrors)) {
+            console.error("validateOptions did not return an array");
+            return [];
+        }
 
         return [...optionErrors, ...quantityErrors];
     };
 
-
     const handleAddToCart = useCallback(() => {
+        const selectedOptions = productItemOptionListRef.current?.selectedOptions
+
         if (!product) {
             return;
         }
 
-        // Validate options
+        // Validate
         const errors = validateProduct();
 
         if (errors.length > 0) {
-            setValidationErrors(errors); // Update error state
             toast({
                 title: "Error",
                 description: `Please select a value for: ${errors.join(", ")}`,
@@ -134,16 +96,17 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
             return;
         }
 
-        const updatedQuantity = counterRef.current?.getCount() || 0;
+        const updatedQuantity = productItemQuantityRef.current?.getCurrentQuantity?.() || 0;
 
         if (updatedQuantity <= 0) {
             toast({
                 title: "Error",
-                description: "Please select a valid quantity.",
+                description: "Please select a valid quantity",
                 variant: "destructive",
             });
             return;
         }
+
         const uniqueKey = `${product._id}-${selectedOptions?.map(option => option ? `${option.label}-${option.value}` : "").join("|")}`;
 
         const cartItem: IcartItem = {
@@ -168,16 +131,13 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
                 totalPrice={totalPrice}
                 discountedTotalPrice={discountedTotalPrice} />,
         });
-
-        counterRef.current?.reset();
-    }, [dispatch, product, selectedOptions, validateOptions, counterRef]);
+        productItemQuantityRef.current?.resetQuantity?.()
+    }, [dispatch, product, productItemQuantityRef, productItemOptionListRef]);
 
     const handleBuyNow = () => {
-        // Validate before proceeding
-        const errors = validateOptions();
+        const errors = validateProduct();
 
         if (errors.length > 0) {
-            setValidationErrors(errors); // Update error state
             toast({
                 title: "Error",
                 description: `Please select a value for: ${errors.join(", ")}`,
@@ -186,10 +146,9 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
             return;
         }
 
-        handleAddToCart(); // Add to cart first
-        router.push("/cart"); // Then navigate to the cart
+        handleAddToCart();
+        router.push("/cart");
     };
-
 
     const averageRating = useMemo(() => {
         const totalRating = reviews?.reduce((sum: number, review: IReview) => sum + review.rating, 0);
@@ -214,35 +173,9 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
                             <strong>{formatToCurrency(product.price)}</strong>
                         </p>
                     </div>
-                    <div className='space-y-5'>
-                        {product?.options?.map((item, index) => {
-                            if (Array.isArray(item.value)) {
-                                return (
-                                    <div key={index}>
-                                        <OptionsListOfTab
-                                            label={item.label}
-                                            data={item.value}
-                                            onChange={(selectedValue) => handleChooseOption(index, selectedValue)}
-                                        />
-                                        {validationErrors.includes(item.label) && (
-                                            <p className="text-red-500 text-xs my-2">{`${item.label} is required.`}</p>
-                                        )}
-                                    </div>
-                                );
-                            }
-                            return null;
-                        })}
-                    </div>
+                    <ProductItemOptionsList options={product.options} ref={productItemOptionListRef} />
+                    <ProductItemQuantity quantity={product.quantity} ref={productItemQuantityRef} />
 
-                    <div className='flex flex-rows flex-wrap gap-3 items-center'>
-                        <p className='basis-full font-bold'>
-                            Quantity:
-                        </p>
-
-                        <Counter initialValue={1} ref={counterRef} />
-                        <p >{product.quantity} pieces available</p>
-
-                    </div>
                     <div className='space-x-3 flex items-center'>
                         <Button
                             onClick={handleAddToCart}

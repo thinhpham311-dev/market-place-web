@@ -1,12 +1,11 @@
 'use client'
-import { useCallback, memo, useState, useMemo } from "react";
+import { useCallback, memo, useRef, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { toggleItemSelection, updateItem } from "@/store/cart/stateSlice";
 import { Card, CardContent, CardDescription, CardImage, CardTitle, Counter } from "@/components/ui/molecules";
-import { Checkbox, Badge, Button, Separator } from "@/components/ui/atoms";
-import { OptionsListOfTab } from "./OptionsListOfTab";
-import DropdownOptionsList from "./DropdownOptionsList";
+import { Checkbox } from "@/components/ui/atoms";
+import ProductItemOptionsListInCart, { IProductItemOptionsListInCartRef } from "./ProductItemOptionsListInCart";
 import { formatToCurrency } from "@/lib/formats";
 import { productData } from "@/constants/data";
 import { useToast } from "@/lib/hooks";
@@ -21,32 +20,12 @@ interface IProductItemInCartProps {
 
 function ProductItemInCart({ item: { name, image, price, discountPrice, _id, quantity, options = [], uniqueKey }, totalItems }: IProductItemInCartProps) {
     const product = useMemo(() => productData.find((item) => item._id === _id), [_id]);
+
+    const productItemOptionsListInCartRef = useRef<IProductItemOptionsListInCartRef>(null)
     const dispatch = useAppDispatch();
     const { toast } = useToast();
     const { selectedItems } = useAppSelector((state) => state.cart.state);
-    const [selectedOptions, setSelectedOptions] = useState<(IOption | null)[]>(options);
-    const [validationErrors, setValidationErrors] = useState<string[]>([]);
     const router = useRouter();
-
-    const handleChooseOption = useCallback(
-        (index: number, selectedValue: IOption | null) => {
-            setSelectedOptions((prev) => {
-                const updatedOptions = [...prev];
-                updatedOptions[index] = selectedValue;
-
-                const errors = options.reduce<string[]>((acc, option, idx) => {
-                    if (!updatedOptions[idx]) {
-                        acc.push(option.label);
-                    }
-                    return acc;
-                }, []);
-                setValidationErrors(errors);
-
-                return updatedOptions;
-            });
-        },
-        [options]
-    );
 
     const handleUpdateItem = useCallback(
         (updates: { options?: (IOption | null)[]; quantity?: number }) => {
@@ -69,7 +48,6 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
         [dispatch, uniqueKey, quantity, options, toast]
     );
 
-    const handleUpdateOptions = useCallback(() => handleUpdateItem({ options: selectedOptions }), [handleUpdateItem, selectedOptions]);
     const handleUpdateQuantity = useCallback((newQuantity: number) => handleUpdateItem({ quantity: newQuantity }), [handleUpdateItem, quantity]);
     const handleCheckboxChange = useCallback((checked: boolean) => dispatch(toggleItemSelection({ uniqueKey, checked })), [dispatch, uniqueKey]);
     const handleRouterLinkToDetail = useCallback(() => router.push(`/products/${_id}`), [_id, router]);
@@ -80,34 +58,19 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
             <CardContent className="grid grid-cols-12 items-center p-0 h-full md:col-span-7 col-span-5 gap-x-2 relative">
                 <div className="md:col-span-5 col-span-12">
                     <CardTitle className="text-lg capitalize cursor-pointer" onClick={handleRouterLinkToDetail}>{name}</CardTitle>
-                    {options?.length > 0 && (
-                        <div className="space-x-1">
-                            {options.map((option, index) => (
-                                <Badge variant="outline" key={`${option?.label.split("").join("-")}-${index}`}>{option?.label}</Badge>
-                            ))}
-                            <DropdownOptionsList btnTitle="Update">
-                                {product?.options?.map((item, index) => (
-                                    <div key={`${item.label}-${index}`}>
-                                        <OptionsListOfTab
-                                            onChange={(value) => handleChooseOption(index, value)}
-                                            label={item.label}
-                                            data={item.value || []}
-                                            defaultValue={options[index] || null}
-                                        />
-                                        {validationErrors.includes(item.label) && <p className="text-red-500 text-xs my-2">{`${item.label} is required.`}</p>}
-                                    </div>
-                                ))}
-                                <Separator />
-                                <div className="flex justify-end mt-2">
-                                    <Button onClick={handleUpdateOptions}>Save Options</Button>
-                                </div>
-                            </DropdownOptionsList>
-                        </div>
-                    )}
+                    <ProductItemOptionsListInCart
+                        initialOptions={product?.options}
+                        activeOptions={options}
+                        ref={productItemOptionsListInCartRef}
+                        handleUpdate={handleUpdateItem}
+                    />
                 </div>
                 <div className="md:col-span-3 col-span-12">
                     <span className="text-xs font-bold">Qty:</span>
-                    <Counter initialValue={quantity} onQuantityChange={handleUpdateQuantity} />
+                    <Counter
+                        initialValue={quantity}
+                        onQuantityChange={handleUpdateQuantity}
+                    />
                 </div>
                 <div className="md:col-span-3 col-span-12 block">
                     <span className="text-xs font-bold">Price:</span>

@@ -11,13 +11,13 @@ interface ICounterProps {
     className?: string
 }
 
-export interface CounterRef {
+export interface ICounterRef {
     reset: () => void;
     getCount: () => number;
 }
 
 export const Counter = memo(
-    forwardRef<CounterRef, ICounterProps>(({ onQuantityChange, initialValue = 1, className }, ref) => {
+    forwardRef<ICounterRef, ICounterProps>(({ onQuantityChange, initialValue = 1, className }, ref) => {
         const [localCount, setLocalCount] = useState<number>(initialValue);
         // Đồng bộ giá trị từ props vào state mỗi khi initialValue thay đổi
         useEffect(() => {
