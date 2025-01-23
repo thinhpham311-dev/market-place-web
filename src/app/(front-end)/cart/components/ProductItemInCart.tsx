@@ -90,17 +90,17 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
                         handleUpdate={handleUpdateItem}
                     />
                 </div>
-                <div className="md:col-span-2 col-span-12 block">
+                <div className="md:col-span-3 col-span-12 block">
                     <span className="text-xs font-bold">Price:</span>
-                    <CardDescription className="space-x-3 mb-2">
+                    <CardDescription className="flex gap-x-2 mb-2">
                         <p className="inline-flex items-center gap-x-1 text-xs"> <span className="font-bold">{formatToCurrency(discountPrice)}</span></p>
                         <p className="inline-flex items-center gap-x-1 line-through text-xs"><span>{formatToCurrency(price)}</span></p>
                     </CardDescription>
                 </div>
-                <div className="md:col-span-2 col-span-12 block">
-                    <Button onClick={handleRemoveItem} variant="outline" size="sm" className="text-red-600 hover:text-red-700"><span><Trash2 /></span>Remove</Button>
+                <div className="md:col-span-1 col-span-12 block">
+                    <Button onClick={handleRemoveItem} variant="outline" size="icon" className="text-red-600 hover:text-red-700"><Trash2 /></Button>
                 </div>
-                <div className="col-span-1 flex justify-center absolute top-2 right-2">
+                <div className="col-span-1 flex justify-center items-center">
                     {totalItems && totalItems > 1 && (
                         <Checkbox id={uniqueKey} checked={selectedItems.includes(uniqueKey)} onCheckedChange={handleCheckboxChange} />
                     )}

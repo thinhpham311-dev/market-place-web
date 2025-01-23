@@ -55,15 +55,15 @@ export default function DetailCart() {
     } = useAppSelector((state) => state.cart.state);
     const router = useRouter();
 
-    const handleRemoveSelectedItems = () => {
+    const handleRemoveSelectedItems = React.useCallback(() => {
         setTimeout(() => {
             dispatch(removeSelectedItems(selectedItems));
         }, 500);
-    };
+    }, [dispatch, selectedItems])
 
-    const handleRemoveAllItems = () => {
+    const handleRemoveAllItems = React.useCallback(() => {
         dispatch(removeAllItems());
-    };
+    }, [dispatch]);
 
     return (
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 md:px-6 px-3">
