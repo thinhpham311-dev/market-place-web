@@ -1,13 +1,29 @@
-import { useCallback, memo } from "react";
+import { useCallback, memo, useRef, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+
+//store
+import { removeItem } from "@/store/cart/stateSlice"
+
+//components
 import { toggleItemSelection, updateItem } from "@/store/cart/stateSlice";
-import {
-    Card, CardContent, CardDescription, CardImage, CardTitle, Counter,
-} from "@/components/ui/molecules";
-import { Checkbox, Badge } from "@/components/ui/atoms";
+import { Card, CardContent, CardDescription, CardHeader, CardImage, CardTitle } from "@/components/ui/molecules";
+import { Button, Checkbox } from "@/components/ui/atoms";
+import ProductItemOptionsListInCart, { IProductItemOptionsListInCartRef } from "./ProductItemOptionsListInCart"
+import ProductItemQuantityInCart, { IProductItemQuantityInCartRef } from "./ProductItemQuantityInCart";
+
+//libs
+import { useAppDispatch, useAppSelector, useToast } from "@/lib/hooks";
 import { formatToCurrency } from "@/lib/formats";
+
+//types
 import { IcartItem } from "@/types/cart";
+import { IOption } from "@/types/product"
+
+//datas
+import { productData } from "@/constants/data";
+
+//icons
+import { Trash2 } from "lucide-react";
 
 interface IProductItemInCartProps {
     item: IcartItem;
@@ -15,7 +31,11 @@ interface IProductItemInCartProps {
 }
 
 function ProductItemInCart({ item: { name, image, price, discountPrice, _id, quantity, options = [], uniqueKey }, totalItems }: IProductItemInCartProps) {
+    const { toast } = useToast()
     const dispatch = useAppDispatch();
+    const product = useMemo(() => productData.find((item) => item._id === _id), [_id]);
+    const productItemQuantityInCartRef = useRef<IProductItemQuantityInCartRef>(null)
+    const productItemOptionsListInCartRef = useRef<IProductItemOptionsListInCartRef>(null)
     const { selectedItems } = useAppSelector((state) => state.cart.state);
     const router = useRouter();
 
@@ -30,24 +50,43 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
         [dispatch, uniqueKey]
     );
 
-    const handleChange = useCallback(
-        (newQuantity: number) => {
-            if (newQuantity >= 0 && newQuantity !== quantity) {
-                dispatch(updateItem({ uniqueKey, quantity: newQuantity, options }));
+    const handleUpdateItem = useCallback(
+        (updates: { options?: (IOption | null)[]; quantity?: number }) => {
+            const newQuantity = updates.quantity ?? quantity;
+            const newOptions = updates.options ?? options;
+
+            // Nếu không có thay đổi, thoát sớm
+            if (newQuantity === quantity && JSON.stringify(newOptions) === JSON.stringify(options)) {
+                return;
+            }
+
+            dispatch(updateItem({ uniqueKey, quantity: newQuantity, options: newOptions }));
+            if (updates.options) {
+                toast({
+                    title: "Options Updated",
+                    description: "The item options have been updated successfully.",
+                });
             }
         },
-        [dispatch, uniqueKey, options, quantity] // Ensure dependencies include the current `quantity`.
+        [dispatch, uniqueKey, quantity, options, toast]
     );
 
+    const handleRemoveItem = useCallback(() => {
+        dispatch(removeItem({ uniqueKey }))
+    }, [dispatch, uniqueKey])
+
     return (
-        <Card layout="horizontal" className="relative mb-3 last:mb-0 items-start grid grid-cols-3 gap-3">
-            <CardImage
-                onClick={handleRouterLinkToDetail}
-                src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"}
-                alt=""
-                className="rounded-sm bg-slate-600 cursor-pointer p-0 col-span-1 my-2 mx-2"
-            />
-            <CardContent className="py-2 px-0 h-full col-span-2 content-center space-y-2">
+        <Card layout="horizontal" className="relative mb-3 last:mb-0 items-start grid grid-cols-3 gap-3 p-3">
+            <CardHeader className="p-0 flex flex-row flex-wrap gap-1">
+                <CardImage
+                    onClick={handleRouterLinkToDetail}
+                    src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"}
+                    alt=""
+                    className="rounded-sm bg-slate-600 cursor-pointer p-0 col-span-1 mb-0 basis-full"
+                />
+                <Button onClick={handleRemoveItem} variant="outline" size="sm" className="w-full text-red-600 hover:text-red-700"><span><Trash2 /></span>Remove</Button>
+            </CardHeader>
+            <CardContent className="flex flex-col p-0 h-full col-span-2 content-center space-y-2">
                 <CardTitle onClick={handleRouterLinkToDetail} className="text-lg capitalize cursor-pointer">
                     {name}
                 </CardTitle>
@@ -59,12 +98,19 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
                         <span>{formatToCurrency(price)}</span>
                     </p>
                 </CardDescription>
-                <Counter initialValue={quantity} onQuantityChange={handleChange} />
-                <CardDescription className="gap-1 flex flex-row">
-                    {options.map((option, index) => (
-                        <Badge variant="outline" key={`${option?.label.split("").join("-")}-${index}`}>{option?.label}</Badge>
-                    ))}
-                </CardDescription>
+                <ProductItemQuantityInCart
+                    ref={productItemQuantityInCartRef}
+                    handleUpdate={handleUpdateItem}
+                    initialQuantity={product?.quantity}
+                    defaultQuantity={quantity} />
+
+                <ProductItemOptionsListInCart
+                    initialOptions={product?.options}
+                    activeOptions={options}
+                    ref={productItemOptionsListInCartRef}
+                    handleUpdate={handleUpdateItem}
+                />
+
             </CardContent>
             {totalItems && totalItems > 1 && (
                 <Checkbox

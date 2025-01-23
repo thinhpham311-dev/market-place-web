@@ -167,7 +167,7 @@ export const cartSlice = createSlice({
 export const {
     addItem,
     removeAllItems,
-    // removeItem,
+    removeItem,
     updateItem,
     toggleItemSelection,
     removeSelectedItems

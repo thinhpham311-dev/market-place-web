@@ -35,9 +35,9 @@ const ProductImageItem = ({
                 <CarouselItem
                     key={index}
                     className={`relative aspect-square w-full cursor-pointer pl-0 ${isThumbnail ? "basis-1/4" : ""}`}
+                    onMouseEnter={isThumbnail ? () => onImageClick?.(index) : undefined} // Update here
                     onClick={isThumbnail ? () => onImageClick?.(index) : undefined}
                 >
-
                     <Image
                         src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"}
                         overrideSrc={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"}
@@ -48,7 +48,6 @@ const ProductImageItem = ({
                         style={{ objectFit: "cover", width: "100%", height: "100%" }}
                         className={isThumbnail && index === current ? "border-2 border-blue-600" : ""}
                     />
-
                 </CarouselItem>
             ))}
         </>
@@ -110,7 +109,6 @@ export default function ProductImagesListWithThumbnails({ data }: GalleryProps) 
                             current={current}
                             isThumbnail
                             onImageClick={navigateTo}
-
                         />
                     </CarouselContent>
                 </Carousel>
