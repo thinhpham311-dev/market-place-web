@@ -2,6 +2,7 @@
 
 //components
 import { Button } from "@/components/ui/atoms"
+import { CardContent, CardTitle } from "@/components/ui/molecules";
 import { FormGroup, FormInput, FormInputTextarea } from "@/components/ui/organisms"
 
 //validations
@@ -28,9 +29,19 @@ const FormSchema = z.object({
 
             return true;
         }, "Invalid number"),
-    address: z
+    addressline1: z
         .string()
-        .nonempty("Address is required")
+        .nonempty("Address Line 1 is required")
+        .min(10, "Please enter at least 10 characters")
+        .max(250, "Please enter no more than 250 characters"),
+    addressline2: z
+        .string()
+        .nonempty("Address Line 2 is required")
+        .min(10, "Please enter at least 10 characters")
+        .max(250, "Please enter no more than 250 characters"),
+    addressline3: z
+        .string()
+        .nonempty("Address Line 3 is required")
         .min(10, "Please enter at least 10 characters")
         .max(250, "Please enter no more than 250 characters"),
     comment: z.string()
@@ -55,10 +66,18 @@ export default function DeliveryInfoForm() {
             defaultValues={defaultValuesForCheckOutForm}
             onHandleSubmit={onSubmit}
             className="space-y-5">
-            <FormInput label="Email" formSchema={FormSchema} inputType="email" name="email" placeholder="Please enter your email " isRequired />
-            <FormInput label="Phone" character="+84" formSchema={FormSchema} name="phone" placeholder="Please enter your phone number" isRequired />
-            <FormInput label="Address" formSchema={FormSchema} name="address" placeholder="Please enter your address" isRequired />
-            <FormInputTextarea label="Comment" formSchema={FormSchema} name="comment" placeholder="Please enter your comment" />
+            <CardContent className="px-0 space-y-3">
+                <CardTitle className="text-md mb-5">Enter your name and address:</CardTitle>
+                <FormInput label="Address Line 1" formSchema={FormSchema} name="addressline1" placeholder="Please enter your address line 1" isRequired />
+                <FormInput label="Address Line 2" formSchema={FormSchema} name="addressline2" placeholder="Please enter your address line 2" isRequired />
+                <FormInput label="Address Line 3" formSchema={FormSchema} name="addressline3" placeholder="Please enter your address line 3" isRequired />
+                <FormInputTextarea label="Comment" formSchema={FormSchema} name="comment" placeholder="Please enter your comment" />
+            </CardContent>
+            <CardContent className="px-0 space-y-3">
+                <CardTitle className="text-md mb-5">What's your contact information?</CardTitle>
+                <FormInput label="Email" formSchema={FormSchema} inputType="email" name="email" placeholder="Please enter your email " isRequired />
+                <FormInput label="Phone" character="+84" formSchema={FormSchema} name="phone" placeholder="Please enter your phone number" isRequired />
+            </CardContent>
             <Button type="submit" className="w-full" variant="outline">Submit</Button>
         </FormGroup>
     );

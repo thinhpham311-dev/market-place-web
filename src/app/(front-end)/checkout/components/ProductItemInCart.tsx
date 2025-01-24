@@ -3,6 +3,7 @@ import { memo } from "react"
 import { useRouter } from "next/navigation"
 
 //components
+import { Badge, Separator } from "@/components/ui/atoms"
 import { Card, CardContent, CardDescription, CardImage, CardTitle } from "@/components/ui/molecules"
 
 //types
@@ -17,7 +18,7 @@ interface IProductItemInCartProps {
 };
 
 
-function ProductItemInCart({ item: { name, image, price, discountPrice, _id, quantity, totalPrice = 0, discountedTotalPrice = 0 } }: IProductItemInCartProps) {
+function ProductItemInCart({ item: { name, image, price, options, discountPrice, _id, quantity, totalPrice = 0, discountedTotalPrice = 0 } }: IProductItemInCartProps) {
     const router = useRouter()
 
     const handleRouterLinkToDetail = () => {
@@ -25,12 +26,12 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
     }
 
     return (
-        <Card layout="horizontal" className="relative mb-3  last:mb-0 items-center grid grid-cols-3 gap-3">
+        <Card layout="horizontal" className="relative mb-3  last:mb-0 items-center grid grid-cols-3 gap-3 p-3">
             <CardImage
                 onClick={handleRouterLinkToDetail}
                 src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"}
                 alt=""
-                className=" rounded-l-lg h-full bg-slate-600 cursor-pointer p-0 col-span-1"
+                className=" rounded-lg h-full bg-slate-600 cursor-pointer p-0 col-span-1"
             />
             <CardContent className=" p-0  h-full col-span-2 content-center space-y-2">
                 <CardTitle
@@ -38,6 +39,11 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
                     className=" text-lg capitalize cursor-pointer">
                     {name}
                 </CardTitle>
+                <CardDescription className="gap-1 flex flex-row">
+                    {options?.map((option) =>
+                        <Badge variant="outline" key={option?.label.split("").join("-")}>{option?.label}</Badge>
+                    )}
+                </CardDescription>
                 <CardDescription className="space-x-2 inline ">
                     <p className="inline-flex items-center gap-x-1 text-xs"> <span className="font-bold "> {formatToCurrency(discountPrice)}</span></p>
                     <p className="inline-flex items-center gap-x-1 line-through text-xs"><span>{formatToCurrency(price)}</span></p>
@@ -46,6 +52,7 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
                         {quantity}
                     </strong>
                 </CardDescription>
+                <Separator />
                 <CardDescription>
                     <p className=" items-center gap-x-1 text-xs">
                         <strong> Total: </strong>{formatToCurrency(totalPrice)}

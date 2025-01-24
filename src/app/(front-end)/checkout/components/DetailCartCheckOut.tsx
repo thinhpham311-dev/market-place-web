@@ -41,10 +41,10 @@ export default function DetailCartCheckOut() {
             </CardHeader>
             <Separator />
             <CardContent className="px-0">
-                <div className="md:px-6 px-3 w-full grid md:grid-cols-10 grid-cols-1 gap-8">
+                <div className="p-0 w-full grid md:grid-cols-10 grid-cols-1 gap-8">
                     <div className="md:col-span-6 col-span-1 ">
                         <Card className=" border-none">
-                            <CardHeader className="px-0">
+                            <CardHeader className="p-5">
                                 <CardTitle>
                                     Delivery Options
                                 </CardTitle>
@@ -52,13 +52,14 @@ export default function DetailCartCheckOut() {
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in purus fringilla,
                                 </CardDescription>
                             </CardHeader>
-                            <CardContent className="p-0">
+                            <Separator />
+                            <CardContent className="p-5">
                                 <DeliveryInfoForm />
                             </CardContent>
                         </Card>
                     </div>
-                    <div className="md:col-span-4 col-span-1 ">
-                        <Card className=" border-none">
+                    <div className="md:col-span-4 col-span-1 relative">
+                        <Card className=" border-none sticky top-[50px] left-0 p-5">
                             <CardHeader className="grid grid-rows-2 grid-flow-col px-0 justify-between items-start">
                                 <CardTitle className=" col-span-1 row-span-1">
                                     In Your Cart
@@ -68,6 +69,7 @@ export default function DetailCartCheckOut() {
                                 </CardDescription>
                                 <Button onClick={() => router.push("/cart")} variant="outline" size="icon" className="row-span-2"><FilePenLine /></Button>
                             </CardHeader>
+
                             <CardContent className="px-0">
                                 <OrderSummary
                                     totalAmount={totalAmount}
