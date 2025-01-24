@@ -79,13 +79,13 @@ export default function DrawerCart() {
                                 {items.length > 0 ? `View Cart (${items.length}) ` : "View Cart"}
                             </Button>
                         </SheetFooter>
-                        {/* {items && items.length > 0 &&
+                        {items && items.length > 0 &&
                             <SheetFooter className="justify-end rounded-md space-x-3">
                                 <Button variant="default" className="w-full" onClick={() => router.push("/checkout")}>
-                                    Checkout
+                                    Checkout ({formatToCurrency(totalAmountDiscount)})
                                 </Button>
                             </SheetFooter>
-                        } */}
+                        }
 
                         <SheetFooter className="justify-end rounded-md gap-y-2 gap-x-1">
                             {items.length > 0 && (

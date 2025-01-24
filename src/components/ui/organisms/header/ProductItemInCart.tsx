@@ -76,50 +76,48 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
     }, [dispatch, uniqueKey])
 
     return (
-        <Card layout="horizontal" className="relative mb-3 last:mb-0 items-start grid grid-cols-3 gap-3 p-3">
-            <CardHeader className="p-0 flex flex-row flex-wrap gap-1">
-                <CardImage
-                    onClick={handleRouterLinkToDetail}
-                    src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"}
-                    alt=""
-                    className="rounded-sm bg-slate-600 cursor-pointer p-0 col-span-1 mb-0 basis-full"
-                />
-                <Button onClick={handleRemoveItem} variant="outline" size="sm" className="w-full text-red-600 hover:text-red-700"><span><Trash2 /></span>Remove</Button>
-            </CardHeader>
-            <CardContent className="flex flex-col p-0 h-full col-span-2 content-center space-y-2">
-                <CardTitle onClick={handleRouterLinkToDetail} className="text-lg capitalize cursor-pointer">
-                    {name}
-                </CardTitle>
-                <CardDescription className="space-x-2 mb-2 inline">
-                    <p className="inline-flex items-center gap-x-1 text-xs">
-                        <span className="font-bold">{formatToCurrency(discountPrice)}</span>
-                    </p>
-                    <p className="inline-flex items-center gap-x-1 line-through text-xs">
-                        <span>{formatToCurrency(price)}</span>
-                    </p>
-                </CardDescription>
-                <ProductItemQuantityInCart
-                    ref={productItemQuantityInCartRef}
-                    handleUpdate={handleUpdateItem}
-                    initialQuantity={product?.quantity}
-                    defaultQuantity={quantity} />
-
-                <ProductItemOptionsListInCart
-                    initialOptions={product?.options}
-                    activeOptions={options}
-                    ref={productItemOptionsListInCartRef}
-                    handleUpdate={handleUpdateItem}
-                />
-
-            </CardContent>
+        <Card layout="horizontal" className=" flex justify-center items-center  p-2 gap-x-2 mb-3 ">
             {totalItems && totalItems > 1 && (
-                <Checkbox
-                    id={uniqueKey}
-                    checked={selectedItems.includes(uniqueKey)}
-                    className="absolute top-3 right-3"
-                    onCheckedChange={handleCheckboxChange}
-                />
+                <Checkbox id={uniqueKey} checked={selectedItems.includes(uniqueKey)} onCheckedChange={handleCheckboxChange} />
             )}
+            <div className="relative last:mb-0 items-start grid grid-cols-8 gap-3">
+                <CardHeader className="p-0 flex flex-row flex-wrap gap-1 md:col-span-4 col-span-3">
+                    <CardImage
+                        onClick={handleRouterLinkToDetail}
+                        src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"}
+                        alt=""
+                        className="rounded-sm bg-slate-600 cursor-pointer p-0 col-span-1 mb-0 basis-full"
+                    />
+                    <Button onClick={handleRemoveItem} variant="outline" size="sm" className="w-full text-red-600 hover:text-red-700"><span><Trash2 /></span>Remove</Button>
+                </CardHeader>
+                <CardContent className="flex flex-col p-0 h-full md:col-span-4 col-span-5 content-center space-y-2">
+                    <CardTitle onClick={handleRouterLinkToDetail} className="text-lg capitalize cursor-pointer">
+                        {name}
+                    </CardTitle>
+                    <CardDescription className="space-x-2 mb-2 inline">
+                        <p className="inline-flex items-center gap-x-1 text-xs">
+                            <span className="font-bold">{formatToCurrency(discountPrice)}</span>
+                        </p>
+                        <p className="inline-flex items-center gap-x-1 line-through text-xs">
+                            <span>{formatToCurrency(price)}</span>
+                        </p>
+                    </CardDescription>
+                    <ProductItemQuantityInCart
+                        ref={productItemQuantityInCartRef}
+                        handleUpdate={handleUpdateItem}
+                        initialQuantity={product?.quantity}
+                        defaultQuantity={quantity} />
+
+                    <ProductItemOptionsListInCart
+                        initialOptions={product?.options}
+                        activeOptions={options}
+                        ref={productItemOptionsListInCartRef}
+                        handleUpdate={handleUpdateItem}
+                    />
+
+                </CardContent>
+
+            </div>
         </Card>
     );
 }

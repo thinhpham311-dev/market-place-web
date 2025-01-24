@@ -7,7 +7,7 @@ import { toggleItemSelection, updateItem, removeItem } from "@/store/cart/stateS
 
 //components
 import { Button, Checkbox } from "@/components/ui/atoms";
-import { Card, CardContent, CardDescription, CardImage, CardTitle } from "@/components/ui/molecules";
+import { Card, CardHeader, CardContent, CardDescription, CardImage, CardTitle } from "@/components/ui/molecules";
 import ProductItemQuantityInCart, { IProductItemQuantityInCartRef } from "./ProductItemQuantityInCart"
 import ProductItemOptionsListInCart, { IProductItemOptionsListInCartRef } from "./ProductItemOptionsListInCart";
 
@@ -70,42 +70,53 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
     const handleRouterLinkToDetail = useCallback(() => router.push(`/products/${_id}`), [_id, router]);
 
     return (
-        <Card layout="horizontal" className="mb-3 last:mb-0 grid grid-cols-8 gap-5 p-5">
-            <CardImage onClick={handleRouterLinkToDetail} src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"} alt={name} className="rounded-lg aspect-square bg-slate-600 cursor-pointer p-0 md:col-span-1 col-span-3" />
-            <CardContent className="grid grid-cols-12 items-center p-0 h-full md:col-span-7 col-span-5 gap-x-2 relative">
-                <div className="md:col-span-4 col-span-12">
-                    <CardTitle className="text-lg capitalize cursor-pointer" onClick={handleRouterLinkToDetail}>{name}</CardTitle>
-                    <ProductItemOptionsListInCart
-                        initialOptions={product?.options}
-                        activeOptions={options}
-                        ref={productItemOptionsListInCartRef}
-                        handleUpdate={handleUpdateItem}
+        <Card className=" flex justify-center items-center  p-2 gap-x-2 mb-3" layout="horizontal">
+            {totalItems && totalItems > 1 && (
+                <Checkbox id={uniqueKey} checked={selectedItems.includes(uniqueKey)} onCheckedChange={handleCheckboxChange} />
+            )}
+
+            <div className="mb-3 last:mb-0 grid grid-cols-8 gap-5">
+                <CardHeader className="p-0 flex flex-row flex-wrap gap-1 md:col-span-2 col-span-3">
+                    <CardImage
+                        onClick={handleRouterLinkToDetail}
+                        src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"}
+                        alt=""
+                        className="rounded-sm bg-slate-600 cursor-pointer p-0 col-span-1 mb-0 basis-full"
                     />
-                </div>
-                <div className="md:col-span-3 col-span-12">
-                    <ProductItemQuantityInCart
-                        defaultQuantity={quantity}
-                        initialQuantity={product?.quantity}
-                        ref={productItemQuantityInCartRef}
-                        handleUpdate={handleUpdateItem}
-                    />
-                </div>
-                <div className="md:col-span-3 col-span-12 block">
-                    <span className="text-xs font-bold">Price:</span>
-                    <CardDescription className="flex gap-x-2 mb-2">
-                        <p className="inline-flex items-center gap-x-1 text-xs"> <span className="font-bold">{formatToCurrency(discountPrice)}</span></p>
-                        <p className="inline-flex items-center gap-x-1 line-through text-xs"><span>{formatToCurrency(price)}</span></p>
-                    </CardDescription>
-                </div>
-                <div className="md:col-span-1 col-span-12 block">
-                    <Button onClick={handleRemoveItem} variant="outline" size="icon" className="text-red-600 hover:text-red-700"><Trash2 /></Button>
-                </div>
-                <div className="col-span-1 flex justify-center items-center">
-                    {totalItems && totalItems > 1 && (
-                        <Checkbox id={uniqueKey} checked={selectedItems.includes(uniqueKey)} onCheckedChange={handleCheckboxChange} />
-                    )}
-                </div>
-            </CardContent>
+                    <Button onClick={handleRemoveItem} variant="outline" size="sm" className="w-full text-red-600 hover:text-red-700 md:hidden flex"><Trash2 /><span>Remove</span></Button>
+                </CardHeader>
+
+                <CardContent className="grid grid-cols-12 items-center p-0 h-full md:col-span-6 col-span-5 gap-x-2 relative">
+                    <div className="md:col-span-5 col-span-12">
+                        <CardTitle className="text-lg capitalize cursor-pointer" onClick={handleRouterLinkToDetail}>{name}</CardTitle>
+                        <ProductItemOptionsListInCart
+                            initialOptions={product?.options}
+                            activeOptions={options}
+                            ref={productItemOptionsListInCartRef}
+                            handleUpdate={handleUpdateItem}
+                        />
+                    </div>
+                    <div className="md:col-span-3 col-span-12">
+                        <ProductItemQuantityInCart
+                            defaultQuantity={quantity}
+                            initialQuantity={product?.quantity}
+                            ref={productItemQuantityInCartRef}
+                            handleUpdate={handleUpdateItem}
+                        />
+                    </div>
+                    <div className="md:col-span-3 col-span-12 block">
+                        <span className="text-xs font-bold">Price:</span>
+                        <CardDescription className="flex gap-x-2 mb-2">
+                            <p className="inline-flex items-center gap-x-1 text-xs"> <span className="font-bold">{formatToCurrency(discountPrice)}</span></p>
+                            <p className="inline-flex items-center gap-x-1 line-through text-xs"><span>{formatToCurrency(price)}</span></p>
+                        </CardDescription>
+                    </div>
+                    <div className="md:col-span-1 col-span-12 md:block hidden">
+                        <Button onClick={handleRemoveItem} variant="outline" size="icon" className="text-red-600 hover:text-red-700"><Trash2 /></Button>
+                    </div>
+
+                </CardContent>
+            </div>
         </Card>
     );
 }
