@@ -23,7 +23,7 @@ interface IDropDownMenuOfItemProps {
 export default function DropDownMenuOfItem({ order }: IDropDownMenuOfItemProps) {
     const router = useRouter()
     const handleRouterLinkToDetail = () => {
-        router.push(`/user/orders/${order._id}`)
+        router.push(`/user/purchase/orders/${order._id}`)
     }
     return (
         <DropdownMenu>
