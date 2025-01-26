@@ -19,7 +19,7 @@ export default function DropdownOptionsList({ btnTitle, children }: IDropdownOpt
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <div className="flex items-center border justify-between p-1 rounded-lg">
+                <div className="inline-flex items-center border justify-between p-1 rounded-lg">
                     <div className="flex flex-1 flex-wrap items-center gap-1 cursor-pointer rounded-lg">
                         {btnTitle}
                     </div>
