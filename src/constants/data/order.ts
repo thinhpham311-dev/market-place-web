@@ -48,5 +48,6 @@ export const orderData = [
         paidAt: "2025-01-01T10:30:00Z",
         deliveredAt: "2025-01-01T09:00:00Z",
         createdAt: "2025-01-01T09:00:00Z",
+        status: "inProgress"
     },
 ]

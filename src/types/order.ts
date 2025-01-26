@@ -22,6 +22,7 @@ export interface IOrder {
     paidAt?: string
     deliveredAt?: string
     createdAt: string
+    status: string
 }
 
 export interface IOrderItem extends IProduct {

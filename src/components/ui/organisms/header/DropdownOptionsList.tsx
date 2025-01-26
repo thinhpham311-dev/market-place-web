@@ -23,9 +23,7 @@ export default function DropdownOptionsList({ btnTitle, children }: IDropdownOpt
                     <div className="flex flex-1 flex-wrap items-center gap-1 cursor-pointer  rounded-lg">
                         {btnTitle}
                     </div>
-
                     <ChevronDown size={15} />
-
                 </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="space-y-4 p-3 mx-2">

@@ -36,6 +36,13 @@ import Pagination from "./Pagination";
 //lib
 import { formatToCurrency } from "@/lib/formats"
 
+const statusMapping: Record<string, { label: string; color: string }> = {
+    inProgress: { label: "In Progress", color: "text-blue-500" },
+    tranforming: { label: "TranForming", color: "text-yellow-500" },
+    completed: { label: "Completed", color: "text-green-500" },
+    cancel: { label: "Cancel", color: "text-red-500" },
+};
+
 // Table Columns
 export const columns: ColumnDef<IOrder>[] = [
     {
@@ -82,6 +89,19 @@ export const columns: ColumnDef<IOrder>[] = [
         cell: ({ row }) => (
             <div className="capitalize">{formatDateTime(row.getValue("deliveredAt"))}</div>
         ),
+    },
+    {
+        accessorKey: "status",
+        header: "Status",
+        cell: ({ row }) => {
+            const statusKey = row.getValue<string>("status");
+            const statusInfo = statusMapping[statusKey] || { label: "Unknown", color: "text-gray-500" };
+            return (
+                <div className={`capitalize font-bold ${statusInfo.color}`}>
+                    {statusInfo.label}
+                </div>
+            );
+        },
     },
     {
         id: "actions",
