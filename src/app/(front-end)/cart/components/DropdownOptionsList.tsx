@@ -2,15 +2,15 @@
 
 import * as React from "react"
 
-import { Button } from "@/components/ui/atoms"
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuTrigger,
 } from "@/components/ui/molecules"
+import { ChevronDown } from "lucide-react"
 
 interface IDropdownOptionsListProps {
-    btnTitle?: string;
+    btnTitle?: string | React.ReactNode;
     children: React.ReactNode
 }
 
@@ -19,9 +19,16 @@ export default function DropdownOptionsList({ btnTitle, children }: IDropdownOpt
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="link"><span className="text-xs">{btnTitle}</span></Button>
+                <div className="flex items-center border justify-between p-1 rounded-lg">
+                    <div className="flex flex-1 flex-wrap items-center gap-1 cursor-pointer rounded-lg">
+                        {btnTitle}
+                    </div>
+
+                    <ChevronDown size={15} />
+
+                </div>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="space-y-4 p-3">
+            <DropdownMenuContent className="space-y-4 p-3 mx-2">
                 {children}
             </DropdownMenuContent>
         </DropdownMenu>

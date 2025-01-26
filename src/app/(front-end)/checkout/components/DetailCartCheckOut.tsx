@@ -29,38 +29,25 @@ export default function DetailCartCheckOut() {
     } = useAppSelector((state) => state.cart.state)
 
     return (
-        <Card>
-            <CardHeader className="grid grid-rows-2 grid-flow-col auto-cols-max gap-x-4 items-center md:px-6 px-3">
+        <Card className="lg:mx-20 md:mx-0 mx-0 border-none shadow-none">
+            <CardHeader className="grid grid-rows-2 grid-flow-col auto-cols-max gap-x-4 items-center ">
                 <Button className="row-span-2" variant="outline" size="icon" onClick={() => router.back()}><ArrowLeft /></Button>
                 <CardTitle className="col-span-2">
                     Check Out
                 </CardTitle>
-                <CardDescription className="col-span-2 flex-wrap">
+                <CardDescription className="col-span-2  line-clamp-1">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in purus fringilla,
                 </CardDescription>
             </CardHeader>
             <Separator />
-            <CardContent className="px-0">
+            <CardContent className="p-0">
                 <div className="p-0 w-full grid md:grid-cols-10 grid-cols-1 gap-8">
                     <div className="md:col-span-6 col-span-1 ">
-                        <Card className=" border-none">
-                            <CardHeader className="p-5">
-                                <CardTitle>
-                                    Delivery Options
-                                </CardTitle>
-                                <CardDescription>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in purus fringilla,
-                                </CardDescription>
-                            </CardHeader>
-                            <Separator />
-                            <CardContent className="p-5">
-                                <DeliveryInfoForm />
-                            </CardContent>
-                        </Card>
+                        <DeliveryInfoForm />
                     </div>
                     <div className="md:col-span-4 col-span-1 relative">
-                        <Card className=" border-none sticky top-[50px] left-0 p-5">
-                            <CardHeader className="grid grid-rows-2 grid-flow-col px-0 justify-between items-start">
+                        <Card className=" border-none sticky top-[50px] left-0">
+                            <CardHeader className="grid grid-rows-2 grid-flow-col px-0 justify-between items-start p-6">
                                 <CardTitle className=" col-span-1 row-span-1">
                                     In Your Cart
                                 </CardTitle>
@@ -70,7 +57,7 @@ export default function DetailCartCheckOut() {
                                 <Button onClick={() => router.push("/cart")} variant="outline" size="icon" className="row-span-2"><FilePenLine /></Button>
                             </CardHeader>
 
-                            <CardContent className="px-0">
+                            <CardContent className="px-6">
                                 <OrderSummary
                                     totalAmount={totalAmount}
                                     totalAmountDiscount={totalAmountDiscount}
@@ -78,7 +65,7 @@ export default function DetailCartCheckOut() {
                                     estimatedTax={estimatedTax}
                                     total={total} />
                             </CardContent>
-                            <CardContent className="px-0">
+                            <CardContent className="px-6">
                                 {items && items.length > 0 ? <ProductItemsListInCart data={items} /> : <NotFound />}
                             </CardContent>
                         </Card>

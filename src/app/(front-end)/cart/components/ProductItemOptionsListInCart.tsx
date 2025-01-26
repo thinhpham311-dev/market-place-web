@@ -70,10 +70,15 @@ const ProductItemOptionsListInCart = React.forwardRef<IProductItemOptionsListInC
         <>
             {activeOptions?.length > 0 && (
                 <div className="space-x-1">
-                    {activeOptions?.map((option, index) => (
-                        <Badge variant="outline" key={`${option?.label.split("").join("-")}-${index}`}>{option?.label}</Badge>
-                    ))}
-                    <DropdownOptionsList btnTitle="Update">
+
+                    <DropdownOptionsList btnTitle={
+                        <>
+                            {activeOptions?.map((option, index) => (
+                                <Badge variant="outline" key={`${option?.label.split("").join("-")}-${index}`}>{option?.label}</Badge>
+                            ))}
+                        </>
+
+                    }>
                         {initialOptions?.map((item, index) => (
                             <div key={`${item?.label}-${index}`}>
                                 <OptionsListOfTab
@@ -89,7 +94,7 @@ const ProductItemOptionsListInCart = React.forwardRef<IProductItemOptionsListInC
                             <Button onClick={handleUpdateOptions}>Save Options</Button>
                         </div>
                     </DropdownOptionsList>
-                </div>
+                </div >
             )}
         </>
     );

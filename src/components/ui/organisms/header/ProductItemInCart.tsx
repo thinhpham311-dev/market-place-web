@@ -81,7 +81,7 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
                 <Checkbox id={uniqueKey} checked={selectedItems.includes(uniqueKey)} onCheckedChange={handleCheckboxChange} />
             )}
             <div className="relative last:mb-0 items-start grid grid-cols-8 gap-3">
-                <CardHeader className="p-0 flex flex-row flex-wrap gap-1 md:col-span-4 col-span-3">
+                <CardHeader className="p-0 flex flex-row flex-wrap gap-1 md:col-span-3 col-span-3">
                     <CardImage
                         onClick={handleRouterLinkToDetail}
                         src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"}
@@ -90,10 +90,16 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
                     />
                     <Button onClick={handleRemoveItem} variant="outline" size="sm" className="w-full text-red-600 hover:text-red-700"><span><Trash2 /></span>Remove</Button>
                 </CardHeader>
-                <CardContent className="flex flex-col p-0 h-full md:col-span-4 col-span-5 content-center space-y-2">
+                <CardContent className="flex flex-col p-0 h-full md:col-span-5 col-span-5 content-center space-y-2">
                     <CardTitle onClick={handleRouterLinkToDetail} className="text-lg capitalize cursor-pointer">
                         {name}
                     </CardTitle>
+                    <ProductItemOptionsListInCart
+                        initialOptions={product?.options}
+                        activeOptions={options}
+                        ref={productItemOptionsListInCartRef}
+                        handleUpdate={handleUpdateItem}
+                    />
                     <CardDescription className="space-x-2 mb-2 inline">
                         <p className="inline-flex items-center gap-x-1 text-xs">
                             <span className="font-bold">{formatToCurrency(discountPrice)}</span>
@@ -108,12 +114,8 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
                         initialQuantity={product?.quantity}
                         defaultQuantity={quantity} />
 
-                    <ProductItemOptionsListInCart
-                        initialOptions={product?.options}
-                        activeOptions={options}
-                        ref={productItemOptionsListInCartRef}
-                        handleUpdate={handleUpdateItem}
-                    />
+
+
 
                 </CardContent>
 
