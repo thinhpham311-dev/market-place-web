@@ -7,7 +7,6 @@ import FilterBar from "./components/FilterBar"
 import ProductsList from "./components/ProductItemsList"
 
 export default function Page() {
-
     return (
         <div className="space-y-10 md:my-5">
             <div className="md:px-6 px-3 w-full grid md:grid-cols-8 grid-cols-1 gap-5">
