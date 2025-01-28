@@ -30,20 +30,18 @@ export default function DetailCartCheckOut() {
 
     return (
         <Card className="lg:mx-20 md:mx-0 mx-0 border-none shadow-none">
-            <CardHeader className="flex flex-row gap-x-4 items-center px-0">
-                <Button variant="outline" size="icon" onClick={() => router.back()}><ArrowLeft /></Button>
-                <div className="flex-1 space-y-1">
-                    <CardTitle className="col-span-2">
-                        Check Out
-                    </CardTitle>
-                    <CardDescription className="col-span-2  line-clamp-2 ">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in purus fringilla,
-                    </CardDescription>
-                </div>
+            <CardHeader className="grid grid-rows-2 grid-flow-col md:auto-cols-max auto-cols-auto gap-x-4 items-center px-0">
+                <Button className="row-span-2 col-span-1" variant="outline" size="icon" onClick={() => router.back()}><ArrowLeft /></Button>
+                <CardTitle className="col-span-2">
+                    Check Out
+                </CardTitle>
+                <CardDescription className="col-span-2  line-clamp-1 ">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in purus fringilla,
+                </CardDescription>
             </CardHeader>
             <Separator />
             <CardContent className="p-0">
-                <div className="p-0 w-full grid md:grid-cols-10 grid-cols-1 gap-x-8">
+                <div className="p-0 w-full grid md:grid-cols-10 grid-cols-1 gap-8">
                     <div className="md:col-span-6 col-span-1 ">
                         <DeliveryInfoForm />
                     </div>
