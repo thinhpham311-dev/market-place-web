@@ -76,7 +76,7 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
     }, [dispatch, uniqueKey])
 
     return (
-        <Card layout="horizontal" className=" flex justify-center items-center  p-2 gap-x-2 mb-3 ">
+        <Card layout="horizontal" className=" flex justify-center items-center  p-2 gap-x-2">
             {totalItems && totalItems > 1 && (
                 <Checkbox id={uniqueKey} checked={selectedItems.includes(uniqueKey)} onCheckedChange={handleCheckboxChange} />
             )}
@@ -113,12 +113,7 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
                         handleUpdate={handleUpdateItem}
                         initialQuantity={product?.quantity}
                         defaultQuantity={quantity} />
-
-
-
-
                 </CardContent>
-
             </div>
         </Card>
     );

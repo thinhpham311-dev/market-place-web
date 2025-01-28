@@ -22,6 +22,7 @@ import {
     ScrollArea,
 } from "@/components/ui/molecules";
 
+
 //icons
 import { ShoppingCart } from "lucide-react";
 

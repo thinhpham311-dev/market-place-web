@@ -1,7 +1,7 @@
 'use client'
 
 //components
-import { ScrollArea } from "@/components/ui/molecules"
+
 import ProductItemInCart from "./ProductItemInCart"
 
 //types
@@ -15,7 +15,7 @@ interface IProductItemsListInCartProps {
 export default function ProductItemsListInCart({ data }: IProductItemsListInCartProps) {
 
     return (
-        <ScrollArea className="w-full h-full">
+        <>
             {
                 data?.map((item) => {
                     if (item.quantity > 0) {
@@ -25,7 +25,7 @@ export default function ProductItemsListInCart({ data }: IProductItemsListInCart
                     }
                 })
             }
-        </ScrollArea>
+        </>
     )
 }
 
