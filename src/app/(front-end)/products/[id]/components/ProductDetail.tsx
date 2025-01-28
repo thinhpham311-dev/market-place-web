@@ -156,7 +156,7 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
     }, [reviews]);
 
     return (
-        <Card layout="horizontal" className=' grid lg:grid-cols-3 md:grid-cols-4 grid-cols-1 gap-5  p-5'>
+        <Card layout="horizontal" className=' grid lg:grid-cols-3 md:grid-cols-4 grid-cols-1 gap-5  md:p-5 p-3'>
             <div className="space-y-4 lg:col-span-1 md:col-span-2 col-span-1 ">
                 <ProductImagesListWithThumbnails data={images} />
                 <ShareSocialsList />
@@ -219,7 +219,7 @@ function ProductDetailDescription({ product }: IProductDetailDescriptionProps) {
     }
 
     return (
-        <Card className="p-5  lg:col-span-3 md:col-span-3 col-span-1 grid grid-cols-3 gap-10 ">
+        <Card className="md:p-5 p-3  lg:col-span-3 md:col-span-3 col-span-1 grid grid-cols-3 gap-10 ">
             <CardContent className="p-0 space-y-5 lg:col-span-2 md:col-span-3 col-span-3 lg:order-1 md:order-2 order-2">
                 <CardTitle className='bg-sidebar-foreground text-background p-3'>Product Description</CardTitle>
                 {content}

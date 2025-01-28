@@ -139,7 +139,7 @@ const ReviewStatistics = ({ data }: ReviewListProps) => {
     }, [data]);
 
     return (
-        <Card className="p-5 space-y-6 sticky top-[70px]">
+        <Card className="md:p-5 p-3 space-y-6 sticky top-[70px]">
             <CardHeader className="p-0">
                 <CardTitle className="text-lg font-bold">Average Rating</CardTitle>
                 <CardDescription>
@@ -187,7 +187,7 @@ const ProductReview = ({ initialReviews }: { initialReviews: IReview[] }) => {
     return (
         <div className="p-0 grid md:grid-cols-3 grid-cols-1 gap-5 lg:col-span-3 md:col-span-3 col-span-1">
             <div className="md:col-span-2 col-span-1 space-y-5">
-                <Card className="md:py-6 p-5 space-y-6">
+                <Card className="md:py-6 md:p-5 p-3 space-y-6">
                     <CardHeader className="p-0">
                         <CardTitle>Product Review</CardTitle>
                     </CardHeader>
