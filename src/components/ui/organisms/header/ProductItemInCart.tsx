@@ -54,7 +54,7 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
         (updates: { options?: (IOption | null)[]; quantity?: number }) => {
             const newQuantity = updates.quantity ?? quantity;
             const newOptions = updates.options ?? options;
-
+            console.log(newQuantity)
             // Nếu không có thay đổi, thoát sớm
             if (newQuantity === quantity && JSON.stringify(newOptions) === JSON.stringify(options)) {
                 return;

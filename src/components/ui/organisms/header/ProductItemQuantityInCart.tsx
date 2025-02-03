@@ -21,7 +21,7 @@ export interface IProductItemQuantityInCartRef {
 }
 
 
-const ProductItemQuantityInCart = React.forwardRef<IProductItemQuantityInCartRef, IProductItemQuantityInCartProps>(({ defaultQuantity, initialQuantity = 0 }, ref) => {
+const ProductItemQuantityInCart = React.forwardRef<IProductItemQuantityInCartRef, IProductItemQuantityInCartProps>(({ defaultQuantity, initialQuantity = 0, handleUpdate }, ref) => {
     const counterRef = React.useRef<ICounterRef>(null);
     const [errorMessages, setErrorMessages] = React.useState<string[]>([]);
     const [currentQuantity, setCurrentQuantity] = React.useState<number>(1); // Start with 1
@@ -40,6 +40,7 @@ const ProductItemQuantityInCart = React.forwardRef<IProductItemQuantityInCartRef
             setCurrentQuantity(1); // Reset quantity to 1
             counterRef.current?.reset?.(); // Call the reset method on Counter
             setErrorMessages([]);
+            handleUpdate({ quantity: 1 }); // Reset handleUpdate as well
         },
     }));
 
@@ -47,6 +48,7 @@ const ProductItemQuantityInCart = React.forwardRef<IProductItemQuantityInCartRef
         setCurrentQuantity(newQuantity);
         const errors = validateQuantity(newQuantity);
         setErrorMessages(errors);
+        handleUpdate({ quantity: newQuantity });
     };
 
     return (
@@ -55,19 +57,15 @@ const ProductItemQuantityInCart = React.forwardRef<IProductItemQuantityInCartRef
                 initialValue={defaultQuantity}
                 onQuantityChange={handleUpdateQuantity}
             />
-            <span className="text-xs ">{initialQuantity} pieces available</span>
+            <span className="text-xs">{initialQuantity} pieces available</span>
             {/* Display error messages */}
-            <p className="text-red-500 text-xs basis-full">
-                {errorMessages.length > 0 && (
-                    <>
-                        {
-                            errorMessages.map((error, index) => (
-                                <span key={index}>{error}</span>
-                            ))
-                        }
-                    </>
-                )}
-            </p>
+            {errorMessages.length > 0 && (
+                <p className="text-red-500 text-xs basis-full">
+                    {errorMessages.map((error, index) => (
+                        <span key={index}>{error}</span>
+                    ))}
+                </p>
+            )}
         </div>
     );
 })
