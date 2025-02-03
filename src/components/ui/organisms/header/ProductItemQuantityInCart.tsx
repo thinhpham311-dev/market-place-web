@@ -40,7 +40,6 @@ const ProductItemQuantityInCart = React.forwardRef<IProductItemQuantityInCartRef
             setCurrentQuantity(1); // Reset quantity to 1
             counterRef.current?.reset?.(); // Call the reset method on Counter
             setErrorMessages([]);
-            handleUpdate({ quantity: 1 }); // Reset handleUpdate as well
         },
     }));
 
@@ -48,7 +47,7 @@ const ProductItemQuantityInCart = React.forwardRef<IProductItemQuantityInCartRef
         setCurrentQuantity(newQuantity);
         const errors = validateQuantity(newQuantity);
         setErrorMessages(errors);
-        handleUpdate({ quantity: newQuantity });
+        handleUpdate({ quantity: newQuantity, options: undefined });
     };
 
     return (
