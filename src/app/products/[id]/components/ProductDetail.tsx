@@ -308,7 +308,7 @@ const StoreInfo = (
 
 
 export default function ProductDetail() {
-    const { id } = useParams();
+    const { id } = useParams() ?? {};
 
     const { product } = useMemo(() => {
         const product: IProduct | undefined = productData?.find((item) => item?._id === id);

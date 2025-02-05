@@ -1,6 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  async rewrites() {
+    return [
+      {
+        source: "/admin/:path*",
+        destination: "/api/admin/:path*",
+      },
+    ];
+  },
   reactStrictMode: true,
   images: {
     remotePatterns: [
@@ -19,10 +27,7 @@ const nextConfig: NextConfig = {
         hostname: 'localhost',
       },
     ],
-  },
-  env: {
-    base_url: 'https://market-place-server-whko.onrender.com',
-  },
+  }
 };
 
 export default nextConfig;

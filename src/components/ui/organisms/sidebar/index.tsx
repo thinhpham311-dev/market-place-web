@@ -108,7 +108,7 @@ function SidebarMenuItemComponent({ item, isActive, pathname }: SidebarMenuItemP
 }
 
 export default function SidebarNavigation() {
-    const pathname = usePathname();
+    const pathname = usePathname() ?? "/";;
     const router = useRouter();
     const conditionMenu = useMemo(() => pathname.split("/")[1] === "user", [pathname]);
     const menuToRender = conditionMenu ? profileMenuItems : items;

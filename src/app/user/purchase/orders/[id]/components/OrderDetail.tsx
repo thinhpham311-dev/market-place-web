@@ -16,7 +16,7 @@ import { ArrowLeft } from 'lucide-react';
 
 
 export default function OrderDetail() {
-    const { id } = useParams();
+    const { id } = useParams() ?? {};
     const router = useRouter()
 
     const { order } = useMemo(() => {
