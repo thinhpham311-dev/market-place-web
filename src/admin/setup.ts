@@ -3,6 +3,9 @@ import * as AdminJSMongoose from '@adminjs/mongoose'
 import AdminJS, { type AdminJSOptions } from "adminjs";
 import * as Models from './models'
 import { dark, light, noSidebar } from '@adminjs/themes'
+import AdminJSExpress from "@adminjs/express";
+import { Express } from "express";
+import { authenticate, COOKIE_PASSWORD } from "@/admin/config";
 
 
 AdminJS.registerAdapter(AdminJSMongoose)
@@ -90,3 +93,21 @@ export const options: AdminJSOptions = {
 
 
 export const adminJs = new AdminJS(options);
+
+// const NODE_ENV = process.env.NODE_ENV || 'development';
+
+export const buildAdminRouter = async (app: Express): Promise<void> => {
+
+  const adminRouter = await AdminJSExpress.buildAuthenticatedRouter(
+    adminJs,
+    {
+      authenticate,
+      cookiePassword: COOKIE_PASSWORD as string,
+      cookieName: 'adminjs',
+    }
+  );
+
+  app.use(adminJs.options.rootPath, adminRouter);
+
+};
+

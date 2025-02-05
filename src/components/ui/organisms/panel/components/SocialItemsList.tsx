@@ -3,13 +3,11 @@ import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbS
 import { Tally1, ArrowDownToLine, Warehouse } from "lucide-react"
 
 export default function SocialItemsList() {
-
     return (
-
         <Breadcrumb>
             <BreadcrumbList>
                 <BreadcrumbItem>
-                    <BreadcrumbLink href="#" className="flex items-center gap-x-2">
+                    <BreadcrumbLink href="/admin" className="flex items-center gap-x-2">
                         <Warehouse size={15} /> Seller Centre
                     </BreadcrumbLink>
                 </BreadcrumbItem>

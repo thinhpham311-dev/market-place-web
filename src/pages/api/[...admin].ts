@@ -1,6 +1,6 @@
-import AdminJSExpress from "@adminjs/express";
+
 import express, { Request, Response } from "express";
-import { adminJs } from "@/admin/setup";
+import { adminJs, buildAdminRouter } from "@/admin/setup";
 import { connectDB } from "@/admin/connect";
 
 const app = express();
@@ -12,9 +12,7 @@ const start = async () => {
     }
 
     await connectDB(process.env.MONGODB_URI);
-
-    const adminRouter = AdminJSExpress.buildRouter(adminJs);
-    app.use(adminJs.options.rootPath, adminRouter);
+    await buildAdminRouter(app)
 
     if (process.env.NODE_ENV === "development") {
       adminJs.watch();
