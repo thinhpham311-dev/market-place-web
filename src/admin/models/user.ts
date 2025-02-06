@@ -13,7 +13,8 @@ const userSchema = new Schema({
     isActivated: {
         type: Boolean,
         default: false
-    }
+    },
+    expiresAt: { type: Date, required: true },
 })
 
 const customerSchema = new Schema({

@@ -9,121 +9,122 @@ import { authenticate, COOKIE_PASSWORD } from "@/admin/config/config";
 import { userParent, productParent, orderParent } from "../constants/icons";
 
 AdminJS.registerAdapter(AdminJSMongoose)
-const buildResources = (): AdminJSOptions["resources"] => [
-  {
-    resource: Models.Customer,
-    options: {
-      parent: userParent,
-      properties: {
-        _id: { isVisible: { list: false, edit: true, filter: true, show: true } },
-        name: { isVisible: { list: true, edit: true, filter: true, show: true } },
-        phone: { isVisible: { list: true, edit: true, filter: true, show: true } },
-        role: { isVisible: { list: false, edit: false, filter: false, show: false } },
-        isActivated: { isVisible: { list: true, edit: true, filter: false, show: true } },
-      }
-    }
-  },
-  {
-    resource: Models.DeliveryPartner,
-    options: {
-      parent: userParent,
-      properties: {
-        _id: { isVisible: { list: false, edit: true, filter: true, show: true } },
-        password: { isVisible: { list: false, edit: true, filter: true, show: true } },
-        name: { isVisible: { list: true, edit: true, filter: true, show: true } },
-        phone: { isVisible: { list: true, edit: true, filter: true, show: true } },
-        role: { isVisible: { list: false, edit: false, filter: false, show: false } },
-        address: { isVisible: { list: true, edit: true, filter: false, show: true } },
-        branch: { isVisible: { list: true, edit: true, filter: false, show: true } },
-      }
-    }
-  },
-  {
-    resource: Models.Admin,
-    options: {
-      parent: userParent,
-      properties: {
-        _id: { isVisible: { list: false, edit: true, filter: true, show: true } },
-        name: { isVisible: { list: true, edit: true, filter: true, show: true } },
-        phone: { isVisible: { list: true, edit: true, filter: true, show: true } },
-        role: { isVisible: { list: false, edit: false, filter: false, show: false } },
-        isActivated: { isVisible: { list: true, edit: true, filter: false, show: true } },
-      }
-    }
-  },
-  {
-    resource: Models.Branch,
-    options: {
-      parent: productParent,
-      properties: {
-        name: { isVisible: { list: true, edit: true, filter: true, show: true } },
-        address: { isVisible: { list: true, edit: true, filter: true, show: true } }
-      }
-    }
-  },
-  {
-    resource: Models.Category,
-    options: {
-      parent: productParent,
-      properties: {
-        name: { isVisible: { list: true, edit: true, filter: true, show: true } },
-        image: { isVisible: { list: true, edit: true, filter: false, show: true } }
-      }
-    }
-  },
-  {
-    resource: Models.Product,
-    options: {
-      parent: productParent,
-      properties: {
-        name: { isVisible: { list: true, edit: true, filter: true, show: true } },
-        price: { isVisible: { list: true, edit: true, filter: true, show: true } },
-        discountPrice: { isVisible: { list: true, edit: true, filter: true, show: true } },
-        quantity: { isVisible: { list: true, edit: true, filter: false, show: true } },
-        image: { isVisible: { list: true, edit: true, filter: false, show: true } },
-        category: { isVisible: { list: true, edit: true, filter: true, show: true } },
-      }
-    }
-  },
-  {
-    resource: Models.Review,
-    options: {
-      parent: productParent,
-      properties: {
-        productId: { isVisible: { list: true, edit: true, filter: true, show: true } },
-        userId: { isVisible: { list: true, edit: true, filter: true, show: true } },
-        rating: { isVisible: { list: true, edit: true, filter: true, show: true } },
-        createdAt: { isVisible: { list: true, edit: true, filter: false, show: true } },
-      },
-    }
-  },
-  {
-    resource: Models.Counter,
-    options: {
-      parent: orderParent,
-    }
-  },
-  {
-    resource: Models.Order,
-    options: {
-      parent: orderParent,
-      properties: {
-        customer: { isVisible: { list: true, edit: true, filter: true, show: true } },
-        deliveryPartner: { isVisible: { list: true, edit: true, filter: true, show: true } },
-        status: { isVisible: { list: true, edit: true, filter: true, show: true } },
-        createdAt: { isVisible: { list: true, edit: true, filter: false, show: true } },
-        updatedAt: { isVisible: { list: true, edit: true, filter: false, show: true } },
-      },
-    }
-  },
-];
 
 export const options: AdminJSOptions = {
   assetsCDN: process.env.NODE_ENV === "production" ? getBaseUrl() : undefined,
   rootPath: "/admin",
-  resources: buildResources(),
+  resources: [
+    {
+      resource: Models.Customer,
+      options: {
+        parent: userParent,
+        properties: {
+          _id: { isVisible: { list: false, edit: true, filter: true, show: true } },
+          name: { isVisible: { list: true, edit: true, filter: true, show: true } },
+          phone: { isVisible: { list: true, edit: true, filter: true, show: true } },
+          role: { isVisible: { list: false, edit: false, filter: false, show: false } },
+          isActivated: { isVisible: { list: true, edit: true, filter: false, show: true } },
+        }
+      }
+    },
+    {
+      resource: Models.DeliveryPartner,
+      options: {
+        parent: userParent,
+        properties: {
+          _id: { isVisible: { list: false, edit: true, filter: true, show: true } },
+          password: { isVisible: { list: false, edit: true, filter: true, show: true } },
+          name: { isVisible: { list: true, edit: true, filter: true, show: true } },
+          phone: { isVisible: { list: true, edit: true, filter: true, show: true } },
+          role: { isVisible: { list: false, edit: false, filter: false, show: false } },
+          address: { isVisible: { list: true, edit: true, filter: false, show: true } },
+          branch: { isVisible: { list: false, edit: true, filter: false, show: true } },
+        }
+      }
+    },
+    {
+      resource: Models.Admin,
+      options: {
+        parent: userParent,
+        properties: {
+          _id: { isVisible: { list: false, edit: true, filter: true, show: true } },
+          name: { isVisible: { list: true, edit: true, filter: true, show: true } },
+          role: { isVisible: { list: false, edit: false, filter: false, show: false } },
+          isActivated: { isVisible: { list: true, edit: true, filter: false, show: true } },
+        }
+      }
+    },
+    {
+      resource: Models.Branch,
+      options: {
+        parent: productParent,
+        properties: {
+          _id: { isVisible: { list: false, edit: false, filter: false, show: false } },
+          name: { isVisible: { list: true, edit: true, filter: true, show: true } },
+          address: { isVisible: { list: true, edit: true, filter: true, show: true } }
+        }
+      }
+    },
+    {
+      resource: Models.Category,
+      options: {
+        parent: productParent,
+        properties: {
+          name: { isVisible: { list: true, edit: true, filter: true, show: true } },
+          image: { isVisible: { list: true, edit: true, filter: false, show: true } }
+        }
+      }
+    },
+    {
+      resource: Models.Product,
+      options: {
+        parent: productParent,
+        properties: {
+          name: { isVisible: { list: true, edit: true, filter: true, show: true } },
+          price: { isVisible: { list: true, edit: true, filter: true, show: true } },
+          discountPrice: { isVisible: { list: true, edit: true, filter: true, show: true } },
+          quantity: { isVisible: { list: true, edit: true, filter: false, show: true } },
+          image: { isVisible: { list: true, edit: true, filter: false, show: true } },
+          category: { isVisible: { list: true, edit: true, filter: true, show: true } },
+        }
+      }
+    },
+    {
+      resource: Models.Review,
+      options: {
+        parent: productParent,
+        properties: {
+          _id: { isVisible: { list: false, edit: false, filter: false, show: false } },
+          productId: { isVisible: { list: true, edit: true, filter: true, show: true } },
+          userId: { isVisible: { list: true, edit: true, filter: true, show: true } },
+          rating: { isVisible: { list: true, edit: true, filter: true, show: true } },
+          createdAt: { isVisible: { list: true, edit: true, filter: false, show: true } },
+        },
+      }
+    },
+    {
+      resource: Models.Counter,
+      options: {
+        parent: orderParent,
+      }
+    },
+    {
+      resource: Models.Order,
+      options: {
+        parent: orderParent,
+        properties: {
+          orderId: { isVisible: { list: false, edit: false, filter: false, show: false } },
+          customer: { isVisible: { list: true, edit: true, filter: true, show: true } },
+          deliveryPartner: { isVisible: { list: true, edit: true, filter: true, show: true } },
+          status: { isVisible: { list: true, edit: true, filter: true, show: true } },
+          createdAt: { isVisible: { list: true, edit: true, filter: false, show: true } },
+          updatedAt: { isVisible: { list: true, edit: true, filter: false, show: true } },
+        },
+      }
+    },
+  ],
   branding: {
-    companyName: "Market Place Admin",
+    companyName: "Admin | Market Place ",
     withMadeWithLove: true,
     favicon: 'https://res.cloudinary.com/di6zporch/image/upload/t_My Logo/v1730777885/market-place-logo_iz3rdk.svg',
     logo: "https://res.cloudinary.com/di6zporch/image/upload/t_Banner 16:9/v1730777885/market-place-logo_iz3rdk.svg",
@@ -151,7 +152,7 @@ export const options: AdminJSOptions = {
 
     }
   },
-  defaultTheme: light.id,
+  defaultTheme: dark.id,
   availableThemes: [dark, light, noSidebar],
 };
 

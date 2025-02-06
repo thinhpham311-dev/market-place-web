@@ -18,6 +18,11 @@ export const authenticate = async (email: string, password: string) => {
         if (!user) {
             return null
         }
+        // Check if the account is expired
+        if (user.expiresAt && user.expiresAt < new Date()) {
+            return false; // Account has expired
+        }
+
         if (user.password === password) {
             return Promise.resolve({ email, password })
         } else {

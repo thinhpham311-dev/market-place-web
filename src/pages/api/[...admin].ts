@@ -15,7 +15,7 @@ const start = async () => {
     await buildAdminRouter(app)
 
     if (process.env.NODE_ENV === "development") {
-      adminJs.watch();
+      await adminJs.watch();
     }
 
     console.log("AdminJS is running at:", adminJs.options.rootPath);
