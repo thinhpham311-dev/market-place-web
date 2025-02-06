@@ -30,5 +30,3 @@ const productSchema = new Schema({
 
 export const Product = models.Product || model("Product", productSchema);
 
-
-export default Product

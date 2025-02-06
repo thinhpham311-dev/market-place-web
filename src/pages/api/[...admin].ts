@@ -1,7 +1,7 @@
 
 import express, { Request, Response } from "express";
-import { adminJs, buildAdminRouter } from "@/admin/setup";
-import { connectDB } from "@/admin/connect";
+import { adminJs, buildAdminRouter } from "@/admin/config/setup";
+import { connectDB } from "@/admin/config/connect";
 
 const app = express();
 
@@ -28,7 +28,7 @@ const start = async () => {
 // Ensure start is executed before handling requests
 start();
 
-export default function handler(req: Request, res: Response) {
+export default async function handler(req: Request, res: Response) {
   return app(req, res);
 }
 

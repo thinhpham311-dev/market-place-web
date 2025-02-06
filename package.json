@@ -11,6 +11,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@adminjs/bundler": "^3.0.0",
+    "@adminjs/custom-components": "^2.0.1",
     "@adminjs/express": "^6.1.1",
     "@adminjs/mongoose": "^4.1.0",
     "@adminjs/themes": "^1.0.1",

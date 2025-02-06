@@ -1,13 +1,13 @@
-import mongoose from "mongoose";
+import { Schema, model, models } from "mongoose";
 
-const reviewSchema = new mongoose.Schema({
+const reviewSchema = new Schema({
     productId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'Product',
         required: true,
     },
     userId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'Customer',
         required: true,
     },
@@ -28,6 +28,6 @@ const reviewSchema = new mongoose.Schema({
 });
 
 
-const Review = mongoose.model('Review', reviewSchema)
 
-export default Review
+export const Review = models.Review || model("Review", reviewSchema);
+

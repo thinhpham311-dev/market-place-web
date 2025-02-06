@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+import { Schema, model, models } from "mongoose";
 
-const counterSchema = new mongoose.Schema({
+const counterSchema = new Schema({
     name: {
         type: String,
         required: true,
@@ -9,6 +9,6 @@ const counterSchema = new mongoose.Schema({
     sequence_value: { type: Number, default: 0 }
 })
 
-const Counter = mongoose.model('Counter', counterSchema)
 
-export default Counter
+export const Counter = models.Counter || model("Counter", counterSchema);
+

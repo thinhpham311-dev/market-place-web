@@ -144,14 +144,14 @@ export default function OrderItemsListOfUser() {
     });
 
     return (
-        <Card className="w-full">
+        <Card className="w-full p-3 md:p-6">
             <CardHeader className="flex flex-row items-center justify-between py-0">
                 <CardTitle>
                     Order History List
                 </CardTitle>
                 <Toolbar table={table} />
             </CardHeader>
-            <CardContent className="rounded-md">
+            <CardContent className="rounded-md p-0">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (

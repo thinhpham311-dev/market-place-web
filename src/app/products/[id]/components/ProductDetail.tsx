@@ -83,7 +83,6 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
         if (!product) {
             return;
         }
-
         // Validate
         const errors = validateProduct();
 

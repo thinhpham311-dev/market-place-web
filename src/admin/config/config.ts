@@ -1,6 +1,6 @@
 import session from 'express-session'
 import ConnectMongoDBSession from 'connect-mongodb-session'
-import { Admin } from './models'
+import { Admin } from '../models'
 
 const MongoDBStore = ConnectMongoDBSession(session);
 export const sessionStore = new MongoDBStore({
@@ -25,7 +25,6 @@ export const authenticate = async (email: string, password: string) => {
         }
     }
     return null
-
 }
 
 // export const authenticate = async (email: string, password: string) => {
