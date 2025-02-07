@@ -1,34 +1,34 @@
-import { Schema, model, models } from "mongoose";
-import { Counter } from "./counter";
+import mongoose from "mongoose";
+import Counter from "./counter";
 
-const orderSchema = new Schema({
+const orderSchema = new mongoose.Schema({
     orderId: {
         type: String,
         unique: true
     },
     customer: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Customer",
         required: true
     },
     deliveryPartner: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "DeliveryPartner"
     },
     branch: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Branch",
         required: true
     },
     items: [
         {
             id: {
-                type: Schema.Types.ObjectId,
+                type: mongoose.Schema.Types.ObjectId,
                 ref: "Product",
                 required: true,
             },
             item: {
-                type: Schema.Types.ObjectId,
+                type: mongoose.Schema.Types.ObjectId,
                 ref: "Product",
                 required: true,
             },
@@ -80,5 +80,7 @@ orderSchema.pre("save", async function (next) {
 })
 
 
-export const Order = models.Order || model("Order", orderSchema);
 
+const Order = mongoose.model("Order", orderSchema)
+
+export default Order

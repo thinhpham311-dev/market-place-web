@@ -1,6 +1,6 @@
-import { Schema, model, models } from "mongoose";
+import mongoose from "mongoose";
 
-const userSchema = new Schema({
+const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -13,11 +13,10 @@ const userSchema = new Schema({
     isActivated: {
         type: Boolean,
         default: false
-    },
-    expiresAt: { type: Date, required: true },
+    }
 })
 
-const customerSchema = new Schema({
+const customerSchema = new mongoose.Schema({
     ...userSchema.obj,
     phone: { type: Number, required: true, unique: true },
     role: { type: String, enum: ["Customer"], default: "Customer" },
@@ -28,7 +27,7 @@ const customerSchema = new Schema({
     address: { type: String }
 })
 
-const deliveryPartnerSchema = new Schema({
+const deliveryPartnerSchema = new mongoose.Schema({
     ...userSchema.obj,
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
@@ -40,12 +39,12 @@ const deliveryPartnerSchema = new Schema({
     },
     address: { type: String },
     branch: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Branch"
     }
 })
 
-const adminSchema = new Schema({
+const adminSchema = new mongoose.Schema({
     ...userSchema.obj,
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
@@ -53,6 +52,7 @@ const adminSchema = new Schema({
 })
 
 
-export const Customer = models.Customer || model("Customer", customerSchema);
-export const DeliveryPartner = models.DeliveryPartner || model("DeliveryPartner", deliveryPartnerSchema);
-export const Admin = models.Admin || model("Admin", adminSchema);
+export const Customer = mongoose.model("Customer", customerSchema)
+export const DeliveryPartner = mongoose.model("DeliveryPartner", deliveryPartnerSchema)
+export const Admin = mongoose.model("Admin", adminSchema)
+

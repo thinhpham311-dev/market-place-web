@@ -7,14 +7,14 @@ const app = express();
 
 const start = async () => {
   try {
-    if (!process.env.MONGODB_URI) {
+    if (!process.env.NEXT_PUBLIC_MONGODB_URI) {
       throw new Error("MONGODB_URI is not defined in environment variables");
     }
 
-    await connectDB(process.env.MONGODB_URI);
+    await connectDB(process.env.NEXT_PUBLIC_MONGODB_URI);
     await buildAdminRouter(app)
 
-    // if (process.env.NODE_ENV === "development") {
+    // if (process.env.NEXT_PUBLIC_NODE_ENV === "development") {
     await adminJs.watch();
     // }
 
