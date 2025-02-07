@@ -1,6 +1,6 @@
-import { Schema, model, models } from "mongoose";
+import mongoose from "mongoose";
 
-const branchSchema = new Schema({
+const branchSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -12,5 +12,6 @@ const branchSchema = new Schema({
     address: { type: String },
 })
 
-export const Branch = models.Branch || model("Branch", branchSchema);
+const Branch = mongoose.model("Branch", branchSchema)
 
+export default Branch

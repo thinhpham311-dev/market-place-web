@@ -14,9 +14,9 @@ const start = async () => {
     await connectDB(process.env.MONGODB_URI);
     await buildAdminRouter(app)
 
-    if (process.env.NODE_ENV === "development") {
-      await adminJs.watch();
-    }
+    // if (process.env.NODE_ENV === "development") {
+    await adminJs.watch();
+    // }
 
     console.log("AdminJS is running at:", adminJs.options.rootPath);
   } catch (error) {
@@ -28,7 +28,7 @@ const start = async () => {
 // Ensure start is executed before handling requests
 start();
 
-export default async function handler(req: Request, res: Response) {
+export default async function GET(req: Request, res: Response) {
   return app(req, res);
 }
 
