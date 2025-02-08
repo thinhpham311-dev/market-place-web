@@ -1,22 +1,20 @@
-import session from 'express-session'
-import ConnectMongoDBSession from 'connect-mongodb-session'
 import { Admin } from '../models'
+import session from 'express-session';
+import ConnectMongoDBSession from 'connect-mongodb-session';
 
-
+// Initialize the MongoDB session store
 const MongoDBStore = ConnectMongoDBSession(session);
+
+// Create a session store instance
 export const sessionStore = new MongoDBStore({
     uri: process.env.NEXT_PUBLIC_MONGODB_URI as string,
     collection: 'sessions',
-    expires: 1000 * 60 * 60 * 2,
-})
-
-sessionStore.on('connect', () => {
-    console.log('Connected to MongoDB successfully!');
+    expires: Date.now() + (30 * 24 * 3600 * 1000)
 });
 
-sessionStore.on('error', (error: string) => {
-    console.log('Session store error', error)
-})
+sessionStore.on('error', (error: Error) => {
+    console.log('Session store error:', error);
+});
 
 export const authenticate = async (email: string, password: string) => {
     if (email && password) {

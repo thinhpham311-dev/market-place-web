@@ -1,36 +1,23 @@
-
 import express, { Request, Response } from "express";
 import { adminJs, buildAdminRouter } from "@/admin/config/setup";
 import { connectDB } from "@/admin/config/connect";
 
 const app = express();
 
-const start = async () => {
-  try {
-    if (!process.env.NEXT_PUBLIC_MONGODB_URI) {
-      throw new Error("MONGODB_URI is not defined in environment variables");
-    }
-
-    await connectDB(process.env.NEXT_PUBLIC_MONGODB_URI);
-    await buildAdminRouter(app)
-
-    // if (process.env.NEXT_PUBLIC_NODE_ENV === "development") {
-    await adminJs.watch();
-    // }
-
-    console.log("AdminJS is running at:", adminJs.options.rootPath);
-  } catch (error) {
-    console.error("Error starting AdminJS:", error);
-    process.exit(1);
-  }
-};
-
-// Ensure start is executed before handling requests
-start();
-
-export default async function GET(req: Request, res: Response) {
-  return app(req, res);
+if (!process.env.NEXT_PUBLIC_MONGODB_URI) {
+  throw new Error("MONGODB_URI is not defined in environment variables");
 }
+
+connectDB(process.env.NEXT_PUBLIC_MONGODB_URI);
+buildAdminRouter(app);
+
+adminJs.watch();
+
+export default function handler(req: Request, res: Response) {
+  // This is how you should handle requests in Next.js API routes
+  app(req, res); // Passing req and res to the Express app
+}
+
 
 export const config = {
   api: {

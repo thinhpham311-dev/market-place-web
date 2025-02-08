@@ -5,7 +5,10 @@ import * as Models from '../models'
 import { dark, light, noSidebar } from '@adminjs/themes'
 import AdminJSExpress from "@adminjs/express";
 import { Express } from "express";
-import { authenticate, NEXT_PUBLIC_COOKIE_PASSWORD, sessionStore } from "@/admin/config/config";
+import {
+  authenticate, NEXT_PUBLIC_COOKIE_PASSWORD,
+  sessionStore
+} from "@/admin/config/config";
 import { productParent, userParent, orderParent } from "../constants/icons";
 
 AdminJS.registerAdapter(AdminJSMongoose)
@@ -19,7 +22,7 @@ export const options: AdminJSOptions = {
       options: {
         parent: userParent,
         properties: {
-          _id: { isVisible: { list: false, edit: true, filter: true, show: true } },
+          _id: { isVisible: { list: false, edit: false, filter: false, show: false } },
           name: { isVisible: { list: true, edit: true, filter: true, show: true } },
           phone: { isVisible: { list: true, edit: true, filter: true, show: true } },
           role: { isVisible: { list: false, edit: false, filter: false, show: false } },
@@ -32,7 +35,7 @@ export const options: AdminJSOptions = {
       options: {
         parent: userParent,
         properties: {
-          _id: { isVisible: { list: false, edit: true, filter: true, show: true } },
+          _id: { isVisible: { list: false, edit: false, filter: false, show: false } },
           password: { isVisible: { list: false, edit: true, filter: true, show: true } },
           name: { isVisible: { list: true, edit: true, filter: true, show: true } },
           phone: { isVisible: { list: true, edit: true, filter: true, show: true } },
@@ -47,7 +50,7 @@ export const options: AdminJSOptions = {
       options: {
         parent: userParent,
         properties: {
-          _id: { isVisible: { list: false, edit: true, filter: true, show: true } },
+          _id: { isVisible: { list: false, edit: false, filter: false, show: false } },
           name: { isVisible: { list: true, edit: true, filter: true, show: true } },
           role: { isVisible: { list: false, edit: false, filter: false, show: false } },
           isActivated: { isVisible: { list: true, edit: true, filter: false, show: true } },
@@ -169,14 +172,13 @@ export const buildAdminRouter = async (app: Express): Promise<void> => {
     null,
     {
       store: sessionStore,
-      resave: true,
       saveUninitialized: true,
-      secret: 'sessionsecret',
+      resave: true,
+      secret: NEXT_PUBLIC_COOKIE_PASSWORD as string,
       cookie: {
         httpOnly: process.env.NEXT_PUBLIC_NODE_ENV === 'production',
         secure: process.env.NEXT_PUBLIC_NODE_ENV === 'production',
       },
-      name: 'adminjs',
     }
   );
   app.use(adminJs.options.rootPath, adminRouter);
