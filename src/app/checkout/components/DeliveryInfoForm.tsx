@@ -7,7 +7,7 @@ import { FormGroup, FormInput, FormInputTextarea } from "@/components/ui/organis
 
 //validations
 import { z } from "zod";
-import { isValidPhoneNumber } from "@/lib/validate"
+import { isValidPhoneNumber } from "@/lib/handleError"
 
 
 const emailValidator = z.string().email()

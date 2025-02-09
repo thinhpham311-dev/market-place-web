@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "build-admin.ts;next build",
     "start": "next start",
     "lint": "next lint",
     "postinstall": "patch-package"
@@ -18,7 +18,6 @@
     "@adminjs/express": "^6.1.1",
     "@adminjs/mongoose": "^4.1.0",
     "@adminjs/themes": "^1.0.1",
-    "@clerk/nextjs": "^6.9.6",
     "@hookform/resolvers": "^3.9.1",
     "@radix-ui/react-aspect-ratio": "^1.1.1",
     "@radix-ui/react-avatar": "^1.1.2",
@@ -53,18 +52,16 @@
     "express": "^5.0.1",
     "express-formidable": "^1.2.0",
     "express-session": "^1.18.1",
-    "i": "^0.3.7",
     "immer": "^10.1.1",
+    "jsonwebtoken": "^9.0.2",
     "libphonenumber-js": "^1.11.17",
     "lucide-react": "^0.468.0",
     "miragejs": "^0.1.48",
     "mongodb": "^6.12.0",
     "mongoose": "^8.10.0",
     "motion": "^12.0.6",
-    "msw": "^2.7.0",
     "next": "15.0.3",
     "next-themes": "^0.4.4",
-    "npm": "^10.9.1",
     "patch-package": "^8.0.0",
     "react": "18",
     "react-dom": "18",
@@ -74,11 +71,8 @@
     "react-resizable-panels": "^2.1.7",
     "redux": "^5.0.1",
     "redux-persist": "^6.0.0",
-    "sonner": "^1.7.1",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
-    "tsx": "^4.19.2",
-    "uuid": "^11.0.4",
     "vaul": "^1.1.1",
     "zod": "^3.24.1"
   },
@@ -91,8 +85,5 @@
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
-  },
-  "resolutions": {
-    "rollup": "npm:@rollup/wasm-node"
   }
 }

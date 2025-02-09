@@ -11,7 +11,7 @@ import { IOption } from "@/types/product";
 
 //libs
 import { useToast } from "@/lib/hooks";
-import { PropertiesValidate } from "@/lib/validate"
+import { PropertiesValidate } from "@/lib/handleError"
 
 
 interface IProductItemOptionsListInCartProps {

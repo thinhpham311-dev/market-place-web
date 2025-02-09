@@ -5,7 +5,7 @@ import { FormInput, FormGroup, FormSelect } from "@/components/ui/organisms";
 
 //libs
 import { z } from "zod";
-import { isValidPhoneNumber } from "@/lib/validate"
+import { isValidPhoneNumber } from "@/lib/handleError"
 
 //icons
 import { Save } from "lucide-react";

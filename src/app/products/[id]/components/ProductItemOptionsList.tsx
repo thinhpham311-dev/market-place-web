@@ -10,7 +10,7 @@ import { IOption } from "@/types/product"
 
 
 //libs
-import { PropertiesValidate } from "@/lib/validate"
+import { PropertiesValidate } from "@/lib/handleError"
 
 interface IProductItemOptionsListProps {
     options?: Array<IOption>

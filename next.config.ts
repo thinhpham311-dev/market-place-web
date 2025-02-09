@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  experimental: {
+    forceSwcTransforms: true,
+  },
   reactStrictMode: true,
   images: {
     remotePatterns: [
