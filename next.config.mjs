@@ -1,14 +1,11 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  async rewrites() {
-    return [
-      {
-        source: "/admin/:path*",
-        destination: "/api/admin/:path*",
-      },
-    ];
-  },
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  rewrites: () => [
+    {
+      source: "/admin/:path*",
+      destination: "/api/admin/:path*",
+    },
+  ],
   experimental: {
     forceSwcTransforms: true,
   },
