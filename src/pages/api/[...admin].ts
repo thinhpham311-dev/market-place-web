@@ -8,7 +8,7 @@ if (!process.env.NEXT_PUBLIC_MONGODB_URI) {
   throw new Error("MONGODB_URI is not defined in environment variables");
 }
 
-connectDB(process.env.NEXT_PUBLIC_MONGODB_URI);
+connectDB();
 buildAdminRouter(app);
 
 adminJs.watch();

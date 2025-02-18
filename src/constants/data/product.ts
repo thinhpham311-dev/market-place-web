@@ -238,7 +238,7 @@ export const productData = [
     },
     {
         _id: "4",
-        name: "Product",
+        name: "Product 4",
         image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
         description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
@@ -299,15 +299,6 @@ export const productData = [
                         label: "Size XXL",
                         value: "size-xxl"
                     }
-                ],
-            },
-            {
-                label: "Color",
-                value: [
-                    { label: "White", value: "white" },
-                    { label: "Black", value: "black" },
-                    { label: "Red", value: "red" },
-                    { label: "Yellow", value: "Yellow" }
                 ],
             }
         ],

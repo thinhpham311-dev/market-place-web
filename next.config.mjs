@@ -8,6 +8,8 @@ const nextConfig = {
   ],
   experimental: {
     forceSwcTransforms: true,
+    esmExternals: "loose",
+    serverComponentsExternalPackages: ["mongoose"]
   },
   reactStrictMode: true,
   images: {
