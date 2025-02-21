@@ -3,7 +3,7 @@
 import { useMemo, useRef, useCallback, ReactElement } from 'react';
 
 // Routers
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 // Store
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
@@ -13,6 +13,7 @@ import { addItem } from '@/store/cart/stateSlice';
 // Components
 import { Button, Avatar, AvatarImage, AvatarFallback, Separator } from '@/components/ui/atoms';
 import { Card, CardContent, CardTitle, CardDescription, CardHeader, StarRating } from '@/components/ui/molecules';
+import { NotFound } from "@/components/ui/organisms"
 import ProductItemOptionsList, { IProductItemOptionsListRef } from "./ProductItemOptionsList"
 import ProductItemQuantity, { IProductItemQuantityRef } from "./ProductItemQuantity"
 import ProductReview from './ProductReview'
@@ -306,8 +307,7 @@ const StoreInfo = (
 };
 
 
-export default function ProductDetail() {
-    const { id } = useParams() ?? {};
+export default function ProductDetail({ id }: { id: string }) {
 
     const { product } = useMemo(() => {
         const product: IProduct | undefined = productData?.find((item) => item?._id === id);
@@ -315,7 +315,7 @@ export default function ProductDetail() {
     }, [id]);
 
 
-    if (!product) return <div>Product not found</div>
+    if (!product) return <NotFound />
 
     return (
         <Card className=" border-none shadow-none md:px-6 px-3 space-y-5 my-6">

@@ -7,10 +7,8 @@ import store from '../store'
 import { onSignOutSuccess } from '@/store/auth/sessionSlice'
 
 const unauthorizedCode = [401]
-const host_API = process.env.base_url
-
-const baseURL = `${host_API}${appConfig.apiPrefix}`
-
+const host = process.env.NEXT_PUBLIC_BASE_URL
+const baseURL = `${host}${appConfig.apiPrefix}`
 
 const BaseService = axios.create({
     timeout: 60000,

@@ -25,6 +25,11 @@ const nextConfig = {
         pathname: '**',
       },
       {
+        protocol: 'https',
+        hostname: 'cdn.grofers.com',
+        pathname: "**"
+      },
+      {
         protocol: 'http',
         hostname: 'localhost',
       },

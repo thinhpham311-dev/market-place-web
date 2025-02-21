@@ -51,7 +51,7 @@ const adminSchema = new mongoose.Schema({
     role: { type: String, enum: ["Admin"], default: "Admin" }
 })
 
-
+export const User = mongoose.models.User || mongoose.model('User', userSchema)
 export const Customer = mongoose.models.Customer || mongoose.model('Customer', customerSchema);
 export const DeliveryPartner = mongoose.models.DeliveryPartner || mongoose.model("DeliveryPartner", deliveryPartnerSchema)
 export const Admin = mongoose.models.Admin || mongoose.model("Admin", adminSchema)

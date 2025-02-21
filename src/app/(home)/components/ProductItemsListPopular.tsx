@@ -13,7 +13,7 @@ import ProductItem from "./ProductItem"
 import { ArrowRight } from "lucide-react"
 
 //datas
-import { productData } from "@/constants/data"
+// import { productData } from "@/constants/data"
 
 //types
 import { IProduct } from "@/types/product"
@@ -22,7 +22,7 @@ import { NotFound } from "@/components/ui/organisms";
 
 
 interface ICarouselListProps {
-    data: Array<IProduct>,
+    data?: IProduct[],
     itemsPerPage?: number;
     className?: string
 }
@@ -32,14 +32,14 @@ const CarouselList = ({ data, itemsPerPage = 12, className }: ICarouselListProps
     return (
         <Carousel>
             <CarouselContent className="-ml-2">
-                {data?.slice(0, itemsPerPage).map((item, index) => {
-                    if (item.quantity > 0) {
-                        return (
-                            <CarouselItem key={index} className={cn("pl-2 ", className)}>
-                                <ProductItem item={item} />
-                            </CarouselItem>
-                        )
-                    }
+                {data?.slice(0, itemsPerPage).map((item) => {
+                    // if (item.quantity > 0) {
+                    return (
+                        <CarouselItem key={item._id} className={cn("pl-2 ", className)}>
+                            <ProductItem item={item} />
+                        </CarouselItem>
+                    )
+                    // }
                 })}
             </CarouselContent>
             <CarouselPrevious className=" top-1/2 -translate-y-1/2 md:-left-5 -left-3 " />
@@ -48,8 +48,9 @@ const CarouselList = ({ data, itemsPerPage = 12, className }: ICarouselListProps
     );
 }
 
-export default function ProductItemsListPopular() {
+export default function ProductItemsListPopular({ data }: ICarouselListProps) {
     const router = useRouter()
+
     return (
         <Card className="border-0 shadow-none	 md:px-6 px-3 w-full">
             <CardHeader className="flex-row  items-center px-0 space-x-3 mb-3" >
@@ -63,7 +64,7 @@ export default function ProductItemsListPopular() {
                 </Button>
             </CardHeader>
             <CardContent className="px-0">
-                {productData && productData.length > 0 ? <CarouselList data={productData} className=" lg:basis-1/6  md:basis-1/3 basis-1/2" /> : <NotFound />}
+                {data && data.length > 0 ? <CarouselList data={data} className=" lg:basis-1/6  md:basis-1/3 basis-1/2" /> : <NotFound />}
             </CardContent>
         </Card>
     );

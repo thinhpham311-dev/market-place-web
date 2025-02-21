@@ -1,4 +1,4 @@
-import { Customer, DeliveryPartner, Admin } from "./user"
+import { Customer, DeliveryPartner, Admin, User } from "./user"
 import Branch from './branch'
 import Category from "./category"
 import Product from "./product"
@@ -7,7 +7,7 @@ import Counter from "./counter"
 import Order from "./order"
 export {
     Branch,
-    Customer, DeliveryPartner, Admin,
+    Customer, DeliveryPartner, Admin, User,
     Category,
     Product,
     Review,

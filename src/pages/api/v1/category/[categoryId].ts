@@ -10,6 +10,9 @@ type ResponseData = {
 };
 
 async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
+    if (req.method !== "POST") {
+        return res.status(405).json({ message: "Method Not Allowed" });
+    }
     try {
         const { categoryId } = req.query;
         const products = await Product.find({ category: categoryId }).select("-category").exec();

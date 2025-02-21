@@ -22,7 +22,7 @@ import { NotFound } from "@/components/ui/organisms"
 import { ArrowRight } from "lucide-react"
 
 // data
-import { productData } from "@/constants/data"
+// import { productData } from "@/constants/data"
 
 //types 
 import { IProduct } from "@/types/product"
@@ -32,7 +32,7 @@ import { IProduct } from "@/types/product"
 import { cn } from "@/lib/utils"
 
 interface ICarouselListProps {
-    data: Array<IProduct>,
+    data?: IProduct[];
     itemsPerPage?: number;
     className?: string
 }
@@ -42,14 +42,14 @@ const CarouselList = ({ data, itemsPerPage = 12, className }: ICarouselListProps
     return (
         <Carousel>
             <CarouselContent className="-ml-2">
-                {data?.slice(0, itemsPerPage).map((item, index) => {
-                    if (item.quantity > 0) {
-                        return (
-                            <CarouselItem key={index} className={cn("pl-2 ", className)}>
-                                <ProductItem item={item} />
-                            </CarouselItem>
-                        )
-                    }
+                {data?.slice(0, itemsPerPage).map((item) => {
+                    // if (item.quantity > 0) {
+                    return (
+                        <CarouselItem key={item._id} className={cn("pl-2 ", className)}>
+                            <ProductItem item={item} />
+                        </CarouselItem>
+                    )
+                    // }
                 })}
             </CarouselContent>
             <CarouselPrevious className=" top-1/2 -translate-y-1/2 md:-left-5 -left-3 " />
@@ -58,7 +58,7 @@ const CarouselList = ({ data, itemsPerPage = 12, className }: ICarouselListProps
     );
 }
 
-export default function ProductItemsListRelated() {
+export default function ProductItemsListRelated({ data }: ICarouselListProps) {
 
     return (
         <Card className="border-0 md:px-6 px-3 shadow-none">
@@ -72,7 +72,7 @@ export default function ProductItemsListRelated() {
                 </Button>
             </CardHeader>
             <CardContent className="px-0">
-                {productData && productData.length > 0 ? <CarouselList data={productData} className="lg:basis-1/6 md:basis-1/3 basis-1/2" /> : <NotFound />}
+                {data && data.length > 0 ? <CarouselList data={data} className="lg:basis-1/6 md:basis-1/3 basis-1/2" /> : <NotFound />}
             </CardContent>
         </Card>
     );

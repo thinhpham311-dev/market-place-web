@@ -6,25 +6,24 @@ import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/com
 import ProductItem from "./ProductItem";
 
 //datas
-import { productData } from "@/constants/data"
+// import { productData } from "@/constants/data"
 import { IProduct } from "@/types/product";
 
 //libs
-import { useUniqueId } from "@/lib/hooks";
 import { cn } from "@/lib/utils"
 import { NotFound } from "@/components/ui/organisms";
 
 
 
 interface IGridListProps {
-    data: Array<IProduct>;
+    data?: IProduct[];
     itemsPerPage?: number;
-    className?: string
+    className?: string;
+    totalData?: number
 }
 
 
-const GridListWithLoading = ({ data, itemsPerPage = 12, className }: IGridListProps) => {
-    const id = useUniqueId()
+const GridListWithLoading = ({ data, itemsPerPage = 12, className, totalData = 0 }: IGridListProps) => {
     const [visibleItems, setVisibleItems] = useState(itemsPerPage);
 
     const handleLoadMore = () => {
@@ -33,14 +32,14 @@ const GridListWithLoading = ({ data, itemsPerPage = 12, className }: IGridListPr
 
     return (
         <div className={cn("grid w-full", className)}>
-            {data?.slice(0, visibleItems).map((item, index) => {
-                if (item.quantity > 0) {
-                    return (
-                        <ProductItem key={`${id}-${index}`} item={item} />
-                    )
-                }
+            {data?.slice(0, visibleItems).map((item) => {
+                // if (item.quantity > 0) {
+                return (
+                    <ProductItem key={item._id} item={item} />
+                )
+                // }
             })}
-            {visibleItems < data.length && ( // Hiển thị nút nếu còn dữ liệu
+            {visibleItems < totalData && ( // Hiển thị nút nếu còn dữ liệu
                 <div className="lg:col-span-6 md:col-span-3 col-span-2 my-10">
                     <Button
                         variant="outline"
@@ -56,7 +55,7 @@ const GridListWithLoading = ({ data, itemsPerPage = 12, className }: IGridListPr
 };
 
 
-export default function ProductItemsListSuggestion() {
+export default function ProductItemsListSuggestion({ data, totalData }: IGridListProps) {
 
     return (
         <Card className="border-0 shadow-none md:px-6 px-3">
@@ -65,7 +64,7 @@ export default function ProductItemsListSuggestion() {
                 <CardDescription className="mb-3 capitalize text-center mx-auto">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc facilisis sem sit amet leo rhoncus, non luctus magna tempus. </CardDescription>
             </CardHeader>
             <CardContent className="px-0">
-                {productData && productData.length > 0 ? <GridListWithLoading data={productData} itemsPerPage={12} className="lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-3" /> : <NotFound />}
+                {data && data.length > 0 ? <GridListWithLoading totalData={totalData} data={data} itemsPerPage={12} className="lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-3" /> : <NotFound />}
             </CardContent>
         </Card >
     );
