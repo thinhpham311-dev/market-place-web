@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ThemeProvider } from "@/components/provider"
+import { AppProvider } from "@/components/provider"
 import "./globals.css";
 
 
@@ -20,14 +20,14 @@ export default async function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head />
       <body>
-        <ThemeProvider
+        <AppProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
           {children}
-        </ThemeProvider>
+        </AppProvider>
       </body>
     </html>
   );

@@ -9,20 +9,20 @@ import {
 } from '@/components/ui/molecules';
 import ProductItem from "./ProductItem"
 
+//datas
+import { productData } from "@/constants/data";
+
 //icons
 import { ArrowRight } from "lucide-react"
 
-//datas
-// import { productData } from "@/constants/data"
-
 //types
-import { IProduct } from "@/types/product"
 import { cn } from "@/lib/utils"
 import { NotFound } from "@/components/ui/organisms";
+import { IProduct } from "@/types/product";
 
 
 interface ICarouselListProps {
-    data?: IProduct[],
+    data?: IProduct[]
     itemsPerPage?: number;
     className?: string
 }
@@ -33,13 +33,13 @@ const CarouselList = ({ data, itemsPerPage = 12, className }: ICarouselListProps
         <Carousel>
             <CarouselContent className="-ml-2">
                 {data?.slice(0, itemsPerPage).map((item) => {
-                    // if (item.quantity > 0) {
-                    return (
-                        <CarouselItem key={item._id} className={cn("pl-2 ", className)}>
-                            <ProductItem item={item} />
-                        </CarouselItem>
-                    )
-                    // }
+                    if (item.quantity > 0) {
+                        return (
+                            <CarouselItem key={item._id} className={cn("pl-2 ", className)}>
+                                <ProductItem item={item} />
+                            </CarouselItem>
+                        )
+                    }
                 })}
             </CarouselContent>
             <CarouselPrevious className=" top-1/2 -translate-y-1/2 md:-left-5 -left-3 " />
@@ -48,7 +48,7 @@ const CarouselList = ({ data, itemsPerPage = 12, className }: ICarouselListProps
     );
 }
 
-export default function ProductItemsListPopular({ data }: ICarouselListProps) {
+export default function ProductItemsListPopular() {
     const router = useRouter()
 
     return (
@@ -64,7 +64,7 @@ export default function ProductItemsListPopular({ data }: ICarouselListProps) {
                 </Button>
             </CardHeader>
             <CardContent className="px-0">
-                {data && data.length > 0 ? <CarouselList data={data} className=" lg:basis-1/6  md:basis-1/3 basis-1/2" /> : <NotFound />}
+                {productData && productData.length > 0 ? <CarouselList data={productData} className=" lg:basis-1/6  md:basis-1/3 basis-1/2" /> : <NotFound />}
             </CardContent>
         </Card>
     );

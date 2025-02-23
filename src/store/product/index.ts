@@ -1,8 +1,9 @@
 import { combineReducers } from '@reduxjs/toolkit'
 import state from './stateSlice'
 
+
 const reducer = combineReducers({
-    state,
+    state
 })
 
 export default reducer

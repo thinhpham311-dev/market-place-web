@@ -22,7 +22,7 @@ import { NotFound } from "@/components/ui/organisms"
 import { ArrowRight } from "lucide-react"
 
 // data
-// import { productData } from "@/constants/data"
+import { productData } from "@/constants/data"
 
 //types 
 import { IProduct } from "@/types/product"
@@ -58,7 +58,7 @@ const CarouselList = ({ data, itemsPerPage = 12, className }: ICarouselListProps
     );
 }
 
-export default function ProductItemsListRelated({ data }: ICarouselListProps) {
+export default function ProductItemsListRelated() {
 
     return (
         <Card className="border-0 md:px-6 px-3 shadow-none">
@@ -72,7 +72,7 @@ export default function ProductItemsListRelated({ data }: ICarouselListProps) {
                 </Button>
             </CardHeader>
             <CardContent className="px-0">
-                {data && data.length > 0 ? <CarouselList data={data} className="lg:basis-1/6 md:basis-1/3 basis-1/2" /> : <NotFound />}
+                {productData && productData.length > 0 ? <CarouselList data={productData} className="lg:basis-1/6 md:basis-1/3 basis-1/2" /> : <NotFound />}
             </CardContent>
         </Card>
     );

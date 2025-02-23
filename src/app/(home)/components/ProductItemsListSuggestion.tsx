@@ -6,7 +6,7 @@ import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/com
 import ProductItem from "./ProductItem";
 
 //datas
-// import { productData } from "@/constants/data"
+import { productData } from "@/constants/data"
 import { IProduct } from "@/types/product";
 
 //libs
@@ -55,8 +55,8 @@ const GridListWithLoading = ({ data, itemsPerPage = 12, className, totalData = 0
 };
 
 
-export default function ProductItemsListSuggestion({ data, totalData }: IGridListProps) {
-
+export default function ProductItemsListSuggestion() {
+    const totalData = productData.length
     return (
         <Card className="border-0 shadow-none md:px-6 px-3">
             <CardHeader className="items-center px-0 space-x-3 mb-3" >
@@ -64,7 +64,7 @@ export default function ProductItemsListSuggestion({ data, totalData }: IGridLis
                 <CardDescription className="mb-3 capitalize text-center mx-auto">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc facilisis sem sit amet leo rhoncus, non luctus magna tempus. </CardDescription>
             </CardHeader>
             <CardContent className="px-0">
-                {data && data.length > 0 ? <GridListWithLoading totalData={totalData} data={data} itemsPerPage={12} className="lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-3" /> : <NotFound />}
+                {productData && productData.length > 0 ? <GridListWithLoading totalData={totalData} data={productData} itemsPerPage={12} className="lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-3" /> : <NotFound />}
             </CardContent>
         </Card >
     );

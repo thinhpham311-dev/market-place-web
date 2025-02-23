@@ -6,11 +6,6 @@ const nextConfig = {
       destination: "/api/admin/:path*",
     },
   ],
-  experimental: {
-    forceSwcTransforms: true,
-    esmExternals: "loose",
-    serverComponentsExternalPackages: ["mongoose"]
-  },
   reactStrictMode: true,
   images: {
     remotePatterns: [
