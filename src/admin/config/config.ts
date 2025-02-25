@@ -43,13 +43,13 @@ export const authenticate = async (email: string, password: string) => {
 export const generateTokens = (user: { _id: string, role: string }) => {
     const accessToken = jwt.sign(
         { userId: user._id, role: user.role },
-        process.env.ACCESS_TOKEN_SECRET as string,
+        process.env.NEXT_PUBLIC_ACCESS_TOKEN_SECRET as string,
         { expiresIn: "1h" }
     );
 
     const refreshToken = jwt.sign(
         { userId: user._id, role: user.role },
-        process.env.REFRESH_TOKEN_SECRET as string,
+        process.env.NEXT_PUBLIC_REFRESH_TOKEN_SECRET as string,
         { expiresIn: "1h" }
     );
 

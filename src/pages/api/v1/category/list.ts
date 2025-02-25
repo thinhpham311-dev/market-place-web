@@ -1,6 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Category } from "@/admin/models";
 import { withDB } from "@/admin/middleware/dbMiddleware";
+import axios from "axios";
+
 
 type ResponseData = {
     message: string;
@@ -8,6 +10,9 @@ type ResponseData = {
 };
 
 async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
+    if (req.method !== "POST") {
+        return res.status(405).json({ message: "Method Not Allowed" });
+    }
     try {
         const categories = await Category.find();
 
@@ -18,7 +23,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
         return res.status(200).json({ message: "Get categories list successfully", categories });
     } // eslint-disable-next-line @typescript-eslint/no-unused-vars
     catch (error: unknown) {
-        return res.status(500).json({ message: "Error retrieving categories" });
+        const message = axios.isAxiosError(error) && error.response ? error.response.data.returnMessage : String(error);
+        console.error("Error fetching categories:", message);
+        return res.status(400).json({ message });
     }
 }
 

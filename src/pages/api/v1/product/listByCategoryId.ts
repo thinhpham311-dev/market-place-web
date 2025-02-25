@@ -13,16 +13,23 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponseData>) 
         return res.status(405).json({ message: "Method Not Allowed" });
     }
 
+    const { _id } = req.body;
+
+    if (!_id) {
+        return res.status(400).json({ message: "Category ID is required" });
+    }
+
     try {
-        const products = await Product.find();
+        const products = await Product.find({ category: _id }).select("-category").exec();
 
         if (!products.length) {
             return res.status(404).json({ message: "No products found" });
         }
 
         return res.status(200).json({ message: "Products retrieved successfully", products });
+
     }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     catch (error: unknown) {
         const message = axios.isAxiosError(error) && error.response ? error.response.data.returnMessage : String(error);
         console.error("Error fetching products:", message);

@@ -9,7 +9,7 @@ import {
   authenticate, NEXT_PUBLIC_COOKIE_PASSWORD,
   sessionStore
 } from "@/admin/config/config";
-import { productParent, userParent, orderParent } from "../constants/icons";
+import { productParent, userParent, orderParent } from "../constants/icons.constant";
 
 AdminJS.registerAdapter(AdminJSMongoose)
 

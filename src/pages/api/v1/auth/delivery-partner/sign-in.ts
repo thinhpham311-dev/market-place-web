@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { DeliveryPartner } from "@/admin/models";
 import { withDB } from "@/admin/middleware/dbMiddleware";
 import { generateTokens } from "@/admin/config/config"
+import axios from "axios";
 
 type ResponseData = {
     message: string;
@@ -32,7 +33,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
 
     } // eslint-disable-next-line @typescript-eslint/no-unused-vars
     catch (error: unknown) {
-        return res.status(500).json({ message: "Error retrieving categories" });
+        const message = axios.isAxiosError(error) && error.response ? error.response.data.returnMessage : String(error);
+        console.error("Error fetching delivery login:", message);
+        return res.status(400).json({ message });
     }
 }
 

@@ -1,11 +1,11 @@
-import ProductService from "@/admin/domains/product/product.services";
+import CategoryService from "@/admin/domains/category/category.services";
 
 export async function POST() {
     try {
-        const res = await ProductService.GetProductList();
+        const res = await CategoryService.GetCategoryList();
 
         if (!res || !res.data) {
-            throw new Error("Invalid response from get product list");
+            throw new Error("Invalid response from get product list by category ID");
         }
 
         return new Response(JSON.stringify(res.data), {

@@ -10,17 +10,19 @@ if (!MONGO_URI) {
 let isConnected = false;
 
 export const connectDB = async () => {
+
     if (isConnected) {
         console.log("Using existing MongoDB connection");
         return;
     }
+
+    mongoose.disconnect()
 
     try {
         const db = await mongoose.connect(MONGO_URI);
         isConnected = db.connections[0].readyState === 1;
         console.log("MongoDB Connected");
     } catch (error) {
-        console.error("MongoDB Connection Error:", error);
-        process.exit(1);
+        console.error("MongoDB Connection Error:", (error as Error).message);
     }
 };
