@@ -40,6 +40,7 @@ export const authenticate = async (email: string, password: string) => {
 //     }
 // }
 
+
 export const generateTokens = (user: { _id: string, role: string }) => {
     const accessToken = jwt.sign(
         { userId: user._id, role: user.role },

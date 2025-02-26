@@ -1,22 +1,14 @@
-import axios from 'axios';
 import qs from 'qs';
 import { DeliveryPartner } from '@/admin/models';
-import { API_DELIVERYPARTNER_LOGIN, prefix, version } from '@/admin/constants';
-import { IGetDeliveryPartnerLoginRequest } from "@/admin/interfaces"
+import { API_DELIVERYPARTNER_LOGIN } from '@/admin/constants';
+import { IDeliveryPartnerLoginRequest } from "@/admin/interfaces"
+import BaseService from "@/admin/domains/base.services"
 
-const baseURL = process.env.NEXT_PUBLIC_BASE_URL
-
-const http = axios.create({
-    baseURL: `${baseURL}/${prefix}/${version}`,
-    headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-    },
-});
 
 class DeliveryPartnerService {
-    static GetDeliveryPartnerLogin(values: IGetDeliveryPartnerLoginRequest) {
+    static DeliveryPartnerLogin(values: IDeliveryPartnerLoginRequest) {
         const data = qs.stringify(values);
-        return http.post<typeof DeliveryPartner>(API_DELIVERYPARTNER_LOGIN, data);
+        return BaseService().post<typeof DeliveryPartner>(API_DELIVERYPARTNER_LOGIN, data);
     }
 }
 

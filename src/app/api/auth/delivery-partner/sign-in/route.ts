@@ -3,7 +3,7 @@ import DeliveryPartnerService from "@/admin/domains/user/deliverypartner.service
 export async function POST(req: Request) {
     try {
         const { email, password } = await req.json(); // Properly parse request body
-        console.log(email, password)
+
         if (!email) {
             return new Response(
                 JSON.stringify({ message: "Phone is required" }),
@@ -18,7 +18,7 @@ export async function POST(req: Request) {
             );
         }
 
-        const deliveryPartnerResponse = await DeliveryPartnerService.GetDeliveryPartnerLogin({ email, password });
+        const deliveryPartnerResponse = await DeliveryPartnerService.DeliveryPartnerLogin({ email, password });
 
         if (!deliveryPartnerResponse || !deliveryPartnerResponse.data) {
             throw new Error("Invalid response from Customer Login");

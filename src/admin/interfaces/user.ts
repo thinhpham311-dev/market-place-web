@@ -1,9 +1,16 @@
 
-export interface IGetUserLoginRequest {
+
+export interface IUserLoginRequest {
     phone: number;
 }
 
-export interface IGetDeliveryPartnerLoginRequest {
+export interface IDeliveryPartnerLoginRequest {
     email: string;
     password: string;
+}
+
+export interface IGetUserProfileRequest {
+    userId: string;
+    role: string;
+    token: string;
 }

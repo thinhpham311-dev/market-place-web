@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Product } from "@/admin/models";
-import { withDB } from "@/admin/middleware/dbMiddleware";
+import { withDB } from "@/admin/middleware/db";
 import axios from "axios";
 
 type ResponseData = {

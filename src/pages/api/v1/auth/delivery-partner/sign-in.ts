@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { DeliveryPartner } from "@/admin/models";
-import { withDB } from "@/admin/middleware/dbMiddleware";
+import { withDB } from "@/admin/middleware/db";
 import { generateTokens } from "@/admin/config/config"
 import axios from "axios";
 
@@ -13,6 +13,9 @@ type ResponseData = {
 };
 
 async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
+    if (req.method !== "POST") {
+        return res.status(405).json({ message: "Method Not Allowed" });
+    }
     try {
         const { email, password } = req.body;
         const deliveryPartner = await DeliveryPartner.findOne({ email })

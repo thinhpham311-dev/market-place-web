@@ -11,7 +11,7 @@ export async function POST(req: Request) {
             );
         }
 
-        const customerResponse = await CustomerService.GetCustomerLogin({ phone });
+        const customerResponse = await CustomerService.CustomerLogin({ phone });
 
         if (!customerResponse || !customerResponse.data) {
             throw new Error("Invalid response from Customer Login");
