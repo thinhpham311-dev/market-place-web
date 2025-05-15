@@ -2,7 +2,10 @@
 import { useMemo } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { ShoppingBasket, Store, User, ArrowLeft, ShoppingBag, Bell } from "lucide-react";
+import { IoIosFlash } from "react-icons/io";
 import { MdLogout } from "react-icons/md";
+import { CgMediaLive } from "react-icons/cg";
+
 
 import {
     Sidebar,
@@ -27,19 +30,27 @@ interface MenuItem {
 
 const items: MenuItem[] = [
     {
-        title: "Products",
+        title: "Shop Live",
+        icon: CgMediaLive
+    },
+    {
+        title: "Flash Sale",
+        icon: IoIosFlash
+    },
+    {
+        title: "Product Type",
         icon: ShoppingBasket,
         children: [
-            { title: "Category 1", url: "/category-1" },
-            { title: "Category 2", url: "/category-2" },
+            { title: "Product Type 1", url: "/category-1" },
+            { title: "Product Type 2", url: "/category-2" },
         ],
     },
     {
-        title: "Stores",
+        title: "Stores Saved",
         icon: Store,
         children: [
-            { title: "Category 1", url: "/category-1" },
-            { title: "Category 2", url: "/category-2" },
+            { title: "Store 1", url: "/category-1" },
+            { title: "Store 2", url: "/category-2" },
         ],
     },
 ];
@@ -116,21 +127,21 @@ export default function SidebarNavigation() {
     return (
         <Sidebar aria-label="Main Navigation">
             <SidebarHeader>
-                {conditionMenu && (
-                    <SidebarGroupLabel className="font-bold text-xl px-0">
-                        <Button
-                            type="button"
-                            className="w-full"
-                            variant="outline"
-                            onClick={() => router.push("/")}
-                        >
-                            <span>
-                                <ArrowLeft />
-                            </span>
-                            Back to Home
-                        </Button>
-                    </SidebarGroupLabel>
-                )}
+
+                <SidebarGroupLabel className="font-bold text-xl px-0">
+                    <Button
+                        type="button"
+                        className="w-full"
+                        variant="outline"
+                        onClick={() => router.push("/")}
+                    >
+                        <span>
+                            <ArrowLeft />
+                        </span>
+                        Back to Home
+                    </Button>
+                </SidebarGroupLabel>
+
             </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup className="space-y-3">
