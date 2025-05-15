@@ -85,7 +85,7 @@ export default function Toolbar() {
                     <NavigationMenuContent>
                         <ul className="w-[400px] md:w-[300px] lg:w-[200px]  ">
                             <ListItem href="/docs" title="English" imageLink="https://res.cloudinary.com/dgincjt1i/image/upload/v1735697230/inkjssy1xcvlwadmr9vz.png" />
-                            <ListItem href="/docs/installation" title="Vietnamese" imageLink="https://res.cloudinary.com/dgincjt1i/image/upload/v1735697230/oaootrvk6dkjqtlaihwu.png" />
+                            <ListItem href="/docs/installation" title="Vietnamese" imageLink="https://res.cloudinary.com/dgincjt1i/image/upload/v1747275485/Flag_of_Vietnam.svg_qjy9mr.png" />
                         </ul>
                     </NavigationMenuContent>
                 </NavigationMenuItem>
