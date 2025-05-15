@@ -13,11 +13,6 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
-    "@adminjs/bundler": "^3.0.0",
-    "@adminjs/design-system": "^4.1.1",
-    "@adminjs/express": "^6.1.1",
-    "@adminjs/mongoose": "^4.1.0",
-    "@adminjs/themes": "^1.0.1",
     "@hookform/resolvers": "^3.9.1",
     "@radix-ui/react-aspect-ratio": "^1.1.1",
     "@radix-ui/react-avatar": "^1.1.2",
@@ -57,8 +52,6 @@
     "libphonenumber-js": "^1.11.17",
     "lucide-react": "^0.468.0",
     "miragejs": "^0.1.48",
-    "mongodb": "^6.12.0",
-    "mongoose": "^8.10.0",
     "motion": "^12.0.6",
     "next": "^14.2.2",
     "next-themes": "^0.4.4",
