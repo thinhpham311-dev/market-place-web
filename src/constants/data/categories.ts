@@ -22,7 +22,7 @@ export const categoriesData = [
     {
         _id: "5",
         name: "Category 5",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1747280199/O1CN01gRUkNN1sW5HWJb8Me__6000000005773-2-tps-200-200_o7n6y1.avif"
+        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1747318490/O1CN01yvRa9M1eCTa1vhbZ9__6000000003835-2-tps-200-200_cnofw8.avif"
     },
     {
         _id: "6",
