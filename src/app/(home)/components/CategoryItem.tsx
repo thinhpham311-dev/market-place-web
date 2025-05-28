@@ -21,8 +21,8 @@ const CategoryItem = ({ item: { _id, name, image } }: IItemProps) => {
         router.push(`/categories/${_id}`)
     }
     return (
-        <Card onClick={handleRouterLinkToDetail} className=" rounded-full aspect-square p-5 flex flex-col justify-start items-center gap-3">
-            <CardContent className="p-0 rounded-full bg-white dark:bg-white  w-1/2 p-3 xl:mt-5 mt-3">
+        <Card onClick={handleRouterLinkToDetail} className=" rounded-full aspect-square md:p-5 p-2 flex flex-col justify-start items-center gap-3">
+            <CardContent className="p-0 rounded-full bg-white dark:bg-white  w-1/2  xl:mt-5 mt-3">
                 <CardImage src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"} alt={name} className="w-full h-full aspect-square rounded-t-lg cursor-pointer" />
             </CardContent>
             <CardContent className="p-0">
