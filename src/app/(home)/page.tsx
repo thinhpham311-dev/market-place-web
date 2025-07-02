@@ -2,7 +2,7 @@
 //components
 import GalleriesList from "./components/GalleriesList"
 import ProductsPopularList from "./components/ProductItemsListPopular"
-// import ProductsSuggestionList from "./components/ProductItemsListSuggestion"
+import ProductsSuggestionList from "./components/ProductItemsListSuggestion"
 import CategoriesPopularList from "./components/CategoriesPopularList"
 
 export default async function Page() {
@@ -11,7 +11,7 @@ export default async function Page() {
       <GalleriesList />
       <CategoriesPopularList />
       <ProductsPopularList />
-      {/* <ProductsSuggestionList /> */}
+      <ProductsSuggestionList />
     </div>
   );
 }
