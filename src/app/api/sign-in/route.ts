@@ -18,7 +18,7 @@ export const POST = async (req: NextRequest) => {
 
         const { data: dataResponse } = await axios({
             method: 'post',
-            url: `${API_NEXT}/v1/api/sign-in`,
+            url: `${API_NEXT}/v1/api/user/welcome-back`,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },

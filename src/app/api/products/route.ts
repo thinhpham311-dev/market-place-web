@@ -4,10 +4,10 @@ import { NextRequest, NextResponse } from 'next/server';
 
 const API_NEXT = process.env.NEXT_PUBLIC_BASE_URL;
 
-export const POST = async (req: NextRequest) => {
+export const GET = async (req: NextRequest) => {
     try {
         const body = await req.json();
-        const { email } = body;
+        const { phone, password } = body;
 
         if (!API_NEXT) {
             return NextResponse.json(
@@ -17,13 +17,14 @@ export const POST = async (req: NextRequest) => {
         }
 
         const { data: dataResponse } = await axios({
-            method: 'post',
-            url: `${API_NEXT}/v1/api/user/register`,
+            method: 'get',
+            url: `${API_NEXT}/v1/api/product/all/list`,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             data: qs.stringify({
-                email
+                phone,
+                password
             })
         });
 

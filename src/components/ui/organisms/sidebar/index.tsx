@@ -4,9 +4,9 @@ import { usePathname, useRouter } from "next/navigation";
 import { ShoppingBasket, Store, User, ArrowLeft, ShoppingBag, Bell } from "lucide-react";
 import { IoIosFlash } from "react-icons/io";
 import { MdLogout } from "react-icons/md";
+
 import { CgMediaLive } from "react-icons/cg";
-
-
+import MenuItems from "./MenuItems";
 import {
     Sidebar,
     SidebarContent,
@@ -14,7 +14,6 @@ import {
     SidebarGroupContent,
     SidebarMenu,
     SidebarMenuButton,
-    SidebarMenuItem,
     SidebarGroupLabel,
     SidebarFooter,
     SidebarHeader
@@ -82,41 +81,7 @@ const profileMenuItems: MenuItem[] = [
     },
 ];
 
-type SidebarMenuItemProps = {
-    item: MenuItem;
-    isActive: boolean;
-    pathname: string;
-};
 
-function SidebarMenuItemComponent({ item, isActive, pathname }: SidebarMenuItemProps) {
-    return (
-        <SidebarMenuItem>
-            <SidebarMenuButton asChild>
-                <a
-                    href={item.url || "#"}
-                    className={`flex items-center space-x-2 p-2 rounded-md ${isActive ? "bg-background" : "hover:bg-background"
-                        }`}
-                    aria-current={isActive ? "page" : undefined}
-                >
-                    {item.icon && <item.icon className="h-5 w-5" aria-hidden="true" />}
-                    <span>{item.title}</span>
-                </a>
-            </SidebarMenuButton>
-            {item.children && (
-                <ul className="ml-4 border-l border-gray-300 pl-4">
-                    {item.children.map((child) => (
-                        <SidebarMenuItemComponent
-                            key={child.title}
-                            item={child}
-                            isActive={pathname === child.url}
-                            pathname={pathname}
-                        />
-                    ))}
-                </ul>
-            )}
-        </SidebarMenuItem>
-    );
-}
 
 export default function SidebarNavigation() {
     const pathname = usePathname() ?? "/";;
@@ -127,28 +92,28 @@ export default function SidebarNavigation() {
     return (
         <Sidebar aria-label="Main Navigation">
             <SidebarHeader>
-
-                <SidebarGroupLabel className="font-bold text-xl px-0">
-                    <Button
-                        type="button"
-                        className="w-full"
-                        variant="outline"
-                        onClick={() => router.push("/")}
-                    >
-                        <span>
-                            <ArrowLeft />
-                        </span>
-                        Back to Home
-                    </Button>
-                </SidebarGroupLabel>
-
+                <SidebarGroup>
+                    <SidebarGroupLabel className="font-bold text-xl px-0">
+                        <Button
+                            type="button"
+                            className="w-full"
+                            variant="outline"
+                            onClick={() => router.push("/")}
+                        >
+                            <span>
+                                <ArrowLeft />
+                            </span>
+                            Back to Home
+                        </Button>
+                    </SidebarGroupLabel>
+                </SidebarGroup>
             </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup className="space-y-3">
                     <SidebarGroupContent className="flex flex-col h-full">
                         <SidebarMenu className="flex-1" aria-labelledby="application-group">
                             {menuToRender.map((item) => (
-                                <SidebarMenuItemComponent
+                                <MenuItems
                                     key={item.title}
                                     item={item}
                                     isActive={pathname === item.url}
@@ -160,10 +125,11 @@ export default function SidebarNavigation() {
                 </SidebarGroup>
             </SidebarContent>
             <SidebarFooter>
-                {conditionMenu && <SidebarMenuButton className="space-x-1 text-white hover:text-white bg-red-500 hover:bg-red-700">
-                    <MdLogout className="h-5 w-5" aria-hidden="true" />
-                    <span>Log Out</span>
-                </SidebarMenuButton>
+                {
+                    conditionMenu && <SidebarMenuButton className="space-x-1 text-white hover:text-white bg-red-500 hover:bg-red-700">
+                        <MdLogout className="h-5 w-5" aria-hidden="true" />
+                        <span>Log Out</span>
+                    </SidebarMenuButton>
                 }
             </SidebarFooter>
         </Sidebar>
