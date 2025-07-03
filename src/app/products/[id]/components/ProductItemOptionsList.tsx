@@ -6,7 +6,7 @@ import { memo } from "react"
 import { OptionsListOfTab } from "./OptionsListOfTab"
 
 //types
-import { IOption } from "@/types/product"
+import { IOption } from "@/interfaces/product"
 
 
 //libs

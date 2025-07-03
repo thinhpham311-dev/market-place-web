@@ -9,7 +9,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/molecules";
 import { Table } from "@tanstack/react-table";
-import { IOrder } from "@/types/order";
+import { IOrder } from "@/interfaces/order";
 
 // Assuming IOrder is your data type
 interface ToolbarProps {

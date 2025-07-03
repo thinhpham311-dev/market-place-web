@@ -20,8 +20,8 @@ import { useToast } from "@/lib/hooks";
 import { formatToCurrency } from "@/lib/formats";
 
 //types
-import { IOption } from "@/types/product";
-import { IcartItem } from "@/types/cart"
+import { IOption } from "@/interfaces/product";
+import { IcartItem } from "@/interfaces/cart"
 
 //icons
 import { Trash2 } from "lucide-react";

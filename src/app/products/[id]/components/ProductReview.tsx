@@ -5,7 +5,7 @@ import { Button, Progress, Textarea } from '@/components/ui/atoms';
 import { Card, CardHeader, CardContent, CardTitle, CardDescription, StarRating } from "@/components/ui/molecules"
 import { addReview, setInitialReviews } from '@/store/product/stateSlice';
 import { OptionsListOfTab } from './OptionsListOfTab';
-import { IOption } from '@/types/product';
+import { IOption } from '@/interfaces/product';
 import { usePagination, usePaginationRender, useAppDispatch, useAppSelector } from "@/lib/hooks"
 
 interface IReview {

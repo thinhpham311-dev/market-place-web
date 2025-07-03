@@ -1,5 +1,5 @@
 import ApiService from './ApiService'
-import { IUser } from '@/types/user'
+import { IUser } from '@/interfaces/user'
 
 export async function apiSignIn(data: IUser) {
     return ApiService.fetchData({
@@ -11,7 +11,7 @@ export async function apiSignIn(data: IUser) {
 
 export async function apiSignUp(data: IUser) {
     return ApiService.fetchData({
-        url: '/sign-up',
+        url: '/user/register',
         method: 'post',
         data
     })

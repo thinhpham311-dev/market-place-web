@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // types
-import { Icart, IcartItem } from '@/types/cart';
-import { IOption } from '@/types/product';
+import { Icart, IcartItem } from '@/interfaces/cart';
+import { IOption } from '@/interfaces/product';
 import { WritableDraft } from 'immer';
 
 

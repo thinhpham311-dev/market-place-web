@@ -16,8 +16,8 @@ import { useAppDispatch, useAppSelector, useToast } from "@/lib/hooks";
 import { formatToCurrency } from "@/lib/formats";
 
 //types
-import { IcartItem } from "@/types/cart";
-import { IOption } from "@/types/product"
+import { IcartItem } from "@/interfaces/cart";
+import { IOption } from "@/interfaces/product"
 
 //datas
 import { productData } from "@/constants/data";

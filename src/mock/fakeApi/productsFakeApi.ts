@@ -1,6 +1,6 @@
 import { wildCardSearch, paginate } from '@/lib/feature';
 import { Server } from 'miragejs';
-import { IProduct } from '@/types/product';
+import { IProduct } from '@/interfaces/product';
 
 type Sort = {
     order: 'asc' | 'desc';

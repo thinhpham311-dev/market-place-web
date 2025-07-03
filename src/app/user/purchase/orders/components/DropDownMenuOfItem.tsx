@@ -10,7 +10,7 @@ import {
     DropdownMenuItem,
     DropdownMenuSeparator
 } from "@/components/ui/molecules";
-import { IOrder } from "@/types/order";
+import { IOrder } from "@/interfaces/order";
 
 //icons
 import { MoreHorizontal, Copy, Receipt } from "lucide-react";

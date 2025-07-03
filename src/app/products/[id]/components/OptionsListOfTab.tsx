@@ -7,7 +7,7 @@ import {
     ToggleGroupItem,
 } from "@/components/ui/molecules";
 import { cn } from "@/lib/utils";
-import { IOption } from "@/types/product";
+import { IOption } from "@/interfaces/product";
 
 interface IOptionsListOfTabProps {
     label?: string;

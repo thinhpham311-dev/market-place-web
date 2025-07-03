@@ -42,7 +42,7 @@ export default function DrawerCart() {
                 <Button type="button" variant="outline" size="icon" className="relative">
                     <ShoppingCart />
                     <span className="absolute -top-2 -right-2 bg-red-600 rounded-full w-1/2 h-1/2 text-sm flex justify-center items-center text-white">
-                        {items.length} {/* Display quantity from client-side state */}
+                        {items.length}
                     </span>
                 </Button>
             </SheetTrigger>

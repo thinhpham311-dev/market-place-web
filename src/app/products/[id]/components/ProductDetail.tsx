@@ -26,8 +26,8 @@ import ShareSocialsList from "./ShareSocialsList"
 import { images, productData } from '@/constants/data';
 
 // Types
-import { IProduct, IReview } from '@/types/product';
-import { IcartItem } from "@/types/cart"
+import { IProduct, IReview } from '@/interfaces/product';
+import { IcartItem } from "@/interfaces/cart"
 import ToastMessage from './ToastMessage';
 
 //format & hooks

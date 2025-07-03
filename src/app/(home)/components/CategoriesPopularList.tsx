@@ -13,7 +13,7 @@ import { NotFound } from "@/components/ui/organisms";
 
 //icons
 import { ArrowRight } from "lucide-react"
-import { ICategory } from "@/types/category";
+import { ICategory } from "@/interfaces/category";
 import { cn } from "@/lib/utils"
 
 //datas

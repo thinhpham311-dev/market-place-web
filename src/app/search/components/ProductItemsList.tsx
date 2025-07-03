@@ -4,7 +4,7 @@ import * as React from "react";
 import ProductItem from "./ProductItem";
 
 //types
-import { IProduct } from "@/types/product";
+import { IProduct } from "@/interfaces/product";
 
 //lib
 import { cn } from "@/lib/utils"

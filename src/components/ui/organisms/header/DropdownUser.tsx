@@ -32,13 +32,11 @@ export default function DropdownUser() {
 
     return (
         <DropdownMenu>
-
             <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="icon">
                     <User />
                 </Button>
             </DropdownMenuTrigger>
-
             <DropdownMenuContent align="end">
                 <DropdownMenuGroup>
                     {menuItems.map(({ label, icon, path }) => (

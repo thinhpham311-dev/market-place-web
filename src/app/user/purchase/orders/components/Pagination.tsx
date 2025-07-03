@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Button } from "@/components/ui/atoms";
-import { IOrder } from "@/types/order";
+import { IOrder } from "@/interfaces/order";
 import { Table } from "@tanstack/react-table";
 import { ChevronLeft, ChevronRight } from "lucide-react"
 

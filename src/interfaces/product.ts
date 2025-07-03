@@ -20,3 +20,10 @@ export interface IReview {
     comment: string;
     user: string;
 }
+
+export interface IProductfilter {
+    limit: number;
+    sort: string;
+    page: number;
+    filter: IProduct
+}

@@ -5,7 +5,7 @@ import { ScrollArea } from "@/components/ui/molecules"
 import ProductCartItem from "./ProductItemInCart"
 
 //types
-import { IcartItem } from "@/types/cart"
+import { IcartItem } from "@/interfaces/cart"
 
 //hook
 import { usePagination, usePaginationRender } from "@/lib/hooks"

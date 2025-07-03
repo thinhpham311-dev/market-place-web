@@ -5,7 +5,7 @@
 import ProductItemInCart from "./ProductItemInCart"
 
 //types
-import { IcartItem } from "@/types/cart"
+import { IcartItem } from "@/interfaces/cart"
 
 
 interface IProductItemsListInCartProps {

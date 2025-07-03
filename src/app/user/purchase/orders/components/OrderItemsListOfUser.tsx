@@ -27,7 +27,7 @@ import {
     CardFooter
 } from "@/components/ui/molecules";
 import DropDownMenuOfItem from "./DropDownMenuOfItem";
-import { IOrder } from "@/types/order";
+import { IOrder } from "@/interfaces/order";
 import { orderData } from "@/constants/data/order";
 import { formatDateTime } from "@/lib/formats";
 import Toolbar from "./Toolbar";

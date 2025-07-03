@@ -7,7 +7,7 @@ import { Badge, Separator } from "@/components/ui/atoms"
 import { Card, CardContent, CardDescription, CardImage, CardTitle } from "@/components/ui/molecules"
 
 //types
-import { IcartItem } from "@/types/cart"
+import { IcartItem } from "@/interfaces/cart"
 
 //format
 import { formatToCurrency } from "@/lib/formats"

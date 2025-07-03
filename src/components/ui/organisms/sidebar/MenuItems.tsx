@@ -1,4 +1,4 @@
-import { IMenuItem } from "@/types/menu";
+import { IMenuItem } from "@/interfaces/menu";
 
 import {
     SidebarMenuButton,

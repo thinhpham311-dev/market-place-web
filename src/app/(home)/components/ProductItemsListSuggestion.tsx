@@ -1,17 +1,20 @@
 'use client'
-//components
 import { useState } from "react";
+
+//components
 import { Button } from "@/components/ui/atoms";
 import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/components/ui/molecules';
 import ProductItem from "./ProductItem";
 
 //datas
 import { productData } from "@/constants/data"
-import { IProduct } from "@/types/product";
 
 //libs
 import { cn } from "@/lib/utils"
 import { NotFound } from "@/components/ui/organisms";
+
+//types
+import { IProduct } from "@/interfaces/product";
 
 interface IGridListProps {
     data?: IProduct[];
@@ -30,13 +33,13 @@ const GridListWithLoading = ({ data, itemsPerPage = 12, className, totalData = 0
     return (
         <div className={cn("grid w-full", className)}>
             {data?.slice(0, visibleItems).map((item) => {
-                // if (item.quantity > 0) {
-                return (
-                    <ProductItem key={item._id} item={item} />
-                )
-                // }
+                if (item.quantity > 0) {
+                    return (
+                        <ProductItem key={item._id} item={item} />
+                    )
+                }
             })}
-            {visibleItems < totalData && ( // Hiển thị nút nếu còn dữ liệu
+            {visibleItems < totalData && (
                 <div className="lg:col-span-6 md:col-span-3 col-span-2 my-10">
                     <Button
                         variant="outline"

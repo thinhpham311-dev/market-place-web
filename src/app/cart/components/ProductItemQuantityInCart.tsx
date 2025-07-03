@@ -5,7 +5,7 @@ import * as React from "react";
 import { Counter, ICounterRef } from "@/components/ui/molecules";
 
 //types
-import { IOption } from "@/types/product";
+import { IOption } from "@/interfaces/product";
 
 
 interface IProductItemQuantityInCartProps {

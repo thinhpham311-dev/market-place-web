@@ -1,9 +1,10 @@
 import ApiService from "./ApiService"
 
-export async function apiGetProductsList() {
+export async function apiGetProductsList(data: any) {
     return ApiService.fetchData({
-        url: '/product/list',
-        method: 'POST'
+        url: '/product/spu/all/list',
+        method: 'GET',
+        data
     })
 }
 

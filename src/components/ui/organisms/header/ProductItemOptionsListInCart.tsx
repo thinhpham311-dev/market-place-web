@@ -7,7 +7,7 @@ import { OptionsListOfTab } from "./OptionsListOfTab";
 import DropdownOptionsList from "./DropdownOptionsList";
 
 //types
-import { IOption } from "@/types/product";
+import { IOption } from "@/interfaces/product";
 
 //libs
 import { useToast } from "@/lib/hooks";

@@ -11,7 +11,7 @@ import {
     CarouselItem,
     Card
 } from "@/components/ui/molecules"
-import { IImage } from "@/types/banner"
+import { IImage } from "@/interfaces/banner"
 import { bannerData } from "@/constants/data"
 import { NotFound } from "@/components/ui/organisms"
 

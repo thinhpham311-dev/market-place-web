@@ -10,7 +10,7 @@ import { Card, CardContent, CardImage, CardTitle, CardDescription } from '@/comp
 import { formatToCurrency } from "@/lib/formats"
 
 //types
-import { IProduct, IOption } from '@/types/product';
+import { IProduct, IOption } from '@/interfaces/product';
 
 interface IToastMessage {
     updatedQuantity?: number

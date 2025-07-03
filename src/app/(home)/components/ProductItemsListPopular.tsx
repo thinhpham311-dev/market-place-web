@@ -18,7 +18,7 @@ import { ArrowRight } from "lucide-react"
 //types
 import { cn } from "@/lib/utils"
 import { NotFound } from "@/components/ui/organisms";
-import { IProduct } from "@/types/product";
+import { IProduct } from "@/interfaces/product";
 
 
 interface ICarouselListProps {

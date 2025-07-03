@@ -11,7 +11,7 @@ import { productData } from "@/constants/data"
 
 
 //types
-import { IProduct } from "@/types/product";
+import { IProduct } from "@/interfaces/product";
 
 //libs
 import { useUniqueId } from "@/lib/hooks";

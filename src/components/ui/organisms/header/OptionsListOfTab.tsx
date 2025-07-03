@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/molecules";
 import { Label } from "@/components/ui/atoms";
 import { cn } from "@/lib/utils";
-import { IOption } from "@/types/product";
+import { IOption } from "@/interfaces/product";
 
 interface IOptionsListOfTabProps {
     label?: string;
