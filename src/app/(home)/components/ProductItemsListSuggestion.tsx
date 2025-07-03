@@ -13,15 +13,12 @@ import { IProduct } from "@/types/product";
 import { cn } from "@/lib/utils"
 import { NotFound } from "@/components/ui/organisms";
 
-
-
 interface IGridListProps {
     data?: IProduct[];
     itemsPerPage?: number;
     className?: string;
     totalData?: number
 }
-
 
 const GridListWithLoading = ({ data, itemsPerPage = 12, className, totalData = 0 }: IGridListProps) => {
     const [visibleItems, setVisibleItems] = useState(itemsPerPage);
