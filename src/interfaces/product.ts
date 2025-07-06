@@ -5,12 +5,12 @@ export interface IOption {
 
 export interface IProduct {
     _id: string,
-    name?: string,
+    product_name?: string,
     article?: string,
     description?: string,
     options?: Array<{ label: string; value: IOption[] }>; // Đánh dấu "options" là tùy chọn
     image?: string,
-    price: number,
+    product_price: number,
     discountPrice: number,
     quantity: number,
 }
@@ -22,8 +22,8 @@ export interface IReview {
 }
 
 export interface IProductfilter {
-    limit: number;
-    sort: string;
-    page: number;
-    filter: IProduct
+    limit?: number;
+    sort?: string;
+    page?: number;
+    filter?: IProduct;
 }

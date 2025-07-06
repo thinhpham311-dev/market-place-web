@@ -1,12 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { apiGetProductsList } from '@/services/ProductService'
-import { IProduct } from '@/interfaces/product';
+import { apiPostProductsList } from '@/services/ProductService'
+import { IProductfilter, IProduct } from '@/interfaces/product';
 
-export const getProductList = createAsyncThunk('projectList/getList', async (data) => {
-    const response = await apiGetProductsList(data) as { data: IProduct };
+export const getProductList = createAsyncThunk<IProduct[], IProductfilter>('projectList/getList', async (data: IProductfilter) => {
+    const response = await apiPostProductsList(data) as { data: IProduct[] };
     return response.data;
 });
-
 
 
 const dataSlice = createSlice({
@@ -19,7 +18,7 @@ const dataSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getProductList.fulfilled, (state: { productList: IProduct[]; loading: boolean }, action: { payload: any }) => {
-                state.productList = action.payload;
+                state.productList = action.payload.metadata;
                 state.loading = false;
             })
             .addCase(getProductList.pending, (state: { loading: boolean }) => {

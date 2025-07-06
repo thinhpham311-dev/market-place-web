@@ -1,51 +1,51 @@
-'use client'
-import { useState } from "react";
+'use client';
 
-//components
+import { useState, useEffect } from "react";
+
+// components
 import { Button } from "@/components/ui/atoms";
 import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/components/ui/molecules';
 import ProductItem from "./ProductItem";
 
-//datas
-import { productData } from "@/constants/data"
-
-//libs
-import { cn } from "@/lib/utils"
+// UI
 import { NotFound } from "@/components/ui/organisms";
 
-//types
+// types
 import { IProduct } from "@/interfaces/product";
 
+// hooks & redux
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { getProductList } from "@/store/product/dataSlice";
+
+// utils
+import { cn } from "@/lib/utils";
+
 interface IGridListProps {
-    data?: IProduct[];
-    itemsPerPage?: number;
+    data: IProduct[];
+    itemsPerPage: number;
     className?: string;
-    totalData?: number
+    totalData: number;
+    isLoading: boolean;
 }
 
-const GridListWithLoading = ({ data, itemsPerPage = 12, className, totalData = 0 }: IGridListProps) => {
+const GridListWithLoading = ({ data, itemsPerPage, className, totalData, isLoading }: IGridListProps) => {
     const [visibleItems, setVisibleItems] = useState(itemsPerPage);
-
     const handleLoadMore = () => {
-        setVisibleItems((prev) => prev + itemsPerPage); // Tăng số lượng mục hiển thị
+        setVisibleItems((prev) => prev + itemsPerPage);
     };
+
+    if (isLoading) return <LoadingPlaceholder />;
+
+    if (!data || data.length === 0) return <NotFound />;
 
     return (
         <div className={cn("grid w-full", className)}>
-            {data?.slice(0, visibleItems).map((item) => {
-                if (item.quantity > 0) {
-                    return (
-                        <ProductItem key={item._id} item={item} />
-                    )
-                }
-            })}
+            {data.slice(0, visibleItems).map((item) =>
+                <ProductItem key={item._id} item={item} />
+            )}
             {visibleItems < totalData && (
                 <div className="lg:col-span-6 md:col-span-3 col-span-2 my-10">
-                    <Button
-                        variant="outline"
-                        className="block mx-auto text-xs"
-                        onClick={handleLoadMore}
-                    >
+                    <Button variant="outline" className="block mx-auto text-xs" onClick={handleLoadMore}>
                         See More...
                     </Button>
                 </div>
@@ -54,20 +54,45 @@ const GridListWithLoading = ({ data, itemsPerPage = 12, className, totalData = 0
     );
 };
 
+const LoadingPlaceholder = () => (
+    <Card className="border-0 shadow-none md:px-6 px-3">
+        <CardHeader className="items-center px-0 space-x-3 mb-3">
+            <CardTitle className="mb-3 capitalize text-center mx-auto">Suggestion today</CardTitle>
+            <CardDescription className="mb-3 capitalize text-center mx-auto">Loading...</CardDescription>
+        </CardHeader>
+        <CardContent className="px-0">
+            <div className="text-center">Loading...</div>
+        </CardContent>
+    </Card>
+);
 
 export default function ProductItemsListSuggestion() {
-    const totalData = productData.length
+    const dispatch = useAppDispatch();
+    const { productList, loading } = useAppSelector((state) => state.product.data);
+
+    useEffect(() => {
+        dispatch(getProductList({ limit: 12, sort: "createdAt", page: 1 }) as any);
+    }, [dispatch]);
+
+    const products = productList || [];
+
     return (
         <Card className="border-0 shadow-none md:px-6 px-3">
-            <CardHeader className="items-center px-0 space-x-3 mb-3" >
+            <CardHeader className="items-center px-0 space-x-3 mb-3">
                 <CardTitle className="mb-3 capitalize text-center mx-auto">Suggestion today</CardTitle>
-                <CardDescription className="mb-3 capitalize text-center mx-auto">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc facilisis sem sit amet leo rhoncus, non luctus magna tempus. </CardDescription>
+                <CardDescription className="mb-3 capitalize text-center mx-auto">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc facilisis sem sit amet leo rhoncus, non luctus magna tempus.
+                </CardDescription>
             </CardHeader>
             <CardContent className="px-0">
-                {productData && productData.length > 0 ? <GridListWithLoading totalData={totalData} data={productData} itemsPerPage={12} className="lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-3" /> : <NotFound />}
+                <GridListWithLoading
+                    data={products}
+                    totalData={products.length}
+                    itemsPerPage={12}
+                    className="lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-3"
+                    isLoading={loading}
+                />
             </CardContent>
-        </Card >
+        </Card>
     );
 }
-
-

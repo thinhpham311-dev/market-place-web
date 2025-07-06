@@ -74,7 +74,7 @@ export const productData = [
                 ],
             }
         ],
-        price: 20,
+        product_price: 20,
         discountPrice: 30,
         quantity: 30,
     },
@@ -153,7 +153,7 @@ export const productData = [
                 ],
             }
         ],
-        price: 2000,
+        product_price: 2000,
         discountPrice: 2000,
         quantity: 30,
     },
@@ -232,7 +232,7 @@ export const productData = [
                 ],
             }
         ],
-        price: 2000,
+        product_price: 2000,
         discountPrice: 2000,
         quantity: 30,
     },
@@ -302,7 +302,7 @@ export const productData = [
                 ],
             }
         ],
-        price: 2000,
+        product_price: 2000,
         discountPrice: 2000,
         quantity: 30,
     },
@@ -381,7 +381,7 @@ export const productData = [
                 ],
             }
         ],
-        price: 2000,
+        product_price: 2000,
         discountPrice: 2000,
         quantity: 30,
     },
@@ -460,7 +460,7 @@ export const productData = [
                 ],
             }
         ],
-        price: 2000,
+        product_price: 2000,
         discountPrice: 2000,
         quantity: 30,
     },
@@ -539,7 +539,7 @@ export const productData = [
                 ],
             }
         ],
-        price: 2000,
+        product_price: 2000,
         discountPrice: 2000,
         quantity: 30,
     },
@@ -618,7 +618,7 @@ export const productData = [
                 ],
             }
         ],
-        price: 2000,
+        product_price: 2000,
         discountPrice: 2000,
         quantity: 30,
     },
@@ -697,7 +697,7 @@ export const productData = [
                 ],
             }
         ],
-        price: 2000,
+        product_price: 2000,
         discountPrice: 2000,
         quantity: 30,
     },
@@ -776,7 +776,7 @@ export const productData = [
                 ],
             }
         ],
-        price: 2000,
+        product_price: 2000,
         discountPrice: 2000,
         quantity: 30,
     },
@@ -855,7 +855,7 @@ export const productData = [
                 ],
             }
         ],
-        price: 2000,
+        product_price: 2000,
         discountPrice: 2000,
         quantity: 30,
     },
@@ -934,7 +934,7 @@ export const productData = [
                 ],
             }
         ],
-        price: 2000,
+        product_price: 2000,
         discountPrice: 2000,
         quantity: 30,
     },
@@ -1013,7 +1013,7 @@ export const productData = [
                 ],
             }
         ],
-        price: 2000,
+        product_price: 2000,
         discountPrice: 2000,
         quantity: 30,
     },
@@ -1092,7 +1092,7 @@ export const productData = [
                 ],
             }
         ],
-        price: 2000,
+        product_price: 2000,
         discountPrice: 2000,
         quantity: 30,
     },
@@ -1171,7 +1171,7 @@ export const productData = [
                 ],
             }
         ],
-        price: 2000,
+        product_price: 2000,
         discountPrice: 2000,
         quantity: 30,
     },
@@ -1250,7 +1250,7 @@ export const productData = [
                 ],
             }
         ],
-        price: 2000,
+        product_price: 2000,
         discountPrice: 2000,
         quantity: 30,
     },
@@ -1293,7 +1293,7 @@ export const productData = [
                         </p><p>- Bảo quản nơi khô ráo, tránh ánh nắng mặt trời trực tiếp và nhiệt độ cao.</p><p>
                         </p><p>- Thời hạn sử dụng là 3 năm kể từ ngày sản xuất</p><p>
                         </p><p>✪ Lưu ý khi mua hàng: Khách tham khảo kỹ bảng size, mô tả sản phẩm và ảnh cận chất liệu để lựa chọn sản phẩm phù hợp với mình (tránh trường hợp mua sản phẩm không phù hợp với ý thích). Mọi thắc mắc khác vui lòng liên hệ qua Shopee chat để được trả lời nhanh nhất.</p><p>#shopeechoice #shopeechoicevietnam #choicevietnam</p></div></div>`,
-        price: 2000,
+        product_price: 2000,
         discountPrice: 2000,
         quantity: 30,
     },
@@ -1337,7 +1337,7 @@ export const productData = [
                         </p><p>- Bảo quản nơi khô ráo, tránh ánh nắng mặt trời trực tiếp và nhiệt độ cao.</p><p>
                         </p><p>- Thời hạn sử dụng là 3 năm kể từ ngày sản xuất</p><p>
                         </p><p>✪ Lưu ý khi mua hàng: Khách tham khảo kỹ bảng size, mô tả sản phẩm và ảnh cận chất liệu để lựa chọn sản phẩm phù hợp với mình (tránh trường hợp mua sản phẩm không phù hợp với ý thích). Mọi thắc mắc khác vui lòng liên hệ qua Shopee chat để được trả lời nhanh nhất.</p><p>#shopeechoice #shopeechoicevietnam #choicevietnam</p></div></div>`,
-        price: 2000,
+        product_price: 2000,
         discountPrice: 2000,
         quantity: 30,
     },
@@ -1381,7 +1381,7 @@ export const productData = [
                         </p><p>- Bảo quản nơi khô ráo, tránh ánh nắng mặt trời trực tiếp và nhiệt độ cao.</p><p>
                         </p><p>- Thời hạn sử dụng là 3 năm kể từ ngày sản xuất</p><p>
                         </p><p>✪ Lưu ý khi mua hàng: Khách tham khảo kỹ bảng size, mô tả sản phẩm và ảnh cận chất liệu để lựa chọn sản phẩm phù hợp với mình (tránh trường hợp mua sản phẩm không phù hợp với ý thích). Mọi thắc mắc khác vui lòng liên hệ qua Shopee chat để được trả lời nhanh nhất.</p><p>#shopeechoice #shopeechoicevietnam #choicevietnam</p></div></div>`,
-        price: 50,
+        product_price: 50,
         discountPrice: 50,
         quantity: 1,
     },
