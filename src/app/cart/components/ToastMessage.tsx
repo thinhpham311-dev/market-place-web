@@ -28,13 +28,13 @@ export default function ToastMessage({ product, updatedQuantity, totalCurrentPri
     return (
         <Card className="grid grid-cols-5 gap-5 border-none shadow-none">
             <div className="col-span-2" >
-                <CardImage className='aspect-square ' src={product.image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"} alt={product.name ?? ""} />
+                <CardImage className='aspect-square ' src={product.image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"} alt={product.product_name ?? ""} />
             </div>
             <CardContent className='flex flex-col col-span-3 gap-2 p-0'>
                 <CardTitle
                     onClick={handleRouterLinkToDetail}
                     className=" text-lg capitalize cursor-pointer">
-                    {product.name}
+                    {product.product_name}
                 </CardTitle>
                 <CardDescription className="gap-1 flex flex-row">
                     {options?.map((option) =>
@@ -42,8 +42,8 @@ export default function ToastMessage({ product, updatedQuantity, totalCurrentPri
                     )}
                 </CardDescription>
                 <CardDescription className="space-x-2 inline ">
-                    <p className="inline-flex items-center gap-x-1 text-xs"> <span className="font-bold "> {formatToCurrency(product.discountPrice)}</span></p>
-                    <p className="inline-flex items-center gap-x-1 line-through text-xs"><span>{formatToCurrency(product.price)}</span></p>
+                    {/* <p className="inline-flex items-center gap-x-1 text-xs"> <span className="font-bold "> {formatToCurrency(product.discountPrice)}</span></p> */}
+                    <p className="inline-flex items-center gap-x-1 line-through text-xs"><span>{formatToCurrency(product.product_price)}</span></p>
                     <span>x</span>
                     <strong className="inline-flex items-center gap-x-1 text-xs ">
                         {updatedQuantity}

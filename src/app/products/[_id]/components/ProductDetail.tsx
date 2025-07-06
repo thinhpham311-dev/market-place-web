@@ -112,16 +112,16 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
         const cartItem: IcartItem = {
             _id: product._id,
             uniqueKey,
-            name: product.name,
-            price: product.price,
-            discountPrice: product.discountPrice,
+            product_name: product.product_name,
+            product_price: product.product_price,
+            // discountPrice: product.discountPrice,
             quantity: updatedQuantity,
         };
 
         dispatch(addItem({ cartItem: cartItem, options: selectedOptions || [] }));
 
-        const totalPrice = updatedQuantity * product.price;
-        const discountedTotalPrice = updatedQuantity * product.discountPrice;
+        const totalPrice = updatedQuantity * product.product_price;
+        // const discountedTotalPrice = updatedQuantity * product.discountPrice;
 
         toast({
             description: <ToastMessage
@@ -129,7 +129,8 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
                 options={selectedOptions || []}
                 updatedQuantity={updatedQuantity}
                 totalPrice={totalPrice}
-                discountedTotalPrice={discountedTotalPrice} />,
+            // discountedTotalPrice={discountedTotalPrice}
+            />,
         });
         productItemQuantityRef.current?.resetQuantity?.()
     }, [dispatch, product, productItemQuantityRef, productItemOptionListRef]);
@@ -162,15 +163,15 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
                 <ShareSocialsList />
             </div>
             <CardContent className='lg:col-span-2 md:col-span-2 col-span-1 md:px-5 px-0'>
-                <CardTitle className="line-clamp-2 leading-8 mb-5  ">{product.name}</CardTitle>
+                <CardTitle className="line-clamp-2 leading-8 mb-5  ">{product.product_name}</CardTitle>
                 <CardDescription className="space-y-5">
                     <StarRating rating={Number(averageRating)} readOnly />
                     <div className="space-x-4">
-                        <p className="inline-flex items-center gap-x-1 text-md">
+                        {/* <p className="inline-flex items-center gap-x-1 text-md">
                             <strong>{formatToCurrency(product.discountPrice)}</strong>
-                        </p>
+                        </p> */}
                         <p className="inline-flex items-center gap-x-1 line-through text-md">
-                            <strong>{formatToCurrency(product.price)}</strong>
+                            <strong>{formatToCurrency(product.product_price)}</strong>
                         </p>
                     </div>
                     <ProductItemOptionsList options={product.options} ref={productItemOptionListRef} />

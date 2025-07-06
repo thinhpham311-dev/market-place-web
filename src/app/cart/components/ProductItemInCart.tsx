@@ -32,7 +32,9 @@ interface IProductItemInCartProps {
 };
 
 
-function ProductItemInCart({ item: { name, image, price, discountPrice, _id, quantity, options = [], uniqueKey }, totalItems }: IProductItemInCartProps) {
+function ProductItemInCart({ item: { product_name, image, product_price,
+    // discountPrice,
+    _id, quantity, options = [], uniqueKey }, totalItems }: IProductItemInCartProps) {
     const product = useMemo(() => productData.find((item) => item._id === _id), [_id]);
     const productItemQuantityInCartRef = useRef<IProductItemQuantityInCartRef>(null)
     const productItemOptionsListInCartRef = useRef<IProductItemOptionsListInCartRef>(null)
@@ -88,7 +90,7 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
 
                 <CardContent className="grid grid-cols-12 items-center p-0 h-full md:col-span-7 col-span-5 gap-x-2 relative">
                     <div className="md:col-span-4 col-span-12">
-                        <CardTitle className="text-lg capitalize cursor-pointer" onClick={handleRouterLinkToDetail}>{name}</CardTitle>
+                        <CardTitle className="text-lg capitalize cursor-pointer" onClick={handleRouterLinkToDetail}>{product_name}</CardTitle>
                         <ProductItemOptionsListInCart
                             initialOptions={product?.options}
                             activeOptions={options}
@@ -107,8 +109,8 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
                     <div className="md:col-span-4 col-span-12 block">
                         <span className="text-xs font-bold">Price:</span>
                         <CardDescription className="flex gap-x-2 mb-2">
-                            <p className="inline-flex items-center gap-x-1 text-xs"> <span className="font-bold">{formatToCurrency(discountPrice)}</span></p>
-                            <p className="inline-flex items-center gap-x-1 line-through text-xs"><span>{formatToCurrency(price)}</span></p>
+                            {/* <p className="inline-flex items-center gap-x-1 text-xs"> <span className="font-bold">{formatToCurrency(discountPrice)}</span></p> */}
+                            <p className="inline-flex items-center gap-x-1 line-through text-xs"><span>{formatToCurrency(product_price)}</span></p>
                         </CardDescription>
                     </div>
                     <div className="md:col-span-1 col-span-12 md:block hidden">

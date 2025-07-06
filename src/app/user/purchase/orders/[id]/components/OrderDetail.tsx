@@ -93,10 +93,10 @@ export default function OrderDetail() {
                         <TableBody>
                             {order.items.map((item, index) => (
                                 <TableRow key={index}>
-                                    <TableCell>{item.name}</TableCell>
+                                    <TableCell>{item.product_name}</TableCell>
                                     <TableCell>{item.qty}</TableCell>
-                                    <TableCell>${item.price.toFixed(2)}</TableCell>
-                                    <TableCell>${(item.qty * item.price).toFixed(2)}</TableCell>
+                                    <TableCell>${item.product_price.toFixed(2)}</TableCell>
+                                    <TableCell>${(item.qty * item.product_price).toFixed(2)}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>

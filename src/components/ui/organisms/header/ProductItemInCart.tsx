@@ -30,7 +30,9 @@ interface IProductItemInCartProps {
     totalItems?: number;
 }
 
-function ProductItemInCart({ item: { name, image, price, discountPrice, _id, quantity, options = [], uniqueKey }, totalItems }: IProductItemInCartProps) {
+function ProductItemInCart({ item: { product_name, image, product_price,
+    // discountPrice,
+    _id, quantity, options = [], uniqueKey }, totalItems }: IProductItemInCartProps) {
     const { toast } = useToast()
     const dispatch = useAppDispatch();
     const product = useMemo(() => productData.find((item) => item._id === _id), [_id]);
@@ -92,7 +94,7 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
                 </CardHeader>
                 <CardContent className="flex flex-col p-0 h-full md:col-span-5 col-span-5 content-center space-y-2">
                     <CardTitle onClick={handleRouterLinkToDetail} className="text-lg capitalize cursor-pointer">
-                        {name}
+                        {product_name}
                     </CardTitle>
                     <ProductItemOptionsListInCart
                         initialOptions={product?.options}
@@ -101,11 +103,11 @@ function ProductItemInCart({ item: { name, image, price, discountPrice, _id, qua
                         handleUpdate={handleUpdateItem}
                     />
                     <CardDescription className="space-x-2 mb-2 inline">
-                        <p className="inline-flex items-center gap-x-1 text-xs">
+                        {/* <p className="inline-flex items-center gap-x-1 text-xs">
                             <span className="font-bold">{formatToCurrency(discountPrice)}</span>
-                        </p>
+                        </p> */}
                         <p className="inline-flex items-center gap-x-1 line-through text-xs">
-                            <span>{formatToCurrency(price)}</span>
+                            <span>{formatToCurrency(product_price)}</span>
                         </p>
                     </CardDescription>
                     <ProductItemQuantityInCart

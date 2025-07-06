@@ -29,13 +29,13 @@ export default function ToastMessage({ product, updatedQuantity, totalPrice = 0,
     return (
         <Card className="grid grid-cols-4 gap-5 border-none shadow-none">
             <div className="col-span-2" >
-                <CardImage className='aspect-square ' src={product.image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"} alt={product.name ?? ""} />
+                <CardImage className='aspect-square ' src={product.image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"} alt={product.product_name ?? ""} />
             </div>
             <CardContent className='flex flex-col col-span-2 gap-2 p-0'>
                 <CardTitle
                     onClick={handleRouterLinkToDetail}
                     className=" text-lg capitalize cursor-pointer">
-                    {product.name}
+                    {product.product_name}
                 </CardTitle>
                 <CardDescription className="gap-1 flex flex-row">
                     {options?.map((option) =>
@@ -45,8 +45,8 @@ export default function ToastMessage({ product, updatedQuantity, totalPrice = 0,
                 <CardDescription className="text-xs">
                     <p className='space-x-1'>
                         <strong>Price:</strong>
-                        <span className="inline-flex items-center gap-x-1 ">  {formatToCurrency(product.discountPrice)}</span>
-                        <span className="inline-flex items-center gap-x-1 line-through">{formatToCurrency(product.price)}</span>
+                        {/* <span className="inline-flex items-center gap-x-1 ">  {formatToCurrency(product.discountPrice)}</span> */}
+                        <span className="inline-flex items-center gap-x-1 line-through">{formatToCurrency(product.product_price)}</span>
                     </p>
 
                     <p className="inline-flex items-center">  <strong >Qty:</strong>  {updatedQuantity}</p>

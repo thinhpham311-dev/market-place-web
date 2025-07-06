@@ -5,7 +5,7 @@ import { handleError } from '@/lib/handleError/error';
 
 const API_NEXT = process.env.NEXT_PUBLIC_BASE_URL;
 
-export async function POST(req: Request) {
+export async function POST(req: Request): Promise<Response> {
     try {
         const { limit, sort, page } = await req.json();
 
@@ -26,6 +26,6 @@ export async function POST(req: Request) {
 
         return NextResponse.json(dataResponse);
     } catch (error: unknown) {
-        return handleError(error as { name: string; errors: string; code: number; message: string; });
+        return NextResponse.json(handleError(error as { name: string; errors: string; code: number; message: string; }), { status: 500 });
     }
 }

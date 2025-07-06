@@ -11,7 +11,7 @@ export interface IProduct {
     options?: Array<{ label: string; value: IOption[] }>; // Đánh dấu "options" là tùy chọn
     image?: string,
     product_price: number,
-    discountPrice: number,
+    // discountPrice: number,
     quantity: number,
 }
 

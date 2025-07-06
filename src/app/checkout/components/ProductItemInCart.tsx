@@ -18,7 +18,9 @@ interface IProductItemInCartProps {
 };
 
 
-function ProductItemInCart({ item: { name, image, price, options, discountPrice, _id, quantity, totalPrice = 0, discountedTotalPrice = 0 } }: IProductItemInCartProps) {
+function ProductItemInCart({ item: { product_name, image, product_price, options,
+    // discountPrice,
+    _id, quantity, totalPrice = 0, discountedTotalPrice = 0 } }: IProductItemInCartProps) {
     const router = useRouter()
 
     const handleRouterLinkToDetail = () => {
@@ -37,7 +39,7 @@ function ProductItemInCart({ item: { name, image, price, options, discountPrice,
                 <CardTitle
                     onClick={handleRouterLinkToDetail}
                     className=" text-lg capitalize cursor-pointer">
-                    {name}
+                    {product_name}
                 </CardTitle>
                 <CardDescription className="gap-1 flex flex-row">
                     {options?.map((option) =>
@@ -45,8 +47,8 @@ function ProductItemInCart({ item: { name, image, price, options, discountPrice,
                     )}
                 </CardDescription>
                 <CardDescription className="space-x-2 inline ">
-                    <p className="inline-flex items-center gap-x-1 text-xs"> <span className="font-bold "> {formatToCurrency(discountPrice)}</span></p>
-                    <p className="inline-flex items-center gap-x-1 line-through text-xs"><span>{formatToCurrency(price)}</span></p>
+                    {/* <p className="inline-flex items-center gap-x-1 text-xs"> <span className="font-bold "> {formatToCurrency(discountPrice)}</span></p> */}
+                    <p className="inline-flex items-center gap-x-1 line-through text-xs"><span>{formatToCurrency(product_price)}</span></p>
                     <span>x</span>
                     <strong className="inline-flex items-center gap-x-1 text-xs ">
                         {quantity}

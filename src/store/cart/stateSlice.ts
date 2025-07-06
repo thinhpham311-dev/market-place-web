@@ -38,8 +38,8 @@ const initialState: Icart = {
 
 const recalculateTotals = (state: Icart) => {
     state.totalQuantity = state.items.reduce((sum, item) => sum + item.quantity, 0);
-    state.totalAmount = state.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    state.totalAmountDiscount = state.items.reduce((sum, item) => sum + (item.discountPrice || 0) * item.quantity, 0);
+    state.totalAmount = state.items.reduce((sum, item) => sum + item.product_price * item.quantity, 0);
+    state.totalAmountDiscount = state.items.reduce((sum, item) => sum + (item.product_price || 0) * item.quantity, 0);
     state.totalSelectItems = state.selectedItems.length;
 
     if (state.items.length === 0) {
@@ -74,8 +74,8 @@ export const cartSlice = createSlice({
             const existingItem = state.items.find(item => item.uniqueKey === cartItem.uniqueKey);
 
             const updateItemTotals = (item: IcartItem) => {
-                item.totalPrice = item.price * item.quantity;
-                item.discountedTotalPrice = item.discountPrice * item.quantity;
+                item.totalPrice = item.product_price * item.quantity;
+                item.discountedTotalPrice = item.product_price * item.quantity;
             };
 
             if (existingItem) {
@@ -85,8 +85,8 @@ export const cartSlice = createSlice({
                 const newItem = {
                     ...cartItem,
                     options: optionsType,
-                    totalPrice: cartItem.price * cartItem.quantity,
-                    discountedTotalPrice: cartItem.discountPrice * cartItem.quantity,
+                    totalPrice: cartItem.product_price * cartItem.quantity,
+                    discountedTotalPrice: cartItem.product_price * cartItem.quantity,
                 };
                 state.items.unshift(newItem);
             }
@@ -109,14 +109,14 @@ export const cartSlice = createSlice({
 
                     if (duplicateItem) {
                         duplicateItem.quantity += quantity;
-                        duplicateItem.totalPrice = duplicateItem.price * duplicateItem.quantity;
-                        duplicateItem.discountedTotalPrice = duplicateItem.discountPrice * duplicateItem.quantity;
+                        duplicateItem.totalPrice = duplicateItem.product_price * duplicateItem.quantity;
+                        duplicateItem.discountedTotalPrice = duplicateItem.product_price * duplicateItem.quantity;
                         state.items = state.items.filter(item => item.uniqueKey !== uniqueKey);
                     } else {
                         itemToUpdate.options = optionsType;
                         itemToUpdate.quantity = quantity;
-                        itemToUpdate.totalPrice = itemToUpdate.price * quantity;
-                        itemToUpdate.discountedTotalPrice = itemToUpdate.discountPrice * quantity;
+                        itemToUpdate.totalPrice = itemToUpdate.product_price * quantity;
+                        itemToUpdate.discountedTotalPrice = itemToUpdate.product_price * quantity;
                     }
                 }
             }
