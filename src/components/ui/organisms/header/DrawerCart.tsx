@@ -41,9 +41,11 @@ export default function DrawerCart() {
             <SheetTrigger asChild>
                 <Button type="button" variant="outline" size="icon" className="relative">
                     <ShoppingCart />
-                    <span className="absolute -top-2 -right-2 bg-red-600 rounded-full w-1/2 h-1/2 text-sm flex justify-center items-center text-white">
-                        {items.length}
-                    </span>
+                    {items.length > 0 &&
+                        <span className="absolute -top-2 -right-2 bg-red-600 rounded-full w-1/2 h-1/2 text-sm flex justify-center items-center text-white">
+                            {items.length}
+                        </span>
+                    }
                 </Button>
             </SheetTrigger>
 
@@ -53,9 +55,11 @@ export default function DrawerCart() {
                         <div className="flex items-center gap-x-5 w-5/6">
                             <div className="relative">
                                 <ShoppingCart size={30} />
-                                <span className="absolute -top-2 -right-2 bg-red-600 rounded-full w-1/2 h-1/2 text-sm items-center flex justify-center text-white">
-                                    {items.length} {/* Display quantity from client-side state */}
-                                </span>
+                                {items.length > 0 &&
+                                    <span className="absolute -top-2 -right-2 bg-red-600 rounded-full w-1/2 h-1/2 text-sm items-center flex justify-center text-white">
+                                        {items.length}
+                                    </span>
+                                }
                             </div>
                             <div>
                                 <SheetTitle className="flex flex-row items-center"> Cart</SheetTitle>

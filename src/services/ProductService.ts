@@ -3,7 +3,7 @@ import { IProductfilter } from "@/interfaces/product"
 
 export async function apiPostProductsList(data: IProductfilter) {
     return ApiService.fetchData({
-        url: `/products/spu`,
+        url: `/spu/all`,
         method: 'POST',
         data
     })
