@@ -81,7 +81,7 @@ function ProductItemInCart({ item: { product_name, image, product_price,
                 <CardHeader className="p-0 flex flex-row flex-wrap gap-1 md:col-span-1 col-span-3">
                     <CardImage
                         onClick={handleRouterLinkToDetail}
-                        src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"}
+                        src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png"}
                         alt=""
                         className="rounded-sm bg-slate-600 cursor-pointer p-0 col-span-1 mb-0 basis-full"
                     />

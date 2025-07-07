@@ -39,8 +39,8 @@ const ProductImageItem = ({
                     onClick={isThumbnail ? () => onImageClick?.(index) : undefined}
                 >
                     <Image
-                        src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"}
-                        overrideSrc={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"}
+                        src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png"}
+                        overrideSrc={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png"}
                         alt={`Carousel ${isThumbnail ? "Thumbnail" : "Main"} Image ${index + 1}`}
                         height={500}
                         width={500}

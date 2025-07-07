@@ -28,7 +28,7 @@ export default function ToastMessage({ product, updatedQuantity, totalCurrentPri
     return (
         <Card className="grid grid-cols-5 gap-5 border-none shadow-none">
             <div className="col-span-2" >
-                <CardImage className='aspect-square ' src={product.image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"} alt={product.product_name ?? ""} />
+                <CardImage className='aspect-square ' src={product.image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png"} alt={product.product_name ?? ""} />
             </div>
             <CardContent className='flex flex-col col-span-3 gap-2 p-0'>
                 <CardTitle

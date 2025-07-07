@@ -31,7 +31,7 @@ function ProductItemInCart({ item: { product_name, image, product_price, options
         <Card layout="horizontal" className="relative mb-3  last:mb-0 items-start grid lg:grid-cols-2 md:grid-cols-1 grid-cols-2 gap-3 p-3">
             <CardImage
                 onClick={handleRouterLinkToDetail}
-                src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"}
+                src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png"}
                 alt=""
                 className=" rounded-lg  bg-slate-600 cursor-pointer p-0 lg:col-span-1 md:col-span-1 col-span-1"
             />

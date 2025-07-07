@@ -37,6 +37,8 @@ import { useToast } from "@/lib/hooks";
 // Icons
 import { MdAddShoppingCart } from 'react-icons/md';
 import { MessageCircleMore, Store } from "lucide-react"
+import { injectReducer } from '@/store';
+import reducer from '@/store/product';
 
 interface IProductDetailProps {
     product: IProduct
@@ -55,6 +57,8 @@ const initialReviews = [
     },
 ];
 
+injectReducer("productDetail", reducer)
+
 function ProductDetailInfo({ product }: IProductDetailProps) {
     const dispatch = useAppDispatch();
     const productItemQuantityRef = useRef<IProductItemQuantityRef>(null);
@@ -62,7 +66,7 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
 
     const { toast } = useToast();
     const router = useRouter();
-    const reviews = useAppSelector((state) => state.product.state.reviews)
+    const reviews = useAppSelector((state) => state.productDetail.state.reviews)
     const totalReviews = reviews?.length;
 
 

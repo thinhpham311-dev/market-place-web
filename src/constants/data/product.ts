@@ -2,7 +2,7 @@ export const productData = [
     {
         _id: "1",
         product_name: "Product 1",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
         description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
@@ -81,7 +81,7 @@ export const productData = [
     {
         _id: "2",
         product_name: "Product 2",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
         description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
@@ -160,7 +160,7 @@ export const productData = [
     {
         _id: "3",
         product_name: "Product 3",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
         description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
@@ -239,7 +239,7 @@ export const productData = [
     {
         _id: "4",
         product_name: "Product 4",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
         description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
@@ -309,7 +309,7 @@ export const productData = [
     {
         _id: "5",
         product_name: "Product",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
         description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
@@ -388,7 +388,7 @@ export const productData = [
     {
         _id: "6",
         product_name: "Product",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
         description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
@@ -467,7 +467,7 @@ export const productData = [
     {
         _id: "7",
         product_name: "Product",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
         description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
@@ -546,7 +546,7 @@ export const productData = [
     {
         _id: "8",
         product_name: "Product",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
         description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
@@ -625,7 +625,7 @@ export const productData = [
     {
         _id: "9",
         product_name: "Product",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
         description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
@@ -704,7 +704,7 @@ export const productData = [
     {
         _id: "10",
         product_name: "Product",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
         description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
@@ -783,7 +783,7 @@ export const productData = [
     {
         _id: "11",
         product_name: "Product",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
         description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
@@ -862,7 +862,7 @@ export const productData = [
     {
         _id: "12",
         product_name: "Product",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
         description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
@@ -941,7 +941,7 @@ export const productData = [
     {
         _id: "13",
         product_name: "Product",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
         description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
@@ -1020,7 +1020,7 @@ export const productData = [
     {
         _id: "14",
         product_name: "Product",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
         description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
@@ -1099,7 +1099,7 @@ export const productData = [
     {
         _id: "15",
         product_name: "Product",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
         description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
@@ -1178,7 +1178,7 @@ export const productData = [
     {
         _id: "16",
         product_name: "Product",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
         description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
@@ -1257,7 +1257,7 @@ export const productData = [
     {
         _id: "17",
         product_name: "Product",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
         description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
@@ -1301,7 +1301,7 @@ export const productData = [
 
         _id: "18",
         product_name: "Product",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
         description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
@@ -1345,7 +1345,7 @@ export const productData = [
 
         _id: "19",
         product_name: "Product",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg",
+        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
         article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
         description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>

@@ -23,7 +23,7 @@ const ProductItem = ({ item: { product_name, image, product_price, _id } }: IIte
     }
     return (
         <Card className="flex flex-col justify-start">
-            <CardImage onClick={handleRouterLinkToDetail} src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"} alt="" className=" aspect-square  rounded-t-lg cursor-pointer" />
+            <CardImage onClick={handleRouterLinkToDetail} src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png"} alt="" className=" aspect-square  rounded-t-lg cursor-pointer" />
             <CardContent className="py-3 px-0 w-full">
                 <CardTitle onClick={handleRouterLinkToDetail} className="text-md capitalize line-clamp-2 cursor-pointer mx-3">
                     {product_name}

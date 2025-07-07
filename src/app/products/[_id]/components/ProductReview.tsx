@@ -1,12 +1,13 @@
 // src/components/ProductReview.tsx
 import React from 'react';
-import { RootState } from '@/store';
+import { injectReducer, RootState } from '@/store';
 import { Button, Progress, Textarea } from '@/components/ui/atoms';
 import { Card, CardHeader, CardContent, CardTitle, CardDescription, StarRating } from "@/components/ui/molecules"
 import { addReview, setInitialReviews } from '@/store/product/stateSlice';
 import { OptionsListOfTab } from './OptionsListOfTab';
 import { IOption } from '@/interfaces/product';
 import { usePagination, usePaginationRender, useAppDispatch, useAppSelector } from "@/lib/hooks"
+import reducer from '@/store/product';
 
 interface IReview {
     rating: number;
@@ -23,7 +24,7 @@ interface ReviewListProps {
     itemsPerPage?: number
 }
 
-
+injectReducer("productReview", reducer)
 
 const ReviewForm = ({ onSubmit }: IReviewFormProps) => {
     const [rating, setRating] = React.useState(0);
@@ -174,7 +175,7 @@ const ReviewStatistics = ({ data }: ReviewListProps) => {
 
 const ProductReview = ({ initialReviews }: { initialReviews: IReview[] }) => {
     const dispatch = useAppDispatch();
-    const reviews = useAppSelector((state: RootState) => state.product.state.reviews);
+    const reviews = useAppSelector((state: RootState) => state.productReview.state.reviews);
 
     React.useEffect(() => {
         dispatch(setInitialReviews(initialReviews));
