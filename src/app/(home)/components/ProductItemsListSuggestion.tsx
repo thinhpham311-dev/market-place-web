@@ -59,15 +59,11 @@ const GridListWithLoading = ({ data, itemsPerPage, className, totalData, isLoadi
 };
 
 const LoadingPlaceholder = () => (
-    <Card className="border-0 shadow-none md:px-6 px-3">
-        <CardHeader className="items-center px-0 space-x-3 mb-3">
-            <CardTitle className="mb-3 capitalize text-center mx-auto">Suggestion today</CardTitle>
-            <CardDescription className="mb-3 capitalize text-center mx-auto">Loading...</CardDescription>
-        </CardHeader>
-        <CardContent className="px-0">
-            <div className="text-center">Loading...</div>
-        </CardContent>
-    </Card>
+
+    <CardContent className="px-0">
+        <div className="text-center">Loading...</div>
+    </CardContent>
+
 );
 
 export default function ProductItemsListSuggestion() {
