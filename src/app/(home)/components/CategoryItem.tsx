@@ -15,7 +15,7 @@ interface IItemProps {
     item: ICategory
 }
 
-const CategoryItem = ({ item: { _id, name, image } }: IItemProps) => {
+const CategoryItem = ({ item: { _id, category_name, image } }: IItemProps) => {
     const router = useRouter()
     const handleRouterLinkToDetail = () => {
         router.push(`/categories/${_id}`)
@@ -24,10 +24,10 @@ const CategoryItem = ({ item: { _id, name, image } }: IItemProps) => {
         <Card onClick={handleRouterLinkToDetail} className="rounded-3xl  aspect-square flex flex-col justify-center
         items-center ">
             <CardContent className="p-0 rounded-full bg-white dark:bg-white  w-1/2 border mb-2">
-                <CardImage src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"} alt={name} className="w-full h-full aspect-square rounded-t-lg cursor-pointer" />
+                <CardImage src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1724934297/samples/man-on-a-street.jpg"} alt={category_name} className="w-full h-full aspect-square rounded-t-lg cursor-pointer" />
             </CardContent>
             <CardContent className="p-0">
-                <CardTitle className="text-md capitalize cursor-pointer text-black dark:text-white text-center xl:line-clamp-2 line-clamp-1">{name}</CardTitle>
+                <CardTitle className="text-md capitalize cursor-pointer text-black dark:text-white text-center xl:line-clamp-2 line-clamp-1">{category_name}</CardTitle>
             </CardContent>
         </Card>
     );

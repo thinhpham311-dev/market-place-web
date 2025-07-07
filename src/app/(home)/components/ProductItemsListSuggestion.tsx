@@ -19,6 +19,10 @@ import { getProductList } from "@/store/product/dataSlice";
 
 // utils
 import { cn } from "@/lib/utils";
+import { injectReducer } from "@/store";
+import reducer from "@/store/product";
+
+injectReducer("product", reducer)
 
 interface IGridListProps {
     data: IProduct[];
@@ -68,13 +72,12 @@ const LoadingPlaceholder = () => (
 
 export default function ProductItemsListSuggestion() {
     const dispatch = useAppDispatch();
-    const { productList, loading } = useAppSelector((state) => state.product.data);
+    const { list: products = [], loading } = useAppSelector((state) => state.product.data);
 
     useEffect(() => {
         dispatch(getProductList({ limit: 12, sort: "createdAt", page: 1 }) as any);
     }, [dispatch]);
 
-    const products = productList || [];
 
     return (
         <Card className="border-0 shadow-none md:px-6 px-3">
