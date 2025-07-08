@@ -122,6 +122,7 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
             uniqueKey,
             product_name: product.product_name,
             product_price: product.product_price,
+            product_slug: product.product_slug,
             // discountPrice: product.discountPrice,
             quantity: updatedQuantity,
         };
@@ -318,6 +319,10 @@ const StoreInfo = (
 
 export default function ProductDetail({ id }: { id: string }) {
 
+    // const { product } = useMemo(() => {
+    //     const product: IProduct | undefined = productData?.find((item) => item?._id === id);
+    //     return { product };
+    // }, [id]);
     const dispatch = useAppDispatch();
     const { detail: product = null, loading } = useAppSelector((state) => state.productDetail.data);
 

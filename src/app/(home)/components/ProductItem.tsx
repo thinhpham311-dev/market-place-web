@@ -16,11 +16,12 @@ interface IItemProps {
     item: IProduct
 }
 
-const ProductItem = ({ item: { product_name, image, product_price, product_id } }: IItemProps) => {
+const ProductItem = ({ item: { product_name, image, product_price, product_id, product_slug } }: IItemProps) => {
     const router = useRouter()
     const handleRouterLinkToDetail = () => {
-        router.push(`/products/${product_id}`)
+        router.push(`/products/${product_slug}.${product_id}`)
     }
+
     return (
         <Card className="flex flex-col justify-start h-full">
             <CardImage onClick={handleRouterLinkToDetail} src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png"} alt="" className=" aspect-square  rounded-t-lg cursor-pointer" />
