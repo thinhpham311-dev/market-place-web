@@ -23,6 +23,7 @@ export interface IReview {
 }
 
 export interface IProductfilter {
+    ids?: Array<string> | string;
     limit?: number;
     sort?: string;
     page?: number;

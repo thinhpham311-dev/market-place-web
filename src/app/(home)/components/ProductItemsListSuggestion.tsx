@@ -15,12 +15,12 @@ import { IProduct } from "@/interfaces/product";
 
 // hooks & redux
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { getProductList } from "@/store/product/list/dataSlice";
+import { getProductList } from "@/store/product/list/all/dataSlice";
 
 // utils
 import { cn } from "@/lib/utils";
 import { injectReducer } from "@/store";
-import reducer from "@/store/product/list";
+import reducer from "@/store/product/list/all";
 
 injectReducer("suggestionProductList", reducer)
 

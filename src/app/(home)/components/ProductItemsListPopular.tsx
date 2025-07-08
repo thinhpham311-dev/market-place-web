@@ -12,8 +12,11 @@ import ProductItem from "./ProductItem"
 //datas
 // import { productData } from "@/constants/data";
 
+//stores
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { getProductList } from "@/store/product/list/dataSlice";
+import { getProductList } from "@/store/product/list/all/dataSlice";
+import { injectReducer } from "@/store";
+import reducer from "@/store/product/list/all";
 
 //icons
 import { ArrowRight } from "lucide-react"
@@ -22,8 +25,6 @@ import { ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { NotFound } from "@/components/ui/organisms";
 import { IProduct } from "@/interfaces/product";
-import { injectReducer } from "@/store";
-import reducer from "@/store/product/list";
 
 
 interface ICarouselListProps {

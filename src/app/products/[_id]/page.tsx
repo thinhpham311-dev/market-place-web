@@ -7,7 +7,7 @@ import ProductItemsListRelated from './components/ProductItemsListRelated';
 
 
 export default async function Page({ params }: { params: { _id: string } }) {
-    const { _id } = params; // Extracting id from route
+    const { _id } = params;
     return (
         <div className="space-y-10 md:my-5">
             {/* Product Details Card */}
