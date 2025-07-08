@@ -18,10 +18,10 @@ interface IItemProps {
 
 const ProductItem = ({ item: { product_name, image, product_price,
     //  discountPrice, 
-    _id } }: IItemProps) => {
+    product_id } }: IItemProps) => {
     const router = useRouter()
     const handleRouterLinkToDetail = () => {
-        router.push(`/products/${_id}`)
+        router.push(`/products/${product_id}`)
     }
     return (
         <Card >

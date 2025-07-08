@@ -77,8 +77,6 @@ const LoadingPlaceholder = () => (
 export default function ProductitemsListByCategoryId({ id }: { id: string }) {
     const dispatch = useAppDispatch();
     const { list: products = [], loading } = useAppSelector((state) => state.productListByCategories.data);
-    const state = useAppSelector((state) => state)
-    console.log(state)
 
     useEffect(() => {
         dispatch(getProductListByCategories({ limit: 12, sort: "createdAt", page: 1, ids: id }) as any);

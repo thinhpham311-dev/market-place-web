@@ -317,14 +317,8 @@ const StoreInfo = (
 
 
 export default function ProductDetail({ id }: { id: string }) {
-
-    // const { product } = useMemo(() => {
-    //     const product: IProduct | undefined = productData?.find((item) => item?._id === id);
-    //     return { product };
-    // }, [id]);
     const dispatch = useAppDispatch();
     const { detail: product = null, loading } = useAppSelector((state) => state.productDetail.data);
-
 
     useEffect(() => {
         if (id) {
@@ -332,18 +326,18 @@ export default function ProductDetail({ id }: { id: string }) {
         }
     }, [dispatch, id]);
 
+    if (loading) {
+        return (
+            <Card className="border-none shadow-none md:px-6 px-3 space-y-5 my-6">
+                <p className="text-muted-foreground text-sm">Loading...</p>
+            </Card>
+        );
+    }
 
-    if (!product) return <NotFound />
-
+    if (!product) return <NotFound />;
     return (
         <Card className=" border-none shadow-none md:px-6 px-3 space-y-5 my-6">
-            {loading ? (
-                <p className="text-muted-foreground text-sm">Loading...</p>
-            ) : product.length > 0 ? (
-                <ProductDetailInfo product={product} />
-            ) : (
-                <NotFound />
-            )}
+            <ProductDetailInfo product={product} />
             <ProductItemsListBundleDeals />
             <StoreInfo />
             <ProductDetailDescription product={product} />
