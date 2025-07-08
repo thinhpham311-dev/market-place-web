@@ -24,7 +24,10 @@ import ProductItemsListTopPicksFromShop from "./ProductItemsListTopPicksFromShop
 import ShareSocialsList from "./ShareSocialsList"
 
 // Data
-import { images, productData } from '@/constants/data';
+import {
+    images,
+    // productData 
+} from '@/constants/data';
 
 // Types
 import { IProduct, IReview } from '@/interfaces/product';
@@ -334,7 +337,13 @@ export default function ProductDetail({ id }: { id: string }) {
 
     return (
         <Card className=" border-none shadow-none md:px-6 px-3 space-y-5 my-6">
-            <ProductDetailInfo product={product} />
+            {loading ? (
+                <p className="text-muted-foreground text-sm">Loading...</p>
+            ) : product.length > 0 ? (
+                <ProductDetailInfo product={product} />
+            ) : (
+                <NotFound />
+            )}
             <ProductItemsListBundleDeals />
             <StoreInfo />
             <ProductDetailDescription product={product} />

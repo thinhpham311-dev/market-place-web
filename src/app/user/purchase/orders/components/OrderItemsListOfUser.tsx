@@ -3,23 +3,23 @@
 import * as React from "react";
 import {
     ColumnDef,
-    ColumnFiltersState,
-    SortingState,
-    VisibilityState,
-    flexRender,
-    getCoreRowModel,
-    getFilteredRowModel,
-    getPaginationRowModel,
-    getSortedRowModel,
-    useReactTable,
+    // ColumnFiltersState,
+    // SortingState,
+    // VisibilityState,
+    // flexRender,
+    // getCoreRowModel,
+    // getFilteredRowModel,
+    // getPaginationRowModel,
+    // getSortedRowModel,
+    // useReactTable,
 } from "@tanstack/react-table";
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
+    // Table,
+    // TableBody,
+    // TableCell,
+    // TableHead,
+    // TableHeader,
+    // TableRow,
     Card,
     CardContent,
     CardHeader,
@@ -28,10 +28,10 @@ import {
 } from "@/components/ui/molecules";
 import DropDownMenuOfItem from "./DropDownMenuOfItem";
 import { IOrder } from "@/interfaces/order";
-import { orderData } from "@/constants/data/order";
+// import { orderData } from "@/constants/data/order";
 import { formatDateTime } from "@/lib/formats";
-import Toolbar from "./Toolbar";
-import Pagination from "./Pagination";
+// import Toolbar from "./Toolbar";
+// import Pagination from "./Pagination";
 
 //lib
 import { formatToCurrency } from "@/lib/formats"
@@ -116,32 +116,32 @@ export const columns: ColumnDef<IOrder>[] = [
 
 // Main Component
 export default function OrderItemsListOfUser() {
-    const [sorting, setSorting] = React.useState<SortingState>([]);
-    const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-        []
-    );
-    const [columnVisibility, setColumnVisibility] =
-        React.useState<VisibilityState>({});
-    const [rowSelection, setRowSelection] = React.useState({});
+    // const [sorting, setSorting] = React.useState<SortingState>([]);
+    // const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    //     []
+    // );
+    // const [columnVisibility, setColumnVisibility] =
+    //     React.useState<VisibilityState>({});
+    // const [rowSelection, setRowSelection] = React.useState({});
 
-    const table = useReactTable<IOrder>({
-        data: orderData as IOrder[],
-        columns,
-        onSortingChange: setSorting,
-        onColumnFiltersChange: setColumnFilters,
-        getCoreRowModel: getCoreRowModel(),
-        getPaginationRowModel: getPaginationRowModel(),
-        getSortedRowModel: getSortedRowModel(),
-        getFilteredRowModel: getFilteredRowModel(),
-        onColumnVisibilityChange: setColumnVisibility,
-        onRowSelectionChange: setRowSelection,
-        state: {
-            sorting,
-            columnFilters,
-            columnVisibility,
-            rowSelection,
-        },
-    });
+    // const table = useReactTable<IOrder>({
+    //     data: orderData as IOrder[],
+    //     columns,
+    //     onSortingChange: setSorting,
+    //     onColumnFiltersChange: setColumnFilters,
+    //     getCoreRowModel: getCoreRowModel(),
+    //     getPaginationRowModel: getPaginationRowModel(),
+    //     getSortedRowModel: getSortedRowModel(),
+    //     getFilteredRowModel: getFilteredRowModel(),
+    //     onColumnVisibilityChange: setColumnVisibility,
+    //     onRowSelectionChange: setRowSelection,
+    //     state: {
+    //         sorting,
+    //         columnFilters,
+    //         columnVisibility,
+    //         rowSelection,
+    //     },
+    // });
 
     return (
         <Card className="w-full p-3 md:p-6">
@@ -149,10 +149,10 @@ export default function OrderItemsListOfUser() {
                 <CardTitle>
                     Order History List
                 </CardTitle>
-                <Toolbar table={table} />
+                {/* <Toolbar table={table} /> */}
             </CardHeader>
             <CardContent className="rounded-md p-0">
-                <Table>
+                {/* <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
@@ -199,10 +199,10 @@ export default function OrderItemsListOfUser() {
                             </TableRow>
                         )}
                     </TableBody>
-                </Table>
+                </Table> */}
             </CardContent>
             <CardFooter className="py-0">
-                <Pagination table={table} />
+                {/* <Pagination table={table} /> */}
             </CardFooter>
         </Card>
     );
