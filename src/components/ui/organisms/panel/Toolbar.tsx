@@ -119,7 +119,7 @@ const ListItem = React.forwardRef<
                 >
                     <Image
                         className={cn("aspect-video	object-cover bg-no-repeat", imageClassName)}
-                        src={imageLink ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1735697706/images_zxsvly.png"}
+                        src={imageLink ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png"}
                         width={40}
                         height={30}
                         loading="lazy"

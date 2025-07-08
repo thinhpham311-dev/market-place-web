@@ -31,6 +31,8 @@ import { IProduct } from "@/interfaces/product"
 import { cn } from "@/lib/utils"
 import { NotFound } from "@/components/ui/organisms"
 
+
+
 interface ICarouselListProps {
     data: Array<IProduct>,
     itemsPerPage?: number;

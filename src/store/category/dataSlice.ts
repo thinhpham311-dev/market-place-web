@@ -23,6 +23,10 @@ const dataSlice = createSlice({
             })
             .addCase(getCategoryList.pending, (state: { loading: boolean }) => {
                 state.loading = true;
+            })
+            .addCase(getCategoryList.rejected, (state: { list: ICategory[]; loading: boolean }) => {
+                state.loading = false; // handle rejection gracefully
+                state.list = [];
             });
     }
 });

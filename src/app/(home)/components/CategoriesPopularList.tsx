@@ -34,7 +34,7 @@ import { ICategory } from "@/interfaces/category";
 import { cn } from "@/lib/utils";
 
 // Inject reducer once globally
-injectReducer("category", reducer);
+injectReducer("popularCategoriesList", reducer);
 
 interface CarouselListProps {
     data: ICategory[];
@@ -63,7 +63,7 @@ const CategoriesPopularList: React.FC = () => {
     const router = useRouter();
     const dispatch = useAppDispatch();
 
-    const { list: categories = [], loading } = useAppSelector((state) => state.category.data);
+    const { list: categories = [], loading } = useAppSelector((state) => state.popularCategoriesList.data);
 
     useEffect(() => {
         dispatch(getCategoryList() as any);

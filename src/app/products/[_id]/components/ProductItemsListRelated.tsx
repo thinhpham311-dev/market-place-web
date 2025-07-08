@@ -22,14 +22,21 @@ import { NotFound } from "@/components/ui/organisms"
 import { ArrowRight } from "lucide-react"
 
 // data
-import { productData } from "@/constants/data"
+// import { productData } from "@/constants/data"
 
 //types 
 import { IProduct } from "@/interfaces/product"
 
+//stores
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { getProductList } from "@/store/product/list/dataSlice";
+import { injectReducer } from "@/store";
+import reducer from "@/store/product/list";
 
 //libs
 import { cn } from "@/lib/utils"
+
+injectReducer("relatedProductList", reducer)
 
 interface ICarouselListProps {
     data?: IProduct[];
@@ -59,6 +66,12 @@ const CarouselList = ({ data, itemsPerPage = 12, className }: ICarouselListProps
 }
 
 export default function ProductItemsListRelated() {
+    const dispatch = useAppDispatch();
+    const { list: products = [], loading } = useAppSelector((state) => state.relatedProductList.data);
+
+    React.useEffect(() => {
+        dispatch(getProductList({ limit: 12, sort: "createdAt", page: 1 }) as any);
+    }, [dispatch]);
 
     return (
         <Card className="border-0 md:px-6 px-3 shadow-none">
@@ -72,7 +85,13 @@ export default function ProductItemsListRelated() {
                 </Button>
             </CardHeader>
             <CardContent className="px-0">
-                {productData && productData.length > 0 ? <CarouselList data={productData} className="lg:basis-1/6 md:basis-1/3 basis-1/2" /> : <NotFound />}
+                {loading ? (
+                    <p className="text-muted-foreground text-sm">Loading...</p>
+                ) : products.length > 0 ? (
+                    <CarouselList data={products} className="lg:basis-1/6 md:basis-1/4 basis-1/3" />
+                ) : (
+                    <NotFound />
+                )}
             </CardContent>
         </Card>
     );

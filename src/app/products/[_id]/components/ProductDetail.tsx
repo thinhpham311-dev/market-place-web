@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useRef, useCallback, ReactElement } from 'react';
+import { useMemo, useEffect, useRef, useCallback, ReactElement } from 'react';
 
 // Routers
 import { useRouter } from 'next/navigation';
@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 // Store
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { addItem } from '@/store/cart/stateSlice';
+import { getProductDetail } from '@/store/product/detail/dataSlice';
 
 
 // Components
@@ -38,7 +39,7 @@ import { useToast } from "@/lib/hooks";
 import { MdAddShoppingCart } from 'react-icons/md';
 import { MessageCircleMore, Store } from "lucide-react"
 import { injectReducer } from '@/store';
-import reducer from '@/store/product';
+import reducer from '@/store/product/detail';
 
 interface IProductDetailProps {
     product: IProduct
@@ -211,10 +212,10 @@ interface IProductDetailDescriptionProps {
 function ProductDetailDescription({ product }: IProductDetailDescriptionProps) {
     let content: ReactElement | null = null;
 
-    if (typeof product === 'object' && product?.description) {
+    if (typeof product === 'object' && product?.product_description) {
         content = (
             <CardDescription
-                dangerouslySetInnerHTML={{ __html: product.description }}
+                dangerouslySetInnerHTML={{ __html: product.product_description }}
             />
         );
     } else if (typeof product === 'string') {
@@ -279,7 +280,7 @@ const StoreInfo = (
             <CardHeader className='flex flex-row flex-wrap md:col-span-4 col-span-12 gap-x-5 p-0'>
                 <div className='col-span-1 my-3'>
                     <Avatar>
-                        <AvatarImage src="https://res.cloudinary.com/dgincjt1i/image/upload/v1735697706/images_zxsvly.png" />
+                        <AvatarImage src="https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png" />
                         <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                 </div>
@@ -314,10 +315,19 @@ const StoreInfo = (
 
 export default function ProductDetail({ id }: { id: string }) {
 
-    const { product } = useMemo(() => {
-        const product: IProduct | undefined = productData?.find((item) => item?._id === id);
-        return { product };
-    }, [id]);
+    // const { product } = useMemo(() => {
+    //     const product: IProduct | undefined = productData?.find((item) => item?._id === id);
+    //     return { product };
+    // }, [id]);
+    const dispatch = useAppDispatch();
+    const { detail: product = null, loading } = useAppSelector((state) => state.productDetail.data);
+
+
+    useEffect(() => {
+        if (id) {
+            dispatch(getProductDetail({ _id: id } as IProduct) as any);
+        }
+    }, [dispatch, id]);
 
 
     if (!product) return <NotFound />

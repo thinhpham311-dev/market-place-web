@@ -3,11 +3,11 @@ import React from 'react';
 import { injectReducer, RootState } from '@/store';
 import { Button, Progress, Textarea } from '@/components/ui/atoms';
 import { Card, CardHeader, CardContent, CardTitle, CardDescription, StarRating } from "@/components/ui/molecules"
-import { addReview, setInitialReviews } from '@/store/product/stateSlice';
+import { addReview, setInitialReviews } from '@/store/product/detail/stateSlice';
 import { OptionsListOfTab } from './OptionsListOfTab';
 import { IOption } from '@/interfaces/product';
 import { usePagination, usePaginationRender, useAppDispatch, useAppSelector } from "@/lib/hooks"
-import reducer from '@/store/product';
+import reducer from '@/store/product/detail';
 
 interface IReview {
     rating: number;

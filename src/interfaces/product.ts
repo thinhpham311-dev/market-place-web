@@ -5,9 +5,10 @@ export interface IOption {
 
 export interface IProduct {
     _id: string,
+    product_id?: string
     product_name?: string,
     article?: string,
-    description?: string,
+    product_description?: string,
     options?: Array<{ label: string; value: IOption[] }>; // Đánh dấu "options" là tùy chọn
     image?: string,
     product_price: number,

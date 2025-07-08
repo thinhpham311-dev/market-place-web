@@ -16,7 +16,7 @@ export default function StoreInfo(
             <CardHeader className='flex flex-row flex-wrap md:col-span-4 col-span-12 gap-x-5 p-0'>
                 <div className='col-span-1 my-3'>
                     <Avatar>
-                        <AvatarImage src="https://res.cloudinary.com/dgincjt1i/image/upload/v1735697706/images_zxsvly.png" />
+                        <AvatarImage src="https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png" />
                         <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                 </div>

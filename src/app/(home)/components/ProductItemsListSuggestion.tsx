@@ -15,14 +15,14 @@ import { IProduct } from "@/interfaces/product";
 
 // hooks & redux
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { getProductList } from "@/store/product/dataSlice";
+import { getProductList } from "@/store/product/list/dataSlice";
 
 // utils
 import { cn } from "@/lib/utils";
 import { injectReducer } from "@/store";
-import reducer from "@/store/product";
+import reducer from "@/store/product/list";
 
-injectReducer("product", reducer)
+injectReducer("suggestionProductList", reducer)
 
 interface IGridListProps {
     data: IProduct[];
@@ -68,7 +68,7 @@ const LoadingPlaceholder = () => (
 
 export default function ProductItemsListSuggestion() {
     const dispatch = useAppDispatch();
-    const { list: products = [], loading } = useAppSelector((state) => state.product.data);
+    const { list: products = [], loading } = useAppSelector((state) => state.suggestionProductList.data);
 
     useEffect(() => {
         dispatch(getProductList({ limit: 12, sort: "createdAt", page: 1 }) as any);
