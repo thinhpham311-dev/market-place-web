@@ -317,6 +317,7 @@ const StoreInfo = (
 
 
 export default function ProductDetail({ id }: { id: string }) {
+
     const dispatch = useAppDispatch();
     const { detail: product = null, loading } = useAppSelector((state) => state.productDetail.data);
 

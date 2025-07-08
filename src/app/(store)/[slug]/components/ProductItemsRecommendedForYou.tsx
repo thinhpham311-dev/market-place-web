@@ -16,12 +16,19 @@ import {
 } from "@/components/ui/molecules"
 import ProductItem from "./ProductItem"
 import { Button } from "@/components/ui/atoms"
+import { NotFound } from "@/components/ui/organisms"
 
 // icons
 import { ArrowRight } from "lucide-react"
 
-// data
-import { productData } from "@/constants/data"
+// // data
+// import { productData } from "@/constants/data"
+
+//stores
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { getProductList } from "@/store/product/list/all/dataSlice";
+import { injectReducer } from "@/store";
+import reducer from "@/store/product/list/all";
 
 //types 
 import { IProduct } from "@/interfaces/product"
@@ -29,6 +36,9 @@ import { IProduct } from "@/interfaces/product"
 
 //libs
 import { cn } from "@/lib/utils"
+
+injectReducer("recommendedForYouList", reducer)
+
 
 interface ICarouselListProps {
     data: Array<IProduct>,
@@ -42,13 +52,13 @@ const CarouselList = ({ data, itemsPerPage = 12, className }: ICarouselListProps
         <Carousel>
             <CarouselContent className="-ml-2">
                 {data?.slice(0, itemsPerPage).map((item, index) => {
-                    if (item.quantity > 0) {
-                        return (
-                            <CarouselItem key={index} className={cn("pl-2 ", className)}>
-                                <ProductItem item={item} />
-                            </CarouselItem>
-                        )
-                    }
+                    // if (item.quantity > 0) {
+                    return (
+                        <CarouselItem key={index} className={cn("pl-2 ", className)}>
+                            <ProductItem item={item} />
+                        </CarouselItem>
+                    )
+                    // }
                 })}
             </CarouselContent>
             <CarouselPrevious className=" top-1/2 -translate-y-1/2 md:-left-5 -left-3 " />
@@ -58,6 +68,12 @@ const CarouselList = ({ data, itemsPerPage = 12, className }: ICarouselListProps
 }
 
 export default function ProductItemsListTopPicksFromShop() {
+    const dispatch = useAppDispatch();
+    const { list: products = [], loading } = useAppSelector((state) => state.recommendedForYouList.data);
+
+    React.useEffect(() => {
+        dispatch(getProductList({ limit: 12, sort: "createdAt", page: 1 }) as any);
+    }, [dispatch]);
 
     return (
         <Card className="border-0 p-0 shadow-none">
@@ -71,9 +87,14 @@ export default function ProductItemsListTopPicksFromShop() {
                 </Button>
             </CardHeader>
             <CardContent className="p-0">
-                <CarouselList data={productData} className="lg:basis-1/6 md:basis-1/3 basis-1/2" />
+                {loading ? (
+                    <p className="text-muted-foreground text-sm">Loading...</p>
+                ) : products.length > 0 ? (
+                    <CarouselList data={products} className="lg:basis-1/6 md:basis-1/4 basis-1/3" />
+                ) : (
+                    <NotFound />
+                )}
             </CardContent>
         </Card>
-
     );
 }

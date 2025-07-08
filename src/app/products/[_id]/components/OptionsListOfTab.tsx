@@ -36,7 +36,6 @@ export const OptionsListOfTab = React.forwardRef<HTMLDivElement, IOptionsListOfT
                 </p>
                 <ToggleGroup type="single" className="justify-start flex-wrap">
                     {data.map((item, index) => {
-
                         return (
                             <ToggleGroupItem
                                 variant="outline"
@@ -51,7 +50,6 @@ export const OptionsListOfTab = React.forwardRef<HTMLDivElement, IOptionsListOfT
                                 {item.label}
                             </ToggleGroupItem>
                         )
-
                     })}
                 </ToggleGroup>
             </div>
