@@ -298,7 +298,7 @@ const StoreInfo = (
                 </CardContent>
                 <CardContent className='grid grid-cols-2 w-full gap-3 p-0'>
                     <Button className='col-span-1' variant="outline" ><MessageCircleMore /><span>Chat Now</span></Button>
-                    <Button className='col-span-1' variant="outline" onClick={() => router.push("/a")}><Store /><span>View Shop</span></Button>
+                    <Button className='col-span-1' variant="outline" onClick={() => router.push("/shop/shop-1")}><Store /><span>View Shop</span></Button>
                 </CardContent>
             </CardHeader>
             <CardContent className=' md:col-span-8 col-span-12 grid md:gap-10 gap-3 md:grid-cols-3 grid-cols-2 items-center md:p-3 p-0'>

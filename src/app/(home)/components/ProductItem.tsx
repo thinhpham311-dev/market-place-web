@@ -23,18 +23,18 @@ const ProductItem = ({ item: { product_name, image, product_price, product_id, p
     }
 
     return (
-        <Card className="flex flex-col justify-start h-full">
+        <Card className="flex flex-col justify-start h-full w-full">
             <CardImage onClick={handleRouterLinkToDetail} src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png"} alt="" className=" aspect-square  rounded-t-lg cursor-pointer" />
-            <CardContent className="py-3 px-0 w-full">
-                <CardTitle onClick={handleRouterLinkToDetail} className="text-md capitalize line-clamp-2 cursor-pointer mx-3">
+            <CardContent className="p-0 w-full">
+                <CardTitle onClick={handleRouterLinkToDetail} className="text-md capitalize  line-clamp-2 cursor-pointer ">
                     {product_name}
                 </CardTitle>
-                <CardDescription className="space-x-3 mb-2 inline mx-3">
+                <CardDescription className="space-x-3 mb-2 inline ">
                     {/* <p className="inline-flex items-center gap-x-1 text-xs"> <span className="font-bold "> {formatToCurrency(discountPrice)}</span></p> */}
                     <p className="inline-flex items-center gap-x-1 line-through text-xs"><span>{formatToCurrency(product_price)}</span></p>
                 </CardDescription>
             </CardContent>
-        </Card>
+        </Card >
     );
 }
 

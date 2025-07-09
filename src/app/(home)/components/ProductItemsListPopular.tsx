@@ -64,7 +64,7 @@ export default function ProductItemsListPopular() {
     }, [dispatch]);
 
     return (
-        <Card className="border-0 shadow-none	 md:px-6 px-3 w-full">
+        <Card className="border-0 shadow-non md:px-6 px-3 w-full">
             <CardHeader className="flex-row  items-center px-0 space-x-3 mb-3" >
                 <div className="p-0 flex-1">
                     <CardTitle className="mb-3 capitalize">Popular Products</CardTitle>
