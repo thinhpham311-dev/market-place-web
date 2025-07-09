@@ -15,10 +15,10 @@ interface IItemProps {
     item: ICategory
 }
 
-const CategoryItem = ({ item: { _id, category_name, image } }: IItemProps) => {
+const CategoryItem = ({ item: { _id, category_slug, category_name, image } }: IItemProps) => {
     const router = useRouter()
     const handleRouterLinkToDetail = () => {
-        router.push(`/categories/${_id}`)
+        router.push(`/categories/${category_slug}-cat.${_id}`)
     }
     return (
         <Card onClick={handleRouterLinkToDetail} className="rounded-3xl  aspect-square flex flex-col justify-center
