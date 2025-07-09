@@ -37,7 +37,7 @@ const items: MenuItem[] = [
         icon: IoIosFlash
     },
     {
-        title: "Product Type",
+        title: "Categories",
         icon: ShoppingBasket,
         children: [
             { title: "Product Type 1", url: "/category-1" },
@@ -48,8 +48,8 @@ const items: MenuItem[] = [
         title: "Stores Saved",
         icon: Store,
         children: [
-            { title: "Store 1", url: "/category-1" },
-            { title: "Store 2", url: "/category-2" },
+            { title: "Shop 1", url: "/shop/shop-1" },
+            { title: "Shop 2", url: "/shop/shop-2" },
         ],
     },
 ];
