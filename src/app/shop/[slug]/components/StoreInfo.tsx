@@ -32,7 +32,7 @@ export default function StoreInfo(
                     </CardDescription>
                 </CardContent>
                 <CardContent className='grid grid-cols-2 w-full gap-3 p-0'>
-                    <Button className='col-span-1' variant="outline" onClick={() => router.push("/a")}><Plus /><span>View Shop</span></Button>
+                    <Button className='col-span-1' variant="outline" onClick={() => router.push("/shop/shop-1")}><Plus /><span>View Shop</span></Button>
                     <Button className='col-span-1' variant="outline" ><MessageCircleMore /><span>Chat Now</span></Button>
                 </CardContent>
             </CardHeader>

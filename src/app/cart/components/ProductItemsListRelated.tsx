@@ -50,13 +50,13 @@ const CarouselList = ({ data, itemsPerPage = 12, className }: ICarouselListProps
         <Carousel>
             <CarouselContent className="-ml-2">
                 {data?.slice(0, itemsPerPage).map((item, index) => {
-                    if (item.quantity > 0) {
-                        return (
-                            <CarouselItem key={index} className={cn("pl-2 ", className)}>
-                                <ProductItem item={item} />
-                            </CarouselItem>
-                        )
-                    }
+                    // if (item.quantity > 0) {
+                    return (
+                        <CarouselItem key={index} className={cn("pl-2 ", className)}>
+                            <ProductItem item={item} />
+                        </CarouselItem>
+                    )
+                    // }
                 })}
             </CarouselContent>
             <CarouselPrevious className=" top-1/2 -translate-y-1/2 md:-left-5 -left-3 " />

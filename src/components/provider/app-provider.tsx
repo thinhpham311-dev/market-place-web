@@ -69,7 +69,7 @@ export function AppProvider({ children, ...props }: React.ComponentProps<typeof 
                     <div className="flex-1 w-full">
                         <Panel />
                         <Header />
-                        <main className="container mx-auto">{children}</main>
+                        <main>{children}</main>
                         <Footer />
                     </div>
                     <Toaster />

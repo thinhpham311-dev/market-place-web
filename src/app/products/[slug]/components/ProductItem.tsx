@@ -18,15 +18,15 @@ interface IItemProps {
 
 const ProductItem = ({ item: { product_name, image, product_price,
     // discountPrice, 
-    product_id } }: IItemProps) => {
+    product_id, product_slug } }: IItemProps) => {
     const router = useRouter()
     const handleRouterLinkToDetail = () => {
-        router.push(`/products/${product_id}`)
+        router.push(`/products/${product_slug}.${product_id}`)
     }
     return (
         <Card >
             <CardImage onClick={handleRouterLinkToDetail} src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png"} alt="" className="w-full h-full rounded-t-lg cursor-pointer" />
-            <CardContent className="p-0">
+            <CardContent className="p-3">
                 <CardTitle onClick={handleRouterLinkToDetail} className="text-md capitalize cursor-pointer">{product_name}</CardTitle>
                 <CardDescription className="space-x-3 mb-2 inline ">
                     {/* <p className="inline-flex items-center gap-x-1 text-xs"> <span className="font-bold "> {formatToCurrency(discountPrice)}</span></p> */}
