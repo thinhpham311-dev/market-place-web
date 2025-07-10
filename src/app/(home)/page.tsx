@@ -7,7 +7,7 @@ import CategoriesPopularList from "./components/CategoriesPopularList"
 
 export default async function Page() {
   return (
-    <div className="space-y-10  container mx-auto">
+    <div className="space-y-5  container mx-auto">
       <GalleriesList />
       <CategoriesPopularList />
       <ProductsPopularList />

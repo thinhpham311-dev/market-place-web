@@ -13,7 +13,7 @@ import { NotFound } from "@/components/ui/organisms";
 //stores
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { injectReducer } from "@/store";
-import { getProductListByCategories } from "@/store/product/list/categories/dataSlice";
+import { getCategoryDetail, getProductListByCategories } from "@/store/product/list/categories/dataSlice";
 import reducer from "@/store/product/list/categories";
 
 //types
@@ -22,6 +22,7 @@ import { IProduct } from "@/interfaces/product";
 //libs
 import { useUniqueId } from "@/lib/hooks";
 import { cn } from "@/lib/utils"
+import { ICategory } from "@/interfaces/category";
 
 
 interface IGridListProps {
@@ -76,17 +77,34 @@ const LoadingPlaceholder = () => (
 
 export default function ProductitemsListByCategoryId({ id }: { id: string }) {
     const dispatch = useAppDispatch();
-    const { list: products = [], loading } = useAppSelector((state) => state.productListByCategories.data);
+
+    const {
+        list: products = [],
+        detail: category = null,
+        loading = false,
+    } = useAppSelector((state) => state.productListByCategories.data || {});
 
     useEffect(() => {
-        dispatch(getProductListByCategories({ limit: 12, sort: "createdAt", page: 1, ids: id }) as any);
-    }, [dispatch]);
+        if (id) {
+            dispatch(getCategoryDetail({ _id: id } as ICategory) as any);
+            dispatch(getProductListByCategories({
+                limit: 12,
+                sort: "createdAt",
+                page: 1,
+                ids: id,
+            }) as any);
+        }
+    }, [dispatch, id]);
 
     return (
         <Card className="border-0 md:px-6 px-3">
-            <CardHeader className=" px-0 space-x-3 mb-3" >
-                <CardTitle className=" capitalize text-center mx-auto">Categories</CardTitle>
-                <CardDescription className="capitalize text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras auctor sollicitudin nulla ac ultrices.</CardDescription>
+            <CardHeader className="px-0 mb-3">
+                <CardTitle className="capitalize text-center mx-auto">
+                    {category?.category_name || "Loading..."}
+                </CardTitle>
+                <CardDescription className="capitalize text-center">
+                    {category?.category_description || "Loading..."}
+                </CardDescription>
             </CardHeader>
             <CardContent className="px-0">
                 <GridListWithLoading

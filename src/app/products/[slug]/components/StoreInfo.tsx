@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 // Components
 import { Button, Avatar, AvatarImage, AvatarFallback } from '@/components/ui/atoms';
 import { Card, CardContent, CardTitle, CardDescription, CardHeader } from '@/components/ui/molecules';
-import ProductItemsListTopPicksFromShop from "./ProductItemsListTopPicksFromShop"
 
 import { MessageCircleMore, Store } from "lucide-react"
 
@@ -45,9 +44,6 @@ const StoreInfo = (
                     <CardDescription className='md:col-span-1 col-span-2 flex flex-row flex-wrap justify-between capitalize'><strong>products:</strong> 55</CardDescription>
                     <CardDescription className='md:col-span-1 col-span-2 flex flex-row flex-wrap justify-between capitalize'><strong>response time:</strong> within hours</CardDescription>
                     <CardDescription className='md:col-span-1 col-span-2 flex flex-row flex-wrap justify-between capitalize'><strong>follower:</strong> 4,8k</CardDescription>
-                </CardContent>
-                <CardContent className='col-span-12 p-0'>
-                    <ProductItemsListTopPicksFromShop />
                 </CardContent>
             </Card>
         </div>

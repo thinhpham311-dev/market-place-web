@@ -3,9 +3,7 @@ import { useRouter } from "next/navigation";
 
 import { Button, Avatar, AvatarImage, AvatarFallback } from "@/components/ui/atoms";
 import { Card, CardHeader, CardContent, CardTitle, CardDescription } from "@/components/ui/molecules";
-import ProductItemsListTopPicksFromShop from "./ProductItemsRecommendedForYou"
-import ProductItemsHotDeals from "./ProductItemsHotDeals";
-import GalleryList from "./GalleriesList"
+
 
 //icons
 import { Plus, MessageCircleMore } from "lucide-react";
@@ -43,11 +41,6 @@ export default function StoreInfo(
                 <CardDescription className='md:col-span-1 col-span-2 flex flex-row flex-wrap justify-between capitalize'><strong>products:</strong> 55</CardDescription>
                 <CardDescription className='md:col-span-1 col-span-2 flex flex-row flex-wrap justify-between capitalize'><strong>response time:</strong> within hours</CardDescription>
                 <CardDescription className='md:col-span-1 col-span-2 flex flex-row flex-wrap justify-between capitalize'><strong>follower:</strong> 4,8k</CardDescription>
-            </CardContent>
-            <CardContent className='col-span-12 p-0 space-y-10'>
-                <ProductItemsListTopPicksFromShop />
-                <ProductItemsHotDeals />
-                <GalleryList />
             </CardContent>
         </Card>
     )

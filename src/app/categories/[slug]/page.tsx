@@ -7,7 +7,7 @@ export default function Page({ params }: { params: { slug: string } }) {
     const _id = slug.split('.').pop() || '';
 
     return (
-        <div className="space-y-10 container mx-auto">
+        <div className="space-y-5 container mx-auto">
             <ProductitemsListByCategoryId id={_id} />
         </div>
     );
