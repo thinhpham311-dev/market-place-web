@@ -7,7 +7,7 @@ export default async function Page() {
     return <div className="container space-y-5 mx-auto md:p-6 p-3">
         <StoreInfo />
         <ProductItemsListTopPicksFromShop />
-        <ProductItemsHotDeals />
         <GalleryList />
+        <ProductItemsHotDeals />
     </div>
 }

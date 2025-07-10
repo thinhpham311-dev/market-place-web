@@ -1,5 +1,7 @@
 export * from "./formik"
 export { default as Header } from "./header"
-export { default as SidebarNavigation } from "./sidebar"
+export { default as SidebarNavigation } from "./sidebar/base"
+export { default as FilterSidebar } from "./sidebar/filter"
+export { default as SortBar } from "./sidebar/sort"
 export { default as Footer } from "./footer"
 export { default as NotFound } from "./notfound"

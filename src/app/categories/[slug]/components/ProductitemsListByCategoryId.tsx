@@ -5,7 +5,7 @@ import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/atoms"
 import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/components/ui/molecules';
 import ProductItem from "./ProductItem";
-import { NotFound } from "@/components/ui/organisms";
+import { NotFound, FilterSidebar, SortBar } from "@/components/ui/organisms";
 
 //datas
 // import { productData } from "@/constants/data"
@@ -23,6 +23,7 @@ import { IProduct } from "@/interfaces/product";
 import { useUniqueId } from "@/lib/hooks";
 import { cn } from "@/lib/utils"
 import { ICategory } from "@/interfaces/category";
+import { IFilter } from "@/interfaces/filter";
 
 
 interface IGridListProps {
@@ -77,6 +78,7 @@ const LoadingPlaceholder = () => (
 
 export default function ProductitemsListByCategoryId({ id }: { id: string }) {
     const dispatch = useAppDispatch();
+    const [filters, setFilters] = useState<IFilter>({});
 
     const {
         list: products = [],
@@ -106,14 +108,22 @@ export default function ProductitemsListByCategoryId({ id }: { id: string }) {
                     {category?.category_description || "Loading..."}
                 </CardDescription>
             </CardHeader>
-            <CardContent className="px-0">
-                <GridListWithLoading
-                    data={products}
-                    totalData={products.length}
-                    itemsPerPage={12}
-                    className="lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-3"
-                    isLoading={loading}
-                />
+            <CardContent className="px-0 grid grid-cols-12 gap-3">
+                <div className="col-span-2">
+                    <FilterSidebar filters={filters} onChange={setFilters} />
+                </div>
+                <div className="col-span-10">
+                    <SortBar
+                        sortBy={filters.sortBy}
+                        onChange={(sort) => setFilters((prev) => ({ ...prev, sortBy: sort }))} />
+                    <GridListWithLoading
+                        data={products}
+                        totalData={products.length}
+                        itemsPerPage={12}
+                        className="lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-3"
+                        isLoading={loading}
+                    />
+                </div>
             </CardContent>
         </Card>
     );

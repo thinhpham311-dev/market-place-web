@@ -18,7 +18,7 @@ import {
     SidebarFooter,
     SidebarHeader
 } from "@/components/provider";
-import { Button } from "../../atoms";
+import { Button } from "../../../atoms";
 
 interface MenuItem {
     title: string;
