@@ -24,9 +24,9 @@ import { NotFound } from "@/components/ui/organisms";
 import { ArrowRight } from "lucide-react";
 
 // Store & hooks
-import { getCategoryList } from "@/store/category/dataSlice";
+import { getCategoryList } from "@/store/category/list/dataSlice";
 import { injectReducer } from "@/store";
-import reducer from "@/store/category";
+import reducer from "@/store/category/list";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 
 // Types & utils
@@ -82,7 +82,7 @@ const CategoriesPopularList: React.FC = () => {
                     variant="outline"
                     size="icon"
                     className="float-end"
-                    onClick={() => router.push("/categories/1")}
+                    onClick={() => router.push("/1")}
                 >
                     <ArrowRight className="h-4 w-4" />
                 </Button>

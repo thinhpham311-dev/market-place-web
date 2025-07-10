@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 
 //components
 import { Button } from "@/components/ui/atoms"
-import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/components/ui/molecules';
+import { Card, CardContent } from '@/components/ui/molecules';
 import ProductItem from "./ProductItem";
 import { NotFound, FilterSidebar, SortBar } from "@/components/ui/organisms";
 
@@ -13,7 +13,7 @@ import { NotFound, FilterSidebar, SortBar } from "@/components/ui/organisms";
 //stores
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { injectReducer } from "@/store";
-import { getCategoryDetail, getProductListByCategories } from "@/store/product/list/categories/dataSlice";
+import { getProductListByCategories } from "@/store/product/list/categories/dataSlice";
 import reducer from "@/store/product/list/categories";
 
 //types
@@ -22,7 +22,6 @@ import { IProduct } from "@/interfaces/product";
 //libs
 import { useUniqueId } from "@/lib/hooks";
 import { cn } from "@/lib/utils"
-import { ICategory } from "@/interfaces/category";
 import { IFilter } from "@/interfaces/filter";
 
 
@@ -82,13 +81,11 @@ export default function ProductitemsListByCategoryId({ id }: { id: string }) {
 
     const {
         list: products = [],
-        detail: category = null,
         loading = false,
     } = useAppSelector((state) => state.productListByCategories.data || {});
 
     useEffect(() => {
         if (id) {
-            dispatch(getCategoryDetail({ _id: id } as ICategory) as any);
             dispatch(getProductListByCategories({
                 limit: 12,
                 sort: "createdAt",
@@ -100,16 +97,8 @@ export default function ProductitemsListByCategoryId({ id }: { id: string }) {
 
     return (
         <Card className="border-0 md:px-6 px-3">
-            <CardHeader className="px-0 mb-3">
-                <CardTitle className="capitalize text-center mx-auto">
-                    {category?.category_name || "Loading..."}
-                </CardTitle>
-                <CardDescription className="capitalize text-center">
-                    {category?.category_description || "Loading..."}
-                </CardDescription>
-            </CardHeader>
             <CardContent className="px-0 grid grid-cols-12 gap-3">
-                <div className="col-span-2">
+                <div className="col-span-2 space-y-3">
                     <FilterSidebar filters={filters} onChange={setFilters} />
                 </div>
                 <div className="col-span-10">

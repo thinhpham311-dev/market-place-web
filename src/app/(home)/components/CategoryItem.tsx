@@ -18,7 +18,7 @@ interface IItemProps {
 const CategoryItem = ({ item: { _id, category_slug, category_name, image } }: IItemProps) => {
     const router = useRouter()
     const handleRouterLinkToDetail = () => {
-        router.push(`/categories/${category_slug}-cat.${_id}`)
+        router.push(`/${category_slug}-cat.${_id}`)
     }
     return (
         <Card onClick={handleRouterLinkToDetail} className="rounded-3xl  aspect-square flex flex-col justify-center

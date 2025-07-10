@@ -23,7 +23,7 @@ interface IToastMessage {
 export default function ToastMessage({ product, updatedQuantity, totalPrice = 0, discountedTotalPrice = 0, options }: IToastMessage) {
     const router = useRouter()
     const handleRouterLinkToDetail = () => {
-        router.push(`/products/${product._id}`)
+        router.push(`/${product._id}`)
     }
 
     return (

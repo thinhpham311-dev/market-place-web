@@ -1,7 +1,7 @@
 import React from 'react';
 import { IFilter } from '@/interfaces/filter';
 import { Card, CardContent } from '@/components/ui/molecules';
-import { Button, Input } from '@/components/ui/atoms';
+import { Button, Input, Checkbox } from '@/components/ui/atoms';
 
 interface FilterSidebarProps {
     filters: IFilter;
@@ -21,17 +21,10 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onChange }) => {
     return (
         <Card>
             <CardContent className='p-3'>
-                <h4 className="font-semibold text-lg ">Category</h4>
-                <Button className='p-0 text-md' variant="link" onClick={() => onChange({ ...filters, categoryId: 'cat123' })}>
-                    Men’s Clothing
-                </Button>
-            </CardContent>
-            <CardContent className='p-3'>
                 <h4 className="font-semibold text-lg">Brand</h4>
                 {['Nike', 'Adidas', 'Puma'].map((brand) => (
                     <div key={brand} className="flex items-center gap-x-3">
-                        <input
-                            type="checkbox"
+                        <Checkbox
                             id="brand"
                             checked={filters.brand?.includes(brand) || false}
                             onChange={() => handleCheckboxChange('brand', brand)}
@@ -79,6 +72,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onChange }) => {
                         }
                     />
                 </div>
+                <Button variant="outline" className='w-full'>Apply</Button>
 
             </CardContent >
             <hr />
