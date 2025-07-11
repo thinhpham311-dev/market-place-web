@@ -1,8 +1,8 @@
 "use client"
 import { useRouter } from "next/navigation";
 
-import { Button, Avatar, AvatarImage, AvatarFallback } from "@/components/ui/atoms";
-import { Card, CardHeader, CardContent, CardTitle, CardDescription } from "@/components/ui/molecules";
+//ui
+import { Button, Avatar, AvatarImage, AvatarFallback, Card, CardHeader, CardContent, CardTitle, CardDescription } from "@/components/ui";
 
 
 //icons

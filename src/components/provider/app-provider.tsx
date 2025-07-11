@@ -2,13 +2,12 @@
 import * as React from "react"
 import { ThemeProvider as NextThemesProvider } from "next-themes"
 import { SidebarProvider, Toaster } from "@/components/provider"
-import { Header, Footer, SidebarNavigation } from "@/components/ui/organisms"
-import { LoadingSpinner } from "../ui/molecules"
+import { Header, Footer, SidebarNavigation, AdminHeader } from "@/components/layout"
+import { LoadingSpinner } from "@/components/ui"
 import { Provider } from "react-redux"
 import store from "@/store"
 
 // import mockServer from "@/mock"
-import Panel from "../ui/organisms/panel"
 
 
 function getCookie(name: string): string | undefined {
@@ -67,7 +66,7 @@ export function AppProvider({ children, ...props }: React.ComponentProps<typeof 
                         <SidebarNavigation />
                     </div>
                     <div className="flex-1 w-full">
-                        <Panel />
+                        <AdminHeader />
                         <Header />
                         <main>{children}</main>
                         <Footer />

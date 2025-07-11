@@ -1,6 +1,9 @@
 'use client'
 
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/molecules";
+//ui
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui";
+
+//components
 import UpdateProfileForm from "./UpdateProfileForm"
 
 

@@ -2,7 +2,7 @@
 import * as React from "react";
 
 //components
-import { Badge, Button, Separator } from "@/components/ui/atoms";
+import { Badge, Button, Separator } from "@/components/ui";
 import { OptionsListOfTab } from "./OptionsListOfTab";
 import DropdownOptionsList from "./DropdownOptionsList";
 

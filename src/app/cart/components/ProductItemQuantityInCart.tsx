@@ -2,7 +2,7 @@
 import * as React from "react";
 
 //components
-import { Counter, ICounterRef } from "@/components/ui/molecules";
+import { Counter, ICounterRef } from "@/components/ui";
 
 //types
 import { IOption } from "@/interfaces/product";

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 // Components
 import {
+    Button,
     Card,
     CardHeader,
     CardTitle,
@@ -15,10 +16,9 @@ import {
     CarouselNext,
     CarouselPrevious,
     CarouselItem,
-} from "@/components/ui/molecules";
-import { Button } from "@/components/ui/atoms";
+} from "@/components/ui";
 import CategoryItem from "./CategoryItem";
-import { NotFound } from "@/components/ui/organisms";
+import { NotFound } from "@/components/layout";
 
 // Icons
 import { ArrowRight } from "lucide-react";

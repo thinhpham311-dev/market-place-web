@@ -1,5 +1,6 @@
-import { Button, Label } from "@/components/ui/atoms"
+//ui
 import {
+    Button, Label,
     Dialog,
     DialogContent,
     DialogDescription,
@@ -7,7 +8,7 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/molecules"
+} from "@/components/ui"
 
 //icons
 import { Receipt } from "lucide-react"

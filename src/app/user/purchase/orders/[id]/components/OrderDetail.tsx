@@ -6,8 +6,7 @@ import { useMemo } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 
 // Components
-import { Badge, Button } from "@/components/ui/atoms"
-import { Card, CardContent, CardTitle, Table, TableHeader, TableBody, TableRow, TableHead, TableCell, CardHeader } from '@/components/ui/molecules';
+import { Badge, Button, Card, CardContent, CardTitle, Table, TableHeader, TableBody, TableRow, TableHead, TableCell, CardHeader } from '@/components/ui';
 
 import { orderData } from '@/constants/data';
 

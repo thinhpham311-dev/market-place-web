@@ -1,10 +1,11 @@
 "use client"
 import * as React from "react";
 
+//ui
+import { Button, Label, Card, CardContent } from "@/components/ui";
+
 //components
-import { Button, Label } from "@/components/ui/atoms";
 import { OptionsListOfTab } from "./OptionsListOfTab";
-import { Card, CardContent } from "@/components/ui/molecules";
 
 export default function FilterBar() {
     return (

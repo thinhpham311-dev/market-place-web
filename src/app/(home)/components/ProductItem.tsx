@@ -4,7 +4,7 @@ import { memo } from "react"
 import { useRouter } from "next/navigation"
 
 //components
-import { Card, CardContent, CardTitle, CardDescription, CardImage } from "@/components/ui/molecules"
+import { Card, CardContent, CardTitle, CardDescription, CardImage } from "@/components/ui"
 
 //types
 import { IProduct } from "@/interfaces/product"

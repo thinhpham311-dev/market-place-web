@@ -3,10 +3,11 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
+//ui
+import { Button, Card, CardContent, CardHeader, CardTitle } from "@/components/ui";
+
 // components
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/molecules";
-import { Button } from "@/components/ui/atoms";
-import { NotFound } from "@/components/ui/organisms";
+import { NotFound } from "@/components/layout";
 
 // store
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";

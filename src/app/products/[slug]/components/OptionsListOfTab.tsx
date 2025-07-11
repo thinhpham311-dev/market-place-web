@@ -2,11 +2,16 @@
 
 import * as React from "react";
 
+//ui
 import {
     ToggleGroup,
     ToggleGroupItem,
-} from "@/components/ui/molecules";
+} from "@/components/ui";
+
+//lib
 import { cn } from "@/lib/utils";
+
+//types
 import { IOption } from "@/interfaces/product";
 
 interface IOptionsListOfTabProps {

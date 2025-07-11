@@ -2,6 +2,7 @@ import * as React from "react";
 
 //components
 import ProductItem from "./ProductItem";
+import { NotFound } from "@/components/layout";
 
 //types
 import { IProduct } from "@/interfaces/product";
@@ -14,7 +15,6 @@ import { productData } from "@/constants/data";
 
 //hooks
 import { usePagination, usePaginationRender } from "@/lib/hooks";
-import { NotFound } from "@/components/ui/organisms";
 
 
 interface IGridListProps {

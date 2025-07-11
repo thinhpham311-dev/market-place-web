@@ -4,22 +4,24 @@ import { useRouter } from "next/navigation";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { removeSelectedItems, removeAllItems } from "@/store/cart/stateSlice";
 
-// components
-import { Button } from "@/components/ui/atoms";
+// ui
 import {
+    Button,
     Card,
     CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
-} from "@/components/ui/molecules";
+} from "@/components/ui";
+
+// components
+import { NotFound } from "@/components/layout";
 import ProductItemsListInCart from "./ProductItemsListInCart"
 import OrderSummary from "./OrderSummary"
 import OptionsListOfPayment from "./OptionsListOfPayment"
 
 // icons
 import { ArrowLeft, ShoppingCart } from "lucide-react";
-import { NotFound } from "@/components/ui/organisms";
 
 type ShoppingCartHeaderProps = {
     itemsCount: number;

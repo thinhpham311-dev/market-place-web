@@ -1,9 +1,9 @@
 'use client'
+//ui
+import { Button, Card, CardHeader, CardContent, CardTitle, CardDescription, CardFooter } from "@/components/ui";
 
 //components
-import { Button } from "@/components/ui/atoms"
-import { Card, CardHeader, CardContent, CardTitle, CardDescription, CardFooter } from "@/components/ui/molecules";
-import { FormGroup, FormInput, FormInputTextarea } from "@/components/ui/organisms"
+import { FormGroup, FormInput, FormInputTextarea } from "@/components/shared"
 
 //validations
 import { z } from "zod";

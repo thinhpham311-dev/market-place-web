@@ -1,6 +1,6 @@
 import { useState, useMemo, ReactNode } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/atoms";
+import { Button } from "@/components/ui";
 
 
 interface IUsePaginationProps<T> {

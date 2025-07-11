@@ -1,14 +1,19 @@
 import * as React from "react";
-import { ChevronDown } from "lucide-react";
 
-import { Button } from "@/components/ui/atoms";
+//ui
 import {
+    Button,
     DropdownMenu,
     DropdownMenuCheckboxItem,
     DropdownMenuContent,
     DropdownMenuTrigger,
-} from "@/components/ui/molecules";
+} from "@/components/ui";
 import { Table } from "@tanstack/react-table";
+
+//icons
+import { ChevronDown } from "lucide-react";
+
+//types
 import { IOrder } from "@/interfaces/order";
 
 // Assuming IOrder is your data type

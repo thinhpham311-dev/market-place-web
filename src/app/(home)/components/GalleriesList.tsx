@@ -1,7 +1,8 @@
 'use client'
-//components
 import * as React from "react"
 import Image from "next/image"
+
+//components
 import Autoplay from "embla-carousel-autoplay"
 import {
     Carousel,
@@ -10,10 +11,14 @@ import {
     CarouselPrevious,
     CarouselItem,
     Card
-} from "@/components/ui/molecules"
+} from "@/components/ui"
+import { NotFound } from "@/components/layout"
+
+//types
 import { IImage } from "@/interfaces/banner"
+
+//datas
 import { bannerData } from "@/constants/data"
-import { NotFound } from "@/components/ui/organisms"
 
 interface IItemProps {
     item: IImage

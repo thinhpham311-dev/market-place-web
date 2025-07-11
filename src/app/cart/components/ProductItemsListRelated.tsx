@@ -1,8 +1,9 @@
 'use client'
 import * as React from "react"
 
-// components
+//ui
 import {
+    Button,
     Card,
     CardContent,
     CardDescription,
@@ -13,9 +14,11 @@ import {
     CarouselItem,
     CarouselNext,
     CarouselPrevious
-} from "@/components/ui/molecules"
+} from "@/components/ui"
+
+// components
 import ProductItem from "./ProductItem"
-import { Button } from "@/components/ui/atoms"
+import { NotFound } from "@/components/layout"
 
 // icons
 import { ArrowRight } from "lucide-react"
@@ -34,7 +37,6 @@ import { IProduct } from "@/interfaces/product"
 
 //libs
 import { cn } from "@/lib/utils"
-import { NotFound } from "@/components/ui/organisms"
 
 injectReducer("relatedProductList", reducer)
 

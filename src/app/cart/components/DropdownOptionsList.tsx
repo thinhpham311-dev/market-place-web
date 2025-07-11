@@ -6,7 +6,7 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuTrigger,
-} from "@/components/ui/molecules"
+} from "@/components/ui"
 import { ChevronDown } from "lucide-react"
 
 interface IDropdownOptionsListProps {

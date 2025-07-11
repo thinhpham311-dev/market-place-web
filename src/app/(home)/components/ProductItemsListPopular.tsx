@@ -3,10 +3,10 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 //components
-import { Button } from "@/components/ui/atoms"
 import {
-    CarouselItem, Card, CardHeader, CardContent, CardTitle, CardDescription, Carousel, CarouselContent, CarouselNext, CarouselPrevious
-} from '@/components/ui/molecules';
+    Button, CarouselItem, Card, CardHeader, CardContent, CardTitle, CardDescription, Carousel, CarouselContent, CarouselNext, CarouselPrevious
+} from '@/components/ui';
+import { NotFound } from "@/components/layout";
 import ProductItem from "./ProductItem"
 
 //datas
@@ -23,7 +23,6 @@ import { ArrowRight } from "lucide-react"
 
 //types
 import { cn } from "@/lib/utils"
-import { NotFound } from "@/components/ui/organisms";
 import { IProduct } from "@/interfaces/product";
 
 

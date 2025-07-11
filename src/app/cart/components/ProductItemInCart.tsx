@@ -5,9 +5,10 @@ import { useRouter } from "next/navigation";
 //store
 import { toggleItemSelection, updateItem, removeItem } from "@/store/cart/stateSlice";
 
+//ui
+import { Button, Checkbox, Card, CardHeader, CardContent, CardDescription, CardImage, CardTitle } from "@/components/ui";
+
 //components
-import { Button, Checkbox } from "@/components/ui/atoms";
-import { Card, CardHeader, CardContent, CardDescription, CardImage, CardTitle } from "@/components/ui/molecules";
 import ProductItemQuantityInCart, { IProductItemQuantityInCartRef } from "./ProductItemQuantityInCart"
 import ProductItemOptionsListInCart, { IProductItemOptionsListInCartRef } from "./ProductItemOptionsListInCart";
 

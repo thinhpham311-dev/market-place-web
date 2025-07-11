@@ -1,7 +1,13 @@
 import * as React from "react";
-import { Button } from "@/components/ui/atoms";
-import { IOrder } from "@/interfaces/order";
+
+//ui
+import { Button } from "@/components/ui";
 import { Table } from "@tanstack/react-table";
+
+//types
+import { IOrder } from "@/interfaces/order";
+
+//icons
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
 interface ToolbarProps {

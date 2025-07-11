@@ -2,8 +2,8 @@
 import * as React from "react"
 import { memo } from "react"
 
-//components
-import { Counter, ICounterRef } from "@/components/ui/molecules"
+//ui
+import { Counter, ICounterRef } from "@/components/ui"
 
 interface IProductItemQuantityProps {
     quantity: number; // Maximum quantity available

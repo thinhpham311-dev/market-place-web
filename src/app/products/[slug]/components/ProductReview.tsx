@@ -1,8 +1,7 @@
 // src/components/ProductReview.tsx
 import React from 'react';
 import { injectReducer, RootState } from '@/store';
-import { Button, Progress, Textarea } from '@/components/ui/atoms';
-import { Card, CardHeader, CardContent, CardTitle, CardDescription, StarRating } from "@/components/ui/molecules"
+import { Button, Progress, Textarea, Card, CardHeader, CardContent, CardTitle, CardDescription, StarRating } from '@/components/ui';
 import { addReview, setInitialReviews } from '@/store/product/detail/stateSlice';
 import { OptionsListOfTab } from './OptionsListOfTab';
 import { IOption } from '@/interfaces/product';

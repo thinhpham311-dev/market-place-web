@@ -1,6 +1,5 @@
 'use client'
-import { Button } from "@/components/ui/atoms/button"; // Import Button từ shadcn/ui
-import { Card, CardDescription, CardTitle } from "@/components/ui/molecules";
+import { Button, Card, CardDescription, CardTitle } from "@/components/ui";
 import { useRouter } from "next/navigation";
 
 export default function NotFound() {

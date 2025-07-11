@@ -1,6 +1,5 @@
-//components
-import { Button } from "@/components/ui/atoms";
-import { Card, CardHeader, CardContent, CardTitle, CardDescription } from "@/components/ui/molecules";
+//ui
+import { Button, Card, CardHeader, CardContent, CardTitle, CardDescription } from "@/components/ui";
 
 //icons
 import { Delete } from "lucide-react";

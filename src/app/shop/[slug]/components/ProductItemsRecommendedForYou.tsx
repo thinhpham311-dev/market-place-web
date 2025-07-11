@@ -3,6 +3,7 @@ import * as React from "react"
 
 // components
 import {
+    Button,
     Card,
     CardContent,
     CardDescription,
@@ -13,10 +14,11 @@ import {
     CarouselItem,
     CarouselNext,
     CarouselPrevious
-} from "@/components/ui/molecules"
+} from "@/components/ui"
 import ProductItem from "./ProductItem"
-import { Button } from "@/components/ui/atoms"
-import { NotFound } from "@/components/ui/organisms"
+
+//components
+import { NotFound } from "@/components/layout"
 
 // icons
 import { ArrowRight } from "lucide-react"

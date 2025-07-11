@@ -2,11 +2,14 @@
 
 import * as React from "react";
 
+//ui
 import {
+    Label,
     ToggleGroup,
     ToggleGroupItem,
-} from "@/components/ui/molecules";
-import { Label } from "@/components/ui/atoms";
+} from "@/components/ui";
+
+//libs
 import { cn } from "@/lib/utils";
 
 interface IOption {

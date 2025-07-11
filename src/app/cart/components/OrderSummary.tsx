@@ -1,8 +1,8 @@
 "use client"
-import { Separator } from "@/components/ui/atoms"
 import {
+    Separator,
     CardDescription,
-} from "@/components/ui/molecules";
+} from "@/components/ui";
 import { formatToCurrency } from "@/lib/formats"
 
 //icons

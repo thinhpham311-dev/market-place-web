@@ -1,7 +1,8 @@
 'use client'
+//ui
+import { ScrollArea } from "@/components/ui"
 
 //components
-import { ScrollArea } from "@/components/ui/molecules"
 import ProductItemInCart from "./ProductItemInCart"
 
 //types

@@ -1,6 +1,8 @@
 "use client"
 
 import * as React from "react";
+
+//ui
 import {
     ColumnDef,
     // ColumnFiltersState,
@@ -25,16 +27,20 @@ import {
     CardHeader,
     CardTitle,
     CardFooter
-} from "@/components/ui/molecules";
+} from "@/components/ui";
 import DropDownMenuOfItem from "./DropDownMenuOfItem";
+
+//types
 import { IOrder } from "@/interfaces/order";
 // import { orderData } from "@/constants/data/order";
+
+//libs
 import { formatDateTime } from "@/lib/formats";
+import { formatToCurrency } from "@/lib/formats"
 // import Toolbar from "./Toolbar";
 // import Pagination from "./Pagination";
 
 //lib
-import { formatToCurrency } from "@/lib/formats"
 
 const statusMapping: Record<string, { label: string; color: string }> = {
     inProgress: { label: "In Progress", color: "text-blue-500" },

@@ -1,7 +1,10 @@
 'use client'
+
+//ui
+import { Button } from "@/components/ui"
+
 //components
-import { Button } from "@/components/ui/atoms"
-import { FormGroup, FormInput, FormCheckBox } from "@/components/ui/organisms"
+import { FormGroup, FormInput, FormCheckBox } from "@/components/shared"
 import { isValidPhoneNumber } from "@/lib/handleError"
 import { z } from "zod";
 

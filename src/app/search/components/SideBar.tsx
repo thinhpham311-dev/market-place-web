@@ -3,8 +3,7 @@ import * as React from "react";
 import Link from "next/link";
 
 //components
-import { Separator } from "@/components/ui/atoms";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/molecules";
+import { Separator, Card, CardHeader, CardTitle, CardContent } from "@/components/ui";
 
 //icons
 import { List } from "lucide-react";

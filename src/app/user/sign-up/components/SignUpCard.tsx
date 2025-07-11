@@ -1,6 +1,9 @@
 'use client'
+
+//ui
+import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui";
+
 //components
-import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/molecules";
 import SignUpForm from "./SignUpForm";
 
 export default function SignUpCard() {

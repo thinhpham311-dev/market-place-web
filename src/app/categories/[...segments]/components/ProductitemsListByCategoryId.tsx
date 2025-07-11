@@ -2,10 +2,9 @@
 import { useState, useEffect } from "react"
 
 //components
-import { Button } from "@/components/ui/atoms"
-import { Card, CardContent } from '@/components/ui/molecules';
+import { Button, Card, CardContent } from "@/components/ui"
 import ProductItem from "./ProductItem";
-import { NotFound, FilterSidebar, SortBar } from "@/components/ui/organisms";
+import { NotFound, FilterSidebar, SortBar } from "@/components/layout";
 
 //datas
 // import { productData } from "@/constants/data"

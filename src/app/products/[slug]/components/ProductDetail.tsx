@@ -10,11 +10,11 @@ import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { addItem } from '@/store/cart/stateSlice';
 import { getProductDetail } from '@/store/product/detail/dataSlice';
 
+//ui
+import { Button, Separator, Card, CardContent, CardTitle, CardDescription, StarRating } from '@/components/ui';
 
 // Components
-import { Button, Separator } from '@/components/ui/atoms';
-import { Card, CardContent, CardTitle, CardDescription, StarRating } from '@/components/ui/molecules';
-import { NotFound } from "@/components/ui/organisms"
+import { NotFound } from "@/components/layout"
 import ProductItemOptionsList, { IProductItemOptionsListRef } from "./ProductItemOptionsList"
 import ProductItemQuantity, { IProductItemQuantityRef } from "./ProductItemQuantity"
 import ProductReview from './ProductReview'

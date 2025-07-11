@@ -3,8 +3,7 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/molecules";
-import { Button } from "@/components/ui/atoms";
+import { Button, Card, CardHeader, CardTitle, CardContent } from "@/components/ui";
 
 //icons
 import { FaFacebook, FaTiktok, FaInstagram } from "react-icons/fa"

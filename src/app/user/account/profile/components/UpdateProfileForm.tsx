@@ -1,7 +1,9 @@
 'use client'
+//ui
+import { Button } from "@/components/ui";
+
 //components
-import { Button } from "@/components/ui/atoms";
-import { FormInput, FormGroup, FormSelect } from "@/components/ui/organisms";
+import { FormInput, FormGroup, FormSelect } from "@/components/shared";
 
 //libs
 import { z } from "zod";

@@ -1,5 +1,9 @@
 "use client"
-import { Button } from "@/components/ui/atoms";
+
+//ui
+import { Button } from "@/components/ui";
+
+//icons
 import { FaCcPaypal } from "react-icons/fa"
 
 interface IOptionsListOfPaymentProps {

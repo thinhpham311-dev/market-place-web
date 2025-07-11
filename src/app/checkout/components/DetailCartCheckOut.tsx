@@ -1,8 +1,9 @@
 'use client'
+//ui
+import { Button, Separator, Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/components/ui';
 
 //components
-import { Button, Separator } from "@/components/ui/atoms"
-import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/components/ui/molecules';
+import { NotFound } from "@/components/layout";
 import OrderSummary from "./OrderSummary";
 import ProductItemsListInCart from "./ProductItemsListInCart"
 
@@ -15,7 +16,6 @@ import { FilePenLine, ArrowLeft } from "lucide-react"
 //format
 import { useRouter } from "next/navigation";
 import DeliveryInfoForm from "./DeliveryInfoForm";
-import { NotFound } from "@/components/ui/organisms";
 
 export default function DetailCartCheckOut() {
     const router = useRouter()

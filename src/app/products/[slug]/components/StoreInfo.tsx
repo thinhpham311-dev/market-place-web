@@ -3,10 +3,10 @@
 // Routers
 import { useRouter } from 'next/navigation';
 
-// Components
-import { Button, Avatar, AvatarImage, AvatarFallback } from '@/components/ui/atoms';
-import { Card, CardContent, CardTitle, CardDescription, CardHeader } from '@/components/ui/molecules';
+// ui
+import { Button, Avatar, AvatarImage, AvatarFallback, Card, CardContent, CardTitle, CardDescription, CardHeader } from '@/components/ui';
 
+//icons
 import { MessageCircleMore, Store } from "lucide-react"
 
 const StoreInfo = (

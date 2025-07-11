@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from "react";
 
+// UI
+import { Button, Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/components/ui';
+
 // components
-import { Button } from "@/components/ui/atoms";
-import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/components/ui/molecules';
+import { NotFound } from "@/components/layout";
 import ProductItem from "./ProductItem";
 
-// UI
-import { NotFound } from "@/components/ui/organisms";
 
 // types
 import { IProduct } from "@/interfaces/product";

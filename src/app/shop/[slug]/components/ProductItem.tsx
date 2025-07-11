@@ -3,8 +3,8 @@ import * as React from "react"
 import { memo } from "react"
 import { useRouter } from "next/navigation"
 
-//components
-import { Card, CardContent, CardTitle, CardDescription, CardImage } from "@/components/ui/molecules"
+//ui
+import { Card, CardContent, CardTitle, CardDescription, CardImage } from "@/components/ui"
 
 //types
 import { IProduct } from "@/interfaces/product"

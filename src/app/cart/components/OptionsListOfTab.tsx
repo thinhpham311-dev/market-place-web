@@ -5,8 +5,8 @@ import * as React from "react";
 import {
     ToggleGroup,
     ToggleGroupItem,
-} from "@/components/ui/molecules";
-import { Label } from "@/components/ui/atoms";
+} from "@/components/ui";
+import { Label } from "@/components/ui";
 import { cn } from "@/lib/utils";
 import { IOption } from "@/interfaces/product";
 

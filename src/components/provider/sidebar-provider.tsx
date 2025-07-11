@@ -9,9 +9,8 @@ import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import { useIsMobile } from "@/lib/hooks"
 import { cn } from "@/lib/utils"
 import {
-  Button, Input, Skeleton, Separator
-} from "@/components/ui/atoms"
-import { Sheet, SheetContent, SheetTitle } from "@/components/ui/molecules"
+  Button, Input, Skeleton, Separator, Sheet, SheetContent, SheetTitle
+} from "@/components/ui"
 import {
   Tooltip,
   TooltipContent,

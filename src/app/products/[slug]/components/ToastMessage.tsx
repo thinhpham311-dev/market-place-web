@@ -2,9 +2,8 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 
 
-//components
-import { Badge, Separator } from "@/components/ui/atoms"
-import { Card, CardContent, CardImage, CardTitle, CardDescription } from '@/components/ui/molecules';
+//ui
+import { Badge, Separator, Card, CardContent, CardImage, CardTitle, CardDescription } from '@/components/ui';
 
 //lib
 import { formatToCurrency } from "@/lib/formats"

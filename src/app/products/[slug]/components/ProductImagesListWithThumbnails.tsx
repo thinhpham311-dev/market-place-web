@@ -1,15 +1,17 @@
 "use client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+
+//ui
 import {
+    Button,
     Carousel,
     CarouselContent,
     CarouselApi,
     CarouselItem
-} from "@/components/ui/molecules";
+} from "@/components/ui";
 
-import { Button } from "@/components/ui/atoms"
-
+//icons
 import { ArrowRight, ArrowLeft } from "lucide-react"
 
 interface GalleryProps {

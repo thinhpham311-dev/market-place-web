@@ -2,9 +2,8 @@
 import { memo } from "react"
 import { useRouter } from "next/navigation"
 
-//components
-import { Badge, Separator } from "@/components/ui/atoms"
-import { Card, CardContent, CardDescription, CardImage, CardTitle } from "@/components/ui/molecules"
+//ui
+import { Badge, Separator, Card, CardContent, CardDescription, CardImage, CardTitle } from "@/components/ui"
 
 //types
 import { IcartItem } from "@/interfaces/cart"

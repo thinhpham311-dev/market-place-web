@@ -1,6 +1,6 @@
 'use client'
-//components
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/molecules";
+//ui
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui";
 
 //icons
 import ChangePasswordForm from "./ChangePasswordForm";

@@ -1,15 +1,18 @@
 import * as React from "react";
 import { useRouter } from "next/navigation"
 
-import { Button } from "@/components/ui/atoms";
+//ui
 import {
+    Button,
     DropdownMenu,
     DropdownMenuLabel,
     DropdownMenuContent,
     DropdownMenuTrigger,
     DropdownMenuItem,
     DropdownMenuSeparator
-} from "@/components/ui/molecules";
+} from "@/components/ui";
+
+//types
 import { IOrder } from "@/interfaces/order";
 
 //icons
