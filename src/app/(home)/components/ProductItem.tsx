@@ -19,7 +19,7 @@ interface IItemProps {
 const ProductItem = ({ item: { product_name, image, product_price, product_id, product_slug } }: IItemProps) => {
     const router = useRouter()
     const handleRouterLinkToDetail = () => {
-        router.push(`products/${product_slug}.${product_id}`)
+        router.push(`/products/${product_slug}.${product_id}`)
     }
 
     return (

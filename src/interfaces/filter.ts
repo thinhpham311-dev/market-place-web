@@ -2,6 +2,8 @@
 export interface IFilter {
     categoryId?: string;
     brand?: string[];
+    condition?: string[];
+    promotion?: string[];
     priceRange?: [number, number];
     rating?: number;
     color?: string[];

@@ -1,7 +1,13 @@
-import React from 'react';
+// components/FilterSidebar.tsx
+import React, { useState, useCallback } from 'react';
 import { IFilter } from '@/interfaces/filter';
-import { Card, CardContent } from '@/components/ui/molecules';
-import { Button, Input, Checkbox } from '@/components/ui/atoms';
+import { Card, CardHeader, CardTitle } from '@/components/ui/molecules';
+import { Button } from '@/components/ui/atoms';
+import { FaFilter } from "react-icons/fa";
+import { CheckboxItems } from './Checkbox';
+import { PriceRangeFilter } from './PriceRange';
+
+import { FILTER_OPTIONS } from '@/constants/data/filter';
 
 interface FilterSidebarProps {
     filters: IFilter;
@@ -9,78 +15,89 @@ interface FilterSidebarProps {
 }
 
 const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onChange }) => {
-    const handleCheckboxChange = (key: keyof IFilter, value: string) => {
-        const prevValues = filters[key] as string[] | undefined;
-        const nextValues = prevValues?.includes(value)
-            ? prevValues.filter((v) => v !== value)
-            : [...(prevValues || []), value];
+    const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
+        brand: false,
+        condition: false,
+        promotion: false,
+    });
 
-        onChange({ ...filters, [key]: nextValues });
+    const toggleSection = useCallback((section: string) => {
+        setExpandedSections(prev => ({
+            ...prev,
+            [section]: !prev[section]
+        }));
+    }, []);
+
+    const handleClearAll = () => {
+        onChange({
+            brand: [],
+            priceRange: [0, 0],
+            condition: [],
+            promotion: [],
+        });
     };
 
     return (
-        <Card>
-            <CardContent className='p-3'>
-                <h4 className="font-semibold text-lg">Brand</h4>
-                {['Nike', 'Adidas', 'Puma'].map((brand) => (
-                    <div key={brand} className="flex items-center gap-x-3">
-                        <Checkbox
-                            id="brand"
-                            checked={filters.brand?.includes(brand) || false}
-                            onChange={() => handleCheckboxChange('brand', brand)}
-                        />
-                        <label htmlFor='brand' className='text-md'>
-                            {brand}
-                        </label>
-                    </div>
-                ))}
-            </CardContent>
-            {/* Price Range */}
-            <CardContent className='p-3 space-y-2'>
-                <h4 className="font-semibold text-lg">Price</h4>
-                <div className="grid grid-cols-3 gap-x-3 items-center">
-                    <label htmlFor='min-price' className='text-md col-space-1'>
-                        Min
-                    </label>
-                    <Input
-                        id="min-price"
-                        type="number"
-                        placeholder="Min"
-                        className='col-span-2'
-                        onChange={(e) =>
-                            onChange({
-                                ...filters,
-                                priceRange: [+e.target.value, filters.priceRange?.[1] ?? 0],
-                            })
-                        }
-                    />
+        <Card className="sticky top-4">
+            <CardHeader className="p-3">
+                <div className="flex items-center justify-between">
+                    <CardTitle className="font-semibold text-lg inline-flex items-center gap-2">
+                        <FaFilter />
+                        <span>Filters</span>
+                    </CardTitle>
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={handleClearAll}
+                        className="text-primary hover:text-primary"
+                    >
+                        Clear all
+                    </Button>
                 </div>
-
-                <div className=" gap-x-3 grid grid-cols-3 items-center">
-                    <label htmlFor='min-price' className='text-md col-span-1'>
-                        Max
-                    </label>
-                    <Input
-                        type="number"
-                        placeholder="Max"
-                        className='col-span-2'
-                        onChange={(e) =>
-                            onChange({
-                                ...filters,
-                                priceRange: [filters.priceRange?.[0] ?? 0, +e.target.value],
-                            })
-                        }
-                    />
-                </div>
-                <Button variant="outline" className='w-full'>Apply</Button>
-
-            </CardContent >
+            </CardHeader>
             <hr />
-            <CardContent className='p-3'>
-                <Button variant="outline" className='w-full'>Clear</Button>
-            </CardContent>
-        </Card >
+
+            {/* Brand Filter */}
+            <CheckboxItems
+                title="Brand"
+                options={FILTER_OPTIONS.brands}
+                selectedValues={Array.isArray(filters.brand) ? filters.brand : []}
+                onSelectionChange={(selected) => onChange({ ...filters, brand: selected })}
+                showAll={expandedSections.brand}
+                onToggleShowAll={() => toggleSection('brand')}
+            />
+
+            {/* Price Range */}
+            <PriceRangeFilter
+                priceRange={
+                    Array.isArray(filters.priceRange)
+                        ? (filters.priceRange as [number, number])
+                        : [0, 0]
+                }
+                onChange={(range) => onChange({ ...filters, priceRange: range })}
+            />
+
+            {/* Condition Filter */}
+            <CheckboxItems
+                title="Condition"
+                options={FILTER_OPTIONS.conditions}
+                selectedValues={Array.isArray(filters.condition) ? filters.condition : []}
+                onSelectionChange={(selected) => onChange({ ...filters, condition: selected })}
+                showAll={expandedSections.condition}
+                onToggleShowAll={() => toggleSection('condition')}
+            />
+
+            {/* Promotion Filter */}
+            <CheckboxItems
+                title="Promotion"
+                options={FILTER_OPTIONS.promotions}
+                selectedValues={Array.isArray(filters.promotion) ? filters.promotion : []}
+                onSelectionChange={(selected) => onChange({ ...filters, promotion: selected })}
+                showAll={expandedSections.promotion}
+                onToggleShowAll={() => toggleSection('promotion')}
+            />
+        </Card>
     );
 };
 
-export default FilterSidebar;
+export default React.memo(FilterSidebar);

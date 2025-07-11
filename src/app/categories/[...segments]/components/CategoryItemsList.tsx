@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 // components
-import { Card, CardContent, CardHeader } from "@/components/ui/molecules";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/molecules";
 import { Button } from "@/components/ui/atoms";
 import { NotFound } from "@/components/ui/organisms";
 
@@ -16,6 +16,10 @@ import reducer from "@/store/category/detail";
 
 // types
 import { ICategory } from "@/interfaces/category";
+
+//icons
+import { BiCategory } from "react-icons/bi";
+
 
 injectReducer("categoriesListById", reducer);
 
@@ -59,8 +63,8 @@ const CategoryItemsList = ({
     const handleNavigate = (slug: string, catId: string, parentId?: string) => {
         const isParent = !parentId || catId === parentId;
         const path = isParent
-            ? `/${slug}-cat.${catId}`
-            : `/${slug}-cat.${parentId}.${catId}`;
+            ? `/categories/${slug}-cat.${catId}`
+            : `/categories/${slug}-cat.${parentId}.${catId}`;
 
         if (catId !== (subId || mainId)) {
             router.push(path);
@@ -69,11 +73,11 @@ const CategoryItemsList = ({
     };
 
     return (
-        <Card className="border-0 shadow-none md:px-6 px-3 flex flex-row items-center space-x-3 sticky top-[60px] bg-white z-10">
+        <Card className="border-0 shadow-none md:px-6 px-3 flex flex-row items-center space-x-3 sticky top-[57px] bg-white z-10">
             <CardHeader className="p-0">
-                <h2 className="text-lg font-semibold text-muted-foreground">
-                    Danh mục:
-                </h2>
+                <CardTitle className="text-lg font-semibold inline-flex items-center space-x-1">
+                    <BiCategory />  <span>All Categories:</span>
+                </CardTitle>
             </CardHeader>
 
             <CardContent className="p-0 flex items-center space-x-3 overflow-x-auto">
