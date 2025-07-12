@@ -3,7 +3,7 @@ import { useCallback, memo, useRef, useMemo } from "react";
 import { useRouter } from "next/navigation";
 
 //store
-import { toggleItemSelection, updateItem, removeItem } from "@/store/cart/stateSlice";
+import { toggleItemSelection, updateItem, removeItem } from "@/features/cart/store/stateSlice";
 
 //ui
 import { Button, Checkbox, Card, CardHeader, CardContent, CardDescription, CardImage, CardTitle } from "@/components/ui";

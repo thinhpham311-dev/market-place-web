@@ -12,8 +12,8 @@ import { NotFound, FilterSidebar, SortBar } from "@/components/layout";
 //stores
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { injectReducer } from "@/store";
-import { getProductListByCategories } from "@/store/product/list/categories/dataSlice";
-import reducer from "@/store/product/list/categories";
+import { getProductListByCategories } from "@/features/product/list/by-category/store/dataSlice";
+import reducer from "@/features/product/list/by-category/store";
 
 //types
 import { IProduct } from "@/interfaces/product";

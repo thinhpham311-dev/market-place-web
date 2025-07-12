@@ -1,6 +1,6 @@
 import { combineReducers, Reducer } from 'redux';
 import auth from './auth';
-import cart from "./cart";
+import cart from "../features/cart/store";
 
 export type AuthState = ReturnType<typeof auth>;
 export type CartState = ReturnType<typeof cart>;

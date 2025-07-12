@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 
 // Store
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-import { addItem } from '@/store/cart/stateSlice';
+import { addItem } from '@/features/cart/store/stateSlice';
 import { getProductDetail } from '@/store/product/detail/dataSlice';
 
 //ui

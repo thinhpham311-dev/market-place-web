@@ -31,9 +31,9 @@ import { IProduct } from "@/interfaces/product"
 
 //stores
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { getProductList } from "@/store/product/list/all/dataSlice";
+import { getProductList } from "@/features/product/list/popular/store/dataSlice";
 import { injectReducer } from "@/store";
-import reducer from "@/store/product/list/all";
+import reducer from "@/features/product/list/popular/store";
 
 //libs
 import { cn } from "@/lib/utils"

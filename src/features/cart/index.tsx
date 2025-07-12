@@ -8,7 +8,7 @@ import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import {
     removeAllItems,
     removeSelectedItems
-} from "@/store/cart/stateSlice";
+} from "@/features/cart/store/stateSlice";
 
 //ui
 import {

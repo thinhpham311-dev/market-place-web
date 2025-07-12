@@ -9,8 +9,8 @@ import ProductItemOptionsListInCart, { IProductItemOptionsListInCartRef } from "
 import ProductItemQuantityInCart, { IProductItemQuantityInCartRef } from "./ProductItemQuantityInCart";
 
 //actions
-import { removeItem } from "@/store/cart/stateSlice"
-import { toggleItemSelection, updateItem } from "@/store/cart/stateSlice";
+import { removeItem } from "@/features/cart/store/stateSlice"
+import { toggleItemSelection, updateItem } from "@/features/cart/store/stateSlice";
 
 //libs
 import { useAppDispatch, useAppSelector, useToast } from "@/lib/hooks";

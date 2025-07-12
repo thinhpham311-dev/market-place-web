@@ -2,7 +2,7 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
-import { removeSelectedItems, removeAllItems } from "@/store/cart/stateSlice";
+import { removeSelectedItems, removeAllItems } from "@/features/cart/store/stateSlice";
 
 // ui
 import {
