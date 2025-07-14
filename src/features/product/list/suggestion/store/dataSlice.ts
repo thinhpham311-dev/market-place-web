@@ -1,34 +1,71 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { apiPostProductsList } from '@/services/ProductService'
-import { IProductfilter, IProduct } from '@/interfaces/product';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { apiPostProductsList } from '@/services/ProductService';
+import { IProduct, IProductfilter } from '@/interfaces/product';
 
-export const getProductList = createAsyncThunk<IProduct[], IProductfilter>('productList/data/getList', async (data: IProductfilter) => {
-    const response = await apiPostProductsList(data) as { data: IProduct[] };
-    return response.data;
-});
+type ProductListResponse = {
+    metadata:
+    {
+        list: IProduct[],
+        total: number;
+    };
 
+};
+
+export const getProductList = createAsyncThunk<ProductListResponse, IProductfilter>(
+    'proSuggestionList/data/getList',
+    async (data: IProductfilter, { rejectWithValue }) => {
+        try {
+            const response = await apiPostProductsList(data) as { data: { metadata: { list: IProduct[], total: number } } };
+            return response.data;
+
+        } catch (error: any) {
+            return rejectWithValue(error?.response?.data || error.message);
+        }
+    }
+);
+
+// ✅ Slice state type
+interface ProductState {
+    list: IProduct[];
+    loading: boolean;
+    total: number;
+}
+
+// ✅ Initial state
+const initialState: ProductState = {
+    list: [],
+    loading: false,
+    total: 0
+};
 
 const dataSlice = createSlice({
-    name: 'productList/data',
-    initialState: {
-        loading: false,
-        list: [],
-    },
+    name: 'proSuggestionList/data',
+    initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(getProductList.fulfilled, (state: { list: IProduct[]; loading: boolean }, action: { payload: any }) => {
-                state.list = action.payload.metadata;
-                state.loading = false;
-            })
-            .addCase(getProductList.pending, (state: { loading: boolean }) => {
+            .addCase(getProductList.pending, (state) => {
                 state.loading = true;
             })
-            .addCase(getProductList.rejected, (state: { list: IProduct[]; loading: boolean }) => {
-                state.loading = false; // handle rejection gracefully
-                state.list = [];
+            .addCase(getProductList.fulfilled, (state: { list: IProduct[]; loading: boolean, total: number }, action: { payload: any }) => {
+                state.loading = false;
+                const { list, total } = action.payload.metadata;
+
+                const newItems = list.filter(
+                    (item: IProduct) => !state.list.some((existing) => existing._id === item._id)
+                );
+
+                if (newItems.length > 0) {
+                    state.list = [...state.list, ...newItems];
+                }
+
+                state.total = total;
+            })
+
+            .addCase(getProductList.rejected, (state) => {
+                state.loading = false;
             });
-    }
+    },
 });
 
-export default dataSlice.reducer
+export default dataSlice.reducer;

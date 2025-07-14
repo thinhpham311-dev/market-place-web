@@ -27,7 +27,6 @@ export interface IProductfilter {
     ids?: Array<string> | string;
     limit?: number;
     sort?: string;
-    lastId?: string;
     page?: number;
     filter?: IProduct;
 }
