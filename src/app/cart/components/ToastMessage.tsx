@@ -9,13 +9,18 @@ import { Badge, Card, CardContent, CardImage, CardTitle, CardDescription } from 
 import { formatToCurrency } from "@/lib/formats"
 
 //types
-import { IProduct, IOption } from '@/features/product/types';
+import { IProduct } from '@/features/product/types';
+
+type Option = {
+    label: string;
+    value: string | Array<Option>
+}
 
 interface IToastMessage {
     updatedQuantity?: number
     product: IProduct
     totalCurrentPrice?: number
-    options: (IOption | null)[]
+    options: (Option | null)[]
 }
 
 export default function ToastMessage({ product, updatedQuantity, totalCurrentPrice = 0, options }: IToastMessage) {

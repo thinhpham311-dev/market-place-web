@@ -1,5 +1,5 @@
 'use client'
-import { useEffect } from "react"
+import React from "react"
 
 //components
 import { Card, CardContent } from "@/components/ui"
@@ -21,22 +21,27 @@ injectReducer("proListByCategoryId", reducer)
 
 const ProListByCategoryId = ({ id }: { id: string }) => {
     const dispatch = useAppDispatch();
+    const filters = useAppSelector((state) => state.filter.state);
+    // const pagination = useAppSelector(state => state.pagination.state)
 
     const {
         list: products = [],
         loading = false,
     } = useAppSelector((state) => state.proListByCategoryId.data || {});
 
-    useEffect(() => {
-        if (id) {
-            dispatch(getProductListByCategories({
-                limit: 12,
-                sort: "createdAt",
-                page: 1,
-                ids: id,
-            }) as any);
-        }
-    }, [dispatch, id]);
+
+    React.useEffect(() => {
+        if (!id) return;
+
+        dispatch(getProductListByCategories({
+            limit: 15,
+            sort: "createdAt",
+            page: 1,
+            ids: id,
+            filter: filters || {},
+        }) as any);
+    }, [dispatch, id, filters]);
+
 
     return (
         <Card className="border-0 md:px-6 px-3">

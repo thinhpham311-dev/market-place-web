@@ -8,30 +8,34 @@ type ProductListResponse = {
         list: IProduct[],
         total: number;
     };
-
 };
 
 export const getProductList = createAsyncThunk<ProductListResponse, IProductfilter>(
     'proSuggestionList/data/getList',
-    async (data: IProductfilter, { rejectWithValue }) => {
+    async (params: IProductfilter, { rejectWithValue }) => {
         try {
-            const response = await apiPostProductsList(data) as { data: { metadata: { list: IProduct[], total: number } } };
+            const response = await apiPostProductsList(params) as
+                {
+                    data: {
+                        metadata: {
+                            list: IProduct[],
+                            total: number
+                        }
+                    }
+                };
             return response.data;
-
         } catch (error: any) {
             return rejectWithValue(error?.response?.data || error.message);
         }
     }
 );
 
-// ✅ Slice state type
 interface ProductState {
     list: IProduct[];
     loading: boolean;
     total: number;
 }
 
-// ✅ Initial state
 const initialState: ProductState = {
     list: [],
     loading: false,
@@ -44,15 +48,19 @@ const dataSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(getProductList.pending, (state) => {
+            .addCase(getProductList.pending, (
+                state: { loading: boolean }) => {
                 state.loading = true;
             })
-            .addCase(getProductList.fulfilled, (state: { list: IProduct[]; loading: boolean, total: number }, action: { payload: any }) => {
+            .addCase(getProductList.fulfilled, (
+                state: { list: IProduct[]; loading: boolean, total: number },
+                action: { payload: any }) => {
                 state.loading = false;
                 const { list, total } = action.payload.metadata;
 
                 const newItems = list.filter(
-                    (item: IProduct) => !state.list.some((existing) => existing._id === item._id)
+                    (item: IProduct) =>
+                        !state.list.some((existing) => existing._id === item._id)
                 );
 
                 if (newItems.length > 0) {
@@ -62,7 +70,8 @@ const dataSlice = createSlice({
                 state.total = total;
             })
 
-            .addCase(getProductList.rejected, (state) => {
+            .addCase(getProductList.rejected, (
+                state: { list: IProduct[]; loading: boolean }) => {
                 state.loading = false;
             });
     },

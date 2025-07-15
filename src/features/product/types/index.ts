@@ -1,6 +1,6 @@
-export interface IOption {
+type Option = {
     label: string;
-    value: string | Array<IOption>
+    value: string | Array<Option>
 }
 
 export interface IProduct {
@@ -9,7 +9,7 @@ export interface IProduct {
     product_name?: string,
     article?: string,
     product_description?: string,
-    options?: Array<{ label: string; value: IOption[] }>; // Đánh dấu "options" là tùy chọn
+    options?: Array<{ label: string; value: Option[] }>; // Đánh dấu "options" là tùy chọn
     image?: string,
     product_price: number,
     product_slug: string,

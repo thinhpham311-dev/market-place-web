@@ -7,7 +7,8 @@ import {
     CardHeader,
     CardTitle,
     Button,
-    CardFooter
+    CardFooter,
+    CardContent
 } from '@/components/ui';
 import { FaFilter } from 'react-icons/fa';
 import CheckboxItems from './components/CheckboxItems';
@@ -19,7 +20,7 @@ import reducer from './store';
 
 injectReducer('filter', reducer);
 
-const FilterSidebar: React.FC = () => {
+const FilterSidebar = () => {
     const dispatch = useAppDispatch();
 
     const handleClearAll = () => {
@@ -27,7 +28,7 @@ const FilterSidebar: React.FC = () => {
     };
 
     return (
-        <Card className="sticky top-[80px]">
+        <Card>
             <CardHeader className="p-3">
                 <CardTitle className="font-semibold text-lg inline-flex items-center gap-2">
                     <FaFilter />
@@ -35,34 +36,27 @@ const FilterSidebar: React.FC = () => {
                 </CardTitle>
             </CardHeader>
             <hr />
-
-            {/* ✅ Brand */}
-            <CheckboxItems
-                title="Brand"
-                filterKey="brand"
-                options={FILTER_OPTIONS.brands}
-                initialItemsToShow={5}
-            />
-
-            {/* ✅ Price Range */}
-            <PriceRangeFilter />
-
-            {/* ✅ Condition */}
-            <CheckboxItems
-                title="Condition"
-                filterKey="condition"
-                options={FILTER_OPTIONS.conditions}
-                initialItemsToShow={5}
-            />
-
-            {/* ✅ Promotion */}
-            <CheckboxItems
-                title="Promotion"
-                filterKey="promotion"
-                options={FILTER_OPTIONS.promotions}
-                initialItemsToShow={5}
-            />
-
+            <CardContent className='p-0'>
+                <CheckboxItems
+                    title="Brand"
+                    filterKey="brand"
+                    options={FILTER_OPTIONS.brands}
+                    initialItemsToShow={5}
+                />
+                <PriceRangeFilter />
+                <CheckboxItems
+                    title="Condition"
+                    filterKey="condition"
+                    options={FILTER_OPTIONS.conditions}
+                    initialItemsToShow={5}
+                />
+                <CheckboxItems
+                    title="Promotion"
+                    filterKey="promotion"
+                    options={FILTER_OPTIONS.promotions}
+                    initialItemsToShow={5}
+                />
+            </CardContent>
             <hr />
             <CardFooter className="p-3">
                 <Button
@@ -76,6 +70,6 @@ const FilterSidebar: React.FC = () => {
             </CardFooter>
         </Card>
     );
-};
+}
 
 export default React.memo(FilterSidebar);

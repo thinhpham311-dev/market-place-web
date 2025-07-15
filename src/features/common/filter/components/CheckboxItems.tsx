@@ -1,11 +1,13 @@
 import React from "react";
-import { Checkbox, Button } from "@/components/ui";
+import { Label, Checkbox, Button } from "@/components/ui";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { setFilter } from "../store/stateSlice";
+import { setFilter, resetFilter } from "../store/stateSlice";
+import { MdClear } from "react-icons/md";
+
 
 interface CheckboxItemsProps {
     title: string;
-    filterKey: string; // ✅ Key filter trong Redux (vd: "brand", "condition")
+    filterKey: string;
     options: { label: string; value: string }[];
     initialItemsToShow?: number;
 }
@@ -18,7 +20,6 @@ const CheckboxItems: React.FC<CheckboxItemsProps> = ({
 }) => {
     const dispatch = useAppDispatch();
 
-    // ✅ Lấy chính xác dữ liệu từ Redux theo key
     const selectedValues: string[] =
         useAppSelector((state) => state.filter.state[filterKey]) || [];
 
@@ -32,22 +33,36 @@ const CheckboxItems: React.FC<CheckboxItemsProps> = ({
         dispatch(setFilter({ key: filterKey, value: newSelectedValues }));
     };
 
+    const handleReset = () => {
+        dispatch(resetFilter(filterKey));
+    };
     const shouldShowMore = options.length > initialItemsToShow;
     const visibleOptions = showAll ? options : options.slice(0, initialItemsToShow);
 
     return (
         <div className="p-3 space-y-2">
-            <h3 className="font-semibold text-md">{title}</h3>
-            {visibleOptions.map(({ label, value }) => (
+            <div className="flex justify-between items-center">
+                <h3 className="font-semibold text-md py-2">{title}</h3>
+                {selectedValues.length > 0 && (
+                    <Button
+                        variant="secondary"
+                        size="icon"
+                        className="text-red-500 hover:text-red-600"
+                        onClick={handleReset}
+                    >
+                        <MdClear size={15} />
+                    </Button>
+                )}
+            </div>            {visibleOptions.map(({ label, value }) => (
                 <div key={value} className="flex items-center gap-x-3">
                     <Checkbox
                         id={`${title}-${value}`}
                         checked={selectedValues.includes(value)}
                         onCheckedChange={() => handleValueChange(value)}
                     />
-                    <label htmlFor={`${title}-${value}`} className="text-md">
+                    <Label htmlFor={`${title}-${value}`} className="text-md">
                         {label}
-                    </label>
+                    </Label>
                 </div>
             ))}
             {shouldShowMore && (
