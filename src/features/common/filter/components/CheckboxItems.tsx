@@ -1,31 +1,35 @@
-// components/CheckboxItems.tsx
-import React from 'react';
-import { Checkbox, Button } from '@/components/ui';
+import React from "react";
+import { Checkbox, Button } from "@/components/ui";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { setFilter } from "../store/stateSlice";
 
 interface CheckboxItemsProps {
     title: string;
+    filterKey: string; // ✅ Key filter trong Redux (vd: "brand", "condition")
     options: { label: string; value: string }[];
-    selectedValues: string[];
-    onSelectionChange: (selectedValues: string[]) => void;
-    showAll: boolean;
-    onToggleShowAll: () => void;
     initialItemsToShow?: number;
 }
 
 const CheckboxItems: React.FC<CheckboxItemsProps> = ({
     title,
+    filterKey,
     options,
-    selectedValues,
-    onSelectionChange,
-    showAll,
-    onToggleShowAll,
     initialItemsToShow = 5,
 }) => {
+    const dispatch = useAppDispatch();
+
+    // ✅ Lấy chính xác dữ liệu từ Redux theo key
+    const selectedValues: string[] =
+        useAppSelector((state) => state.filter.state[filterKey]) || [];
+
+    const [showAll, setShowAll] = React.useState(false);
+
     const handleValueChange = (value: string) => {
         const newSelectedValues = selectedValues.includes(value)
             ? selectedValues.filter((v) => v !== value)
             : [...selectedValues, value];
-        onSelectionChange(newSelectedValues);
+
+        dispatch(setFilter({ key: filterKey, value: newSelectedValues }));
     };
 
     const shouldShowMore = options.length > initialItemsToShow;
@@ -50,7 +54,7 @@ const CheckboxItems: React.FC<CheckboxItemsProps> = ({
                 <Button
                     variant="link"
                     className="p-0 text-sm text-primary"
-                    onClick={onToggleShowAll}
+                    onClick={() => setShowAll((prev) => !prev)}
                 >
                     {showAll ? "Show less" : "Show more"}
                 </Button>

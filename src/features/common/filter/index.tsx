@@ -1,44 +1,29 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
-import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-import { Card, CardHeader, CardTitle, Button, CardFooter } from '@/components/ui';
-import { FaFilter } from "react-icons/fa";
+import React from 'react';
+import { useAppDispatch } from '@/lib/hooks';
+import {
+    Card,
+    CardHeader,
+    CardTitle,
+    Button,
+    CardFooter
+} from '@/components/ui';
+import { FaFilter } from 'react-icons/fa';
 import CheckboxItems from './components/CheckboxItems';
 import PriceRangeFilter from './components/PriceRangeFilter';
 import { FILTER_OPTIONS } from '@/constants/data/filter';
-
-import {
-    setBrand,
-    setCondition,
-    setPromotion,
-    setPriceRange,
-    resetFilters,
-} from "./store/stateSlice";
+import { resetAllFilters } from './store/stateSlice';
 import { injectReducer } from '@/store';
 import reducer from './store';
 
-injectReducer("filter", reducer)
+injectReducer('filter', reducer);
 
 const FilterSidebar: React.FC = () => {
     const dispatch = useAppDispatch();
-    const filters = useAppSelector((state) => state.filter);
-
-    const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
-        brand: false,
-        condition: false,
-        promotion: false,
-    });
-
-    const toggleSection = useCallback((section: string) => {
-        setExpandedSections(prev => ({
-            ...prev,
-            [section]: !prev[section]
-        }));
-    }, []);
 
     const handleClearAll = () => {
-        dispatch(resetFilters());
+        dispatch(resetAllFilters());
     };
 
     return (
@@ -51,39 +36,35 @@ const FilterSidebar: React.FC = () => {
             </CardHeader>
             <hr />
 
+            {/* ✅ Brand */}
             <CheckboxItems
                 title="Brand"
+                filterKey="brand"
                 options={FILTER_OPTIONS.brands}
-                selectedValues={Array.isArray(filters.brand) ? filters.brand : []}
-                onSelectionChange={(selected) => dispatch(setBrand(selected))}
-                showAll={expandedSections.brand}
-                onToggleShowAll={() => toggleSection('brand')}
+                initialItemsToShow={5}
             />
 
-            <PriceRangeFilter
-                priceRange={Array.isArray(filters.priceRange) ? filters.priceRange : [0, 0]}
-                onChange={(range) => dispatch(setPriceRange(range))}
-            />
+            {/* ✅ Price Range */}
+            <PriceRangeFilter />
 
+            {/* ✅ Condition */}
             <CheckboxItems
                 title="Condition"
+                filterKey="condition"
                 options={FILTER_OPTIONS.conditions}
-                selectedValues={Array.isArray(filters.condition) ? filters.condition : []}
-                onSelectionChange={(selected) => dispatch(setCondition(selected))}
-                showAll={expandedSections.condition}
-                onToggleShowAll={() => toggleSection('condition')}
+                initialItemsToShow={5}
             />
 
+            {/* ✅ Promotion */}
             <CheckboxItems
                 title="Promotion"
+                filterKey="promotion"
                 options={FILTER_OPTIONS.promotions}
-                selectedValues={Array.isArray(filters.promotion) ? filters.promotion : []}
-                onSelectionChange={(selected) => dispatch(setPromotion(selected))}
-                showAll={expandedSections.promotion}
-                onToggleShowAll={() => toggleSection('promotion')}
+                initialItemsToShow={5}
             />
+
             <hr />
-            <CardFooter className='p-3'>
+            <CardFooter className="p-3">
                 <Button
                     variant="outline"
                     size="sm"

@@ -7,7 +7,7 @@ import { PaginationCustom, SortBar } from "@/features/common"
 const ProductSort: React.FC = () => {
 
     return (
-        <Card className=" p-3">
+        <Card className=" p-3 ">
             <CardContent className=" flex gap-4 justify-between items-center p-0">
                 <SortBar />
                 <PaginationCustom />

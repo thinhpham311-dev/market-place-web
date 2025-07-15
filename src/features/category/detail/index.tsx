@@ -6,8 +6,7 @@ import React, { useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui";
 
 // components
-import CategoryButtons from "./components/CategoryButtons";
-import { NotFound } from "@/components/layout";
+import CategoryCarousel from "./components/CategoryCarousel";
 
 // store
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
@@ -44,30 +43,22 @@ const CatByCategoryId = ({
         }
     }, [dispatch, mainId]);
 
-    if (loading) {
-        return (
-            <Card className="border-none shadow-none md:px-6 px-3 space-y-5 my-6" >
-                <p className="text-muted-foreground text-sm" > Loading...</p>
-            </Card>
-        );
-    }
-
-    if (!category) return <NotFound />;
-
 
     return (
-        <Card className="border-0 shadow-none md:px-6 px-3 flex flex-row items-center space-x-3 sticky top-[57px] bg-white z-10" >
-            <CardHeader className="p-0" >
+        <Card className=" border-none shadow-none md:px-6 px-3 grid grid-cols-12 items-center  sticky top-[57px] bg-white z-10" >
+            <CardHeader className="p-0 md:col-span-2 col-span-12" >
                 <CardTitle className="text-lg font-semibold inline-flex items-center space-x-1" >
                     <BiCategory />  <span>All Categories:</span >
                 </CardTitle>
             </CardHeader>
 
-            < CardContent className="p-0 flex items-center space-x-3 overflow-x-auto" >
-                <CategoryButtons
+            < CardContent className="p-0 md:col-span-10 col-span-12" >
+                <CategoryCarousel
+                    isLoading={loading}
                     data={category}
                     mainId={mainId}
                     subId={subId}
+                    className="lg:basis-1/9 md:basis-1/6 basis-1/4"
                 />
             </CardContent>
         </Card>

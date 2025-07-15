@@ -1,42 +1,24 @@
 // store/filter/filterSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IFilter } from "@/interfaces/filter";
+import { IFilter } from "@/features/common/filter/types";
 
-const initialState: IFilter = {
-    brand: [],
-    priceRange: [0, 0],
-    condition: [],
-    promotion: [],
-};
+const initialState: IFilter = {};
 
-const stateSlice = createSlice({
-    name: "filter/state",
+const filterSlice = createSlice({
+    name: "filter",
     initialState,
     reducers: {
-        setBrand(state, action: PayloadAction<string[]>) {
-            state.brand = action.payload;
+        setFilter(state, action: PayloadAction<{ key: string; value: any }>) {
+            state[action.payload.key] = action.payload.value;
         },
-        setPriceRange(state, action: PayloadAction<[number, number]>) {
-            state.priceRange = action.payload;
+        resetFilter(state, action: PayloadAction<string>) {
+            delete state[action.payload];
         },
-        setCondition(state, action: PayloadAction<string[]>) {
-            state.condition = action.payload;
-        },
-        setPromotion(state, action: PayloadAction<string[]>) {
-            state.promotion = action.payload;
-        },
-        resetFilters() {
+        resetAllFilters() {
             return initialState;
         },
     },
 });
 
-export const {
-    setBrand,
-    setPriceRange,
-    setCondition,
-    setPromotion,
-    resetFilters,
-} = stateSlice.actions;
-
-export default stateSlice.reducer;
+export const { setFilter, resetFilter, resetAllFilters } = filterSlice.actions;
+export default filterSlice.reducer;

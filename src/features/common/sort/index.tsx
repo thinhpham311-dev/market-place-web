@@ -4,6 +4,8 @@ import React from 'react';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { setSortBy } from './store/stateSlice';
 import { Button } from '@/components/ui';
+import { injectReducer } from '@/store';
+import reducer from './store';
 
 const sortOptions = [
     { label: 'Popularity', value: 'popularity' },
@@ -12,9 +14,12 @@ const sortOptions = [
     { label: 'Price: High to Low', value: 'price-desc' },
 ] as const;
 
+
+injectReducer("sortBy", reducer)
+
 const SortBar: React.FC = () => {
     const dispatch = useAppDispatch();
-    const sortBy = useAppSelector((state => state.sortBy));
+    const sortBy = useAppSelector((state => state.sortBy.state));
 
     return (
         <div className='flex flex-row space-x-2'>

@@ -7,6 +7,10 @@ export default {
 	],
 	theme: {
 		extend: {
+			flexBasis: {
+				'1/10': '10%',
+				'1/9': '11.111111%',
+			},
 			colors: {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
