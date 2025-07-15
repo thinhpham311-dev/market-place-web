@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { apiPostProductsList } from '@/services/ProductService'
-import { IProductfilter, IProduct } from '@/interfaces/product';
+import { IProductfilter, IProduct } from '@/features/product/types';
 
 export const getProductList = createAsyncThunk<IProduct[], IProductfilter>('proSearchList/data/getList', async (data: IProductfilter) => {
     const response = await apiPostProductsList(data) as { data: IProduct[] };

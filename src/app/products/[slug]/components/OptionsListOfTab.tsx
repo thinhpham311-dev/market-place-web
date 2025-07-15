@@ -11,21 +11,24 @@ import {
 //lib
 import { cn } from "@/lib/utils";
 
-//types
-import { IOption } from "@/interfaces/product";
+
+type Option = {
+    label: string;
+    value: string | Array<Option>
+}
 
 interface IOptionsListOfTabProps {
     label?: string;
-    data: Array<IOption>;
+    data: Array<Option>;
     className?: string;
-    onChange?: (value: IOption | null) => void; // Callback to pass selected value
+    onChange?: (value: Option | null) => void; // Callback to pass selected value
 }
 
 export const OptionsListOfTab = React.forwardRef<HTMLDivElement, IOptionsListOfTabProps>(
     ({ label, data, className, onChange }, ref) => {
-        const [selectedValue, setSelectedValue] = React.useState<IOption | null>(null);
+        const [selectedValue, setSelectedValue] = React.useState<Option | null>(null);
 
-        const handleToggleItem = (item: IOption) => {
+        const handleToggleItem = (item: Option) => {
             const newValue = selectedValue?.value === item.value ? null : item;
             setSelectedValue(newValue);
             onChange?.(newValue);

@@ -21,11 +21,15 @@ import { useToast } from "@/lib/hooks";
 import { formatToCurrency } from "@/lib/formats";
 
 //types
-import { IOption } from "@/interfaces/product";
 import { IcartItem } from "@/interfaces/cart"
 
 //icons
 import { Trash2 } from "lucide-react";
+
+type Option = {
+    label: string;
+    value: string | Array<Option>
+}
 
 interface IProductItemInCartProps {
     item: IcartItem
@@ -45,7 +49,7 @@ function ProductItemInCart({ item: { product_name, image, product_price,
     const router = useRouter();
 
     const handleUpdateItem = useCallback(
-        (updates: { options?: (IOption | null)[]; quantity?: number }) => {
+        (updates: { options?: (Option | null)[]; quantity?: number }) => {
             const newQuantity = updates.quantity ?? quantity;
             const newOptions = updates.options ?? options;
 

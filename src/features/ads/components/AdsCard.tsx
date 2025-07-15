@@ -3,11 +3,11 @@ import * as React from "react"
 import Image from "next/image"
 
 //types
-import { IImage } from "@/interfaces/banner"
+import { IAds } from "@/features/ads/types"
 
 
 interface IItemProps {
-    item: IImage
+    item: IAds
 }
 
 const AdsCard = ({ item: {

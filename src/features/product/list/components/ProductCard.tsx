@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation"
 import { Card, CardContent, CardTitle, CardDescription, CardImage } from "@/components/ui"
 
 //types
-import { IProduct } from "@/interfaces/product"
+import { IProduct } from "@/features/product/types"
 
 //format
 import { formatToCurrency } from "@/lib/formats"
@@ -23,7 +23,7 @@ const ProductCard = ({ item: { product_name, image, product_price, product_id, p
     }
 
     return (
-        <Card className="flex flex-col justify-start h-full w-full">
+        <Card className="flex flex-col justify-start h-full w-full col-span-1">
             <CardImage onClick={handleRouterLinkToDetail} src={image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png"} alt="" className=" aspect-square  rounded-t-lg cursor-pointer" />
             <CardContent className="p-3 w-full">
                 <CardTitle onClick={handleRouterLinkToDetail} className="text-md capitalize  line-clamp-2 cursor-pointer ">

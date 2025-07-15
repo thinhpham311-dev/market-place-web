@@ -16,7 +16,7 @@ const initialState: ICommon = {
 };
 
 const stateSlice = createSlice({
-    name: "pagination",
+    name: "pagination/state",
     initialState,
     reducers: {
         setPage(state, action: PayloadAction<number>) {

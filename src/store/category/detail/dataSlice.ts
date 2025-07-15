@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { apiPostCategoryDetail } from '@/services/CategoryService'
-import { ICategory } from '@/interfaces/category';
+import { ICategory } from '@/features/category/types';
 
 export const getCategoryDetail = createAsyncThunk<ICategory, ICategory>('categoryDetail/data/getDetail', async (data) => {
     const response = await apiPostCategoryDetail(data) as { data: ICategory };

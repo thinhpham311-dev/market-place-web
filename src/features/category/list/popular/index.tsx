@@ -40,7 +40,7 @@ const CatPopularList: React.FC = () => {
         <Card className="border-0 shadow-none rounded-none md:px-6 px-3 w-full">
             <CardHeader className="flex-row items-center px-0 space-x-3 mb-3">
                 <div className="flex-1">
-                    <CardTitle className="mb-3 capitalize">Categories</CardTitle>
+                    <CardTitle className="mb-3 capitalize">Popular Categories</CardTitle>
                     <CardDescription className="md:line-clamp-2 line-clamp-1">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque aliquet lobortis erat, sed varius arcu iaculis id.
                     </CardDescription>

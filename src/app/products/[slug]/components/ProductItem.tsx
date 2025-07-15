@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation"
 import { Card, CardContent, CardTitle, CardDescription, CardImage } from "@/components/ui"
 
 //types
-import { IProduct } from "@/interfaces/product"
+import { IProduct } from "@/features/product/types"
 
 //format
 import { formatToCurrency } from "@/lib/formats"

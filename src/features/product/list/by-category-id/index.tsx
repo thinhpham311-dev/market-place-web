@@ -1,11 +1,11 @@
 'use client'
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 
 //components
 import { Card, CardContent } from "@/components/ui"
 import ProductGrid from "../components/ProductGrid";
-import FilterSidebar from "@/features/common/FilterSidebar";
-import SortBar from "@/features/common/SortBar";
+import ProductSort from "../components/ProductSort"
+import { FilterSidebar, PaginationCustom } from "@/features/common";
 
 //datas
 // import { productData } from "@/constants/data"
@@ -13,17 +13,14 @@ import SortBar from "@/features/common/SortBar";
 //stores
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { injectReducer } from "@/store";
-import { getProductListByCategories } from "@/features/product/list/by-category/store/dataSlice";
-import reducer from "@/features/product/list/by-category/store";
+import { getProductListByCategories } from "@/features/product/list/by-category-id/store/dataSlice";
+import reducer from "@/features/product/list/by-category-id/store";
 
-//libs
-import { IFilter } from "@/interfaces/filter";
 
 injectReducer("proListByCategoryId", reducer)
 
-export default function ProductitemsListByCategoryId({ id }: { id: string }) {
+const ProListByCategoryId = ({ id }: { id: string }) => {
     const dispatch = useAppDispatch();
-    const [filters, setFilters] = useState<IFilter>({});
 
     const {
         list: products = [],
@@ -47,19 +44,18 @@ export default function ProductitemsListByCategoryId({ id }: { id: string }) {
                 <div className="col-span-2 space-y-3">
                     <FilterSidebar />
                 </div>
-                <div className="col-span-10">
-                    <SortBar
-                        sortBy={filters.sortBy}
-                        onChange={(sort) => setFilters((prev) => ({ ...prev, sortBy: sort }))} />
+                <div className="col-span-10 flex flex-col space-y-3">
+                    <ProductSort />
                     <ProductGrid
                         data={products}
                         className="lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-3"
                         isLoading={loading}
                     />
+                    <PaginationCustom />
                 </div>
             </CardContent>
         </Card>
     );
 }
 
-
+export default ProListByCategoryId;

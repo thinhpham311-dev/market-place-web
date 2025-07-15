@@ -2,7 +2,7 @@
 
 import React, { useState, useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-import { Card, CardHeader, CardTitle, Button } from '@/components/ui';
+import { Card, CardHeader, CardTitle, Button, CardFooter } from '@/components/ui';
 import { FaFilter } from "react-icons/fa";
 import CheckboxItems from './components/CheckboxItems';
 import PriceRangeFilter from './components/PriceRangeFilter';
@@ -15,10 +15,14 @@ import {
     setPriceRange,
     resetFilters,
 } from "./store/stateSlice";
+import { injectReducer } from '@/store';
+import reducer from './store';
+
+injectReducer("filter", reducer)
 
 const FilterSidebar: React.FC = () => {
     const dispatch = useAppDispatch();
-    const filters = useAppSelector((state) => state.productFilter);
+    const filters = useAppSelector((state) => state.filter);
 
     const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
         brand: false,
@@ -38,22 +42,12 @@ const FilterSidebar: React.FC = () => {
     };
 
     return (
-        <Card className="sticky top-4">
+        <Card className="sticky top-[80px]">
             <CardHeader className="p-3">
-                <div className="flex items-center justify-between">
-                    <CardTitle className="font-semibold text-lg inline-flex items-center gap-2">
-                        <FaFilter />
-                        <span>Filters</span>
-                    </CardTitle>
-                    <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={handleClearAll}
-                        className="text-primary hover:text-primary"
-                    >
-                        Clear all
-                    </Button>
-                </div>
+                <CardTitle className="font-semibold text-lg inline-flex items-center gap-2">
+                    <FaFilter />
+                    <span>Filters</span>
+                </CardTitle>
             </CardHeader>
             <hr />
 
@@ -88,6 +82,17 @@ const FilterSidebar: React.FC = () => {
                 showAll={expandedSections.promotion}
                 onToggleShowAll={() => toggleSection('promotion')}
             />
+            <hr />
+            <CardFooter className='p-3'>
+                <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleClearAll}
+                    className="text-primary hover:text-primary w-full"
+                >
+                    Clear all
+                </Button>
+            </CardFooter>
         </Card>
     );
 };

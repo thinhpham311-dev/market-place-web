@@ -1,6 +1,6 @@
 import React from "react";
 import ProductCard from "./ProductCard";
-import { IProduct } from "@/interfaces/product";
+import { IProduct } from "@/features/product/types";
 import { cn } from "@/lib/utils";
 import LoadingPlaceholder from "./LoadingSkeleton";
 import { NotFound } from "@/components/layout";
@@ -19,6 +19,7 @@ const ProductGrid = ({ data, className, isLoading = false }: ProductGridProps) =
     if (!isLoading && (!data || data.length === 0)) {
         return <NotFound />;
     }
+
 
     return (
         <div className={cn("grid w-full", className)}>

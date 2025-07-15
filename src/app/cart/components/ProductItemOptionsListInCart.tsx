@@ -6,18 +6,20 @@ import { Badge, Button, Separator } from "@/components/ui";
 import { OptionsListOfTab } from "./OptionsListOfTab";
 import DropdownOptionsList from "./DropdownOptionsList";
 
-//types
-import { IOption } from "@/interfaces/product";
 
 //libs
 import { useToast } from "@/lib/hooks";
 import { PropertiesValidate } from "@/lib/handleError"
 
+type Option = {
+    label: string;
+    value: string | Array<Option>
+}
 
 interface IProductItemOptionsListInCartProps {
-    activeOptions?: Array<IOption>
-    initialOptions?: Array<IOption>
-    handleUpdate: (updates: { options?: (IOption | null)[]; quantity?: number; }) => void
+    activeOptions?: Array<Option>
+    initialOptions?: Array<Option>
+    handleUpdate: (updates: { options?: (Option | null)[]; quantity?: number; }) => void
 };
 
 export interface IProductItemOptionsListInCartRef {
@@ -27,10 +29,10 @@ export interface IProductItemOptionsListInCartRef {
 const ProductItemOptionsListInCart = React.forwardRef<IProductItemOptionsListInCartRef, IProductItemOptionsListInCartProps>(({ activeOptions = [], initialOptions = [], handleUpdate }, ref) => {
 
     const { toast } = useToast()
-    const [selectedOptions, setSelectedOptions] = React.useState<(IOption | null)[]>(activeOptions);
+    const [selectedOptions, setSelectedOptions] = React.useState<(Option | null)[]>(activeOptions);
 
     const handleChooseOption = React.useCallback(
-        (index: number, selectedValue: IOption | null) => {
+        (index: number, selectedValue: Option | null) => {
             setSelectedOptions((prev) => {
                 const updatedOptions = [...prev];
                 updatedOptions[index] = selectedValue;

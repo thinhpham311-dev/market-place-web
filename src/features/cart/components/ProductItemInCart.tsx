@@ -18,13 +18,18 @@ import { formatToCurrency } from "@/lib/formats";
 
 //types
 import { IcartItem } from "@/interfaces/cart";
-import { IOption } from "@/interfaces/product"
 
 //datas
 import { productData } from "@/constants/data";
 
 //icons
 import { Trash2 } from "lucide-react";
+
+
+type Option = {
+    label: string;
+    value: string | Array<Option>
+}
 
 interface IProductItemInCartProps {
     item: IcartItem;
@@ -54,7 +59,7 @@ function ProductItemInCart({ item: { product_name, image, product_price,
     );
 
     const handleUpdateItem = useCallback(
-        (updates: { options?: (IOption | null)[]; quantity?: number }) => {
+        (updates: { options?: (Option | null)[]; quantity?: number }) => {
             const newQuantity = updates.quantity ?? quantity;
             const newOptions = updates.options ?? options;
             console.log(newQuantity)

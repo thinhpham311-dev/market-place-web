@@ -1,4 +1,4 @@
-import { IProduct } from "./product";
+import { IProduct } from "@/features/product/types";
 
 export interface IcartItem extends IProduct {
     totalPrice?: number;

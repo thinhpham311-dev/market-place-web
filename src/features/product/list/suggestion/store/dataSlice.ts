@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { apiPostProductsList } from '@/services/ProductService';
-import { IProduct, IProductfilter } from '@/interfaces/product';
+import { IProduct, IProductfilter } from '@/features/product/types';
 
 type ProductListResponse = {
     metadata:

@@ -16,12 +16,13 @@ import { NotFound } from "@/components/layout"
 import LoadingPlaceholder from "./LoadingSkeleton"
 
 //types
-import { IImage } from "@/interfaces/banner"
+import { IAds } from "@/features/ads/types"
 import { cn } from "@/lib/utils";
 
 
+
 interface AdsCarouselProps {
-    data: IImage[];
+    data: IAds[];
     className?: string;
     isLoading?: boolean;
 }
@@ -50,8 +51,8 @@ const AdsCarousel = ({ data, className, isLoading = false }: AdsCarouselProps) =
                 >
                     <CarouselContent>
                         {data.map((item) => (
-                            <CarouselItem className={cn(" md:h-[400px] h-[270px] bg-slate-600", className)}>
-                                <AdsCard key={item.title?.split("").join("-")} item={item} />
+                            <CarouselItem key={item.title?.split("").join("-")} className={cn(" md:h-[400px] h-[270px] bg-slate-600", className)}>
+                                <AdsCard item={item} />
                             </CarouselItem>
                         ))}
                     </CarouselContent>

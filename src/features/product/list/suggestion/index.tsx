@@ -5,7 +5,7 @@ import {
     Card, CardHeader, CardContent, CardTitle, CardDescription
 } from "@/components/ui";
 import ProductGrid from "../components/ProductGrid";
-import LoadMoreTrigger from "@/features/common/LoadMoreTrigger";
+import LoadMoreTrigger from "@/features/common/load-more";
 
 // redux
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
@@ -15,7 +15,7 @@ import suggestionReducer from "./store";
 import infiniteScrollReducer, {
     nextPage,
     setTotalCount,
-} from "@/features/common/LoadMoreTrigger/store/stateSlice";
+} from "@/features/common/load-more/store/stateSlice";
 
 injectReducer("proSuggestionList", suggestionReducer);
 injectReducer("infiniteScroll", infiniteScrollReducer);
@@ -46,8 +46,8 @@ export default function ProSuggestionList() {
     }, [dispatch, loading, hasMore]);
 
     return (
-        <Card className="border-0 shadow-none md:px-6 px-3">
-            <CardHeader className="items-center px-0 space-x-3 mb-3">
+        <Card className="border-0 shadow-none  grid grid-cols-12">
+            <CardHeader className="items-center col-span-12 space-x-3 mb-3">
                 <CardTitle className="mb-3 capitalize text-center mx-auto">
                     Suggestion today
                 </CardTitle>
@@ -56,12 +56,13 @@ export default function ProSuggestionList() {
                 </CardDescription>
             </CardHeader>
 
-            <CardContent className="px-0">
+            <CardContent className="col-span-12">
                 <ProductGrid
                     data={products}
-                    className="lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-3"
+                    className=" grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3"
                     isLoading={loading}
                 />
+
                 {hasMore && (
                     <LoadMoreTrigger
                         hasMore={hasMore}

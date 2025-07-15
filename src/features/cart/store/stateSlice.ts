@@ -2,14 +2,16 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // types
 import { Icart, IcartItem } from '@/interfaces/cart';
-import { IOption } from '@/interfaces/product';
 import { WritableDraft } from 'immer';
 
+type Option = {
+    label: string;
+    value: string | Array<Option>
+}
 
-// Utility functions for estimated calculations
 const calculateEstimatedShipping = (totalAmount: number): number => {
     if (totalAmount === 0) {
-        return 0; // No shipping cost when the total amount is 0
+        return 0;
     }
     return totalAmount > 100 ? 0 : 10;
 };
@@ -64,11 +66,11 @@ export const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
-        addItem: (state, action: PayloadAction<{ cartItem: IcartItem; options: (IOption | null)[] }>) => {
+        addItem: (state, action: PayloadAction<{ cartItem: IcartItem; options: (Option | null)[] }>) => {
             const { cartItem, options } = action.payload;
             const optionsType = options as WritableDraft<{
                 label: string;
-                value: IOption[];
+                value: Option[];
             }>[] | undefined;
 
             const existingItem = state.items.find(item => item.uniqueKey === cartItem.uniqueKey);
@@ -94,10 +96,10 @@ export const cartSlice = createSlice({
             recalculateTotals(state);
         },
 
-        updateItem: (state, action: PayloadAction<{ uniqueKey: string; options: (IOption | null)[]; quantity: number }>) => {
+        updateItem: (state, action: PayloadAction<{ uniqueKey: string; options: (Option | null)[]; quantity: number }>) => {
             const { uniqueKey, options, quantity } = action.payload;
             const itemToUpdate = state.items.find(item => item.uniqueKey === uniqueKey);
-            const optionsType = options as WritableDraft<{ label: string; value: IOption[]; }>[] | undefined;
+            const optionsType = options as WritableDraft<{ label: string; value: Option[]; }>[] | undefined;
 
             if (itemToUpdate) {
                 if (quantity === 0) {

@@ -5,7 +5,7 @@ import ProductItem from "./ProductItem";
 import { NotFound } from "@/components/layout";
 
 //types
-import { IProduct } from "@/interfaces/product";
+import { IProduct } from "@/features/product/types";
 
 //lib
 import { cn } from "@/lib/utils"

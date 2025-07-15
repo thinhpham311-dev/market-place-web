@@ -4,11 +4,16 @@ import { injectReducer, RootState } from '@/store';
 import { Button, Progress, Textarea, Card, CardHeader, CardContent, CardTitle, CardDescription, StarRating } from '@/components/ui';
 import { addReview, setInitialReviews } from '@/store/product/detail/stateSlice';
 import { OptionsListOfTab } from './OptionsListOfTab';
-import { IOption } from '@/interfaces/product';
 import { usePagination, usePaginationRender, useAppDispatch, useAppSelector } from "@/lib/hooks"
 import reducer from '@/store/product/detail';
 
-interface IReview {
+type Option = {
+    label: string;
+    value: string | Array<Option>
+}
+
+
+type Review = {
     rating: number;
     comment: string;
     user: string;
@@ -19,7 +24,7 @@ interface IReviewFormProps {
 }
 
 interface ReviewListProps {
-    data: IReview[];
+    data: Review[];
     itemsPerPage?: number
 }
 
@@ -55,9 +60,9 @@ const ReviewForm = ({ onSubmit }: IReviewFormProps) => {
     );
 };
 const ReviewList = ({ data, itemsPerPage = 12 }: ReviewListProps) => {
-    const [filter, setFilter] = React.useState<IOption | null>(null); // Số sao được chọn (null = Tất cả)
+    const [filter, setFilter] = React.useState<Option | null>(null); // Số sao được chọn (null = Tất cả)
 
-    const { currentPage, totalPages, currentData, handlePageChange } = usePagination<IReview>({
+    const { currentPage, totalPages, currentData, handlePageChange } = usePagination<Review>({
         data,
         itemsPerPage,
     });
@@ -172,7 +177,7 @@ const ReviewStatistics = ({ data }: ReviewListProps) => {
 };
 
 
-const ProductReview = ({ initialReviews }: { initialReviews: IReview[] }) => {
+const ProductReview = ({ initialReviews }: { initialReviews: Review[] }) => {
     const dispatch = useAppDispatch();
     const reviews = useAppSelector((state: RootState) => state.productReview.state.reviews);
 

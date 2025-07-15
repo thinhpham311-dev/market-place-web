@@ -1,7 +1,7 @@
 'use client';
 
-import CategoryItemsList from "./components/CategoryItemsList";
-import ProductitemsListByCategoryId from "./components/ProductitemsListByCategoryId";
+import CatByCategoryId from "@/features/category/detail";
+import { ProListByCategoryId } from "@/features/product/list";
 
 export default function Page({ params }: { params: { segments: string[] } }) {
     const [fullSlug] = params.segments || [];
@@ -14,8 +14,8 @@ export default function Page({ params }: { params: { segments: string[] } }) {
 
     return (
         <div className="space-y-5 container mx-auto my-5">
-            <CategoryItemsList mainId={mainId} subId={subId} />
-            <ProductitemsListByCategoryId id={subId || mainId} />
+            <CatByCategoryId mainId={mainId} subId={subId} />
+            <ProListByCategoryId id={subId || mainId} />
         </div>
     );
 }

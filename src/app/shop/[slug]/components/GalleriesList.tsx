@@ -16,13 +16,13 @@ import {
 import { NotFound } from "@/components/layout"
 
 //types
-import { IImage } from "@/interfaces/banner"
+import { IAds } from "@/features/ads/types"
 
 //datas
 import { bannerData } from "@/constants/data"
 
 interface IItemProps {
-    item: IImage
+    item: IAds
 }
 
 const GalleryItem = ({ item: {

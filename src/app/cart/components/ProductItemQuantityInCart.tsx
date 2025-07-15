@@ -4,14 +4,17 @@ import * as React from "react";
 //components
 import { Counter, ICounterRef } from "@/components/ui";
 
-//types
-import { IOption } from "@/interfaces/product";
 
+
+type Option = {
+    label: string;
+    value: string | Array<Option>
+}
 
 interface IProductItemQuantityInCartProps {
     defaultQuantity: number; // Maximum quantity available
     initialQuantity?: number;
-    handleUpdate: (updates: { options?: (IOption | null)[]; quantity?: number; }) => void
+    handleUpdate: (updates: { options?: (Option | null)[]; quantity?: number; }) => void
 };
 
 export interface IProductItemQuantityInCartRef {

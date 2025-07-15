@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { apiPostProductDetail } from '@/services/ProductService';
-import { IProduct } from '@/interfaces/product';
+import { IProduct } from '@/features/product/types';
 
 interface ProductDetailState {
     loading: boolean;

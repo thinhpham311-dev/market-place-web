@@ -9,8 +9,8 @@ const initialState: IFilter = {
     promotion: [],
 };
 
-const filterSlice = createSlice({
-    name: "filter",
+const stateSlice = createSlice({
+    name: "filter/state",
     initialState,
     reducers: {
         setBrand(state, action: PayloadAction<string[]>) {
@@ -37,6 +37,6 @@ export const {
     setCondition,
     setPromotion,
     resetFilters,
-} = filterSlice.actions;
+} = stateSlice.actions;
 
-export default filterSlice.reducer;
+export default stateSlice.reducer;

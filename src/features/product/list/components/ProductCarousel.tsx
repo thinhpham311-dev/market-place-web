@@ -4,7 +4,7 @@ import { NotFound } from "@/components/layout";
 import LoadingPlaceholder from "./LoadingSkeleton";
 import ProductCard from "./ProductCard";
 import { cn } from "@/lib/utils";
-import { IProduct } from "@/interfaces/product";
+import { IProduct } from "@/features/product/types";
 
 interface ProductRowProps {
     data: IProduct[];

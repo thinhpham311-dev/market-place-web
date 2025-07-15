@@ -10,11 +10,15 @@ import {
 } from "@/components/ui";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { setPage } from "./store/stateSlice";
+import { injectReducer } from "@/store";
+import reducer from "./store";
 
-const PaginationWrapper = () => {
+injectReducer("pagination", reducer)
+
+const PaginationCustom = () => {
     const dispatch = useAppDispatch();
     const { currentPage, totalPages } = useAppSelector(
-        (state) => state.suggestionPagination
+        (state) => state.pagination
     );
 
     const getPages = () => {
@@ -31,33 +35,35 @@ const PaginationWrapper = () => {
     };
 
     return (
-        <Pagination className="mt-8">
-            <PaginationContent>
-                <PaginationItem>
-                    <PaginationPrevious onClick={() => handleClick(currentPage - 1)} />
-                </PaginationItem>
-
-                {getPages().map((page) => (
-                    <PaginationItem key={page}>
-                        <PaginationLink
-                            href="#"
-                            isActive={page === currentPage}
-                            onClick={(e) => {
-                                e.preventDefault();
-                                handleClick(page);
-                            }}
-                        >
-                            {page}
-                        </PaginationLink>
+        <div className="flex items-center space-x-3">
+            <Pagination>
+                <PaginationContent>
+                    <PaginationItem>
+                        <PaginationPrevious onClick={() => handleClick(currentPage - 1)} />
                     </PaginationItem>
-                ))}
 
-                <PaginationItem>
-                    <PaginationNext onClick={() => handleClick(currentPage + 1)} />
-                </PaginationItem>
-            </PaginationContent>
-        </Pagination>
+                    {getPages().map((page) => (
+                        <PaginationItem key={page}>
+                            <PaginationLink
+                                href="#"
+                                isActive={page === currentPage}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    handleClick(page);
+                                }}
+                            >
+                                {page}
+                            </PaginationLink>
+                        </PaginationItem>
+                    ))}
+
+                    <PaginationItem>
+                        <PaginationNext onClick={() => handleClick(currentPage + 1)} />
+                    </PaginationItem>
+                </PaginationContent>
+            </Pagination>
+        </div>
     );
 };
 
-export default PaginationWrapper;
+export default PaginationCustom;

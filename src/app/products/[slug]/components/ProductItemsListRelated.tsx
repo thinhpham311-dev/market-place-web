@@ -27,7 +27,7 @@ import { ArrowRight } from "lucide-react"
 // import { productData } from "@/constants/data"
 
 //types 
-import { IProduct } from "@/interfaces/product"
+import { IProduct } from "@/features/product/types"
 
 //stores
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";

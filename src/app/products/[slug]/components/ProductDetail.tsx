@@ -28,7 +28,7 @@ import {
 } from '@/constants/data';
 
 // Types
-import { IProduct, IReview } from '@/interfaces/product';
+import { IProduct, IReview } from '@/features/product/types';
 import { IcartItem } from "@/interfaces/cart"
 import ToastMessage from './ToastMessage';
 

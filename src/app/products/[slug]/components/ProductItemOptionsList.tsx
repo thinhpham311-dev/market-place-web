@@ -5,28 +5,29 @@ import { memo } from "react"
 //components
 import { OptionsListOfTab } from "./OptionsListOfTab"
 
-//types
-import { IOption } from "@/interfaces/product"
-
-
 //libs
 import { PropertiesValidate } from "@/lib/handleError"
 
+type Option = {
+    label: string;
+    value: string | Array<Option>
+}
+
 interface IProductItemOptionsListProps {
-    options?: Array<IOption>
+    options?: Array<Option>
 }
 
 export interface IProductItemOptionsListRef {
     validateOptions: () => void,
-    selectedOptions: (IOption | null)[]
+    selectedOptions: (Option | null)[]
     validationErrors?: string[]
 }
 
 const ProductItemOptionsList = React.forwardRef<IProductItemOptionsListRef, IProductItemOptionsListProps>(({ options }, ref) => {
     // State to store selected options
     const [validationErrors, setValidationErrors] = React.useState<string[]>([]);
-    const [selectedOptions, setSelectedOptions] = React.useState<(IOption | null)[]>([]);
-    const handleChooseOption = (index: number, selectedValue: IOption | null) => {
+    const [selectedOptions, setSelectedOptions] = React.useState<(Option | null)[]>([]);
+    const handleChooseOption = (index: number, selectedValue: Option | null) => {
         if (!options) {
             return; // Thoát nếu không có options
         }

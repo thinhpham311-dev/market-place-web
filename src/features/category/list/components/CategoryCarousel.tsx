@@ -4,7 +4,7 @@ import { NotFound } from "@/components/layout";
 import LoadingPlaceholder from "./LoadingSkeleton";
 import CategoryCard from "./CategoryCard";
 import { cn } from "@/lib/utils";
-import { ICategory } from "@/interfaces/category";
+import { ICategory } from "@/features/category/types";
 
 interface ProductRowProps {
     data: ICategory[];

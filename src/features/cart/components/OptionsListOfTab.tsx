@@ -8,19 +8,23 @@ import {
 } from "@/components/ui";
 import { Label } from "@/components/ui";
 import { cn } from "@/lib/utils";
-import { IOption } from "@/interfaces/product";
+
+type Option = {
+    label: string;
+    value: string | Array<Option>
+}
 
 interface IOptionsListOfTabProps {
     label?: string;
-    data: Array<IOption>;
-    defaultValue?: IOption | null;
+    data: Array<Option>;
+    defaultValue?: Option | null;
     className?: string;
-    onChange?: (value: IOption | null) => void;
+    onChange?: (value: Option | null) => void;
 }
 
 const OptionsListOfTab = React.forwardRef<HTMLDivElement, IOptionsListOfTabProps>(
     ({ label, data, defaultValue = null, className, onChange }, ref) => {
-        const [selectedValue, setSelectedValue] = React.useState<IOption | null>(defaultValue);
+        const [selectedValue, setSelectedValue] = React.useState<Option | null>(defaultValue);
 
         React.useEffect(() => {
             if (defaultValue) {
@@ -28,7 +32,7 @@ const OptionsListOfTab = React.forwardRef<HTMLDivElement, IOptionsListOfTabProps
             }
         }, [defaultValue]);
 
-        const handleToggleItem = (item: IOption) => {
+        const handleToggleItem = (item: Option) => {
             const newValue = selectedValue?.value === item.value ? null : item;
             setSelectedValue(newValue);
             onChange?.(newValue);
@@ -44,7 +48,7 @@ const OptionsListOfTab = React.forwardRef<HTMLDivElement, IOptionsListOfTabProps
                     {label}:
                 </Label>
                 <ToggleGroup type="single" className="justify-start flex-wrap">
-                    {data.map((item: IOption) => {
+                    {data.map((item: Option) => {
                         return (
                             <ToggleGroupItem
                                 variant="outline"

@@ -9,7 +9,7 @@ import { Badge, Separator, Card, CardContent, CardImage, CardTitle, CardDescript
 import { formatToCurrency } from "@/lib/formats"
 
 //types
-import { IProduct, IOption } from '@/interfaces/product';
+import { IProduct, IOption } from '@/features/product/types';
 
 interface IToastMessage {
     updatedQuantity?: number

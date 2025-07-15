@@ -1,5 +1,5 @@
 import ApiService from "./ApiService"
-import { ICategory } from "@/interfaces/category"
+import { ICategory } from "@/features/category/types"
 
 export async function apiPostCategoriesList() {
     return ApiService.fetchData({

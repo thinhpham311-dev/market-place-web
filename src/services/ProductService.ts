@@ -1,5 +1,5 @@
 import ApiService from "./ApiService"
-import { IProduct, IProductfilter } from "@/interfaces/product"
+import { IProduct, IProductfilter } from "@/features/product/types"
 
 export async function apiPostProductsList(data: IProductfilter) {
     return ApiService.fetchData({

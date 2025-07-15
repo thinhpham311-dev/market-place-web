@@ -33,7 +33,7 @@ import { injectReducer } from "@/store";
 import reducer from "@/features/product/list/popular/store";
 
 //types 
-import { IProduct } from "@/interfaces/product"
+import { IProduct } from "@/features/product/types"
 
 //libs
 import { cn } from "@/lib/utils"
