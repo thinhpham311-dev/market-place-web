@@ -32,19 +32,27 @@ const dataSlice = createSlice({
         loading: false,
         detail: null,
         list: [],
+        total: 0
     },
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(getProductListByCategories.fulfilled, (state: { list: IProduct[]; loading: boolean }, action: { payload: any }) => {
-                state.list = action.payload.metadata;
+            .addCase(getProductListByCategories.fulfilled, (
+                state: { list: IProduct[]; loading: boolean, total: number },
+                action: { payload: ProductListResponse }) => {
+                const { list, total } = action.payload.metadata;
+                state.list = list;
+                state.total = total;
                 state.loading = false;
             })
-            .addCase(getProductListByCategories.pending, (state: { loading: boolean }) => {
+            .addCase(getProductListByCategories.pending, (
+                state: { loading: boolean }) => {
                 state.loading = true;
             })
-            .addCase(getProductListByCategories.rejected, (state: { list: IProduct[]; loading: boolean }) => {
+            .addCase(getProductListByCategories.rejected, (
+                state: { list: IProduct[]; total: number; loading: boolean }) => {
                 state.loading = false;
+                state.total = 0;
                 state.list = [];
             });
     }

@@ -27,16 +27,15 @@ export default function ProRelatedList() {
     const router = useRouter()
     const dispatch = useAppDispatch();
     const { list: products = [], loading } = useAppSelector((state) => state.proRelatedList.data);
-
     useEffect(() => {
-        dispatch(getProductList({ limit: 12, sort: "createdAt", page: 1 }) as any);
+        dispatch(getProductList({ limit: 12, sort: "ctime", page: 1 }) as any);
     }, [dispatch]);
 
     return (
         <Card className="border-0 shadow-non grid grid-cols-12">
             <CardHeader className="col-span-12 flex-row  items-center mb-3" >
                 <div className="p-0 flex-1">
-                    <CardTitle className="mb-3 capitalize">Popular Products</CardTitle>
+                    <CardTitle className="mb-3 capitalize">From The Same Shop</CardTitle>
                     <CardDescription className="md:line-clamp-2 line-clamp-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque aliquet lobortis erat, sed varius arcu iaculis id</CardDescription>
                 </div>
 

@@ -13,8 +13,8 @@ import { FilterSidebar, PaginationCustom } from "@/features/common";
 //stores
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { injectReducer } from "@/store";
-import { getProductListByCategories } from "@/features/product/list/by-category-id/store/dataSlice";
-import reducer from "@/features/product/list/by-category-id/store";
+import { getProductListByCategories } from "./store/dataSlice";
+import reducer from "./store";
 
 
 injectReducer("proListByCategoryId", reducer)
@@ -28,7 +28,6 @@ const ProListByCategoryId = ({ id }: { id: string }) => {
         list: products = [],
         loading = false,
     } = useAppSelector((state) => state.proListByCategoryId.data || {});
-
 
     React.useEffect(() => {
         if (!id) return;

@@ -53,8 +53,9 @@ const dataSlice = createSlice({
                 state.loading = false;
             })
             .addCase(getProductList.rejected, (
-                state: { list: IProduct[]; loading: boolean }) => {
+                state: { list: IProduct[]; total: number; loading: boolean }) => {
                 state.loading = false;
+                state.total = 0;
                 state.list = [];
             });
     }

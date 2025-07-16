@@ -10,9 +10,8 @@ type ProductListResponse = {
     };
 };
 
-
 export const getProductList = createAsyncThunk<ProductListResponse, IProductfilter>(
-    'proRelatedList/data/getList',
+    'proBundleDealList/data/getList',
     async (params: IProductfilter, { rejectWithValue }) => {
         try {
             const response = await apiPostProductsList(params) as
@@ -32,7 +31,7 @@ export const getProductList = createAsyncThunk<ProductListResponse, IProductfilt
 
 
 const dataSlice = createSlice({
-    name: 'proRelatedList/data',
+    name: 'proBundleDealList/data',
     initialState: {
         loading: false,
         list: [],
@@ -41,17 +40,17 @@ const dataSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
+            .addCase(getProductList.pending, (
+                state: { loading: boolean }) => {
+                state.loading = true;
+            })
             .addCase(getProductList.fulfilled, (
-                state: { list: IProduct[]; loading: boolean; total: number },
+                state: { list: IProduct[]; loading: boolean, total: number },
                 action: { payload: ProductListResponse }) => {
                 const { list, total } = action.payload.metadata;
                 state.list = list;
                 state.total = total;
                 state.loading = false;
-            })
-            .addCase(getProductList.pending, (
-                state: { loading: boolean }) => {
-                state.loading = true;
             })
             .addCase(getProductList.rejected, (
                 state: { list: IProduct[]; total: number; loading: boolean }) => {

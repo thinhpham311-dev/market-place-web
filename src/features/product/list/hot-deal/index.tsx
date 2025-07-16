@@ -19,26 +19,26 @@ import { injectReducer } from "@/store";
 
 //icons
 import { ArrowRight } from "lucide-react"
+import { FaHotjar } from "react-icons/fa"
 
+injectReducer("proHotDealList", reducer)
 
-injectReducer("proPopularList", reducer)
-
-export default function ProPopularList() {
+export default function ProHotDealList() {
     const router = useRouter()
     const dispatch = useAppDispatch();
-    const { list: products = [], loading } = useAppSelector((state) => state.proPopularList.data);
-    const state = useAppSelector(state => state)
-    console.log(state)
+    const { list: products = [], loading } = useAppSelector((state) => state.proHotDealList.data);
 
     useEffect(() => {
+
         dispatch(getProductList({ limit: 12, sort: "ctime", page: 1 }) as any);
+
     }, [dispatch]);
 
     return (
-        <Card className="border-0 shadow-non grid grid-cols-12">
+        <Card className="border-0 shadow-none grid grid-cols-12">
             <CardHeader className="col-span-12 flex-row  items-center mb-3" >
-                <div className="p-0 flex-1">
-                    <CardTitle className="mb-3 capitalize">Popular Products</CardTitle>
+                <div className=" flex-1">
+                    <CardTitle className="mb-3 capitalize space-x-2 flex items-center"><FaHotjar color="#f73e48" /><span>Hot Deals</span></CardTitle>
                     <CardDescription className="md:line-clamp-2 line-clamp-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque aliquet lobortis erat, sed varius arcu iaculis id</CardDescription>
                 </div>
 

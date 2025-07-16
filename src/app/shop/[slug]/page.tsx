@@ -1,13 +1,12 @@
 import StoreInfo from "./components/StoreInfo"
-import ProductItemsListTopPicksFromShop from "./components/ProductItemsRecommendedForYou"
-import ProductItemsHotDeals from "./components/ProductItemsHotDeals";
-import GalleryList from "./components/GalleriesList"
+import { ProRecommendedList, ProHotDealList } from "@/features/product/list"
+import Advertisement from "@/features/ads"
 
 export default async function Page() {
-    return <div className="container space-y-5 mx-auto md:p-6 p-3">
+    return <div className="container space-y-5 mx-auto my-5">
         <StoreInfo />
-        <ProductItemsListTopPicksFromShop />
-        <GalleryList />
-        <ProductItemsHotDeals />
+        <Advertisement />
+        <ProRecommendedList />
+        <ProHotDealList />
     </div>
 }

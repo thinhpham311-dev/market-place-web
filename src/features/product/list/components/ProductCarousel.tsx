@@ -14,6 +14,8 @@ interface ProductRowProps {
 }
 
 const ProductCarousel = ({ data, itemsPerPage = 12, className, isLoading }: ProductRowProps) => {
+
+
     if (isLoading && (!data || data.length === 0)) {
         return <LoadingPlaceholder />;
     }

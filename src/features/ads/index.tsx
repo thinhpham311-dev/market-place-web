@@ -2,6 +2,7 @@
 import * as React from "react"
 
 //components
+import { Card, CardContent } from "@/components/ui"
 import AdsCarousel from "./components/AdsCarousel"
 
 //datas
@@ -9,11 +10,12 @@ import { bannerData } from "@/constants/data"
 
 
 const Advertisement = () => {
-
     return (
-        <>
-            <AdsCarousel data={bannerData} />
-        </>
+        <Card className="border-0 shadow-none grid grid-cols-12">
+            <CardContent className="col-span-12">
+                <AdsCarousel data={bannerData} />
+            </CardContent>
+        </Card>
     );
 }
 

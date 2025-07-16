@@ -11,8 +11,8 @@ import CategoryCarousel from "./components/CategoryCarousel";
 // store
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { injectReducer } from "@/store";
-import { getCategoryDetail } from "@/store/category/detail/dataSlice";
-import reducer from "@/store/category/detail";
+import { getCatListById } from "./store/dataSlice";
+import reducer from "./store";
 
 // types
 import { ICategory } from "@/features/category/types";
@@ -39,7 +39,7 @@ const CatByCategoryId = ({
 
     useEffect(() => {
         if (mainId) {
-            dispatch(getCategoryDetail({ _id: mainId } as ICategory) as any);
+            dispatch(getCatListById({ _id: mainId } as ICategory) as any);
         }
     }, [dispatch, mainId]);
 

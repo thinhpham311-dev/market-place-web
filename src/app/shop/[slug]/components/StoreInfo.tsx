@@ -13,7 +13,7 @@ export default function StoreInfo(
     const router = useRouter()
 
     return (
-        <Card className='grid grid-cols-12 md:gap-10 gap-5 p-3'>
+        <Card className=' grid grid-cols-12 md:gap-10 gap-5 md:mx-6 mx-3 md:p-6 p-3'>
             <CardHeader className='flex flex-row flex-wrap md:col-span-4 col-span-12 gap-x-5 p-0'>
                 <div className='col-span-1 my-3'>
                     <Avatar>
@@ -34,7 +34,7 @@ export default function StoreInfo(
                     <Button className='col-span-1' variant="outline" ><MessageCircleMore /><span>Chat Now</span></Button>
                 </CardContent>
             </CardHeader>
-            <CardContent className=' md:col-span-8 col-span-12 grid md:gap-10 gap-3 md:grid-cols-3 grid-cols-2 items-center md:p-3 p-0'>
+            <CardContent className=' md:col-span-8 col-span-12 grid md:gap-10 gap-3 md:grid-cols-3 grid-cols-2 items-center  p-0'>
                 <CardDescription className='md:col-span-1 col-span-2 flex flex-row flex-wrap justify-between capitalize'><strong>ratings:</strong> 1,5k</CardDescription>
                 <CardDescription className='md:col-span-1 col-span-2 flex flex-row flex-wrap justify-between capitalize'><strong>response rate:</strong> 92%</CardDescription>
                 <CardDescription className='md:col-span-1 col-span-2 flex flex-row flex-wrap justify-between capitalize'><strong>joined:</strong> 6 years ago</CardDescription>
