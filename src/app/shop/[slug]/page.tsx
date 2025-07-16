@@ -1,5 +1,7 @@
 import StoreInfo from "./components/StoreInfo"
-import { ProRecommendedList, ProHotDealList } from "@/features/product/list"
+import ProRecommendedList from "@/features/product/list/recommended"
+import ProHotDealList from "@/features/product/list/hot-deal"
+
 import Advertisement from "@/features/ads"
 
 export default async function Page() {

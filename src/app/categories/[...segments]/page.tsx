@@ -1,7 +1,7 @@
 'use client';
 
 import CatByCategoryId from "@/features/category/detail";
-import { ProListByCategoryId } from "@/features/product/list";
+import ProListByCategoryId from "@/features/product/list/by-category-id";
 
 export default function Page({ params }: { params: { segments: string[] } }) {
     const [fullSlug] = params.segments || [];

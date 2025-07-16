@@ -29,14 +29,15 @@ export const getProductList = createAsyncThunk<ProductListResponse, IProductfilt
         }
     });
 
+const initialState = {
+    loading: false,
+    list: [],
+    total: 0
+}
 
 const dataSlice = createSlice({
     name: 'proPopularList/data',
-    initialState: {
-        loading: false,
-        list: [],
-        total: 0
-    },
+    initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
@@ -57,7 +58,7 @@ const dataSlice = createSlice({
                 state.loading = false;
                 state.total = 0;
                 state.list = [];
-            });
+            })
     }
 });
 

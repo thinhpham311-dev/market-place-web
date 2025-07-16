@@ -27,19 +27,19 @@ export default function ProBundleDealList() {
     const router = useRouter()
     const dispatch = useAppDispatch();
     const { list: products = [], loading } = useAppSelector((state) => state.proBundleDealList.data);
-
+    const state = useAppSelector(state => state)
+    console.log(state)
     useEffect(() => {
         dispatch(getProductList({ limit: 12, sort: "ctime", page: 1 }) as any);
     }, [dispatch]);
 
     return (
         <Card className="border-0 shadow-non grid grid-cols-12">
-            <CardHeader className="col-span-12 flex-row  items-center mb-3 p-0" >
+            <CardHeader className="col-span-12 flex-row  items-center mb-3 " >
                 <div className="flex-1">
                     <CardTitle className="mb-3 capitalize">Bundle Deals</CardTitle>
                     <CardDescription className="md:line-clamp-2 line-clamp-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque aliquet lobortis erat, sed varius arcu iaculis id</CardDescription>
                 </div>
-
                 <Button variant="outline" size="icon" className="float-end" onClick={() => router.push("/categories/1")}>
                     <ArrowRight className="h-4 w-4" />
                 </Button>

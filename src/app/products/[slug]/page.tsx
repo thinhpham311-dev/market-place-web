@@ -2,8 +2,9 @@ export const dynamic = "force-dynamic";
 
 // Components
 import ProductDetail from './components/ProductDetail';
-import { ProRelatedList, ProBundleDealList, ProTopPicksList } from "@/features/product/list"
-
+import ProBundleDealList from "@/features/product/list/bundle-deal"
+import ProTopPicksList from "@/features/product/list/top-picks"
+import ProRelatedList from "@/features/product/list/related"
 import StoreInfo from './components/StoreInfo';
 
 export default async function Page({ params }: { params: { slug: string } }) {

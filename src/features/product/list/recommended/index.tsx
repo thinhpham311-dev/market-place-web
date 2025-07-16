@@ -20,7 +20,6 @@ import { injectReducer } from "@/store";
 //icons
 import { ArrowRight } from "lucide-react"
 
-
 injectReducer("proRecommendedList", reducer)
 
 export default function ProRecommendedList() {
