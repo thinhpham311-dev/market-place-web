@@ -22,7 +22,6 @@ const store = configureStore({
     reducer: persistReducer(persistConfig, rootReducer() as Reducer),
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
-            immutableCheck: false,
             serializableCheck: false,
         }).concat(middlewares),
     devTools: process.env.NEXT_PUBLIC_NODE_ENV === 'development',

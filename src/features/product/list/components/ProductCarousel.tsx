@@ -27,9 +27,9 @@ const ProductCarousel = ({ data, itemsPerPage = 12, className, isLoading }: Prod
         <>
             <Carousel>
                 <CarouselContent className="-ml-2">
-                    {data.slice(0, itemsPerPage).map((item) => (
-                        <CarouselItem key={item._id} className={cn("pl-2", className)}>
-                            <ProductCard item={item} />
+                    {data.slice(0, itemsPerPage).map((_) => (
+                        <CarouselItem key={_._id} className={cn("pl-2", className)}>
+                            <ProductCard item={_} />
                         </CarouselItem>
                     ))}
                 </CarouselContent>

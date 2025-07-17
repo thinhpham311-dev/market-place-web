@@ -15,22 +15,12 @@ import { Button, Separator, Card, CardContent, CardTitle, CardDescription, StarR
 
 // Components
 import { NotFound } from "@/components/layout"
-import ProductItemOptionsList, { IProductItemOptionsListRef } from "./ProductItemOptionsList"
-import ProductItemQuantity, { IProductItemQuantityRef } from "./ProductItemQuantity"
 import ProductReview from './ProductReview'
-import ProductImagesListWithThumbnails from "./ProductImagesListWithThumbnails"
-import ShareSocialsList from "./ShareSocialsList"
 
-// Data
-import {
-    images,
-    // productData 
-} from '@/constants/data';
 
 // Types
 import { IProduct, IReview } from '@/features/product/types';
 import { IcartItem } from "@/interfaces/cart"
-import ToastMessage from './ToastMessage';
 
 //format & hooks
 import { formatToCurrency } from "@/lib/formats"
@@ -44,6 +34,25 @@ import reducer from '@/store/product/detail';
 interface IProductDetailProps {
     product: IProduct
 }
+
+
+type Option = {
+    label: string;
+    value: string | Array<Option>
+}
+
+interface IProductItemQuantityRef {
+    validateQuantity: () => string[];
+    resetQuantity?: () => void;
+    getCurrentQuantity?: () => number;
+}
+
+interface IProductItemOptionsListRef {
+    validateOptions: () => void,
+    selectedOptions: (Option | null)[]
+    validationErrors?: string[]
+}
+
 
 const initialReviews = [
     {
@@ -126,18 +135,9 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
 
         dispatch(addItem({ cartItem: cartItem, options: selectedOptions || [] }));
 
-        const totalPrice = updatedQuantity * product.product_price;
+        // const totalPrice = updatedQuantity * product.product_price;
         // const discountedTotalPrice = updatedQuantity * product.discountPrice;
 
-        toast({
-            description: <ToastMessage
-                product={product}
-                options={selectedOptions || []}
-                updatedQuantity={updatedQuantity}
-                totalPrice={totalPrice}
-            // discountedTotalPrice={discountedTotalPrice}
-            />,
-        });
         productItemQuantityRef.current?.resetQuantity?.()
     }, [dispatch, product, productItemQuantityRef, productItemOptionListRef]);
 
@@ -164,10 +164,7 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
 
     return (
         <Card layout="horizontal" className=' grid lg:grid-cols-3 md:grid-cols-4 grid-cols-1 gap-5  md:p-5 p-3'>
-            <div className="space-y-4 lg:col-span-1 md:col-span-2 col-span-1 ">
-                <ProductImagesListWithThumbnails data={images} />
-                <ShareSocialsList />
-            </div>
+
             <CardContent className='lg:col-span-2 md:col-span-2 col-span-1 md:px-5 px-0'>
                 <CardTitle className="line-clamp-2 leading-8 mb-5  ">{product.product_name}</CardTitle>
                 <CardDescription className="space-y-5">
@@ -180,8 +177,6 @@ function ProductDetailInfo({ product }: IProductDetailProps) {
                             <strong>{formatToCurrency(product.product_price)}</strong>
                         </p>
                     </div>
-                    <ProductItemOptionsList options={product.options} ref={productItemOptionListRef} />
-                    <ProductItemQuantity quantity={product.quantity} ref={productItemQuantityRef} />
 
                     <div className='space-x-3 flex items-center'>
                         <Button

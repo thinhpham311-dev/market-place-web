@@ -23,8 +23,8 @@ const ProductGrid = ({ data, className, isLoading = false }: ProductGridProps) =
 
     return (
         <div className={cn("grid w-full", className)}>
-            {data.map((item) => (
-                <ProductCard key={item._id} item={item} />
+            {data.map((_) => (
+                <ProductCard key={_._id} item={_} />
             ))}
         </div>
     );
