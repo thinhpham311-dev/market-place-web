@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui";
-import { usePurchaseActions } from "@/features/product/detail/hooks";
+import { usePurchaseActions } from "./hooks";
 
 import { IProduct } from "@/features/product/types";
 

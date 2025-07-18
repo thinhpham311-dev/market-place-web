@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui";
 import { MdAddShoppingCart } from "react-icons/md";
-import { usePurchaseActions } from "@/features/product/detail/hooks"
+import { usePurchaseActions } from "./hooks"
 
 import { IProduct } from "@/features/product/types";
 

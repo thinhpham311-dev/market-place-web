@@ -17,7 +17,7 @@ export default function ProDetail() {
             <ThumbnailGallery data={images} />
             <SocialsShare data={socials} />
             <ProVariantsSelector options={[]} />
-            <ProQuantitySelector quantity={0} />
+            <ProQuantitySelector quantity={30} />
             <ProDescriptionContent />
             <ProSpecifications specs={[]} />
             {/* <PurchaseActions /> */}

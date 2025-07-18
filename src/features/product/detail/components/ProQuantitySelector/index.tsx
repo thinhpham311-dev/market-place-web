@@ -4,7 +4,12 @@ import { memo } from "react";
 
 // ui
 import { Counter, ICounterRef } from "@/components/ui";
-import QuantityInfo from "./QuantityInfo"
+import QuantityInfo from "./QuantityInfo";
+
+// hooks
+import { useQuantitySelector } from "./hooks";
+import { injectReducer } from "@/store";
+import reducer from "./store";
 
 interface ProQuantitySelectorProps {
     quantity: number; // Maximum quantity available
@@ -16,37 +21,32 @@ export interface ProQuantitySelectorRef {
     getCurrentQuantity?: () => number;
 }
 
+injectReducer("quantity", reducer)
+
 const ProQuantitySelector = React.forwardRef<
     ProQuantitySelectorRef,
     ProQuantitySelectorProps
 >(({ quantity }, ref) => {
     const counterRef = React.useRef<ICounterRef>(null);
-    const [errorMessages, setErrorMessages] = React.useState<string[]>([]);
-    const [currentQuantity, setCurrentQuantity] = React.useState<number>(1);
 
-    const validateQuantity = (newQuantity: number) => {
-        if (newQuantity > quantity) {
-            return [
-                `If more quantity is added, purchase limit will be exceeded and price may change`,
-            ];
-        }
-        return [];
-    };
+    const {
+        currentQuantity,
+        errorMessages,
+        handleQuantityChange,
+        resetQuantity,
+        validateQuantity,
+    } = useQuantitySelector(quantity);
 
     React.useImperativeHandle(ref, () => ({
         validateQuantity: () => validateQuantity(currentQuantity),
         getCurrentQuantity: () => currentQuantity,
         resetQuantity: () => {
-            setCurrentQuantity(1);
+            resetQuantity();
             counterRef.current?.reset?.();
-            setErrorMessages([]);
         },
     }));
 
-    const handleQuantityChange = (newQuantity: number) => {
-        setCurrentQuantity(newQuantity);
-        setErrorMessages(validateQuantity(newQuantity));
-    };
+    console.log(errorMessages)
 
     return (
         <div className="flex flex-rows flex-wrap gap-3 items-center">
@@ -56,14 +56,9 @@ const ProQuantitySelector = React.forwardRef<
                 ref={counterRef}
                 onQuantityChange={handleQuantityChange}
             />
-            <QuantityInfo
-                quantity={quantity}
-                errorMessages={errorMessages}
-            />
+            <QuantityInfo quantity={quantity} errorMessages={errorMessages} />
         </div>
     );
 });
 
 export default memo(ProQuantitySelector);
-
-

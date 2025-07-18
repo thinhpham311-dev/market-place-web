@@ -7,55 +7,55 @@ import {
     CarouselApi,
 } from "@/components/ui";
 import ProImage from "../ProImage";
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { setCurrent } from "../../store/stateSlice";
 import { cn } from "@/lib/utils";
 
-interface ProImagesProps {
+interface GalleryCarouselProps {
     data: string[];
     className?: string;
-    onSetThumbnail?: (api: CarouselApi) => void;
-    thumbnail?: CarouselApi | null;
-    isActive?: boolean
+    onSetApi?: (api: CarouselApi) => void;
+    current?: number;
+    onNavigate?: (index: number) => void;
 }
 
 const GalleryCarousel = ({
     data,
     className,
-    onSetThumbnail,
-    thumbnail,
-    isActive
-}: ProImagesProps) => {
-    const dispatch = useAppDispatch();
-    const { current } = useAppSelector((state) => state.gallery.state);
-
-    const onImageClick = (index: number) => {
-        if (thumbnail) {
-            thumbnail.scrollTo(index);
-            dispatch(setCurrent(index));
-        }
+    onSetApi,
+    current,
+    onNavigate,
+}: GalleryCarouselProps) => {
+    const handleImageClick = (index: number) => {
+        onNavigate?.(index);
     };
 
+
     return (
-        <Carousel setApi={onSetThumbnail}>
+        <Carousel setApi={onSetApi}>
             <CarouselContent className="-ml-2">
-                {data.map((_, i) => (
+                {data.map((image, i) => (
                     <CarouselItem
                         key={i}
                         className={cn(
                             "relative aspect-square w-full cursor-pointer pl-2",
                             className
                         )}
-                        onMouseEnter={() => onImageClick(i)}
-                        onClick={() => onImageClick(i)}
+                        onMouseEnter={() => handleImageClick(i)}
+                        onClick={() => handleImageClick(i)}
                     >
-                        <div className={cn("aspect-square", isActive && current === i ? "border-2 border-blue-600" : "")}>
-                            <ProImage index={i} image={_} />
+                        <div
+                            className={cn(
+                                "aspect-square",
+                                current === i
+                                    ? "border-2 border-blue-600"
+                                    : ""
+                            )}
+                        >
+                            <ProImage index={i} image={image} />
                         </div>
                     </CarouselItem>
                 ))}
             </CarouselContent>
-        </Carousel >
+        </Carousel>
     );
 };
 

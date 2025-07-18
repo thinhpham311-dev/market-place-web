@@ -1,73 +1,41 @@
 "use client";
 import React from "react";
-import { CarouselApi, Card, CardContent, CardFooter } from "@/components/ui"
-import GalleryCarousel from "./GalleryCarousel"
-import GalleryNavigation from "./GalleryNavigation"
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { setCurrent } from "@/features/product/detail/store/stateSlice"
+import { Card, CardContent, CardFooter } from "@/components/ui";
+import GalleryCarousel from "./GalleryCarousel";
+import GalleryNavigation from "./GalleryNavigation";
 import { injectReducer } from "@/store";
-import reducer from "@/features/product/detail/store"
+import reducer from "./store";
+import { useSyncCarousels } from "./hooks";
 
 interface ThumbnailGalleryProps {
     data: string[];
 }
 
-injectReducer("gallery", reducer)
+injectReducer("gallery", reducer);
 
 export default function ThumbnailGallery({ data }: ThumbnailGalleryProps) {
-    const dispatch = useAppDispatch()
-    const [mainApi, setMainApi] = React.useState<CarouselApi>();
-    const [thumbnailApi, setThumbnailApi] = React.useState<CarouselApi>();
-    const { current } = useAppSelector((state) => state.gallery.state);
-
-    const navigateTo = (index: number) => {
-        if (mainApi && thumbnailApi) {
-            thumbnailApi.scrollTo(index);
-            mainApi.scrollTo(index);
-            dispatch(setCurrent(index));
-        }
-    };
-
-    React.useEffect(() => {
-        if (!mainApi || !thumbnailApi) {
-            return;
-        }
-
-        const syncMainToThumbnail = () => {
-            const selected = mainApi.selectedScrollSnap();
-            dispatch(setCurrent(selected));
-            thumbnailApi.scrollTo(selected);
-        };
-
-        const syncThumbnailToMain = () => {
-            const selected = thumbnailApi.selectedScrollSnap();
-            dispatch(setCurrent(selected));
-            mainApi.scrollTo(selected);
-        };
-
-        mainApi.on("select", syncMainToThumbnail);
-        thumbnailApi.on("select", syncThumbnailToMain);
-
-        return () => {
-            mainApi.off("select", syncMainToThumbnail);
-            thumbnailApi.off("select", syncThumbnailToMain);
-        };
-    }, [dispatch, mainApi, thumbnailApi]);
+    const { current, setApi, navigateTo } = useSyncCarousels();
 
     return (
         <Card className="border-none">
             <CardContent className="w-full max-w-xl sm:w-auto p-0">
                 <GalleryCarousel
                     data={data}
-                    onSetThumbnail={setMainApi}
-                    thumbnail={mainApi} />
+                    onSetApi={(api) => setApi("main", api)}
+                    onNavigate={navigateTo}
+
+                />
             </CardContent>
+
             <CardFooter className="relative p-0">
-                <GalleryCarousel data={data}
-                    onSetThumbnail={setThumbnailApi}
-                    thumbnail={thumbnailApi}
-                    isActive={true}
-                    className="basis-1/4" />
+                <GalleryCarousel
+                    data={data}
+                    onSetApi={(api) => setApi("thumbnail", api)}
+                    current={current}
+                    className="basis-1/4"
+                    onNavigate={navigateTo}
+
+                />
 
                 <GalleryNavigation
                     current={current}

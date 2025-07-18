@@ -2,14 +2,11 @@
 
 import * as React from "react";
 import { memo } from "react";
-import VariantSelector from "./VariantSelector"; // Component con hiển thị danh sách lựa chọn
-import { PropertiesValidate } from "@/lib/handleError";
-
-// Types
-export type VariantOption = {
-    label: string;
-    value: string | VariantOption[];
-};
+import VariantSelector from "./VariantSelector";
+import { useVariantsSelector } from "./hooks";
+import { VariantOption } from "./types"
+import { injectReducer } from "@/store";
+import reducer from "./store";
 
 interface ProVariantsSelectorProps {
     options?: VariantOption[];
@@ -21,32 +18,14 @@ export interface ProVariantsSelectorRef {
     validationErrors?: string[];
 }
 
+injectReducer("variants", reducer)
+
 const ProVariantsSelector = React.forwardRef<
     ProVariantsSelectorRef,
     ProVariantsSelectorProps
 >(({ options = [] }, ref) => {
-    const [selectedOptions, setSelectedOptions] = React.useState<(VariantOption | null)[]>([]);
-    const [validationErrors, setValidationErrors] = React.useState<string[]>([]);
-
-    const handleChooseOption = (index: number, selectedValue: VariantOption | null) => {
-        const updatedSelected = [...selectedOptions];
-        updatedSelected[index] = selectedValue;
-        setSelectedOptions(updatedSelected);
-
-        const newErrors = options
-            .map((_, i) => (!updatedSelected[i] ? _.label : null))
-            .filter(Boolean) as string[];
-        setValidationErrors(newErrors);
-    };
-
-    const validateOptions = React.useCallback((): string[] => {
-        const errors = PropertiesValidate(
-            options,
-            (_, i) => (selectedOptions[i] ? null : `The option ${_.label} is not selected`)
-        );
-        setValidationErrors(errors);
-        return errors;
-    }, [options, selectedOptions]);
+    const { selectedOptions, validationErrors, validateOptions } =
+        useVariantsSelector(options);
 
     React.useImperativeHandle(ref, () => ({
         validateOptions,
@@ -62,10 +41,10 @@ const ProVariantsSelector = React.forwardRef<
                         <div key={i}>
                             <VariantSelector
                                 label={_.label}
-                                data={_.value}
-                                onChange={(selectedValue) => handleChooseOption(i, selectedValue)}
+                                data={_.value as VariantOption[]}
+                                index={i}
                             />
-                            {validationErrors.includes(_.label) && (
+                            {validationErrors.includes(`${_.label} is required.`) && (
                                 <p className="text-red-500 text-xs my-2">{`${_.label} is required.`}</p>
                             )}
                         </div>
