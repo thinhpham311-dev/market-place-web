@@ -7,11 +7,9 @@ import ProVariantsSelector from "./components/ProVariantsSelector"
 import ProDescriptionContent from "./components/ProDescriptionContent";
 import ProSpecifications from "./components/ProSpecifications"
 import SocialsShare from "./components/SocialsShare";
-import { injectReducer } from "@/store";
-import reducer from "./store";
+// import PurchaseActions from "./components/PurchaseActions"
 
 
-injectReducer("gallery", reducer)
 
 export default function ProDetail() {
     return (
@@ -22,6 +20,7 @@ export default function ProDetail() {
             <ProQuantitySelector quantity={0} />
             <ProDescriptionContent />
             <ProSpecifications specs={[]} />
+            {/* <PurchaseActions /> */}
         </div>
     );
 }

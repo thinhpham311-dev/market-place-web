@@ -25,7 +25,6 @@ export default function ProDescriptionContent({
             />
         );
     } else {
-        // ReactElement (VD: <p>Some description</p>)
         content = <CardDescription>{description}</CardDescription>;
     }
 

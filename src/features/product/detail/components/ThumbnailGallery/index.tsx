@@ -5,10 +5,14 @@ import GalleryCarousel from "./GalleryCarousel"
 import GalleryNavigation from "./GalleryNavigation"
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { setCurrent } from "@/features/product/detail/store/stateSlice"
+import { injectReducer } from "@/store";
+import reducer from "@/features/product/detail/store"
 
 interface ThumbnailGalleryProps {
     data: string[];
 }
+
+injectReducer("gallery", reducer)
 
 export default function ThumbnailGallery({ data }: ThumbnailGalleryProps) {
     const dispatch = useAppDispatch()
@@ -17,7 +21,6 @@ export default function ThumbnailGallery({ data }: ThumbnailGalleryProps) {
     const { current } = useAppSelector((state) => state.gallery.state);
 
     const navigateTo = (index: number) => {
-        console.log()
         if (mainApi && thumbnailApi) {
             thumbnailApi.scrollTo(index);
             mainApi.scrollTo(index);
