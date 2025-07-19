@@ -44,7 +44,6 @@ const GalleryCarousel = ({
                     >
                         <div
                             className={cn(
-                                "aspect-square",
                                 current === i
                                     ? "border-2 border-blue-600"
                                     : ""

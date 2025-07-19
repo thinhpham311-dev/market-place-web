@@ -13,7 +13,7 @@ const initialState: InfiniteScrollState = {
 };
 
 const stateSlice = createSlice({
-    name: "infiniteScroll",
+    name: "infiniteScroll/state",
     initialState,
     reducers: {
         nextPage: (state) => {

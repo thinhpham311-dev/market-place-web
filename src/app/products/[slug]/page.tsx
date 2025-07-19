@@ -9,14 +9,14 @@ export const dynamic = "force-dynamic";
 import ProDetail from "@/features/product/detail";
 
 export default async function Page(
-    // { params }: { params: { slug: string } }
+    { params }: { params: { slug: string } }
 ) {
-    // const { slug } = params;
-    // const _id = slug.split('.').pop() || '';
+    const { slug } = params;
+    const _id = slug.split('.').pop() || '';
 
     return (
         <div className="space-y-5 md:my-5 container mx-auto">
-            <ProDetail />
+            <ProDetail id={_id} />
             {/* <ProductDetail id={_id} />
             <StoreInfo />
             <ProTopPicksList />

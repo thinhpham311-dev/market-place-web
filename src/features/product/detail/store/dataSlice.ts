@@ -2,26 +2,46 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { apiPostProductDetail } from '@/services/ProductService';
 import { IProduct } from '@/features/product/types';
 
-interface ProductDetailState {
+
+
+type ProductDetailResponse = {
+    metadata:
+    {
+        detail: IProduct,
+    };
+};
+
+export const getProductDetail = createAsyncThunk<ProductDetailResponse, IProduct>(
+    'detail/data/getDetail',
+    async (params, { rejectWithValue }) => {
+        try {
+            const response = await apiPostProductDetail(params) as {
+                data: {
+                    metadata: {
+                        detail: IProduct,
+                    }
+                }
+            };;
+            return response.data;
+        } catch (error: any) {
+            return rejectWithValue(error?.response?.data || error.message);
+        }
+    }
+);
+
+interface IProductDetailState {
     loading: boolean;
     detail: IProduct | null;
 }
 
-const initialState: ProductDetailState = {
+const initialState: IProductDetailState = {
     loading: false,
     detail: null,
 };
 
-export const getProductDetail = createAsyncThunk<IProduct, IProduct>(
-    'productDetail/data/getDetail',
-    async (data) => {
-        const response = await apiPostProductDetail(data) as { data: IProduct };
-        return response.data;
-    }
-);
 
 const dataSlice = createSlice({
-    name: 'productDetail/data',
+    name: 'detail/data',
     initialState,
     reducers: {},
     extraReducers: (builder) => {
@@ -30,7 +50,8 @@ const dataSlice = createSlice({
                 state.loading = true;
             })
             .addCase(getProductDetail.fulfilled, (state: { detail: IProduct | null; loading: boolean }, action: { payload: any }) => {
-                state.detail = action.payload.metadata;
+                const { detail } = action.payload.metadata
+                state.detail = detail;
                 state.loading = false;
             })
             .addCase(getProductDetail.rejected, (state) => {

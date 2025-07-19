@@ -18,11 +18,11 @@ interface ISocialsShareProps {
 export default function SocialsShare({ data }: ISocialsShareProps) {
     const router = useRouter()
     return (
-        <Card className="flex flex-row items-center  gap-4 border-none shadow-none">
-            <CardHeader className="p-0">
+        <Card layout="horizontal" className="items-center">
+            <CardHeader className="p-3">
                 <CardTitle className="flex items-center"><span className="text-xs font-bold">Share:</span></CardTitle>
             </CardHeader>
-            <CardContent className="p-0 space-x-2">
+            <CardContent className=" space-x-2 p-3">
                 {
                     data.map(_ => {
                         return (

@@ -21,7 +21,7 @@ export default function GalleryNavigation({
     const handleNext = () => onNavigate((current + 1) % total);
 
     const baseBtnClass =
-        "p-2 absolute top-1/2 -translate-y-1/2 rounded-full w-7 h-7 z-10";
+        "p-2 absolute top-1/2 -translate-y-1/2 rounded-full w-7 h-7";
 
     return (
         <>

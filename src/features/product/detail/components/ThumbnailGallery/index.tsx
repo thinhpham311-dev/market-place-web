@@ -32,7 +32,7 @@ export default function ThumbnailGallery({ data }: ThumbnailGalleryProps) {
                     data={data}
                     onSetApi={(api) => setApi("thumbnail", api)}
                     current={current}
-                    className="basis-1/4"
+                    className="basis-1/6"
                     onNavigate={navigateTo}
 
                 />

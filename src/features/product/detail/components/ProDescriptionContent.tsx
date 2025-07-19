@@ -5,6 +5,7 @@ import {
     CardTitle,
     CardDescription,
     CardContent,
+    CardHeader,
 } from "@/components/ui/card";
 
 interface ProductDescriptionContentProps {
@@ -29,11 +30,13 @@ export default function ProDescriptionContent({
     }
 
     return (
-        <Card>
-            <CardContent className="p-0">
-                <CardTitle className="bg-sidebar-foreground text-background p-3">
+        <Card className="rounded-none">
+            <CardHeader className="bg-sidebar-foreground  p-3">
+                <CardTitle className="text-background">
                     Product Description
                 </CardTitle>
+            </CardHeader>
+            <CardContent className="p-3">
                 {content}
             </CardContent>
         </Card>

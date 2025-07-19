@@ -1,12 +1,17 @@
 'use client';
 
+import { injectReducer } from '@/store';
 import { useEffect, useRef } from 'react';
+import reducer from "./store";
+
 
 export interface LoadMoreTriggerProps {
     hasMore: boolean;
     onTrigger: () => void;
     isLoading?: boolean;
 }
+
+injectReducer("infiniteScroll", reducer);
 
 export default function LoadMoreTrigger({
     hasMore,

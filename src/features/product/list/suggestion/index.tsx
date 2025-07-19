@@ -12,18 +12,18 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getProductList } from "./store/dataSlice";
 import { injectReducer } from "@/store";
 import suggestionReducer from "./store";
-import infiniteScrollReducer, {
+import {
     nextPage,
     setTotalCount,
 } from "@/features/common/load-more/store/stateSlice";
 
 injectReducer("proSuggestionList", suggestionReducer);
-injectReducer("infiniteScroll", infiniteScrollReducer);
 
 export default function ProSuggestionList() {
     const dispatch = useAppDispatch();
 
-    const { page, limit, totalItems } = useAppSelector((state) => state.infiniteScroll);
+    const { page, limit, totalItems } = useAppSelector((state) => state.infiniteScroll.state);
+
     const { list: products = [], loading, total } = useAppSelector(
         (state) => state.proSuggestionList.data
     );
@@ -62,7 +62,6 @@ export default function ProSuggestionList() {
                     className=" grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3"
                     isLoading={loading}
                 />
-
                 {hasMore && (
                     <LoadMoreTrigger
                         hasMore={hasMore}

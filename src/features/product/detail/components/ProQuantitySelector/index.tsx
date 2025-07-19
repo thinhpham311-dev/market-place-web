@@ -46,8 +46,6 @@ const ProQuantitySelector = React.forwardRef<
         },
     }));
 
-    console.log(errorMessages)
-
     return (
         <div className="flex flex-rows flex-wrap gap-3 items-center">
             <p className="basis-full font-bold">Quantity:</p>

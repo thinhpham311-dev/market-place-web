@@ -11,26 +11,26 @@ import BuyNowButton from "./BuyNowButton";
 import { IProduct } from "@/features/product/types";
 
 interface Props {
-    product: IProduct;
+    data: IProduct;
 }
 
 injectReducer("purchaseActions", reducer);
 
-export default function PurchaseActions({ product }: Props) {
+export default function PurchaseActions({ data }: Props) {
     const productItemQuantityRef = useRef<any>(null);
     const productItemOptionListRef = useRef<any>(null);
 
     return (
-        <Card layout="horizontal" className="grid lg:grid-cols-3 md:grid-cols-4 grid-cols-1 gap-5 md:p-5 p-3">
-            <CardContent className="lg:col-span-2 md:col-span-2 col-span-1 md:px-5 px-0">
+        <Card layout="horizontal" className="grid lg:grid-cols-3 md:grid-cols-4 grid-cols-1 gap-5 w-full">
+            <CardContent className="lg:col-span-2 md:col-span-2 col-span-1 p-3">
                 <div className="flex gap-2">
                     <AddToCartButton
-                        product={product}
+                        product={data}
                         quantityRef={productItemQuantityRef}
                         optionsRef={productItemOptionListRef}
                     />
                     <BuyNowButton
-                        product={product}
+                        product={data}
                         quantityRef={productItemQuantityRef}
                         optionsRef={productItemOptionListRef}
                     />
