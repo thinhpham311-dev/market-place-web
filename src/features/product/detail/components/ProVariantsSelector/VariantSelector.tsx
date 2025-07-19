@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui";
+import { Card, CardHeader, CardTitle, ToggleGroup, ToggleGroupItem } from "@/components/ui";
 import { cn } from "@/lib/utils";
 import { VariantOption } from "./types";
 import { useVariantsSelector } from "./hooks";
@@ -26,8 +26,10 @@ export default function VariantSelector({ label, data, className, index }: Varia
     };
 
     return (
-        <div className={cn("font-semibold leading-none tracking-tight", className)}>
-            {label && <p className="block font-bold mb-3">{label}:</p>}
+        <Card className={cn("font-semibold leading-none tracking-tight", className)}>
+            <CardHeader>
+                {label && <CardTitle className="text-sm">{label}:</CardTitle>}
+            </CardHeader>
             <ToggleGroup
                 type="single"
                 value={selected ? getItemKey(selected.value) : ""}
@@ -52,6 +54,6 @@ export default function VariantSelector({ label, data, className, index }: Varia
                     );
                 })}
             </ToggleGroup>
-        </div>
+        </Card>
     );
 }

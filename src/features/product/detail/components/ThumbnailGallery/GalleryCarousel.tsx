@@ -36,14 +36,14 @@ const GalleryCarousel = ({
                     <CarouselItem
                         key={i}
                         className={cn(
-                            "relative aspect-square w-full cursor-pointer pl-2",
+                            "relative w-full cursor-pointer pl-2 grid place-items-center",
                             className
                         )}
                         onMouseEnter={() => handleImageClick(i)}
                         onClick={() => handleImageClick(i)}
                     >
                         <div
-                            className={cn(
+                            className={cn("w-full h-full ",
                                 current === i
                                     ? "border-2 border-blue-600"
                                     : ""

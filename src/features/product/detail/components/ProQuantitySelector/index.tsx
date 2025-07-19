@@ -3,7 +3,7 @@ import * as React from "react";
 import { memo } from "react";
 
 // ui
-import { Counter, ICounterRef } from "@/components/ui";
+import { Counter, ICounterRef, Card, CardHeader, CardTitle, CardContent } from "@/components/ui";
 import QuantityInfo from "./QuantityInfo";
 
 // hooks
@@ -47,15 +47,19 @@ const ProQuantitySelector = React.forwardRef<
     }));
 
     return (
-        <div className="flex flex-rows flex-wrap gap-3 items-center">
-            <p className="basis-full font-bold">Quantity:</p>
-            <Counter
-                initialValue={1}
-                ref={counterRef}
-                onQuantityChange={handleQuantityChange}
-            />
-            <QuantityInfo quantity={quantity} errorMessages={errorMessages} />
-        </div>
+        <Card layout="horizontal" className=" items-center border-none shadow-none">
+            <CardHeader className="p-3">
+                <CardTitle className="text-sm"> Quantity:</CardTitle>
+            </CardHeader>
+            <CardContent className="p-3 flex flex-row items-center space-x-2">
+                <Counter
+                    initialValue={1}
+                    ref={counterRef}
+                    onQuantityChange={handleQuantityChange}
+                />
+                <QuantityInfo quantity={quantity} errorMessages={errorMessages} />
+            </CardContent>
+        </Card>
     );
 });
 

@@ -17,13 +17,12 @@ export default function ThumbnailGallery({ data }: ThumbnailGalleryProps) {
     const { current, setApi, navigateTo } = useSyncCarousels();
 
     return (
-        <Card className="border-none">
+        <Card className="border-none shadow-none space-y-2">
             <CardContent className="w-full max-w-xl sm:w-auto p-0">
                 <GalleryCarousel
                     data={data}
                     onSetApi={(api) => setApi("main", api)}
                     onNavigate={navigateTo}
-
                 />
             </CardContent>
 
@@ -34,7 +33,6 @@ export default function ThumbnailGallery({ data }: ThumbnailGalleryProps) {
                     current={current}
                     className="basis-1/6"
                     onNavigate={navigateTo}
-
                 />
 
                 <GalleryNavigation
