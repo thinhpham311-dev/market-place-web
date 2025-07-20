@@ -2,6 +2,7 @@
 import React from "react";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui";
 import { images, socials } from "./data";
+import ProBreadcrumb from "./components/ProBreadcrumb";
 import ThumbnailGallery from "./components/ThumbnailGallery";
 import ProQuantitySelector from "./components/ProQuantitySelector";
 import ProVariantsSelector from "./components/ProVariantsSelector";
@@ -44,37 +45,33 @@ export default function ProDetail({ id }: IProDetailProps) {
     }
 
     if (!product) return <NotFound />;
-
     return (
         <Card className="border-none shadow-none">
-            <CardHeader className="py-3">breadcrumb</CardHeader>
+            <CardHeader className="py-3">
+                <ProBreadcrumb categories={product.product_category} product_name={product.product_name} />
+            </CardHeader>
+            <CardContent className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 pb-0">
+                <div className="col-span-3">
+                    <Card layout="horizontal" className="grid grid-cols-1 md:grid-cols-5 rounded-none">
+                        <CardHeader className="md:col-span-2 p-3">
+                            <ThumbnailGallery data={images} />
+                            <SocialsShare data={socials} />
+                        </CardHeader>
+                        <CardContent className="md:col-span-3 p-3">
+                            <Card className="border-none shadow-none flex flex-col h-full">
+                                <CardContent className="space-y-3 p-0">
+                                    <ProInfo data={product} />
+                                    <ProVariantsSelector options={[]} />
+                                    <ProQuantitySelector quantity={30} />
+                                </CardContent>
 
-            <CardContent className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
-                {/* ---------- GRID TRÊN: HÌNH ẢNH + THÔNG TIN ---------- */}
-                <Card layout="horizontal" className="lg:col-span-3 grid grid-cols-1 md:grid-cols-5 rounded-none">
-                    {/* Cột hình ảnh (2/5) */}
-                    <CardHeader className="md:col-span-2 p-3">
-                        <ThumbnailGallery data={images} />
-                        <SocialsShare data={socials} />
-                    </CardHeader>
-
-                    {/* Cột thông tin (3/5) */}
-                    <CardContent className="md:col-span-3 p-3">
-                        <Card className="border-none shadow-none flex flex-col h-full">
-                            <CardContent className="space-y-3 p-0">
-                                <ProInfo data={product} />
-                                <ProVariantsSelector options={[]} />
-                                <ProQuantitySelector quantity={30} />
-                            </CardContent>
-
-                            <CardFooter className="p-0">
-                                <PurchaseActions data={product} />
-                            </CardFooter>
-                        </Card>
-                    </CardContent>
-                </Card>
-
-                {/* ---------- GRID DƯỚI: MÔ TẢ + THÔNG SỐ ---------- */}
+                                <CardFooter className="p-0">
+                                    <PurchaseActions data={product} />
+                                </CardFooter>
+                            </Card>
+                        </CardContent>
+                    </Card>
+                </div>
                 <div className="lg:col-span-2 md:col-span-2">
                     <ProDescriptionContent />
                 </div>

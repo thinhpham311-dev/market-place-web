@@ -6,7 +6,7 @@ const nextConfig = {
       destination: "/api/admin/:path*",
     },
   ],
-  reactStrictMode: true,
+  reactStrictMode: false,
   images: {
     remotePatterns: [
       {

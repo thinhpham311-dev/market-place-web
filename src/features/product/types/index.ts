@@ -17,11 +17,7 @@ export interface IProduct {
     quantity: number,
 }
 
-export interface IReview {
-    rating: number;
-    comment: string;
-    user: string;
-}
+
 
 export interface IProductfilter {
     ids?: Array<string> | string;

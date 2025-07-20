@@ -14,7 +14,6 @@ import { cn } from "@/lib/utils"
 import { productData } from "@/constants/data";
 
 //hooks
-import { usePagination, usePaginationRender } from "@/lib/hooks";
 
 
 interface IGridListProps {
@@ -23,28 +22,18 @@ interface IGridListProps {
     className?: string
 }
 
-const GridListWithPagination = ({ data, itemsPerPage = 12, className }: IGridListProps) => {
-    const { currentPage, totalPages, currentData, handlePageChange } = usePagination<IProduct>({
-        data,
-        itemsPerPage,
-    });
+const GridListWithPagination = ({ data, className }: IGridListProps) => {
 
-    const pagination = usePaginationRender({
-        currentPage,
-        totalPages,
-        handlePageChange,
-    });
 
     return (
         <div>
             <div className={cn("grid w-full", className)}>
-                {currentData.map((item, index) => {
+                {data.map((item, index) => {
                     if (item.quantity > 0) {
                         return <ProductItem key={index} item={item} />;
                     }
                 })}
             </div>
-            <div className="flex items-center justify-center">{pagination}</div>
         </div>
     );
 };

@@ -8,32 +8,20 @@ import ProductCartItem from "./ProductItemInCart"
 import { IcartItem } from "@/interfaces/cart"
 
 //hook
-import { usePagination, usePaginationRender } from "@/lib/hooks"
 
 interface IProductItemsListInCartProps {
     data: Array<IcartItem>,
     itemsPerPage?: number;
 }
 
-export default function ProductItemsListInCart({ data, itemsPerPage = 5 }: IProductItemsListInCartProps) {
-
-    const { currentPage, totalPages, currentData, handlePageChange } = usePagination<IcartItem>({
-        data,
-        itemsPerPage,
-    });
-
-    const pagination = usePaginationRender({
-        currentPage,
-        totalPages,
-        handlePageChange,
-    });
+export default function ProductItemsListInCart({ data }: IProductItemsListInCartProps) {
 
 
     return (
         <div className="space-y-5">
 
             <ScrollArea className="w-full h-full">
-                {currentData?.map((item) => {
+                {data?.map((item) => {
                     if (item.quantity > 0) {
                         return (
                             <ProductCartItem key={item.uniqueKey} item={item} totalItems={data.length} />
@@ -41,7 +29,6 @@ export default function ProductItemsListInCart({ data, itemsPerPage = 5 }: IProd
                     }
                 })}
             </ScrollArea>
-            <div className="flex items-center justify-center">{pagination}</div>
         </div>
 
     )

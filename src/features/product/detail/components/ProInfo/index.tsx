@@ -3,11 +3,12 @@
 import * as React from "react";
 
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui";
-import { IProduct } from "../../types";
+import ProductPrice from "./ProductPrice"
+import { Product } from "./types";
 
 
 interface ISocialsShareProps {
-    data: IProduct
+    data: Product
 }
 
 export default function ProInfo({ data: { product_name, product_price } }: ISocialsShareProps) {
@@ -20,11 +21,9 @@ export default function ProInfo({ data: { product_name, product_price } }: ISoci
                 <CardDescription>
                     <ul className="list-none">
                         <li>
-                            <Card className="border-none shadown-none rounded-none bg-sidebar-primary-foreground" layout="horizontal">
-                                <CardContent className="p-3">
-                                    <h3 className="text-2xl">${product_price}</h3>
-                                </CardContent>
-                            </Card>
+                            <ProductPrice
+                                price={product_price}
+                            />
                         </li>
                     </ul>
                 </CardDescription>

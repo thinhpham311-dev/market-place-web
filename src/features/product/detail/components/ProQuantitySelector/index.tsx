@@ -3,8 +3,9 @@ import * as React from "react";
 import { memo } from "react";
 
 // ui
-import { Counter, ICounterRef, Card, CardHeader, CardTitle, CardContent } from "@/components/ui";
-import QuantityInfo from "./QuantityInfo";
+import { Counter, ICounterRef, Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui";
+import { ErrorMessages } from "@/components/shared"
+
 
 // hooks
 import { useQuantitySelector } from "./hooks";
@@ -47,7 +48,7 @@ const ProQuantitySelector = React.forwardRef<
     }));
 
     return (
-        <Card layout="horizontal" className=" items-center border-none shadow-none">
+        <Card layout="horizontal" className="flex-wrap items-center border-none shadow-none">
             <CardHeader className="p-3">
                 <CardTitle className="text-sm"> Quantity:</CardTitle>
             </CardHeader>
@@ -57,8 +58,11 @@ const ProQuantitySelector = React.forwardRef<
                     ref={counterRef}
                     onQuantityChange={handleQuantityChange}
                 />
-                <QuantityInfo quantity={quantity} errorMessages={errorMessages} />
+                <CardDescription>{quantity} pieces available</CardDescription>
             </CardContent>
+            <CardFooter className="w-full px-3">
+                <ErrorMessages messages={errorMessages} />
+            </CardFooter>
         </Card>
     );
 });
