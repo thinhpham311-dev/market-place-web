@@ -1,0 +1,33 @@
+// src/components/product/review/ReviewDistribution/AverageRating.tsx
+import React from "react";
+import { Card, CardContent, CardTitle, CardDescription } from "@/components/ui";
+import ReviewStars from "../ReviewStars";
+import { Review } from "../../types";
+
+interface IAverageRatingProps {
+    data: Review[]
+}
+
+const AverageRating = ({ data }: IAverageRatingProps) => {
+    const totalReviews = data?.length;
+
+    const averageRating = React.useMemo(() => {
+        const totalRating = data?.reduce((sum: number, review: Review) => sum + review.rating, 0);
+        return totalReviews > 0 ? (totalRating / totalReviews).toFixed(1) : "0.0";
+    }, [data]);
+
+    return (
+        <Card className="rounded-none">
+            <CardContent className="p-3">
+                <CardTitle className="text-lg font-bold">Average Rating</CardTitle>
+                <CardDescription className="inline-flex items-center space-x-3">
+                    <ReviewStars readOnly data={parseFloat(averageRating)} />
+                    <span>{averageRating} / 5</span>
+                    <span>{totalReviews} total reviews</span>
+                </CardDescription>
+            </CardContent>
+        </Card>
+    );
+};
+
+export default AverageRating;

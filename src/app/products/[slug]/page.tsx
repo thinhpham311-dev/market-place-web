@@ -10,18 +10,7 @@ import ProDetail from "@/features/product/detail";
 import ProRelatedList from "@/features/product/list/related";
 import ProductReview from "@/features/reviews"
 
-const initialReviews = [
-    {
-        rating: 5,
-        comment: 'Excellent product! Highly recommend it.',
-        user: 'John Doe',
-    },
-    {
-        rating: 4,
-        comment: 'Good quality but a bit expensive.',
-        user: 'Jane Smith',
-    },
-];
+
 
 export default async function Page(
     { params }: { params: { slug: string } }
@@ -32,7 +21,7 @@ export default async function Page(
     return (
         <div className="space-y-5 md:my-5 container mx-auto">
             <ProDetail id={_id} />
-            <ProductReview initialReviews={initialReviews} />
+            <ProductReview />
             {/* <ProductDetail id={_id} />
             <StoreInfo />
             <ProTopPicksList />
