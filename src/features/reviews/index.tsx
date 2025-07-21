@@ -17,14 +17,11 @@ const ProductReview = () => {
     const dispatch = useAppDispatch()
     const { reviews } = useAppSelector(state => state.reviewForm.state)
     const { reviewsList } = useAppSelector(state => state.productReview.state)
-    const state = useAppSelector(state => state)
-    console.log(state)
 
     React.useEffect(() => {
         dispatch(setInitialReviews(reviews))
     }, [dispatch, reviews])
 
-    console.log(reviewsList)
 
     return (
         <Card className=" border-none shadow-none">

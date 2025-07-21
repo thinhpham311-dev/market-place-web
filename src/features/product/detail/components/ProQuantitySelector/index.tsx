@@ -60,9 +60,11 @@ const ProQuantitySelector = React.forwardRef<
                 />
                 <CardDescription>{quantity} pieces available</CardDescription>
             </CardContent>
-            <CardFooter className="w-full px-3">
-                <ErrorMessages messages={errorMessages} />
-            </CardFooter>
+            {errorMessages && errorMessages.length > 0 &&
+                <CardFooter className="w-full px-3">
+                    <ErrorMessages messages={errorMessages} />
+                </CardFooter>
+            }
         </Card>
     );
 });

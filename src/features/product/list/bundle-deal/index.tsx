@@ -1,5 +1,5 @@
 'use client'
-import { useEffect } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 
 //components
@@ -27,9 +27,7 @@ export default function ProBundleDealList() {
     const router = useRouter()
     const dispatch = useAppDispatch();
     const { list: products = [], loading } = useAppSelector((state) => state.proBundleDealList.data);
-    const state = useAppSelector(state => state)
-    console.log(state)
-    useEffect(() => {
+    React.useEffect(() => {
         dispatch(getProductList({ limit: 12, sort: "ctime", page: 1 }) as any);
     }, [dispatch]);
 

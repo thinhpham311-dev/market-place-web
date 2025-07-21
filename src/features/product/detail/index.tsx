@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui";
+import { Card, CardContent, CardFooter, CardHeader, BreadcrumbSeparator, Breadcrumb, BreadcrumbList, BreadcrumbLink } from "@/components/ui";
 import { images, socials } from "./data";
 import ProBreadcrumb from "./components/ProBreadcrumb";
 import ThumbnailGallery from "./components/ThumbnailGallery";
@@ -48,7 +48,10 @@ export default function ProDetail({ id }: IProDetailProps) {
     return (
         <Card className="border-none shadow-none">
             <CardHeader className="py-3">
-                <ProBreadcrumb categories={product.product_category} product_name={product.product_name} />
+                <ProBreadcrumb
+                    categories={product.product_category}
+                    product_name={product.product_name}
+                />
             </CardHeader>
             <CardContent className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 pb-0">
                 <div className="col-span-3">
@@ -61,8 +64,8 @@ export default function ProDetail({ id }: IProDetailProps) {
                             <Card className="border-none shadow-none flex flex-col h-full">
                                 <CardContent className="space-y-3 p-0">
                                     <ProInfo data={product} />
-                                    <ProVariantsSelector options={[]} />
-                                    <ProQuantitySelector quantity={30} />
+                                    <ProVariantsSelector options={product.product_variations} />
+                                    <ProQuantitySelector quantity={product.product_quantity} />
                                 </CardContent>
 
                                 <CardFooter className="p-0">
@@ -73,10 +76,54 @@ export default function ProDetail({ id }: IProDetailProps) {
                     </Card>
                 </div>
                 <div className="lg:col-span-2 md:col-span-2">
-                    <ProDescriptionContent />
+                    <ProDescriptionContent description={product?.product_description} />
                 </div>
                 <div className="lg:col-span-1 md:col-span-2">
-                    <ProSpecifications specs={[]} />
+                    <ProSpecifications specs={[
+                        {
+                            label: "Product Name:",
+                            value: <Breadcrumb>
+                                <BreadcrumbList>
+                                    <BreadcrumbLink
+                                        href={`${product.product_slug}.${product.product_id}`}>
+                                        {product.product_name}
+                                    </BreadcrumbLink>
+                                </BreadcrumbList>
+                            </Breadcrumb>
+                        },
+                        {
+                            label: "Categories:",
+                            value: <Breadcrumb>
+                                <BreadcrumbList>
+                                    {
+                                        product.product_category
+                                            ?.filter((item: any) => item?.category_name)
+                                            .map((item: any, index: number, arr: any[]) => (
+                                                <React.Fragment key={item._id}>
+                                                    <BreadcrumbLink
+                                                        href={`/categories/${item.category_slug}-cat.${item._id}`}
+                                                    >
+                                                        {item.category_name}
+                                                    </BreadcrumbLink>
+                                                    {index < arr.length - 1 && <BreadcrumbSeparator />}
+                                                </React.Fragment>
+                                            )) || ""
+                                    }
+                                </BreadcrumbList>
+                            </Breadcrumb>
+                        },
+                        {
+                            label: "Shop Name:",
+                            value: <Breadcrumb>
+                                <BreadcrumbList>
+                                    <BreadcrumbLink
+                                        href={`/shop/${product.product_shop._id}`}>
+                                        {product.product_shop.name}
+                                    </BreadcrumbLink>
+                                </BreadcrumbList>
+                            </Breadcrumb>
+                        },
+                    ]} />
                 </div>
             </CardContent>
         </Card>

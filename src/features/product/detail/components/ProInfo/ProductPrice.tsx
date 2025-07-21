@@ -17,7 +17,7 @@ export default function ProductPrice({ price, flashSalePrice, currency = "$" }: 
 
     return (
         <Card className="border-none shadow-none rounded-none bg-sidebar-primary-foreground" layout="horizontal">
-            <CardContent className="p-3 flex flex-col gap-1">
+            <CardContent className="p-3 flex flex-row items-center gap-5">
                 {hasFlashSale ? (
                     <>
                         <div className="flex items-center gap-2">

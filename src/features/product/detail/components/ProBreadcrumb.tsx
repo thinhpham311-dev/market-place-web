@@ -35,15 +35,17 @@ export default function ProBreadcrumb({
 
                 {hasCategories && (
                     <>
-                        <BreadcrumbSeparator />
                         {categories.map((category) => (
-                            <BreadcrumbItem key={category._id}>
-                                <BreadcrumbLink
-                                    href={`/categories/${category.category_slug}-cat.${category._id}`}
-                                >
-                                    {category.category_name}
-                                </BreadcrumbLink>
-                            </BreadcrumbItem>
+                            <>
+                                <BreadcrumbSeparator />
+                                <BreadcrumbItem key={category._id}>
+                                    <BreadcrumbLink
+                                        href={`/categories/${category.category_slug}-cat.${category._id}`}
+                                    >
+                                        {category.category_name}
+                                    </BreadcrumbLink>
+                                </BreadcrumbItem>
+                            </>
                         ))}
                     </>
                 )}
