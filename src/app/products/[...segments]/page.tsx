@@ -13,14 +13,18 @@ import ProductReview from "@/features/reviews"
 
 
 export default async function Page(
-    { params }: { params: { slug: string } }
+    { params }: { params: { segments: string[] } }
 ) {
-    const { slug } = params;
-    const _id = slug.split('.').pop() || '';
+    const [fullSlug] = params.segments || [];
 
+    const match = fullSlug?.match(/(.*)-i\.(\w+)(?:\.(\w+))?/);
+
+    if (!match) return <div>404 Not Found</div>;
+
+    const [, , ...rest] = match;
     return (
         <div className="space-y-5 md:my-5 container mx-auto">
-            <ProDetail id={_id} />
+            <ProDetail ids={rest} />
             <ProductReview />
             {/* <ProductDetail id={_id} />
             <StoreInfo />

@@ -1,19 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IFilter } from '@/interfaces/filter';
+import { SortBy } from '../types';
 
 interface SortState {
-    sortBy: IFilter['sortBy'];
+    sortBy: SortBy['sortBy'];
 }
 
 const initialState: SortState = {
-    sortBy: 'popularity', // default sort
+    sortBy: 'ctime', // default sort
 };
 
 const sortSlice = createSlice({
     name: 'sort/state',
     initialState,
     reducers: {
-        setSortBy: (state, action: PayloadAction<NonNullable<IFilter['sortBy']>>) => {
+        setSortBy: (state, action: PayloadAction<NonNullable<SortBy['sortBy']>>) => {
             state.sortBy = action.payload;
         },
     },

@@ -10,10 +10,10 @@ import { FaRegCheckCircle } from "react-icons/fa";
 
 
 const sortOptions = [
-    { label: 'Popularity', value: 'popularity' },
-    { label: 'Newest', value: 'newest' },
-    { label: 'Price: Low to High', value: 'price-asc' },
-    { label: 'Price: High to Low', value: 'price-desc' },
+    { label: 'Popularity', value: 'pop' },
+    { label: 'Newest', value: 'ctime' },
+    { label: 'Price: Low to High', value: 'asc' },
+    { label: 'Price: High to Low', value: 'desc' },
 ] as const;
 
 

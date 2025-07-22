@@ -9,7 +9,7 @@ interface IRatingDistributionList {
 
 
 
-const RatingDistributionList = React.forwardRef(({ data }: IRatingDistributionList) => {
+const RatingDistributionList = (({ data }: IRatingDistributionList) => {
     const totalReviews = data.length;
 
     const ratingDistribution = React.useMemo(() => {
@@ -25,9 +25,9 @@ const RatingDistributionList = React.forwardRef(({ data }: IRatingDistributionLi
             {ratingDistribution.map((count, index) => {
                 const percentage = totalReviews > 0 ? (count / totalReviews) * 100 : 0;
                 return (
-                    <li>
+                    <li key={index}>
                         <RatingDistributionCard
-                            key={index}
+
                             star={5 - index}
                             percentage={percentage}
                         />

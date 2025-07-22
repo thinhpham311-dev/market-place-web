@@ -7,5 +7,5 @@ export interface IFilter {
     priceRange?: [number, number];
     rating?: number;
     color?: string[];
-    sortBy?: 'popularity' | 'newest' | 'price-asc' | 'price-desc';
+    sortBy?: 'ctime' | 'pop' | 'sales' | 'asc' | 'desc';
 }

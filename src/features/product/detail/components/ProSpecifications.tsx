@@ -29,7 +29,7 @@ const ProSpecifications = ({ specs }: ProSpecificationsProps) => {
             </CardTitle>
 
             {specs.map((spec, index) => (
-                <>
+                <React.Fragment key={index}>
                     <CardContent className="grid grid-cols-5 items-center p-3" key={index}>
                         <CardTitle className="col-span-2 text-md">{spec.label}</CardTitle>
                         <CardDescription className="col-span-3">
@@ -39,7 +39,7 @@ const ProSpecifications = ({ specs }: ProSpecificationsProps) => {
                     <CardContent className="p-0 col-span-5">
                         {index < specs.length - 1 && <Separator />}
                     </CardContent>
-                </>
+                </React.Fragment>
             ))}
         </Card>
     );

@@ -1,14 +1,12 @@
-'use client'
-import React from "react"
+"use client";
+
+import React, { useEffect } from "react";
 
 //components
-import { Card, CardContent } from "@/components/ui"
+import { Card, CardContent } from "@/components/ui";
 import ProductGrid from "../components/ProductGrid";
-import ProductSort from "../components/ProductSort"
+import ProductSort from "../components/ProductSort";
 import { FilterSidebar, PaginationCustom } from "@/features/common";
-
-//datas
-// import { productData } from "@/constants/data"
 
 //stores
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
@@ -16,31 +14,33 @@ import { injectReducer } from "@/store";
 import { getProductListByCategories } from "./store/dataSlice";
 import reducer from "./store";
 
+injectReducer("proListByCategoryId", reducer);
 
-injectReducer("proListByCategoryId", reducer)
-
-const ProListByCategoryId = ({ id }: { id: string }) => {
+const ProListByCategoryId = ({ ids }: { ids: string[] }) => {
     const dispatch = useAppDispatch();
     const filters = useAppSelector((state) => state.filter.state);
-    // const pagination = useAppSelector(state => state.pagination.state)
-
+    const { sortBy } = useAppSelector((state => state.sortBy.state));
     const {
         list: products = [],
         loading = false,
     } = useAppSelector((state) => state.proListByCategoryId.data || {});
 
-    React.useEffect(() => {
-        if (!id) return;
+    useEffect(() => {
+        if (!ids || ids.length === 0) return;
 
-        dispatch(getProductListByCategories({
-            limit: 15,
-            sort: "createdAt",
-            page: 1,
-            ids: id,
-            filter: filters || {},
-        }) as any);
-    }, [dispatch, id, filters]);
+        // ✅ Lấy phần tử cuối cùng trong mảng
+        const lastId = ids.filter(id => id !== undefined).at(-1); // hoặc: ids[ids.length - 1]
 
+        dispatch(
+            getProductListByCategories({
+                limit: 15,
+                sort: sortBy,
+                page: 1,
+                ids: lastId, // ✅ Chỉ gửi id cuối cùng
+                filter: filters || {},
+            }) as any
+        );
+    }, [dispatch, ids, filters, sortBy]);
 
     return (
         <Card className="border-0 md:px-6 px-3">
@@ -60,6 +60,6 @@ const ProListByCategoryId = ({ id }: { id: string }) => {
             </CardContent>
         </Card>
     );
-}
+};
 
 export default ProListByCategoryId;

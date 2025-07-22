@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+
 //components
 import Advertisement from "@/features/ads";
 import CatPopularList from "@/features/category/list/popular";

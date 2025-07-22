@@ -2,8 +2,6 @@
 
 import { useRef } from "react";
 import { Card, CardContent } from "@/components/ui";
-import { injectReducer } from "@/store";
-import reducer from "@/store/product/detail";
 
 import AddToCartButton from "./AddToCartButton";
 import BuyNowButton from "./BuyNowButton";
@@ -14,7 +12,6 @@ interface Props {
     data: IProduct;
 }
 
-injectReducer("purchaseActions", reducer);
 
 export default function PurchaseActions({ data }: Props) {
     const productItemQuantityRef = useRef<any>(null);

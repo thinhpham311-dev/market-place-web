@@ -5,8 +5,8 @@ import { Card, CardContent } from "@/components/ui";
 
 interface ProductPriceProps {
     price: number;
-    flashSalePrice?: number; // Giá flash sale (nếu có)
-    currency?: string; // Mặc định là "$"
+    flashSalePrice?: number;
+    currency?: string;
 }
 
 export default function ProductPrice({ price, flashSalePrice, currency = "$" }: ProductPriceProps) {

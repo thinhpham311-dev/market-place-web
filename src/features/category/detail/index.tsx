@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 
 //ui
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui";
@@ -23,27 +23,21 @@ import { BiCategory } from "react-icons/bi";
 
 injectReducer("catListById", reducer);
 
-const CatByCategoryId = ({
-    mainId,
-    subId,
-}: {
-    mainId: string;
-    subId?: string;
-}) => {
+const CatByCategoryId = ({ ids }: { ids: string[] }) => {
     const dispatch = useAppDispatch();
 
     const {
-        detail: category = null,
+        data: categories = [],
         loading = false,
     } = useAppSelector((state) => state.catListById.data || {});
 
-    useEffect(() => {
-        if (mainId) {
-            dispatch(getCatListById({ _id: mainId } as ICategory) as any);
-        }
-    }, [dispatch, mainId]);
+    const validIds = React.useMemo(() => ids.filter(Boolean), [ids]);
 
-
+    React.useEffect(() => {
+        validIds.forEach((id, index) => {
+            dispatch(getCatListById({ _id: id, level: index } as ICategory) as any);
+        });
+    }, [dispatch, validIds]);
     return (
         <Card className=" border-none shadow-none md:px-6 px-3 grid grid-cols-12 items-center  sticky top-[57px] bg-white z-10" >
             <CardHeader className="p-0 md:col-span-2 col-span-12" >
@@ -55,14 +49,15 @@ const CatByCategoryId = ({
             < CardContent className="p-0 md:col-span-10 col-span-12" >
                 <CategoryCarousel
                     isLoading={loading}
-                    data={category}
-                    mainId={mainId}
-                    subId={subId}
-                    className="lg:basis-1/9 md:basis-1/6 basis-1/4"
+                    data={categories}
+                    ids={validIds}
+                    className="lg:basis-1/8 md:basis-1/6 basis-1/4"
                 />
             </CardContent>
+
         </Card>
     );
+
 };
 
 export default CatByCategoryId;

@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react"
 import {
     Breadcrumb,
     BreadcrumbList,
@@ -13,6 +14,7 @@ type Category = {
     _id: string;
     category_name: string;
     category_slug: string;
+    ancestors: string[]
 };
 
 interface IProBreadcrumbProps {
@@ -25,7 +27,6 @@ export default function ProBreadcrumb({
     product_name,
 }: IProBreadcrumbProps) {
     const hasCategories = categories.length > 0;
-
     return (
         <Breadcrumb className="mb-4">
             <BreadcrumbList>
@@ -35,18 +36,25 @@ export default function ProBreadcrumb({
 
                 {hasCategories && (
                     <>
-                        {categories.map((category) => (
-                            <>
-                                <BreadcrumbSeparator />
-                                <BreadcrumbItem key={category._id}>
-                                    <BreadcrumbLink
-                                        href={`/categories/${category.category_slug}-cat.${category._id}`}
-                                    >
-                                        {category.category_name}
-                                    </BreadcrumbLink>
-                                </BreadcrumbItem>
-                            </>
-                        ))}
+                        {categories.map((cat) => {
+                            const ancestorsPath =
+                                cat.ancestors && cat.ancestors.length > 0
+                                    ? `${cat.ancestors.join(".")}.`
+                                    : "";
+
+                            return (
+                                <React.Fragment key={cat._id}>
+                                    <BreadcrumbSeparator />
+                                    <BreadcrumbItem>
+                                        <BreadcrumbLink
+                                            href={`/categories/${cat.category_slug}-cat.${ancestorsPath}${cat._id}`}
+                                        >
+                                            {cat.category_name}
+                                        </BreadcrumbLink>
+                                    </BreadcrumbItem>
+                                </React.Fragment>
+                            );
+                        })}
                     </>
                 )}
 

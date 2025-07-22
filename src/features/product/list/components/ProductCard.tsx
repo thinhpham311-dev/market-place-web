@@ -5,21 +5,21 @@ import { useRouter } from "next/navigation"
 
 //components
 import { Card, CardContent, CardTitle, CardDescription, CardImage } from "@/components/ui"
+import ProductPrice from "@/features/product/detail/components/ProInfo/ProductPrice"
 
 //types
 import { IProduct } from "@/features/product/types"
 
 //format
-import { formatToCurrency } from "@/lib/formats"
 
 interface IItemProps {
     item: IProduct
 }
 
-const ProductCard = ({ item: { product_name, image, product_price, product_id, product_slug } }: IItemProps) => {
+const ProductCard = ({ item: { product_name, image, product_price, product_id, product_shop, product_slug } }: IItemProps) => {
     const router = useRouter()
     const handleRouterLinkToDetail = () => {
-        router.push(`/products/${product_slug}.${product_id}`)
+        router.push(`/products/${product_slug}-i.${product_shop}.${product_id}`)
     }
 
     return (
@@ -31,7 +31,7 @@ const ProductCard = ({ item: { product_name, image, product_price, product_id, p
                 </CardTitle>
                 <CardDescription className="space-x-3 mb-2 inline ">
                     {/* <p className="inline-flex items-center gap-x-1 text-xs"> <span className="font-bold "> {formatToCurrency(discountPrice)}</span></p> */}
-                    <p className="inline-flex items-center gap-x-1 line-through text-xs"><span>{formatToCurrency(product_price)}</span></p>
+                    <ProductPrice price={product_price} flashSalePrice={product_price - 1} />
                 </CardDescription>
             </CardContent>
         </Card >

@@ -47,6 +47,7 @@ export function usePurchaseActions({
         return [...optionErrors, ...quantityErrors];
     }, [optionsRef, quantityRef]);
 
+
     // ✅ Add to Cart
     const handleAddToCart = useCallback((): boolean => {
         const errors = validateProduct();

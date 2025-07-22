@@ -2,96 +2,106 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import { Button, Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui";
+import {
+    Button,
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselPrevious,
+    CarouselNext,
+} from "@/components/ui";
 import { ICategory } from "@/features/category/types";
 import { NotFound } from "@/components/layout";
 import LoadingPlaceholder from "./LoadingSkeleton";
 import { cn } from "@/lib/utils";
 
-
 interface CategoryButtonsProps {
-    data: ICategory;
-    mainId: string;
-    subId?: string;
+    data: ICategory[];
+    ids: string[];
     className?: string;
     isLoading?: boolean;
 }
 
 const CategoryButtons: React.FC<CategoryButtonsProps> = ({
     data,
-    mainId,
-    subId,
+    ids,
     className = "",
     isLoading = false,
 }) => {
     const router = useRouter();
-
-    if (isLoading && (!data)) {
-        return <LoadingPlaceholder />;
-    }
-
-    if (!isLoading && (!data)) {
-        return <NotFound />;
-    }
-
-    const isParentActive = data._id === mainId && !subId;
-    const isChildActive = (id: string) => id === subId;
+    const lastId = ids.at(-1);
+    if (isLoading) return <LoadingPlaceholder />;
+    if (!isLoading && data.length === 0) return <NotFound />;
 
     const getButtonClass = (active: boolean) =>
-        active ? "font-bold underline text-primary" : "text-muted-foreground";
+        cn("p-0 text-md", active ? "font-bold underline text-primary" : "text-muted-foreground");
 
+    const handleNavigate = React.useCallback((slug: string, catId: string, ancestors?: string[]) => {
+        const ancestorsPath = ancestors && ancestors.length > 0 ? `${ancestors.join(".")}.` : "";
+        const path = `/categories/${slug}-cat.${ancestorsPath}${catId}`;
 
-    const handleNavigate = (slug: string, catId: string, parentId?: string) => {
-        const isParent = !parentId || catId === parentId;
-        const path = isParent
-            ? `/categories/${slug}-cat.${catId}`
-            : `/categories/${slug}-cat.${parentId}.${catId}`;
-
-        if (catId !== (subId || mainId)) {
+        if (catId !== lastId) {
             router.push(path);
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            if (typeof window !== "undefined") {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            }
         }
+    }, [lastId])
+
+
+    const renderedIds = new Set<string>(); // Set toàn cục hoặc trong component
+
+    const renderCategories = (categories: ICategory[], level = 0) => {
+        return categories
+            .filter((category) => {
+                if (renderedIds.has(category._id)) return false;
+                renderedIds.add(category._id);
+
+                if (category?.isLeaf && category.parent_id !== null) return false;
+
+                return true;
+            })
+            .map((category) => (
+                <React.Fragment key={category._id}>
+                    <CarouselItem
+                        className={cn("pl-2 flex justify-center", className)}
+                    >
+                        <Button
+                            className={cn(
+                                "w-full line-clamp-1",
+                                getButtonClass(category._id === lastId)
+                            )}
+                            variant="outline"
+                            onClick={() =>
+                                handleNavigate(
+                                    category.category_slug,
+                                    category._id,
+                                    category.ancestors
+                                )
+                            }
+                        >
+                            {category.category_name}
+                        </Button>
+                    </CarouselItem>
+
+                    {category.children?.length
+                        ? renderCategories(category.children, level + 1)
+                        : null}
+                </React.Fragment>
+            ));
     };
 
 
     return (
-        <Carousel className="mx-10 ">
-            <CarouselContent className="ml-0">
-                <CarouselItem className={cn("pl-0 flex justify-center", className)}>
-                    <Button
-                        className={`p-0 text-md ${getButtonClass(isParentActive)}`}
-                        variant="link"
-                        onClick={() =>
-                            handleNavigate(data.category_slug, data._id)
-                        }
-                    >
-                        {data.category_name}
-                    </Button>
-                </CarouselItem>
 
-                {/* Danh mục con */}
-                {data.children?.map((child: ICategory) => (
-                    <CarouselItem key={child._id} className={cn("pl-2 flex justify-center", className)}>
-                        <Button
-                            className={`p-0 text-md ${getButtonClass(isChildActive(child._id))}`}
-                            variant="link"
-                            onClick={() =>
-                                handleNavigate(
-                                    child.category_slug,
-                                    child._id,
-                                    child.parent_id || data._id
-                                )
-                            }
-                        >
-                            {child.category_name}
-                        </Button>
-                    </CarouselItem>
-                ))}
+        <Carousel className="mx-10 my-2">
+            <CarouselContent className="-ml-2">
+                {renderCategories(data)}
             </CarouselContent>
-            <CarouselPrevious className=" top-1/2 -translate-y-1/2 -left-10  " />
-            <CarouselNext className=" top-1/2 -translate-y-1/2 -right-10" />
-        </Carousel >
+            <CarouselPrevious className="top-1/2 -translate-y-1/2 -left-12" />
+            <CarouselNext className="top-1/2 -translate-y-1/2 -right-12" />
+        </Carousel>
     );
 };
 
-export default CategoryButtons;
+export default React.memo(CategoryButtons);
