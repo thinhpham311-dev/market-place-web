@@ -28,7 +28,10 @@ export default function ProBundleDealList() {
     const dispatch = useAppDispatch();
     const { list: products = [], loading } = useAppSelector((state) => state.proBundleDealList.data);
     React.useEffect(() => {
-        dispatch(getProductList({ limit: 12, sort: "ctime", page: 1 }) as any);
+        const promise = dispatch(getProductList({ limit: 12, sort: "ctime", page: 1 }) as any);
+        return () => {
+            promise.abort();
+        };
     }, [dispatch]);
 
     return (

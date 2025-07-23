@@ -5,7 +5,7 @@ import { Separator } from "@/components/ui/separator";
 
 interface ProSpecificationItemProps {
     label: string;
-    value: string;
+    value: string | React.ReactNode;
     hasSeparator?: boolean;
 }
 

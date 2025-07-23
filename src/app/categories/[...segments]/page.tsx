@@ -1,20 +1,36 @@
-'use client';
+import dynamic from "next/dynamic";
 
-import CatByCategoryId from "@/features/category/detail";
-import ProListByCategoryId from "@/features/product/list/by-category-id";
+const CatByCategoryId = dynamic(() => import('@/features/category/detail'), {
+    ssr: false,
+});
+const ProListByCategoryId = dynamic(() => import('@/features/product/list/by-category-id'), {
+    ssr: false,
+});
+// import CatByCategoryId from "@/features/category/detail";
+// import ProListByCategoryId from "@/features/product/list/by-category-id";
 
-export default function Page({ params }: { params: { segments: string[] } }) {
-    const [fullSlug] = params.segments || [];
+interface PageProps {
+    params: { segments?: string[] };
+}
 
-    const match = fullSlug?.match(/(.*)-cat\.(\w+)(?:\.(\w+))?(?:\.(\w+))?/);
+export default function Page({ params }: PageProps) {
+    // ✅ Safely join segments into a full slug
+    const fullSlug = params?.segments?.join("/") || "";
 
-    if (!match) return <div>404 Not Found</div>;
+    // ✅ Correct regex groups
+    const match = fullSlug.match(/(.*)-cat\.([\w.]+)/);
 
-    const [, , ...rest] = match;
+    if (!match) {
+        return <div>404 Not Found</div>;
+    }
+
+    // match[2] contains "ancestors._id" part → split into array
+    const ids = match[2].split(".");
+
     return (
         <div className="space-y-5 container mx-auto my-5">
-            <CatByCategoryId ids={rest} />
-            <ProListByCategoryId ids={rest} />
+            <CatByCategoryId ids={ids} />
+            <ProListByCategoryId ids={ids} />
         </div>
     );
 }

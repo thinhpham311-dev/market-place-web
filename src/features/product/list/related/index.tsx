@@ -28,7 +28,10 @@ export default function ProRelatedList() {
     const dispatch = useAppDispatch();
     const { list: products = [], loading } = useAppSelector((state) => state.proRelatedList.data);
     useEffect(() => {
-        dispatch(getProductList({ limit: 12, sort: "ctime", page: 1 }) as any);
+        const promise = dispatch(getProductList({ limit: 12, sort: "ctime", page: 1 }) as any);
+        return () => {
+            promise.abort()
+        }
     }, [dispatch]);
 
     return (

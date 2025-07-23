@@ -5,10 +5,7 @@ import { IProduct } from '@/features/product/types';
 
 
 type ProductDetailResponse = {
-    metadata:
-    {
-        detail: IProduct,
-    };
+    metadata: IProduct
 };
 
 export const getProductDetail = createAsyncThunk<ProductDetailResponse, IProduct>(
@@ -17,11 +14,9 @@ export const getProductDetail = createAsyncThunk<ProductDetailResponse, IProduct
         try {
             const response = await apiPostProductDetail(params) as {
                 data: {
-                    metadata: {
-                        detail: IProduct,
-                    }
+                    metadata: IProduct
                 }
-            };;
+            }
             return response.data;
         } catch (error: any) {
             return rejectWithValue(error?.response?.data || error.message);
@@ -50,8 +45,7 @@ const dataSlice = createSlice({
                 state.loading = true;
             })
             .addCase(getProductDetail.fulfilled, (state: { detail: IProduct | null; loading: boolean }, action: { payload: any }) => {
-                const { detail } = action.payload.metadata
-                state.detail = detail;
+                state.detail = action.payload.metadata;
                 state.loading = false;
             })
             .addCase(getProductDetail.rejected, (state) => {

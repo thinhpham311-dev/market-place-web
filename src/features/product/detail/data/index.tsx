@@ -35,3 +35,5 @@ export const socials = [
         link: "https://www.facebook.com/"
     },
 ]
+
+

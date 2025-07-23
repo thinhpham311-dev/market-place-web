@@ -1,4 +1,3 @@
-export const dynamic = "force-dynamic";
 
 // Components
 // import ProductDetail from './components/ProductDetail';
@@ -6,10 +5,27 @@ export const dynamic = "force-dynamic";
 // import ProTopPicksList from "@/features/product/list/top-picks"
 // import ProRelatedList from "@/features/product/list/related"
 // import StoreInfo from './components/StoreInfo';
-import ProDetail from "@/features/product/detail";
-import ProRelatedList from "@/features/product/list/related";
-import ProductReview from "@/features/reviews"
+// import ProDetail from "@/features/product/detail";
+// import ProRelatedList from "@/features/product/list/related";
+// import ProductReview from "@/features/reviews"
 
+import dynamic from "next/dynamic";
+
+const ProDetail = dynamic(() => import('@/features/product/detail'), {
+    ssr: false,
+});
+const ProductReview = dynamic(() => import('@/features/reviews'), {
+    ssr: false,
+});
+const ProTopPicksList = dynamic(() => import('@/features/product/list/top-picks'), {
+    ssr: false,
+});
+const ProBundleDealList = dynamic(() => import('@/features/product/list/bundle-deal'), {
+    ssr: false,
+});
+const ProRelatedList = dynamic(() => import('@/features/product/list/related'), {
+    ssr: false,
+});
 
 
 export default async function Page(
@@ -26,10 +42,9 @@ export default async function Page(
         <div className="space-y-5 md:my-5 container mx-auto">
             <ProDetail ids={rest} />
             <ProductReview />
-            {/* <ProductDetail id={_id} />
-            <StoreInfo />
+            {/* <StoreInfo />*/}
             <ProTopPicksList />
-            <ProBundleDealList /> */}
+            <ProBundleDealList />
             <ProRelatedList />
         </div>
     );

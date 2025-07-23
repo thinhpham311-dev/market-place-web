@@ -28,7 +28,11 @@ export default function ProSearchList() {
     const { list: products = [], loading } = useAppSelector((state) => state.proSearchList.data);
 
     useEffect(() => {
-        dispatch(getProductList({ limit: 12, sort: "createdAt", page: 1 }) as any);
+        const promise = dispatch(getProductList({ limit: 12, sort: "createdAt", page: 1 }) as any);
+        return () => {
+            promise.abort()
+        }
+
     }, [dispatch]);
 
     return (

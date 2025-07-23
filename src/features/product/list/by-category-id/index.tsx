@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import React, { useEffect } from "react";
+import React from "react";
 
 //components
 import { Card, CardContent } from "@/components/ui";
@@ -20,30 +20,31 @@ const ProListByCategoryId = ({ ids }: { ids: string[] }) => {
     const dispatch = useAppDispatch();
     const filters = useAppSelector((state) => state.filter.state);
     const { sortBy } = useAppSelector((state => state.sortBy.state));
-    const {
-        list: products = [],
-        loading = false,
-    } = useAppSelector((state) => state.proListByCategoryId.data || {});
+    const { list: products = [], loading = false } = useAppSelector((state) => state.proListByCategoryId.data || {});
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (!ids || ids.length === 0) return;
 
-        // ✅ Lấy phần tử cuối cùng trong mảng
-        const lastId = ids.filter(id => id !== undefined).at(-1); // hoặc: ids[ids.length - 1]
+        const lastId = ids.filter(id => id !== undefined).at(-1);
 
-        dispatch(
+        const promise = dispatch(
             getProductListByCategories({
                 limit: 15,
                 sort: sortBy,
                 page: 1,
-                ids: lastId, // ✅ Chỉ gửi id cuối cùng
+                ids: lastId,
                 filter: filters || {},
             }) as any
         );
+
+        return () => {
+            // ✅ Cleanup: cancel request khi validIds thay đổi hoặc component unmount
+            promise.abort();
+        };
     }, [dispatch, ids, filters, sortBy]);
 
     return (
-        <Card className="border-0 md:px-6 px-3">
+        <Card className="border-0 shadow-none md:px-6 px-3">
             <CardContent className="px-0 grid grid-cols-12 gap-3">
                 <div className="col-span-2 space-y-3">
                     <FilterSidebar />

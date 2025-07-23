@@ -28,7 +28,10 @@ export default function ProRecommendedList() {
     const { list: products = [], loading } = useAppSelector((state) => state.proRecommendedList.data);
 
     useEffect(() => {
-        dispatch(getProductList({ limit: 12, sort: "ctime", page: 1 }) as any);
+        const promise = dispatch(getProductList({ limit: 12, sort: "ctime", page: 1 }) as any);
+        return () => {
+            promise.abort()
+        }
     }, [dispatch]);
 
     return (

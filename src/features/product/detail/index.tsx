@@ -39,9 +39,12 @@ export default function ProDetail({ ids }: IProDetailProps) {
     const lastId = React.useMemo(() => ids.filter(Boolean).at(-1), [ids]);
 
     React.useEffect(() => {
-        if (lastId) {
-            dispatch(getProductDetail({ _id: lastId } as IProduct) as any);
-        }
+        if (!lastId) return;
+        const promise = dispatch(getProductDetail({ _id: lastId } as IProduct) as any);
+
+        return () => {
+            promise.abort();
+        };
     }, [dispatch, lastId]);
 
     // ✅ Render helpers

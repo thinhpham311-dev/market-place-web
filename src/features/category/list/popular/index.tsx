@@ -30,7 +30,6 @@ injectReducer("catPopularList", reducer);
 const CatPopularList: React.FC = () => {
     const router = useRouter();
     const dispatch = useAppDispatch();
-
     const { list: categories = [], loading } = useAppSelector((state) => state.catPopularList.data);
     useEffect(() => {
         dispatch(getCategoryList() as any);
