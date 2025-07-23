@@ -26,15 +26,16 @@ export default function ProSpecifications({ specs }: ProSpecificationsProps) {
                 Product Specifications
             </CardTitle>
 
-            {specs.map((spec, index) => (
-                <CardContent className="p-0" key={index}>
+            <CardContent className="p-0" >
+                {specs.map((spec, index) => (
                     <ProSpecificationItem
+                        key={index}
                         label={spec.label}
                         value={spec.value}
                         hasSeparator={index < specs.length - 1}
                     />
-                </CardContent>
-            ))}
+                ))}
+            </CardContent>
         </Card>
     );
 }

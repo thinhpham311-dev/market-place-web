@@ -5,7 +5,7 @@ import { IFilter } from "@/features/common/filter/types";
 const initialState: IFilter = {};
 
 const filterSlice = createSlice({
-    name: "filter",
+    name: "filter/state",
     initialState,
     reducers: {
         setFilter(state, action: PayloadAction<{ key: string; value: any }>) {

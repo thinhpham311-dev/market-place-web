@@ -1,18 +1,15 @@
-// store/filter/filterSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface ICommon {
-    page: number;
     limit: number;
-    currentPage: number;
-    totalPages: number;
+    currentPage: number; // ✅ bắt đầu từ 0
+    totalPages: number;  // ✅ cũng tính theo zero-based hay one-based?
 }
 
-const initialState: ICommon = {
-    page: 1,
-    limit: 12,
-    currentPage: 1,
-    totalPages: 1,
+export const initialState: ICommon = {
+    limit: 15,
+    currentPage: 0, // ✅ Bắt đầu từ 0
+    totalPages: 0,  // ✅ Tùy backend, nhưng thường vẫn trả 1-based totalPages
 };
 
 const stateSlice = createSlice({
@@ -25,12 +22,16 @@ const stateSlice = createSlice({
         setTotalPages(state, action: PayloadAction<number>) {
             state.totalPages = action.payload;
         },
+        setLimit(state, action: PayloadAction<number>) {
+            state.limit = action.payload;
+        },
         resetPagination(state) {
-            state.currentPage = 1;
-            state.totalPages = 1;
+            state.currentPage = 0; // ✅ reset về 0
+            state.totalPages = 0;
+            state.limit = 15;
         },
     },
 });
 
-export const { setPage, setTotalPages, resetPagination } = stateSlice.actions;
+export const { setPage, setTotalPages, setLimit, resetPagination } = stateSlice.actions;
 export default stateSlice.reducer;

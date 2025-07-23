@@ -1,13 +1,6 @@
-import dynamic from "next/dynamic";
 
-const CatByCategoryId = dynamic(() => import('@/features/category/detail'), {
-    ssr: false,
-});
-const ProListByCategoryId = dynamic(() => import('@/features/product/list/by-category-id'), {
-    ssr: false,
-});
-// import CatByCategoryId from "@/features/category/detail";
-// import ProListByCategoryId from "@/features/product/list/by-category-id";
+import CatByCategoryId from "@/features/category/detail";
+import ProListByCategoryId from "@/features/product/list/by-category-id";
 
 interface PageProps {
     params: { segments?: string[] };

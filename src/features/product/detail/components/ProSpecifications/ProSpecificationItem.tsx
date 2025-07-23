@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
 interface ProSpecificationItemProps {
@@ -16,10 +16,12 @@ export default function ProSpecificationItem({
 }: ProSpecificationItemProps) {
     return (
         <>
-            <CardDescription className="grid grid-cols-2 px-3">
-                <strong className="col-span-1">{label}</strong>
-                <span className="col-span-1">{value}</span>
-            </CardDescription>
+            <Card className="border-none shadow-none rounded-none">
+                <CardContent className="p-3 grid grid-cols-5 ">
+                    <CardTitle className="text-md col-span-2">{label}</CardTitle>
+                    <CardDescription className="col-span-3">{value} </CardDescription>
+                </CardContent>
+            </Card>
             {hasSeparator && <Separator />}
         </>
     );

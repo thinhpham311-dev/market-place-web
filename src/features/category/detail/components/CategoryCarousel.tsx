@@ -24,7 +24,7 @@ interface ICategoryButtonsProps {
     isLoading?: boolean;
 }
 
-const CategoryButtons: React.FC<ICategoryButtonsProps> = React.forwardRef(({
+const CategoryButtons: React.FC<ICategoryButtonsProps> = ({
     data,
     ids,
     className = "",
@@ -74,5 +74,5 @@ const CategoryButtons: React.FC<ICategoryButtonsProps> = React.forwardRef(({
             <CarouselNext className="top-1/2 -translate-y-1/2 -right-10" />
         </Carousel>
     );
-})
+}
 export default React.memo(CategoryButtons);
