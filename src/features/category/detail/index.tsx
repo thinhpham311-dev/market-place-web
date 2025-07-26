@@ -43,19 +43,19 @@ const CatByCategoryId = ({ ids }: { ids: string[] }) => {
 
 
     return (
-        <Card className="md:mx-6 mx-3 grid grid-cols-12 items-center sticky left-0 top-[57px] bg-white z-10">
-            <CardHeader className="py-2 px-3 md:col-span-2 col-span-12">
+        <Card className="md:mx-6 mx-3 grid grid-cols-12 items-center sticky left-0 top-[60px] bg-white z-10">
+            <CardHeader className="py-2 px-3 lg:col-span-2 md:col-span-12 col-span-12">
                 <CardTitle className="text-lg font-semibold inline-flex items-center space-x-1">
                     <BiCategory />
                     <span>All Categories:</span>
                 </CardTitle>
             </CardHeader>
-            <CardContent className="py-2 px-3 md:col-span-10 col-span-12">
+            <CardContent className="py-2 px-3 lg:col-span-10 md:col-span-12 col-span-12">
                 <CategoryCarousel
                     isLoading={loading}
                     data={categories}
                     ids={validIds}
-                    className="lg:basis-1/8 md:basis-1/6 basis-1/4"
+                    className="lg:basis-1/8 md:basis-1/6 basis-1/2"
                 />
             </CardContent>
         </Card>

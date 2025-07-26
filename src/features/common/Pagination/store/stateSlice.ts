@@ -2,14 +2,14 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface ICommon {
     limit: number;
-    currentPage: number; // ✅ bắt đầu từ 0
-    totalPages: number;  // ✅ cũng tính theo zero-based hay one-based?
+    currentPage: number;
+    totalPages: number;
 }
 
 export const initialState: ICommon = {
     limit: 15,
-    currentPage: 0, // ✅ Bắt đầu từ 0
-    totalPages: 0,  // ✅ Tùy backend, nhưng thường vẫn trả 1-based totalPages
+    currentPage: 0,
+    totalPages: 0,
 };
 
 const stateSlice = createSlice({
@@ -26,7 +26,7 @@ const stateSlice = createSlice({
             state.limit = action.payload;
         },
         resetPagination(state) {
-            state.currentPage = 0; // ✅ reset về 0
+            state.currentPage = 0;
             state.totalPages = 0;
             state.limit = 15;
         },

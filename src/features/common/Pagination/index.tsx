@@ -1,104 +1,37 @@
 "use client";
 
 import React from "react";
-import {
-    Pagination,
-    PaginationContent,
-    PaginationItem,
-    PaginationLink,
-    PaginationPrevious,
-    PaginationNext,
-} from "@/components/ui";
-import { cn } from "@/lib/utils";
-import { usePagination } from "./hooks/usePagination";
-import { injectReducer } from "@/store";
-import reducer from "./store";
-
-injectReducer("pagination", reducer)
+import PaginationProvider from "./providers";
+import PaginationWrapper from "./components/PaginationWrapper";
+import PaginationPrevButton from "./components/PaginationPrevButton";
+import PaginationNextButton from "./components/PaginationNextButton";
+import PaginationDotButtons from "./components/PaginationDotButtons";
 
 interface PaginationCustomProps {
-    totalItems: number;
-    showNumbers?: boolean;      // ✅ Hiển thị số trang hay không
-    showNavigation?: boolean;   // ✅ Hiển thị Previous/Next hay không
+    total: number;
+    limit?: number;
+    isShowDot?: boolean;
+    isShowNav?: boolean;
+    className?: string;
+    storeKey?: string
 }
 
-const PaginationCustom = ({
-    totalItems,
-    showNumbers = false,
-    showNavigation = false,
-}: PaginationCustomProps) => {
-    const {
-        currentPage,
-        pages,
-        setPage,
-        hasPrev,
-        hasNext,
-    } = usePagination(totalItems);
-
-    if (pages.length <= 1 && !showNavigation) return null; // Không hiển thị nếu chỉ có 1 trang
-
+const Pagination: React.FC<PaginationCustomProps> = ({
+    total,
+    limit = 12,
+    isShowDot = true,
+    isShowNav = true,
+    ...rest
+}) => {
     return (
-        <div className="flex items-center space-x-3">
-            <Pagination>
-                <PaginationContent>
-                    {/* ✅ Previous */}
-                    {showNavigation && (
-                        <PaginationItem>
-                            <PaginationPrevious
-                                onClick={() => setPage(currentPage - 1)}
-                                className={cn(
-                                    !hasPrev
-                                        ? "pointer-events-none opacity-50"
-                                        : "cursor-pointer"
-                                )}
-                            />
-                        </PaginationItem>
-                    )}
-
-                    {/* ✅ Page Numbers */}
-                    {showNumbers &&
-                        pages.map((page, index) => {
-                            if (page === "...") {
-                                return (
-                                    <PaginationItem key={`dots-${index}`}>
-                                        <span className="px-3 py-2">...</span>
-                                    </PaginationItem>
-                                );
-                            }
-
-                            return (
-                                <PaginationItem key={page as number}>
-                                    <PaginationLink
-                                        href="#"
-                                        isActive={page === currentPage}
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            setPage(page as number);
-                                        }}
-                                    >
-                                        {(page as number) + 1}
-                                    </PaginationLink>
-                                </PaginationItem>
-                            );
-                        })}
-
-                    {/* ✅ Next */}
-                    {showNavigation && (
-                        <PaginationItem>
-                            <PaginationNext
-                                onClick={() => setPage(currentPage + 1)}
-                                className={cn(
-                                    !hasNext
-                                        ? "pointer-events-none opacity-50"
-                                        : "cursor-pointer"
-                                )}
-                            />
-                        </PaginationItem>
-                    )}
-                </PaginationContent>
-            </Pagination>
-        </div>
+        <PaginationProvider total={total} limit={limit} {...rest}>
+            <PaginationWrapper>
+                {isShowNav && <PaginationPrevButton />}
+                {isShowDot && <PaginationDotButtons />}
+                {isShowNav && <PaginationNextButton />}
+            </PaginationWrapper>
+        </PaginationProvider>
     );
 };
 
-export default PaginationCustom;
+export default React.memo(Pagination);

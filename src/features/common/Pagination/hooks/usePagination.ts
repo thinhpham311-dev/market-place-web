@@ -1,12 +1,28 @@
 import { useEffect, useMemo } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { setPage, setTotalPages } from "../store/stateSlice";
+import { setPage, setTotalPages, resetPagination, setLimit } from "../store/stateSlice";
 
-export function usePagination(totalItems: number, siblingCount = 1) {
+interface UsePaginationProps {
+    totalItems: number;
+    limit?: number;
+    siblingCount?: number;
+}
+
+export function usePagination({
+    totalItems,
+    limit = 0,
+    siblingCount = 1,
+}: UsePaginationProps) {
     const dispatch = useAppDispatch();
-    const { currentPage, totalPages, limit } = useAppSelector(
+    const { currentPage, totalPages, limit: storeLimit } = useAppSelector(
         (state) => state.pagination.state
     );
+
+    useEffect(() => {
+        if (storeLimit !== limit) {
+            dispatch(setLimit(limit));
+        }
+    }, [limit, storeLimit, dispatch]);
 
     useEffect(() => {
         if (totalItems > 0) {
@@ -77,11 +93,17 @@ export function usePagination(totalItems: number, siblingCount = 1) {
         dispatch(setPage(page));
     };
 
+    const resetPaginationSafe = () => {
+        dispatch(resetPagination());
+    };
+
     return {
         currentPage,
         totalPages,
+        limit,
         pages: paginationRange,
         setPage: setPageSafe,
+        resetPagination: resetPaginationSafe,
         hasPrev: currentPage > 0,
         hasNext: currentPage < totalPages - 1,
     };

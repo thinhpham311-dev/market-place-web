@@ -1,9 +1,19 @@
 "use client"
 import * as React from "react"
 import { ThemeProvider as NextThemesProvider } from "next-themes"
-import { SidebarProvider, Toaster } from "@/components/provider"
+import { useToast } from "@/lib/hooks"
+
 import { Header, Footer, SidebarNavigation, AdminHeader } from "@/components/layout"
-import { LoadingSpinner } from "@/components/ui"
+import {
+    LoadingSpinner,
+    SidebarProvider,
+    Toast,
+    ToastClose,
+    ToastDescription,
+    ToastProvider,
+    ToastTitle,
+    ToastViewport,
+} from "@/components/ui"
 import { Provider } from "react-redux"
 import store, { persistor } from "@/store"
 import { PersistGate } from "redux-persist/integration/react"
@@ -19,6 +29,7 @@ function getCookie(name: string): string | undefined {
 
 export function AppProvider({ children, ...props }: React.ComponentProps<typeof NextThemesProvider>) {
     const [defaultOpen, setDefaultOpen] = React.useState<boolean>(false)
+    const { toasts } = useToast()
 
 
     React.useEffect(() => {
@@ -42,12 +53,29 @@ export function AppProvider({ children, ...props }: React.ComponentProps<typeof 
                                 <span><LoadingSpinner /></span>
                                 <p><strong>Loading...</strong></p>
                             </div>
-                        } persistor={persistor}>
+                        }
+                            persistor={persistor}>
                             <AdminHeader />
                             <Header />
                             <main>{children}</main>
                             <Footer />
-                            <Toaster />
+                            <ToastProvider>
+                                {toasts.map(function ({ id, title, description, action, ...props }) {
+                                    return (
+                                        <Toast key={id} {...props}>
+                                            <div className="grid gap-1">
+                                                {title && <ToastTitle>{title}</ToastTitle>}
+                                                {description && (
+                                                    <ToastDescription>{description}</ToastDescription>
+                                                )}
+                                            </div>
+                                            {action}
+                                            <ToastClose />
+                                        </Toast>
+                                    )
+                                })}
+                                <ToastViewport />
+                            </ToastProvider>
                         </PersistGate>
                     </Provider>
                 </div>

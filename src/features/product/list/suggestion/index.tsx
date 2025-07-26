@@ -5,7 +5,7 @@ import {
     Card, CardHeader, CardContent, CardTitle, CardDescription
 } from "@/components/ui";
 import ProductGrid from "../components/ProductGrid";
-import LoadMoreTrigger from "@/features/common/load-more";
+import LoadMoreTrigger from "@/features/common/infinite-scroll";
 
 // redux
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
@@ -15,7 +15,7 @@ import suggestionReducer from "./store";
 import {
     nextPage,
     setTotalCount,
-} from "@/features/common/load-more/store/stateSlice";
+} from "@/features/common/infinite-scroll/store/stateSlice";
 
 injectReducer("proSuggestionList", suggestionReducer);
 

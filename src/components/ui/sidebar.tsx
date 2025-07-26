@@ -9,14 +9,19 @@ import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import { useIsMobile } from "@/lib/hooks"
 import { cn } from "@/lib/utils"
 import {
-  Button, Input, Skeleton, Separator, Sheet, SheetContent, SheetTitle
-} from "@/components/ui"
-import {
+  Button,
+  Input,
+  Skeleton,
+  Separator,
+  Sheet,
+  SheetContent,
+  SheetTitle,
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger
-} from "@/components/provider"
+} from "@/components/ui"
+
 
 const SIDEBAR_COOKIE_NAME = "sidebar:state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7

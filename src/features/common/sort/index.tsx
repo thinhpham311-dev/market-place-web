@@ -1,44 +1,23 @@
 'use client';
 
 import React from 'react';
-import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-import { setSortBy } from './store/stateSlice';
-import { Button } from '@/components/ui';
-import { injectReducer } from '@/store';
-import reducer from './store';
-import { FaRegCheckCircle } from "react-icons/fa";
+import SortByProvider from './providers';
+import SortByWrapper from './components/SortByWrapper';
+import SortOptionList from './components/SortByOptionsList';
+import type { Sort } from './types';
 
+interface ISortByProps {
+    data: Sort[]
+}
 
-const sortOptions = [
-    { label: 'Newest', value: 'ctime' },
-    { label: 'Popularity', value: 'pop' },
-    { label: 'Price: Low to High', value: 'asc' },
-    { label: 'Price: High to Low', value: 'desc' },
-] as const;
-
-
-injectReducer("sortBy", reducer)
-
-const SortBar: React.FC = () => {
-    const dispatch = useAppDispatch();
-    const { sortBy } = useAppSelector((state => state.sortBy.state));
-
+const SortBy = ({ data }: ISortByProps) => {
     return (
-        <div className='flex flex-row space-x-2'>
-            {sortOptions.map((option) => (
-                <Button
-                    key={option.value}
-                    size="sm"
-                    className={`px-3 py-1 border rounded-md`}
-                    onClick={() => dispatch(setSortBy(option.value))}
-                >
-                    {sortBy === option.value && <FaRegCheckCircle />}
-                    <span> {option.label}</span>
-                </Button>
-            ))}
-        </div>
-
+        <SortByProvider data={data} className='flex flex-row space-x-2'>
+            <SortByWrapper>
+                <SortOptionList />
+            </SortByWrapper>
+        </SortByProvider>
     );
 };
 
-export default SortBar;
+export default SortBy;

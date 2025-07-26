@@ -13,7 +13,7 @@ export interface LoadMoreTriggerProps {
 
 injectReducer("infiniteScroll", reducer);
 
-export default function LoadMoreTrigger({
+export default function InfiniteScroll({
     hasMore,
     onTrigger,
     isLoading = false,
