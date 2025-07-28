@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 export default function PaginationPrevButton() {
     const { currentPage, setPage, hasPrev, pages } = usePaginationContext();
 
+
     const handlePrev = () => {
         if (hasPrev) {
             setPage(currentPage - 1);

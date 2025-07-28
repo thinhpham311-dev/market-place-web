@@ -11,10 +11,10 @@ interface ICheckboxItemProps {
 }
 
 const CheckboxItem = React.memo(({ item, filterKey }: ICheckboxItemProps) => {
-    const { filters, handleSetFilter } = useFilterContext();
+    const { filter, handleSetFilter } = useFilterContext();
     const { label, value } = item;
 
-    const selectedValues: string[] = (filters?.[filterKey] as string[]) || [];
+    const selectedValues: string[] = (filter?.[filterKey] as string[]) || [];
     const handleValueChange = (val: string) => {
         const newSelectedValues = selectedValues.includes(val)
             ? selectedValues.filter((v) => v !== val)

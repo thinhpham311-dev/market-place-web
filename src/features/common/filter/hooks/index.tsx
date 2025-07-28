@@ -1,2 +1,2 @@
-export * from "./useFilter"
+export * from "./useHandleFilter"
 export * from "./useFilterContext"

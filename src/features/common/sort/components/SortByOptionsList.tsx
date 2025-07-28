@@ -12,7 +12,7 @@ const SortOptionList = () => {
     return (
         <Card className='border-none shadow-none'>
             <CardContent className='p-0'>
-                <div className='flex items-center space-x-3'>
+                <div className='flex items-center space-x-1'>
                     {options?.map((_, index) => (
                         <React.Fragment key={`${_.value}-${index}`}>
                             <SortByOptionButton option={_} />

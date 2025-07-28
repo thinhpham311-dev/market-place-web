@@ -6,25 +6,29 @@ import PaginationWrapper from "./components/PaginationWrapper";
 import PaginationPrevButton from "./components/PaginationPrevButton";
 import PaginationNextButton from "./components/PaginationNextButton";
 import PaginationDotButtons from "./components/PaginationDotButtons";
+import { useHandlePagination } from "@/features/common/pagination/hooks";
+
 
 interface PaginationCustomProps {
     total: number;
-    limit?: number;
+    limit: number;
     isShowDot?: boolean;
     isShowNav?: boolean;
     className?: string;
-    storeKey?: string
+    storeKey: string
 }
 
 const Pagination: React.FC<PaginationCustomProps> = ({
+    storeKey,
     total,
-    limit = 12,
-    isShowDot = true,
-    isShowNav = true,
-    ...rest
+    limit,
+    isShowDot = false,
+    isShowNav = false,
 }) => {
+    const pagination = useHandlePagination({ storeKey, totalItems: total, limit });
+
     return (
-        <PaginationProvider total={total} limit={limit} {...rest}>
+        <PaginationProvider contextValues={pagination}>
             <PaginationWrapper>
                 {isShowNav && <PaginationPrevButton />}
                 {isShowDot && <PaginationDotButtons />}

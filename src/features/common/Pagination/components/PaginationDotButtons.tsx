@@ -35,7 +35,7 @@ export default function PaginationDotButtons() {
                                 variant="link"
                                 onClick={() => handlePageChange(page as number)}
                             >
-                                {(page as number) + 1}
+                                {(page as number)}
                             </Button>
                         </PaginationLink>
                     </PaginationItem>

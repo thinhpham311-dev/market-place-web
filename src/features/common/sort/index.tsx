@@ -4,15 +4,22 @@ import React from 'react';
 import SortByProvider from './providers';
 import SortByWrapper from './components/SortByWrapper';
 import SortOptionList from './components/SortByOptionsList';
+import { useSortBy } from '@/features/common/sort/hooks';
 import type { Sort } from './types';
 
 interface ISortByProps {
     data: Sort[]
+    storeKey: string;
 }
 
-const SortBy = ({ data }: ISortByProps) => {
+const SortBy = ({ storeKey, data }: ISortByProps) => {
+    const sortBy = useSortBy({ storeKey, options: data })
+
     return (
-        <SortByProvider data={data} className='flex flex-row space-x-2'>
+        <SortByProvider
+            contextValues={sortBy}
+            className='flex flex-row space-x-2'
+        >
             <SortByWrapper>
                 <SortOptionList />
             </SortByWrapper>

@@ -1,14 +1,9 @@
 "use client";
 
 import React from "react";
-import { injectReducer } from "@/store";
-import reducer from "../store";
 import { cn } from "@/lib/utils";
 import type { Sort } from "../types";
-import { useSortBy } from '@/features/common/sort/hooks';
 
-
-injectReducer("sortBy", reducer);
 
 export interface SortByContextType {
     sortBy: Sort;
@@ -20,7 +15,7 @@ export interface SortByContextType {
 interface SortByProviderProps {
     children?: React.ReactNode;
     className?: string;
-    data?: Sort[]
+    contextValues: SortByContextType;
 }
 
 export const SortByContext = React.createContext<SortByContextType | null>(null);
@@ -28,13 +23,11 @@ export const SortByContext = React.createContext<SortByContextType | null>(null)
 const SortByProvider = ({
     children,
     className,
-    ...rest
+    contextValues
 }: SortByProviderProps) => {
-    const { data } = rest
-    const depsSortBy = useSortBy(data)
 
     return (
-        <SortByContext.Provider value={depsSortBy}>
+        <SortByContext.Provider value={contextValues}>
             <div className={cn(className)}>{children}</div>
         </SortByContext.Provider>
     );

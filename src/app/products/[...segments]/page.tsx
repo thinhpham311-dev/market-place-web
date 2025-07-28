@@ -8,8 +8,6 @@ import ProDetail from "@/features/product/detail";
 import ProductReview from "@/features/reviews"
 
 
-
-
 export default function Page(
     { params }: { params: { segments: string[] } }
 ) {

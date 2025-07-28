@@ -1,14 +1,30 @@
 "use client";
 
+
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { setSortBy, resetSortBy } from "../store/stateSlice";
 import type { Sort } from "../types";
+import { injectReducer } from "@/store";
+import reducer from "@/features/common/sort/store";
+import { SORT } from "@/features/common/sort/constants"
+import { selectSortByStoreKey } from "@/features/common/sort/store/selectors";
 
-export function useSortBy(
+interface IUseSortBy {
     options: readonly Sort[] | undefined
-) {
+    storeKey: string;
+}
+
+export function useSortBy({
+    options,
+    storeKey
+}: IUseSortBy) {
+    injectReducer(`${SORT}_${storeKey}`, reducer);
+
     const dispatch = useAppDispatch();
-    const { sortBy } = useAppSelector((state) => state.sortBy.state);
+
+    const { sortBy } = useAppSelector(
+        selectSortByStoreKey(storeKey)
+    );
 
     const handleSortChange = (value: Sort) => {
         dispatch(setSortBy(value));

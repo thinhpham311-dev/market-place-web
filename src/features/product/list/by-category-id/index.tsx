@@ -3,47 +3,68 @@
 import React from "react";
 
 // components
-import { Card, CardContent } from "@/components/ui";
+import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui";
 import ProductGrid from "../components/ProductGrid";
-import ProductSort from "../components/ProductSort";
-import ProductFilter from "../components/ProductFilter";
-import { Pagination } from "@/features/common";
+import { Pagination, SortBy, Filter } from "@/features/common";
+
+// hooks
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
 // stores
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { injectReducer } from "@/store";
-import { getProductListByCategories } from "./store/dataSlice";
 import reducer from "./store";
+import { injectReducer } from "@/store";
+import { selectPaginationByStoreKey } from "@/features/common/pagination/store/selectors";
+import { selectSortByStoreKey } from "@/features/common/sort/store/selectors";
+import { selectFilterStoreKey } from "@/features/common/filter/store/selectors";
+import { getProductListByCategories } from "./store/dataSlice";
+import { resetPagination } from "@/features/common/pagination/store/stateSlice";
 
-injectReducer("proListByCategoryId", reducer);
+// constants
+import { SORTBY_OPTIONS, FILTER_OPTIONS } from "./constants/data.constant";
+import { PRO_LIST_BY_CATEGORYID } from "./constants/store.constant";
 
-const ProListByCategoryId = ({ ids }: { ids: string[] }) => {
+injectReducer(PRO_LIST_BY_CATEGORYID, reducer);
+
+const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
     const dispatch = useAppDispatch();
 
     const {
-        currentPage,
-        limit
-    } = useAppSelector((state) => state.pagination.state);
-    const { filters } = useAppSelector((state) => state.filter.state);
-    const { sortBy: { value: sortBy } } = useAppSelector((state) => state.sortBy.state);
+        currentPage: pageCurrentValue,
+        limit: limitCurrentValue
+    } = useAppSelector(
+        selectPaginationByStoreKey(PRO_LIST_BY_CATEGORYID)
+    );
+
+    const {
+        sortBy: { value: sortCurrentValue }
+    } = useAppSelector(
+        selectSortByStoreKey(PRO_LIST_BY_CATEGORYID)
+    );
+
+    const {
+        filter: filterCurrentValue
+    } = useAppSelector(
+        selectFilterStoreKey(PRO_LIST_BY_CATEGORYID)
+    );
+
     const {
         list: products = [],
         loading = false,
-        total:
-        totalItems = 0
-    } = useAppSelector((state) => state.proListByCategoryId.data || {});
+        total: totalItems = 0,
+    } = useAppSelector((state) => state[PRO_LIST_BY_CATEGORYID].data);
+
     React.useEffect(() => {
-        if (!ids || ids.length === 0) return;
+        dispatch(resetPagination());
+    }, [dispatch, lastId]);
 
-        const lastId = ids.filter((id) => id !== undefined).at(-1);
-
+    React.useEffect(() => {
         const promise = dispatch(
             getProductListByCategories({
-                limit,
-                sort: sortBy,
-                page: currentPage + 1,
+                limit: limitCurrentValue,
+                sort: sortCurrentValue,
+                page: pageCurrentValue,
                 ids: lastId,
-                filter: filters || {},
+                filter: filterCurrentValue,
             }) as any
         );
 
@@ -52,32 +73,60 @@ const ProListByCategoryId = ({ ids }: { ids: string[] }) => {
         };
     }, [
         dispatch,
-        ids,
-        filters,
-        sortBy,
-        currentPage,
-        limit
+        lastId,
+        filterCurrentValue,
+        sortCurrentValue,
+        pageCurrentValue,
+        limitCurrentValue
     ]);
 
     return (
         <Card className="border-0 shadow-none md:px-6 px-3">
             <CardContent className="px-0 grid grid-cols-12 gap-3">
                 <div className="col-span-2 space-y-3">
-                    <ProductFilter />
+                    <Filter
+                        storeKey={PRO_LIST_BY_CATEGORYID}
+                        data={FILTER_OPTIONS} />
                 </div>
+
                 <div className="col-span-10 flex flex-col space-y-3">
-                    <ProductSort />
-                    <ProductGrid
-                        data={products}
-                        className="lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-3"
-                        isLoading={loading}
-                    />
-                    <Pagination
-                        isShowDot
-                        isShowNav
-                        limit={15}
-                        total={totalItems}
-                    />
+                    <Card>
+                        <CardHeader className="p-3">
+                            <div className="flex gap-4 justify-between items-center">
+                                <div className="flex-1">
+                                    <SortBy
+                                        storeKey={PRO_LIST_BY_CATEGORYID}
+                                        data={SORTBY_OPTIONS} />
+                                </div>
+                                <div>
+                                    <Pagination
+                                        storeKey={PRO_LIST_BY_CATEGORYID}
+                                        isShowNav
+                                        limit={20}
+                                        total={totalItems}
+                                    />
+                                </div>
+                            </div>
+                        </CardHeader>
+
+                        <CardContent className="p-3">
+                            <ProductGrid
+                                data={products}
+                                className="lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-3"
+                                isLoading={loading}
+                            />
+                        </CardContent>
+
+                        <CardFooter className="p-3 justify-center">
+                            <Pagination
+                                storeKey={PRO_LIST_BY_CATEGORYID}
+                                isShowDot
+                                isShowNav
+                                limit={20}
+                                total={totalItems}
+                            />
+                        </CardFooter>
+                    </Card>
                 </div>
             </CardContent>
         </Card>

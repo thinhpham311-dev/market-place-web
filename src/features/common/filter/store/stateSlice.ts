@@ -4,12 +4,12 @@ import { Filter } from "@/features/common/filter/types";
 // ✅ Định nghĩa lại state slice
 interface IFilterState {
     data: Filter[]; // danh sách options tĩnh (VD: [{ key: "category", type:"checkbox", items:[...] }])
-    filters: Record<string, any>; // state user đã chọn (key: giá trị user chọn)
+    filter: Record<string, any>; // state user đã chọn (key: giá trị user chọn)
 }
 
 const initialState: IFilterState = {
     data: [],
-    filters: {},
+    filter: {},
 };
 
 const filterSlice = createSlice({
@@ -23,17 +23,17 @@ const filterSlice = createSlice({
 
         // ✅ User chọn filter
         setFilter(state, action: PayloadAction<{ key: string; value: any }>) {
-            state.filters[action.payload.key] = action.payload.value;
+            state.filter[action.payload.key] = action.payload.value;
         },
 
         // ✅ Xóa 1 filter cụ thể
         resetFilter(state, action: PayloadAction<string>) {
-            delete state.filters[action.payload];
+            delete state.filter[action.payload];
         },
 
         // ✅ Reset toàn bộ filter user đã chọn, KHÔNG xóa data tĩnh
         resetAllFilters(state) {
-            state.filters = {};
+            state.filter = {};
         },
     },
 });

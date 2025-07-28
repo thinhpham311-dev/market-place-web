@@ -12,12 +12,12 @@ interface FilterSectionProps {
 }
 
 const FilterSection: React.FC<FilterSectionProps> = ({ title, filterKey, children }) => {
-    const { filters } = useFilterContext();
-    const hasActiveFilters = Boolean(filters?.[filterKey]?.length);
+    const { filter } = useFilterContext();
+    const hasActiveFilters = Boolean(filter?.[filterKey]?.length);
 
     return (
         <Card>
-            <CardHeader className="p-3 flex flex-row items-center justify-between">
+            <CardHeader className="p-3 flex flex-row items-center justify-between space-y-0">
                 <CardTitle className="text-md font-semibold">{title}</CardTitle>
                 {hasActiveFilters && <FilterClear filterKey={filterKey} />}
             </CardHeader>

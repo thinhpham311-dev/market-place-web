@@ -15,6 +15,7 @@ const SortByOptionButton: React.FC<SortOptionButtonProps> = ({ option }) => {
     const { label, value } = option
     const isActive = sortBy.value === value;
 
+
     return (
         <Button
             size="sm"

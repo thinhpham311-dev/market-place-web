@@ -1,2 +1,2 @@
-export * from "./usePagination"
+export * from "./useHandlePagination"
 export * from "./usePaginationContext"

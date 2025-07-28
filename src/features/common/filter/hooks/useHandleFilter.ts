@@ -9,10 +9,20 @@ import {
     resetAllFilters,
 } from "../store/stateSlice";
 import { Filter } from "@/features/common/filter/types";
+import { injectReducer } from "@/store";
+import reducer from "@/features/common/filter/store";
+import { FILTER } from "@/features/common/filter/constants";
+import { selectFilterStoreKey } from "@/features/common/filter/store/selectors"
 
-export function useFilter(options?: Filter) {
+interface IUseFilterParams {
+    storeKey: string;
+    options?: readonly Filter[];
+}
+
+export function useHandleFilter({ storeKey, options }: IUseFilterParams) {
+    injectReducer(`${FILTER}_${storeKey}`, reducer);
     const dispatch = useAppDispatch();
-    const { filters } = useAppSelector((state) => state.filter.state as Filter);
+    const { filter, data } = useAppSelector(selectFilterStoreKey(storeKey));
     const initialized = useRef(false);
 
     useEffect(() => {
@@ -30,7 +40,8 @@ export function useFilter(options?: Filter) {
     const handleResetAllFilters = () => dispatch(resetAllFilters());
 
     return {
-        filters,
+        data,
+        filter,
         handleSetFilter,
         handleResetFilter,
         handleResetAllFilters,

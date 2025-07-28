@@ -1,2 +1,2 @@
-export * from "./useSortBy"
+export * from "./useHandleSortBy"
 export * from "./useSortByContext"
