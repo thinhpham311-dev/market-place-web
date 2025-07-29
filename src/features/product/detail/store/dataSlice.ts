@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { apiPostProductDetail } from '@/services/ProductService';
+import { apiPostProductDetail } from '@/features/product/detail/services';
 import { IProduct } from '@/features/product/types';
 
 

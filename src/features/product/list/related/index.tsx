@@ -26,7 +26,7 @@ injectReducer("proRelatedList", reducer)
 export default function ProRelatedList() {
     const router = useRouter()
     const dispatch = useAppDispatch();
-    const { list: products = [], loading } = useAppSelector((state) => state.proRelatedList.data);
+    const { list: products = [], loading, error = null } = useAppSelector((state) => state.proRelatedList.data);
     useEffect(() => {
         const promise = dispatch(getProductList({ limit: 12, sort: "ctime", page: 1 }) as any);
         return () => {
@@ -47,7 +47,12 @@ export default function ProRelatedList() {
                 </Button>
             </CardHeader>
             <CardContent className="col-span-12">
-                <ProductCarousel data={products} isLoading={loading} className="lg:basis-1/6 md:basis-1/4 basis-1/3" />
+                <ProductCarousel
+                    error={error}
+                    countLoadItems={6}
+                    data={products}
+                    isLoading={loading}
+                    className="lg:basis-1/6 md:basis-1/4 basis-1/3" />
             </CardContent>
         </Card>
     );

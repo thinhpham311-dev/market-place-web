@@ -24,7 +24,7 @@ export default function ProSuggestionList() {
 
     const { page, limit, totalItems } = useAppSelector((state) => state.infiniteScroll.state);
 
-    const { list: products = [], loading, total } = useAppSelector(
+    const { list: products = [], loading, total, error = null } = useAppSelector(
         (state) => state.proSuggestionList.data
     );
     const hasMore = products.length < totalItems;
@@ -58,6 +58,8 @@ export default function ProSuggestionList() {
 
             <CardContent className="col-span-12">
                 <ProductGrid
+                    countLoadItems={12}
+                    error={error}
                     data={products}
                     className=" grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3"
                     isLoading={loading}

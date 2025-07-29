@@ -51,6 +51,7 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
         list: products = [],
         loading = false,
         total: totalItems = 0,
+        error = null
     } = useAppSelector((state) => state[PRO_LIST_BY_CATEGORYID].data);
 
     React.useEffect(() => {
@@ -102,7 +103,7 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
                                     <Pagination
                                         storeKey={PRO_LIST_BY_CATEGORYID}
                                         isShowNav
-                                        limit={20}
+                                        limit={15}
                                         total={totalItems}
                                     />
                                 </div>
@@ -111,6 +112,8 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
 
                         <CardContent className="p-3">
                             <ProductGrid
+                                error={error}
+                                countLoadItems={15}
                                 data={products}
                                 className="lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-3"
                                 isLoading={loading}
@@ -122,7 +125,7 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
                                 storeKey={PRO_LIST_BY_CATEGORYID}
                                 isShowDot
                                 isShowNav
-                                limit={20}
+                                limit={15}
                                 total={totalItems}
                             />
                         </CardFooter>

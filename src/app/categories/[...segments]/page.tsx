@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation"; // ✅ import notFound
-import CatByCategoryId from "@/features/category/detail";
+import CatByCategoryId from "@/features/category/by-category-id";
 import ProListByCategoryId from "@/features/product/list/by-category-id";
 
 interface PageProps {

@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import {
     Button, Card, CardHeader, CardContent, CardTitle, CardDescription
 } from '@/components/ui';
-import ProductRow from "../components/ProductCarousel"
+import ProductCarousel from "../components/ProductCarousel"
 
 //datas
 // import { productData } from "@/constants/data";
@@ -26,7 +26,7 @@ injectReducer("proTopPicksList", reducer)
 export default function ProTopPicksList() {
     const router = useRouter()
     const dispatch = useAppDispatch();
-    const { list: products = [], loading } = useAppSelector((state) => state.proTopPicksList.data);
+    const { list: products = [], loading, error = null } = useAppSelector((state) => state.proTopPicksList.data);
 
     useEffect(() => {
         dispatch(getProductList({ limit: 12, sort: "ctime", page: 1 }) as any);
@@ -45,7 +45,13 @@ export default function ProTopPicksList() {
                 </Button>
             </CardHeader>
             <CardContent className="col-span-12">
-                <ProductRow data={products} isLoading={loading} className="lg:basis-1/6 md:basis-1/4 basis-1/3" />
+                <ProductCarousel
+                    countLoadItems={6}
+                    error={error}
+                    data={products}
+                    isLoading={loading}
+                    className="lg:basis-1/6 md:basis-1/4 basis-1/3"
+                />
             </CardContent>
         </Card>
     );

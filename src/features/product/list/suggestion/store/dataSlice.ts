@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { apiPostProductsList } from '@/services/ProductService';
+import { apiPostProductsList } from '@/features/product/list/suggestion/services';
 import { IProduct, IProductfilter } from '@/features/product/types';
 
 type ProductListResponse = {
@@ -8,6 +8,20 @@ type ProductListResponse = {
         list: IProduct[],
         total: number;
     };
+};
+
+interface ProductState {
+    list: IProduct[];
+    loading: boolean;
+    total: number;
+    error: string | null;
+}
+
+const initialState: ProductState = {
+    list: [],
+    loading: false,
+    total: 0,
+    error: null
 };
 
 export const getProductList = createAsyncThunk<ProductListResponse, IProductfilter>(
@@ -30,17 +44,7 @@ export const getProductList = createAsyncThunk<ProductListResponse, IProductfilt
     }
 );
 
-interface ProductState {
-    list: IProduct[];
-    loading: boolean;
-    total: number;
-}
 
-const initialState: ProductState = {
-    list: [],
-    loading: false,
-    total: 0
-};
 
 const dataSlice = createSlice({
     name: 'proSuggestionList/data',
@@ -48,13 +52,10 @@ const dataSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(getProductList.pending, (
-                state: { loading: boolean }) => {
+            .addCase(getProductList.pending, (state) => {
                 state.loading = true;
             })
-            .addCase(getProductList.fulfilled, (
-                state: { list: IProduct[]; loading: boolean, total: number },
-                action: { payload: any }) => {
+            .addCase(getProductList.fulfilled, (state, action) => {
                 state.loading = false;
                 const { list, total } = action.payload.metadata;
 
@@ -70,9 +71,11 @@ const dataSlice = createSlice({
                 state.total = total;
             })
 
-            .addCase(getProductList.rejected, (
-                state: { list: IProduct[]; loading: boolean }) => {
+            .addCase(getProductList.rejected, (state, action) => {
                 state.loading = false;
+                state.error = action.payload as string || 'Failed to fetch products';
+                state.total = 0;
+                state.list = [];
             });
     },
 });

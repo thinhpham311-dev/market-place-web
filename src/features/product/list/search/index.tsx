@@ -25,7 +25,7 @@ injectReducer("proSearchList", reducer)
 export default function ProSearchList() {
     const router = useRouter()
     const dispatch = useAppDispatch();
-    const { list: products = [], loading } = useAppSelector((state) => state.proSearchList.data);
+    const { list: products = [], loading, error = null } = useAppSelector((state) => state.proSearchList.data);
 
     useEffect(() => {
         const promise = dispatch(getProductList({ limit: 12, sort: "createdAt", page: 1 }) as any);
@@ -48,6 +48,8 @@ export default function ProSearchList() {
             </CardHeader>
             <CardContent className="col-span-12">
                 <ProductGrid
+                    countLoadItems={12}
+                    error={error}
                     data={products}
                     className="lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-3"
                     isLoading={loading}

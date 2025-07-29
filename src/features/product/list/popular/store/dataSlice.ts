@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { apiPostProductsList } from '@/services/ProductService'
+import { apiPostProductsList } from '@/features/product/list/popular/services'
 import { IProductfilter, IProduct } from '@/features/product/types';
 
 type ProductListResponse = {
@@ -9,6 +9,21 @@ type ProductListResponse = {
         total: number;
     };
 };
+
+interface IProductState {
+    loading: boolean;
+    error: string | null;
+    list: IProduct[];
+    total: number;
+}
+
+const initialState: IProductState = {
+    loading: false,
+    list: [],
+    total: 0,
+    error: null
+}
+
 
 export const getProductList = createAsyncThunk<ProductListResponse, IProductfilter>(
     'proPopularList/data/getList',
@@ -29,11 +44,6 @@ export const getProductList = createAsyncThunk<ProductListResponse, IProductfilt
         }
     });
 
-const initialState = {
-    loading: false,
-    list: [],
-    total: 0
-}
 
 const dataSlice = createSlice({
     name: 'proPopularList/data',
@@ -41,21 +51,18 @@ const dataSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(getProductList.pending, (
-                state: { loading: boolean }) => {
+            .addCase(getProductList.pending, (state) => {
                 state.loading = true;
             })
-            .addCase(getProductList.fulfilled, (
-                state: { list: IProduct[]; loading: boolean, total: number },
-                action: { payload: any }) => {
+            .addCase(getProductList.fulfilled, (state, action) => {
                 const { list, total } = action.payload.metadata;
                 state.list = list;
                 state.total = total;
                 state.loading = false;
             })
-            .addCase(getProductList.rejected, (
-                state: { list: IProduct[]; total: number; loading: boolean }) => {
+            .addCase(getProductList.rejected, (state, action) => {
                 state.loading = false;
+                state.error = action.payload as string || 'Failed to fetch categories';
                 state.total = 0;
                 state.list = [];
             })

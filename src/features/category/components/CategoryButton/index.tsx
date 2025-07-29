@@ -1,0 +1,60 @@
+"use client";
+
+import React from "react";
+import { Button } from "@/components/ui";
+import { Category } from "@/features/category/types";
+import { cn } from "@/lib/utils";
+import { useNavigationActive } from "@/features/category/hooks/useNavigationActive";
+import Loading from "./Loading";
+import NotFound from "./NotFound";
+
+interface CategoryButtonProps {
+    category: Category;
+    isActive: boolean;
+    lastId?: string;
+    isLoading?: boolean;
+}
+
+const CategoryButton: React.FC<CategoryButtonProps> = ({
+    category,
+    isActive,
+    lastId,
+    isLoading
+}) => {
+    if (!lastId) return null
+
+    if (isLoading) {
+        return <Loading className="h-10" />
+    }
+
+    if (!category) {
+        return <NotFound />
+    }
+
+    const { category_id, category_slug, category_name, ancestors } = category;
+
+    const { handleNavigate } = useNavigationActive(lastId);
+
+    return (
+        <Button
+            className={cn(
+                "w-full line-clamp-1 p-0 text-md",
+                isActive
+                    ? "font-bold underline text-primary"
+                    : "text-muted-foreground"
+            )}
+            variant="outline"
+            onClick={() =>
+                handleNavigate(
+                    category_slug,
+                    category_id,
+                    ancestors
+                )
+            }
+        >
+            {category_name}
+        </Button>
+    );
+};
+
+export default React.memo(CategoryButton);

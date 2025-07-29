@@ -2,7 +2,7 @@
 
 //components
 import Advertisement from "@/features/ads";
-import CatPopularList from "@/features/category/list/popular";
+import CatPopularList from "@/features/category/popular";
 import ProPopularList from "@/features/product/list/popular"
 import ProSuggestionList from "@/features/product/list/suggestion"
 

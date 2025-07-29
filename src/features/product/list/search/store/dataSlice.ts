@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { apiPostProductsList } from '@/services/ProductService'
+import { apiPostProductsList } from '@/features/product/list/search/services'
 import { IProductfilter, IProduct } from '@/features/product/types';
 
 type ProductListResponse = {
@@ -10,6 +10,19 @@ type ProductListResponse = {
     };
 };
 
+interface ProductState {
+    list: IProduct[];
+    loading: boolean;
+    total: number;
+    error: string | null;
+}
+
+const initialState: ProductState = {
+    list: [],
+    loading: false,
+    total: 0,
+    error: null
+};
 
 export const getProductList = createAsyncThunk<ProductListResponse, IProductfilter>(
     'proSearchList/data/getList',
@@ -33,26 +46,23 @@ export const getProductList = createAsyncThunk<ProductListResponse, IProductfilt
 
 const dataSlice = createSlice({
     name: 'proSearchList/data',
-    initialState: {
-        loading: false,
-        list: [],
-    },
+    initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(getProductList.fulfilled, (
-                state: { list: IProduct[]; loading: boolean },
-                action: { payload: any }) => {
-                state.list = action.payload.metadata;
-                state.loading = false;
-            })
-            .addCase(getProductList.pending, (
-                state: { loading: boolean }) => {
+            .addCase(getProductList.pending, (state) => {
                 state.loading = true;
             })
-            .addCase(getProductList.rejected, (
-                state: { list: IProduct[]; loading: boolean }) => {
+            .addCase(getProductList.fulfilled, (state, action) => {
+                const { list, total } = action.payload.metadata;
+                state.list = list;
+                state.total = total;
                 state.loading = false;
+            })
+            .addCase(getProductList.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string || 'Failed to fetch products';
+                state.total = 0;
                 state.list = [];
             });
     }

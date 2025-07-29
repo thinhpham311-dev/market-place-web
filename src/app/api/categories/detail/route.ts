@@ -6,7 +6,7 @@ const API_NEXT = process.env.NEXT_PUBLIC_BASE_URL;
 
 export async function POST(req: Request): Promise<Response> {
     try {
-        const { _id } = await req.json();
+        const { category_id } = await req.json();
         if (!API_NEXT) {
             return NextResponse.json(
                 { message: 'Server misconfiguration: API_NEXT not set' },
@@ -14,7 +14,7 @@ export async function POST(req: Request): Promise<Response> {
             );
         }
 
-        const { data: dataResponse } = await axios.get(`${API_NEXT}/v1/api/category/${_id}`, {
+        const { data: dataResponse } = await axios.get(`${API_NEXT}/v1/api/category/${category_id}`, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'x-api-key': process.env.NEXT_PUBLIC_API_KEY || '',

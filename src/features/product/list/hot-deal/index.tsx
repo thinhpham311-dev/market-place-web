@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import {
     Button, Card, CardHeader, CardContent, CardTitle, CardDescription
 } from '@/components/ui';
-import ProductRow from "../components/ProductCarousel"
+import ProductCarousel from "../components/ProductCarousel"
 
 //datas
 // import { productData } from "@/constants/data";
@@ -26,7 +26,7 @@ injectReducer("proHotDealList", reducer)
 export default function ProHotDealList() {
     const router = useRouter()
     const dispatch = useAppDispatch();
-    const { list: products = [], loading } = useAppSelector((state) => state.proHotDealList.data);
+    const { list: products = [], loading, error = null } = useAppSelector((state) => state.proHotDealList.data);
 
     useEffect(() => {
 
@@ -49,7 +49,12 @@ export default function ProHotDealList() {
                 </Button>
             </CardHeader>
             <CardContent className="col-span-12">
-                <ProductRow data={products} isLoading={loading} className="lg:basis-1/6 md:basis-1/4 basis-1/3" />
+                <ProductCarousel
+                    error={error}
+                    countLoadItems={6}
+                    data={products}
+                    isLoading={loading}
+                    className="lg:basis-1/6 md:basis-1/4 basis-1/3" />
             </CardContent>
         </Card>
     );

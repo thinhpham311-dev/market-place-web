@@ -26,21 +26,18 @@ import { getProductDetail } from "./store/dataSlice";
 import reducer from "./store";
 import LoadingPlaceholder from "./components/LoadingSkeleton";
 
-interface IProDetailProps {
-    ids: string[];
-}
 
 injectReducer("detail", reducer);
 
-export default function ProDetail({ ids }: IProDetailProps) {
+export default function ProDetail({ lastId }: { lastId?: string }) {
     const dispatch = useAppDispatch();
     const { detail: product = null, loading } = useAppSelector((state) => state.detail.data);
 
-    const lastId = React.useMemo(() => ids.filter(Boolean).at(-1), [ids]);
-
     React.useEffect(() => {
         if (!lastId) return;
-        const promise = dispatch(getProductDetail({ _id: lastId } as IProduct) as any);
+        const promise = dispatch(getProductDetail({
+            product_id: lastId
+        } as IProduct) as any);
 
         return () => {
             promise.abort();
@@ -87,7 +84,7 @@ export default function ProDetail({ ids }: IProDetailProps) {
                 product.product_category || [],
                 (item) => {
                     const ancestors = Array.isArray(item.ancestors) ? item.ancestors.filter(Boolean) : [];
-                    const allIds = [...ancestors, item._id]; // ensure no duplicate manually if needed
+                    const allIds = [...ancestors, item.category_id]; // ensure no duplicate manually if needed
                     return `/categories/${item.category_slug}-cat.${allIds.join(".")}`;
                 },
                 (item) => item.category_name

@@ -9,13 +9,7 @@ import {
     BreadcrumbSeparator,
     BreadcrumbPage,
 } from "@/components/ui";
-
-type Category = {
-    _id: string;
-    category_name: string;
-    category_slug: string;
-    ancestors: string[]
-};
+import { Category } from "@/features/category/types";
 
 interface IProBreadcrumbProps {
     categories?: Category[]; // có thể undefined
@@ -47,7 +41,7 @@ export default function ProBreadcrumb({
                                     <BreadcrumbSeparator />
                                     <BreadcrumbItem>
                                         <BreadcrumbLink
-                                            href={`/categories/${cat.category_slug}-cat.${ancestorsPath}${cat._id}`}
+                                            href={`/categories/${cat.category_slug}-cat.${ancestorsPath}${cat.category_id}`}
                                         >
                                             {cat.category_name}
                                         </BreadcrumbLink>
