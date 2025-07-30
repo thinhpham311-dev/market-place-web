@@ -38,7 +38,7 @@ const ReviewForm = () => {
 
     return (
         <Card className='rounded-none'>
-            <CardContent className='p-3 space-y-4'>
+            <CardContent className='p-3 space-y-3'>
                 <ReviewStars ref={ratingRef} />
                 <ReviewComment ref={commentRef} />
                 <Button onClick={handleSubmit} variant="outline" className="w-full">

@@ -6,10 +6,10 @@ import { Card, CardContent } from "@/components/ui";
 import AddToCartButton from "./AddToCartButton";
 import BuyNowButton from "./BuyNowButton";
 
-import { IProduct } from "@/features/product/types";
+import { Product } from "@/features/product/types";
 
 interface Props {
-    data: IProduct;
+    data: Product;
 }
 
 

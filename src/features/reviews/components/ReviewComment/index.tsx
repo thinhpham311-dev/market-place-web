@@ -40,7 +40,7 @@ const ReviewComment = React.forwardRef<ReviewCommentRef>((_, ref) => {
             placeholder="Write your review here..."
             value={text}
             onChange={handleChangeText}
-            className="w-full border rounded-md p-2"
+            className="w-full border rounded-md p-3"
         />
     );
 });

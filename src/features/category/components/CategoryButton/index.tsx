@@ -13,13 +13,15 @@ interface CategoryButtonProps {
     isActive: boolean;
     lastId?: string;
     isLoading?: boolean;
+    className?: string;
 }
 
 const CategoryButton: React.FC<CategoryButtonProps> = ({
     category,
     isActive,
     lastId,
-    isLoading
+    isLoading,
+    className
 }) => {
     if (!lastId) return null
 
@@ -37,8 +39,8 @@ const CategoryButton: React.FC<CategoryButtonProps> = ({
 
     return (
         <Button
-            className={cn(
-                "w-full line-clamp-1 p-0 text-md",
+            className={cn(className,
+                " line-clamp-1 text-md",
                 isActive
                     ? "font-bold underline text-primary"
                     : "text-muted-foreground"

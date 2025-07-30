@@ -5,7 +5,7 @@ import ProductItem from "./ProductItem";
 import { NotFound } from "@/components/layout";
 
 //types
-import { IProduct } from "@/features/product/types";
+import { Product } from "@/features/product/types";
 
 //lib
 import { cn } from "@/lib/utils"
@@ -17,7 +17,7 @@ import { productData } from "@/constants/data";
 
 
 interface IGridListProps {
-    data: Array<IProduct>;
+    data: Array<Product>;
     itemsPerPage?: number; // Tùy chọn số lượng mục trên mỗi trang,
     className?: string
 }

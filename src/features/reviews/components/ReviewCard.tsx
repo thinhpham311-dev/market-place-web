@@ -19,12 +19,13 @@ interface ReviewListProps {
 const ReviewCard = ({ data: { rating, user, comment } }: ReviewListProps) => {
 
     return (
-        <Card className="p-4 border rounded-none">
-            <CardHeader className='p-0 flex-row items-center space-x-2'>
+        <Card >
+            <CardHeader className='p-0 flex-row items-center space-x-2 space-y-0'>
                 <ReviewStars data={rating} readOnly />
                 <CardDescription className="text-sm text-gray-500">by {user}</CardDescription>
             </CardHeader>
-            <CardContent className='p-0'>
+            <hr />
+            <CardContent className='p-3'>
                 <CardDescription className="mt-2 ">{comment}</CardDescription>
             </CardContent>
         </Card>

@@ -1,8 +1,8 @@
 import ApiService from "@/services/ApiService"
-import { IProduct } from "@/features/product/types"
+import { Product } from "@/features/product/types"
 
 
-export async function apiPostProductDetail(data: IProduct) {
+export async function apiPostProductDetail(data: Product) {
     return ApiService.fetchData({
         url: `/spu/detail`,
         method: 'POST',

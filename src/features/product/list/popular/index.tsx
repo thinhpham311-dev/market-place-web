@@ -12,19 +12,30 @@ import ProductCarousel from "../components/ProductCarousel"
 //stores
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getProductList } from "./store/dataSlice";
+import { selectProPopularListByStoreKey } from "./store/selectors"
 import reducer from "./store";
 import { injectReducer } from "@/store";
 
 //icons
 import { ArrowRight } from "lucide-react"
 
-injectReducer("proPopularList", reducer)
+//constants
+import { PRO_POPULAR_LIST } from "./constants";
+
+injectReducer(PRO_POPULAR_LIST, reducer)
 
 export default function ProPopularList() {
 
     const router = useRouter()
     const dispatch = useAppDispatch();
-    const { list: products = [], loading, error = null } = useAppSelector((state) => state.proPopularList.data);
+    const {
+        products = [],
+        loading,
+        // totalItems = 0,
+        error = null
+    } = useAppSelector(
+        selectProPopularListByStoreKey(PRO_POPULAR_LIST)
+    );
 
     useEffect(() => {
         const promise = dispatch(getProductList({ limit: 12, sort: "ctime", page: 1 }) as any);
@@ -37,7 +48,7 @@ export default function ProPopularList() {
         <Card className="border-0 shadow-non grid grid-cols-12">
             <CardHeader className="col-span-12 flex-row  items-center mb-3" >
                 <div className="p-0 flex-1">
-                    <CardTitle className="mb-3 capitalize">Popular Products</CardTitle>
+                    <CardTitle className="mb-3 capitalize">Popular Products </CardTitle>
                     <CardDescription className="md:line-clamp-2 line-clamp-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque aliquet lobortis erat, sed varius arcu iaculis id</CardDescription>
                 </div>
 

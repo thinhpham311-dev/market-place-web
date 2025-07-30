@@ -24,18 +24,17 @@ import { getCategoryList } from "./store/dataSlice";
 import { injectReducer } from "@/store";
 import reducer from "./store";
 
-
 injectReducer("catPopularList", reducer);
 
 const CatPopularList: React.FC = () => {
     const router = useRouter();
     const dispatch = useAppDispatch();
     const { list: categories = [], loading, error = null } = useAppSelector((state) => state.catPopularList.data);
+
     useEffect(() => {
         dispatch(getCategoryList() as any);
     }, [dispatch]);
 
-    console.log(categories)
 
     return (
         <Card className="border-0 shadow-none rounded-none md:px-6 px-3 w-full">

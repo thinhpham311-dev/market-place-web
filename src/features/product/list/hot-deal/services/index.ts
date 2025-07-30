@@ -1,7 +1,7 @@
 import ApiService from "@/services/ApiService"
-import { IProductfilter } from "@/features/product/types"
+import { Productfilter } from "@/features/product/types"
 
-export async function apiPostProductsList(data: IProductfilter) {
+export async function apiPostProductsList(data: Productfilter) {
     return ApiService.fetchData({
         url: `/spu/list/all`,
         method: 'POST',

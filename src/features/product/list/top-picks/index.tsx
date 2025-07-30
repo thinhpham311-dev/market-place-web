@@ -14,19 +14,25 @@ import ProductCarousel from "../components/ProductCarousel"
 //stores
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getProductList } from "./store/dataSlice";
+import { selectProTopPickListByStoreKey } from "./store/selectors";
 import reducer from "./store";
 import { injectReducer } from "@/store";
 
 //icons
 import { ArrowRight } from "lucide-react"
 
+//constants
+import { PRO_TOPPICKS_LIST } from "./constants";
 
-injectReducer("proTopPicksList", reducer)
+
+injectReducer(PRO_TOPPICKS_LIST, reducer)
 
 export default function ProTopPicksList() {
     const router = useRouter()
     const dispatch = useAppDispatch();
-    const { list: products = [], loading, error = null } = useAppSelector((state) => state.proTopPicksList.data);
+    const { products = [], loading, error = null } = useAppSelector(
+        selectProTopPickListByStoreKey(PRO_TOPPICKS_LIST)
+    );
 
     useEffect(() => {
         dispatch(getProductList({ limit: 12, sort: "ctime", page: 1 }) as any);

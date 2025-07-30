@@ -4,19 +4,24 @@ import { Category } from '@/features/category/types';
 
 
 type CategoriesResponse = {
-    metadata: Category[];
+    metadata: {
+        list: Category[]
+        total?: number
+    };
 };
 
 
 interface CategoryState {
     loading: boolean;
     error: string | null;
+    total?: number;
     list: Category[];
 }
 
 const initialState: CategoryState = {
     loading: false,
     error: null,
+    total: 0,
     list: [],
 };
 
@@ -44,11 +49,10 @@ const dataSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(getCatListById.fulfilled, (state: {
-                list: Category[] | [];
-                loading: boolean
-            }, action: { payload: any }) => {
-                state.list = action.payload.metadata
+            .addCase(getCatListById.fulfilled, (state, action) => {
+                const { list, total } = action.payload.metadata
+                state.list = list
+                state.total = total;
                 state.loading = false;
             })
 
@@ -58,6 +62,7 @@ const dataSlice = createSlice({
             .addCase(getCatListById.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string || 'Failed to fetch categories';
+                state.total = 0;
                 state.list = [];
             });
     }

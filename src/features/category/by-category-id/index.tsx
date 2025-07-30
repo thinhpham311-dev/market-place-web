@@ -11,20 +11,24 @@ import CategoryButtons from "../components/CategoryButtons";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { injectReducer } from "@/store";
 import { getCatListById } from "@/features/category/by-category-id/store/dataSlice";
+import { selectCatByCategoryIdByStoreKey } from "./store/selectors";
 import reducer from "@/features/category/by-category-id/store";
 
 // icons
 import { BiCategory } from "react-icons/bi";
 
-injectReducer("catListById", reducer);
+//constants
+import { CAT_LIST_BY_ID } from "./constants";
+
+injectReducer(CAT_LIST_BY_ID, reducer);
 
 const CatByCategoryId = ({ ids }: { ids: string[] }) => {
     const dispatch = useAppDispatch();
     const {
-        list: categories = [],
+        categories = [],
         loading = false,
         error = null
-    } = useAppSelector((state) => state.catListById.data || {});
+    } = useAppSelector(selectCatByCategoryIdByStoreKey(CAT_LIST_BY_ID));
 
     const validIds = React.useMemo(() => ids.filter(Boolean), [ids]);
 
@@ -51,13 +55,12 @@ const CatByCategoryId = ({ ids }: { ids: string[] }) => {
                     <span>All Categories:</span>
                 </CardTitle>
             </CardHeader>
-            <CardContent className="py-2 px-3 lg:col-span-10 md:col-span-12 col-span-12">
+            <CardContent className="p-0 lg:col-span-10 md:col-span-12 col-span-12">
                 <CategoryButtons
                     isLoading={loading}
                     data={categories}
                     ids={validIds}
                     error={error}
-                    className="lg:basis-1/8 md:basis-1/6 basis-1/2"
                 />
             </CardContent>
         </Card>

@@ -1,49 +1,39 @@
 'use client';
 
-import { useEffect, useCallback } from "react";
+import { useEffect } from "react";
 import {
     Card, CardHeader, CardContent, CardTitle, CardDescription
 } from "@/components/ui";
 import ProductGrid from "../components/ProductGrid";
-import LoadMoreTrigger from "@/features/common/infinite-scroll";
+// import LoadMoreTrigger from "@/features/common/infinite-scroll";
 
 // redux
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getProductList } from "./store/dataSlice";
+import { selectProSuggestionListByStoreKey } from "./store/selectors";
 import { injectReducer } from "@/store";
 import suggestionReducer from "./store";
-import {
-    nextPage,
-    setTotalCount,
-} from "@/features/common/infinite-scroll/store/stateSlice";
 
-injectReducer("proSuggestionList", suggestionReducer);
+//constants
+import { PRO_SUGGESTION_LIST } from "./constants";
+
+injectReducer(PRO_SUGGESTION_LIST, suggestionReducer);
 
 export default function ProSuggestionList() {
     const dispatch = useAppDispatch();
 
-    const { page, limit, totalItems } = useAppSelector((state) => state.infiniteScroll.state);
+    const {
+        products = [],
+        loading = false,
+        // totalItems = 0,
+        error = null
+    } = useAppSelector(selectProSuggestionListByStoreKey(PRO_SUGGESTION_LIST));
 
-    const { list: products = [], loading, total, error = null } = useAppSelector(
-        (state) => state.proSuggestionList.data
-    );
-    const hasMore = products.length < totalItems;
-
-    useEffect(() => {
-        dispatch(getProductList({ page, limit, sort: 'ctime' }) as any);
-    }, [dispatch, page, limit]);
 
     useEffect(() => {
-        if (typeof total === 'number') {
-            dispatch(setTotalCount(total));
-        }
-    }, [dispatch, total]);
+        dispatch(getProductList({ page: 1, limit: 6, sort: 'ctime' }) as any);
+    }, [dispatch]);
 
-    const handleTriggerLoadMore = useCallback(() => {
-        if (!loading && hasMore) {
-            dispatch(nextPage());
-        }
-    }, [dispatch, loading, hasMore]);
 
     return (
         <Card className="border-0 shadow-none  grid grid-cols-12">
@@ -64,13 +54,10 @@ export default function ProSuggestionList() {
                     className=" grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3"
                     isLoading={loading}
                 />
-                {hasMore && (
-                    <LoadMoreTrigger
-                        hasMore={hasMore}
-                        isLoading={loading}
-                        onTrigger={handleTriggerLoadMore}
-                    />
-                )}
+                {/* <LoadMoreTrigger
+
+                    products={products}
+                /> */}
             </CardContent>
         </Card>
     );

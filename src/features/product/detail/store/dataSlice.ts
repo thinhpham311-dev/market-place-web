@@ -1,20 +1,20 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { apiPostProductDetail } from '@/features/product/detail/services';
-import { IProduct } from '@/features/product/types';
+import { Product } from '@/features/product/types';
 
 
 
 type ProductDetailResponse = {
-    metadata: IProduct
+    metadata: Product
 };
 
-export const getProductDetail = createAsyncThunk<ProductDetailResponse, IProduct>(
+export const getProductDetail = createAsyncThunk<ProductDetailResponse, Product>(
     'detail/data/getDetail',
     async (params, { rejectWithValue }) => {
         try {
             const response = await apiPostProductDetail(params) as {
                 data: {
-                    metadata: IProduct
+                    metadata: Product
                 }
             }
             return response.data;
@@ -26,7 +26,7 @@ export const getProductDetail = createAsyncThunk<ProductDetailResponse, IProduct
 
 interface IProductDetailState {
     loading: boolean;
-    detail: IProduct | null;
+    detail: Product | null;
 }
 
 const initialState: IProductDetailState = {
@@ -44,7 +44,7 @@ const dataSlice = createSlice({
             .addCase(getProductDetail.pending, (state) => {
                 state.loading = true;
             })
-            .addCase(getProductDetail.fulfilled, (state: { detail: IProduct | null; loading: boolean }, action: { payload: any }) => {
+            .addCase(getProductDetail.fulfilled, (state: { detail: Product | null; loading: boolean }, action: { payload: any }) => {
                 state.detail = action.payload.metadata;
                 state.loading = false;
             })

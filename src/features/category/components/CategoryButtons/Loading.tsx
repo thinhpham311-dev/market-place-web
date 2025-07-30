@@ -1,4 +1,6 @@
-import { Skeleton } from "@/components/ui"
+import {
+    Skeleton, Card, CardContent
+} from "@/components/ui"
 import { cn } from "@/lib/utils";
 
 const LoadingPlaceholder = (
@@ -9,11 +11,15 @@ const LoadingPlaceholder = (
         count: number,
         className?: string
     }) => (
-    <div className="grid grid-cols-6 gap-x-3">
-        {Array.from({ length: count }).map((_, index) => (
-            <Skeleton key={index} className={cn(className, "rounded-md")} />
-        ))}
-    </div>
+    <Card className="border-none shadow-none">
+        <CardContent className="p-3">
+            <div className="flex w-max space-x-2">
+                {Array.from({ length: count }).map((_, index) => (
+                    <Skeleton key={index} className={cn(className, "rounded-md")} />
+                ))}
+            </div>
+        </CardContent>
+    </Card>
 );
 
 export default LoadingPlaceholder

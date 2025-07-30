@@ -33,7 +33,7 @@ import { injectReducer } from "@/store";
 import reducer from "@/features/product/list/popular/store";
 
 //types 
-import { IProduct } from "@/features/product/types"
+import { Product } from "@/features/product/types"
 
 //libs
 import { cn } from "@/lib/utils"
@@ -41,7 +41,7 @@ import { cn } from "@/lib/utils"
 injectReducer("relatedProductList", reducer)
 
 interface ICarouselListProps {
-    data: Array<IProduct>,
+    data: Array<Product>,
     itemsPerPage?: number;
     className?: string
 }

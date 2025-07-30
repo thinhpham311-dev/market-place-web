@@ -1,10 +1,10 @@
 import { wildCardSearch, paginate } from '@/lib/feature';
 import { Server } from 'miragejs';
-import { IProduct } from '@/features/product/types';
+import { Product } from '@/features/product/types';
 
 type Sort = {
     order: 'asc' | 'desc';
-    key: keyof IProduct;
+    key: keyof Product;
 };
 
 type RequestBody = {
@@ -17,7 +17,7 @@ type RequestBody = {
 
 
 type Database = {
-    productsData: IProduct[];
+    productsData: Product[];
 };
 
 export default function productsFakeApi(server: Server<Database>, apiPrefix: string): void {
@@ -26,7 +26,7 @@ export default function productsFakeApi(server: Server<Database>, apiPrefix: str
         const { pageIndex, pageSize, query } = body;
         // const { order, key } = sort;
 
-        const products = schema.db.productsData as IProduct[];
+        const products = schema.db.productsData as Product[];
         const sanitizeProducts = products.filter((elm) => typeof elm !== 'function');
         let data = [...sanitizeProducts];
         let total = products.length;

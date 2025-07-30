@@ -3,7 +3,7 @@ type Option = {
     value: string | Array<Option>
 }
 
-export interface IProduct {
+export type Product = {
     _id: string,
     product_id?: string
     product_name?: string,
@@ -21,10 +21,10 @@ export interface IProduct {
 
 
 
-export interface IProductfilter {
+export type Productfilter = {
     ids?: Array<string> | string;
     limit?: number;
     sort?: string;
     page?: number;
-    filter?: IProduct;
+    filter?: Product;
 }

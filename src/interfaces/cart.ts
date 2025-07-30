@@ -1,6 +1,6 @@
-import { IProduct } from "@/features/product/types";
+import { Product } from "@/features/product/types";
 
-export interface IcartItem extends IProduct {
+export interface IcartItem extends Product {
     totalPrice?: number;
     discountedTotalPrice?: number;
     uniqueKey: string

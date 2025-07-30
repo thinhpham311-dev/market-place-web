@@ -3,10 +3,10 @@
 import { Button } from "@/components/ui";
 import { usePurchaseActions } from "./hooks";
 
-import { IProduct } from "@/features/product/types";
+import { Product } from "@/features/product/types";
 
 interface Props {
-    product: IProduct;
+    product: Product;
     quantityRef: any;
     optionsRef: any;
 }

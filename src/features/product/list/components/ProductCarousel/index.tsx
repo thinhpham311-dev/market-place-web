@@ -5,10 +5,10 @@ import ProductCard from "../ProductCard";
 import Loading from "./Loading";
 import NotFound from "./NotFound";
 import { cn } from "@/lib/utils";
-import { IProduct } from "@/features/product/types";
+import { Product } from "@/features/product/types";
 
 interface ProductRowProps {
-    data: IProduct[];
+    data: Product[];
     itemsPerPage?: number;
     className?: string;
     isLoading: boolean;

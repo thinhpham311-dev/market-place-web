@@ -5,12 +5,12 @@ import { memo } from "react"
 import { useRouter } from "next/navigation"
 import Loading from "./Loading"
 import { Card, CardContent, CardTitle, CardDescription, CardImage } from "@/components/ui"
-import ProductPrice from "@/features/product/detail/components/ProInfo/ProductPrice"
-import { IProduct } from "@/features/product/types"
+import ProductPrice from "@/features/product/detail/components/ProductPrice"
+import { Product } from "@/features/product/types"
 import NotFound from "./NotFound"
 
 interface IItemProps {
-    item: IProduct
+    item: Product
     isLoading?: boolean
 }
 

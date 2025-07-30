@@ -1,3 +1,5 @@
+export const PRO_LIST_BY_CATEGORYID = "PRO_LIST_BY_CATEGORYID"
+
 export const SORTBY_OPTIONS = [
     { label: 'Newest', value: 'ctime' },
     { label: 'Popularity', value: 'pop' },

@@ -1,0 +1,1 @@
+export const PRO_POPULAR_LIST = "PRO_POPULAR_LIST"

@@ -12,11 +12,11 @@ export default function SiteHeader() {
     <header className="w-full border-b sticky top-0 bg-background z-10">
       <div className="flex h-14 items-center md:px-6 px-3 container mx-auto">
         <div className="flex gap-2 w-full justify-between">
-          <div className="flex items-center space-x-5">
+          <div className="flex items-center space-x-2">
             <SidebarTrigger variant="outline" size="icon" />
             <Logo />
           </div>
-          <div className="w-1/3 lg:flex md:flex hidden items-center">
+          <div className="flex-1 lg:flex md:flex hidden items-center">
             <SearchForm />
           </div>
           <div className="flex items-center space-x-2">

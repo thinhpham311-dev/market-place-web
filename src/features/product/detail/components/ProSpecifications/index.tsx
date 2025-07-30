@@ -21,7 +21,7 @@ export default function ProSpecifications({ specs }: ProSpecificationsProps) {
         );
     }
     return (
-        <Card>
+        <Card className="sticky top-[70px] left-0">
             <CardTitle className="bg-sidebar-foreground text-background p-3">
                 Product Specifications
             </CardTitle>

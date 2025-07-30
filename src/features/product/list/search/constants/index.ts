@@ -1,0 +1,1 @@
+export const PRO_SEARCH_LIST = "PRO_SEARCH_LIST";

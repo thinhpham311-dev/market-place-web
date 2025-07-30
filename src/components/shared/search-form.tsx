@@ -33,12 +33,16 @@ const SearchForm: React.FC = () => {
         <FormGroup
             defaultValues={defaultValuesForSearchForm}
             onHandleSubmit={onSubmit}
-            className="flex flex-row items-center space-x-2 w-full flex-1 justify-between"
+            className="flex flex-row w-full items-center justify-between space-x-2"
             formSchema={FormSchema}
         >
-            <FormSelect className="flex-none" name="categories" placeholder="All" options={categoriesOptions} formSchema={FormSchema} />
-            <FormInput className="grow flex-1" name="textsearch" placeholder="Search..." formSchema={FormSchema} />
-            <Button className="flex-none" type="submit" variant="outline" size="icon"><Search /></Button>
+            <div className='grid grid-cols-12 gap-x-2 flex-1'>
+                <FormSelect className="xl:col-span-2 lg:col-span-4  md:col-span-5 col-span-12" name="categories" placeholder="All" options={categoriesOptions} formSchema={FormSchema} />
+                <FormInput className="xl:col-span-10 lg:col-span-8 md:col-span-7 col-span-12" name="textsearch" placeholder="Search..." formSchema={FormSchema} />
+            </div>
+            <div>
+                <Button type="submit" variant="outline" size="icon"><Search /></Button>
+            </div>
         </FormGroup>
     );
 };

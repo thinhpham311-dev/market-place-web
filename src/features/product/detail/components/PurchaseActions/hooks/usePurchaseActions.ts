@@ -6,7 +6,7 @@ import { useToast } from "@/lib/hooks";
 import { useRouter } from "next/navigation";
 
 import { addItem } from "@/features/cart/store/stateSlice";
-import { IProduct } from "@/features/product/types";
+import { Product } from "@/features/product/types";
 import { IcartItem } from "@/interfaces/cart";
 
 interface IProductItemQuantityRef {
@@ -26,7 +26,7 @@ type Option = {
 };
 
 interface UsePurchaseActionsProps {
-    product: IProduct;
+    product: Product;
     quantityRef: RefObject<IProductItemQuantityRef>;
     optionsRef: RefObject<IProductItemOptionsListRef>;
 }

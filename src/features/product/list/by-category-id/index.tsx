@@ -16,12 +16,13 @@ import { injectReducer } from "@/store";
 import { selectPaginationByStoreKey } from "@/features/common/pagination/store/selectors";
 import { selectSortByStoreKey } from "@/features/common/sort/store/selectors";
 import { selectFilterStoreKey } from "@/features/common/filter/store/selectors";
+import { selectProByCategoryIdByStoreKey } from "@/features/product/list/by-category-id/store/selectors";
 import { getProductListByCategories } from "./store/dataSlice";
 import { resetPagination } from "@/features/common/pagination/store/stateSlice";
 
 // constants
-import { SORTBY_OPTIONS, FILTER_OPTIONS } from "./constants/data.constant";
-import { PRO_LIST_BY_CATEGORYID } from "./constants/store.constant";
+import { SORTBY_OPTIONS, FILTER_OPTIONS } from "./constants";
+import { PRO_LIST_BY_CATEGORYID } from "./constants";
 
 injectReducer(PRO_LIST_BY_CATEGORYID, reducer);
 
@@ -48,12 +49,13 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
     );
 
     const {
-        list: products = [],
+        products = [],
         loading = false,
-        total: totalItems = 0,
+        totalItems = 0,
         error = null
-    } = useAppSelector((state) => state[PRO_LIST_BY_CATEGORYID].data);
-
+    } = useAppSelector(
+        selectProByCategoryIdByStoreKey(PRO_LIST_BY_CATEGORYID)
+    );
     React.useEffect(() => {
         dispatch(resetPagination());
     }, [dispatch, lastId]);

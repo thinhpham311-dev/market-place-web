@@ -1,12 +1,12 @@
 import React from "react";
 import ProductCard from "../ProductCard";
-import { IProduct } from "@/features/product/types";
+import { Product } from "@/features/product/types";
 import Loading from "./Loading"
 import NotFound from "./NotFound";
 import { cn } from "@/lib/utils";
 
 interface ProductGridProps {
-    data: IProduct[];
+    data: Product[];
     className?: string;
     isLoading?: boolean;
     error: Error | null;

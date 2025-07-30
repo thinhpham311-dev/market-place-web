@@ -14,19 +14,24 @@ import ProductCarousel from "../components/ProductCarousel";
 //stores
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getProductList } from "./store/dataSlice";
+import { selectProRelatedListByStoreKey } from "./store/selectors";
 import reducer from "./store";
 import { injectReducer } from "@/store";
 
 //icons
 import { ArrowRight } from "lucide-react"
 
+//constants
+import { PRO_RELATED_LIST } from "./constants";
 
-injectReducer("proRelatedList", reducer)
+injectReducer(PRO_RELATED_LIST, reducer)
 
 export default function ProRelatedList() {
     const router = useRouter()
     const dispatch = useAppDispatch();
-    const { list: products = [], loading, error = null } = useAppSelector((state) => state.proRelatedList.data);
+    const { products = [], loading, error = null } = useAppSelector(
+        selectProRelatedListByStoreKey(PRO_RELATED_LIST)
+    );
     useEffect(() => {
         const promise = dispatch(getProductList({ limit: 12, sort: "ctime", page: 1 }) as any);
         return () => {

@@ -7,33 +7,57 @@ import {
     Button, Card, CardHeader, CardContent, CardTitle, CardDescription
 } from '@/components/ui';
 import ProductGrid from "../components/ProductCarousel";
+import Pagination from "@/features/common/pagination";
 //datas
 // import { productData } from "@/constants/data";
 
 //stores
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getProductList } from "./store/dataSlice";
+import { selectPaginationByStoreKey } from "@/features/common/pagination/store/selectors";
+import { selectProSearchListByStoreKey } from "./store/selectors";
 import reducer from "./store";
 import { injectReducer } from "@/store";
 
 //icons
 import { ArrowRight } from "lucide-react"
 
+///constants
+import { PRO_SEARCH_LIST } from "./constants";
 
-injectReducer("proSearchList", reducer)
+injectReducer(PRO_SEARCH_LIST, reducer)
 
 export default function ProSearchList() {
     const router = useRouter()
     const dispatch = useAppDispatch();
-    const { list: products = [], loading, error = null } = useAppSelector((state) => state.proSearchList.data);
+
+    const {
+        currentPage: pageCurrentValue,
+        limit: limitCurrentValue
+    } = useAppSelector(
+        selectPaginationByStoreKey(PRO_SEARCH_LIST)
+    );
+
+    const {
+        products = [],
+        loading,
+        totalItems = 0,
+        error = null
+    } = useAppSelector(
+        selectProSearchListByStoreKey(PRO_SEARCH_LIST)
+    );
 
     useEffect(() => {
-        const promise = dispatch(getProductList({ limit: 12, sort: "createdAt", page: 1 }) as any);
+        const promise = dispatch(getProductList({
+            limit: limitCurrentValue,
+            sort: "ctime",
+            page: pageCurrentValue
+        }) as any);
         return () => {
             promise.abort()
         }
 
-    }, [dispatch]);
+    }, [dispatch, pageCurrentValue, limitCurrentValue]);
 
     return (
         <Card className="border-0 shadow-non grid grid-cols-12">
@@ -53,6 +77,13 @@ export default function ProSearchList() {
                     data={products}
                     className="lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-3"
                     isLoading={loading}
+                />
+                <Pagination
+                    storeKey={PRO_SEARCH_LIST}
+                    isShowDot
+                    isShowNav
+                    limit={15}
+                    total={totalItems}
                 />
             </CardContent>
         </Card>

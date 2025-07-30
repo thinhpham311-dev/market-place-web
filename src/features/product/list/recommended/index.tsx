@@ -14,18 +14,23 @@ import ProductCarousel from "../components/ProductCarousel"
 //stores
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getProductList } from "./store/dataSlice";
+import { selectProRecommendedListByStoreKey } from "./store/selectors"
 import reducer from "./store";
 import { injectReducer } from "@/store";
+
+import { PRO_RECOMMENDDED_LIST } from "./constants";
 
 //icons
 import { ArrowRight } from "lucide-react"
 
-injectReducer("proRecommendedList", reducer)
+injectReducer(PRO_RECOMMENDDED_LIST, reducer)
 
 export default function ProRecommendedList() {
     const router = useRouter()
     const dispatch = useAppDispatch();
-    const { list: products = [], loading, error = null } = useAppSelector((state) => state.proRecommendedList.data);
+    const { products = [], loading, error = null } = useAppSelector(
+        selectProRecommendedListByStoreKey(PRO_RECOMMENDDED_LIST)
+    );
 
     useEffect(() => {
         const promise = dispatch(getProductList({ limit: 12, sort: "ctime", page: 1 }) as any);

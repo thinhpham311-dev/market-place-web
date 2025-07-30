@@ -7,13 +7,13 @@ import { useRouter } from "next/navigation"
 import { Card, CardContent, CardTitle, CardDescription, CardImage } from "@/components/ui"
 
 //types
-import { IProduct } from "@/features/product/types"
+import { Product } from "@/features/product/types"
 
 //format
 import { formatToCurrency } from "@/lib/formats"
 
 interface IItemProps {
-    item: IProduct
+    item: Product
 }
 
 const ProductItem = ({ item: { product_name, image, product_price,

@@ -52,7 +52,7 @@ const ReviewStars = React.forwardRef<ReviewStarsRef, ReviewStarsProps>(
 
         return (
             <Card className="border-none shadow-none">
-                <CardContent className="p-0">
+                <CardContent className="p-3">
                     <div className="flex space-x-1">
                         {[...Array(5)].map((_, index) => {
                             const isActive = index < activeRating;

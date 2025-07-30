@@ -1,0 +1,1 @@
+export const INFINITE_SCROLL = "INFINITE_SCROLL"

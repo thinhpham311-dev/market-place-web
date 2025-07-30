@@ -2,7 +2,7 @@
 
 import React from "react";
 import {
-    Card, CardContent, CardHeader,
+    Card, CardContent, CardHeader, CardTitle,
     Breadcrumb, BreadcrumbList, BreadcrumbLink, BreadcrumbSeparator
 } from "@/components/ui";
 
@@ -14,11 +14,12 @@ import ProVariantsSelector from "./components/ProVariantsSelector";
 import ProDescriptionContent from "./components/ProDescriptionContent";
 import ProSpecifications from "./components/ProSpecifications";
 import SocialsShare from "./components/SocialsShare";
-import ProInfo from "./components/ProInfo";
+import ProductPrice from "./components/ProductPrice"
 import PurchaseActions from "./components/PurchaseActions"
 
+import ReviewStars from "@/features/reviews/components/ReviewStars"
 import { NotFound } from "@/components/layout";
-import { IProduct } from "../types";
+import { Product } from "@/features/product/types";
 
 import { injectReducer } from "@/store";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
@@ -37,7 +38,7 @@ export default function ProDetail({ lastId }: { lastId?: string }) {
         if (!lastId) return;
         const promise = dispatch(getProductDetail({
             product_id: lastId
-        } as IProduct) as any);
+        } as Product) as any);
 
         return () => {
             promise.abort();
@@ -122,12 +123,12 @@ export default function ProDetail({ lastId }: { lastId?: string }) {
 
                         {/* Product Info + Actions */}
                         <CardContent className="md:col-span-3 p-3">
-                            <div className="flex flex-col h-full space-y-3">
-                                <ProInfo data={product} />
-                                <ProVariantsSelector options={product.product_variations} />
-                                <ProQuantitySelector quantity={product.product_quantity} />
-                                <PurchaseActions data={product} />
-                            </div>
+                            <CardTitle className="flex items-center p-3">{product.product_name}</CardTitle>
+                            <ReviewStars data={product.product_ratingsAverange} readOnly />
+                            <ProductPrice price={product.product_price} flashSalePrice={product.product_price - 1} />
+                            <ProVariantsSelector options={product.product_variations} />
+                            <ProQuantitySelector quantity={product.product_quantity} />
+                            <PurchaseActions data={product} />
                         </CardContent>
                     </Card>
                 </div>

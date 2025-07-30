@@ -9,7 +9,7 @@ import { Badge, Card, CardContent, CardImage, CardTitle, CardDescription } from 
 import { formatToCurrency } from "@/lib/formats"
 
 //types
-import { IProduct } from '@/features/product/types';
+import { Product } from '@/features/product/types';
 
 type Option = {
     label: string;
@@ -18,7 +18,7 @@ type Option = {
 
 interface IToastMessage {
     updatedQuantity?: number
-    product: IProduct
+    product: Product
     totalCurrentPrice?: number
     options: (Option | null)[]
 }

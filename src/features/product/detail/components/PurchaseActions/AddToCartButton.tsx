@@ -4,10 +4,10 @@ import { Button } from "@/components/ui";
 import { MdAddShoppingCart } from "react-icons/md";
 import { usePurchaseActions } from "./hooks"
 
-import { IProduct } from "@/features/product/types";
+import { Product } from "@/features/product/types";
 
 interface Props {
-    product: IProduct;
+    product: Product;
     quantityRef: any;
     optionsRef: any;
 }

@@ -1,4 +1,4 @@
-import { IProduct } from "@/features/product/types";
+import { Product } from "@/features/product/types";
 
 export interface IOrder {
     _id: string
@@ -25,7 +25,7 @@ export interface IOrder {
     status: string
 }
 
-export interface IOrderItem extends IProduct {
+export interface IOrderItem extends Product {
     slug: string
     qty: number
     countInStock: number
