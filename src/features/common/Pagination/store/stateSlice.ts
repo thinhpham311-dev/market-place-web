@@ -7,7 +7,7 @@ interface ICommon {
 }
 
 export const initialState: ICommon = {
-    limit: 15,
+    limit: 0,
     currentPage: 1,
     totalPages: 1,
 };
@@ -26,9 +26,9 @@ const stateSlice = createSlice({
             state.limit = action.payload;
         },
         resetPagination(state) {
-            state.currentPage = 1;
-            state.totalPages = 1;
-            state.limit = 15;
+            state.currentPage = initialState.currentPage;
+            state.totalPages = initialState.totalPages;
+            state.limit = initialState.limit;
         },
     },
 });

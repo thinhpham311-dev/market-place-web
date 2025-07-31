@@ -49,9 +49,9 @@ export default function ProSearchList() {
 
     useEffect(() => {
         const promise = dispatch(getProductList({
-            limit: limitCurrentValue,
+            limit: limitCurrentValue || 12,
             sort: "ctime",
-            page: pageCurrentValue
+            page: pageCurrentValue || 1
         }) as any);
         return () => {
             promise.abort()
@@ -82,8 +82,8 @@ export default function ProSearchList() {
                     storeKey={PRO_SEARCH_LIST}
                     isShowDot
                     isShowNav
-                    limit={15}
-                    total={totalItems}
+                    initialLimit={15}
+                    initialTotal={totalItems}
                 />
             </CardContent>
         </Card>

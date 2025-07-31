@@ -6,10 +6,12 @@ import {
 } from "@/components/ui";
 import ProductGrid from "../components/ProductGrid";
 // import LoadMoreTrigger from "@/features/common/infinite-scroll";
+import Pagination from "@/features/common/pagination";
 
 // redux
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getProductList } from "./store/dataSlice";
+import { selectPaginationByStoreKey } from "@/features/common/pagination/store/selectors";
 import { selectProSuggestionListByStoreKey } from "./store/selectors";
 import { injectReducer } from "@/store";
 import suggestionReducer from "./store";
@@ -23,16 +25,29 @@ export default function ProSuggestionList() {
     const dispatch = useAppDispatch();
 
     const {
+        currentPage: pageCurrentValue = 1,
+        limit: limitCurrentValue = 12
+    } = useAppSelector(
+        selectPaginationByStoreKey(PRO_SUGGESTION_LIST)
+    );
+
+    const {
         products = [],
         loading = false,
-        // totalItems = 0,
-        error = null
+        totalItems,
+        error
     } = useAppSelector(selectProSuggestionListByStoreKey(PRO_SUGGESTION_LIST));
 
-
     useEffect(() => {
-        dispatch(getProductList({ page: 1, limit: 6, sort: 'ctime' }) as any);
-    }, [dispatch]);
+        dispatch(getProductList({
+            page: pageCurrentValue,
+            limit: limitCurrentValue,
+            sort: 'ctime'
+        }) as any);
+    }, [dispatch,
+        pageCurrentValue,
+        limitCurrentValue
+    ]);
 
 
     return (
@@ -46,7 +61,7 @@ export default function ProSuggestionList() {
                 </CardDescription>
             </CardHeader>
 
-            <CardContent className="col-span-12">
+            <CardContent className="col-span-12 space-y-3">
                 <ProductGrid
                     countLoadItems={12}
                     error={error}
@@ -54,10 +69,13 @@ export default function ProSuggestionList() {
                     className=" grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3"
                     isLoading={loading}
                 />
-                {/* <LoadMoreTrigger
-
-                    products={products}
-                /> */}
+                <Pagination
+                    storeKey={PRO_SUGGESTION_LIST}
+                    isShowDot
+                    isShowNav
+                    initialLimit={12}
+                    initialTotal={totalItems}
+                />
             </CardContent>
         </Card>
     );

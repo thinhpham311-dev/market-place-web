@@ -12,14 +12,15 @@ interface ProductRowProps {
     className?: string;
     isLoading: boolean;
     error: Error | null;
+    countLoadItems: number
 }
 
-const CategoryCarousel = ({ data, itemsPerPage = 12, className, isLoading, error }: ProductRowProps) => {
+const CategoryCarousel = ({ data, itemsPerPage = 12, className, isLoading, error, countLoadItems }: ProductRowProps) => {
     if (!isLoading && (!data || data.length === 0) && error) {
         return <NotFound message={error.message || "Something went wrong."} />;
     }
     if (isLoading && (!data || data.length === 0)) {
-        return <Loading count={6} />;
+        return <Loading count={countLoadItems} />;
     }
 
     if (!isLoading && (!data || data.length === 0)) {

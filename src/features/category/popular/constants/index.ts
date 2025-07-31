@@ -1,0 +1,1 @@
+export const CAT_POPULAR_LIST = "CAT_POPULAR_LIST";

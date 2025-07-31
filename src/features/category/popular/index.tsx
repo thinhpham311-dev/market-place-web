@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, memo } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 
 // Components
@@ -18,22 +18,13 @@ import CategoryCarousel from "../components/CategoryCarousel";
 // Icons
 import { ArrowRight } from "lucide-react";
 
-// Store & hooks
-import { useAppSelector, useAppDispatch } from "@/lib/hooks";
-import { getCategoryList } from "./store/dataSlice";
-import { injectReducer } from "@/store";
-import reducer from "./store";
+// hooks
+import { useFetchData } from "@/features/category/popular/hooks";
 
-injectReducer("catPopularList", reducer);
 
 const CatPopularList: React.FC = () => {
     const router = useRouter();
-    const dispatch = useAppDispatch();
-    const { list: categories = [], loading, error = null } = useAppSelector((state) => state.catPopularList.data);
-
-    useEffect(() => {
-        dispatch(getCategoryList() as any);
-    }, [dispatch]);
+    const { categories, loading, error } = useFetchData();
 
 
     return (
@@ -57,6 +48,7 @@ const CatPopularList: React.FC = () => {
 
             <CardContent className="px-0">
                 <CategoryCarousel
+                    countLoadItems={6}
                     data={categories}
                     isLoading={loading}
                     error={error}
@@ -67,4 +59,4 @@ const CatPopularList: React.FC = () => {
     );
 };
 
-export default memo(CatPopularList);
+export default CatPopularList;

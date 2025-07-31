@@ -10,8 +10,8 @@ import { useHandlePagination } from "@/features/common/pagination/hooks";
 
 
 interface PaginationCustomProps {
-    total: number;
-    limit: number;
+    initialTotal: number;
+    initialLimit: number;
     isShowDot?: boolean;
     isShowNav?: boolean;
     className?: string;
@@ -20,12 +20,13 @@ interface PaginationCustomProps {
 
 const Pagination: React.FC<PaginationCustomProps> = ({
     storeKey,
-    total,
-    limit,
+    initialTotal,
+    initialLimit,
     isShowDot = false,
     isShowNav = false,
 }) => {
-    const pagination = useHandlePagination({ storeKey, totalItems: total, limit });
+
+    const pagination = useHandlePagination({ storeKey, initialTotal, initialLimit });
 
     return (
         <PaginationProvider contextValues={pagination}>

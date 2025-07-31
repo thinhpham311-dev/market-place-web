@@ -58,16 +58,7 @@ const dataSlice = createSlice({
             .addCase(getProductList.fulfilled, (state, action) => {
                 state.loading = false;
                 const { list, total } = action.payload.metadata;
-
-                const newItems = list.filter(
-                    (item: Product) =>
-                        !state.list.some((existing) => existing._id === item._id)
-                );
-
-                if (newItems.length > 0) {
-                    state.list = [...state.list, ...newItems];
-                }
-
+                state.list = list;
                 state.total = total;
             })
 

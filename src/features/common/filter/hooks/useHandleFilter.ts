@@ -9,7 +9,7 @@ import {
     resetAllFilters,
 } from "../store/stateSlice";
 import { Filter } from "@/features/common/filter/types";
-import { injectReducer } from "@/store";
+import { injectReducer, removeReducer } from "@/store";
 import reducer from "@/features/common/filter/store";
 import { FILTER } from "@/features/common/filter/constants";
 import { selectFilterStoreKey } from "@/features/common/filter/store/selectors"
@@ -20,8 +20,18 @@ interface IUseFilterParams {
 }
 
 export function useHandleFilter({ storeKey, options }: IUseFilterParams) {
-    injectReducer(`${FILTER}_${storeKey}`, reducer);
     const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        const reducerKey = `${FILTER}_${storeKey}`;
+        injectReducer(reducerKey, reducer);
+
+        return () => {
+            dispatch(resetAllFilters())
+            removeReducer(reducerKey);
+        };
+    }, [storeKey, dispatch]);
+
     const { filter, data } = useAppSelector(selectFilterStoreKey(storeKey));
     const initialized = useRef(false);
 

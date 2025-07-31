@@ -1,10 +1,10 @@
 "use client";
 
-
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { setSortBy, resetSortBy } from "../store/stateSlice";
 import type { Sort } from "../types";
-import { injectReducer } from "@/store";
+import { injectReducer, removeReducer } from "@/store";
 import reducer from "@/features/common/sort/store";
 import { SORT } from "@/features/common/sort/constants"
 import { selectSortByStoreKey } from "@/features/common/sort/store/selectors";
@@ -18,9 +18,17 @@ export function useSortBy({
     options,
     storeKey
 }: IUseSortBy) {
-    injectReducer(`${SORT}_${storeKey}`, reducer);
 
     const dispatch = useAppDispatch();
+    useEffect(() => {
+        const reducerKey = `${SORT}_${storeKey}`;
+        injectReducer(reducerKey, reducer);
+
+        return () => {
+            dispatch(resetSortBy())
+            removeReducer(reducerKey);
+        };
+    }, [storeKey, dispatch]);
 
     const { sortBy } = useAppSelector(
         selectSortByStoreKey(storeKey)

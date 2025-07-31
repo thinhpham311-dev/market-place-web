@@ -1,0 +1,1 @@
+export const PRO_BUNDLE_DEAL_LIST = "PRO_BUNDLE_DEAL_LIST"

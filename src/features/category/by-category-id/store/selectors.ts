@@ -3,7 +3,6 @@ import { RootState } from "@/store";
 
 // 1. Factory tạo selector dựa vào storeKey
 export const makeSelectCatByCategoryIdState = (storeKey: string) => {
-    console.log("🔁 Creating selector for:", storeKey); // log khi selector mới được tạo
     return createSelector(
         (state: RootState) => state[storeKey]?.data ?? null,
         (data) => ({

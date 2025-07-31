@@ -7,40 +7,51 @@ import {
     setLimit,
 } from "@/features/common/pagination/store/stateSlice";
 import { selectPaginationByStoreKey } from "@/features/common/pagination/store/selectors";
-import { injectReducer } from "@/store";
+import { injectReducer, removeReducer } from "@/store";
 import reducer from "@/features/common/pagination/store";
 import { PAGINATION } from "../constants";
 
 interface IUseHandlePaginationProps {
-    totalItems?: number;
-    limit?: number;
+    initialTotal?: number;
+    initialLimit?: number;
     siblingCount?: number;
     storeKey: string;
 }
 
 export function useHandlePagination({
-    totalItems = 0,
-    limit = 10,
+    initialTotal = 0,
+    initialLimit = 0,
     siblingCount = 1,
     storeKey,
 }: IUseHandlePaginationProps) {
-    injectReducer(`${PAGINATION}_${storeKey}`, reducer);
 
     const dispatch = useAppDispatch();
+    useEffect(() => {
+        const reducerKey = `${PAGINATION}_${storeKey}`;
+        injectReducer(reducerKey, reducer);
+
+        return () => {
+            dispatch(resetPagination())
+            removeReducer(reducerKey);
+        };
+    }, [storeKey, dispatch]);
+
+
     const { currentPage, totalPages, limit: storeLimit } = useAppSelector(
         selectPaginationByStoreKey(storeKey)
     );
 
+    // Set limit and total pages when totalItems or limit changes
     useEffect(() => {
-        if (storeLimit !== limit) {
-            dispatch(setLimit(limit));
+        if (initialLimit) {
+            dispatch(setLimit(initialLimit)); // Automatically resets currentPage to 1
         }
 
-        if (totalItems > 0) {
-            const totalPageCount = Math.ceil(totalItems / limit);
+        if (initialTotal && initialLimit) {
+            const totalPageCount = Math.ceil(initialTotal / initialLimit);
             dispatch(setTotalPages(totalPageCount));
         }
-    }, [limit, totalItems, storeLimit, dispatch]);
+    }, [initialLimit, initialTotal, dispatch]);
 
     const DOTS = "...";
 
@@ -62,7 +73,7 @@ export function useHandlePagination({
     return {
         currentPage,
         totalPages,
-        limit,
+        limit: storeLimit,
         pages: paginationRange,
         setPage: setPageSafe,
         resetPagination: resetPaginationSafe,

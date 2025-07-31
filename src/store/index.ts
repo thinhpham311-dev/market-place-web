@@ -46,6 +46,13 @@ export const injectReducer = (key: string, reducer: Reducer): typeof store | fal
     return store;
 };
 
+export const removeReducer = (key: string) => {
+    if (store.asyncReducers[key]) {
+        delete store.asyncReducers[key];
+        store.replaceReducer(rootReducer(store.asyncReducers));
+    }
+};
+
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 

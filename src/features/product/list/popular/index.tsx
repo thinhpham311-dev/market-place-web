@@ -1,5 +1,4 @@
 'use client'
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 //components
@@ -8,44 +7,21 @@ import {
 } from '@/components/ui';
 import ProductCarousel from "../components/ProductCarousel"
 
+//hooks
+import { useFetchData } from "./hooks";
 
-//stores
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { getProductList } from "./store/dataSlice";
-import { selectProPopularListByStoreKey } from "./store/selectors"
-import reducer from "./store";
-import { injectReducer } from "@/store";
 
 //icons
 import { ArrowRight } from "lucide-react"
 
-//constants
-import { PRO_POPULAR_LIST } from "./constants";
-
-injectReducer(PRO_POPULAR_LIST, reducer)
 
 export default function ProPopularList() {
 
     const router = useRouter()
-    const dispatch = useAppDispatch();
-    const {
-        products = [],
-        loading,
-        // totalItems = 0,
-        error = null
-    } = useAppSelector(
-        selectProPopularListByStoreKey(PRO_POPULAR_LIST)
-    );
-
-    useEffect(() => {
-        const promise = dispatch(getProductList({ limit: 12, sort: "ctime", page: 1 }) as any);
-        return () => {
-            promise.abort()
-        }
-    }, [dispatch]);
+    const { products, loading, error } = useFetchData();
 
     return (
-        <Card className="border-0 shadow-non grid grid-cols-12">
+        <Card className="border-none shadow-none grid grid-cols-12">
             <CardHeader className="col-span-12 flex-row  items-center mb-3" >
                 <div className="p-0 flex-1">
                     <CardTitle className="mb-3 capitalize">Popular Products </CardTitle>
@@ -58,7 +34,7 @@ export default function ProPopularList() {
             </CardHeader>
             <CardContent className="col-span-12">
                 <ProductCarousel
-                    countLoadItems={15}
+                    countLoadItems={6}
                     data={products}
                     isLoading={loading}
                     error={error}

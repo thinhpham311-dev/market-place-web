@@ -8,31 +8,15 @@ import {
 } from '@/components/ui';
 import ProductCarousel from "../components/ProductCarousel"
 
-//datas
-// import { productData } from "@/constants/data";
-
-//stores
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { getProductList } from "./store/dataSlice";
-import reducer from "./store";
-import { injectReducer } from "@/store";
+//hooks
+import { useFetchData } from "@/features/product/list/bundle-deal/hooks";
 
 //icons
 import { ArrowRight } from "lucide-react"
 
-
-injectReducer("proBundleDealList", reducer)
-
 export default function ProBundleDealList() {
     const router = useRouter()
-    const dispatch = useAppDispatch();
-    const { list: products = [], loading, error = null } = useAppSelector((state) => state.proBundleDealList.data);
-    React.useEffect(() => {
-        const promise = dispatch(getProductList({ limit: 12, sort: "ctime", page: 1 }) as any);
-        return () => {
-            promise.abort();
-        };
-    }, [dispatch]);
+    const { products, loading, error } = useFetchData();
 
     return (
         <Card className="border-0 shadow-non grid grid-cols-12">
