@@ -41,6 +41,7 @@ export function useHandlePagination({
         selectPaginationByStoreKey(storeKey)
     );
 
+
     // Set limit and total pages when totalItems or limit changes
     useEffect(() => {
         if (initialLimit) {
@@ -60,6 +61,7 @@ export function useHandlePagination({
         [totalPages, currentPage, siblingCount]
     );
 
+
     const setPageSafe = (page: number) => {
         if (page >= 1 && page <= totalPages) {
             dispatch(setPage(page));
@@ -73,7 +75,8 @@ export function useHandlePagination({
     return {
         currentPage,
         totalPages,
-        limit: storeLimit,
+        totalItems: initialTotal,
+        perPage: storeLimit,
         pages: paginationRange,
         setPage: setPageSafe,
         resetPagination: resetPaginationSafe,
@@ -88,7 +91,6 @@ function calculatePaginationRange(
     siblingCount: number,
     DOTS: string
 ): (number | string)[] {
-    if (totalPages <= 1) return [];
 
     const totalPageNumbers = siblingCount * 2 + 5;
     const firstPage = 1;

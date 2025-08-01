@@ -10,9 +10,13 @@ interface PaginationContextType {
     setPage: (page: number) => void;
     hasPrev: boolean;
     hasNext: boolean;
+    isShowDot?: boolean;
+    isShowNav?: boolean;
+    isShowLabel?: boolean;
     resetPagination: () => void;
     totalPages: number;
-    limit: number;
+    totalItems: number;
+    perPage: number;
 }
 
 interface PaginationProviderProps {

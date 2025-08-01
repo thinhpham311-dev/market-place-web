@@ -16,7 +16,7 @@ import { PRO_LIST_BY_CATEGORYID } from "./constants";
 
 
 const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
-    const { products, totalItems, loading, error } = useFetchData({ lastId });
+    const { products, totalItems, loading, status, error } = useFetchData({ lastId });
 
 
     return (
@@ -51,10 +51,10 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
                         <CardContent className="p-3">
                             <ProductGrid
                                 error={error}
-                                countLoadItems={15}
+                                status={status}
+                                countLoadItems={20}
                                 data={products}
                                 className="lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-3"
-                                isLoading={loading}
                             />
                         </CardContent>
 
@@ -63,7 +63,8 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
                                 storeKey={PRO_LIST_BY_CATEGORYID}
                                 isShowDot
                                 isShowNav
-                                initialLimit={15}
+                                isShowLabel
+                                initialLimit={20}
                                 initialTotal={totalItems}
                             />
                         </CardFooter>

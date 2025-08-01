@@ -27,4 +27,5 @@ export type Productfilter = {
     sort?: string;
     page?: number;
     filter?: Product;
+    search?: string;
 }

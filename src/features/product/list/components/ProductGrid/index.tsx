@@ -1,43 +1,48 @@
 import React from "react";
 import ProductCard from "../ProductCard";
 import { Product } from "@/features/product/types";
-import Loading from "./Loading"
+import Loading from "./Loading";
 import NotFound from "./NotFound";
 import { cn } from "@/lib/utils";
 
 interface ProductGridProps {
     data: Product[];
     className?: string;
-    isLoading?: boolean;
-    error: Error | null;
-    countLoadItems: number;
+    status: "idle" | "loading" | "success" | "empty" | "error";
+    error?: Error | null;
+    countLoadItems?: number;
 }
 
-const ProductGrid = ({ data, className, isLoading = false, error, countLoadItems }: ProductGridProps) => {
-    const hasNoData = !data || data.length === 0;
+const ProductGrid = ({
+    data,
+    className,
+    status = "loading",
+    error,
+    countLoadItems = 12,
+}: ProductGridProps) => {
+    switch (status) {
+        case "loading":
+            return <Loading className={className} count={countLoadItems} />;
 
-    if (isLoading && hasNoData) {
-        return <Loading className={className} count={countLoadItems} />;
-    }
+        case "error":
+            return <NotFound message={error?.message || "Something went wrong."} />;
 
-    if (!isLoading && hasNoData && error) {
-        return <NotFound message={error.message || "Something went wrong."} />;
-    }
+        case "empty":
+            return <NotFound message="No products found." />;
 
-    if (!isLoading && hasNoData) {
-        return <NotFound />;
+        case "success":
+            return (
+                <div className={cn("grid w-full", className)}>
+                    {data.map((item) => (
+                        <ProductCard key={item._id} item={item} isLoading={false} />
+                    ))}
+                </div>
+            );
+
+        case "idle":
+        default:
+            return null;
     }
-    return (
-        <div className={cn("grid w-full", className)}>
-            {data.map((_) => (
-                <ProductCard
-                    isLoading={isLoading}
-                    key={_._id}
-                    item={_}
-                />
-            ))}
-        </div>
-    );
 };
 
 export default ProductGrid;

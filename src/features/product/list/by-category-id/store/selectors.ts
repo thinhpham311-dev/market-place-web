@@ -7,6 +7,7 @@ export const makeSelectProByCategoryIdState = (storeKey: string) => {
         (data) => ({
             products: data?.list,
             loading: data?.loading,
+            status: data?.status,
             totalItems: data?.total,
             error: data?.error,
         })

@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect } from "react";
 import {
     Card, CardHeader, CardContent, CardTitle, CardDescription
 } from "@/components/ui";
@@ -8,46 +7,15 @@ import ProductGrid from "../components/ProductGrid";
 // import LoadMoreTrigger from "@/features/common/infinite-scroll";
 import Pagination from "@/features/common/pagination";
 
-// redux
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { getProductList } from "./store/dataSlice";
-import { selectPaginationByStoreKey } from "@/features/common/pagination/store/selectors";
-import { selectProSuggestionListByStoreKey } from "./store/selectors";
-import { injectReducer } from "@/store";
-import suggestionReducer from "./store";
+//hooks
+import { useFetchData } from "@/features/product/list/suggestion/hooks";
 
-//constants
-import { PRO_SUGGESTION_LIST } from "./constants";
+import { PRO_SUGGESTION_LIST } from "@/features/product/list/suggestion/constants";
 
-injectReducer(PRO_SUGGESTION_LIST, suggestionReducer);
 
 export default function ProSuggestionList() {
-    const dispatch = useAppDispatch();
 
-    const {
-        currentPage: pageCurrentValue = 1,
-        limit: limitCurrentValue = 12
-    } = useAppSelector(
-        selectPaginationByStoreKey(PRO_SUGGESTION_LIST)
-    );
-
-    const {
-        products = [],
-        loading = false,
-        totalItems,
-        error
-    } = useAppSelector(selectProSuggestionListByStoreKey(PRO_SUGGESTION_LIST));
-
-    useEffect(() => {
-        dispatch(getProductList({
-            page: pageCurrentValue,
-            limit: limitCurrentValue,
-            sort: 'ctime'
-        }) as any);
-    }, [dispatch,
-        pageCurrentValue,
-        limitCurrentValue
-    ]);
+    const { products, totalItems, loading, error, status } = useFetchData();
 
 
     return (
@@ -67,7 +35,7 @@ export default function ProSuggestionList() {
                     error={error}
                     data={products}
                     className=" grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3"
-                    isLoading={loading}
+                    status={status}
                 />
                 <Pagination
                     storeKey={PRO_SUGGESTION_LIST}

@@ -10,19 +10,22 @@ type ProductListResponse = {
     };
 };
 
-interface ProductState {
-    list: Product[];
+interface IProductState {
     loading: boolean;
-    total: number;
     error: string | null;
+    status: "idle" | "loading" | "success" | "error";
+    list: Product[];
+    total: number;
 }
 
-const initialState: ProductState = {
-    list: [],
+const initialState: IProductState = {
     loading: false,
+    status: "idle",
+    list: [],
     total: 0,
     error: null
-};
+}
+
 
 export const getProductList = createAsyncThunk<ProductListResponse, Productfilter>(
     'proSuggestionList/data/getList',
@@ -53,20 +56,23 @@ const dataSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getProductList.pending, (state) => {
+                state.status = "loading";
                 state.loading = true;
+                state.error = null;
             })
             .addCase(getProductList.fulfilled, (state, action) => {
-                state.loading = false;
                 const { list, total } = action.payload.metadata;
                 state.list = list;
                 state.total = total;
+                state.loading = false;
+                state.status = "success";
             })
-
             .addCase(getProductList.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string || 'Failed to fetch products';
                 state.total = 0;
                 state.list = [];
+                state.status = "error";
             });
     },
 });
