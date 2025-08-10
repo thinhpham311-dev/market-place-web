@@ -16,20 +16,20 @@ import { PRO_LIST_BY_CATEGORYID } from "./constants";
 
 
 const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
-    const { products, totalItems, loading, status, error } = useFetchData({ lastId });
+    const { products, totalItems, status, error } = useFetchData({ lastId });
 
 
     return (
-        <Card className="border-0 shadow-none md:px-6 px-3">
+        <Card className="border-none shadow-nonee md:px-6 px-3">
             <CardContent className="px-0 grid grid-cols-12 gap-3">
                 <div className="col-span-2 space-y-3">
                     <Filter
                         storeKey={PRO_LIST_BY_CATEGORYID}
-                        data={FILTER_OPTIONS} />
+                        options={FILTER_OPTIONS} />
                 </div>
 
                 <div className="col-span-10 flex flex-col space-y-3">
-                    <Card>
+                    <Card className="h-full">
                         <CardHeader className="p-3">
                             <div className="flex gap-4 justify-between items-center">
                                 <div className="flex-1">

@@ -1,0 +1,1 @@
+export const PRO_DETAIL = "PRO_DETAIL";

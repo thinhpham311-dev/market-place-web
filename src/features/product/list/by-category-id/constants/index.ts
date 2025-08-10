@@ -47,6 +47,17 @@ export const FILTER_OPTIONS = [
         ],
     },
     {
+        label: "Services",
+        key: "services",
+        type: "checkbox",
+        items: [
+            { label: "Free Shipping", value: "free-shipping" },
+            { label: "COD Available", value: "cod" },
+            { label: "7-day Return", value: "return" },
+            { label: "Warranty Included", value: "warranty" },
+        ],
+    },
+    {
         label: "Ratings",
         key: "ratings",
         type: "checkbox",
@@ -58,15 +69,4 @@ export const FILTER_OPTIONS = [
             { label: "5 Star", value: 5 },
         ]
     },
-    {
-        label: "Colors",
-        key: "colors",
-        type: "checkbox",
-        items: [
-            { label: "All Colors", value: "" },
-            { label: "Red", value: "red" },
-            { label: "Blue", value: "blue" },
-            { label: "Green", value: "green" },
-        ],
-    }
 ];

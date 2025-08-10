@@ -10,11 +10,11 @@ import type { Filter } from './types';
 
 interface IFilterProps {
     storeKey: string;
-    data: Filter[];
+    options: Filter[];
 }
 
-const Filter = ({ storeKey, data }: IFilterProps) => {
-    const filter = useHandleFilter({ storeKey, options: data });
+const Filter = ({ storeKey, options }: IFilterProps) => {
+    const filter = useHandleFilter({ storeKey, options });
 
     return (
         <FilterProvider contextValues={filter}>

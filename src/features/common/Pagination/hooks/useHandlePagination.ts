@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useLayoutEffect, useMemo } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import {
     setPage,
@@ -26,7 +26,7 @@ export function useHandlePagination({
 }: IUseHandlePaginationProps) {
 
     const dispatch = useAppDispatch();
-    useEffect(() => {
+    useLayoutEffect(() => {
         const reducerKey = `${PAGINATION}_${storeKey}`;
         injectReducer(reducerKey, reducer);
 
@@ -43,7 +43,7 @@ export function useHandlePagination({
 
 
     // Set limit and total pages when totalItems or limit changes
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (initialLimit) {
             dispatch(setLimit(initialLimit)); // Automatically resets currentPage to 1
         }

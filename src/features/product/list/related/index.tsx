@@ -21,7 +21,7 @@ export default function ProRelatedList() {
 
 
     return (
-        <Card className="border-0 shadow-none grid grid-cols-12">
+        <Card className="border-none shadow-nonee grid grid-cols-12">
             <CardHeader className="col-span-12 flex-row  items-center mb-3" >
                 <div className="p-0 flex-1">
                     <CardTitle className="mb-3 capitalize">From The Same Shop</CardTitle>

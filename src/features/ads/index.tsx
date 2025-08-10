@@ -11,7 +11,7 @@ import { bannerData } from "@/constants/data"
 
 const Advertisement = () => {
     return (
-        <Card className="border-0 shadow-none grid grid-cols-12">
+        <Card className="border-none shadow-nonee grid grid-cols-12">
             <CardContent className="col-span-12">
                 <AdsCarousel data={bannerData} />
             </CardContent>

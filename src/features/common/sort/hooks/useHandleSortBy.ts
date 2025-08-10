@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { setSortBy, resetSortBy } from "../store/stateSlice";
 import type { Sort } from "../types";
@@ -20,7 +20,7 @@ export function useSortBy({
 }: IUseSortBy) {
 
     const dispatch = useAppDispatch();
-    useEffect(() => {
+    useLayoutEffect(() => {
         const reducerKey = `${SORT}_${storeKey}`;
         injectReducer(reducerKey, reducer);
 

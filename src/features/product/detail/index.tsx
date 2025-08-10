@@ -3,10 +3,8 @@
 import React from "react";
 import {
     Card, CardContent, CardHeader, CardTitle,
-    Breadcrumb, BreadcrumbList, BreadcrumbLink, BreadcrumbSeparator
 } from "@/components/ui";
-
-import { images, socials } from "./data";
+import { images, socials } from "@/features/product/detail/constants";
 import ProBreadcrumb from "./components/ProBreadcrumb";
 import ThumbnailGallery from "./components/ThumbnailGallery";
 import ProQuantitySelector from "./components/ProQuantitySelector";
@@ -24,15 +22,18 @@ import { Product } from "@/features/product/types";
 import { injectReducer } from "@/store";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getProductDetail } from "./store/dataSlice";
+import { selectProDetailByStoreKey } from "./store/selectors"
 import reducer from "./store";
 import LoadingPlaceholder from "./components/LoadingSkeleton";
+import { breadcrumbs, specs } from "@/features/product/detail/constants"
+import { PRO_DETAIL } from "./constants";
 
-
-injectReducer("detail", reducer);
+injectReducer(PRO_DETAIL, reducer);
 
 export default function ProDetail({ lastId }: { lastId?: string }) {
     const dispatch = useAppDispatch();
-    const { detail: product = null, loading } = useAppSelector((state) => state.detail.data);
+
+    const { product = null, loading } = useAppSelector(selectProDetailByStoreKey(PRO_DETAIL));
 
     React.useEffect(() => {
         if (!lastId) return;
@@ -45,21 +46,7 @@ export default function ProDetail({ lastId }: { lastId?: string }) {
         };
     }, [dispatch, lastId]);
 
-    // ✅ Render helpers
-    const renderBreadcrumb = (items: any[], getHref: (item: any) => string, getLabel: (item: any) => string) => (
-        <Breadcrumb>
-            <BreadcrumbList>
-                {items.map((item, index, arr) => (
-                    <React.Fragment key={item._id}>
-                        <BreadcrumbLink href={getHref(item)}>
-                            {getLabel(item)}
-                        </BreadcrumbLink>
-                        {index < arr.length - 1 && <BreadcrumbSeparator />}
-                    </React.Fragment>
-                ))}
-            </BreadcrumbList>
-        </Breadcrumb>
-    );
+
 
     if (loading) {
         return (
@@ -69,44 +56,12 @@ export default function ProDetail({ lastId }: { lastId?: string }) {
 
     if (!product) return <NotFound />;
 
-    // ✅ Specs configuration
-    const specs = [
-        {
-            label: "Product Name:",
-            value: renderBreadcrumb(
-                [product],
-                (item) => `${item.product_slug}.${item.product_id}`,
-                (item) => item.product_name
-            )
-        },
-        {
-            label: "Categories:",
-            value: renderBreadcrumb(
-                product.product_category || [],
-                (item) => {
-                    const ancestors = Array.isArray(item.ancestors) ? item.ancestors.filter(Boolean) : [];
-                    const allIds = [...ancestors, item.category_id]; // ensure no duplicate manually if needed
-                    return `/categories/${item.category_slug}-cat.${allIds.join(".")}`;
-                },
-                (item) => item.category_name
-            )
-        },
-        {
-            label: "Shop Name:",
-            value: renderBreadcrumb(
-                [product.product_shop],
-                (item) => `/shop/${item._id}`,
-                (item) => item.name
-            )
-        }
-    ];
 
     return (
         <Card className="border-none shadow-none">
             <CardHeader className="py-3">
                 <ProBreadcrumb
-                    categories={product.product_category}
-                    product_name={product.product_name}
+                    breadcrumbs={breadcrumbs(product)}
                 />
             </CardHeader>
 
@@ -126,7 +81,10 @@ export default function ProDetail({ lastId }: { lastId?: string }) {
                             <CardTitle className="flex items-center p-3">{product.product_name}</CardTitle>
                             <ReviewStars data={product.product_ratingsAverange} readOnly />
                             <ProductPrice price={product.product_price} flashSalePrice={product.product_price - 1} />
-                            <ProVariantsSelector options={product.product_variations} />
+                            <ProVariantsSelector
+                                storeKey={PRO_DETAIL}
+                                options={product.product_variations}
+                            />
                             <ProQuantitySelector quantity={product.product_quantity} />
                             <PurchaseActions data={product} />
                         </CardContent>
@@ -140,7 +98,7 @@ export default function ProDetail({ lastId }: { lastId?: string }) {
 
                 {/* ✅ Specifications */}
                 <div className="lg:col-span-1 md:col-span-2">
-                    <ProSpecifications specs={specs} />
+                    <ProSpecifications specs={specs(product)} />
                 </div>
             </CardContent>
         </Card>

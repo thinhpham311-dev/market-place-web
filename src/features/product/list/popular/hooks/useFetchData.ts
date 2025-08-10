@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getProductList } from "../store/dataSlice";
 import { selectProPopularListByStoreKey } from "../store/selectors";
@@ -11,7 +11,7 @@ import { PRO_POPULAR_LIST } from "@/features/product/list/popular/constants";
 
 
 export function useFetchData() {
-    useEffect(() => {
+    useLayoutEffect(() => {
         injectReducer(PRO_POPULAR_LIST, reducer)
 
         return () => {

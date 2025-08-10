@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getProductList } from "../store/dataSlice";
 import { selectProSearchListByStoreKey } from "@/features/product/list/search/store/selectors";
@@ -14,7 +14,7 @@ import { PRO_SEARCH_LIST } from "@/features/product/list/search/constants";
 
 
 export function useFetchData({ keyword }: { keyword?: string }) {
-    useEffect(() => {
+    useLayoutEffect(() => {
         injectReducer(PRO_SEARCH_LIST, reducer)
 
         return () => {

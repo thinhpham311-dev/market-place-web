@@ -15,11 +15,11 @@ import { PRO_SUGGESTION_LIST } from "@/features/product/list/suggestion/constant
 
 export default function ProSuggestionList() {
 
-    const { products, totalItems, loading, error, status } = useFetchData();
+    const { products, totalItems, error, status } = useFetchData();
 
 
     return (
-        <Card className="border-0 shadow-none  grid grid-cols-12">
+        <Card className="border-none shadow-nonee  grid grid-cols-12">
             <CardHeader className="items-center col-span-12 space-x-3 mb-3">
                 <CardTitle className="mb-3 capitalize text-center mx-auto">
                     Suggestion today
@@ -31,7 +31,7 @@ export default function ProSuggestionList() {
 
             <CardContent className="col-span-12 space-y-3">
                 <ProductGrid
-                    countLoadItems={12}
+                    countLoadItems={24}
                     error={error}
                     data={products}
                     className=" grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3"
@@ -41,7 +41,7 @@ export default function ProSuggestionList() {
                     storeKey={PRO_SUGGESTION_LIST}
                     isShowDot
                     isShowNav
-                    initialLimit={12}
+                    initialLimit={24}
                     initialTotal={totalItems}
                 />
             </CardContent>

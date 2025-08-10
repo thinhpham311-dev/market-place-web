@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
 // Actions and selectors
@@ -21,7 +21,7 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
     const dispatch = useAppDispatch();
 
     // Inject and clean up reducer
-    useEffect(() => {
+    useLayoutEffect(() => {
         injectReducer(PRO_LIST_BY_CATEGORYID, reducer);
         return () => {
             removeReducer(PRO_LIST_BY_CATEGORYID);
@@ -33,9 +33,10 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
         selectPaginationByStoreKey(PRO_LIST_BY_CATEGORYID)
     );
 
-    const { filter } = useAppSelector(
+    const { filterData } = useAppSelector(
         selectFilterStoreKey(PRO_LIST_BY_CATEGORYID)
     );
+
 
     const {
         sortBy: { value: sort = "" } = { value: "" }
@@ -57,14 +58,20 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
                 sort,
                 page: currentPage,
                 ids: lastId,
-                filter
+                // filter
             }) as any
         );
 
         return () => {
             promise.abort?.(); // optional chaining in case abort is not available
         };
-    }, [dispatch, lastId, filter, sort, currentPage, limit]);
+    }, [dispatch,
+        lastId,
+        // filter,
+        sort,
+        currentPage,
+        limit
+    ]);
 
     return { products, totalItems, loading, error, status };
 }

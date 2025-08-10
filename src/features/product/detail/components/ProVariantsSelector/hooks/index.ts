@@ -1,1 +1,2 @@
-export * from "./useVariantsSelector"
+export * from "./useHandleVariantsSelector"
+export * from "./useVariantsSelectorContext"

@@ -37,7 +37,7 @@ export default function ProHotDealList() {
     }, [dispatch]);
 
     return (
-        <Card className="border-0 shadow-none grid grid-cols-12">
+        <Card className="border-none shadow-nonee grid grid-cols-12">
             <CardHeader className="col-span-12 flex-row  items-center mb-3" >
                 <div className=" flex-1">
                     <CardTitle className="mb-3 capitalize space-x-2 flex items-center"><FaHotjar color="#f73e48" /><span>Hot Deals</span></CardTitle>

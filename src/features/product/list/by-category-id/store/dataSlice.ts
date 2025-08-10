@@ -37,6 +37,7 @@ export const getProductListByCategories = createAsyncThunk<ProductListResponse, 
     }
 );
 
+
 const dataSlice = createSlice({
     name: 'proListByCategoryId/data',
     initialState,

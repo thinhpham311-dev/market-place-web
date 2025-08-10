@@ -40,7 +40,7 @@ export default function ProRecommendedList() {
     }, [dispatch]);
 
     return (
-        <Card className="border-0 shadow-non grid grid-cols-12">
+        <Card className="border-none shadow-none grid grid-cols-12">
             <CardHeader className="col-span-12 flex-row  items-center mb-3" >
                 <div className="p-0 flex-1">
                     <CardTitle className="mb-3 capitalize">Recommended For You</CardTitle>

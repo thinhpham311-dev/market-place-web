@@ -15,6 +15,7 @@ export type Product = {
     image?: string,
     product_price: number,
     product_slug: string,
+    product_brand?: string,
     // discountPrice: number,
     quantity: number,
 }

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getProductList } from "../store/dataSlice";
 import { selectProTopPickListByStoreKey } from "@/features/product/list//top-picks/store/selectors";
@@ -11,7 +11,7 @@ import { PRO_TOPPICKS_LIST } from "@/features/product/list/top-picks/constants";
 
 
 export function useFetchData() {
-    useEffect(() => {
+    useLayoutEffect(() => {
         injectReducer(PRO_TOPPICKS_LIST, reducer)
 
         return () => {

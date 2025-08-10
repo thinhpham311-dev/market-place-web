@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getProductList } from "../store/dataSlice";
 import { selectProSuggestionListByStoreKey } from "@/features/product/list/suggestion/store/selectors";
@@ -13,7 +13,7 @@ import { PRO_SUGGESTION_LIST } from "@/features/product/list/suggestion/constant
 
 
 export function useFetchData() {
-    useEffect(() => {
+    useLayoutEffect(() => {
         injectReducer(PRO_SUGGESTION_LIST, reducer)
 
         return () => {

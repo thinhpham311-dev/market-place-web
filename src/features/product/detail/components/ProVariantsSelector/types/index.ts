@@ -1,4 +1,3 @@
 export type VariantOption = {
-    label: string;
-    value: string | VariantOption[];
+    [key: string]: any;
 };
