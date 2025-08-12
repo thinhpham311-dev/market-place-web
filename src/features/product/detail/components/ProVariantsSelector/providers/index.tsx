@@ -7,6 +7,7 @@ import { VariantOption } from "../types";
 
 
 interface VariantsSelectorContextType {
+    data: VariantOption[],
     selectedOptions: VariantOption[],
     validationErrors: string[],
     handleChooseOption: (index: number, option: VariantOption | null) => void;

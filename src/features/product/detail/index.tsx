@@ -32,7 +32,6 @@ injectReducer(PRO_DETAIL, reducer);
 
 export default function ProDetail({ lastId }: { lastId?: string }) {
     const dispatch = useAppDispatch();
-
     const { product = null, loading } = useAppSelector(selectProDetailByStoreKey(PRO_DETAIL));
 
     React.useEffect(() => {
@@ -65,40 +64,65 @@ export default function ProDetail({ lastId }: { lastId?: string }) {
                 />
             </CardHeader>
 
-            <CardContent className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 pb-0">
+            <CardContent
+                className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 pb-0"
+            >
 
                 {/* ✅ Main Product Info */}
                 <div className="col-span-3">
-                    <Card layout="horizontal" className="grid grid-cols-1 md:grid-cols-5 rounded-none">
+                    <Card
+                        layout="horizontal"
+                        className="grid grid-cols-1 md:grid-cols-5 rounded-none"
+                    >
                         {/* Gallery + Socials */}
                         <CardHeader className="md:col-span-2 p-3">
-                            <ThumbnailGallery data={images} />
-                            <SocialsShare data={socials} />
+                            <ThumbnailGallery
+                                data={images}
+                            />
+                            <SocialsShare
+                                data={socials}
+                            />
                         </CardHeader>
 
                         {/* Product Info + Actions */}
                         <CardContent className="md:col-span-3 p-3">
-                            <CardTitle className="flex items-center p-3">{product.product_name}</CardTitle>
-                            <ReviewStars data={product.product_ratingsAverange} readOnly />
-                            <ProductPrice price={product.product_price} flashSalePrice={product.product_price - 1} />
+                            <CardTitle className="flex items-center p-3">
+                                {product.product_name}
+                            </CardTitle>
+                            <ReviewStars
+                                data={product.product_ratingsAverange}
+                                readOnly
+                            />
+                            <ProductPrice
+                                price={product.product_price}
+                                flashSalePrice={product.product_price - 1}
+                            />
                             <ProVariantsSelector
                                 storeKey={PRO_DETAIL}
                                 options={product.product_variations}
                             />
-                            <ProQuantitySelector quantity={product.product_quantity} />
-                            <PurchaseActions data={product} />
+                            <ProQuantitySelector
+                                quantity={product.product_quantity}
+                            />
+                            <PurchaseActions
+                                data={product}
+                            />
                         </CardContent>
                     </Card>
                 </div>
 
                 {/* ✅ Description */}
                 <div className="lg:col-span-2 md:col-span-2">
-                    <ProDescriptionContent description={product.product_description} />
+                    <ProDescriptionContent
+                        description={product.product_description}
+                    />
                 </div>
 
                 {/* ✅ Specifications */}
                 <div className="lg:col-span-1 md:col-span-2">
-                    <ProSpecifications specs={specs(product)} />
+                    <ProSpecifications
+                        specs={specs(product)}
+                    />
                 </div>
             </CardContent>
         </Card>

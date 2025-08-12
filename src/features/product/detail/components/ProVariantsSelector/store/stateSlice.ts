@@ -3,11 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 import { VariantOption } from "../types/";
 
 interface VariantState {
+    data: (VariantOption | null)[],
     selectedOptions: (VariantOption | null)[];
     validationErrors: string[];
 }
 
 const initialState: VariantState = {
+    data: [],
     selectedOptions: [],
     validationErrors: [],
 };
@@ -17,7 +19,7 @@ const variantSlice = createSlice({
     initialState,
     reducers: {
         initialOptions(state, action) {
-            state.selectedOptions = action.payload;
+            state.data = action.payload;
             state.validationErrors = [];
         },
         setSelectedOption: (state, action) => {

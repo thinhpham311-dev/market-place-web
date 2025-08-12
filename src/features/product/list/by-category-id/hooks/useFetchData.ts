@@ -33,7 +33,7 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
         selectPaginationByStoreKey(PRO_LIST_BY_CATEGORYID)
     );
 
-    const { filterData } = useAppSelector(
+    const { filter } = useAppSelector(
         selectFilterStoreKey(PRO_LIST_BY_CATEGORYID)
     );
 
@@ -58,7 +58,7 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
                 sort,
                 page: currentPage,
                 ids: lastId,
-                // filter
+                filter
             }) as any
         );
 
@@ -67,7 +67,7 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
         };
     }, [dispatch,
         lastId,
-        // filter,
+        filter,
         sort,
         currentPage,
         limit

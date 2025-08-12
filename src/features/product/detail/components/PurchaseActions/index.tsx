@@ -16,7 +16,6 @@ interface Props {
 export default function PurchaseActions({ data }: Props) {
     const productItemQuantityRef = useRef<any>(null);
     const productItemOptionListRef = useRef<any>(null);
-
     return (
         <Card layout="horizontal" className="border-none shadow-none grid lg:grid-cols-3 md:grid-cols-4 grid-cols-1 gap-5 w-full">
             <CardContent className="lg:col-span-2 md:col-span-2 col-span-1 p-3">

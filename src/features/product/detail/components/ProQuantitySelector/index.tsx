@@ -48,23 +48,25 @@ const ProQuantitySelector = React.forwardRef<
     }));
 
     return (
-        <Card layout="horizontal" className="flex-wrap items-center border-none shadow-none">
-            <CardHeader className="p-3">
-                <CardTitle className="text-sm"> Quantity:</CardTitle>
-            </CardHeader>
-            <CardContent className="p-3 flex flex-row items-center space-x-2">
-                <Counter
-                    initialValue={1}
-                    ref={counterRef}
-                    onQuantityChange={handleQuantityChange}
-                />
-                <CardDescription>{quantity} pieces available</CardDescription>
-            </CardContent>
-            {errorMessages && errorMessages.length > 0 &&
-                <CardFooter className="w-full px-3">
-                    <ErrorMessages messages={errorMessages} />
+        <Card className="border-none shadow-none">
+            <div className="grid grid-cols-12 items-center">
+                <CardHeader className="p-3 col-span-2">
+                    <CardTitle className="text-sm uppercase"> quantity:</CardTitle>
+                </CardHeader>
+                <CardContent className="p-3 col-span-10 space-x-3 flex items-center">
+                    <Counter
+                        initialValue={1}
+                        ref={counterRef}
+                        onQuantityChange={handleQuantityChange}
+                    />
+                    <CardDescription >{quantity} pieces available</CardDescription>
+                </CardContent>
+                <CardFooter className="col-span-10 col-start-3 px-3 py-0">
+                    {errorMessages && errorMessages.length > 0 &&
+                        <ErrorMessages messages={errorMessages} />
+                    }
                 </CardFooter>
-            }
+            </div>
         </Card>
     );
 });

@@ -1,3 +1,4 @@
+import { useLayoutEffect, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { setSelectedOption, setValidationErrors } from "../store/stateSlice";
 import { VariantOption } from "../types";
@@ -6,7 +7,6 @@ import { selectVariantsStoreKey } from "../store/selectors"
 import reducer from "../store";
 import { initialOptions } from "../store/stateSlice";
 import { VARIANT_SELECTOR } from "../constants"
-import { useLayoutEffect } from "react";
 
 interface IUseHandleVariantsSelector {
     storeKey: string
@@ -20,8 +20,8 @@ export function useHandleVariantsSelector({ storeKey, options }: IUseHandleVaria
     }, [storeKey])
 
     const dispatch = useAppDispatch();
-    const { selectedOptions, validationErrors } = useAppSelector(selectVariantsStoreKey(storeKey));
-    useLayoutEffect(() => {
+    const { data, selectedOptions, validationErrors } = useAppSelector(selectVariantsStoreKey(storeKey));
+    useEffect(() => {
         if (options) {
             dispatch(initialOptions(options as VariantOption[]));
         }
@@ -35,7 +35,7 @@ export function useHandleVariantsSelector({ storeKey, options }: IUseHandleVaria
         return errors;
     };
 
-    const handleChooseOption = (index: number, value: VariantOption | null) => {
+    const handleChooseOption = (index: number, value?: VariantOption | null) => {
         dispatch(setSelectedOption({ index, value }));
         const updated = [...selectedOptions];
         updated[index] = value;
@@ -45,6 +45,5 @@ export function useHandleVariantsSelector({ storeKey, options }: IUseHandleVaria
         dispatch(setValidationErrors(errors));
     };
 
-
-    return { selectedOptions, validationErrors, handleChooseOption, validateOptions };
+    return { data, selectedOptions, validationErrors, handleChooseOption, validateOptions };
 }

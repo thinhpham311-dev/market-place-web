@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { Card, CardHeader, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
+import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
 interface ProSpecificationItemProps {

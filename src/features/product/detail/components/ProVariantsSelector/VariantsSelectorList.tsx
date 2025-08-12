@@ -7,27 +7,24 @@ import { useVariantsSelectorContext } from "./hooks";
 import { VariantOption } from "./types"
 
 
-
 const VariantsSelectorList = () => {
-    const { selectedOptions, validationErrors } = useVariantsSelectorContext();
+    const { data, selectedOptions, validationErrors } = useVariantsSelectorContext();
+    console.log(selectedOptions)
     return (
         <div className="space-y-5">
-            {selectedOptions.map((_: VariantOption, i: number) => {
-                if (Array.isArray(_.options)) {
-                    return (
-                        <React.Fragment key={`${_.options}_${i}`}>
-                            <VariantSelectorCard
-                                label={_.name}
-                                options={_.options as VariantOption[]}
-                                index={i}
-                            />
-                            {validationErrors?.includes(`${_.name} is required.`) && (
-                                <p className="text-red-500 text-xs my-2">{`${_.name} is required.`}</p>
-                            )}
-                        </React.Fragment>
-                    );
-                }
-                return null;
+            {data.map((_: VariantOption, i: number) => {
+                return (
+                    <React.Fragment key={`${_.options}_${i}`}>
+                        <VariantSelectorCard
+                            label={_.label}
+                            value={_.value as VariantOption[]}
+                            index={i}
+                        />
+                        {validationErrors?.includes(`${_.name} is required.`) && (
+                            <p className="text-red-500 text-xs my-2">{`${_.name} is required.`}</p>
+                        )}
+                    </React.Fragment>
+                );
             })}
         </div>
     );

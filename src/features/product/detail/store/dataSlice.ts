@@ -5,9 +5,7 @@ import { Product } from '@/features/product/types';
 
 
 type ProductDetailResponse = {
-    metadata: {
-        product: Product
-    }
+    metadata: Product
 };
 
 export const getProductDetail = createAsyncThunk<ProductDetailResponse, Product>(
@@ -49,7 +47,7 @@ const dataSlice = createSlice({
                 state.status = "loading";
             })
             .addCase(getProductDetail.fulfilled, (state, action) => {
-                const { product } = action.payload.metadata;
+                const product = action.payload.metadata;
                 state.product = product;
                 state.loading = false;
                 state.status = "success";

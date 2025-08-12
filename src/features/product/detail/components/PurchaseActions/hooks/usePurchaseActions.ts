@@ -25,7 +25,7 @@ type Option = {
     value: string | Array<Option>;
 };
 
-interface UsePurchaseActionsProps {
+interface IUsePurchaseActionsProps {
     product: Product;
     quantityRef: RefObject<IProductItemQuantityRef>;
     optionsRef: RefObject<IProductItemOptionsListRef>;
@@ -35,7 +35,7 @@ export function usePurchaseActions({
     product,
     quantityRef,
     optionsRef,
-}: UsePurchaseActionsProps) {
+}: IUsePurchaseActionsProps) {
     const dispatch = useAppDispatch();
     const { toast } = useToast();
     const router = useRouter();
@@ -46,7 +46,6 @@ export function usePurchaseActions({
         const quantityErrors = quantityRef.current?.validateQuantity?.() || [];
         return [...optionErrors, ...quantityErrors];
     }, [optionsRef, quantityRef]);
-
 
     // ✅ Add to Cart
     const handleAddToCart = useCallback((): boolean => {

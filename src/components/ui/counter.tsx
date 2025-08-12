@@ -40,7 +40,7 @@ export const Counter = memo(
         }));
 
         return (
-            <div className={cn(className, "flex items-center space-x-1 ")}>
+            <div className={cn(className, "flex items-center space-x-3 ")}>
                 <Button
                     onClick={decrement}
                     size="icon"
