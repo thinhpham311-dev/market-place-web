@@ -7,12 +7,8 @@ export const makeSelectVariantsState = (storeKey: string) =>
     createSelector(
         (state: RootState) => state[`${VARIANT_SELECTOR}_${storeKey}`] ? state[`${VARIANT_SELECTOR}_${storeKey}`].state : null,
         (variantState) => ({
-            data: variantState?.data || [],
-            selectedOptions: variantState?.selectedOptions,
-            options: variantState?.selectedOptions.map((option: VariantOption) => {
-                if (!option) return ""
-                return option.value
-            }),
+            variants: variantState?.variants || [],
+            selectedOptions: variantState?.selectedOptions.filter((item: number) => item !== null),
             validationErrors: variantState?.validationErrors || []
         })
     );

@@ -13,7 +13,7 @@ interface ThumbnailGalleryProps {
 
 injectReducer("gallery", reducer);
 
-export default function ThumbnailGallery({ data }: ThumbnailGalleryProps) {
+export default function ProThumbnailGallery({ data }: ThumbnailGalleryProps) {
     const { current, setApi, navigateTo } = useSyncCarousels();
 
     return (

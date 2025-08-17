@@ -1,15 +1,14 @@
-// src/features/product/variantSlice.ts
 import { createSlice } from "@reduxjs/toolkit";
 import { VariantOption } from "../types/";
 
 interface VariantState {
-    data: (VariantOption | null)[],
+    variants: (VariantOption | null)[],
     selectedOptions: (VariantOption | null)[];
     validationErrors: string[];
 }
 
 const initialState: VariantState = {
-    data: [],
+    variants: [],
     selectedOptions: [],
     validationErrors: [],
 };
@@ -19,7 +18,7 @@ const variantSlice = createSlice({
     initialState,
     reducers: {
         initialOptions(state, action) {
-            state.data = action.payload;
+            state.variants = action.payload;
             state.validationErrors = [];
         },
         setSelectedOption: (state, action) => {

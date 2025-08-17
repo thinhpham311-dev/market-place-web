@@ -8,12 +8,12 @@ import BuyNowButton from "./BuyNowButton";
 
 import { Product } from "@/features/product/types";
 
-interface Props {
+interface IProPurchaseActionsProps {
     data: Product;
 }
 
 
-export default function PurchaseActions({ data }: Props) {
+export default function ProPurchaseActions({ data }: IProPurchaseActionsProps) {
     const productItemQuantityRef = useRef<any>(null);
     const productItemOptionListRef = useRef<any>(null);
     return (

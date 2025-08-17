@@ -7,10 +7,10 @@ import { VariantOption } from "../types";
 
 
 interface VariantsSelectorContextType {
-    data: VariantOption[],
+    variants: VariantOption[],
     selectedOptions: VariantOption[],
     validationErrors: string[],
-    handleChooseOption: (index: number, option: VariantOption | null) => void;
+    handleChooseOption: (index: number, option: number | null) => void;
     validateOptions: () => string[];
 }
 
@@ -20,7 +20,6 @@ interface VariantsSelectorProviderProps {
     contextValues: VariantsSelectorContextType
 }
 
-// ✅ Tạo context có kiểu dữ liệu
 export const VariantsSelectorContext = React.createContext<VariantsSelectorContextType | null>(null);
 
 const VariantsSelectorProvider = ({ children, className, contextValues }: VariantsSelectorProviderProps) => {

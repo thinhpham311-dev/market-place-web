@@ -5,7 +5,7 @@ import { memo } from "react"
 import { useRouter } from "next/navigation"
 import Loading from "./Loading"
 import { Card, CardContent, CardTitle, CardDescription, CardImage } from "@/components/ui"
-import ProductPrice from "@/features/product/detail/components/ProductPrice"
+import ProductPrice from "@/features/product/detail/components/ProFlashSalePrice"
 import { Product } from "@/features/product/types"
 import NotFound from "./NotFound"
 

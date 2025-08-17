@@ -12,7 +12,6 @@ interface IProVariantsSelectorProps {
     options?: VariantOption[];
 }
 
-
 const ProVariantsSelector = (({ storeKey, options = [] }: IProVariantsSelectorProps) => {
     const variantsSelector = useHandleVariantsSelector({ storeKey, options });
 

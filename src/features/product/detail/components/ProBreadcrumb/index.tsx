@@ -8,7 +8,10 @@ import {
 import ProBreadcrumbItem from "./ProBreadcrumbItem";
 
 interface ProBreadcrumbProps {
-    breadcrumbs: { label: string; value: string | React.ReactNode }[];
+    breadcrumbs: {
+        label: string;
+        value: string | React.ReactNode
+    }[];
 }
 
 export default function ProBreadcrumb({ breadcrumbs }: ProBreadcrumbProps) {

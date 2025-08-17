@@ -20,9 +20,9 @@ interface IProductState {
 
 const initialState: IProductState = {
     loading: false,
-    status: "idle",
     list: [],
     total: 0,
+    status: "idle",
     error: null
 }
 

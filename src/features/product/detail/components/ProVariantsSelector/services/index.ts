@@ -1,13 +1,10 @@
 import ApiService from "@/services/ApiService"
 import { Product } from "@/features/product/types"
 
-
-export async function apiPostProductDetail(data: Product) {
+export async function apiPostSearchProductVariant(data: Product) {
     return ApiService.fetchData({
-        url: `/spu/detail`,
+        url: `/spu/search-variation`,
         method: 'POST',
         data
     })
 }
-
-

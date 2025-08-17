@@ -3,6 +3,8 @@ import { SiZalo } from "react-icons/si";
 import Breadcrumb from "@/features/common/breadcrumb";
 import { Product } from "../../types";
 
+export const PRO_DETAIL = "PRO_DETAIL";
+
 export const images = [
     "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
     "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
@@ -38,9 +40,7 @@ export const socials = [
     },
 ]
 
-export const breadcrumbs = (product: Product) => {
-    const categoryItems = product.product_category || [];
-
+export const breadcrumbs = (product?: Product) => {
     const breadcrumbItems = [
         {
             category_id: "home",
@@ -48,13 +48,15 @@ export const breadcrumbs = (product: Product) => {
             category_name: "Home",
             ancestors: [],
         },
-        ...categoryItems,
-        {
-            category_id: "product",
-            category_slug: "",
-            category_name: product.product_name,
-            ancestors: [],
-        },
+        ...(product?.product_category ?? []),
+        ...(product
+            ? [{
+                category_id: "product",
+                category_slug: "",
+                category_name: product.product_name,
+                ancestors: [],
+            }]
+            : []),
     ];
 
     return [
@@ -66,12 +68,10 @@ export const breadcrumbs = (product: Product) => {
                     isDisableLast
                     getHref={(item) => {
                         if (item.category_id === "home") return "/";
-
                         const ancestors = Array.isArray(item.ancestors)
                             ? item.ancestors.filter(Boolean)
                             : [];
-                        const allIds = [...ancestors, item.category_id];
-                        return `/categories/${item.category_slug}-cat.${allIds.join(".")}`;
+                        return `/categories/${item.category_slug}-cat.${[...ancestors, item.category_id].join(".")}`;
                     }}
                     getLabel={(item) => item.category_name}
                 />
@@ -79,7 +79,6 @@ export const breadcrumbs = (product: Product) => {
         },
     ];
 };
-
 
 
 export const specs = (product: Product) => [
@@ -105,7 +104,8 @@ export const specs = (product: Product) => [
                         : [];
                     const allIds = [...ancestors, item.category_id];
                     return `/categories/${item.category_slug}-cat.${allIds.join(".")}`;
-                }}
+                }
+                }
                 getLabel={(item) => item.category_name}
             />
         ) : (
@@ -117,7 +117,8 @@ export const specs = (product: Product) => [
         value: product.product_shop ? (
             <Breadcrumb
                 items={[product.product_shop]}
-                getHref={(item) => `/shop/${item._id}`}
+                getHref={(item) => `/shop/${item._id}`
+                }
                 getLabel={(item) => item.name}
             />
         ) : (
@@ -129,7 +130,8 @@ export const specs = (product: Product) => [
         value: product.product_brand ? (
             <Breadcrumb
                 items={[product.product_brand]}
-                getHref={(item) => `/brand/${item.brand_slug}`}
+                getHref={(item) => `/brand/${item.brand_slug}`
+                }
                 getLabel={(item) => item.brand_name}
             />
         ) : (

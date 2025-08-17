@@ -3,13 +3,13 @@
 import * as React from "react";
 import { Card, CardContent } from "@/components/ui";
 
-interface ProductPriceProps {
+interface IProFlashSalePriceProps {
     price: number;
     flashSalePrice?: number;
     currency?: string;
 }
 
-export default function ProductPrice({ price, flashSalePrice, currency = "$" }: ProductPriceProps) {
+export default function ProFlashSalePrice({ price, flashSalePrice, currency = "$" }: IProFlashSalePriceProps) {
     const hasFlashSale = flashSalePrice && flashSalePrice < price;
     const discountPercent = hasFlashSale
         ? Math.round(((price - flashSalePrice!) / price) * 100)

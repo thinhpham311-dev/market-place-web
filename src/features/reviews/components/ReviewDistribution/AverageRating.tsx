@@ -18,8 +18,7 @@ const AverageRating = ({ data }: IAverageRatingProps) => {
 
     return (
         <Card className="rounded-none">
-            <CardContent className="p-3">
-                <CardTitle className="text-lg font-bold">Average Rating</CardTitle>
+            <CardContent className="p-0">
                 <CardDescription className="inline-flex items-center space-x-3">
                     <ReviewStars readOnly data={parseFloat(averageRating)} />
                     <span>{averageRating} / 5</span>

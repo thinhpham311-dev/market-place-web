@@ -8,11 +8,10 @@ import { VariantOption } from "./types"
 
 
 const VariantsSelectorList = () => {
-    const { data, selectedOptions, validationErrors } = useVariantsSelectorContext();
-    console.log(selectedOptions)
+    const { variants, validationErrors } = useVariantsSelectorContext();
     return (
         <div className="space-y-5">
-            {data.map((_: VariantOption, i: number) => {
+            {variants.map((_: VariantOption, i: number) => {
                 return (
                     <React.Fragment key={`${_.options}_${i}`}>
                         <VariantSelectorCard

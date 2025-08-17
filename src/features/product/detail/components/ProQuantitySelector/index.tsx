@@ -59,7 +59,7 @@ const ProQuantitySelector = React.forwardRef<
                         ref={counterRef}
                         onQuantityChange={handleQuantityChange}
                     />
-                    <CardDescription >{quantity} pieces available</CardDescription>
+                    <CardDescription >{quantity ? `${quantity} pieces available` : "IN STOCK"} </CardDescription>
                 </CardContent>
                 <CardFooter className="col-span-10 col-start-3 px-3 py-0">
                     {errorMessages && errorMessages.length > 0 &&

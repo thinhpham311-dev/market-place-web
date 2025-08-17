@@ -12,15 +12,15 @@ interface ISocialsShareProps {
     }[];
 }
 
-export default function SocialsShare({ data }: ISocialsShareProps) {
+export default function ProSocialsShare({ data }: ISocialsShareProps) {
     return (
-        <Card layout="horizontal" className="border-none shadow-none items-center">
-            <CardHeader className="p-3">
+        <Card layout="horizontal" className="border-none shadow-none items-center space-x-3">
+            <CardHeader className="p-0">
                 <CardTitle className="flex items-center">
-                    <span className="text-sm font-bold">Share:</span>
+                    <span className="text-sm font-bold uppercase">Share:</span>
                 </CardTitle>
             </CardHeader>
-            <CardContent className="space-x-2 p-3">
+            <CardContent className="space-x-1 p-0">
                 {data.map((item) => (
                     <SocialButton
                         key={item.label}

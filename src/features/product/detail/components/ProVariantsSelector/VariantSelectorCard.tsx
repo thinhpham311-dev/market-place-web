@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image"
 import {
     Card,
     CardHeader,
@@ -27,10 +28,11 @@ export default function VariantSelectorCard({
     className,
     index,
 }: VariantSelectorProps) {
-    const { handleChooseOption } = useVariantsSelectorContext();
-
+    const { handleChooseOption, selectedOptions } = useVariantsSelectorContext();
+    console.log(selectedOptions)
     const handleValueChange = (val?: string) => {
-        const option = value.find((v) => v.value === val) || null;
+        const idx = value.findIndex((v) => v.value === val);
+        const option = idx !== -1 ? idx : null;
         handleChooseOption(index, option);
     };
 
@@ -41,7 +43,7 @@ export default function VariantSelectorCard({
                 className
             )}
         >
-            <div className="grid grid-cols-12 items-center">
+            <div className="grid grid-cols-12 gap-x-5 items-center">
                 <CardHeader className="p-0 col-span-2">
                     {label && <CardTitle className="text-sm uppercase">{label}:</CardTitle>}
                 </CardHeader>
@@ -59,12 +61,22 @@ export default function VariantSelectorCard({
                                 className="relative group p-0"
                                 aria-label={item.label}
                             >
-                                <div className="h-full w-full rounded-md px-3 grid place-content-center border-2 border-gray-300 group-data-[state=on]:border-blue-500">
-                                    <span className="group-data-[state=on]:font-bold group-data-[state=on]:text-blue-500">{item.label}</span>
-                                    <div className="w-3 h-3 bg-blue-500 hidden group-data-[state=on]:block absolute bottom-[2px] right-[2px] rounded-tl-3xl rounded-br-md">
+                                <div
+                                    className={cn(
+                                        "h-full w-full rounded-md px-3 flex items-center space-x-2 border-2 border-gray-300 transition-colors duration-200",
+                                        "hover:border-red-400 hover:bg-red-50",
+                                        "group-data-[state=on]:border-red-500 group-data-[state=on]:bg-red-50"
+                                    )}
+                                >
+                                    <Image src={item.image} alt={item.label} width={20} height={20} />
+                                    <span className=" group-data-[state=on]:text-red-500 group-hover:text-red-500">
+                                        {item.label}
+                                    </span>
+                                    <div className="w-3 h-3 bg-red-500 hidden group-data-[state=on]:block absolute bottom-[2px] right-[2px] rounded-tl-3xl rounded-br-md">
                                         <IoIosCheckmark className="text-white" />
                                     </div>
                                 </div>
+
                             </ToggleGroupItem>
 
                         ))}
