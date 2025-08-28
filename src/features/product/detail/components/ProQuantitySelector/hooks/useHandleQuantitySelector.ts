@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useLayoutEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import {
     setQuantity,
@@ -6,12 +6,36 @@ import {
     resetQuantity as resetQuantityAction,
 } from "../store/stateSlice";
 
-export function useQuantitySelector(maxQuantity: number) {
-    const dispatch = useAppDispatch();
-    const { currentQuantity, errorMessages } = useAppSelector(
-        (state) => state.quantity.state
-    );
+import { selectQuantitySelectorByStoreKey } from "../store/selectors"
+import { injectReducer, removeReducer } from "@/store";
+import reducer from "../store";
 
+import { QUANTITY_COUNTER } from "../constants"
+
+interface IUseHandleQuantitySelector {
+    storeKey: string,
+    maxQuantity: number
+}
+
+export function useHandleQuantitySelector({
+    storeKey,
+    maxQuantity
+}: IUseHandleQuantitySelector) {
+    const dispatch = useAppDispatch();
+
+    useLayoutEffect(() => {
+        const reducerKey = `${QUANTITY_COUNTER}_${storeKey}`;
+        injectReducer(reducerKey, reducer);
+
+        return () => {
+            dispatch(resetQuantityAction())
+            removeReducer(reducerKey);
+        };
+    }, [dispatch])
+
+    const { currentQuantity, errorMessages } = useAppSelector(selectQuantitySelectorByStoreKey(storeKey));
+
+    console.log("maxQuantity", currentQuantity)
     const validateQuantity = useCallback(
         (newQuantity: number) => {
             if (newQuantity > maxQuantity) {
@@ -37,6 +61,7 @@ export function useQuantitySelector(maxQuantity: number) {
     }, [dispatch]);
 
     return {
+        maxQuantity,
         currentQuantity,
         errorMessages,
         handleQuantityChange,

@@ -8,7 +8,7 @@ import { VariantOption } from "./types"
 
 
 const VariantsSelectorList = () => {
-    const { variants, validationErrors } = useVariantsSelectorContext();
+    const { variants } = useVariantsSelectorContext();
     return (
         <div className="space-y-5">
             {variants.map((_: VariantOption, i: number) => {
@@ -19,9 +19,7 @@ const VariantsSelectorList = () => {
                             value={_.value as VariantOption[]}
                             index={i}
                         />
-                        {validationErrors?.includes(`${_.name} is required.`) && (
-                            <p className="text-red-500 text-xs my-2">{`${_.name} is required.`}</p>
-                        )}
+
                     </React.Fragment>
                 );
             })}

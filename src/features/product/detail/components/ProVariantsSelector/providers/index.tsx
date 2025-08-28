@@ -7,12 +7,14 @@ import { VariantOption } from "../types";
 
 
 interface VariantsSelectorContextType {
-    variants: VariantOption[],
-    selectedOptions: VariantOption[],
-    validationErrors: string[],
+    variants: VariantOption[];
+    sku_tier_idx: (number | null)[];
+    validationErrors: Record<number, string>;
     handleChooseOption: (index: number, option: number | null) => void;
-    validateOptions: () => string[];
+    validateOptions: () => Record<number, string>;
+    resetValidationErrors: () => void;
 }
+
 
 interface VariantsSelectorProviderProps {
     children?: React.ReactNode;

@@ -1,14 +1,15 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "@/store";
 import { VARIANT_SELECTOR } from "../constants"
-import { VariantOption } from "../types"
 
 export const makeSelectVariantsState = (storeKey: string) =>
     createSelector(
         (state: RootState) => state[`${VARIANT_SELECTOR}_${storeKey}`] ? state[`${VARIANT_SELECTOR}_${storeKey}`].state : null,
         (variantState) => ({
             variants: variantState?.variants || [],
-            selectedOptions: variantState?.selectedOptions.filter((item: number) => item !== null),
+            sku_tier_idx: (variantState?.selectedOptions
+                .filter((item: number) => item !== null)
+                .join(",")) || "",
             validationErrors: variantState?.validationErrors || []
         })
     );

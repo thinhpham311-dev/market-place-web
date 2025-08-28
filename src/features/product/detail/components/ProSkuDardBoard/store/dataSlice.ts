@@ -1,17 +1,17 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { apiPostSearchProductVariant } from '../services';
+import { SkuPro } from '../types';
 import { Product } from '@/features/product/types';
 
-
-type ProductDetailResponse = {
-    metadata: Product
+type ProductVariantResponse = {
+    metadata: SkuPro
 };
 
-export const getSkuProByVariants = createAsyncThunk<ProductDetailResponse, Product>(
+export const getSkuProByVariants = createAsyncThunk<ProductVariantResponse, Product>(
     'variant/data/getSkuProByVariants',
     async (params, { rejectWithValue }) => {
         try {
-            const response = await apiPostSearchProductVariant(params) as { data: ProductDetailResponse }
+            const response = await apiPostSearchProductVariant(params) as { data: ProductVariantResponse }
             return response.data;
         } catch (error: any) {
             return rejectWithValue(error?.response?.data || error.message);
@@ -19,44 +19,44 @@ export const getSkuProByVariants = createAsyncThunk<ProductDetailResponse, Produ
     }
 );
 
-interface IProductDetailState {
+interface IProductVariantState {
     loading: boolean;
-    product: Product | null;
+    skuProData: SkuPro | null;
     error: string | null;
     status: "idle" | "loading" | "success" | "error";
 }
 
-const initialState: IProductDetailState = {
+const initialState: IProductVariantState = {
     loading: false,
-    product: null,
+    skuProData: null,
     status: "idle",
     error: null
 };
 
 
-const variantSlice = createSlice({
-    name: 'variant/data',
+const dataSlice = createSlice({
+    name: 'sku/data',
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(getSkuProByVariants.pending, (state) => {
-                state.product = null;
+                state.skuProData = null;
                 state.loading = true;
                 state.status = "loading";
             })
             .addCase(getSkuProByVariants.fulfilled, (state, action) => {
-                const product = action.payload.metadata;
-                state.product = product;
+                const skuPro = action.payload.metadata;
+                state.skuProData = skuPro;
                 state.loading = false;
                 state.status = "success";
             })
             .addCase(getSkuProByVariants.rejected, (state) => {
-                state.product = null;
+                state.skuProData = null;
                 state.loading = false;
                 state.status = "error";
             });
     },
 });
 
-export default variantSlice.reducer;
+export default dataSlice.reducer;

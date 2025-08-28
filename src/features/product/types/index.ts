@@ -16,6 +16,7 @@ export type Product = {
     product_price: number,
     product_slug: string,
     product_brand?: string,
+    sku_tier_idx: string,
     // discountPrice: number,
     quantity: number,
 }

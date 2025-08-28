@@ -16,23 +16,23 @@ import ProSocialsShare from "./components/ProSocialsShare";
 import ProWishListToggle from "./components/ProWishListToggle";
 import ProFlashSalePrice from "./components/ProFlashSalePrice"
 import ProPurchaseActions from "./components/ProPurchaseActions"
+import ProSkuDardBoard from "./components/ProSkuDardBoard";
 
 import ReviewStars from "@/features/reviews/components/ReviewStars"
 import { NotFound } from "@/components/layout";
 
-import { selectVariantsStoreKey } from "./components/ProVariantsSelector/store/selectors"
 import LoadingPlaceholder from "./components/LoadingSkeleton";
 import { breadcrumbs, specs } from "@/features/product/detail/constants"
-import { PRO_DETAIL } from "./constants";
 import { useFetchData } from "./hooks";
 
-
+import { PRO_DETAIL } from "./constants";
 
 export default function ProDetail({ lastId }: { lastId?: string }) {
 
     const { product, loading, error } = useFetchData({
         product_id: lastId
     })
+
 
     const hasNoData = !product || product.length === 0;
 
@@ -81,26 +81,28 @@ export default function ProDetail({ lastId }: { lastId?: string }) {
 
 
                                 <div className="md:col-span-3 md:order-2 md:row-span-2">
-                                    <CardTitle className="flex items-center p-3">
-                                        {product.product_name}
-                                    </CardTitle>
+                                    <ProSkuDardBoard product_id={lastId} storeKey={PRO_DETAIL}>
+                                        <CardTitle className="flex items-center p-3">
+                                            {product.product_name}
+                                        </CardTitle>
 
-                                    <ReviewStars
-                                        data={product.product_ratingsAverange}
-                                        readOnly
-                                    />
-                                    <ProFlashSalePrice
-                                        price={product.product_price}
-                                        flashSalePrice={product.product_price - 1}
-                                    />
-                                    <ProVariantsSelector
-                                        storeKey={PRO_DETAIL}
-                                        options={product.product_variations}
-                                    />
-                                    <ProQuantitySelector
-                                        quantity={product.product_quantity}
-                                    />
-                                    <ProPurchaseActions data={product} />
+                                        <ReviewStars
+                                            data={product.product_ratingsAverange}
+                                            readOnly
+                                        />
+                                        <ProFlashSalePrice
+                                            price={product.product_price}
+                                            flashSalePrice={product.product_price - 1}
+                                        />
+                                        <ProVariantsSelector
+                                            storeKey={PRO_DETAIL}
+                                            options={product.product_variations}
+                                        />
+                                        <ProQuantitySelector
+                                            storeKey={PRO_DETAIL}
+                                        />
+                                        <ProPurchaseActions data={product} />
+                                    </ProSkuDardBoard>
                                 </div>
                             </div>
                         </CardContent>

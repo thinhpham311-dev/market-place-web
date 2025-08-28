@@ -6,9 +6,10 @@ import { Plus, Minus } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ICounterProps {
-    initialValue?: number; // Dùng initialValue thay vì value
+    initialValue?: number;
     onQuantityChange?: (quantity: number) => void;
-    className?: string
+    className?: string;
+    isDisabled?: boolean; // ✅ thêm prop này
 }
 
 export interface ICounterRef {
@@ -17,59 +18,64 @@ export interface ICounterRef {
 }
 
 export const Counter = memo(
-    forwardRef<ICounterRef, ICounterProps>(({ onQuantityChange, initialValue = 1, className }, ref) => {
-        const [localCount, setLocalCount] = useState<number>(initialValue);
-        // Đồng bộ giá trị từ props vào state mỗi khi initialValue thay đổi
-        useEffect(() => {
-            setLocalCount(initialValue);
-        }, [initialValue]);
+    forwardRef<ICounterRef, ICounterProps>(
+        ({ onQuantityChange, initialValue = 1, className, isDisabled = false }, ref) => {
+            const [localCount, setLocalCount] = useState<number>(initialValue);
 
-        const updateCount = (newCount: number) => {
-            setLocalCount(newCount);
-            onQuantityChange?.(newCount);
-        };
+            useEffect(() => {
+                setLocalCount(initialValue);
+            }, [initialValue]);
 
-        const increment = () => updateCount(localCount + 1);
-        const decrement = () => updateCount(Math.max(0, localCount - 1));
-        const reset = () => updateCount(initialValue); // Reset về giá trị ban đầu
-        const getCount = () => localCount;
+            const updateCount = (newCount: number) => {
+                if (isDisabled) return; // ✅ ngăn thay đổi khi disabled
+                setLocalCount(newCount);
+                onQuantityChange?.(newCount);
+            };
 
-        useImperativeHandle(ref, () => ({
-            reset,
-            getCount,
-        }));
+            const increment = () => updateCount(localCount + 1);
+            const decrement = () => updateCount(Math.max(0, localCount - 1));
+            const reset = () => updateCount(initialValue);
+            const getCount = () => localCount;
 
-        return (
-            <div className={cn(className, "flex items-center space-x-3 ")}>
-                <Button
-                    onClick={decrement}
-                    size="icon"
-                    variant="outline"
-                    className="w-6 h-6 rounded-xl"
-                    aria-label="Decrement"
-                    disabled={localCount <= 1}
-                >
-                    <Minus />
-                </Button>
-                <Input
-                    type="text"
-                    value={localCount}
-                    readOnly
-                    className="text-center text-sm w-12 h-8"
-                    aria-label="Counter value"
-                />
-                <Button
-                    onClick={increment}
-                    size="icon"
-                    variant="outline"
-                    className="w-6 h-6 rounded-xl"
-                    aria-label="Increment"
-                >
-                    <Plus />
-                </Button>
-            </div>
-        );
-    })
+            useImperativeHandle(ref, () => ({
+                reset,
+                getCount,
+            }));
+
+            return (
+                <div className={cn(className, "flex items-center space-x-3")}>
+                    <Button
+                        onClick={decrement}
+                        size="icon"
+                        variant="outline"
+                        className="w-6 h-6 rounded-xl"
+                        aria-label="Decrement"
+                        disabled={isDisabled || localCount <= 1} // ✅ disable khi có isDisabled
+                    >
+                        <Minus />
+                    </Button>
+                    <Input
+                        type="text"
+                        value={localCount}
+                        readOnly
+                        className="text-center text-sm w-12 h-8"
+                        aria-label="Counter value"
+                        disabled={isDisabled} // ✅ disable input
+                    />
+                    <Button
+                        onClick={increment}
+                        size="icon"
+                        variant="outline"
+                        className="w-6 h-6 rounded-xl"
+                        aria-label="Increment"
+                        disabled={isDisabled} // ✅ disable khi có isDisabled
+                    >
+                        <Plus />
+                    </Button>
+                </div>
+            );
+        }
+    )
 );
 
 Counter.displayName = "Counter";

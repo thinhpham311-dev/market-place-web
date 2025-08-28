@@ -1,0 +1,1 @@
+export const QUANTITY_COUNTER = "QUANTITY_COUNTER"
