@@ -1,32 +1,27 @@
 "use client";
-import * as React from "react";
 
-// ui
-import {
-    CardContent,
-    CardDescription,
-} from "@/components/ui";
+import React from "react";
+import { CardDescription } from "@/components/ui";
+import { useProQuantitySelectorContext } from "./hooks";
 
-// hooks
-import { useProQuantitySelectorContext, useAnimatedNumber } from "./hooks";
+const ProQuantitySelectorStock: React.FC = () => {
+    const { maxQuantity } = useProQuantitySelectorContext();
 
-const ProQuantitySelectorStock = () => {
 
-    const {
-        maxQuantity,
-    } = useProQuantitySelectorContext();
 
-    const displayQuantity = useAnimatedNumber(maxQuantity);
-
-    const stockLabel = displayQuantity > 0
-        ? `${displayQuantity} pieces available`
-        : "IN STOCK";
+    if (maxQuantity === 0) {
+        return (
+            <CardDescription className="transition-opacity duration-300">
+                IN STOCK
+            </CardDescription>
+        );
+    }
 
     return (
         <CardDescription className="transition-opacity duration-300">
-            {stockLabel}
+            {`${maxQuantity} pieces available`}
         </CardDescription>
     );
 };
 
-export default ProQuantitySelectorStock
+export default React.memo(ProQuantitySelectorStock);

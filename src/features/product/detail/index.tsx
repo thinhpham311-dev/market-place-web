@@ -99,6 +99,7 @@ export default function ProDetail({ lastId }: { lastId?: string }) {
                                             options={product.product_variations}
                                         />
                                         <ProQuantitySelector
+                                            initialValue={0}
                                             storeKey={PRO_DETAIL}
                                         />
                                         <ProPurchaseActions data={product} />

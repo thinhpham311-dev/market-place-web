@@ -19,12 +19,13 @@ import { useSkuDataContext } from "../ProSkuDardBoard/hooks";
 
 interface IProQuantitySelectorProps {
     storeKey: string;
+    initialValue: number
 }
 
-const ProQuantitySelector = ({ storeKey }: IProQuantitySelectorProps) => {
+const ProQuantitySelector = ({ storeKey, initialValue }: IProQuantitySelectorProps) => {
     const { skuProData } = useSkuDataContext();
-    const maxQuantity = skuProData?.sku_stock ?? 0;
-    const quantitySelector = useHandleQuantitySelector({ storeKey, maxQuantity });
+    const maxQuantity = skuProData?.sku_stock;
+    const quantitySelector = useHandleQuantitySelector({ storeKey, initialValue, maxQuantity });
 
     return (
         <ProQuantitySelectorProvider contextValues={{ ...quantitySelector }}>

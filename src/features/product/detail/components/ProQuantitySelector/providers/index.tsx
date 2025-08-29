@@ -5,7 +5,7 @@ import React from "react";
 import { cn } from "@/lib/utils"
 
 interface ProQuantitySelectorContextType {
-    maxQuantity: number,
+    maxQuantity?: number,
     currentQuantity: number,
     errorMessages: string[],
     handleQuantityChange: (n: number) => void,

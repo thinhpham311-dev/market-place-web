@@ -14,7 +14,7 @@ import ProQuantitySelectorStock from "./ProQuantitySelectorStock";
 
 
 // hooks
-import { useProQuantitySelectorContext, useAnimatedNumber } from "./hooks";
+import { useProQuantitySelectorContext } from "./hooks";
 
 
 const ProQuantitySelectorCounter = () => {
@@ -24,7 +24,7 @@ const ProQuantitySelectorCounter = () => {
         handleQuantityChange,
         resetQuantity,
         maxQuantity,
-        currentQuantity = 1,
+        currentQuantity,
     } = useProQuantitySelectorContext();
 
 

@@ -1,13 +1,8 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
-/**
- * Hook animate số từ giá trị cũ sang giá trị mới
- * @param targetValue Số mục tiêu cần animate đến
- * @param duration Thời gian animate (ms)
- */
 export function useAnimatedNumber(targetValue: number, duration = 500) {
-    const [displayValue, setDisplayValue] = useState(targetValue);
+    const [displayValue, setDisplayValue] = useState<number | undefined>(targetValue);
     const prevValue = useRef(targetValue);
 
     useEffect(() => {

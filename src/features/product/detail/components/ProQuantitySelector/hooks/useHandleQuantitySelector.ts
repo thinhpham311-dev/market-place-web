@@ -6,20 +6,22 @@ import {
     resetQuantity as resetQuantityAction,
 } from "../store/stateSlice";
 
-import { selectQuantitySelectorByStoreKey } from "../store/selectors"
+import { selectQuantitySelectorByStoreKey } from "../store/selectors";
 import { injectReducer, removeReducer } from "@/store";
 import reducer from "../store";
 
-import { QUANTITY_COUNTER } from "../constants"
+import { QUANTITY_COUNTER } from "../constants";
 
 interface IUseHandleQuantitySelector {
-    storeKey: string,
-    maxQuantity: number
+    storeKey: string;
+    initialValue: number;
+    maxQuantity: number;
 }
 
 export function useHandleQuantitySelector({
     storeKey,
-    maxQuantity
+    initialValue,
+    maxQuantity = 0,
 }: IUseHandleQuantitySelector) {
     const dispatch = useAppDispatch();
 
@@ -27,15 +29,22 @@ export function useHandleQuantitySelector({
         const reducerKey = `${QUANTITY_COUNTER}_${storeKey}`;
         injectReducer(reducerKey, reducer);
 
+        // Set initial value when reducer is injected
+        if (initialValue) {
+            dispatch(setQuantity(initialValue));
+            dispatch(setErrorMessages(validateQuantity(initialValue)));
+        }
+
         return () => {
-            dispatch(resetQuantityAction())
+            dispatch(resetQuantityAction());
             removeReducer(reducerKey);
         };
-    }, [dispatch])
+    }, [dispatch, storeKey, initialValue, maxQuantity]);
 
-    const { currentQuantity, errorMessages } = useAppSelector(selectQuantitySelectorByStoreKey(storeKey));
+    const { currentQuantity, errorMessages } = useAppSelector(
+        selectQuantitySelectorByStoreKey(storeKey)
+    );
 
-    console.log("maxQuantity", currentQuantity)
     const validateQuantity = useCallback(
         (newQuantity: number) => {
             if (newQuantity > maxQuantity) {
@@ -58,7 +67,13 @@ export function useHandleQuantitySelector({
 
     const resetQuantity = useCallback(() => {
         dispatch(resetQuantityAction());
-    }, [dispatch]);
+
+        // reset về initialValue sau khi reset
+        if (initialValue) {
+            dispatch(setQuantity(initialValue));
+            dispatch(setErrorMessages(validateQuantity(initialValue)));
+        }
+    }, [dispatch, initialValue, validateQuantity]);
 
     return {
         maxQuantity,
