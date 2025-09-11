@@ -3,7 +3,7 @@
 import {
     Card, CardHeader, CardContent, CardTitle, CardDescription
 } from "@/components/ui";
-import ProductGrid from "../components/ProductGrid";
+import SpuGrid from "@/features/product/components/ProGrid";
 // import LoadMoreTrigger from "@/features/common/infinite-scroll";
 import Pagination from "@/features/common/pagination";
 
@@ -15,7 +15,9 @@ import { PRO_SUGGESTION_LIST } from "@/features/product/list/suggestion/constant
 
 export default function ProSuggestionList() {
 
-    const { products, totalItems, error, status } = useFetchData();
+    const { products, totalItems, error, status } = useFetchData({
+        storeKey: PRO_SUGGESTION_LIST,
+    });
 
 
     return (
@@ -30,7 +32,7 @@ export default function ProSuggestionList() {
             </CardHeader>
 
             <CardContent className="col-span-12 space-y-3">
-                <ProductGrid
+                <SpuGrid
                     countLoadItems={24}
                     error={error}
                     data={products}

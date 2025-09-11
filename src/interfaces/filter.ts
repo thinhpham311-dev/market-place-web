@@ -1,4 +1,3 @@
-// types.ts
 export interface IFilter {
     categoryId?: string;
     brand?: string[];

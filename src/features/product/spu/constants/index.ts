@@ -1,0 +1,1 @@
+export const SPU_KEY = "SPU_KEY";

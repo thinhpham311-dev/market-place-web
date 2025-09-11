@@ -1,11 +1,12 @@
 import { notFound } from "next/navigation";
+
+
 // Components
 import ProBundleDealList from "@/features/product/list/bundle-deal"
 import ProTopPicksList from "@/features/product/list/top-picks"
 import ProRelatedList from "@/features/product/list/related"
 // import StoreInfo from './components/StoreInfo';
-import ProDetail from "@/features/product/detail";
-import ProductReview from "@/features/reviews"
+import ProductDetail from "@/features/product";
 
 
 export default function Page(
@@ -29,9 +30,7 @@ export default function Page(
 
     return (
         <div className="space-y-5 md:my-5 container mx-auto">
-            <ProDetail lastId={lastId} />
-            <ProductReview />
-            {/* <StoreInfo />*/}
+            <ProductDetail lastId={lastId} />
             <ProTopPicksList />
             <ProBundleDealList />
             <ProRelatedList />

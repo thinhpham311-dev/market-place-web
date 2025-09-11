@@ -17,7 +17,6 @@ const ProductReview = () => {
     const dispatch = useAppDispatch()
     const { reviews } = useAppSelector(state => state.reviewForm.state)
     const { reviewsList } = useAppSelector(state => state.productReview.state)
-
     React.useEffect(() => {
         dispatch(setInitialReviews(reviews))
     }, [dispatch, reviews])

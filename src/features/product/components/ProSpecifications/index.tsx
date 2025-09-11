@@ -1,0 +1,42 @@
+"use client";
+import * as React from "react";
+import {
+    Card,
+    CardTitle,
+    CardContent,
+    CardDescription,
+} from "@/components/ui/card";
+import SpecificationItem from "./SpecificationItem";
+
+interface IProSpecificationsProps {
+    specs: { label: string; value: string | React.ReactNode }[];
+}
+
+export default function ProSpecifications({ specs }: IProSpecificationsProps) {
+
+    if (!specs || specs.length === 0) {
+        return (
+            <CardContent className="p-3">
+                <CardDescription>No specifications available</CardDescription>
+            </CardContent>
+        );
+    }
+    return (
+        <Card className="sticky top-[70px] left-0 rounded-none">
+            <CardTitle className="bg-sidebar-foreground text-background p-3">
+                Product Specifications
+            </CardTitle>
+
+            <CardContent className="p-0" >
+                {specs.map((spec, index) => (
+                    <SpecificationItem
+                        key={index}
+                        label={spec.label}
+                        value={spec.value}
+                        hasSeparator={index < specs.length - 1}
+                    />
+                ))}
+            </CardContent>
+        </Card>
+    );
+}

@@ -10,39 +10,43 @@ import reducer from "@/features/product/list/search/store";
 import { injectReducer, removeReducer } from "@/store";
 
 //constants
-import { PRO_SEARCH_LIST } from "@/features/product/list/search/constants";
 
+interface IUseFetchData {
+    storeKey: string;
+    keyword?: string;
+}
 
-export function useFetchData({ keyword }: { keyword?: string }) {
+export function useFetchData({ storeKey, keyword }: IUseFetchData) {
     useLayoutEffect(() => {
-        injectReducer(PRO_SEARCH_LIST, reducer)
+        injectReducer(storeKey, reducer)
 
         return () => {
-            removeReducer(PRO_SEARCH_LIST)
+            removeReducer(storeKey)
         }
-    }, [PRO_SEARCH_LIST])
+    }, [storeKey])
 
     const dispatch = useAppDispatch();
 
     const { currentPage = 1, limit = 15 } = useAppSelector(
-        selectPaginationByStoreKey(PRO_SEARCH_LIST)
+        selectPaginationByStoreKey(storeKey)
     );
 
     const { filter } = useAppSelector(
-        selectFilterStoreKey(PRO_SEARCH_LIST)
+        selectFilterStoreKey(storeKey)
     );
 
     const {
         sortBy: { value: sort = "" } = { value: "" }
-    } = useAppSelector(selectSortByStoreKey(PRO_SEARCH_LIST));
+    } = useAppSelector(selectSortByStoreKey(storeKey));
 
 
     const {
         products = [],
         totalItems,
         loading,
-        error = null
-    } = useAppSelector(selectProSearchListByStoreKey(PRO_SEARCH_LIST));
+        error = null,
+        status = ""
+    } = useAppSelector(selectProSearchListByStoreKey(storeKey));
 
     useEffect(() => {
         const promise = dispatch(getProductList({
@@ -57,5 +61,5 @@ export function useFetchData({ keyword }: { keyword?: string }) {
         };
     }, [dispatch, keyword, filter, sort, currentPage, limit]);
 
-    return { products, totalItems, loading, error };
+    return { products, totalItems, loading, error, status };
 }

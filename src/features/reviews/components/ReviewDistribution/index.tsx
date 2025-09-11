@@ -12,6 +12,7 @@ interface IReviewDistributionProps {
 }
 
 const ReviewDistribution = ({ data }: IReviewDistributionProps) => {
+    console.log("Review Distribution Data:", data);
     return (
         <Card className="md:p-5 p-3 space-y-6 sticky top-[70px] rounded-none">
             <CardHeader className="p-0">

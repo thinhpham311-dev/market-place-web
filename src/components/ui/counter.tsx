@@ -1,5 +1,12 @@
-'use client';
-import React, { useState, useEffect, forwardRef, useImperativeHandle, memo } from "react";
+"use client";
+
+import React, {
+    useState,
+    useEffect,
+    forwardRef,
+    useImperativeHandle,
+    memo,
+} from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, Minus } from "lucide-react";
@@ -9,6 +16,7 @@ interface ICounterProps {
     initialValue?: number;
     onQuantityChange?: (quantity: number) => void;
     className?: string;
+    maxValue?: number;
     isDisabled?: boolean; // ✅ thêm prop này
 }
 
@@ -19,7 +27,10 @@ export interface ICounterRef {
 
 export const Counter = memo(
     forwardRef<ICounterRef, ICounterProps>(
-        ({ onQuantityChange, initialValue = 1, className, isDisabled = false }, ref) => {
+        (
+            { onQuantityChange, initialValue = 1, className, maxValue = 0, isDisabled = false },
+            ref
+        ) => {
             const [localCount, setLocalCount] = useState<number>(initialValue);
 
             useEffect(() => {
@@ -27,7 +38,10 @@ export const Counter = memo(
             }, [initialValue]);
 
             const updateCount = (newCount: number) => {
-                if (isDisabled) return; // ✅ ngăn thay đổi khi disabled
+                if (isDisabled) return;
+                if (maxValue !== 0) {
+                    newCount = Math.min(newCount, maxValue);
+                }
                 setLocalCount(newCount);
                 onQuantityChange?.(newCount);
             };
@@ -50,7 +64,7 @@ export const Counter = memo(
                         variant="outline"
                         className="w-6 h-6 rounded-xl"
                         aria-label="Decrement"
-                        disabled={isDisabled || localCount <= 1} // ✅ disable khi có isDisabled
+                        disabled={isDisabled || localCount <= 1}
                     >
                         <Minus />
                     </Button>
@@ -60,7 +74,7 @@ export const Counter = memo(
                         readOnly
                         className="text-center text-sm w-12 h-8"
                         aria-label="Counter value"
-                        disabled={isDisabled} // ✅ disable input
+                        disabled={isDisabled}
                     />
                     <Button
                         onClick={increment}
@@ -68,7 +82,7 @@ export const Counter = memo(
                         variant="outline"
                         className="w-6 h-6 rounded-xl"
                         aria-label="Increment"
-                        disabled={isDisabled} // ✅ disable khi có isDisabled
+                        disabled={isDisabled || localCount >= maxValue}
                     >
                         <Plus />
                     </Button>

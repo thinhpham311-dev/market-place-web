@@ -1,4 +1,4 @@
-import { Product } from "@/features/product/types";
+import { ISpuPro } from "@/interfaces/spu";
 
 export interface IOrder {
     _id: string
@@ -25,13 +25,13 @@ export interface IOrder {
     status: string
 }
 
-export interface IOrderItem extends Product {
+export interface IOrderItem extends ISpuPro {
     slug: string
     qty: number
     countInStock: number
 }
 
-export type ShippingAddress = {
+export interface IShippingAddress {
     fullName: string
     address: string
     city: string

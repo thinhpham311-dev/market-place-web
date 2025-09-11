@@ -1,6 +1,6 @@
 // src/components/product/review/ReviewDistribution/AverageRating.tsx
 import React from "react";
-import { Card, CardContent, CardTitle, CardDescription } from "@/components/ui";
+import { Card, CardContent, CardDescription } from "@/components/ui";
 import ReviewStars from "../ReviewStars";
 import { Review } from "../../types";
 
@@ -20,7 +20,7 @@ const AverageRating = ({ data }: IAverageRatingProps) => {
         <Card className="rounded-none">
             <CardContent className="p-0">
                 <CardDescription className="inline-flex items-center space-x-3">
-                    <ReviewStars readOnly data={parseFloat(averageRating)} />
+                    <ReviewStars readOnly />
                     <span>{averageRating} / 5</span>
                     <span>{totalReviews} total reviews</span>
                 </CardDescription>

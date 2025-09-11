@@ -1,0 +1,1 @@
+export const SKU_KEY = "SKU_KEY";

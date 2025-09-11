@@ -10,5 +10,5 @@ export interface IUser {
     isActive?: boolean;
     createdAt?: Date;
     updatedAt?: Date;
-    image?: string; // Optional field for user profile image
+    image?: string;
 }

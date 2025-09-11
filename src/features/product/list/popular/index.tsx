@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import {
     Button, Card, CardHeader, CardContent, CardTitle, CardDescription
 } from '@/components/ui';
-import ProductCarousel from "../components/ProductCarousel"
+import ProCarousel from "@/features/product/components/ProCarousel"
 
 //hooks
 import { useFetchData } from "./hooks";
@@ -33,7 +33,7 @@ export default function ProPopularList() {
                 </Button>
             </CardHeader>
             <CardContent className="col-span-12">
-                <ProductCarousel
+                <ProCarousel
                     countLoadItems={6}
                     data={products}
                     isLoading={loading}

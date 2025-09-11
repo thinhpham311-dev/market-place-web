@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import {
     Button, Card, CardHeader, CardContent, CardTitle, CardDescription
 } from '@/components/ui';
-import ProductCarousel from "../components/ProductCarousel"
+import ProCarousel from "@/features/product/components/ProCarousel"
 
 //datas
 // import { productData } from "@/constants/data";
@@ -49,7 +49,7 @@ export default function ProHotDealList() {
                 </Button>
             </CardHeader>
             <CardContent className="col-span-12">
-                <ProductCarousel
+                <ProCarousel
                     error={error}
                     countLoadItems={6}
                     data={products}

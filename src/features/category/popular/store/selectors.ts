@@ -2,7 +2,6 @@ import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "@/store";
 
 export const makeSelectCatPopularListState = (storeKey: string) => {
-    console.log(storeKey)
     return createSelector(
         (state: RootState) => state[storeKey]?.data ?? null,
         (data) => ({

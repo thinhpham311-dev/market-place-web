@@ -1,17 +1,18 @@
-import { Product } from "@/features/product/types";
+import { ISkuPro } from "@/interfaces/sku";
+import { ISpuPro } from "@/interfaces/spu"; // nếu có file này
 
-export interface IcartItem extends Product {
+export interface ICartItem extends ISkuPro, ISpuPro {
+    quantity: number;
     totalPrice?: number;
     discountedTotalPrice?: number;
-    uniqueKey: string
 }
 
-export interface Icart {
-    items: IcartItem[];
+export interface ICart {
+    items: ICartItem[];
     totalQuantity: number;
     totalAmount: number;
     totalAmountDiscount: number;
-    totalSelectItems: number
+    totalSelectItems: number;
     total: number;
     estimatedShipping: number;
     estimatedTax: number;

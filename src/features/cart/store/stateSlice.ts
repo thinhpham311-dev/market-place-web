@@ -1,13 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // types
-import { Icart, IcartItem } from '@/interfaces/cart';
-import { WritableDraft } from 'immer';
+import { ICart, ICartItem } from '@/interfaces/cart';
 
-type Option = {
-    label: string;
-    value: string | Array<Option>
-}
+
 
 const calculateEstimatedShipping = (totalAmount: number): number => {
     if (totalAmount === 0) {
@@ -25,7 +21,7 @@ const calculateTotal = (totalAmount: number, estimatedShipping: number, estimate
     return totalAmount + estimatedShipping + estimatedTax;
 };
 
-const initialState: Icart = {
+const initialState: ICart = {
     items: [],
     totalQuantity: 0,
     totalAmount: 0,
@@ -38,19 +34,17 @@ const initialState: Icart = {
 };
 
 
-const recalculateTotals = (state: Icart) => {
+const recalculateTotals = (state: ICart) => {
     state.totalQuantity = state.items.reduce((sum, item) => sum + item.quantity, 0);
-    state.totalAmount = state.items.reduce((sum, item) => sum + item.product_price * item.quantity, 0);
-    state.totalAmountDiscount = state.items.reduce((sum, item) => sum + (item.product_price || 0) * item.quantity, 0);
+    state.totalAmount = state.items.reduce((sum, item) => sum + item.sku_price * item.quantity, 0);
+    state.totalAmountDiscount = state.items.reduce((sum, item) => sum + (item.sku_price || 0) * item.quantity, 0);
     state.totalSelectItems = state.selectedItems.length;
 
     if (state.items.length === 0) {
-        // Reset totals and estimated values if no items in cart
         state.total = 0;
         state.estimatedShipping = 0;
         state.estimatedTax = 0;
     } else {
-        // Use totalAmountDiscount for tax calculation if it exists and is greater than 0
         const taxableAmount = state.totalAmountDiscount > 0 ? state.totalAmountDiscount : state.totalAmount;
 
         state.estimatedShipping = calculateEstimatedShipping(state.totalAmount);
@@ -66,18 +60,13 @@ export const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
-        addItem: (state, action: PayloadAction<{ cartItem: IcartItem; options: (Option | null)[] }>) => {
-            const { cartItem, options } = action.payload;
-            const optionsType = options as WritableDraft<{
-                label: string;
-                value: Option[];
-            }>[] | undefined;
+        addItem: (state, action: PayloadAction<{ cartItem: ICartItem }>) => {
+            const { cartItem } = action.payload;
 
-            const existingItem = state.items.find(item => item.uniqueKey === cartItem.uniqueKey);
-
-            const updateItemTotals = (item: IcartItem) => {
-                item.totalPrice = item.product_price * item.quantity;
-                item.discountedTotalPrice = item.product_price * item.quantity;
+            const existingItem = state.items.find(item => item.sku_id === cartItem.sku_id);
+            const updateItemTotals = (item: ICartItem) => {
+                item.totalPrice = item.sku_price * item.quantity;
+                item.discountedTotalPrice = item.sku_price * item.quantity;
             };
 
             if (existingItem) {
@@ -86,9 +75,8 @@ export const cartSlice = createSlice({
             } else {
                 const newItem = {
                     ...cartItem,
-                    options: optionsType,
-                    totalPrice: cartItem.product_price * cartItem.quantity,
-                    discountedTotalPrice: cartItem.product_price * cartItem.quantity,
+                    totalPrice: cartItem.sku_price * cartItem.quantity,
+                    discountedTotalPrice: cartItem.sku_price * cartItem.quantity,
                 };
                 state.items.unshift(newItem);
             }
@@ -96,29 +84,27 @@ export const cartSlice = createSlice({
             recalculateTotals(state);
         },
 
-        updateItem: (state, action: PayloadAction<{ uniqueKey: string; options: (Option | null)[]; quantity: number }>) => {
-            const { uniqueKey, options, quantity } = action.payload;
-            const itemToUpdate = state.items.find(item => item.uniqueKey === uniqueKey);
-            const optionsType = options as WritableDraft<{ label: string; value: Option[]; }>[] | undefined;
+        updateItem: (state, action: PayloadAction<{ sku_id: string; quantity: number }>) => {
+            const { sku_id, quantity } = action.payload;
+            const itemToUpdate = state.items.find(item => item.sku_id === sku_id);
 
             if (itemToUpdate) {
                 if (quantity === 0) {
-                    state.items = state.items.filter(item => item.uniqueKey !== uniqueKey);
+                    state.items = state.items.filter(item => item.sku_id !== sku_id);
                 } else {
                     const duplicateItem = state.items.find(
-                        item => item.uniqueKey !== uniqueKey && JSON.stringify(item.options) === JSON.stringify(optionsType)
+                        item => item.sku_id !== sku_id
                     );
 
                     if (duplicateItem) {
                         duplicateItem.quantity += quantity;
-                        duplicateItem.totalPrice = duplicateItem.product_price * duplicateItem.quantity;
-                        duplicateItem.discountedTotalPrice = duplicateItem.product_price * duplicateItem.quantity;
-                        state.items = state.items.filter(item => item.uniqueKey !== uniqueKey);
+                        duplicateItem.totalPrice = duplicateItem.sku_price * duplicateItem.quantity;
+                        duplicateItem.discountedTotalPrice = duplicateItem.sku_price * duplicateItem.quantity;
+                        state.items = state.items.filter(item => item.sku_id !== sku_id);
                     } else {
-                        itemToUpdate.options = optionsType;
                         itemToUpdate.quantity = quantity;
-                        itemToUpdate.totalPrice = itemToUpdate.product_price * quantity;
-                        itemToUpdate.discountedTotalPrice = itemToUpdate.product_price * quantity;
+                        itemToUpdate.totalPrice = itemToUpdate.sku_price * quantity;
+                        itemToUpdate.discountedTotalPrice = itemToUpdate.sku_price * quantity;
                     }
                 }
             }
@@ -127,8 +113,8 @@ export const cartSlice = createSlice({
         },
 
 
-        removeItem: (state, action: PayloadAction<{ uniqueKey: string }>) => {
-            state.items = state.items.filter(item => item.uniqueKey !== action.payload.uniqueKey);
+        removeItem: (state, action: PayloadAction<{ sku_id: string }>) => {
+            state.items = state.items.filter(item => item.sku_id !== action.payload.sku_id);
             recalculateTotals(state);
         },
 
@@ -138,12 +124,12 @@ export const cartSlice = createSlice({
             recalculateTotals(state);
         },
 
-        toggleItemSelection: (state, action: PayloadAction<{ uniqueKey: string; checked: boolean }>) => {
-            const { uniqueKey, checked } = action.payload;
-            const selectedIndex = state.selectedItems.indexOf(uniqueKey);
+        toggleItemSelection: (state, action: PayloadAction<{ sku_id: string; checked: boolean }>) => {
+            const { sku_id, checked } = action.payload;
+            const selectedIndex = state.selectedItems.indexOf(sku_id);
 
             if (checked && selectedIndex === -1) {
-                state.selectedItems.push(uniqueKey);
+                state.selectedItems.push(sku_id);
             } else if (!checked && selectedIndex !== -1) {
                 state.selectedItems.splice(selectedIndex, 1);
             }
@@ -151,7 +137,7 @@ export const cartSlice = createSlice({
         },
         removeSelectedItems: (state) => {
             const selectedSet = new Set(state.selectedItems);
-            state.items = state.items.filter(item => !selectedSet.has(item.uniqueKey));
+            state.items = state.items.filter(item => !selectedSet.has(item.sku_id));
             state.selectedItems = [];
             recalculateTotals(state);
         },

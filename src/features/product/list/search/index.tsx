@@ -1,63 +1,29 @@
 'use client'
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 //components
 import {
     Button, Card, CardHeader, CardContent, CardTitle, CardDescription
 } from '@/components/ui';
-import ProductGrid from "../components/ProductCarousel";
+import ProGrid from "@/features/product/components/ProGrid";
 import Pagination from "@/features/common/pagination";
-//datas
-// import { productData } from "@/constants/data";
 
-//stores
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { getProductList } from "./store/dataSlice";
-import { selectPaginationByStoreKey } from "@/features/common/pagination/store/selectors";
-import { selectProSearchListByStoreKey } from "./store/selectors";
-import reducer from "./store";
-import { injectReducer } from "@/store";
+//hooks
+import { useFetchData } from "@/features/product/list/search/hooks";
 
 //icons
 import { ArrowRight } from "lucide-react"
 
 ///constants
-import { PRO_SEARCH_LIST } from "./constants";
+import { PRO_SEARCH_LIST } from "@/features/product/list/search/constants";
 
-injectReducer(PRO_SEARCH_LIST, reducer)
 
 export default function ProSearchList() {
     const router = useRouter()
-    const dispatch = useAppDispatch();
-
-    const {
-        currentPage: pageCurrentValue,
-        limit: limitCurrentValue
-    } = useAppSelector(
-        selectPaginationByStoreKey(PRO_SEARCH_LIST)
-    );
-
-    const {
-        products = [],
-        loading,
-        totalItems = 0,
-        error = null
-    } = useAppSelector(
-        selectProSearchListByStoreKey(PRO_SEARCH_LIST)
-    );
-
-    useEffect(() => {
-        const promise = dispatch(getProductList({
-            limit: limitCurrentValue || 12,
-            sort: "ctime",
-            page: pageCurrentValue || 1
-        }) as any);
-        return () => {
-            promise.abort()
-        }
-
-    }, [dispatch, pageCurrentValue, limitCurrentValue]);
+    const { products, totalItems, error, status } = useFetchData({
+        keyword: "",
+        storeKey: PRO_SEARCH_LIST,
+    });
 
     return (
         <Card className="border-none shadow-none grid grid-cols-12">
@@ -71,12 +37,12 @@ export default function ProSearchList() {
                 </Button>
             </CardHeader>
             <CardContent className="col-span-12">
-                <ProductGrid
+                <ProGrid
                     countLoadItems={12}
                     error={error}
                     data={products}
                     className="lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-3"
-                    isLoading={loading}
+                    status={status}
                 />
                 <Pagination
                     storeKey={PRO_SEARCH_LIST}

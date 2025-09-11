@@ -4,7 +4,7 @@ import React from "react";
 
 // components
 import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui";
-import ProductGrid from "../components/ProductGrid";
+import SpuGrid from "@/features/product/components/ProGrid";
 import { Pagination, SortBy, Filter } from "@/features/common";
 
 // hooks
@@ -49,7 +49,7 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
                         </CardHeader>
 
                         <CardContent className="p-3">
-                            <ProductGrid
+                            <SpuGrid
                                 error={error}
                                 status={status}
                                 countLoadItems={20}

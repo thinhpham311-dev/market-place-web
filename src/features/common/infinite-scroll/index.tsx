@@ -1,12 +1,12 @@
 'use client';
 import InfiniteScrollProvider from "./providers";
 import InfiniteScrollWrapper from "./components/InfiniteScrollWrapper";
-import { Product } from "@/features/product/types";
+import { ISpuPro } from "@/interfaces/spu";
 import { useHandleInfiniteScroll } from "./hooks";
 
 export interface IInfiniteScrollProps {
     storeKey: string;
-    products?: Product[];
+    products?: ISpuPro[];
 }
 
 

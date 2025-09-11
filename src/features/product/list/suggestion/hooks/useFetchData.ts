@@ -8,23 +8,23 @@ import { selectPaginationByStoreKey } from "@/features/common/pagination/store/s
 import reducer from "@/features/product/list/suggestion/store";
 import { injectReducer, removeReducer } from "@/store";
 
-//constants
-import { PRO_SUGGESTION_LIST } from "@/features/product/list/suggestion/constants";
+interface IUseFetchData {
+    storeKey: string;
+}
 
-
-export function useFetchData() {
+export function useFetchData({ storeKey }: IUseFetchData) {
     useLayoutEffect(() => {
-        injectReducer(PRO_SUGGESTION_LIST, reducer)
+        injectReducer(storeKey, reducer)
 
         return () => {
-            removeReducer(PRO_SUGGESTION_LIST)
+            removeReducer(storeKey)
         }
-    }, [PRO_SUGGESTION_LIST])
+    }, [storeKey])
 
     const dispatch = useAppDispatch();
 
     const { currentPage = 1, limit = 15 } = useAppSelector(
-        selectPaginationByStoreKey(PRO_SUGGESTION_LIST)
+        selectPaginationByStoreKey(storeKey)
     );
 
     const {
@@ -33,7 +33,7 @@ export function useFetchData() {
         loading,
         status = "",
         error = null
-    } = useAppSelector(selectProSuggestionListByStoreKey(PRO_SUGGESTION_LIST));
+    } = useAppSelector(selectProSuggestionListByStoreKey(storeKey));
 
     useEffect(() => {
         const promise = dispatch(getProductList({

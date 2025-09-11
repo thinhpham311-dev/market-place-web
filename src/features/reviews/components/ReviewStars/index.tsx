@@ -6,6 +6,7 @@ import reducer from "./store";
 import { MdOutlineStar, MdOutlineStarBorder } from 'react-icons/md';
 import { injectReducer } from '@/store';
 
+
 interface ReviewStarsProps {
     readOnly?: boolean;
     data?: number;

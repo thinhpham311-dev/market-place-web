@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import {
     Button, Card, CardHeader, CardContent, CardTitle, CardDescription
 } from '@/components/ui';
-import ProductCarousel from "../components/ProductCarousel"
+import SpuCarousel from "@/features/product/components/ProCarousel"
 
 //hooks
 import { useFetchData } from "@/features/product/list/top-picks/hooks";
@@ -13,9 +13,15 @@ import { useFetchData } from "@/features/product/list/top-picks/hooks";
 //icons
 import { ArrowRight } from "lucide-react"
 
+//constants
+import { PRO_TOPPICKS_LIST } from "@/features/product/list/top-picks/constants";
+
+
 export default function ProTopPicksList() {
     const router = useRouter()
-    const { products, loading, error } = useFetchData();
+    const { products, loading, error } = useFetchData({
+        storeKey: PRO_TOPPICKS_LIST
+    });
 
 
     return (
@@ -31,7 +37,7 @@ export default function ProTopPicksList() {
                 </Button>
             </CardHeader>
             <CardContent className="col-span-12">
-                <ProductCarousel
+                <SpuCarousel
                     countLoadItems={6}
                     error={error}
                     data={products}

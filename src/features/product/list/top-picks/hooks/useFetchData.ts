@@ -1,23 +1,24 @@
 import { useEffect, useLayoutEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getProductList } from "../store/dataSlice";
-import { selectProTopPickListByStoreKey } from "@/features/product/list//top-picks/store/selectors";
+import { selectProTopPickListByStoreKey } from "@/features/product/list/top-picks/store/selectors";
 //stores
 import reducer from "@/features/product/list/top-picks/store";
 import { injectReducer, removeReducer } from "@/store";
 
 //constants
-import { PRO_TOPPICKS_LIST } from "@/features/product/list/top-picks/constants";
 
+interface IUseFetchData {
+    storeKey: string;
+}
 
-export function useFetchData() {
+export function useFetchData({ storeKey }: IUseFetchData) {
     useLayoutEffect(() => {
-        injectReducer(PRO_TOPPICKS_LIST, reducer)
-
+        injectReducer(storeKey, reducer)
         return () => {
-            removeReducer(PRO_TOPPICKS_LIST)
+            removeReducer(storeKey)
         }
-    }, [PRO_TOPPICKS_LIST])
+    }, [storeKey])
 
     const dispatch = useAppDispatch();
 
@@ -26,7 +27,7 @@ export function useFetchData() {
         totalItems,
         loading,
         error = null
-    } = useAppSelector(selectProTopPickListByStoreKey(PRO_TOPPICKS_LIST));
+    } = useAppSelector(selectProTopPickListByStoreKey(storeKey));
 
     useEffect(() => {
         const promise = dispatch(getProductList({ limit: 12, sort: "ctime", page: 1 }) as any);
