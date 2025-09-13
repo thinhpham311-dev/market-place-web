@@ -1,21 +1,18 @@
 import React from 'react';
-import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui";
+import { Card, CardContent, CardDescription } from "@/components/ui";
+
 
 interface CartItemInfoProps {
-    itemName: string;
     itemPrice: number;
-    itemQuantity: number;
 }
 
-const CartItemInfo: React.FC<CartItemInfoProps> = ({ itemName, itemPrice = 0, itemQuantity = 0 }) => {
+const CartItemInfo = ({ itemPrice = 0 }: CartItemInfoProps) => {
     return (
         <Card className='border-none shadow-none'>
             <CardContent className='p-0'>
-                <CardTitle>{itemName}</CardTitle>
                 <CardDescription>
                     <ul>
-                        <li>Price: ${itemPrice.toFixed(2)}</li>
-                        <li>Quantity: {itemQuantity}</li>
+                        <li>Price: ${itemPrice}</li>
                     </ul>
                 </CardDescription>
             </CardContent>

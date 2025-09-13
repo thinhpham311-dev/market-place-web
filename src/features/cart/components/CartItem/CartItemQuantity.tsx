@@ -1,14 +1,16 @@
 import React from 'react';
-import { Card, CardContent } from '@/components/ui';
+import { Card, CardContent, Counter } from '@/components/ui';
 
+interface ICartItemQuantityProps {
+    currentQuantity: number;
+    maxQuantity: number
+}
 
-const CartItemQuantity = () => {
+const CartItemQuantity = ({ currentQuantity, maxQuantity }: ICartItemQuantityProps) => {
     return (
         <Card className='border-none shadow-none'>
             <CardContent className='p-0'>
-                {/* <button onClick={onDecrease} disabled={quantity <= 0}>-</button>
-            <span>{quantity}</span>
-            <button onClick={onIncrease}>+</button> */}
+                <Counter initialValue={currentQuantity} maxValue={maxQuantity} />
             </CardContent>
         </Card>
     );

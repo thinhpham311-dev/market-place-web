@@ -1,15 +1,27 @@
 import React from 'react';
 import { Card, CardContent, Button } from '@/components/ui';
+import CartItemQuantity from '@/features/cart/components/CartItem/CartItemQuantity';
+import { MdClose } from "react-icons/md";
+import { useShoppingCartContext } from '../../hooks';
 
-const CartItemActions = () => {
+interface ICartItemActionsProps {
+    itemId: string;
+    itemQuantity: number;
+    itemStock: number
+}
+
+const CartItemActions = ({ itemId, itemQuantity, itemStock }: ICartItemActionsProps) => {
+    const { removeItem } = useShoppingCartContext()
     const onHandleRemove = () => {
+        removeItem(itemId)
         console.log('Remove item from cart');
     };
 
     return (
-        <Card>
-            <CardContent className='p-3 flex items-center gap-2'>
-                <Button variant="outline" onClick={onHandleRemove}>Remove</Button>
+        <Card className='border-none shadow-none  w-full'>
+            <CardContent className='p-0 flex items-center justify-between gap-2'>
+                <CartItemQuantity currentQuantity={itemQuantity} maxQuantity={itemStock} />
+                <Button variant="outline" size="icon" onClick={onHandleRemove}><MdClose /></Button>
             </CardContent>
         </Card>
     );

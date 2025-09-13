@@ -1,26 +1,23 @@
 import React from 'react';
-import { Card, CardContent, CardTitle } from '@/components/ui';
+import { Card, CardContent } from '@/components/ui';
 import CartItem from "./CartItem"
-import { CartItem as CartItemType } from '@/features/cart/types';
+import { useShoppingCartContext } from '../hooks';
 
-interface CartSummaryProps {
-    items: CartItemType[];
-}
 
-const CartSummary: React.FC<CartSummaryProps> = ({ items }) => {
-    const totalAmount = items.reduce((total, item) => total + item.price * item.quantity, 0);
 
+const CartSummary = () => {
+    const { cart } = useShoppingCartContext()
+    const { items } = cart
     return (
-        <Card>
-            <CardContent className='p-3'>
-                <ul>
+        <Card className='border-none shadow-none '>
+            <CardContent className='p-0'>
+                <ul className='space-y-3'>
                     {items.map(item => (
                         <li key={item.sku_id}>
-                            <CartItem />
+                            <CartItem data={item} />
                         </li>
                     ))}
                 </ul>
-                <CardTitle>Total: ${totalAmount.toFixed(2)}</CardTitle>
             </CardContent>
         </Card>
     );

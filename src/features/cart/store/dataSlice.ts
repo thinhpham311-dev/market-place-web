@@ -1,16 +1,52 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { apiPostSkuDetail } from '@/features/product/sku/services';
-import { ISkuPro } from '@/interfaces/sku';
+import { apiPostShowItems, apiPostAddItem, apiPostRemoveItem, apiPostUpdateItem } from '@/features/cart/services';
+import { ICart, ICartItem } from '@/interfaces/cart';
 
-type SkuDetailResponse = {
-    metadata: ISkuPro
+type CartResponse = {
+    metadata: ICart
 };
 
-export const getSkuDetail = createAsyncThunk<SkuDetailResponse, ISkuPro>(
-    'detail/data/getSkuDetail',
+export const getItemInCart = createAsyncThunk<CartResponse, ICartItem & { user_id: string }>(
+    'cart/data/getItemInCart',
     async (params, { rejectWithValue }) => {
         try {
-            const response = await apiPostSkuDetail(params) as { data: SkuDetailResponse }
+            const response = await apiPostShowItems(params) as { data: CartResponse }
+            return response.data;
+        } catch (error: any) {
+            return rejectWithValue(error?.response?.data || error.message);
+        }
+    }
+);
+
+export const addItemIntoCart = createAsyncThunk<CartResponse, ICartItem & { user_id: string }>(
+    'cart/data/addItemIntoCart',
+    async (params, { rejectWithValue }) => {
+        try {
+            const response = await apiPostAddItem(params) as { data: CartResponse }
+            return response.data;
+        } catch (error: any) {
+            return rejectWithValue(error?.response?.data || error.message);
+        }
+    }
+);
+
+export const removeItemOutCart = createAsyncThunk<CartResponse, ICartItem & { user_id: string }>(
+    'cart/data/removeItemOutCart',
+    async (params, { rejectWithValue }) => {
+        try {
+            const response = await apiPostRemoveItem(params) as { data: CartResponse }
+            return response.data;
+        } catch (error: any) {
+            return rejectWithValue(error?.response?.data || error.message);
+        }
+    }
+);
+
+export const updateItemInCart = createAsyncThunk<CartResponse, ICartItem & { user_id: string }>(
+    'cart/data/updateItemInCart',
+    async (params, { rejectWithValue }) => {
+        try {
+            const response = await apiPostUpdateItem(params) as { data: CartResponse }
             return response.data;
         } catch (error: any) {
             return rejectWithValue(error?.response?.data || error.message);
@@ -20,41 +56,100 @@ export const getSkuDetail = createAsyncThunk<SkuDetailResponse, ISkuPro>(
 
 interface ISkuDetailState {
     loading: boolean;
-    sku: ISkuPro | null;
+    cart: ICart | null;
     error: string | null;
     status: "idle" | "loading" | "success" | "error";
 }
 
 const initialState: ISkuDetailState = {
     loading: false,
-    sku: null,
+    cart: null,
     status: "idle",
     error: null
 };
 
 const dataSlice = createSlice({
-    name: 'detail/data',
+    name: 'cart/data',
     initialState,
-    reducers: {},
+    reducers: {
+        clearServerCart: (state) => {
+            state.cart = initialState.cart;
+        },
+    },
     extraReducers: (builder) => {
         builder
-            .addCase(getSkuDetail.pending, (state) => {
-                state.sku = null;
+            .addCase(getItemInCart.pending, (state) => {
+                state.cart = null;
                 state.loading = true;
                 state.status = "loading";
             })
-            .addCase(getSkuDetail.fulfilled, (state, action) => {
+            .addCase(getItemInCart.fulfilled, (state, action) => {
                 const product = action.payload.metadata;
-                state.sku = product;
+                state.cart = product;
                 state.loading = false;
                 state.status = "success";
             })
-            .addCase(getSkuDetail.rejected, (state) => {
-                state.sku = null;
+            .addCase(getItemInCart.rejected, (state) => {
+                state.cart = null;
+                state.loading = false;
+                state.status = "error";
+            });
+
+        builder
+            .addCase(addItemIntoCart.pending, (state) => {
+                state.cart = null;
+                state.loading = true;
+                state.status = "loading";
+            })
+            .addCase(addItemIntoCart.fulfilled, (state, action) => {
+                const product = action.payload.metadata;
+                state.cart = product;
+                state.loading = false;
+                state.status = "success";
+            })
+            .addCase(addItemIntoCart.rejected, (state) => {
+                state.cart = null;
+                state.loading = false;
+                state.status = "error";
+            });
+
+        builder
+            .addCase(removeItemOutCart.pending, (state) => {
+                state.cart = null;
+                state.loading = true;
+                state.status = "loading";
+            })
+            .addCase(removeItemOutCart.fulfilled, (state, action) => {
+                const product = action.payload.metadata;
+                state.cart = product;
+                state.loading = false;
+                state.status = "success";
+            })
+            .addCase(removeItemOutCart.rejected, (state) => {
+                state.cart = null;
+                state.loading = false;
+                state.status = "error";
+            });
+        builder
+            .addCase(updateItemInCart.pending, (state) => {
+                state.cart = null;
+                state.loading = true;
+                state.status = "loading";
+            })
+            .addCase(updateItemInCart.fulfilled, (state, action) => {
+                const product = action.payload.metadata;
+                state.cart = product;
+                state.loading = false;
+                state.status = "success";
+            })
+            .addCase(updateItemInCart.rejected, (state) => {
+                state.cart = null;
                 state.loading = false;
                 state.status = "error";
             });
     },
 });
 
+
+export const { clearServerCart } = dataSlice.actions;
 export default dataSlice.reducer;

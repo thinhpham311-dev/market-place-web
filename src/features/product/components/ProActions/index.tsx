@@ -24,6 +24,8 @@ const ProActions: React.FC<ProActionsProps> = ({ storeKey, sku, spu, onAddToCart
             ...spu,
             ...sku,
             quantity: currentQuantity || 1,
+            totalPrice: 0,
+            discountedTotalPrice: 0
         });
     }, [sku, spu, onAddToCart, currentQuantity]);
 

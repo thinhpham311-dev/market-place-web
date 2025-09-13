@@ -17,6 +17,7 @@ const CartItemImage: React.FC<CartItemImageProps> = ({ src, alt, className }) =>
                     src={src}
                     alt={alt}
                     layout="responsive"
+                    className='aspect-square'
                     width={500}
                     height={500}
                 />

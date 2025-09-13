@@ -3,8 +3,8 @@ import { ISpuPro } from "@/interfaces/spu"; // nếu có file này
 
 export interface ICartItem extends ISkuPro, ISpuPro {
     quantity: number;
-    totalPrice?: number;
-    discountedTotalPrice?: number;
+    totalPrice: number;
+    discountedTotalPrice: number;
 }
 
 export interface ICart {
