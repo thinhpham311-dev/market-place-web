@@ -1,16 +1,16 @@
 "use client";
 
 import * as React from "react";
+import { formatToCurrency } from "@/lib/formats"
 
 interface IOldPriceProps {
     value: number;
-    currency: string
 }
 
 
-const OldPrice = ({ value, currency }: IOldPriceProps) => (
+const OldPrice = ({ value }: IOldPriceProps) => (
     <p className="text-gray-500 line-through text-sm">
-        {value.toLocaleString("vi-VN")} {currency}
+        {formatToCurrency(value)}
     </p>
 );
 

@@ -8,9 +8,8 @@ export const makeSelectVariantsState = (storeKey: string) =>
         (variantState) => ({
             variants: variantState?.variants || [],
             sku_tier_idx: (variantState?.selectedOptions
-                .filter((item: number) => item !== null)
-                .join(",")) || "",
-            validationErrors: variantState?.validationErrors || []
+                .filter((item: number) => item !== null)),
+            validationErrors: variantState?.validationErrors || [],
         })
     );
 

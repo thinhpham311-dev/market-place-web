@@ -7,6 +7,7 @@ import Loading from "./Loading"
 import { Card, CardContent, CardTitle, CardDescription, CardImage } from "@/components/ui"
 import { ISpuPro } from "@/interfaces/spu"
 import NotFound from "./NotFound"
+import { formatToCurrency } from "@/lib/formats"
 
 interface ISpuCardProps {
     item: ISpuPro
@@ -49,7 +50,7 @@ const ProCard = ({
                     <p>{product_name}</p>
                 </CardTitle>
                 <CardDescription className="space-x-3 mb-2 inline">
-                    {product_price && <p>{product_price}</p>}
+                    {formatToCurrency(product_price) && <p>{formatToCurrency(product_price)}</p>}
                 </CardDescription>
             </CardContent>
         </Card>

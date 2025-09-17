@@ -1,16 +1,16 @@
 "use client";
 
 import * as React from "react";
+import { formatToCurrency } from "@/lib/formats"
 
 interface IPriceTextProps {
     value: number;
-    currency: string;
     className?: string
 }
 
-const PriceText = ({ value, currency, className = "" }: IPriceTextProps) => (
+const PriceText = ({ value, className = "" }: IPriceTextProps) => (
     <h3 className={`text-2xl font-bold text-blue-600 ${className}`}>
-        {value.toLocaleString("vi-VN")} {currency}
+        {formatToCurrency(value)}
     </h3>
 );
 

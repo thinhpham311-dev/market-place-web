@@ -5,7 +5,7 @@ import {
     // CardTitle,
     CardHeader,
     CardContent,
-    Separator
+    Separator,
 } from "@/components/ui";
 
 // Components
@@ -32,19 +32,19 @@ import { useSkuContext } from "@/features/product/sku/hooks";
 import { useShoppingCartContext } from "@/features/cart/hooks";
 
 export default function ProDetail() {
-    const { spu, loading, error } = useSpuContext()
-    const { sku } = useSkuContext()
+    const { spu, loading: spuLoading, error: spuError } = useSpuContext()
+    const { sku, loading: skuLoading, error: skuError } = useSkuContext()
     const { addItem } = useShoppingCartContext()
     const hasNoData = !spu || Object.keys(spu).length === 0;
-    if (loading && hasNoData) {
+    if (spuLoading && hasNoData) {
         return <LoadingSkeleton />;
     }
 
-    if (!loading && hasNoData && error) {
-        return <NotFound message={error || "Something went wrong."} />;
+    if (!spuLoading && hasNoData && spuError) {
+        return <NotFound message={spuError || "Something went wrong."} />;
     }
 
-    if (!loading && hasNoData) {
+    if (!spuLoading && hasNoData) {
         return <NotFound />;
     }
 
@@ -92,6 +92,8 @@ export default function ProDetail() {
                                             price: sku?.sku_price,
                                             flashSalePrice: Number(sku?.sku_price) - 10,
                                         }}
+                                        loading={skuLoading}
+                                        error={skuError}
                                     />
                                     <ProVariantsSelector
                                         options={spu?.product_variations}
@@ -102,11 +104,9 @@ export default function ProDetail() {
                                         maxQuantity={sku?.sku_stock}
                                         storeKey={PRO_DETAIL}
                                     />
-                                    {/* <div className="p-3 flex items-center space-x-3">
-                                        <p className="font-bold">Items: {cart.items.length}</p>
-                                        <p className="font-bold">Quantity: {cart.totalQuantity}</p>
-                                    </div> */}
                                     <ProActions
+                                        loading={skuLoading}
+                                        error={skuError}
                                         storeKey={PRO_DETAIL}
                                         spu={spu}
                                         sku={sku}
@@ -115,6 +115,7 @@ export default function ProDetail() {
                             </div>
                         </CardContent>
                     </Card >
+
                 </div>
                 <div className="md:col-span-2 col-span-3 md:order-1 order-2">
                     <ProDescriptionContent

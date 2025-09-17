@@ -18,6 +18,7 @@ interface IQuantitySelectorProps {
     storeKey: string;
     initialValue: number;
     maxQuantity?: number;
+
 }
 
 const SkuQuantitySelector = ({ storeKey, initialValue = 1, maxQuantity = 0 }: IQuantitySelectorProps) => {

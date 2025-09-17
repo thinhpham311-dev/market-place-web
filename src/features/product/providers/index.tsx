@@ -2,14 +2,15 @@
 
 import React from "react";
 import { cn } from "@/lib/utils";
-import { VariantOption } from "@/interfaces/spu";
 import SpuDetailWrapper from "@/features/product/spu";
 import SkuDetailWrapper from "@/features/product/sku";
+import { VariantOption } from "@/interfaces/spu";
 
 interface IProContextType {
     product_id: string;
-    variants?: VariantOption[];
+    sku_tier_idx?: number[];
     quantity?: number;
+    variants: VariantOption[]
 }
 
 interface IProProviderProps {

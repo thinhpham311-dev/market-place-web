@@ -19,17 +19,19 @@ import { VariantOption } from "@/interfaces/spu";
 interface IUseFetchDataParams {
     product_id?: string;
     storeKey: string;
-    variants?: VariantOption[]
+    sku_tier_idx?: number[];
+    variants: VariantOption[]
 }
 
-export function useFetchData({ product_id, storeKey, variants }: IUseFetchDataParams) {
-    const dispatch = useAppDispatch();
+export function useFetchData({ product_id, storeKey, sku_tier_idx, variants }: IUseFetchDataParams) {
     useLayoutEffect(() => {
         injectReducer(storeKey, reducer);
         return () => {
             removeReducer(storeKey);
         };
     }, [storeKey]);
+
+    const dispatch = useAppDispatch();
 
     const {
         sku,
@@ -39,9 +41,12 @@ export function useFetchData({ product_id, storeKey, variants }: IUseFetchDataPa
     } = useAppSelector(selectSkuDetailByStoreKey(storeKey));
 
     useEffect(() => {
+        if (!sku_tier_idx || sku_tier_idx.length !== variants.length) {
+            return
+        }
         const promise = dispatch(getSkuDetail({
             product_id,
-            sku_tier_idx: variants
+            sku_tier_idx
         } as ISkuPro) as any);
 
         return () => {
@@ -49,6 +54,7 @@ export function useFetchData({ product_id, storeKey, variants }: IUseFetchDataPa
         };
     }, [dispatch,
         product_id,
+        sku_tier_idx,
         variants
     ]);
 

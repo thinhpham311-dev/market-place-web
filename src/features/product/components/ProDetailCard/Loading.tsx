@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/ui";
 
 const LoadingSkeleton = () => {
     return (
-        <div className="grid grid-cols-5 gap-5 my-4">
+        <div className="grid grid-cols-5 gap-5 mx-5">
             <Skeleton className="h-[50px] rounded-xl col-span-5 my-3" />
             <div className="grid grid-cols-5 gap-5 col-span-5">
                 <Skeleton className="h-[550px] col-span-2 rounded-xl" />

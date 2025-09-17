@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui";
 import PriceWithDiscount from "./PriceWithDiscount";
 import PriceRange from "./PriceRange";
 import PriceText from "./PriceWithDiscount/PriceText";
+import LoadingSkeleton from "./Loading";
 
 interface IProFlashSalePriceProps {
     spu?: {
@@ -20,14 +21,14 @@ interface IProFlashSalePriceProps {
     };
     currency?: string;
     locale?: string;
+    loading: boolean;
+    error: string | { message?: string } | null;
 }
-
-
 
 export default function ProFlashSalePrice({
     spu,
     sku,
-    currency = "₫",
+    loading,
 }: IProFlashSalePriceProps) {
     const defaultPrice = spu?.defaultPrice ?? 0;
     const price = sku?.price ?? spu?.minPrice ?? 0;
@@ -43,40 +44,40 @@ export default function ProFlashSalePrice({
             ? Math.round(((defaultPrice - price) / defaultPrice) * 100)
             : 0;
 
+    // 1. Loading state
+    if (loading) {
+        return <LoadingSkeleton />;
+    }
+
+
+    // 4. Render giá
     return (
-        <Card className="border-none shadow-none rounded-none bg-sidebar-primary-foreground" layout="horizontal">
+        <Card className="border-none shadow-none rounded-none bg-sidebar-primary-foreground">
             <CardContent className="p-3 flex flex-col gap-1">
                 {hasSku ? (
                     hasFlashSale ? (
                         <PriceWithDiscount
                             current={flashSalePrice}
                             old={price}
-                            currency={currency}
                             discountPercent={discountPercent}
                         />
                     ) : hasDiscountFromDefault ? (
                         <PriceWithDiscount
                             current={price}
                             old={defaultPrice}
-                            currency={currency}
                             discountPercent={discountPercent}
                         />
                     ) : (
-                        <PriceText value={price} currency={currency} />
+                        <PriceText value={price} />
                     )
                 ) : spu?.flashSaleMinPrice && spu.flashSaleMaxPrice ? (
                     <PriceWithDiscount
                         current={spu.flashSaleMinPrice}
                         old={spu.minPrice}
-                        currency={currency}
                         discountPercent={discountPercent}
                     />
                 ) : (
-                    <PriceRange
-                        min={spu?.minPrice}
-                        max={spu?.maxPrice}
-                        currency={currency}
-                    />
+                    <PriceRange min={spu?.minPrice} max={spu?.maxPrice} />
                 )}
             </CardContent>
         </Card>

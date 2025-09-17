@@ -12,12 +12,11 @@ interface IPriceWithDiscountProps {
 const PriceWithDiscount = ({
     current = 0,
     old = 0,
-    currency = "₫",
     discountPercent = 0,
 }: IPriceWithDiscountProps) => (
     <div className="flex items-center gap-2">
-        <PriceText value={current} currency={currency} />
-        <OldPrice value={old} currency={currency} />
+        <PriceText value={current} />
+        <OldPrice value={old} />
         <DiscountBadge percent={discountPercent} />
     </div>
 );

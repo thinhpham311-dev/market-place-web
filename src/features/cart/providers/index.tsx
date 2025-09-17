@@ -8,10 +8,10 @@ import { ICartItem, ICart } from "@/interfaces/cart";
 interface IShoppingCartContextType {
     cart: ICart;
     addItem: (cartItem: ICartItem) => void;
-    // updateItem: (sku_id: string, updates: CartItem) => void;
+    updateItem: (sku_id: string, quantity: number) => void;
     removeItem: (sku_id: string) => void;
     removeAllItems: () => void;
-    // toggleItemSelection: (sku_id: string) => void;
+    toggleItemSelection: (sku_id: string, checked: boolean) => void;
     removeSelectedItems: () => void;
 }
 
