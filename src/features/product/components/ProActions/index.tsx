@@ -2,50 +2,54 @@
 
 import React, { useCallback, memo } from "react";
 import { Card, CardContent, Button } from "@/components/ui";
-import { ISpuPro } from "@/interfaces/spu";
-import { ISkuPro } from "@/interfaces/sku";
-import { ICartItem } from "@/interfaces/cart";
 import { MdAddShoppingCart, MdShoppingCartCheckout } from "react-icons/md";
-import { selectQuantitySelectorByStoreKey } from "@/features/product/components/ProQuantitySelector/store/selectors";
-import { useAppSelector } from "@/lib/hooks";
 import LoadingSkeleton from "./Loading";
+import NotFound from "./NotFound";
+import { useProContext } from "@/features/product/hooks/useProContext";
+import { useSpuContext } from "@/features/spu/hooks";
+import { useSkuContext } from "@/features/sku/hooks";
+import { useShoppingCartContext } from "@/features/cart/hooks"
 
-interface IProActionsProps {
-    storeKey: string;
-    sku?: ISkuPro | null;
-    spu?: ISpuPro;
-    onAddToCart: (item: ICartItem) => void;
-    loading: boolean;
-    error: string | { message?: string } | null;
-}
+const ProActions = () => {
+    const { currentQuantity } = useProContext()
+    const { sku, loading: skuLoading } = useSkuContext()
+    const { spu, loading: spuLoading, error: spuError } = useSpuContext()
+    const hasNoData = !spu || Object.keys(spu).length === 0;
 
+    if (spuLoading && hasNoData || skuLoading) {
+        return <LoadingSkeleton />;
+    }
 
-const ProActions = ({
-    storeKey,
-    sku,
-    spu,
-    onAddToCart,
-    loading,
-    error,
-}: IProActionsProps) => {
-    const { currentQuantity } = useAppSelector(
-        selectQuantitySelectorByStoreKey(storeKey)
-    );
+    if (!spuLoading && hasNoData && spuError) {
+        return <NotFound message={spuError || "Something went wrong."} />;
+    }
+
+    if (!spuLoading && hasNoData) {
+        return <NotFound />;
+    }
+
+    const { addItem } = useShoppingCartContext()
 
     const handleAddToCart = useCallback(() => {
         if (!spu || !sku) return;
-        onAddToCart({
-            ...spu,
-            ...sku,
-            quantity: currentQuantity || 1,
-            totalPrice: 0,
-            discountedTotalPrice: 0,
+        addItem({
+            itemId: sku.sku_id,
+            itemName: spu.product_name,
+            itemImage: spu.product_image,
+            itemSlug: spu.product_slug,
+            itemPrice: Number(sku.sku_price),
+            itemProductId: spu.product_id,
+            itemShopId: spu.product_shop,
+            itemStock: sku.sku_stock,
+            itemTierIdx: sku.sku_tier_idx,
+            itemVariations: spu.product_variations,
+            quantity: currentQuantity,
         });
-    }, [sku, spu, onAddToCart, currentQuantity]);
+    }, [sku, spu, addItem, currentQuantity]);
 
-    const isDisabled = !sku || !!error;
+    const isDisabled = !sku || !!spuError;
 
-    if (loading) {
+    if (spuLoading) {
         return <LoadingSkeleton />;
     }
 

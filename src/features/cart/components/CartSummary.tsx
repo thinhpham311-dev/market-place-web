@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardContent } from '@/components/ui';
+import { Card, CardContent, ScrollArea } from '@/components/ui';
 import CartItem from "./CartItem"
 import { useShoppingCartContext } from '../hooks';
 
@@ -11,13 +11,15 @@ const CartSummary = () => {
     return (
         <Card className='border-none shadow-none '>
             <CardContent className='p-0'>
-                <ul className='space-y-3'>
-                    {items.map(item => (
-                        <li key={item.sku_id}>
-                            <CartItem data={item} />
-                        </li>
-                    ))}
-                </ul>
+                <ScrollArea className="h-[300px]">
+                    <ul className='space-y-3'>
+                        {items.map(item => (
+                            <li key={item.itemId}>
+                                <CartItem data={item} />
+                            </li>
+                        ))}
+                    </ul>
+                </ScrollArea>
             </CardContent>
         </Card>
     );

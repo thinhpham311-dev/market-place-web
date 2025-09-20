@@ -53,6 +53,15 @@ export const removeReducer = (key: string) => {
     }
 };
 
+export const removeAllReducers = () => {
+    store.asyncReducers = {};
+    store.replaceReducer(
+        persistReducer(persistConfig, rootReducer() as Reducer)
+    );
+    persistor.persist();
+};
+
+
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 

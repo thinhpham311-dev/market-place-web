@@ -6,17 +6,27 @@ import {
     CardDescription,
 } from "@/components/ui/card";
 import BreadcrumbItem from "./BreadcrumbItem";
+import { useSpuContext } from "@/features/spu/hooks";
+import { breadcrumbs } from "@/features/product/constants"
+import LoadingSkeleton from "./Loading"
+import NotFound from "./NotFound"
 
+export default function ProBreadcrumb() {
+    const { spu, loading, error } = useSpuContext();
+    const hasNoData = !spu || Object.keys(spu).length === 0;
+    if (loading && hasNoData) {
+        return <LoadingSkeleton />;
+    }
 
-interface SpuBreadcrumbProps {
-    breadcrumbs: {
-        label: string;
-        value: string | React.ReactNode
-    }[];
-}
+    if (!loading && hasNoData && error) {
+        return <NotFound message={error || "Something went wrong."} />;
+    }
 
-export default function ProBreadcrumb({ breadcrumbs }: SpuBreadcrumbProps) {
-    if (!breadcrumbs || breadcrumbs.length === 0) {
+    if (!loading && hasNoData) {
+        return <NotFound />;
+    }
+    const breadcrumbsList = breadcrumbs(spu)
+    if (!breadcrumbsList || breadcrumbsList.length === 0) {
         return (
             <CardContent className="p-3">
                 <CardDescription>No specifications available</CardDescription>
@@ -26,7 +36,7 @@ export default function ProBreadcrumb({ breadcrumbs }: SpuBreadcrumbProps) {
     return (
         <Card className=" rounded-none">
             <CardContent className="p-0" >
-                {breadcrumbs.map((breadcrumb, index) => (
+                {breadcrumbsList.map((breadcrumb, index) => (
                     <BreadcrumbItem
                         key={index}
                         label={breadcrumb.label}

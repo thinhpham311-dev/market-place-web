@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, Button } from '@/components/ui';
 import { MdClose } from "react-icons/md";
-import { useShoppingCartContext } from '../../hooks';
+import { useShoppingCartContext } from '@/features/cart/hooks';
 
 interface ICartItemActionsProps {
     itemId: string;

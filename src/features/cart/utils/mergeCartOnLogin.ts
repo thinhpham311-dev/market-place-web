@@ -23,7 +23,7 @@ export const mergeCartOnLogin =
 
         const merged: ICartItem[] = [...cart];
         items.forEach((item: ICartItem) => {
-            const existing = merged.find((i) => i.sku_id === item.sku_id);
+            const existing = merged.find((i) => i.itemPrice === item.itemPrice);
             if (existing) {
                 existing.quantity += item.quantity;
             } else {
@@ -33,7 +33,7 @@ export const mergeCartOnLogin =
 
         for (const item of merged) {
             const existOnServer = cart.find(
-                (i: ICartItem) => i.sku_id === item.sku_id
+                (i: ICartItem) => i.itemPrice === item.itemPrice
             );
             if (existOnServer) {
                 await dispatch(updateItemInCart({ user_id, ...item } as ICartItem & { user_id: string }) as any);

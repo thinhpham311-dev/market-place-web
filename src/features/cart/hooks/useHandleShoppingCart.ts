@@ -38,15 +38,15 @@ export const useHandleShoppingCart = ({ storeKey }: IUseCart) => {
     );
 
     const handleUpdateItem = useCallback(
-        (sku_id: string, quantity: number) => {
-            dispatch(updateItem({ sku_id, quantity }));
+        (itemId: string, quantity: number) => {
+            dispatch(updateItem({ itemId, quantity }));
         },
         [dispatch]
     );
 
     const handleRemoveItem = useCallback(
-        (sku_id: string) => {
-            dispatch(removeItem({ sku_id }));
+        (itemId: string) => {
+            dispatch(removeItem({ itemId }));
         },
         [dispatch]
     );
@@ -56,8 +56,8 @@ export const useHandleShoppingCart = ({ storeKey }: IUseCart) => {
     }, [dispatch]);
 
     const handleToggleItemSelection = useCallback(
-        (sku_id: string, checked: boolean) => {
-            dispatch(toggleItemSelection({ sku_id, checked }));
+        (itemId: string, checked: boolean) => {
+            dispatch(toggleItemSelection({ itemId, checked }));
         },
         [dispatch]
     );
@@ -65,8 +65,6 @@ export const useHandleShoppingCart = ({ storeKey }: IUseCart) => {
     const handleRemoveSelectedItems = useCallback(() => {
         dispatch(removeSelectedItems());
     }, [dispatch]);
-
-
 
     return {
         cart,

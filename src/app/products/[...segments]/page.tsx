@@ -30,7 +30,7 @@ export default function Page(
 
     return (
         <div className="space-y-5 md:my-5 container mx-auto">
-            <ProductDetail lastId={lastId} />
+            <ProductDetail product_id={lastId} />
             <ProTopPicksList />
             <ProBundleDealList />
             <ProRelatedList />

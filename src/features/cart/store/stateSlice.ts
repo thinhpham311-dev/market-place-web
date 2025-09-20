@@ -4,7 +4,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ICart, ICartItem } from '@/interfaces/cart';
 
 
-
 const calculateEstimatedShipping = (totalAmount: number): number => {
     if (totalAmount === 0) {
         return 0;
@@ -23,6 +22,7 @@ const calculateTotal = (totalAmount: number, estimatedShipping: number, estimate
 
 const initialState: ICart = {
     items: [],
+    itemsCount: 0,
     totalQuantity: 0,
     totalAmount: 0,
     totalAmountDiscount: 0,
@@ -36,8 +36,8 @@ const initialState: ICart = {
 
 const recalculateTotals = (state: ICart) => {
     state.totalQuantity = state.items.reduce((sum, item) => sum + item.quantity, 0);
-    state.totalAmount = state.items.reduce((sum, item) => sum + item.sku_price * item.quantity, 0);
-    state.totalAmountDiscount = state.items.reduce((sum, item) => sum + (item.sku_price || 0) * item.quantity, 0);
+    state.totalAmount = state.items.reduce((sum, item) => sum + item.itemPrice * item.quantity, 0);
+    state.totalAmountDiscount = state.items.reduce((sum, item) => sum + (item.itemPrice || 0) * item.quantity, 0);
     state.totalSelectItems = state.selectedItems.length;
 
     if (state.items.length === 0) {
@@ -62,49 +62,38 @@ export const cartSlice = createSlice({
     reducers: {
         addItem: (state, action: PayloadAction<{ cartItem: ICartItem }>) => {
             const { cartItem } = action.payload;
-
-            const existingItem = state.items.find(item => item.sku_id === cartItem.sku_id);
-            const updateItemTotals = (item: ICartItem) => {
-                item.totalPrice = item.sku_price * item.quantity;
-                item.discountedTotalPrice = item.sku_price * item.quantity;
-            };
+            const existingItem = state.items.find(item => item.itemId === cartItem.itemId);
 
             if (existingItem) {
                 existingItem.quantity += cartItem.quantity;
-                updateItemTotals(existingItem);
             } else {
                 const newItem = {
                     ...cartItem,
-                    totalPrice: cartItem.sku_price * cartItem.quantity,
-                    discountedTotalPrice: cartItem.sku_price * cartItem.quantity,
+                    totalPrice: cartItem.itemPrice * cartItem.quantity,
+                    discountedTotalPrice: cartItem.itemPrice * cartItem.quantity,
                 };
                 state.items.unshift(newItem);
             }
-
             recalculateTotals(state);
         },
 
-        updateItem: (state, action: PayloadAction<{ sku_id: string; quantity: number }>) => {
-            const { sku_id, quantity } = action.payload;
-            const itemToUpdate = state.items.find(item => item.sku_id === sku_id);
+        updateItem: (state, action: PayloadAction<{ itemId: string; quantity: number }>) => {
+            const { itemId, quantity } = action.payload;
+            const itemToUpdate = state.items.find(item => item.itemId === itemId);
 
             if (itemToUpdate) {
                 if (quantity === 0) {
-                    state.items = state.items.filter(item => item.sku_id !== sku_id);
+                    state.items = state.items.filter(item => item.itemId !== itemId);
                 } else {
                     const duplicateItem = state.items.find(
-                        item => item.sku_id !== sku_id
+                        item => item.itemId !== itemId
                     );
 
                     if (duplicateItem) {
                         duplicateItem.quantity += quantity;
-                        duplicateItem.totalPrice = duplicateItem.sku_price * duplicateItem.quantity;
-                        duplicateItem.discountedTotalPrice = duplicateItem.sku_price * duplicateItem.quantity;
-                        state.items = state.items.filter(item => item.sku_id !== sku_id);
+                        state.items = state.items.filter(item => item.itemId !== itemId);
                     } else {
                         itemToUpdate.quantity = quantity;
-                        itemToUpdate.totalPrice = itemToUpdate.sku_price * quantity;
-                        itemToUpdate.discountedTotalPrice = itemToUpdate.sku_price * quantity;
                     }
                 }
             }
@@ -113,8 +102,8 @@ export const cartSlice = createSlice({
         },
 
 
-        removeItem: (state, action: PayloadAction<{ sku_id: string }>) => {
-            state.items = state.items.filter(item => item.sku_id !== action.payload.sku_id);
+        removeItem: (state, action: PayloadAction<{ itemId: string }>) => {
+            state.items = state.items.filter(item => item.itemId !== action.payload.itemId);
             recalculateTotals(state);
         },
 
@@ -124,20 +113,21 @@ export const cartSlice = createSlice({
             recalculateTotals(state);
         },
 
-        toggleItemSelection: (state, action: PayloadAction<{ sku_id: string; checked: boolean }>) => {
-            const { sku_id, checked } = action.payload;
-            const selectedIndex = state.selectedItems.indexOf(sku_id);
+        toggleItemSelection: (state, action: PayloadAction<{ itemId: string; checked: boolean }>) => {
+            const { itemId, checked } = action.payload;
+            const selectedIndex = state.selectedItems.indexOf(itemId);
 
             if (checked && selectedIndex === -1) {
-                state.selectedItems.push(sku_id);
+                state.selectedItems.push(itemId);
             } else if (!checked && selectedIndex !== -1) {
                 state.selectedItems.splice(selectedIndex, 1);
             }
             recalculateTotals(state);
         },
         removeSelectedItems: (state) => {
+            console.log("remove item")
             const selectedSet = new Set(state.selectedItems);
-            state.items = state.items.filter(item => !selectedSet.has(item.sku_id));
+            state.items = state.items.filter(item => !selectedSet.has(item.itemId));
             state.selectedItems = [];
             recalculateTotals(state);
         },

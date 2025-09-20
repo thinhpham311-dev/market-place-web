@@ -1,14 +1,22 @@
-import { ISkuPro } from "@/interfaces/sku";
-import { ISpuPro } from "@/interfaces/spu"; // nếu có file này
+import { VariantOption } from "@/interfaces/spu"; // nếu có file này
 
-export interface ICartItem extends ISkuPro, ISpuPro {
+export interface ICartItem {
+    itemId: string;
+    itemName: string;
+    itemPrice: number;
+    itemImage: string;
+    itemVariations: VariantOption[];
+    itemSlug: string;
+    itemShopId: string;
+    itemProductId: string;
+    itemStock: number;
+    itemTierIdx: number[];
     quantity: number;
-    totalPrice: number;
-    discountedTotalPrice: number;
 }
 
 export interface ICart {
     items: ICartItem[];
+    itemsCount?: number;
     totalQuantity: number;
     totalAmount: number;
     totalAmountDiscount: number;

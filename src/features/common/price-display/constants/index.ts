@@ -1,0 +1,1 @@
+export const PRICE_DISPLAY = "PRICE_DISPLAY"

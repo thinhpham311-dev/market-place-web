@@ -6,6 +6,7 @@ export const makeSelectCartState = (storeKey: string) =>
         (state: RootState) => state[storeKey]?.state ?? null,
         (state) => ({
             items: state?.items,
+            itemsCount: state?.items.length,
             totalQuantity: state?.totalQuantity,
             totalAmount: state?.totalAmount,
             totalAmountDiscount: state?.totalAmountDiscount,

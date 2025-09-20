@@ -1,27 +1,38 @@
 "use client";
 
 import * as React from "react";
-import VariantsSelectorWrapper from "./VariantsSelectorWrapper"
-import VariantsSelectorList from "./VariantsSelectorList";
-import { useHandleVariantsSelector } from "./hooks";
-import VariantsSelectorProvider from "./providers";
-import { VariantOption } from "@/interfaces/spu";
 
-interface IProVariantsSelectorProps {
-    storeKey: string;
-    options?: VariantOption[];
-}
+import OptionSelector from "@/features/common/option-selector"
+import { PRO_DETAIL } from "@/features/product/constants";
+import { useSpuContext } from "@/features/spu/hooks";
+import { useSkuContext } from "@/features/sku/hooks";
+import LoadingSkeleton from "./Loading"
+import NotFound from "./NotFound"
 
+const ProVariantsSelector = (() => {
+    const { loading: skuLoading, error: skuError } = useSkuContext()
+    const { spu, loading: spuLoading, error: spuError } = useSpuContext()
+    const hasNoData = !spu || Object.keys(spu).length === 0;
+    if (spuLoading && hasNoData) {
+        return <LoadingSkeleton />;
+    }
 
-const ProVariantsSelector = (({ storeKey, options = [] }: IProVariantsSelectorProps) => {
-    const variantsSelector = useHandleVariantsSelector({ storeKey, options });
+    if (!spuLoading && hasNoData && spuError) {
+        return <NotFound message={spuError || "Something went wrong."} />;
+    }
+
+    if (!spuLoading && hasNoData) {
+        return <NotFound />;
+    }
+    const variants = spu?.product_variations ?? []
 
     return (
-        <VariantsSelectorProvider contextValues={variantsSelector}>
-            <VariantsSelectorWrapper>
-                <VariantsSelectorList />
-            </VariantsSelectorWrapper>
-        </VariantsSelectorProvider>
+        <OptionSelector
+            storeKey={PRO_DETAIL}
+            initialValue={variants}
+            loading={skuLoading}
+            error={skuError}
+        />
     );
 });
 

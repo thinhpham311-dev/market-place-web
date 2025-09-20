@@ -7,14 +7,28 @@ import {
     CardDescription,
 } from "@/components/ui/card";
 import SpecificationItem from "./SpecificationItem";
+import { useSpuContext } from "@/features/spu/hooks";
+import { specs } from "@/features/product/constants";
+import LoadingSkeleton from "./Loading"
+import NotFound from "./NotFound"
 
-interface IProSpecificationsProps {
-    specs: { label: string; value: string | React.ReactNode }[];
-}
+export default function ProSpecifications() {
+    const { spu, loading, error } = useSpuContext();
+    const hasNoData = !spu || Object.keys(spu).length === 0;
+    if (loading && hasNoData) {
+        return <LoadingSkeleton />;
+    }
 
-export default function ProSpecifications({ specs }: IProSpecificationsProps) {
+    if (!loading && hasNoData && error) {
+        return <NotFound message={error || "Something went wrong."} />;
+    }
 
-    if (!specs || specs.length === 0) {
+    if (!loading && hasNoData) {
+        return <NotFound />;
+    }
+    const specsList = specs(spu)
+
+    if (!specsList || specsList.length === 0) {
         return (
             <CardContent className="p-3">
                 <CardDescription>No specifications available</CardDescription>
@@ -28,7 +42,7 @@ export default function ProSpecifications({ specs }: IProSpecificationsProps) {
             </CardTitle>
 
             <CardContent className="p-0" >
-                {specs.map((spec, index) => (
+                {specsList.map((spec, index) => (
                     <SpecificationItem
                         key={index}
                         label={spec.label}

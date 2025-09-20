@@ -1,1 +1,0 @@
-export const VARIANT_SELECTOR = "VARIANT_SELECTOR"
