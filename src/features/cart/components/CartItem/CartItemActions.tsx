@@ -1,5 +1,10 @@
 import React from 'react';
-import { Card, CardContent, Button } from '@/components/ui';
+import {
+    Card, CardContent, Button,
+    Tooltip,
+    TooltipContent,
+    TooltipTrigger,
+} from '@/components/ui';
 import { MdClose } from "react-icons/md";
 import { useShoppingCartContext } from '@/features/cart/hooks';
 
@@ -16,7 +21,14 @@ const CartItemActions = ({ itemId }: ICartItemActionsProps) => {
     return (
         <Card className='border-none shadow-none h-full w-full'>
             <CardContent className='p-0 flex justify-end'>
-                <Button variant="outline" size="icon" onClick={onHandleRemove}><MdClose /></Button>
+                <Tooltip>
+                    <TooltipTrigger>
+                        <Button variant="outline" size="icon" onClick={onHandleRemove}><MdClose /></Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                        remove product in shopping cart
+                    </TooltipContent>
+                </Tooltip>
             </CardContent>
         </Card>
     );

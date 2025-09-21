@@ -1,6 +1,11 @@
 "use client";
 
-import { Card, CardContent, CardDescription } from "@/components/ui";
+import {
+    Card, CardContent, CardDescription,
+    Tooltip,
+    TooltipContent,
+    TooltipTrigger,
+} from "@/components/ui";
 
 interface CartItemPriceProps {
     itemPrice?: number;
@@ -14,9 +19,16 @@ const CartItemPrice = ({
     return (
         <Card className="border-none shadow-none">
             <CardContent className="p-0">
-                <CardDescription>
-                    Price: ${itemPrice}
-                </CardDescription>
+                <Tooltip>
+                    <TooltipTrigger>
+                        <CardDescription>
+                            Price: ${itemPrice}
+                        </CardDescription>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                        Price: ${itemPrice}
+                    </TooltipContent>
+                </Tooltip>
             </CardContent>
         </Card>
     );

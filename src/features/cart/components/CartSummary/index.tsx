@@ -26,7 +26,7 @@ const CartSummary = () => {
         <Card className='border-none shadow-none '>
             <CardContent className='p-0'>
                 <ScrollArea className=" aspect-square">
-                    <ul className='space-y-3'>
+                    <ul className='space-y-1'>
                         {items.map(item => (
                             <li key={item.itemId}>
                                 <CartItem data={item} />

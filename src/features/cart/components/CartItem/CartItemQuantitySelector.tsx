@@ -1,23 +1,50 @@
 import React from 'react';
-import { Card, CardContent, Counter } from '@/components/ui';
+import {
+    Card, CardContent, Counter,
+    Tooltip,
+    TooltipContent,
+    TooltipTrigger,
+} from '@/components/ui';
 // import { useShoppingCartContext } from '../../hooks';
 
 interface ICartItemQuantitySelectorProps {
-    currentQuantity: number;
-    maxQuantity: number
+    isView?: boolean;
+    currentQuantity?: number;
+    maxQuantity?: number;
 }
 
-const CartItemQuantitySelector = ({ currentQuantity, maxQuantity }: ICartItemQuantitySelectorProps) => {
+const CartItemQuantitySelector = ({
+    isView = false,
+    currentQuantity,
+    maxQuantity,
+}: ICartItemQuantitySelectorProps) => {
     // const { updateItem } = useShoppingCartContext()
 
     return (
-        <Card className='border-none shadow-none'>
-            <CardContent className='p-0'>
-                <Counter
-                    initialValue={currentQuantity}
-                    maxValue={maxQuantity}
-                // onQuantityChange={ }
-                />
+        <Card className="border-none shadow-none">
+            <CardContent className="p-0">
+                {isView ? (
+                    <Tooltip>
+                        <div className=' line-clamp-1 w-full'>
+                            <TooltipTrigger asChild>
+                                <p className="text-sm font-medium text-center">
+                                    Qty: {currentQuantity} / {maxQuantity}
+                                </p>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>
+                                    Qty: {currentQuantity} / {maxQuantity}
+                                </p>
+                            </TooltipContent>
+                        </div>
+                    </Tooltip>
+                ) : (
+                    <Counter
+                        initialValue={currentQuantity}
+                        maxValue={maxQuantity}
+                    // onQuantityChange={(val) => updateItem(...)}
+                    />
+                )}
             </CardContent>
         </Card>
     );

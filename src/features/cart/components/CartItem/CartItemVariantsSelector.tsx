@@ -1,6 +1,11 @@
 "use client";
 
-import { Card, CardContent, CardDescription, Badge } from "@/components/ui";
+import {
+    Card, CardContent, CardDescription, Badge,
+    Tooltip,
+    TooltipContent,
+    TooltipTrigger,
+} from "@/components/ui";
 import { VariantOption } from "@/interfaces/spu";
 import { renderVariants } from "@/features/cart/utils/renderVariants"
 
@@ -17,13 +22,20 @@ const CartItemVariantsSelector = ({
     const variantsNode = renderVariants(itemVariants, itemTierIdx)
 
     return (
-        <Card className="border-none shadow-none">
+        <Card className="border-none shadow-none w-full">
             <CardContent className="p-0">
-                <CardDescription>
-                    <Badge variant="outline" className="items-center space-x-2">
+                <Tooltip>
+                    <CardDescription>
+                        <TooltipTrigger>
+                            <Badge variant="outline" className="items-center space-x-2 line-clamp-1 w-full">
+                                {variantsNode}
+                            </Badge>
+                        </TooltipTrigger>
+                    </CardDescription>
+                    <TooltipContent>
                         {variantsNode}
-                    </Badge>
-                </CardDescription>
+                    </TooltipContent>
+                </Tooltip>
             </CardContent>
         </Card>
     );

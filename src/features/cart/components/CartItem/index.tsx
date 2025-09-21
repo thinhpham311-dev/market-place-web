@@ -1,10 +1,16 @@
 "use client"
 
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui';
+import {
+    Card, CardContent, CardHeader, CardTitle,
+    Tooltip,
+    TooltipContent,
+    TooltipTrigger,
+} from '@/components/ui';
 import CartItemImage from '@/features/cart/components/CartItem/CartItemImage';
 import CartItemPrice from '@/features/cart/components/CartItem/CartItemPrice';
 import CartItemVariantsSelector from "@/features/cart/components/CartItem/CartItemVariantsSelector"
+import CartItemQuantitySelector from '@/features/cart/components/CartItem/CartItemQuantitySelector';
 import { ICartItem } from '@/interfaces/cart';
 import { useRouter } from "next/navigation"
 import CartItemActions from './CartItemActions';
@@ -27,6 +33,8 @@ const CartItem = ({
         itemVariations,
         itemPrice,
         itemTierIdx,
+        quantity,
+        itemStock
     } = data
 
     const handleRouterLinkToDetail = () => {
@@ -35,8 +43,8 @@ const CartItem = ({
 
 
     return (
-        <Card className="grid md:grid-cols-4 grid-cols-5 grid-rows-2 gap-3 p-3">
-            <CardHeader className="md:col-span-1 col-span-2 row-span-4 p-0 ">
+        <Card className="grid md:grid-cols-4 grid-cols-5 grid-rows-2 items-center p-1 gap-x-1">
+            <CardHeader className="md:col-span-1 col-span-2 row-span-2 p-0 ">
                 <div className='cursor-pointer' onClick={handleRouterLinkToDetail}>
                     <CartItemImage
                         src={itemImage ?? `https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png`}
@@ -45,31 +53,45 @@ const CartItem = ({
                 </div>
             </CardHeader>
             <CardContent className="md:col-span-3 col-span-3 row-span-3 p-0 space-y-2 ">
-                <div className="grid grid-cols-3 grid-rows-3 items-center">
+                <div className="grid grid-cols-6 grid-rows-3 items-center">
                     {/* Tên item chiếm hết 5 cột */}
-                    <div className="col-span-3">
-                        <CardTitle
-                            onClick={handleRouterLinkToDetail}
-                            className="text-md cursor-pointer">
-                            {itemName}
-                        </CardTitle>
+                    <div className="col-span-6">
+                        <Tooltip>
+                            <TooltipTrigger>
+                                <CardTitle
+                                    onClick={handleRouterLinkToDetail}
+                                    className="text-md cursor-pointer truncate">
+                                    {itemName}
+                                </CardTitle>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                {itemName}
+                            </TooltipContent>
+                        </Tooltip>
                     </div>
 
                     {/* Giá: chiếm 3 cột */}
-                    <div className="col-span-2 row-span-1">
+                    <div className="col-span-3 row-span-1">
                         <CartItemPrice itemPrice={itemPrice} />
                     </div>
 
                     {/* Variants selector: chiếm 3 cột */}
-                    <div className="col-span-2 row-span-1">
+                    <div className="col-span-3 row-span-1">
                         <CartItemVariantsSelector
                             itemVariants={itemVariations}
                             itemTierIdx={itemTierIdx}
                         />
                     </div>
+                    <div className="col-span-2 row-span-2 row-end-4 col-start-4">
+                        <CartItemQuantitySelector
+                            isView={true}
+                            currentQuantity={quantity}
+                            maxQuantity={itemStock}
+                        />
+                    </div>
 
                     {/* Actions: chiếm 2 cột (ngang 2 hàng) */}
-                    <div className="col-auto row-span-2 row-end-4 col-start-3">
+                    <div className="col-auto row-span-2 row-end-4 col-start-6">
                         <CartItemActions itemId={itemId} />
                     </div>
                 </div>

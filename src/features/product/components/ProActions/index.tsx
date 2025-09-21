@@ -8,27 +8,21 @@ import NotFound from "./NotFound";
 import { useProContext } from "@/features/product/hooks/useProContext";
 import { useSpuContext } from "@/features/spu/hooks";
 import { useSkuContext } from "@/features/sku/hooks";
-import { useShoppingCartContext } from "@/features/cart/hooks"
+import { useShoppingCartContext } from "@/features/cart/hooks";
 
 const ProActions = () => {
-    const { currentQuantity } = useProContext()
-    const { sku, loading: skuLoading } = useSkuContext()
-    const { spu, loading: spuLoading, error: spuError } = useSpuContext()
+    const { currentQuantity } = useProContext();
+    const { sku, loading: skuLoading } = useSkuContext();
+    const { spu, loading: spuLoading, error: spuError } = useSpuContext();
+    const { addItem } = useShoppingCartContext();
+
     const hasNoData = !spu || Object.keys(spu).length === 0;
+    const isLoading = spuLoading || skuLoading;
+    const hasError = !spuLoading && hasNoData && !!spuError;
 
-    if (spuLoading && hasNoData || skuLoading) {
-        return <LoadingSkeleton />;
-    }
-
-    if (!spuLoading && hasNoData && spuError) {
-        return <NotFound message={spuError || "Something went wrong."} />;
-    }
-
-    if (!spuLoading && hasNoData) {
-        return <NotFound />;
-    }
-
-    const { addItem } = useShoppingCartContext()
+    if (isLoading) return <LoadingSkeleton />;
+    if (hasError) return <NotFound message={spuError || "Something went wrong."} />;
+    if (!spuLoading && hasNoData) return <NotFound />;
 
     const handleAddToCart = useCallback(() => {
         if (!spu || !sku) return;
@@ -47,30 +41,22 @@ const ProActions = () => {
         });
     }, [sku, spu, addItem, currentQuantity]);
 
-    const isDisabled = !sku || !!spuError;
+    const isDisabled = !sku || !!spuError || currentQuantity >= sku.sku_stock;
 
-    if (spuLoading) {
-        return <LoadingSkeleton />;
-    }
+    const buttonBaseProps = {
+        size: "lg" as const,
+        onClick: handleAddToCart,
+        disabled: isDisabled,
+    };
 
     return (
         <Card className="border-none shadow-none">
             <CardContent className="p-3 flex gap-3">
-                <Button
-                    size="lg"
-                    variant="outline"
-                    onClick={handleAddToCart}
-                    disabled={isDisabled}
-                >
+                <Button {...buttonBaseProps} variant="outline">
                     <MdAddShoppingCart />
                     <span>Add to Cart</span>
                 </Button>
-                <Button
-                    size="lg"
-                    variant="default"
-                    onClick={handleAddToCart}
-                    disabled={isDisabled}
-                >
+                <Button {...buttonBaseProps} variant="default">
                     <MdShoppingCartCheckout />
                     <span>Buy Now</span>
                 </Button>
