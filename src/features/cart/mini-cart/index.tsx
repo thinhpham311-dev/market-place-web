@@ -22,7 +22,7 @@ import { useShoppingCartContext } from "@/features/cart/hooks";
 
 import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
 import { formatToCurrency } from "@/lib/formats";
-
+import { ChevronRight } from "lucide-react"
 
 export default function MiniCart() {
     const router = useRouter()
@@ -39,19 +39,20 @@ export default function MiniCart() {
             <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="icon" className="relative">
                     <ShoppingCart />
-                    {itemsCount && itemsCount > 0 && (
-                        <span className="absolute -top-2 -right-2 bg-red-600 rounded-full w-1/2 h-1/2 text-sm flex justify-center items-center text-white">
+                    {itemsCount !== undefined && itemsCount > 0 && (
+                        <span className="absolute -top-2 -right-2 bg-red-600 rounded-full min-w-[18px] h-[18px] text-xs flex justify-center items-center text-white px-1">
                             {itemsCount}
                         </span>
                     )}
+
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className=" p-3">
-                <DropdownMenuLabel className="flex justify-between items-center">
+            <DropdownMenuContent align="end" className="w-[400px] p-3 space-y-3">
+                <DropdownMenuLabel className="flex justify-between items-center p-0 space-y-0">
                     <span className="text-lg uppercase"> Cart</span>
-                    <Button variant="link" size="sm" onClick={handlRouterLinkToCart}>
-                        View More
-                    </Button>
+                    {itemsCount !== undefined && itemsCount > 0 && (<Button variant="link" size="sm" onClick={handlRouterLinkToCart}>
+                        View More <ChevronRight />
+                    </Button>)}
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem disabled >

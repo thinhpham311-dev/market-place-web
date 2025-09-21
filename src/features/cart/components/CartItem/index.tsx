@@ -7,6 +7,7 @@ import CartItemPrice from '@/features/cart/components/CartItem/CartItemPrice';
 import CartItemVariantsSelector from "@/features/cart/components/CartItem/CartItemVariantsSelector"
 import { ICartItem } from '@/interfaces/cart';
 import { useRouter } from "next/navigation"
+import CartItemActions from './CartItemActions';
 
 interface ICartItemProps {
     data: ICartItem
@@ -17,6 +18,7 @@ const CartItem = ({
 }: ICartItemProps) => {
     const router = useRouter()
     const {
+        itemId,
         itemSlug,
         itemShopId,
         itemProductId,
@@ -33,7 +35,7 @@ const CartItem = ({
 
 
     return (
-        <Card className="grid md:grid-cols-3 grid-cols-5 grid-rows-2 gap-3 p-3">
+        <Card className="grid md:grid-cols-4 grid-cols-5 grid-rows-2 gap-3 p-3">
             <CardHeader className="md:col-span-1 col-span-2 row-span-4 p-0 ">
                 <div className='cursor-pointer' onClick={handleRouterLinkToDetail}>
                     <CartItemImage
@@ -42,20 +44,37 @@ const CartItem = ({
                     />
                 </div>
             </CardHeader>
-            <CardContent className="md:col-span-2 col-span-3 row-span-3 p-0 space-y-2">
-                <CardTitle
-                    onClick={handleRouterLinkToDetail}
-                    className='text-md cursor-pointer'>
-                    {itemName}
-                </CardTitle>
-                <CartItemPrice
-                    itemPrice={itemPrice}
-                />
-                <CartItemVariantsSelector
-                    itemVariants={itemVariations}
-                    itemTierIdx={itemTierIdx}
-                />
+            <CardContent className="md:col-span-3 col-span-3 row-span-3 p-0 space-y-2 ">
+                <div className="grid grid-cols-3 grid-rows-3 items-center">
+                    {/* Tên item chiếm hết 5 cột */}
+                    <div className="col-span-3">
+                        <CardTitle
+                            onClick={handleRouterLinkToDetail}
+                            className="text-md cursor-pointer">
+                            {itemName}
+                        </CardTitle>
+                    </div>
+
+                    {/* Giá: chiếm 3 cột */}
+                    <div className="col-span-2 row-span-1">
+                        <CartItemPrice itemPrice={itemPrice} />
+                    </div>
+
+                    {/* Variants selector: chiếm 3 cột */}
+                    <div className="col-span-2 row-span-1">
+                        <CartItemVariantsSelector
+                            itemVariants={itemVariations}
+                            itemTierIdx={itemTierIdx}
+                        />
+                    </div>
+
+                    {/* Actions: chiếm 2 cột (ngang 2 hàng) */}
+                    <div className="col-auto row-span-2 row-end-4 col-start-3">
+                        <CartItemActions itemId={itemId} />
+                    </div>
+                </div>
             </CardContent>
+
         </Card>
 
     );

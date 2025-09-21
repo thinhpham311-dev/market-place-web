@@ -14,8 +14,8 @@ const CartItemActions = ({ itemId }: ICartItemActionsProps) => {
     };
 
     return (
-        <Card className='border-none shadow-none'>
-            <CardContent className='p-0'>
+        <Card className='border-none shadow-none h-full w-full'>
+            <CardContent className='p-0 flex justify-end'>
                 <Button variant="outline" size="icon" onClick={onHandleRemove}><MdClose /></Button>
             </CardContent>
         </Card>

@@ -22,7 +22,6 @@ const calculateTotal = (totalAmount: number, estimatedShipping: number, estimate
 
 const initialState: ICart = {
     items: [],
-    itemsCount: 0,
     totalQuantity: 0,
     totalAmount: 0,
     totalAmountDiscount: 0,
