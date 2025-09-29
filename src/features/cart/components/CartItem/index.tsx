@@ -2,11 +2,9 @@
 
 import React from 'react';
 import {
-    Card, CardContent, CardHeader, CardTitle,
-    Tooltip,
-    TooltipContent,
-    TooltipTrigger,
+    Card, CardContent, CardHeader
 } from '@/components/ui';
+import CartItemName from "@/features/cart/components/CartItem/CartItemName"
 import CartItemImage from '@/features/cart/components/CartItem/CartItemImage';
 import CartItemPrice from '@/features/cart/components/CartItem/CartItemPrice';
 import CartItemVariantsSelector from "@/features/cart/components/CartItem/CartItemVariantsSelector"
@@ -47,7 +45,11 @@ const CartItem = ({
             <CardHeader className="md:col-span-1 col-span-2 row-span-2 p-0 ">
                 <div className='cursor-pointer' onClick={handleRouterLinkToDetail}>
                     <CartItemImage
-                        src={itemImage ?? `https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png`}
+                        _w={50}
+                        _h={50}
+                        src={itemImage}
+
+                        imgClassName="h-full w-full"
                         alt="image not found"
                     />
                 </div>
@@ -56,18 +58,9 @@ const CartItem = ({
                 <div className="grid grid-cols-6 grid-rows-3 items-center">
                     {/* Tên item chiếm hết 5 cột */}
                     <div className="col-span-6">
-                        <Tooltip>
-                            <TooltipTrigger>
-                                <CardTitle
-                                    onClick={handleRouterLinkToDetail}
-                                    className="text-md cursor-pointer truncate">
-                                    {itemName}
-                                </CardTitle>
-                            </TooltipTrigger>
-                            <TooltipContent>
-                                {itemName}
-                            </TooltipContent>
-                        </Tooltip>
+                        <div onClick={handleRouterLinkToDetail}>
+                            <CartItemName itemName={itemName} />
+                        </div>
                     </div>
 
                     {/* Giá: chiếm 3 cột */}

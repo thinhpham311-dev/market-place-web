@@ -4,22 +4,25 @@ import { Card, CardContent } from '@/components/ui';
 import { cn } from '@/lib/utils';
 
 interface CartItemImageProps {
+    _w: number;
+    _h: number;
     src: string;
     alt: string;
     className?: string;
+    imgClassName?: string;
 }
 
-const CartItemImage: React.FC<CartItemImageProps> = ({ src, alt, className }) => {
+const CartItemImage: React.FC<CartItemImageProps> = ({ src, alt, imgClassName, className, _w, _h }) => {
     return (
-        <Card className={cn(className, "border-none shadow-none")}>
+        <Card className={cn(className, "border-none shadow-none bg-transparent")}>
             <CardContent className='p-0'>
                 <Image
-                    src={src}
+                    src={src ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png"}
                     alt={alt}
-                    layout="responsive"
-                    className='aspect-square'
-                    width={500}
-                    height={500}
+                    className={cn(imgClassName, 'aspect-square')}
+                    priority
+                    width={_w}
+                    height={_h}
                 />
             </CardContent>
         </Card>

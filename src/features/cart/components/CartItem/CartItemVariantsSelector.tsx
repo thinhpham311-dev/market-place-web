@@ -10,8 +10,8 @@ import { VariantOption } from "@/interfaces/spu";
 import { renderVariants } from "@/features/cart/utils/renderVariants"
 
 interface CartItemVariantsSelectorProps {
-    itemTierIdx?: number[];
-    itemVariants?: VariantOption[];
+    itemTierIdx: number[];
+    itemVariants: VariantOption[];
 }
 
 const CartItemVariantsSelector = ({
@@ -22,20 +22,20 @@ const CartItemVariantsSelector = ({
     const variantsNode = renderVariants(itemVariants, itemTierIdx)
 
     return (
-        <Card className="border-none shadow-none w-full">
+        <Card className="border-none shadow-none bg-transparent">
             <CardContent className="p-0">
-                <Tooltip>
-                    <CardDescription>
-                        <TooltipTrigger>
-                            <Badge variant="outline" className="items-center space-x-2 line-clamp-1 w-full">
+                <CardDescription>
+                    <Badge variant="outline" className="items-center space-x-2">
+                        <Tooltip>
+                            <TooltipTrigger className="bg-transparent  line-clamp-1">
                                 {variantsNode}
-                            </Badge>
-                        </TooltipTrigger>
-                    </CardDescription>
-                    <TooltipContent>
-                        {variantsNode}
-                    </TooltipContent>
-                </Tooltip>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                {variantsNode}
+                            </TooltipContent>
+                        </Tooltip>
+                    </Badge>
+                </CardDescription>
             </CardContent>
         </Card>
     );

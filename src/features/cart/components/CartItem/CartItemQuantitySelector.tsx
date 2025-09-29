@@ -21,11 +21,11 @@ const CartItemQuantitySelector = ({
     // const { updateItem } = useShoppingCartContext()
 
     return (
-        <Card className="border-none shadow-none">
+        <Card className="border-none shadow-none bg-transparent">
             <CardContent className="p-0">
                 {isView ? (
                     <Tooltip>
-                        <div className=' line-clamp-1 w-full'>
+                        <div className=' line-clamp-1 '>
                             <TooltipTrigger asChild>
                                 <p className="text-sm font-medium text-center">
                                     Qty: {currentQuantity} / {maxQuantity}

@@ -1,0 +1,1 @@
+export const CART_DATA_TABLE = "CART_DATA_TABLE"

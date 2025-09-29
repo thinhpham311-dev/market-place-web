@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    Card, CardContent, Button,
+    Card, CardContent,
     Tooltip,
     TooltipContent,
     TooltipTrigger,
@@ -19,11 +19,11 @@ const CartItemActions = ({ itemId }: ICartItemActionsProps) => {
     };
 
     return (
-        <Card className='border-none shadow-none h-full w-full'>
+        <Card className='border-none shadow-none bg-transparent'>
             <CardContent className='p-0 flex justify-end'>
                 <Tooltip>
-                    <TooltipTrigger>
-                        <Button variant="outline" size="icon" onClick={onHandleRemove}><MdClose /></Button>
+                    <TooltipTrigger className='p-3' onClick={onHandleRemove}>
+                        <MdClose />
                     </TooltipTrigger>
                     <TooltipContent>
                         remove product in shopping cart

@@ -10,7 +10,7 @@ import PaginationLabel from "./components/PaginationLabel"
 import { useHandlePagination } from "@/features/common/pagination/hooks";
 
 
-interface PaginationCustomProps {
+interface IPaginationCustomProps {
     initialTotal: number;
     initialLimit: number;
     isShowDot?: boolean;
@@ -20,12 +20,12 @@ interface PaginationCustomProps {
     storeKey: string
 }
 
-const Pagination: React.FC<PaginationCustomProps> = ({
+const Pagination = ({
     storeKey,
     initialTotal,
     initialLimit,
     ...rest
-}) => {
+}: IPaginationCustomProps) => {
 
     const pagination = useHandlePagination({ storeKey, initialTotal, initialLimit });
 

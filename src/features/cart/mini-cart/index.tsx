@@ -13,7 +13,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui"
 
-import CartSummary from "@/features/cart/components/CartSummary";
+import CartListView from "@/features/cart/components/CartListView";
 
 //icons
 import { ShoppingCart } from 'lucide-react'
@@ -21,14 +21,13 @@ import { ShoppingCart } from 'lucide-react'
 import { useShoppingCartContext } from "@/features/cart/hooks";
 
 import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
-import { formatToCurrency } from "@/lib/formats";
 import { ChevronRight } from "lucide-react"
 
 export default function MiniCart() {
     const router = useRouter()
     const { cart } = useShoppingCartContext();
 
-    const { itemsCount, totalAmount } = cart
+    const { itemsCount } = cart
 
     const handlRouterLinkToCart = () => {
         router.push("/cart")
@@ -56,13 +55,9 @@ export default function MiniCart() {
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem disabled >
-                    <CartSummary />
+                    <CartListView />
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-
-                <DropdownMenuItem disabled className="my-2">
-                    <Button variant="default" className="w-full">CheckOut {formatToCurrency(totalAmount)}</Button>
-                </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     );

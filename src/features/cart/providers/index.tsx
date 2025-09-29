@@ -11,8 +11,7 @@ interface IShoppingCartContextType {
     updateItem: (sku_id: string, quantity: number) => void;
     removeItem: (sku_id: string) => void;
     removeAllItems: () => void;
-    toggleItemSelection: (sku_id: string, checked: boolean) => void;
-    removeSelectedItems: () => void;
+    removeSelectedItems: (selectedItems: ICartItem[]) => void;
 }
 
 interface IShoppingCartProviderProps {

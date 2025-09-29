@@ -111,24 +111,14 @@ export const cartSlice = createSlice({
             state.selectedItems = [];
             recalculateTotals(state);
         },
-
-        toggleItemSelection: (state, action: PayloadAction<{ itemId: string; checked: boolean }>) => {
-            const { itemId, checked } = action.payload;
-            const selectedIndex = state.selectedItems.indexOf(itemId);
-
-            if (checked && selectedIndex === -1) {
-                state.selectedItems.push(itemId);
-            } else if (!checked && selectedIndex !== -1) {
-                state.selectedItems.splice(selectedIndex, 1);
-            }
-            recalculateTotals(state);
-        },
-        removeSelectedItems: (state) => {
-            console.log("remove item")
-            const selectedSet = new Set(state.selectedItems);
-            state.items = state.items.filter(item => !selectedSet.has(item.itemId));
-            state.selectedItems = [];
-            recalculateTotals(state);
+        removeSelectedItems: (
+            state,
+            action: PayloadAction<{ items: ICartItem[] }>
+        ) => {
+            const selectedSet = new Set(action.payload.items.map(item => item.itemId))
+            state.items = state.items.filter(item => !selectedSet.has(item.itemId))
+            state.selectedItems = []
+            recalculateTotals(state)
         },
 
     },
@@ -139,7 +129,6 @@ export const {
     removeAllItems,
     removeItem,
     updateItem,
-    toggleItemSelection,
     removeSelectedItems
 } = cartSlice.actions;
 export default cartSlice.reducer;

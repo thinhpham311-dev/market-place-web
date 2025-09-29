@@ -17,18 +17,18 @@ const CartItemPrice = ({
 
 }: CartItemPriceProps) => {
     return (
-        <Card className="border-none shadow-none">
+        <Card className="border-none shadow-none bg-transparent">
             <CardContent className="p-0">
-                <Tooltip>
-                    <TooltipTrigger>
-                        <CardDescription>
+                <CardDescription>
+                    <Tooltip>
+                        <TooltipTrigger className="line-clamp-1">
                             Price: ${itemPrice}
-                        </CardDescription>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                        Price: ${itemPrice}
-                    </TooltipContent>
-                </Tooltip>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            Price: ${itemPrice}
+                        </TooltipContent>
+                    </Tooltip>
+                </CardDescription>
             </CardContent>
         </Card>
     );
