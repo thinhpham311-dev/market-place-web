@@ -1,4 +1,4 @@
-
+import { IShop } from "./shop";
 
 export type VariantOption = {
     [key: string]: any;
@@ -7,7 +7,7 @@ export type VariantOption = {
 export interface ISpuPro {
     product_id: string
     product_name: string,
-    product_shop: string,
+    product_shop: IShop,
     product_category: string[],
     product_description?: string,
     product_image: string,

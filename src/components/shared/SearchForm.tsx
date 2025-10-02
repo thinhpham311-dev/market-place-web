@@ -13,11 +13,15 @@ import { Search } from "lucide-react";
 import { z } from "zod";
 
 const categoriesOptions = [
-    { name: "laptop", value: "laptop" },
-    { name: "mobile", value: "mobile" }
+    { name: "In Market Place", value: "in-market-place" },
+    { name: "In This Shop", value: "in-this-shop" }
 ];
 
-const defaultValuesForSearchForm = { categories: "", textsearch: "" };
+// chỉnh defaultValues để có sẵn giá trị mặc định
+const defaultValuesForSearchForm = {
+    categories: "in-market-place",
+    textsearch: ""
+};
 
 const FormSchema = z.object({
     categories: z.string(),
@@ -37,11 +41,24 @@ const SearchForm: React.FC = () => {
             formSchema={FormSchema}
         >
             <div className='grid grid-cols-12 gap-x-2 flex-1'>
-                <FormSelect className="xl:col-span-2 lg:col-span-4  md:col-span-5 col-span-12" name="categories" placeholder="All" options={categoriesOptions} formSchema={FormSchema} />
-                <FormInput className="xl:col-span-10 lg:col-span-8 md:col-span-7 col-span-12" name="textsearch" placeholder="Search..." formSchema={FormSchema} />
+                <FormInput
+                    className="xl:col-span-9 lg:col-span-8 md:col-span-7 col-span-12"
+                    name="textsearch"
+                    placeholder="Search..."
+                    formSchema={FormSchema}
+                />
+                <FormSelect
+                    className="xl:col-span-3 lg:col-span-4 md:col-span-5 col-span-12"
+                    name="categories"
+                    placeholder="All"
+                    options={categoriesOptions}
+                    formSchema={FormSchema}
+                />
             </div>
             <div>
-                <Button type="submit" variant="outline" size="icon"><Search /></Button>
+                <Button type="submit" variant="outline" size="icon">
+                    <Search />
+                </Button>
             </div>
         </FormGroup>
     );

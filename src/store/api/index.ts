@@ -1,9 +1,8 @@
 import { combineReducers } from '@reduxjs/toolkit'
-import data from "./dataSlice"
-
+import cache from './apiCacheSlice'
 
 const reducer = combineReducers({
-    data
+    cache
 })
 
 export default reducer

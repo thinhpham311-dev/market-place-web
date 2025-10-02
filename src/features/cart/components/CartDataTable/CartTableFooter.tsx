@@ -22,6 +22,7 @@ const CartTableFooter = () => {
                 <TableCell>
                     <Checkbox
                         id="pro_selected"
+                        disabled={totalItems === 0}
                         checked={getIsAllRowsSelected()}
                         onCheckedChange={(value) => toggleAllRowsSelected(!!value)}
                     />
@@ -30,14 +31,14 @@ const CartTableFooter = () => {
                     <div className="flex items-center justify-between p-4 bg-white rounded-lg border-t">
                         {/* Left */}
                         <div className="flex items-center space-x-4">
-                            <Label htmlFor="pro_selected">
+                            <Label htmlFor="pro_selected" className="font-bold">
                                 Selected All ({selectedItems.length}/{totalItems})
                             </Label>
                         </div>
 
                         {/* Middle */}
-                        <div>
-                            <Button variant="link" onClick={() => removeSelectedItems(selectedItems)}>
+                        <div className="flex-1">
+                            <Button variant="link" disabled={totalItems === 0} onClick={() => removeSelectedItems(selectedItems)}>
                                 Delete
                             </Button>
                         </div>
@@ -50,7 +51,7 @@ const CartTableFooter = () => {
                             <span className="text-md font-semibold">
                                 Tổng thanh toán: {formatToCurrency(totalSelectedAmount)}
                             </span>
-                            <Button size="lg">Checkout</Button>
+                            <Button size="lg" disabled={totalItems === 0}>Checkout</Button>
                         </div>
                     </div>
                 </TableCell>

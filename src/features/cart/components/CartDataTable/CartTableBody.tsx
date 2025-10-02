@@ -1,11 +1,12 @@
 "use client"
-
+import { useRouter } from "next/navigation"
 import { flexRender, Row } from "@tanstack/react-table"
 import { TableBody, TableRow, TableCell, Button, Checkbox } from "@/components/ui"
 import { ChevronDown } from "lucide-react"
 import { useCartDataTableContext } from "./hooks"
 
 const CartTableBody = () => {
+    const router = useRouter()
     const { getRowModel, getAllColumns } = useCartDataTableContext()
     return (
         <TableBody>
@@ -17,7 +18,7 @@ const CartTableBody = () => {
                     const isSomeSelected = selectedCount > 0 && selectedCount < subRows.length
                     if (row.getIsGrouped()) {
                         return (
-                            <TableRow key={row.id} className="bg-gray-100 font-medium cursor-pointer">
+                            <TableRow key={row.id} className="bg-gray-100 font-medium cursor-pointer ">
                                 <TableCell>
                                     <Checkbox
                                         checked={isAllSelected}
@@ -33,10 +34,10 @@ const CartTableBody = () => {
                                                 className={`transition-transform ${row.getIsExpanded() ? "rotate-90" : ""}`}
                                                 size={16}
                                             />
-                                            <span className="font-bold">{row.getValue(row.groupingColumnId!)}</span>{" "}
+                                            <span className="font-bold">{row.original.itemShopName}</span>{" "}
                                             ({row.subRows.length})
                                         </Button>
-                                        <Button variant="link">View More</Button>
+                                        <Button variant="link" onClick={() => router.push(`/shop/${row.original.itemShopSlug}`)}>View More</Button>
                                     </div>
                                 </TableCell>
                             </TableRow>
@@ -55,7 +56,7 @@ const CartTableBody = () => {
                 })
             ) : (
                 <TableRow>
-                    <TableCell colSpan={getAllColumns().length} className="h-24 text-center">
+                    <TableCell colSpan={getAllColumns().length} className="h-52 text-center">
                         No results.
                     </TableCell>
                 </TableRow>

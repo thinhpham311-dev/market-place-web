@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 
 interface IProContextType {
     product_id: string;
+    shop_id: string;
     sku_tier_idx: number[];
     currentQuantity: number;
     optionsCount: number;

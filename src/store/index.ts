@@ -4,6 +4,7 @@ import { configureStore, Middleware, Reducer } from '@reduxjs/toolkit';
 import { persistStore, persistReducer, PersistConfig } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { Store } from 'redux';
+import { apiCacheMiddleware } from '@/middlewares';
 
 interface ExtendedStore extends Store {
     asyncReducers: Record<string, Reducer>;
@@ -23,7 +24,8 @@ const store = configureStore({
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: false,
-        }).concat(middlewares),
+        }).concat(middlewares)
+            .concat(apiCacheMiddleware),
     devTools: process.env.NEXT_PUBLIC_NODE_ENV === 'development',
 }) as ExtendedStore;
 
@@ -51,14 +53,6 @@ export const removeReducer = (key: string) => {
         delete store.asyncReducers[key];
         store.replaceReducer(rootReducer(store.asyncReducers));
     }
-};
-
-export const removeAllReducers = () => {
-    store.asyncReducers = {};
-    store.replaceReducer(
-        persistReducer(persistConfig, rootReducer() as Reducer)
-    );
-    persistor.persist();
 };
 
 

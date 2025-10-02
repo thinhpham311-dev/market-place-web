@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { apiPostSpuDetail } from '@/features/spu/services';
 import { ISpuPro } from '@/interfaces/spu';
-
+import { RootState } from '@/store';
+import { getCacheOrFetch } from '@/store/api/helpers';
 
 
 type SpuDetailResponse = {
@@ -14,12 +15,23 @@ interface IErrorPayload {
     [key: string]: any; // nếu API trả thêm field thì vẫn nhận được
 }
 
-export const getSpuDetail = createAsyncThunk<SpuDetailResponse, ISpuPro, { rejectValue: IErrorPayload | string }>(
+export const getSpuDetail = createAsyncThunk<SpuDetailResponse, ISpuPro, { rejectValue: IErrorPayload | string, state: RootState }>(
     'detail/data/getSpuDetail',
-    async (params, { rejectWithValue }) => {
+    async (params, { rejectWithValue, getState, dispatch }) => {
         try {
-            const response = await apiPostSpuDetail(params) as { data: SpuDetailResponse }
-            return response.data;
+            const cacheKey = "spu"
+            const data = await getCacheOrFetch<ISpuPro, SpuDetailResponse>(
+                cacheKey,
+                params,
+                async (p) => {
+                    const res = await apiPostSpuDetail(p);
+                    return res as { data: SpuDetailResponse };
+                },
+                getState,
+                dispatch,
+                { TTL: 5 * 60 * 1000 }
+            );
+            return data;
         } catch (error: any) {
             return rejectWithValue(error?.response?.data || error.message);
         }

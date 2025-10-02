@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
 // Actions and selectors
@@ -25,7 +25,7 @@ interface IUseFetchDataParams {
 
 export function useFetchData({ product_id, storeKey }: IUseFetchDataParams) {
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const reducerKey = `${SPU_KEY}_${storeKey}`;
         injectReducer(reducerKey, reducer);
         return () => {
@@ -41,6 +41,7 @@ export function useFetchData({ product_id, storeKey }: IUseFetchDataParams) {
         error = null,
         status = "",
     } = useAppSelector(selectSpuDetailByStoreKey(storeKey));
+
 
     useEffect(() => {
         const promise = dispatch(getSpuDetail({

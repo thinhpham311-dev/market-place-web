@@ -1,0 +1,1 @@
+export const SHOP_KEY = "SHOP_KEY"

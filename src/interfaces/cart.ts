@@ -8,6 +8,8 @@ export interface ICartItem {
     itemVariations: VariantOption[];
     itemSlug: string;
     itemShopId: string;
+    itemShopName: string;
+    itemShopSlug: string;
     itemProductId: string;
     itemStock: number;
     itemTierIdx: number[];

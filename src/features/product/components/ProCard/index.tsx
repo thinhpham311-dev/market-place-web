@@ -31,7 +31,7 @@ const ProCard = ({
     const { product_name, product_image, product_price, product_id, product_shop, product_slug } = item
 
     const handleRouterLinkToDetail = () => {
-        router.push(`/products/${product_slug}-i.${product_shop}.${product_id}`)
+        router.push(`/products/${product_slug}-i.${product_shop.shop_id}.${product_id}`)
     }
 
     return (

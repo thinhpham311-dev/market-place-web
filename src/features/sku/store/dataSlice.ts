@@ -1,38 +1,50 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { apiPostSkuDetail } from '@/features/sku/services';
 import { ISkuPro } from '@/interfaces/sku';
+import { getCacheOrFetch } from "@/store/api/helpers";
+import { RootState } from '@/store';
 
 type SkuDetailResponse = {
     metadata: ISkuPro;
 };
 
-// Định nghĩa error payload
 interface IErrorPayload {
     message: string;
-    [key: string]: any; // nếu API trả thêm field thì vẫn nhận được
+    [key: string]: any;
 }
 
 interface IGetSkuDetailParams extends ISkuPro {
-    optionsCount: number; // ✅ thêm field cần thiết
+    optionsCount: number;
 }
 
 export const getSkuDetail = createAsyncThunk<
     SkuDetailResponse,
     IGetSkuDetailParams,
-    { rejectValue: IErrorPayload | string }
+    { rejectValue: IErrorPayload | string; state: RootState }
 >(
     "detail/data/getSkuDetail",
-    async (params, { rejectWithValue }) => {
+    async (params, { rejectWithValue, getState, dispatch }) => {
         try {
             const { sku_tier_idx, optionsCount } = params;
 
-            // ✅ Check đủ điều kiện
             if (!sku_tier_idx || sku_tier_idx.length !== optionsCount) {
                 return rejectWithValue({ message: "Not enough options selected" });
             }
+            const cacheKey = "sku"
 
-            const response = (await apiPostSkuDetail(params)) as { data: SkuDetailResponse };
-            return response.data;
+            const data = await getCacheOrFetch<IGetSkuDetailParams, SkuDetailResponse>(
+                cacheKey,
+                params,
+                async (p) => {
+                    const res = await apiPostSkuDetail(p);
+                    return res as { data: SkuDetailResponse };
+                },
+                getState,
+                dispatch,
+                { TTL: 5 * 60 * 1000 }
+            );
+
+            return data;
         } catch (error: any) {
             return rejectWithValue(
                 error?.response?.data || { message: error.message || "Unknown error" }

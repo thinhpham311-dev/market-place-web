@@ -1,12 +1,28 @@
 import React from 'react';
+import ShopInfoProvider from "./providers"
+import { useFetchData } from './hooks';
 
-const ShopWrapper: React.FC = () => {
+interface IShopProps {
+    children: React.ReactNode;
+    shop_id?: string;
+    storeKey: string;
+}
+
+const Shop = ({
+    children,
+    shop_id,
+    storeKey
+}: IShopProps) => {
+    const shopData = useFetchData({
+        shop_id,
+        storeKey
+    })
+
     return (
-        <div>
-            <h1>Shop</h1>
-            {/* Add additional shop components here */}
-        </div>
+        <ShopInfoProvider contextValues={{ ...shopData }}>
+            {children}
+        </ShopInfoProvider>
     );
 };
 
-export default ShopWrapper;
+export default Shop;

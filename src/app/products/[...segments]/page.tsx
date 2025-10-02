@@ -22,15 +22,19 @@ export default function Page(
 
     // ✅ Lấy các id
     const ids = match![2].split(".");
-    const lastId = ids.at(-1);
+    const product_id = ids.at(-1);
+    const shop_id = ids.at(0);
 
-    if (!lastId) {
+    if (!product_id) {
         notFound();
     }
 
     return (
         <div className="space-y-5 md:my-5 container mx-auto">
-            <ProductDetail product_id={lastId} />
+            <ProductDetail
+                product_id={product_id}
+                shop_id={shop_id}
+            />
             <ProTopPicksList />
             <ProBundleDealList />
             <ProRelatedList />

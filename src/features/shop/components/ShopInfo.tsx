@@ -1,18 +1,18 @@
 import React from 'react';
+import { Card, CardContent } from '@/components/ui';
+import { useShopInfoContext } from '../hooks';
 
-interface ShopInfoProps {
-    name: string;
-    description: string;
-    location: string;
-}
-
-const ShopInfo: React.FC<ShopInfoProps> = ({ name, description, location }) => {
+const ShopInfo = () => {
+    const { shopInfo } = useShopInfoContext();
+    const { shop_name, shop_email } = shopInfo || {};
     return (
-        <div className="shop-info">
-            <h1>{name}</h1>
-            <p>{description}</p>
-            <p>Location: {location}</p>
-        </div>
+        <Card className='border-none shadow-none'>
+            <CardContent className='p-3'>
+                <h1>{shop_name}</h1>
+                <p>{shop_email}</p>
+                <p>More shop details can be added here.</p>
+            </CardContent>
+        </Card>
     );
 };
 

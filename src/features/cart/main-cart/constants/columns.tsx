@@ -13,7 +13,10 @@ export const cartColumns: ColumnDef<ICartItem>[] = [
     {
         id: "select",
         header: ({ table }) => (
-            <Checkbox checked={table.getIsAllRowsSelected()} onCheckedChange={(value) => table.toggleAllRowsSelected(!!value)} aria-label="Select all products" />
+            <Checkbox
+                disabled={table.getPreFilteredRowModel().rows.length === 0}
+                checked={table.getIsAllRowsSelected()}
+                onCheckedChange={(value) => table.toggleAllRowsSelected(!!value)} aria-label="Select all products" />
         ),
         cell: ({ row }) => {
             if (row.getIsGrouped()) {

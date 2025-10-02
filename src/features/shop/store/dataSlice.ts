@@ -1,42 +1,22 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { apiPostProductsList } from '@/features/product/list/bundle-deal/services'
-import { IFilter, ISpuPro } from '@/interfaces/spu';
+import { apiPostShopDetail } from '@/features/shop/services'
+import { IShop } from '@/interfaces/shop';
 
-type ProductListResponse = {
-    metadata:
-    {
-        list: ISpuPro[],
-        total: number;
-    };
+type ShopDetailResponse = {
+    metadata: IShop
 };
 
-interface IProductState {
-    loading: boolean;
-    error: string | null;
-    list: ISpuPro[];
-    total: number;
+// Định nghĩa error payload
+interface IErrorPayload {
+    message: string;
+    [key: string]: any; // nếu API trả thêm field thì vẫn nhận được
 }
 
-const initialState: IProductState = {
-    loading: false,
-    list: [],
-    total: 0,
-    error: null
-}
-
-export const getProductList = createAsyncThunk<ProductListResponse, IFilter>(
-    'proBundleDealList/data/getList',
-    async (params: IFilter, { rejectWithValue }) => {
+export const getShopById = createAsyncThunk<ShopDetailResponse, IShop, { rejectValue: IErrorPayload | string }>(
+    'shopInfoById/data/getList',
+    async (params, { rejectWithValue }) => {
         try {
-            const response = await apiPostProductsList(params) as
-                {
-                    data: {
-                        metadata: {
-                            list: ISpuPro[],
-                            total: number
-                        }
-                    }
-                };
+            const response = await apiPostShopDetail(params) as { data: ShopDetailResponse };
             return response.data;
         } catch (error: any) {
             return rejectWithValue(error?.response?.data || error.message);
@@ -44,26 +24,35 @@ export const getProductList = createAsyncThunk<ProductListResponse, IFilter>(
     });
 
 
+interface IProductState {
+    loading: boolean;
+    error: string | null;
+    shopInfo: IShop | null;
+}
+
+const initialState: IProductState = {
+    loading: false,
+    shopInfo: null,
+    error: null
+}
+
 const dataSlice = createSlice({
-    name: 'proBundleDealList/data',
+    name: 'shopInfoById/data',
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(getProductList.pending, (state) => {
+            .addCase(getShopById.pending, (state) => {
                 state.loading = true;
             })
-            .addCase(getProductList.fulfilled, (state, action) => {
-                const { list, total } = action.payload.metadata;
-                state.list = list;
-                state.total = total;
+            .addCase(getShopById.fulfilled, (state, action) => {
+                state.shopInfo = action.payload.metadata;
                 state.loading = false;
             })
-            .addCase(getProductList.rejected, (state, action) => {
+            .addCase(getShopById.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string || 'Failed to fetch products';
-                state.total = 0;
-                state.list = [];
+                state.shopInfo = null;
             });
     }
 });

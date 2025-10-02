@@ -2,15 +2,19 @@
 
 import React from "react";
 import { cn } from "@/lib/utils";
+import { IShop } from "@/interfaces/shop";
 
 interface IShopInfoContextType {
-    totalProducts?: number;
+    shopInfo?: IShop,
+    loading: boolean,
+    error: string,
+    status: "idle" | "loading" | "success" | "error",
 }
 
 interface IShopInfoProviderProps {
     children?: React.ReactNode;
     className?: string;
-    contextValues?: IShopInfoContextType;
+    contextValues: IShopInfoContextType;
 }
 
 export const ShopInfoContext = React.createContext<IShopInfoContextType | null>(null);
