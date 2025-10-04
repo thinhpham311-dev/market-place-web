@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { selectSpuDetailByStoreKey } from "../store/selectors";
 import { getSpuDetail } from "../store/dataSlice";
 
-
 // Reducer & constants
 import reducer from "@/features/spu/store";
 import { injectReducer, removeReducer } from "@/store";
@@ -48,6 +47,8 @@ export function useFetchData({ product_id, storeKey }: IUseFetchDataParams) {
         const promise = dispatch(getSpuDetail({
             product_id
         } as ISpuPro) as any);
+
+
         return () => {
             promise.abort?.();
         };

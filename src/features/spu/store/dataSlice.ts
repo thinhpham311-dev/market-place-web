@@ -1,36 +1,37 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { apiPostSpuDetail } from '@/features/spu/services';
 import { ISpuPro } from '@/interfaces/spu';
-import { RootState } from '@/store';
-import { smartCacheFetch } from '@/store/api/helpers';
-
+import { SPU_KEY } from "@/features/spu/constants";
 
 type SpuDetailResponse = {
     metadata: ISpuPro
 };
 
-// Định nghĩa error payload
 interface IErrorPayload {
     message: string;
-    [key: string]: any; // nếu API trả thêm field thì vẫn nhận được
+    [key: string]: any;
 }
 
-export const getSpuDetail = createAsyncThunk<SpuDetailResponse, ISpuPro, { rejectValue: IErrorPayload | string, state: RootState }>(
+export const getSpuDetail = createAsyncThunk<SpuDetailResponse, ISpuPro, { rejectValue: IErrorPayload | string }>(
     'detail/data/getSpuDetail',
-    async (params, { rejectWithValue, getState, dispatch }) => {
+    async (params, { rejectWithValue, dispatch }) => {
+        console.log(params)
         try {
-            const cacheKey = "spu"
-            const data = await smartCacheFetch<ISpuPro, SpuDetailResponse>(
-                cacheKey,
-                params,
-                async (p) => {
-                    const res = await apiPostSpuDetail(p);
-                    return res as { data: SpuDetailResponse };
+            const data = await dispatch({
+                type: "api/fetch",
+                payload: {
+                    key: SPU_KEY,
+                    params,
+                    apiFn: apiPostSpuDetail,
+                    options: {
+                        TTL: 5 * 60 * 1000,
+                        retries: 2,
+                        retryDelay: 500,
+                        tags: [SPU_KEY],
+                    },
                 },
-                getState,
-                dispatch,
-                { TTL: 5 * 60 * 1000, retries: 2, retryDelay: 500, tags: ["spu"] }
-            );
+            }) as unknown as SpuDetailResponse;
+
             return data;
         } catch (error: any) {
             return rejectWithValue(error?.response?.data || error.message);
