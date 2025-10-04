@@ -3,7 +3,6 @@
 import * as React from "react";
 import OptionSelectorWrapper from "./OptionSelectorWrapper"
 import OptionSelectorList from "./OptionSelectorList";
-import OptionSelectorAlert from "./OptionSelectorAlert";
 import { useHandleOptionSelector } from "./hooks";
 import OptionSelectorProvider from "./providers";
 import { Option } from "./types";
@@ -13,16 +12,16 @@ interface IOptionSelectorProps {
     initialValue?: Option[];
     loading?: boolean;
     error?: string | { message?: string } | null;
+    defaultOptionIdx?: (number | null)[];
 }
 
 
-const OptionSelector = (({ storeKey, initialValue = [] }: IOptionSelectorProps) => {
-    const optionSelector = useHandleOptionSelector({ storeKey, initialValue });
+const OptionSelector = (({ storeKey, initialValue = [], defaultOptionIdx = [] }: IOptionSelectorProps) => {
+    const optionSelector = useHandleOptionSelector({ storeKey, initialValue, defaultOptionIdx });
 
     return (
         <OptionSelectorProvider contextValues={{ ...optionSelector }}>
             <OptionSelectorWrapper>
-                <OptionSelectorAlert />
                 <OptionSelectorList />
             </OptionSelectorWrapper>
         </OptionSelectorProvider>

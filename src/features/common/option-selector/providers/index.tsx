@@ -9,10 +9,10 @@ import { Option } from "@/features/common/option-selector/types";
 interface IOptionSelectorContextType {
     options: Option[];
     optionsCount: number;
-    sku_tier_idx: (number | null)[];
+    option_idx: (number | null)[];
+    defaultOptionIdx?: (number | null)[];
     validationErrors: Record<number, string>;
     handleChooseOption: (index: number, option: number | null) => void;
-    validateOptions: () => Record<number, string>;
     resetValidationErrors: () => void;
 }
 

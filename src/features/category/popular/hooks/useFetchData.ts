@@ -27,7 +27,7 @@ export function useFetchData() {
 
 
     useEffect(() => {
-        const promise = dispatch(getCategoryList() as any);
+        const promise = dispatch(getCategoryList({}) as any);
         return () => {
             promise.abort();
         };

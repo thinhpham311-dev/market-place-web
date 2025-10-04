@@ -1,38 +1,65 @@
-import { useLayoutEffect, useEffect, useCallback } from "react";
+"use client";
+
+import { useLayoutEffect, useEffect, useCallback, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { setSelectedOption, setValidationErrors, resetOptions } from "@/features/common/option-selector/store/stateSlice";
+import {
+    setSelectedOption,
+    setValidationErrors,
+    resetOptions,
+    initialOptions,
+} from "@/features/common/option-selector/store/stateSlice";
 import { Option } from "@/features/common/option-selector/types";
 import { injectReducer, removeReducer } from "@/store";
-import { selectVariantsStoreKey } from "@/features/common/option-selector/store/selectors";
+import { selectOptionsStoreKey } from "@/features/common/option-selector/store/selectors";
 import reducer from "@/features/common/option-selector/store";
-import { initialOptions } from "@/features/common/option-selector/store/stateSlice";
 import { OPTION_SELECTOR } from "@/features/common/option-selector/constants";
 
-interface IUseHandleVariantsSelector {
+interface UseHandleOptionSelectorProps {
     storeKey: string;
     initialValue: Option[];
+    defaultOptionIdx?: (number | null)[];
 }
 
-export function useHandleOptionSelector({ storeKey, initialValue }: IUseHandleVariantsSelector) {
+export function useHandleOptionSelector({
+    storeKey,
+    initialValue,
+    defaultOptionIdx = [],
+}: UseHandleOptionSelectorProps) {
     const dispatch = useAppDispatch();
+    const initialized = useRef(false);
+
+    // --- Inject reducer lifecycle ---
     useLayoutEffect(() => {
         const reducerKey = `${OPTION_SELECTOR}_${storeKey}`;
         injectReducer(reducerKey, reducer);
+
         return () => {
-            dispatch(resetOptions())
+            dispatch(resetOptions());
             removeReducer(reducerKey);
         };
     }, [storeKey, dispatch]);
 
-    const { options, sku_tier_idx, validationErrors } = useAppSelector(selectVariantsStoreKey(storeKey));
+    // --- Selectors ---
+    const { options, option_idx, validationErrors } = useAppSelector(
+        selectOptionsStoreKey(storeKey)
+    );
 
+    // --- Initialize once ---
     useEffect(() => {
-        if (initialValue?.length) {
-            dispatch(initialOptions(initialValue));
-        }
+        if (initialized.current || !initialValue?.length) return;
 
-    }, [dispatch, initialValue]);
+        dispatch(initialOptions(initialValue));
 
+        defaultOptionIdx.forEach((value, i) => {
+            if (value != null) {
+                dispatch(setSelectedOption({ index: i, value }));
+            }
+        });
+
+        initialized.current = true;
+    }, [dispatch, initialValue, defaultOptionIdx]);
+
+    // --- Helpers ---
     const getValidationErrors = useCallback(
         (currentValues: (number | null | undefined)[]) => {
             return initialValue.reduce<Record<number, string>>((acc, opt, i) => {
@@ -45,15 +72,8 @@ export function useHandleOptionSelector({ storeKey, initialValue }: IUseHandleVa
         [initialValue]
     );
 
-
-    const validateOptions = () => {
-        const errors = getValidationErrors(sku_tier_idx);
-        dispatch(setValidationErrors(errors));
-        return errors;
-    };
-
     const handleChooseOption = (index: number, value?: number | null) => {
-        const updated = [...sku_tier_idx];
+        const updated = [...option_idx];
 
         if (value == null) {
             updated[index] = null;
@@ -66,14 +86,26 @@ export function useHandleOptionSelector({ storeKey, initialValue }: IUseHandleVa
         const errors = getValidationErrors(updated);
         dispatch(setValidationErrors(errors));
     };
+    const handleResetOption = useCallback(() => {
+        dispatch(resetOptions());
+        defaultOptionIdx.forEach((value, i) => {
+            if (value != null) dispatch(setSelectedOption({ index: i, value }));
+        });
+    }, [dispatch, defaultOptionIdx]);
 
-    const handleResetOption = () => {
-        dispatch(resetOptions())
-    }
-
-    const resetValidationErrors = () => {
+    const resetValidationErrors = useCallback(() => {
         dispatch(setValidationErrors({}));
-    };
+    }, [dispatch]);
 
-    return { options, optionsCount: options.length, sku_tier_idx, validationErrors, handleChooseOption, handleResetOption, validateOptions, resetValidationErrors };
+    // --- Return API ---
+    return {
+        options,
+        option_idx,
+        defaultOptionIdx,
+        validationErrors,
+        optionsCount: options.length,
+        handleChooseOption,
+        handleResetOption,
+        resetValidationErrors,
+    };
 }

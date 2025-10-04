@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { apiPostSkuDetail } from '@/features/sku/services';
 import { ISkuPro } from '@/interfaces/sku';
-import { getCacheOrFetch } from "@/store/api/helpers";
+import { smartCacheFetch } from "@/store/api/helpers";
 import { RootState } from '@/store';
 
 type SkuDetailResponse = {
@@ -20,7 +20,7 @@ interface IGetSkuDetailParams extends ISkuPro {
 export const getSkuDetail = createAsyncThunk<
     SkuDetailResponse,
     IGetSkuDetailParams,
-    { rejectValue: IErrorPayload | string; state: RootState }
+    { rejectValue: IErrorPayload | string, state: RootState }
 >(
     "detail/data/getSkuDetail",
     async (params, { rejectWithValue, getState, dispatch }) => {
@@ -30,9 +30,10 @@ export const getSkuDetail = createAsyncThunk<
             if (!sku_tier_idx || sku_tier_idx.length !== optionsCount) {
                 return rejectWithValue({ message: "Not enough options selected" });
             }
-            const cacheKey = "sku"
 
-            const data = await getCacheOrFetch<IGetSkuDetailParams, SkuDetailResponse>(
+            const cacheKey = `sku`;
+
+            const data = await smartCacheFetch<ISkuPro, SkuDetailResponse>(
                 cacheKey,
                 params,
                 async (p) => {
@@ -41,9 +42,9 @@ export const getSkuDetail = createAsyncThunk<
                 },
                 getState,
                 dispatch,
-                { TTL: 5 * 60 * 1000 }
-            );
+                { TTL: 5 * 60 * 1000, retries: 2, retryDelay: 500, tags: ["sku"] }
 
+            );
             return data;
         } catch (error: any) {
             return rejectWithValue(

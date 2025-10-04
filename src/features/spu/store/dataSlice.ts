@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { apiPostSpuDetail } from '@/features/spu/services';
 import { ISpuPro } from '@/interfaces/spu';
 import { RootState } from '@/store';
-import { getCacheOrFetch } from '@/store/api/helpers';
+import { smartCacheFetch } from '@/store/api/helpers';
 
 
 type SpuDetailResponse = {
@@ -20,7 +20,7 @@ export const getSpuDetail = createAsyncThunk<SpuDetailResponse, ISpuPro, { rejec
     async (params, { rejectWithValue, getState, dispatch }) => {
         try {
             const cacheKey = "spu"
-            const data = await getCacheOrFetch<ISpuPro, SpuDetailResponse>(
+            const data = await smartCacheFetch<ISpuPro, SpuDetailResponse>(
                 cacheKey,
                 params,
                 async (p) => {
@@ -29,7 +29,7 @@ export const getSpuDetail = createAsyncThunk<SpuDetailResponse, ISpuPro, { rejec
                 },
                 getState,
                 dispatch,
-                { TTL: 5 * 60 * 1000 }
+                { TTL: 5 * 60 * 1000, retries: 2, retryDelay: 500, tags: ["spu"] }
             );
             return data;
         } catch (error: any) {

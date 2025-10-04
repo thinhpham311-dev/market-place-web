@@ -28,8 +28,18 @@ export default function OptionSelectorCard({
     className,
     index,
 }: IOptionSelectorProps) {
-    const { handleChooseOption, validationErrors, resetValidationErrors } = useOptionSelectorContext();
+    const { defaultOptionIdx, handleChooseOption, validationErrors, resetValidationErrors } = useOptionSelectorContext();
     const cardRef = React.useRef<HTMLDivElement>(null);
+    const defaultValue = React.useMemo(() => {
+        if (Array.isArray(defaultOptionIdx)) {
+            const idx = defaultOptionIdx[index];
+            return typeof idx === "number" ? value[idx]?.value : undefined;
+        } else if (typeof defaultOptionIdx === "number") {
+            return value[defaultOptionIdx]?.value;
+        }
+        return undefined;
+    }, [defaultOptionIdx, value, index]);
+
     const handleValueChange = (val?: string) => {
         const idx = value.findIndex((v) => v.value === val);
         const option = idx !== -1 ? idx : null;
@@ -68,6 +78,7 @@ export default function OptionSelectorCard({
                         type="single"
                         className="justify-start flex-wrap space-x-1"
                         onValueChange={handleValueChange}
+                        defaultValue={defaultValue}
                     >
                         {value.map((item) => (
                             <ToggleGroupItem

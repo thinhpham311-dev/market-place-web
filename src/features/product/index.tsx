@@ -22,13 +22,12 @@ import ProReviewStar from "@/features/product/components/ProReviewStar"
 import ProActions from "@/features/product/components/ProActions"
 import ProShopInfo from "@/features/product/components/ProShopInfo";
 
-import Cart from "@/features/cart";
 import Shop from "@/features/shop";
 // import ProductReview from "@/features/product/reviews";
 import ProProvider from "./providers"
 import { useAppSelector } from "@/lib/hooks";
 import { PRO_DETAIL } from "@/features/product/constants"
-import { selectVariantsStoreKey } from "@/features/common/option-selector/store/selectors";
+import { selectOptionsStoreKey } from "@/features/common/option-selector/store/selectors";
 import { selectQuantitySelectorByStoreKey } from "@/features/common/quantity-selector/store/selectors"
 
 interface IProductDetail {
@@ -39,7 +38,7 @@ interface IProductDetail {
 export default function ProductDetail(
     { product_id = "", shop_id = "" }: IProductDetail
 ) {
-    const { sku_tier_idx, optionsCount } = useAppSelector(selectVariantsStoreKey(PRO_DETAIL));
+    const { option_idx: sku_tier_idx, optionsCount } = useAppSelector(selectOptionsStoreKey(PRO_DETAIL));
     const { currentQuantity } = useAppSelector(
         selectQuantitySelectorByStoreKey(PRO_DETAIL)
     );
@@ -84,10 +83,7 @@ export default function ProductDetail(
                                                     <ProPriceDisplay />
                                                     <ProVariantsSelector />
                                                     <ProQuantitySelector />
-
-                                                    <Cart>
-                                                        <ProActions />
-                                                    </Cart>
+                                                    <ProActions />
                                                 </ProSkuDetailContainer>
                                             </div>
                                         </div>

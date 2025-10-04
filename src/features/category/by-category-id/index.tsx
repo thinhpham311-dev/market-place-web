@@ -20,6 +20,8 @@ import { BiCategory } from "react-icons/bi";
 //constants
 import { CAT_LIST_BY_ID } from "./constants";
 
+import { ICategory } from "@/interfaces/category";
+
 injectReducer(CAT_LIST_BY_ID, reducer);
 
 const CatByCategoryId = ({ ids }: { ids: string[] }) => {
@@ -38,7 +40,7 @@ const CatByCategoryId = ({ ids }: { ids: string[] }) => {
 
         const promise = dispatch(getCatListById({
             category_id: validIds[0],
-        }) as any);
+        } as ICategory) as any);
 
         return () => {
             promise.abort();

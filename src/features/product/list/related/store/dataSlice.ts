@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { apiPostProductsList } from '@/features/product/list/related/services'
 import { IFilter, ISpuPro } from '@/interfaces/spu';
+import { RootState } from '@/store';
+import { smartCacheFetch } from "@/store/api/helpers";
 
 type ProductListResponse = {
     metadata:
@@ -24,15 +26,23 @@ const initialState: IProductState = {
     error: null
 }
 
-export const getProductList = createAsyncThunk<ProductListResponse, IFilter>(
+export const getProductList = createAsyncThunk<ProductListResponse, IFilter, { state: RootState }>(
     'proRelatedList/data/getList',
-    async (params: IFilter, { rejectWithValue }) => {
+    async (params: IFilter, { rejectWithValue, getState, dispatch }) => {
         try {
-            const response = await apiPostProductsList(params) as
-                {
-                    data: ProductListResponse
-                };
-            return response.data;
+            const cacheKey = "proRelatedList"
+            const data = await smartCacheFetch<IFilter, ProductListResponse>(
+                cacheKey,
+                params,
+                async (p) => {
+                    const res = await apiPostProductsList(p);
+                    return res as { data: ProductListResponse };
+                },
+                getState,
+                dispatch,
+                { TTL: 5 * 60 * 1000, retries: 2, retryDelay: 500, tags: ["proRelatedList"] }
+            );
+            return data;
         } catch (error: any) {
             return rejectWithValue(error?.response?.data || error.message);
         }

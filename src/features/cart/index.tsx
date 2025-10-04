@@ -2,7 +2,7 @@
 
 //components
 import CartWrapper from "@/features/cart/components/CartWrapper";
-import CardProvider from "@/features/cart/providers";
+import CartProvider from "@/features/cart/providers";
 
 //format
 import { useHandleShoppingCart } from "./hooks";
@@ -14,15 +14,15 @@ interface ICartProps {
     children?: React.ReactNode;
 }
 
-export default function Cart({ children }: ICartProps) {
+export default function CartContainerProvider({ children }: ICartProps) {
 
     const cart = useHandleShoppingCart({ storeKey: ITEM_IN_CART });
 
     return (
-        <CardProvider contextValues={{ ...cart }}>
+        <CartProvider contextValues={{ ...cart }}>
             <CartWrapper>
                 {children}
             </CartWrapper>
-        </CardProvider>
+        </CartProvider>
     );
 }

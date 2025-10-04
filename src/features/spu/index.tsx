@@ -6,6 +6,7 @@ import { useFetchData } from "./hooks";
 // providers
 import SpuProvider from "./providers";
 
+
 interface ISpuDetailWrapperProps {
     children?: React.ReactNode;
     storeKey: string
@@ -20,6 +21,7 @@ export default function SpuDetailWrapper(
         product_id,
         storeKey
     })
+
 
     return (
         <SpuProvider contextValues={{ ...spuData }}>

@@ -1,24 +1,25 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { apiPostCategoryDetail } from '@/features/category/by-category-id/services'
-import { Category } from '@/features/category/types';
-
+import { ICategory } from '@/interfaces/category';
+import { RootState } from '@/store';
+import { smartCacheFetch } from "@/store/api/helpers";
 
 type CategoriesResponse = {
     metadata: {
-        list: Category[]
+        list: ICategory[]
         total?: number
     };
 };
 
 
-interface CategoryState {
+interface ICategoryState {
     loading: boolean;
     error: string | null;
     total?: number;
-    list: Category[];
+    list: ICategory[];
 }
 
-const initialState: CategoryState = {
+const initialState: ICategoryState = {
     loading: false,
     error: null,
     total: 0,
@@ -27,18 +28,29 @@ const initialState: CategoryState = {
 
 export const getCatListById = createAsyncThunk<
     CategoriesResponse,
-    { category_id: string },
-    { rejectValue: unknown }
+    ICategory,
+    { rejectValue: string; state: RootState }
 >(
     'catByCategoryId/data/getCatListById',
-    async ({ category_id }, { rejectWithValue }) => {
+    async (params, { rejectWithValue, getState, dispatch }) => {
         try {
-            const response = await apiPostCategoryDetail({ category_id } as Category) as {
-                data: CategoriesResponse
-            }
-            return response.data
-        } catch (err) {
-            return rejectWithValue(err);
+            const cacheKey = "catByCategoryId"
+            const data = await smartCacheFetch<ICategory, CategoriesResponse>(
+                cacheKey,
+                params,
+                async (p) => {
+                    const res = await apiPostCategoryDetail(p);
+                    return res as { data: CategoriesResponse };
+                },
+                getState,
+                dispatch,
+                { TTL: 5 * 60 * 1000, retries: 2, retryDelay: 500, tags: ["catByCategoryId"] }
+            );
+            return data;
+
+
+        } catch (err: any) {
+            return rejectWithValue(err?.message || 'Unknown error');
         }
     }
 );

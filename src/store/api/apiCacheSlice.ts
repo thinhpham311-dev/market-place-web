@@ -1,30 +1,69 @@
+// cacheSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ISpuPro } from "@/interfaces/spu";
 
-interface CacheEntry<T = any> {
-    data: T;
-    timestamp: number;
+export interface QueryState<T = any> {
+    data?: T;
+    error?: any;
+    status: "idle" | "loading" | "success" | "error";
+    timestamp?: number;
+    tags?: string[];
 }
 
-type ApiCacheState = Record<string, CacheEntry>;
+export type ApiCacheState = Record<string, QueryState>;
 
 const initialState: ApiCacheState = {};
 
-const apiCacheSlice = createSlice({
-    name: "api/cache",
+const cacheSlice = createSlice({
+    name: "apiCache",
     initialState,
     reducers: {
-        setCache: (state, action: PayloadAction<{ key: string; data: ISpuPro }>) => {
-            state[action.payload.key] = {
-                data: action.payload.data,
+        startQuery: (state, action: PayloadAction<string>) => {
+            state[action.payload] = { status: "loading" };
+        },
+        successQuery: (
+            state,
+            action
+        ) => {
+            const { key, data, tags } = action.payload;
+            state[key] = {
+                data,
+                status: "success",
                 timestamp: Date.now(),
+                tags,
             };
         },
-        clearCache: (state, action: PayloadAction<string>) => {
+        errorQuery: (
+            state,
+            action: PayloadAction<{ key: string; error: any }>
+        ) => {
+            state[action.payload.key] = {
+                status: "error",
+                error: action.payload.error,
+            };
+        },
+        invalidateCacheByKey: (state, action: PayloadAction<string>) => {
             delete state[action.payload];
+        },
+        invalidateCacheByTag: (state, action: PayloadAction<string>) => {
+            Object.keys(state).forEach((key) => {
+                if (state[key].tags?.includes(action.payload)) {
+                    delete state[key];
+                }
+            });
+        },
+        clearCache: () => {
+            return {};
         },
     },
 });
 
-export const { setCache, clearCache } = apiCacheSlice.actions;
-export default apiCacheSlice.reducer;
+export const {
+    startQuery,
+    successQuery,
+    errorQuery,
+    invalidateCacheByKey,
+    invalidateCacheByTag,
+    clearCache,
+} = cacheSlice.actions;
+
+export default cacheSlice.reducer;

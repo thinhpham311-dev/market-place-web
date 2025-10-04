@@ -44,10 +44,10 @@ export function useFetchData({ product_id, storeKey }: IUseFetchDataParams) {
 
 
     useEffect(() => {
+        if (!product_id) return;
         const promise = dispatch(getSpuDetail({
             product_id
         } as ISpuPro) as any);
-
         return () => {
             promise.abort?.();
         };

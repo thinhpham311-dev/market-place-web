@@ -1,23 +1,25 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { apiPostCategoriesList } from '@/features/category/popular/services';
-import { Category } from '@/features/category/types';
+import { ICategory } from '@/interfaces/category';
+import { smartCacheFetch } from "@/store/api/helpers";
+import { RootState } from '@/store';
 
 type CategoriesResponse = {
     metadata: {
-        list: Category[],
+        list: ICategory[],
         total: number
     };
 };
 
 
-interface CategoryState {
+interface ICategoryState {
     loading: boolean;
     error: string | null;
-    list: Category[];
+    list: ICategory[];
     total?: number
 }
 
-const initialState: CategoryState = {
+const initialState: ICategoryState = {
     loading: false,
     error: null,
     list: [],
@@ -25,14 +27,24 @@ const initialState: CategoryState = {
 };
 
 
-export const getCategoryList = createAsyncThunk<CategoriesResponse>(
+export const getCategoryList = createAsyncThunk<CategoriesResponse, object, { rejectValue: string; state: RootState }>(
     'catPopularList/data/getList',
-    async (_, { rejectWithValue }) => {
+    async (_, { rejectWithValue, getState, dispatch }) => {
         try {
-            const response = await apiPostCategoriesList() as {
-                data: CategoriesResponse
-            };
-            return response.data;
+            const cacheKey = "catPopularList"
+            const data = await smartCacheFetch<object, CategoriesResponse>(
+                cacheKey,
+                {},
+                async () => {
+                    const res = await apiPostCategoriesList();
+                    return res as { data: CategoriesResponse };
+                },
+                getState,
+                dispatch,
+                { TTL: 5 * 60 * 1000, retries: 2, retryDelay: 500, tags: ["catPopularList"] }
+            );
+            return data;
+
         } catch (err: any) {
             return rejectWithValue(err?.message || 'Unknown error');
         }

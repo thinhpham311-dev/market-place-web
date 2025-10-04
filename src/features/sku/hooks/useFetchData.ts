@@ -39,6 +39,7 @@ export function useFetchData({ product_id, storeKey, sku_tier_idx, optionsCount 
         status = "",
     } = useAppSelector(selectSkuDetailByStoreKey(storeKey));
 
+
     useEffect(() => {
         if (!product_id) return;
         if (!sku_tier_idx) return;
