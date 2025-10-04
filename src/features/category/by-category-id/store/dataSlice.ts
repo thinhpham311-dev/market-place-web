@@ -1,8 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { apiPostCategoryDetail } from '@/features/category/by-category-id/services'
 import { ICategory } from '@/interfaces/category';
-import { RootState } from '@/store';
-import { smartCacheFetch } from "@/store/api/helpers";
+import {
+    CAT_LIST_BY_ID_CACHE_KEY,
+    CAT_LIST_BY_ID_RETRY_DELAY,
+    CAT_LIST_BY_ID_RETRIES,
+    CAT_LIST_BY_ID_TTL,
+    CAT_LIST_BY_ID_TAG
+} from "@/features/category/by-category-id/constants";
 
 type CategoriesResponse = {
     metadata: {
@@ -29,23 +34,26 @@ const initialState: ICategoryState = {
 export const getCatListById = createAsyncThunk<
     CategoriesResponse,
     ICategory,
-    { rejectValue: string; state: RootState }
+    { rejectValue: string; }
 >(
     'catByCategoryId/data/getCatListById',
-    async (params, { rejectWithValue, getState, dispatch }) => {
+    async (params, { rejectWithValue, dispatch }) => {
         try {
-            const cacheKey = "catByCategoryId"
-            const data = await smartCacheFetch<ICategory, CategoriesResponse>(
-                cacheKey,
-                params,
-                async (p) => {
-                    const res = await apiPostCategoryDetail(p);
-                    return res as { data: CategoriesResponse };
+            const data = await dispatch({
+                type: "api/fetch",
+                payload: {
+                    key: CAT_LIST_BY_ID_CACHE_KEY,
+                    params,
+                    apiFn: apiPostCategoryDetail,
+                    options: {
+                        TTL: CAT_LIST_BY_ID_TTL,
+                        retries: CAT_LIST_BY_ID_RETRIES,
+                        retryDelay: CAT_LIST_BY_ID_RETRY_DELAY,
+                        tags: [CAT_LIST_BY_ID_TAG],
+                    },
                 },
-                getState,
-                dispatch,
-                { TTL: 5 * 60 * 1000, retries: 2, retryDelay: 500, tags: ["catByCategoryId"] }
-            );
+            }) as unknown as CategoriesResponse;
+
             return data;
 
 

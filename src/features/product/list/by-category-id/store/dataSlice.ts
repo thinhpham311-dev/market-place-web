@@ -1,8 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { apiPostProductsListByCategories } from '@/features/product/list/by-category-id/services';
 import { IFilter, ISpuPro } from '@/interfaces/spu';
-import { smartCacheFetch } from "@/store/api/helpers";
-import { RootState } from '@/store';
+import {
+    PRO_LIST_BY_CATEGORYID_CACHE_KEY,
+    PRO_LIST_BY_CATEGORYID_RETRY_DELAY,
+    PRO_LIST_BY_CATEGORYID_RETRIES,
+    PRO_LIST_BY_CATEGORYID_TTL,
+    PRO_LIST_BY_CATEGORYID_TAG
+} from "@/features/product/list/by-category-id/constants";
 
 type ProductListResponse = {
     metadata: {
@@ -27,23 +32,25 @@ const initialState: IProductState = {
     error: null
 };
 
-export const getProductListByCategories = createAsyncThunk<ProductListResponse, IFilter, { state: RootState }>(
+export const getProductListByCategories = createAsyncThunk<ProductListResponse, IFilter>(
     'proListByCategoryId/data/getList',
-    async (params: IFilter, { rejectWithValue, getState, dispatch }) => {
+    async (params: IFilter, { rejectWithValue, dispatch }) => {
         try {
-
-            const cacheKey = "proListByCategoryId"
-            const data = await smartCacheFetch<IFilter, ProductListResponse>(
-                cacheKey,
-                params,
-                async (p) => {
-                    const res = await apiPostProductsListByCategories(p);
-                    return res as { data: ProductListResponse };
+            const data = await dispatch({
+                type: "api/fetch",
+                payload: {
+                    key: PRO_LIST_BY_CATEGORYID_CACHE_KEY,
+                    params,
+                    apiFn: apiPostProductsListByCategories,
+                    options: {
+                        TTL: PRO_LIST_BY_CATEGORYID_TTL,
+                        retries: PRO_LIST_BY_CATEGORYID_RETRIES,
+                        retryDelay: PRO_LIST_BY_CATEGORYID_RETRY_DELAY,
+                        tags: [PRO_LIST_BY_CATEGORYID_TAG],
+                    },
                 },
-                getState,
-                dispatch,
-                { TTL: 5 * 60 * 1000, retries: 2, retryDelay: 500, tags: ["proListByCategoryId"] }
-            );
+            }) as unknown as ProductListResponse;
+
             return data;
         } catch (error: any) {
             return rejectWithValue(error?.response?.data || error.message);

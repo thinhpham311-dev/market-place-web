@@ -1,8 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { apiPostProductsList } from '@/features/product/list/top-picks/services'
 import { IFilter, ISpuPro } from '@/interfaces/spu';
-import { smartCacheFetch } from "@/store/api/helpers";
-import { RootState } from '@/store';
+import {
+    PRO_TOPPICKS_LIST_CACHE_KEY,
+    PRO_TOPPICKS_LIST_RETRY_DELAY,
+    PRO_TOPPICKS_LIST_RETRIES,
+    PRO_TOPPICKS_LIST_TTL,
+    PRO_TOPPICKS_LIST_TAG
+} from "@/features/product/list/top-picks/constants";
 
 type ProductListResponse = {
     metadata:
@@ -18,25 +23,26 @@ interface IErrorPayload {
 }
 
 
-export const getProductList = createAsyncThunk<ProductListResponse, IFilter, { rejectValue: IErrorPayload | string, state: RootState }
+export const getProductList = createAsyncThunk<ProductListResponse, IFilter, { rejectValue: IErrorPayload | string }
 >(
     'proTopPicksList/data/getList',
-    async (params: IFilter, { rejectWithValue, getState, dispatch }) => {
+    async (params: IFilter, { rejectWithValue, dispatch }) => {
         try {
-            const cacheKey = `proTopPicksList`;
-
-            const data = await smartCacheFetch<IFilter, ProductListResponse>(
-                cacheKey,
-                params,
-                async (p) => {
-                    const res = await apiPostProductsList(p);
-                    return res as { data: ProductListResponse };
+            const data = await dispatch({
+                type: "api/fetch",
+                payload: {
+                    key: PRO_TOPPICKS_LIST_CACHE_KEY,
+                    params,
+                    apiFn: apiPostProductsList,
+                    options: {
+                        TTL: PRO_TOPPICKS_LIST_TTL,
+                        retries: PRO_TOPPICKS_LIST_RETRIES,
+                        retryDelay: PRO_TOPPICKS_LIST_RETRY_DELAY,
+                        tags: [PRO_TOPPICKS_LIST_TAG],
+                    },
                 },
-                getState,
-                dispatch,
-                { TTL: 5 * 60 * 1000, retries: 2, retryDelay: 500, tags: ["proTopPicksList"] }
+            }) as unknown as ProductListResponse;
 
-            );
             return data;
         } catch (error: any) {
             return rejectWithValue(error?.response?.data || error.message);

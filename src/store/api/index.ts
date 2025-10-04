@@ -1,5 +1,5 @@
 import { combineReducers } from '@reduxjs/toolkit'
-import cache from './apiCacheSlice'
+import cache from './cacheSlice'
 
 const reducer = combineReducers({
     cache

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { apiPostSpuDetail } from '@/features/spu/services';
 import { ISpuPro } from '@/interfaces/spu';
-import { SPU_KEY } from "@/features/spu/constants";
+import { SPU_KEY_CACHE_KEY, SPU_KEY_RETRY_DELAY, SPU_KEY_RETRIES, SPU_KEY_TTL, SPU_KEY_TAG } from "@/features/spu/constants";
 
 type SpuDetailResponse = {
     metadata: ISpuPro
@@ -15,19 +15,18 @@ interface IErrorPayload {
 export const getSpuDetail = createAsyncThunk<SpuDetailResponse, ISpuPro, { rejectValue: IErrorPayload | string }>(
     'detail/data/getSpuDetail',
     async (params, { rejectWithValue, dispatch }) => {
-        console.log(params)
         try {
             const data = await dispatch({
                 type: "api/fetch",
                 payload: {
-                    key: SPU_KEY,
+                    key: SPU_KEY_CACHE_KEY,
                     params,
                     apiFn: apiPostSpuDetail,
                     options: {
-                        TTL: 5 * 60 * 1000,
-                        retries: 2,
-                        retryDelay: 500,
-                        tags: [SPU_KEY],
+                        TTL: SPU_KEY_TTL,
+                        retries: SPU_KEY_RETRIES,
+                        retryDelay: SPU_KEY_RETRY_DELAY,
+                        tags: [SPU_KEY_TAG],
                     },
                 },
             }) as unknown as SpuDetailResponse;

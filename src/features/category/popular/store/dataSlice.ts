@@ -1,8 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { apiPostCategoriesList } from '@/features/category/popular/services';
 import { ICategory } from '@/interfaces/category';
-import { smartCacheFetch } from "@/store/api/helpers";
-import { RootState } from '@/store';
+import {
+    CAT_POPULAR_LIST_CACHE_KEY,
+    CAT_POPULAR_LIST_RETRY_DELAY,
+    CAT_POPULAR_LIST_RETRIES,
+    CAT_POPULAR_LIST_TTL,
+    CAT_POPULAR_LIST_TAG
+} from "@/features/category/popular/constants";
 
 type CategoriesResponse = {
     metadata: {
@@ -27,24 +32,26 @@ const initialState: ICategoryState = {
 };
 
 
-export const getCategoryList = createAsyncThunk<CategoriesResponse, object, { rejectValue: string; state: RootState }>(
+export const getCategoryList = createAsyncThunk<CategoriesResponse, object, { rejectValue: string }>(
     'catPopularList/data/getList',
-    async (_, { rejectWithValue, getState, dispatch }) => {
+    async (_, { rejectWithValue, dispatch }) => {
         try {
-            const cacheKey = "catPopularList"
-            const data = await smartCacheFetch<object, CategoriesResponse>(
-                cacheKey,
-                {},
-                async () => {
-                    const res = await apiPostCategoriesList();
-                    return res as { data: CategoriesResponse };
+            const data = await dispatch({
+                type: "api/fetch",
+                payload: {
+                    key: CAT_POPULAR_LIST_CACHE_KEY,
+                    params: {},
+                    apiFn: apiPostCategoriesList,
+                    options: {
+                        TTL: CAT_POPULAR_LIST_TTL,
+                        retries: CAT_POPULAR_LIST_RETRIES,
+                        retryDelay: CAT_POPULAR_LIST_RETRY_DELAY,
+                        tags: [CAT_POPULAR_LIST_TAG],
+                    },
                 },
-                getState,
-                dispatch,
-                { TTL: 5 * 60 * 1000, retries: 2, retryDelay: 500, tags: ["catPopularList"] }
-            );
-            return data;
+            }) as unknown as CategoriesResponse;
 
+            return data;
         } catch (err: any) {
             return rejectWithValue(err?.message || 'Unknown error');
         }

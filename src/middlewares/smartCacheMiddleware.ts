@@ -1,5 +1,5 @@
 import type { Middleware } from "@reduxjs/toolkit";
-import { startQuery, successQuery, errorQuery } from "@/store/api/apiCacheSlice";
+import { startQuery, successQuery, errorQuery } from "@/store/api/cacheSlice";
 import type { RootState, AppDispatch } from "@/store";
 
 const inflight: Record<string, Promise<any> | undefined> = {};

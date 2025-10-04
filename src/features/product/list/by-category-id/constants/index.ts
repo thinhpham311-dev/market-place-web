@@ -1,4 +1,10 @@
 export const PRO_LIST_BY_CATEGORYID = "PRO_LIST_BY_CATEGORYID"
+export const PRO_LIST_BY_CATEGORYID_CACHE_KEY = "PRO_LIST_BY_CATEGORYID_CACHE_KEY"
+export const PRO_LIST_BY_CATEGORYID_TAG = "PRO_LIST_BY_CATEGORYID_TAG"
+export const PRO_LIST_BY_CATEGORYID_TTL = 5 * 60 * 1000 // 5 minutes
+export const PRO_LIST_BY_CATEGORYID_RETRIES = 2
+export const PRO_LIST_BY_CATEGORYID_RETRY_DELAY = 500 // 0.5 second
+
 
 export const SORTBY_OPTIONS = [
     { label: 'Newest', value: 'ctime' },

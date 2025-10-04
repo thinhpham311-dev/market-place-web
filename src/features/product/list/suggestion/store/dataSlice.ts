@@ -1,8 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { apiPostProductsList } from '@/features/product/list/suggestion/services';
 import { ISpuPro, IFilter } from '@/interfaces/spu';
-import { smartCacheFetch } from "@/store/api/helpers";
-import { RootState } from '@/store';
+
+import {
+    PRO_SUGGESTION_LIST_CACHE_KEY,
+    PRO_SUGGESTION_LIST_RETRY_DELAY,
+    PRO_SUGGESTION_LIST_RETRIES,
+    PRO_SUGGESTION_LIST_TTL,
+    PRO_SUGGESTION_LIST_TAG
+} from "@/features/product/list/suggestion/constants";
+
 
 type ProductListResponse = {
     metadata:
@@ -11,6 +18,42 @@ type ProductListResponse = {
         total: number;
     };
 };
+
+
+
+interface IErrorPayload {
+    message: string;
+    [key: string]: any;
+}
+
+
+
+export const getProductList = createAsyncThunk<ProductListResponse, IFilter, { rejectValue: IErrorPayload | string }>(
+    'proSuggestionList/data/getList',
+    async (params: IFilter, { rejectWithValue, dispatch }) => {
+        try {
+
+            const data = await dispatch({
+                type: "api/fetch",
+                payload: {
+                    key: PRO_SUGGESTION_LIST_CACHE_KEY,
+                    params,
+                    apiFn: apiPostProductsList,
+                    options: {
+                        TTL: PRO_SUGGESTION_LIST_TTL,
+                        retries: PRO_SUGGESTION_LIST_RETRIES,
+                        retryDelay: PRO_SUGGESTION_LIST_RETRY_DELAY,
+                        tags: [PRO_SUGGESTION_LIST_TAG],
+                    },
+                },
+            }) as unknown as ProductListResponse;
+
+            return data;
+        } catch (error: any) {
+            return rejectWithValue(error?.response?.data || error.message);
+        }
+    }
+);
 
 interface IProductState {
     loading: boolean;
@@ -27,31 +70,6 @@ const initialState: IProductState = {
     status: "idle",
     error: null
 }
-
-
-export const getProductList = createAsyncThunk<ProductListResponse, IFilter, { state: RootState }>(
-    'proSuggestionList/data/getList',
-    async (params: IFilter, { rejectWithValue, getState, dispatch }) => {
-        try {
-
-            const cacheKey = "proSuggestionList"
-            const data = await smartCacheFetch<IFilter, ProductListResponse>(
-                cacheKey,
-                params,
-                async (p) => {
-                    const res = await apiPostProductsList(p);
-                    return res as { data: ProductListResponse };
-                },
-                getState,
-                dispatch,
-                { TTL: 5 * 60 * 1000, retries: 2, retryDelay: 500, tags: ["proSuggestionList"] }
-            );
-            return data;
-        } catch (error: any) {
-            return rejectWithValue(error?.response?.data || error.message);
-        }
-    }
-);
 
 
 

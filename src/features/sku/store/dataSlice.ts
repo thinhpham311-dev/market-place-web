@@ -1,6 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { apiPostSkuDetail } from '@/features/sku/services';
 import { ISkuPro } from '@/interfaces/sku';
+import {
+    SKU_KEY_CACHE_KEY,
+    SKU_KEY_RETRY_DELAY,
+    SKU_KEY_RETRIES,
+    SKU_KEY_TTL,
+    SKU_KEY_TAG
+} from "@/features/sku/constants";
 
 type SkuDetailResponse = {
     metadata: ISkuPro;
@@ -32,14 +39,14 @@ export const getSkuDetail = createAsyncThunk<
             const data = await dispatch({
                 type: "api/fetch",
                 payload: {
-                    key: "sku",
+                    key: SKU_KEY_CACHE_KEY,
                     params,
                     apiFn: apiPostSkuDetail,
                     options: {
-                        TTL: 5 * 60 * 1000,
-                        retries: 2,
-                        retryDelay: 500,
-                        tags: ["spu"],
+                        TTL: SKU_KEY_TTL,
+                        retries: SKU_KEY_RETRIES,
+                        retryDelay: SKU_KEY_RETRY_DELAY,
+                        tags: [SKU_KEY_TAG],
                     },
                 },
             }) as unknown as SkuDetailResponse;
