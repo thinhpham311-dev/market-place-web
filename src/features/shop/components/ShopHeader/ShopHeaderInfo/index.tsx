@@ -1,0 +1,45 @@
+import React from "react";
+import { ItemContent, ItemTitle, ItemDescription } from "@/components/ui";
+import { useShopInfoContext } from "@/features/shop/hooks";
+import { formatPhone } from "@/lib/formats";
+import LoadingSkeleton from "./Loading";
+import NotFound from "./NotFound";
+
+const ShopHeaderInfo = () => {
+    const { shopInfo, loading, error } = useShopInfoContext();
+    const { shop_name, shop_address, shop_phone } = shopInfo || {};
+
+    if (loading) {
+        return (
+            <LoadingSkeleton />
+        );
+    }
+
+    if (error) {
+        return (
+            <NotFound />
+        );
+    }
+
+    return (
+        <ItemContent className="flex flex-col justify-center">
+            <ItemTitle className="text-base md:text-lg font-bold">
+                {shop_name?.trim() || "Shop Name"}
+            </ItemTitle>
+
+            {shop_phone && (
+                <ItemDescription className="text-sm text-muted-foreground">
+                    📞 {formatPhone({ phone: shop_phone })}
+                </ItemDescription>
+            )}
+
+            {shop_address && (
+                <ItemDescription className="text-sm text-muted-foreground line-clamp-2">
+                    📍 {shop_address}
+                </ItemDescription>
+            )}
+        </ItemContent>
+    );
+};
+
+export default ShopHeaderInfo;

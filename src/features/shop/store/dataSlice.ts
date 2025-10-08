@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { apiPostShopDetail } from '@/features/shop/services'
 import { IShop } from '@/interfaces/shop';
+import { SHOP_KEY_CACHE_KEY, SHOP_KEY_RETRY_DELAY, SHOP_KEY_RETRIES, SHOP_KEY_TTL, SHOP_KEY_TAG } from "@/features/shop/constants";
+
 
 type ShopDetailResponse = {
     metadata: IShop
@@ -14,10 +16,25 @@ interface IErrorPayload {
 
 export const getShopById = createAsyncThunk<ShopDetailResponse, IShop, { rejectValue: IErrorPayload | string }>(
     'shopInfoById/data/getList',
-    async (params, { rejectWithValue }) => {
+    async (params, { rejectWithValue, dispatch }) => {
         try {
-            const response = await apiPostShopDetail(params) as { data: ShopDetailResponse };
-            return response.data;
+
+            const data = await dispatch({
+                type: "api/fetch",
+                payload: {
+                    key: SHOP_KEY_CACHE_KEY,
+                    params,
+                    apiFn: apiPostShopDetail,
+                    options: {
+                        TTL: SHOP_KEY_TTL,
+                        retries: SHOP_KEY_RETRIES,
+                        retryDelay: SHOP_KEY_RETRY_DELAY,
+                        tags: [SHOP_KEY_TAG],
+                    },
+                },
+            }) as unknown as ShopDetailResponse;
+
+            return data;
         } catch (error: any) {
             return rejectWithValue(error?.response?.data || error.message);
         }

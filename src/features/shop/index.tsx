@@ -3,7 +3,6 @@ import ShopInfoProvider from "./providers"
 import ShopInfoWrapper from "./components/ShopInfoWrapper"
 import ShopHeader from './components/ShopHeader';
 import ShopStats from './components/ShopStats';
-import ShopActions from './components/ShopActions';
 import { useFetchData } from './hooks';
 
 interface IShopProps {
@@ -25,7 +24,6 @@ const ShopInfo = ({
             <ShopInfoWrapper>
                 <ShopHeader />
                 <ShopStats />
-                <ShopActions />
             </ShopInfoWrapper>
         </ShopInfoProvider>
     );
