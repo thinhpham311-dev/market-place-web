@@ -22,7 +22,6 @@ import ProReviewStar from "@/features/product/components/ProReviewStar"
 import ProActions from "@/features/product/components/ProActions"
 import ProShopInfo from "@/features/product/components/ProShopInfo";
 
-import Shop from "@/features/shop";
 // import ProductReview from "@/features/product/reviews";
 import ProProvider from "./providers"
 import { useAppSelector } from "@/lib/hooks";
@@ -67,16 +66,16 @@ export default function ProductDetail(
                                     className="rounded-none"
                                 >
                                     <CardContent className="p-3 ">
-                                        <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
-                                            <div className="md:col-span-2 md:order-1 md:row-span-1">
+                                        <div className="grid grid-cols-1 lg:grid-cols-5 gap-3">
+                                            <div className="lg:col-span-2 lg:order-1 md:row-span-1">
                                                 <ProThumbnailGallery />
                                             </div>
-                                            <div className="md:col-span-2 md:order-3 md:row-span-1 flex items-center justify-center space-x-3">
+                                            <div className="lg:col-span-2 lg:order-3 md:row-span-1 flex items-center justify-center space-x-3">
                                                 <ProSocialsShare />
                                                 <Separator orientation="vertical" />
                                                 <ProWishListToggle />
                                             </div>
-                                            <div className="md:col-span-3 md:order-2 md:row-span-2">
+                                            <div className="lg:col-span-3 lg:order-2 md:row-span-2">
                                                 <ProTitle />
                                                 <ProReviewStar />
                                                 <ProSkuDetailContainer>
@@ -90,17 +89,13 @@ export default function ProductDetail(
                                     </CardContent>
                                 </Card>
                             </div>
-                            <div className="md:col-span-3 col-span-3 md:order-1 order-2">
-                                <Shop
-                                    storeKey={PRO_DETAIL}
-                                    shop_id={shop_id}>
-                                    <ProShopInfo />
-                                </Shop>
+                            <div className="lg:col-span-3 col-span-3 md:order-1 order-2">
+                                <ProShopInfo />
                             </div>
-                            <div className="md:col-span-2 col-span-3 md:order-1 order-2">
+                            <div className="lg:col-span-2 col-span-3 md:order-1 order-2">
                                 <ProDescriptionContent />
                             </div>
-                            <div className="md:col-span-1 col-span-3 md:order-2 order-1">
+                            <div className="lg:col-span-1 col-span-3 md:order-2 order-1">
                                 <ProSpecifications />
                             </div>
                         </CardContent>

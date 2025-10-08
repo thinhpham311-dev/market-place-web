@@ -52,8 +52,8 @@ const ProActions = () => {
     };
 
     return (
-        <Card className="border-none shadow-none">
-            <CardContent className="p-3 flex gap-3">
+        <Card className="border-none shadow-none lg:static md:fixed sm:fixed fixed bottom-0 left-0 z-50 w-full">
+            <CardContent className="container mx-auto py-3 px-6 flex gap-3">
                 <Button {...buttonBaseProps} variant="outline">
                     <MdAddShoppingCart />
                     <span>Add to Cart</span>

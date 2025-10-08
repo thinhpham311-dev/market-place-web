@@ -1,21 +1,17 @@
-import React from 'react';
-import { useShopInfoContext } from '@/features/shop/hooks';
-import { Card, CardContent, CardDescription, CardTitle } from '@/components/ui';
+"use client";
+import React from "react";
+import ShopInfo from "@/features/shop";
+import { PRO_DETAIL } from "@/features/product/constants";
+import { useProContext } from "@/features/product/hooks/useProContext";
 
 const ProShopInfo = () => {
-    const { shopInfo } = useShopInfoContext();
-    const { shop_name, shop_email, shop_address, shop_phone } = shopInfo || {};
+    const { shop_id } = useProContext()
+
     return (
-        <Card >
-            <CardContent className='p-3'>
-                <CardTitle className='text-lg'>{shop_name}</CardTitle>
-                <CardDescription>{shop_email}</CardDescription>
-                <CardDescription>{shop_address}</CardDescription>
-
-                <CardDescription>{shop_phone}</CardDescription>
-
-            </CardContent>
-        </Card>
+        <ShopInfo
+            storeKey={PRO_DETAIL}
+            shop_id={shop_id}
+        />
     );
 };
 

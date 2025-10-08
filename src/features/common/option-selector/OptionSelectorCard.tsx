@@ -69,7 +69,7 @@ export default function OptionSelectorCard({
                 className
             )}
         >
-            <div className="grid grid-cols-12 gap-x-5 items-center">
+            <div className="lg:grid block grid-cols-12 gap-x-5 items-center">
                 <CardHeader className="p-0 col-span-2">
                     {label && <CardTitle className="text-sm uppercase">{label}:</CardTitle>}
                 </CardHeader>

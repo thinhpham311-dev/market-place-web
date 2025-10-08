@@ -3,7 +3,7 @@ import * as React from "react";
 export default function Footer() {
     return (
         <footer className="border-t bg-background">
-            <div className="container mx-auto  py-8 md:px-6 px-3 ">
+            <div className="container mx-auto  py-8 px-6 ">
                 <div className="flex flex-col lg:flex-row justify-between items-center lg:items-start md:gap-10 gap-5">
                     {/* Logo or Brand */}
                     <div className="mb-4 lg:mb-0  lg:w-1/3 w-full">

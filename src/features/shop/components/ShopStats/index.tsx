@@ -1,0 +1,30 @@
+import React from "react";
+import { CardContent, Item, ItemContent, ItemTitle, ItemDescription } from "@/components/ui";
+
+const ShopStats = () => {
+    const stats = [
+        { label: "Rating", value: "5.0 ★" },
+        { label: "Products", value: "120" },
+        { label: "Follower", value: "3.2k" },
+        { label: "Joined", value: "2022" },
+        { label: "Response Rate", value: "98%" },
+        { label: "Response Time", value: "1h" },
+    ];
+
+    return (
+        <CardContent className="p-3 flex-1 w-full">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3 sm:gap-5">
+                {stats.map((item) => (
+                    <Item key={item.label} size="sm" className="p-0">
+                        <ItemContent className="flex flex-row justify-between text-sm md:text-base">
+                            <ItemTitle className="font-semibold">{item.label}: </ItemTitle>
+                            <ItemDescription>{item.value}</ItemDescription>
+                        </ItemContent>
+                    </Item>
+                ))}
+            </div>
+        </CardContent>
+    );
+};
+
+export default ShopStats;

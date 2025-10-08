@@ -16,7 +16,7 @@ export default function ProThumbnailGallery() {
 
     return (
         <Card className="border-none shadow-none space-y-2">
-            <CardContent className="w-full max-w-xl sm:w-auto p-0">
+            <CardContent className="w-full lg:w-auto p-0">
                 <GalleryCarousel
                     data={images}
                     onSetApi={(api) => setApi("main", api)}

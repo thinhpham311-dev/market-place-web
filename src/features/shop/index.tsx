@@ -1,15 +1,17 @@
 import React from 'react';
 import ShopInfoProvider from "./providers"
+import ShopInfoWrapper from "./components/ShopInfoWrapper"
+import ShopHeader from './components/ShopHeader';
+import ShopStats from './components/ShopStats';
+import ShopActions from './components/ShopActions';
 import { useFetchData } from './hooks';
 
 interface IShopProps {
-    children: React.ReactNode;
     shop_id?: string;
     storeKey: string;
 }
 
-const Shop = ({
-    children,
+const ShopInfo = ({
     shop_id,
     storeKey
 }: IShopProps) => {
@@ -20,9 +22,13 @@ const Shop = ({
 
     return (
         <ShopInfoProvider contextValues={{ ...shopData }}>
-            {children}
+            <ShopInfoWrapper>
+                <ShopHeader />
+                <ShopStats />
+                <ShopActions />
+            </ShopInfoWrapper>
         </ShopInfoProvider>
     );
 };
 
-export default Shop;
+export default ShopInfo;
