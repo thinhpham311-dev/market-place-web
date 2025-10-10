@@ -7,19 +7,18 @@ import ShopStats from '../components/ShopStats';
 import ShopActions from '../components/ShopActions';
 import { useFetchData } from '../hooks';
 import { Card, CardContent } from "@/components/ui";
+import { SHOP_DETAIL } from "@/features/shop/shop-detail/constants";
 
 interface IShopProps {
     shop_id?: string;
-    storeKey?: string;
 }
 
 const ShopDetail = ({
     shop_id,
-    storeKey = "DEFAULT_SHOP"
 }: IShopProps) => {
     const shopData = useFetchData({
         shop_id,
-        storeKey
+        storeKey: SHOP_DETAIL
     })
 
     return (

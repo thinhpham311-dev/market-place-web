@@ -2,26 +2,21 @@
 import React from 'react';
 
 //ui
-import { Card, CardContent } from "@/components/ui"
-
+import ShoppingCartProvider from "@/features/cart/providers";
+import { useHandleShoppingCart } from "@/features/cart/hooks";
 import CartDataTable from "@/features/cart/components/CartDataTable"
-import { useShoppingCartContext } from "@/features/cart/hooks";
-import { MAIN_CART_STORE_KEY, cartColumns } from "./constants"
+import { MAIN_CART, cartColumns } from "./constants"
 
 const MainCart = () => {
-    const { cart, removeSelectedItems } = useShoppingCartContext()
-    const { items } = cart
+    const cart = useHandleShoppingCart({ storeKey: MAIN_CART });
+
     return (
-        <Card className='border-none shadow-none'>
-            <CardContent>
-                <CartDataTable
-                    storeKey={MAIN_CART_STORE_KEY}
-                    initialColumns={cartColumns}
-                    initialData={items}
-                    removeSelectedItems={removeSelectedItems}
-                />
-            </CardContent>
-        </Card>
+        <ShoppingCartProvider contextValues={{ ...cart }}>
+            <CartDataTable
+                storeKey={MAIN_CART}
+                initialColumns={cartColumns}
+            />
+        </ShoppingCartProvider>
     );
 };
 

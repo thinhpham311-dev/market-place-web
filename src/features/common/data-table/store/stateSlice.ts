@@ -1,4 +1,4 @@
-// features/cartTable/cartTableSlice.ts
+// features/cartTable/dataTableSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import {
@@ -8,14 +8,14 @@ import {
 } from '@tanstack/react-table'
 
 // Types
-export interface CartTableState {
+export interface DataTableState {
     grouping: GroupingState
     columnVisibility: VisibilityState
     expanded: ExpandedState
 }
 
 // Initial state
-const initialState: CartTableState = {
+const initialState: DataTableState = {
     grouping: ['itemShopId'],
     columnVisibility: {
         itemShopId: false,
@@ -24,8 +24,8 @@ const initialState: CartTableState = {
 }
 
 // Slice
-const cartTableSlice = createSlice({
-    name: 'cartTable',
+const dataTableSlice = createSlice({
+    name: 'dataTable',
     initialState,
     reducers: {
         setGrouping: (state, action: PayloadAction<GroupingState>) => {
@@ -35,7 +35,6 @@ const cartTableSlice = createSlice({
         setColumnVisibility: (state, action: PayloadAction<VisibilityState>) => {
             state.columnVisibility = action.payload
         },
-
 
         setExpanded: (state, action: PayloadAction<ExpandedState>) => {
             state.expanded = action.payload
@@ -47,7 +46,7 @@ export const {
     setGrouping,
     setColumnVisibility,
     setExpanded,
-} = cartTableSlice.actions
+} = dataTableSlice.actions
 
 
-export default cartTableSlice.reducer
+export default dataTableSlice.reducer

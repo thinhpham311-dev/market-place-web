@@ -17,7 +17,7 @@ const persistConfig: PersistConfig<RootReducerState> = {
     key: PERSIST_STORE_NAME,
     keyPrefix: '',
     storage,
-    whitelist: ['auth', 'ITEM_IN_CART'],
+    whitelist: ['auth'],
 };
 
 const store = configureStore({

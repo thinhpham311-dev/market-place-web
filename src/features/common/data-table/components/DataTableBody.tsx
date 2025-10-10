@@ -3,11 +3,11 @@ import { useRouter } from "next/navigation"
 import { flexRender, Row } from "@tanstack/react-table"
 import { TableBody, TableRow, TableCell, Button, Checkbox } from "@/components/ui"
 import { ChevronDown } from "lucide-react"
-import { useCartDataTableContext } from "./hooks"
+import { useDataTableContext } from "@/features/common/data-table/hooks"
 
 const CartTableBody = () => {
     const router = useRouter()
-    const { getRowModel, getAllColumns } = useCartDataTableContext()
+    const { getRowModel, getAllColumns } = useDataTableContext()
     return (
         <TableBody>
             {getRowModel().rows?.length ? (
@@ -16,6 +16,7 @@ const CartTableBody = () => {
                     const selectedCount = subRows.filter((r) => r.getIsSelected()).length
                     const isAllSelected = subRows.length > 0 && selectedCount === subRows.length
                     const isSomeSelected = selectedCount > 0 && selectedCount < subRows.length
+
                     if (row.getIsGrouped()) {
                         return (
                             <TableRow key={row.id} className="bg-gray-100 font-medium cursor-pointer ">
@@ -34,10 +35,10 @@ const CartTableBody = () => {
                                                 className={`transition-transform ${row.getIsExpanded() ? "rotate-90" : ""}`}
                                                 size={16}
                                             />
-                                            <span className="font-bold">{row.original.itemShopName}</span>{" "}
+                                            <span className="font-bold">{row.original.itemShopName}</span>
                                             ({row.subRows.length})
                                         </Button>
-                                        <Button variant="link" onClick={() => router.push(`/shop/${row.original.itemShopSlug}`)}>View More</Button>
+                                        <Button variant="link" onClick={() => router.push(`/shop/${row.original.itemShopSlug}-s.${row.original.itemShopId}`)}>View More</Button>
                                     </div>
                                 </TableCell>
                             </TableRow>

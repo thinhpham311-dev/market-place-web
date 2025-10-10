@@ -1,45 +1,30 @@
 "use client"
 
 import * as React from "react"
-import CartDataTableProvider from "./providers"
-import CartTableWrapper from "./CartTableWrapper"
-import CartTableHeader from "./CartTableHeader"
-import CartTableBody from "./CartTableBody"
-import CartTableFooter from "./CartTableFooter"
-import { useHandleCartDataTable } from "./hooks"
-import { ICartItem } from "@/interfaces/cart"
+import DataTable from "@/features/common/data-table"
+import { Card, CardContent } from "@/components/ui/card"
+import { useShoppingCartContext } from "@/features/cart/hooks"
 
 interface ICartDataTableProps {
     storeKey: string,
     initialColumns: any[],
-    initialData: ICartItem[]
-    removeSelectedItems: (selectedItems: ICartItem[]) => void
 }
 
-const CartDataTable = ({
-    storeKey,
-    initialData,
-    initialColumns,
-    ...rest
-}: ICartDataTableProps) => {
-
-    const dataTable = useHandleCartDataTable({
-        storeKey,
-        initialData,
-        initialColumns
-    })
-
+const CartDataTable = ({ storeKey, initialColumns }: ICartDataTableProps) => {
+    const { cart, removeSelectedItems } = useShoppingCartContext()
+    const { items: initialData } = cart
 
     return (
-        <CartDataTableProvider contextValues={{ ...dataTable, ...rest }}>
-            <CartTableWrapper>
-                <CartTableHeader />
-                <CartTableBody />
-                <CartTableFooter />
-            </CartTableWrapper>
-        </CartDataTableProvider>
-
-    )
+        <Card className='border-none shadow-none'>
+            <CardContent>
+                <DataTable
+                    storeKey={storeKey}
+                    initialColumns={initialColumns}
+                    initialData={initialData}
+                    removeSelectedItems={removeSelectedItems}
+                />
+            </CardContent>
+        </Card>)
 }
 
 export default CartDataTable

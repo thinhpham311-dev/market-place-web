@@ -1,9 +1,10 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "@/store";
+import { ITEM_IN_CART } from "@/features/cart/constants";
 
 export const makeSelectCartState = (storeKey: string) =>
     createSelector(
-        (state: RootState) => state[storeKey]?.state ?? null,
+        (state: RootState) => state[`${ITEM_IN_CART}_${storeKey}`]?.state ?? null,
         (state) => ({
             items: state?.items,
             itemsCount: state?.items.length,

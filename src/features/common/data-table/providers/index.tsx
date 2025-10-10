@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 import { HeaderGroup, RowModel } from "@tanstack/react-table";
 import { ICartItem } from "@/interfaces/cart";
 
-interface ICartDataTableContextType {
+interface IDataTableContextType {
     getAllLeafColumns: () => any[];
     getHeaderGroups: () => HeaderGroup<any>[];
     getRowModel: () => RowModel<any>;
@@ -18,22 +18,22 @@ interface ICartDataTableContextType {
     totalSelectedAmount: number;
 }
 
-interface ICartDataTableProviderProps {
+interface IDataTableProviderProps {
     children?: React.ReactNode;
     className?: string;
-    contextValues: ICartDataTableContextType
+    contextValues: IDataTableContextType
 }
 
-export const CartDataTableContext = React.createContext<ICartDataTableContextType | null>(null);
+export const DataTableContext = React.createContext<IDataTableContextType | null>(null);
 
-const CartDataTableProvider = ({ children, className, contextValues }: ICartDataTableProviderProps) => {
+const DataTableProvider = ({ children, className, contextValues }: IDataTableProviderProps) => {
     return (
-        <CartDataTableContext.Provider value={contextValues} >
+        <DataTableContext.Provider value={contextValues} >
             <div className={cn(className)}>
                 {children}
             </div>
-        </CartDataTableContext.Provider>
+        </DataTableContext.Provider>
     );
 };
 
-export default CartDataTableProvider;
+export default DataTableProvider;

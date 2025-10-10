@@ -3,7 +3,7 @@
 //constants
 import { PRO_DETAIL } from "@/features/product/constants";
 import { useProContext } from "@/features/product/hooks/useProContext";
-import SkuDetailWrapper from "@/features/sku";
+import SkuRoot from "@/features/sku/sku-root";
 import { useSpuContext } from "@/features/spu/hooks";
 import LoadingSkeleton from "./Loading"
 import NotFound from "./NotFound"
@@ -29,13 +29,13 @@ export default function ProSkuDetailContainer({ children }: IProSkuDetailContain
         return <NotFound />;
     }
     return (
-        <SkuDetailWrapper
+        <SkuRoot
             storeKey={PRO_DETAIL}
             product_id={product_id}
             sku_tier_idx={sku_tier_idx}
             optionsCount={optionsCount}
         >
             {children}
-        </SkuDetailWrapper>
+        </SkuRoot>
     );
 }

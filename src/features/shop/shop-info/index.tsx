@@ -1,24 +1,23 @@
 "use client"
 import React from 'react';
-import ShopInfoProvider from "../providers"
-import ShopInfoWrapper from "../components/ShopInfoWrapper"
-import ShopHeader from '../components/ShopHeader';
-import ShopActions from '../components/ShopActions';
-import ShopStats from '../components/ShopStats';
-import { useFetchData } from '../hooks';
+import ShopInfoProvider from "@/features/shop/providers"
+import ShopInfoWrapper from "@/features/shop/components/ShopInfoWrapper"
+import ShopHeader from '@/features/shop/components/ShopHeader';
+import ShopActions from '@/features/shop/components/ShopActions';
+import ShopStats from '@/features/shop/components/ShopStats';
+import { useFetchData } from '@/features/shop/hooks';
+import { SHOP_INFO } from "@/features/shop/shop-info/constants";
 
 interface IShopProps {
     shop_id?: string;
-    storeKey?: string;
 }
 
 const ShopInfo = ({
-    shop_id,
-    storeKey = "DEFAULT_SHOP"
+    shop_id
 }: IShopProps) => {
     const shopData = useFetchData({
         shop_id,
-        storeKey
+        storeKey: SHOP_INFO
     })
 
     return (

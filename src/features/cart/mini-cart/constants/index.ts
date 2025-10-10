@@ -1,0 +1,1 @@
+export const MINI_CART = "MINI_CART";

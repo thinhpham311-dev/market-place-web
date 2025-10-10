@@ -1,10 +1,10 @@
 "use client";
 
 //hooks
-import { useFetchData } from "./hooks";
+import { useFetchData } from "@/features/spu/hooks";
 
 // providers
-import SpuProvider from "./providers";
+import SpuProvider from "@/features/spu/providers";
 
 
 interface ISpuDetailWrapperProps {
@@ -13,7 +13,7 @@ interface ISpuDetailWrapperProps {
     product_id: string
 }
 
-export default function SpuDetailWrapper(
+export default function SpuRoot(
     { children, storeKey, product_id }: ISpuDetailWrapperProps
 ) {
 

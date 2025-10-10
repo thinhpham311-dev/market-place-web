@@ -2,10 +2,10 @@
 
 import { flexRender } from "@tanstack/react-table"
 import { TableHeader, TableRow, TableHead } from "@/components/ui"
-import { useCartDataTableContext } from "./hooks"
+import { useDataTableContext } from "@/features/common/data-table/hooks"
 
 const CartTableHeader = () => {
-    const { getHeaderGroups } = useCartDataTableContext()
+    const { getHeaderGroups } = useDataTableContext()
     return (
         <TableHeader>
             {getHeaderGroups().map((headerGroup) => (

@@ -1,2 +1,2 @@
-export const MAIN_CART_STORE_KEY = "MAIN_CART_STORE_KEY";
+export const MAIN_CART = "MAIN_CART";
 export * from "./columns"

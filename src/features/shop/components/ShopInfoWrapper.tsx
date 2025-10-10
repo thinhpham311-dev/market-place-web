@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { Item } from "@/components/ui";
-import { cn } from "@/lib/utils";
 
 
 const ShopInfoWrapper = ({ children }: { children: React.ReactNode }) => {

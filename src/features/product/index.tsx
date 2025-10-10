@@ -4,8 +4,8 @@
 import { Card, CardHeader, CardContent, Separator } from "@/components/ui"
 // Components
 import ProWrapper from "@/features/product/components/ProWrapper";
-import ProSpuDetailContainer from "@/features/product/components/ProSpuDetailContainer";
-import ProSkuDetailContainer from "@/features/product/components/ProSkuDetailContainer";
+import ProSpuContainer from "@/features/product/components/ProSpuContainer";
+import ProSkuContainer from "@/features/product/components/ProSkuContainer";
 // Components
 import ProBreadcrumb from "@/features/product/components/ProBreadcrumb";
 
@@ -21,8 +21,7 @@ import ProPriceDisplay from "@/features/product/components/ProPriceDisplay"
 import ProReviewStar from "@/features/product/components/ProReviewStar"
 import ProActions from "@/features/product/components/ProActions"
 import ProShopInfo from "@/features/product/components/ProShopInfo";
-
-// import ProductReview from "@/features/product/reviews";
+import CartRoot from "@/features/cart/cart-root";
 import ProProvider from "./providers"
 import { useAppSelector } from "@/lib/hooks";
 import { PRO_DETAIL } from "@/features/product/constants"
@@ -52,7 +51,7 @@ export default function ProductDetail(
 
             }}>
             <ProWrapper>
-                <ProSpuDetailContainer >
+                <ProSpuContainer >
                     <Card className="border-none shadow-none">
                         <CardHeader className="py-3">
                             <ProBreadcrumb />
@@ -78,12 +77,14 @@ export default function ProductDetail(
                                             <div className="lg:col-span-3 lg:order-2 md:row-span-2">
                                                 <ProTitle />
                                                 <ProReviewStar />
-                                                <ProSkuDetailContainer>
+                                                <ProSkuContainer>
                                                     <ProPriceDisplay />
                                                     <ProVariantsSelector />
                                                     <ProQuantitySelector />
-                                                    <ProActions />
-                                                </ProSkuDetailContainer>
+                                                    <CartRoot>
+                                                        <ProActions />
+                                                    </CartRoot>
+                                                </ProSkuContainer>
                                             </div>
                                         </div>
                                     </CardContent>
@@ -100,7 +101,7 @@ export default function ProductDetail(
                             </div>
                         </CardContent>
                     </Card>
-                </ProSpuDetailContainer>
+                </ProSpuContainer>
                 {/* <ProductReview /> */}
             </ProWrapper>
         </ProProvider >

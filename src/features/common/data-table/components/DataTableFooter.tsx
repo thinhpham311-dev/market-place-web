@@ -2,7 +2,7 @@
 
 import { Button, Checkbox, Label, TableFooter, TableRow, TableCell } from "@/components/ui"
 import { formatToCurrency } from "@/lib/formats"
-import { useCartDataTableContext } from "./hooks"
+import { useDataTableContext } from "@/features/common/data-table/hooks"
 
 
 const CartTableFooter = () => {
@@ -14,7 +14,7 @@ const CartTableFooter = () => {
         toggleAllRowsSelected,
         getAllLeafColumns,
         removeSelectedItems
-    } = useCartDataTableContext()
+    } = useDataTableContext()
 
     return (
         <TableFooter className="sticky bottom-0 bg-white">
@@ -28,7 +28,7 @@ const CartTableFooter = () => {
                     />
                 </TableCell>
                 <TableCell colSpan={getAllLeafColumns().length} className="p-0">
-                    <div className="flex items-center justify-between p-4 bg-white rounded-lg border-t">
+                    <div className="flex items-center justify-between p-4 bg-transparent rounded-lg">
                         {/* Left */}
                         <div className="flex items-center space-x-4">
                             <Label htmlFor="pro_selected" className="font-bold">

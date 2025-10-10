@@ -1,11 +1,11 @@
 "use client"
 
-import { useEffect, useCallback } from "react"
+import { useLayoutEffect, useCallback } from "react"
 import {
     setGrouping,
     setExpanded,
     setColumnVisibility,
-} from "../store/stateSlice"
+} from "@/features/common/data-table/store/stateSlice"
 import {
     GroupingState,
     ExpandedState,
@@ -18,10 +18,10 @@ import {
 } from "@tanstack/react-table"
 
 import { useAppDispatch, useAppSelector } from "@/lib/hooks"
-import { injectReducer } from "@/store"
-import { selectCartDataTableStateByStoreKey } from "../store/selectors"
-import { CART_DATA_TABLE } from "../constants"
-import reducer from "../store"
+import { injectReducer, removeReducer } from "@/store"
+import { selectDataTableStateByStoreKey } from "@/features/common/data-table/store/selectors"
+import { DATA_TABLE } from "@/features/common/data-table/constants"
+import reducer from "@/features/common/data-table/store"
 
 interface IUseCartTable {
     storeKey: string
@@ -29,19 +29,23 @@ interface IUseCartTable {
     initialColumns: any[]
 }
 
-export const useHandleCartDataTable = ({
+export const useHandleDataTable = ({
     storeKey,
-    initialData,
-    initialColumns
+    initialData = [],
+    initialColumns = []
 }: IUseCartTable) => {
-    const dispatch = useAppDispatch()
 
-    useEffect(() => {
-        injectReducer(`${CART_DATA_TABLE}_${storeKey}`, reducer)
+    useLayoutEffect(() => {
+        const reducerKey = `${DATA_TABLE}_${storeKey}`;
+
+        injectReducer(reducerKey, reducer)
+        return () => {
+            removeReducer(reducerKey)
+        }
     }, [storeKey])
 
     const cartDataTableState = useAppSelector(
-        selectCartDataTableStateByStoreKey(storeKey)
+        selectDataTableStateByStoreKey(storeKey)
     )
 
     const {
@@ -50,6 +54,7 @@ export const useHandleCartDataTable = ({
         columnVisibility,
     } = cartDataTableState
 
+    const dispatch = useAppDispatch()
     const setGroupingTable = useCallback((updaterOrValue: Updater<GroupingState>) => {
         const value = typeof updaterOrValue === "function"
             ? updaterOrValue(grouping)

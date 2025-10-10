@@ -17,7 +17,6 @@ import {
 import { Provider } from "react-redux"
 import store, { persistor } from "@/store"
 import { PersistGate } from "redux-persist/integration/react"
-import CartContainerProvider from "@/features/cart"
 
 
 function getCookie(name: string): string | undefined {
@@ -56,30 +55,28 @@ export function AppProvider({ children, ...props }: React.ComponentProps<typeof 
                             </div>
                         }
                             persistor={persistor}>
-                            <CartContainerProvider>
 
-                                <AdminHeader />
-                                <Header />
-                                <main>{children}</main>
-                                <Footer />
-                                <ToastProvider>
-                                    {toasts.map(function ({ id, title, description, action, ...props }) {
-                                        return (
-                                            <Toast key={id} {...props}>
-                                                <div className="grid gap-1">
-                                                    {title && <ToastTitle>{title}</ToastTitle>}
-                                                    {description && (
-                                                        <ToastDescription>{description}</ToastDescription>
-                                                    )}
-                                                </div>
-                                                {action}
-                                                <ToastClose />
-                                            </Toast>
-                                        )
-                                    })}
-                                    <ToastViewport />
-                                </ToastProvider>
-                            </CartContainerProvider>
+                            <AdminHeader />
+                            <Header />
+                            <main>{children}</main>
+                            <Footer />
+                            <ToastProvider>
+                                {toasts.map(function ({ id, title, description, action, ...props }) {
+                                    return (
+                                        <Toast key={id} {...props}>
+                                            <div className="grid gap-1">
+                                                {title && <ToastTitle>{title}</ToastTitle>}
+                                                {description && (
+                                                    <ToastDescription>{description}</ToastDescription>
+                                                )}
+                                            </div>
+                                            {action}
+                                            <ToastClose />
+                                        </Toast>
+                                    )
+                                })}
+                                <ToastViewport />
+                            </ToastProvider>
 
                         </PersistGate>
                     </Provider>

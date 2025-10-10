@@ -2,9 +2,9 @@
 
 import React from "react";
 
-import SkuProvider from "./providers";
+import SkuProvider from "@/features/sku/providers";
 
-import { useFetchData } from "./hooks";
+import { useFetchData } from "@/features/sku/hooks";
 
 interface ISkuDetailWrapperProps {
     children?: React.ReactNode
