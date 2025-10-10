@@ -22,21 +22,21 @@ const ShopHeaderInfo = () => {
     }
 
     return (
-        <ItemContent className="flex flex-col justify-center">
+        <ItemContent className="flex justify-center">
             <ItemTitle className="text-base md:text-lg font-bold">
                 {shop_name?.trim() || "Shop Name"}
             </ItemTitle>
 
             {shop_phone && (
-                <ItemDescription className="text-sm text-muted-foreground">
+                <span className="text-sm text-muted-foreground">
                     📞 {formatPhone({ phone: shop_phone })}
-                </ItemDescription>
+                </span>
             )}
 
             {shop_address && (
-                <ItemDescription className="text-sm text-muted-foreground line-clamp-2">
+                <span className="text-sm text-muted-foreground line-clamp-2">
                     📍 {shop_address}
-                </ItemDescription>
+                </span>
             )}
         </ItemContent>
     );

@@ -1,18 +1,20 @@
+"use client"
 import React from 'react';
-import ShopInfoProvider from "./providers"
-import ShopInfoWrapper from "./components/ShopInfoWrapper"
-import ShopHeader from './components/ShopHeader';
-import ShopStats from './components/ShopStats';
-import { useFetchData } from './hooks';
+import ShopInfoProvider from "../providers"
+import ShopInfoWrapper from "../components/ShopInfoWrapper"
+import ShopHeader from '../components/ShopHeader';
+import ShopActions from '../components/ShopActions';
+import ShopStats from '../components/ShopStats';
+import { useFetchData } from '../hooks';
 
 interface IShopProps {
     shop_id?: string;
-    storeKey: string;
+    storeKey?: string;
 }
 
 const ShopInfo = ({
     shop_id,
-    storeKey
+    storeKey = "DEFAULT_SHOP"
 }: IShopProps) => {
     const shopData = useFetchData({
         shop_id,
@@ -23,6 +25,7 @@ const ShopInfo = ({
         <ShopInfoProvider contextValues={{ ...shopData }}>
             <ShopInfoWrapper>
                 <ShopHeader />
+                <ShopActions />
                 <ShopStats />
             </ShopInfoWrapper>
         </ShopInfoProvider>

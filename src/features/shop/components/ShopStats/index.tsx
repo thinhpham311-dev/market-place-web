@@ -1,5 +1,5 @@
 import React from "react";
-import { CardContent, Item, ItemContent, ItemTitle, ItemDescription } from "@/components/ui";
+import { ItemContent, Item, ItemTitle, ItemDescription } from "@/components/ui";
 
 const ShopStats = () => {
     const stats = [
@@ -12,7 +12,7 @@ const ShopStats = () => {
     ];
 
     return (
-        <CardContent className="p-3 flex-1 w-full">
+        <ItemContent>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3 sm:gap-5">
                 {stats.map((item) => (
                     <Item key={item.label} size="sm" className="p-0">
@@ -23,7 +23,7 @@ const ShopStats = () => {
                     </Item>
                 ))}
             </div>
-        </CardContent>
+        </ItemContent>
     );
 };
 
