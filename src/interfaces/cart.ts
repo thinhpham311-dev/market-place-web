@@ -13,6 +13,7 @@ export interface ICartItem {
     itemProductId: string;
     itemStock: number;
     itemTierIdx: number[];
+    itemUserId?: string;
     quantity: number;
 }
 

@@ -9,7 +9,7 @@ import CartItemVariantsSelector from "../../components/CartItem/CartItemVariants
 import CartItemActions from "../../components/CartItem/CartItemActions"
 import CartItemQuantitySelector from "../../components/CartItem/CartItemQuantitySelector"
 
-export const cartColumns: ColumnDef<ICartItem>[] = [
+export const initialColumns: ColumnDef<ICartItem>[] = [
     {
         id: "select",
         header: ({ table }) => (

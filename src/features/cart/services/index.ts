@@ -1,7 +1,16 @@
 import ApiService from "@/services/ApiService"
+import { ICartItem } from "@/interfaces/cart"
 
 
-export async function apiPostAddItem(data: { user_id: string }) {
+export async function apiPostShowItems(data: ICartItem) {
+    return ApiService.fetchData({
+        url: `/cart/update`,
+        method: 'POST',
+        data
+    })
+}
+
+export async function apiPostAddItem(data: ICartItem) {
     return ApiService.fetchData({
         url: `/cart/add`,
         method: 'POST',
@@ -9,28 +18,17 @@ export async function apiPostAddItem(data: { user_id: string }) {
     })
 }
 
-
-export async function apiPostRemoveItem(data: { user_id: string }) {
+export async function apiPostUpdateItem(data: ICartItem) {
     return ApiService.fetchData({
-        url: `/spu/detail`,
+        url: `/cart/delete`,
         method: 'POST',
         data
     })
 }
 
-
-export async function apiPostShowItems(data: { user_id: string }) {
+export async function apiPostDeleteItem(data: ICartItem) {
     return ApiService.fetchData({
-        url: `/spu/detail`,
-        method: 'POST',
-        data
-    })
-}
-
-
-export async function apiPostUpdateItem(data: { user_id: string }) {
-    return ApiService.fetchData({
-        url: `/spu/detail`,
+        url: `/cart/list`,
         method: 'POST',
         data
     })

@@ -1,27 +1,27 @@
 "use client"
 
 import * as React from "react"
-import DataTableProvider from "./providers"
-import DataTableWrapper from "./components/DataTableWrapper"
-import DataTableHeader from "./components/DataTableHeader"
-import DataTableBody from "./components/DataTableBody"
-import DataTableFooter from "./components/DataTableFooter"
-import { useHandleDataTable } from "./hooks"
-import { ICartItem } from "@/interfaces/cart"
+import { ColumnDef } from "@tanstack/react-table"
+import DataTableProvider from "@/features/common/data-table/providers"
+import DataTableWrapper from "@/features/common/data-table/components/DataTableWrapper"
+import DataTableHeader from "@/features/common/data-table/components/DataTableHeader"
+import DataTableBody from "@/features/common/data-table/components/DataTableBody"
+import DataTableFooter from "@/features/common/data-table/components/DataTableFooter"
+import { useHandleDataTable } from "@/features/common/data-table/hooks"
 
-interface ICartDataTableProps {
+interface IDataTableProps<TData extends Record<string, any>> {
     storeKey: string,
-    initialColumns: any[],
-    initialData: ICartItem[]
-    removeSelectedItems: (selectedItems: ICartItem[]) => void
+    initialColumns: ColumnDef<TData>[],
+    initialData: TData[]
+    removeSelectedItems: (selectedItems: TData[]) => void
 }
 
-const DataTable = ({
+function DataTable<TData extends Record<string, any>>({
     storeKey,
     initialData,
     initialColumns,
     ...rest
-}: ICartDataTableProps) => {
+}: IDataTableProps<TData>) {
 
     const dataTable = useHandleDataTable({
         storeKey,

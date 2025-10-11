@@ -1,6 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "@/store";
-import { DATA_TABLE } from "../constants";
+import { DATA_TABLE } from "@/features/common/data-table/constants";
 
 export const makeSelectDataTableState = (storeKey: string) =>
     createSelector(

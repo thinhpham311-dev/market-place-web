@@ -45,11 +45,11 @@ const CartTableFooter = () => {
 
                         {/* Right */}
                         <div className="flex items-center space-x-5">
-                            <span className="text-sm text-gray-600">
+                            {/* <span className="text-sm text-gray-600">
                                 Đã chọn {selectedItems.length} sản phẩm
-                            </span>
+                            </span> */}
                             <span className="text-md font-semibold">
-                                Tổng thanh toán: {formatToCurrency(totalSelectedAmount)}
+                                Total: {formatToCurrency(totalSelectedAmount)} ({selectedItems.length} item)
                             </span>
                             <Button size="lg" disabled={totalItems === 0}>Checkout</Button>
                         </div>

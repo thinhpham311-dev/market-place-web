@@ -9,7 +9,7 @@ const CartTableHeader = () => {
     return (
         <TableHeader>
             {getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id} className="bg-gray-50">
+                <TableRow key={headerGroup.id} className="bg-transparent">
                     {headerGroup.headers.map((header) => (
                         <TableHead
                             key={header.id}

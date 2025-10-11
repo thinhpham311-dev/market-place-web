@@ -1,24 +1,43 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { apiPostShowItems, apiPostAddItem, apiPostRemoveItem, apiPostUpdateItem } from '@/features/cart/services';
+import { apiPostShowItems, apiPostAddItem, apiPostDeleteItem, apiPostUpdateItem } from '@/features/cart/services';
 import { ICart, ICartItem } from '@/interfaces/cart';
+import { ITEM_IN_CART_CACHE_KEY, ITEM_IN_CART_RETRY_DELAY, ITEM_IN_CART_RETRIES, ITEM_IN_CART_TTL, ITEM_IN_CART_TAG } from "@/features/cart/constants";
 
 type CartResponse = {
     metadata: ICart
 };
 
-export const getItemInCart = createAsyncThunk<CartResponse, ICartItem & { user_id: string }>(
+interface IErrorPayload {
+    message: string;
+    [key: string]: any;
+}
+
+export const getItemsInCart = createAsyncThunk<CartResponse, ICartItem, { rejectValue: IErrorPayload | string }>(
     'cart/data/getItemInCart',
-    async (params, { rejectWithValue }) => {
+    async (params, { rejectWithValue, dispatch }) => {
         try {
-            const response = await apiPostShowItems(params) as { data: CartResponse }
-            return response.data;
+            const data = await dispatch({
+                type: "api/fetch",
+                payload: {
+                    key: ITEM_IN_CART_CACHE_KEY,
+                    params,
+                    apiFn: apiPostShowItems,
+                    options: {
+                        TTL: ITEM_IN_CART_TTL,
+                        retries: ITEM_IN_CART_RETRIES,
+                        retryDelay: ITEM_IN_CART_RETRY_DELAY,
+                        tags: [ITEM_IN_CART_TAG],
+                    },
+                },
+            }) as unknown as CartResponse;
+            return data;
         } catch (error: any) {
             return rejectWithValue(error?.response?.data || error.message);
         }
     }
 );
 
-export const addItemIntoCart = createAsyncThunk<CartResponse, ICartItem & { user_id: string }>(
+export const addItemIntoCart = createAsyncThunk<CartResponse, ICartItem, { rejectValue: IErrorPayload | string }>(
     'cart/data/addItemIntoCart',
     async (params, { rejectWithValue }) => {
         try {
@@ -30,11 +49,11 @@ export const addItemIntoCart = createAsyncThunk<CartResponse, ICartItem & { user
     }
 );
 
-export const removeItemOutCart = createAsyncThunk<CartResponse, ICartItem & { user_id: string }>(
+export const removeItemOutCart = createAsyncThunk<CartResponse, ICartItem, { rejectValue: IErrorPayload | string }>(
     'cart/data/removeItemOutCart',
     async (params, { rejectWithValue }) => {
         try {
-            const response = await apiPostRemoveItem(params) as { data: CartResponse }
+            const response = await apiPostDeleteItem(params) as { data: CartResponse }
             return response.data;
         } catch (error: any) {
             return rejectWithValue(error?.response?.data || error.message);
@@ -42,7 +61,7 @@ export const removeItemOutCart = createAsyncThunk<CartResponse, ICartItem & { us
     }
 );
 
-export const updateItemInCart = createAsyncThunk<CartResponse, ICartItem & { user_id: string }>(
+export const updateItemInCart = createAsyncThunk<CartResponse, ICartItem, { rejectValue: IErrorPayload | string }>(
     'cart/data/updateItemInCart',
     async (params, { rejectWithValue }) => {
         try {
@@ -78,18 +97,18 @@ const dataSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(getItemInCart.pending, (state) => {
+            .addCase(getItemsInCart.pending, (state) => {
                 state.cart = null;
                 state.loading = true;
                 state.status = "loading";
             })
-            .addCase(getItemInCart.fulfilled, (state, action) => {
+            .addCase(getItemsInCart.fulfilled, (state, action) => {
                 const product = action.payload.metadata;
                 state.cart = product;
                 state.loading = false;
                 state.status = "success";
             })
-            .addCase(getItemInCart.rejected, (state) => {
+            .addCase(getItemsInCart.rejected, (state) => {
                 state.cart = null;
                 state.loading = false;
                 state.status = "error";

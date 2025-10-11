@@ -1,39 +1,40 @@
-"use client";
+"use client"
 
-import React from "react";
+import React from "react"
 import { cn } from "@/lib/utils"
-import { HeaderGroup, RowModel } from "@tanstack/react-table";
-import { ICartItem } from "@/interfaces/cart";
+import { HeaderGroup, RowModel, ColumnDef } from "@tanstack/react-table"
 
-interface IDataTableContextType {
-    getAllLeafColumns: () => any[];
-    getHeaderGroups: () => HeaderGroup<any>[];
-    getRowModel: () => RowModel<any>;
-    getAllColumns: () => any[];
-    getIsAllRowsSelected: () => boolean;
-    toggleAllRowsSelected: (value: boolean) => void;
-    removeSelectedItems: (selectedItems: ICartItem[]) => void
-    totalItems: number;
-    selectedItems: ICartItem[];
-    totalSelectedAmount: number;
+export interface IDataTableContextType<TData extends Record<string, unknown>> {
+    getAllLeafColumns: () => ColumnDef<TData>[]
+    getHeaderGroups: () => HeaderGroup<TData>[]
+    getRowModel: () => RowModel<TData>
+    getAllColumns: () => ColumnDef<TData>[]
+    getIsAllRowsSelected: () => boolean
+    toggleAllRowsSelected: (value: boolean) => void
+    removeSelectedItems: (selectedItems: TData[]) => void
+    totalItems: number
+    selectedItems: TData[]
+    totalSelectedAmount: number
 }
 
-interface IDataTableProviderProps {
-    children?: React.ReactNode;
-    className?: string;
-    contextValues: IDataTableContextType
+interface IDataTableProviderProps<TData extends Record<string, any>> {
+    children?: React.ReactNode
+    className?: string
+    contextValues: IDataTableContextType<TData>
 }
 
-export const DataTableContext = React.createContext<IDataTableContextType | null>(null);
+export const DataTableContext = React.createContext<IDataTableContextType<any> | null>(null)
 
-const DataTableProvider = ({ children, className, contextValues }: IDataTableProviderProps) => {
+const DataTableProvider = <TData extends Record<string, any>>({
+    children,
+    className,
+    contextValues,
+}: IDataTableProviderProps<TData>) => {
     return (
-        <DataTableContext.Provider value={contextValues} >
-            <div className={cn(className)}>
-                {children}
-            </div>
+        <DataTableContext.Provider value={contextValues}>
+            <div className={cn(className)}>{children}</div>
         </DataTableContext.Provider>
-    );
-};
+    )
+}
 
-export default DataTableProvider;
+export default DataTableProvider

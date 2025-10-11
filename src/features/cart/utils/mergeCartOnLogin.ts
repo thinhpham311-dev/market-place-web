@@ -1,6 +1,6 @@
 import { removeAllItems } from "@/features/cart/store/stateSlice";
 import {
-    getItemInCart,
+    getItemsInCart,
     addItemIntoCart,
     updateItemInCart,
 } from "@/features/cart/store/dataSlice";
@@ -42,6 +42,6 @@ export const mergeCartOnLogin =
             }
         }
 
-        await dispatch(getItemInCart({ user_id } as ICartItem & { user_id: string }) as any);
+        await dispatch(getItemsInCart({ user_id } as ICartItem & { user_id: string }) as any);
         dispatch(removeAllItems());
     };
