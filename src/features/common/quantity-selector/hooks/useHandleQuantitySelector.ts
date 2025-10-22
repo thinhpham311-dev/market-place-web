@@ -41,7 +41,7 @@ export function useHandleQuantitySelector({
         };
     }, [dispatch, storeKey, initialValue, maxQuantity]);
 
-    const { currentQuantity, errorMessages } = useAppSelector(
+    const { itemQuantity, errorMessages } = useAppSelector(
         selectQuantitySelectorByStoreKey(storeKey)
     );
 
@@ -76,7 +76,7 @@ export function useHandleQuantitySelector({
 
     return {
         maxQuantity,
-        currentQuantity,
+        itemQuantity,
         errorMessages,
         handleQuantityChange,
         resetQuantity,

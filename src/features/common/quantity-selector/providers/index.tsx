@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils"
 
 interface QuantitySelectorContextType {
     maxQuantity?: number,
-    currentQuantity: number,
+    itemQuantity: number,
     errorMessages: string[],
     handleQuantityChange: (n: number) => void,
     resetQuantity: () => void,

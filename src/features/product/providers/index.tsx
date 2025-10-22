@@ -8,7 +8,7 @@ interface IProContextType {
     product_id: string;
     shop_id: string;
     sku_tier_idx: number[];
-    currentQuantity: number;
+    itemQuantity: number;
     optionsCount: number;
 }
 

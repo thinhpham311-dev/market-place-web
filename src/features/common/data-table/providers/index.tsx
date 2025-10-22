@@ -12,9 +12,9 @@ export interface IDataTableContextType<TData extends Record<string, unknown>> {
     getIsAllRowsSelected: () => boolean
     toggleAllRowsSelected: (value: boolean) => void
     removeSelectedItems: (selectedItems: TData[]) => void
-    totalItems: number
-    selectedItems: TData[]
-    totalSelectedAmount: number
+    cart_total_items: number
+    cart_selected_items: TData[]
+    cart_total_selected_amount: number
 }
 
 interface IDataTableProviderProps<TData extends Record<string, any>> {

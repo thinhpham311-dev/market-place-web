@@ -25,15 +25,15 @@ interface IUseCart {
 }
 
 export const useHandleShoppingCart = ({ storeKey, userId = "1001" }: IUseCart) => {
+    const dispatch = useDispatch();
     useLayoutEffect(() => {
         const reducerKey = `${ITEM_IN_CART}_${storeKey}`;
         injectReducer(reducerKey, reducer);
         return () => {
             removeReducer(reducerKey);
         }
-    }, [storeKey]);
+    }, [storeKey, dispatch]);
 
-    const dispatch = useDispatch();
     const cart = useAppSelector(selectCartByStoreKey(storeKey))
 
     useEffect(() => {

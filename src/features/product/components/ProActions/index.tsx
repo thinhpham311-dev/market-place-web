@@ -12,7 +12,7 @@ import { useShoppingCartContext } from "@/features/cart/hooks";
 import { mapCartItem } from "@/features/cart/helpers";
 
 const ProActions = () => {
-    const { currentQuantity } = useProContext();
+    const { itemQuantity } = useProContext();
     const { sku, loading: skuLoading } = useSkuContext();
     const { spu, loading: spuLoading, error: spuError } = useSpuContext();
     const { addItem } = useShoppingCartContext();
@@ -27,12 +27,12 @@ const ProActions = () => {
 
     const handleAddToCart = useCallback(() => {
         if (!spu || !sku) return;
-        addItem(mapCartItem({ sku, spu, currentQuantity }) as any);
+        addItem(mapCartItem({ sku, spu, itemQuantity }) as any);
 
-    }, [sku, spu, addItem, currentQuantity]);
+    }, [sku, spu, addItem, itemQuantity]);
 
 
-    const isDisabled = !sku || !!spuError || currentQuantity >= sku.sku_stock;
+    const isDisabled = !sku || !!spuError || itemQuantity >= sku.sku_stock;
 
     const buttonBaseProps = {
         size: "lg" as const,

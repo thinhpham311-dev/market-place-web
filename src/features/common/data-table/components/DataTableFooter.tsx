@@ -7,14 +7,15 @@ import { useDataTableContext } from "@/features/common/data-table/hooks"
 
 const CartTableFooter = () => {
     const {
-        selectedItems,
-        totalItems,
-        totalSelectedAmount,
+        cart_selected_items,
+        cart_total_items,
+        cart_total_selected_amount,
         getIsAllRowsSelected,
         toggleAllRowsSelected,
         getAllLeafColumns,
         removeSelectedItems
     } = useDataTableContext()
+
 
     return (
         <TableFooter className="sticky bottom-0 bg-white">
@@ -22,7 +23,7 @@ const CartTableFooter = () => {
                 <TableCell>
                     <Checkbox
                         id="pro_selected"
-                        disabled={totalItems === 0}
+                        disabled={cart_total_items === 0}
                         checked={getIsAllRowsSelected()}
                         onCheckedChange={(value) => toggleAllRowsSelected(!!value)}
                     />
@@ -32,13 +33,13 @@ const CartTableFooter = () => {
                         {/* Left */}
                         <div className="flex items-center space-x-4">
                             <Label htmlFor="pro_selected" className="font-bold">
-                                Selected All ({selectedItems.length}/{totalItems})
+                                Selected All ({cart_selected_items.length}/{cart_total_items})
                             </Label>
                         </div>
 
                         {/* Middle */}
                         <div className="flex-1">
-                            <Button variant="link" disabled={totalItems === 0} onClick={() => removeSelectedItems(selectedItems)}>
+                            <Button variant="link" disabled={cart_total_items === 0} onClick={() => removeSelectedItems(cart_selected_items)}>
                                 Delete
                             </Button>
                         </div>
@@ -49,9 +50,9 @@ const CartTableFooter = () => {
                                 Đã chọn {selectedItems.length} sản phẩm
                             </span> */}
                             <span className="text-md font-semibold">
-                                Total: {formatToCurrency(totalSelectedAmount)} ({selectedItems.length} item)
+                                Total: {formatToCurrency(cart_total_selected_amount)} ({cart_selected_items.length} item)
                             </span>
-                            <Button size="lg" disabled={totalItems === 0}>Checkout</Button>
+                            <Button size="lg" disabled={cart_total_items === 0}>Checkout</Button>
                         </div>
                     </div>
                 </TableCell>

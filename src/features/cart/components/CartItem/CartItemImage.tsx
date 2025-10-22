@@ -13,11 +13,12 @@ interface CartItemImageProps {
 }
 
 const CartItemImage: React.FC<CartItemImageProps> = ({ src, alt, imgClassName, className, _w, _h }) => {
+    console.log(src)
     return (
         <Card className={cn(className, "border-none shadow-none bg-transparent")}>
             <CardContent className='p-0'>
                 <Image
-                    src={src ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png"}
+                    src={"https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png"}
                     alt={alt}
                     className={cn(imgClassName, 'aspect-square')}
                     priority

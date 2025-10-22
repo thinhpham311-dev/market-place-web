@@ -6,7 +6,7 @@ export const makeSelectQuantitySelectorState = (storeKey: string) =>
     createSelector(
         (state: RootState) => state[`${QUANTITY_COUNTER}_${storeKey}`] ? state[`${QUANTITY_COUNTER}_${storeKey}`].state : null,
         (quantityState) => ({
-            currentQuantity: quantityState?.currentQuantity,
+            itemQuantity: quantityState?.currentQuantity,
             errorMessages: quantityState?.errorMessages,
         })
     );

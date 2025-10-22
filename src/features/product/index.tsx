@@ -37,7 +37,7 @@ export default function ProductDetail(
     { product_id = "", shop_id = "" }: IProductDetail
 ) {
     const { option_idx: sku_tier_idx, optionsCount } = useAppSelector(selectOptionsStoreKey(PRO_DETAIL));
-    const { currentQuantity } = useAppSelector(
+    const { itemQuantity } = useAppSelector(
         selectQuantitySelectorByStoreKey(PRO_DETAIL)
     );
     return (
@@ -47,7 +47,7 @@ export default function ProductDetail(
                 shop_id,
                 sku_tier_idx,
                 optionsCount,
-                currentQuantity
+                itemQuantity
 
             }}>
             <ProWrapper>

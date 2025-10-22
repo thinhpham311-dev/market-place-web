@@ -5,39 +5,43 @@ import { IShop } from "@/interfaces/shop";
 export interface IMapCartItem {
     sku: ISkuPro;
     spu: ISpuPro;
-    currentQuantity: number;
+    itemQuantity: number;
 }
 
-const mapCartItem = ({ sku, spu, currentQuantity }: IMapCartItem) => {
-    const mapShop = (shop: IShop) => ({
-        itemShopId: shop.shop_id,
-        itemShopName: shop.shop_name,
-        itemShopSlug: shop.shop_slug,
-    });
+// --- Mapping helpers ---
+const mapShop = (shop: IShop) => ({
+    itemShopId: shop?.shop_id ?? "",
+    itemShopName: shop?.shop_name ?? "",
+    itemShopSlug: shop?.shop_slug ?? "",
+});
 
-    const mapSku = (sku: ISkuPro) => ({
-        itemSkuId: sku.sku_id,
-        itemSkuPrice: sku.sku_price,
-        itemSkuStock: sku.sku_stock,
-        itemSkuTierIdx: sku.sku_tier_idx,
-    });
+const mapSku = (sku: ISkuPro) => ({
+    itemSkuId: sku?.sku_id ?? "",
+    itemSkuPrice: sku?.sku_price ?? 0,
+    itemSkuStock: sku?.sku_stock ?? 0,
+    itemSkuTierIdx: sku?.sku_tier_idx ?? [],
+});
 
-    const mapSpu = (spu: ISpuPro) => ({
-        itemSpuId: spu.product_id,
-        itemSpuName: spu.product_name,
-        itemSpuImage: spu.product_image,
-        itemSpuSlug: spu.product_slug,
-        itemSpuVariations: spu.product_variations,
-    });
+const mapSpu = (spu: ISpuPro) => ({
+    itemSpuId: spu?.product_id ?? "",
+    itemSpuName: spu?.product_name ?? "",
+    itemSpuImage: spu?.product_image ?? "",
+    itemSpuSlug: spu?.product_slug ?? "",
+    itemSpuVariations: spu?.product_variations ?? [],
+});
+
+// --- Main mapper ---
+export const mapCartItem = ({ sku, spu, itemQuantity }: IMapCartItem) => {
+    const skuMapped = mapSku(sku);
+    const spuMapped = mapSpu(spu);
+    const shopMapped = mapShop(spu.product_shop);
 
     return {
-        ...mapSku(sku),
-        ...mapSpu(spu),
-        ...mapShop(spu.product_shop),
-        itemQuantity: currentQuantity,
+        ...skuMapped,
+        ...spuMapped,
+        ...shopMapped,
+        itemQuantity,
     };
-}
+};
 
-export {
-    mapCartItem
-}
+export type MappedCartItem = ReturnType<typeof mapCartItem>;

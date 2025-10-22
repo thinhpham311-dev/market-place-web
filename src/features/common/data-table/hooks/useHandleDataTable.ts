@@ -92,14 +92,14 @@ export const useHandleDataTable = ({
         getGroupedRowModel: getGroupedRowModel(),
         getExpandedRowModel: getExpandedRowModel(),
     })
-    const totalItems = initialData.length
-    const selectedItems = table.getSelectedRowModel().rows.map(row => row.original)
-    const totalSelectedAmount = selectedItems.reduce((sum, item) => sum + (item.itemPrice || 0), 0)
+    const cart_total_items = initialData.length
+    const cart_selected_items = table.getSelectedRowModel().rows.map(row => row.original)
+    const cart_total_selected_amount = cart_selected_items.reduce((sum, item) => sum + ((Number(item.itemSkuPrice) * Number(item.itemQuantity)) || 0), 0)
 
     return {
         ...table,
-        totalItems,
-        selectedItems,
-        totalSelectedAmount
+        cart_total_items,
+        cart_selected_items,
+        cart_total_selected_amount
     }
 }

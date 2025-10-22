@@ -2,29 +2,47 @@
 
 import * as React from "react"
 import DataTable from "@/features/common/data-table"
-import { Card, CardContent } from "@/components/ui/card"
 import { useShoppingCartContext } from "@/features/cart/hooks"
+import { ICartItem } from "@/interfaces/cart"
+import LoadingSkeleton from "./Loading"
+import NotFound from './NotFound';
 
 interface ICartDataTableProps {
     storeKey: string,
+    data: ICartItem[],
+    error: Error | null,
+    isLoading: boolean
     initialColumns: any[],
+    countLoadItems: number
 }
 
-const CartDataTable = ({ storeKey, initialColumns }: ICartDataTableProps) => {
-    const { data, removeSelectedItems } = useShoppingCartContext()
-    const { cart_products: initialData } = data
+const CartDataTable = ({ data = [], isLoading = false, error, countLoadItems = 0, storeKey, initialColumns }: ICartDataTableProps) => {
+    const { removeSelectedItems } = useShoppingCartContext()
+
+    const hasNoData = !data || data.length === 0;
+
+    if (isLoading && hasNoData) {
+        return <LoadingSkeleton count={countLoadItems} />;
+    }
+
+    if (!isLoading && hasNoData && error) {
+        return <NotFound message={error.message || "Something went wrong."} />;
+    }
+
+    if (hasNoData) {
+        return <NotFound />;
+    }
+
 
     return (
-        <Card className='border-none shadow-none'>
-            <CardContent>
-                <DataTable
-                    storeKey={storeKey}
-                    initialColumns={initialColumns}
-                    initialData={initialData}
-                    removeSelectedItems={removeSelectedItems}
-                />
-            </CardContent>
-        </Card>)
+
+        <DataTable
+            storeKey={storeKey}
+            initialColumns={initialColumns}
+            initialData={data}
+            removeSelectedItems={removeSelectedItems}
+        />
+    )
 }
 
 export default CartDataTable

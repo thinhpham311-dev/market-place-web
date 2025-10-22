@@ -8,7 +8,7 @@ const Loading = (
         className?: string,
         count: number,
     }) => (
-    <div className={cn(className, "grid grid-cols-6 gap-x-3")}>
+    <div className={cn(className, "grid grid-cols-1 gap-x-3")}>
         {
             Array.from({ length: count }).map((_, index) => (
                 <Card key={index} className="flex flex-col justify-start h-full w-full col-span-1">
