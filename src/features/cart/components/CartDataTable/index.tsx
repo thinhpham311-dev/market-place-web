@@ -11,8 +11,8 @@ interface ICartDataTableProps {
 }
 
 const CartDataTable = ({ storeKey, initialColumns }: ICartDataTableProps) => {
-    const { cart, removeSelectedItems } = useShoppingCartContext()
-    const { items: initialData } = cart
+    const { data, removeSelectedItems } = useShoppingCartContext()
+    const { cart_products: initialData } = data
 
     return (
         <Card className='border-none shadow-none'>

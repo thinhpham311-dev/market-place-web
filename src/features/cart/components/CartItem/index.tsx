@@ -22,23 +22,22 @@ const CartItem = ({
 }: ICartItemProps) => {
     const router = useRouter()
     const {
-        itemId,
-        itemSlug,
+        itemSkuId,
+        itemSpuSlug,
         itemShopId,
-        itemProductId,
-        itemImage,
-        itemName,
-        itemVariations,
-        itemPrice,
-        itemTierIdx,
-        quantity,
-        itemStock
+        itemSpuId,
+        itemSpuImage,
+        itemSpuName,
+        itemSpuVariations,
+        itemSkuPrice,
+        itemSkuTierIdx,
+        itemQuantity,
+        itemSkuStock
     } = data
 
     const handleRouterLinkToDetail = () => {
-        router.push(`/products/${itemSlug}-i.${itemShopId}.${itemProductId}`)
+        router.push(`/products/${itemSpuSlug}-i.${itemShopId}.${itemSpuId}`)
     }
-
 
     return (
         <Card className="grid md:grid-cols-4 grid-cols-5 grid-rows-2 items-center p-1 gap-x-1">
@@ -47,7 +46,7 @@ const CartItem = ({
                     <CartItemImage
                         _w={50}
                         _h={50}
-                        src={itemImage}
+                        src={itemSpuImage}
 
                         imgClassName="h-full w-full"
                         alt="image not found"
@@ -59,33 +58,33 @@ const CartItem = ({
                     {/* Tên item chiếm hết 5 cột */}
                     <div className="col-span-6">
                         <div onClick={handleRouterLinkToDetail}>
-                            <CartItemName itemName={itemName} />
+                            <CartItemName itemName={itemSpuName} />
                         </div>
                     </div>
 
                     {/* Giá: chiếm 3 cột */}
                     <div className="col-span-3 row-span-1">
-                        <CartItemPrice itemPrice={itemPrice} />
+                        <CartItemPrice itemPrice={itemSkuPrice} />
                     </div>
 
                     {/* Variants selector: chiếm 3 cột */}
                     <div className="col-span-3 row-span-1">
                         <CartItemVariantsSelector
-                            itemVariants={itemVariations}
-                            itemTierIdx={itemTierIdx}
+                            itemVariants={itemSpuVariations}
+                            itemTierIdx={itemSkuTierIdx}
                         />
                     </div>
                     <div className="col-span-2 row-span-2 row-end-4 col-start-4">
                         <CartItemQuantitySelector
                             isView={true}
-                            currentQuantity={quantity}
-                            maxQuantity={itemStock}
+                            currentQuantity={itemQuantity}
+                            maxQuantity={itemSkuStock}
                         />
                     </div>
 
                     {/* Actions: chiếm 2 cột (ngang 2 hàng) */}
                     <div className="col-auto row-span-2 row-end-4 col-start-6">
-                        <CartItemActions itemId={itemId} />
+                        <CartItemActions itemId={itemSkuId} />
                     </div>
                 </div>
             </CardContent>

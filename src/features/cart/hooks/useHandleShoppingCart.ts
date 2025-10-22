@@ -1,14 +1,13 @@
 "use client";
 
-import { useCallback, useLayoutEffect } from "react";
+import { useCallback, useEffect, useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
-    addItem,
     removeAllItems,
-    removeItem,
     updateItem,
     removeSelectedItems,
-} from "@/features/cart/store/stateSlice";
+} from "@/features/cart/store/cartSlice";
+import { getItemsInCart, addItemIntoCart, removeItemOutCart } from "@/features/cart/store/cartSlice";
 import { ICartItem } from "@/interfaces/cart";
 
 //store
@@ -17,14 +16,15 @@ import { injectReducer, removeReducer } from "@/store";
 
 //constants
 import { useAppSelector } from "@/lib/hooks";
-import { selectCartStateByStoreKey } from "@/features/cart/store/selectors"
+import { selectCartByStoreKey } from "@/features/cart/store/selectors"
 import { ITEM_IN_CART } from "@/features/cart/constants";
 
 interface IUseCart {
     storeKey: string;
+    userId?: string;
 }
 
-export const useHandleShoppingCart = ({ storeKey }: IUseCart) => {
+export const useHandleShoppingCart = ({ storeKey, userId = "1001" }: IUseCart) => {
     useLayoutEffect(() => {
         const reducerKey = `${ITEM_IN_CART}_${storeKey}`;
         injectReducer(reducerKey, reducer);
@@ -34,25 +34,32 @@ export const useHandleShoppingCart = ({ storeKey }: IUseCart) => {
     }, [storeKey]);
 
     const dispatch = useDispatch();
-    const cart = useAppSelector(selectCartStateByStoreKey(storeKey));
+    const cart = useAppSelector(selectCartByStoreKey(storeKey))
+
+    useEffect(() => {
+        const promise = dispatch(getItemsInCart({ itemUserId: userId } as ICartItem) as any)
+        return () => {
+            promise.abort()
+        }
+    }, [dispatch, userId, storeKey])
 
     const handleAddItem = useCallback(
-        (cartItem: ICartItem) => {
-            dispatch(addItem({ cartItem }));
+        async (item: ICartItem) => {
+            await dispatch(addItemIntoCart(item as ICartItem) as any);
+        },
+        [dispatch, storeKey]
+    );
+
+    const handleRemoveItem = useCallback(
+        async (itemSkuId: string) => {
+            await dispatch(removeItemOutCart({ itemSkuId } as ICartItem) as any);
         },
         [dispatch]
     );
 
     const handleUpdateItem = useCallback(
-        (itemId: string, quantity: number) => {
-            dispatch(updateItem({ itemId, quantity }));
-        },
-        [dispatch]
-    );
-
-    const handleRemoveItem = useCallback(
-        (itemId: string) => {
-            dispatch(removeItem({ itemId }));
+        (itemSkuId: string, itemQuantity: number) => {
+            dispatch(updateItem({ itemSkuId, itemQuantity }));
         },
         [dispatch]
     );
@@ -70,7 +77,7 @@ export const useHandleShoppingCart = ({ storeKey }: IUseCart) => {
 
 
     return {
-        cart,
+        ...cart,
         addItem: handleAddItem,
         updateItem: handleUpdateItem,
         removeItem: handleRemoveItem,

@@ -9,6 +9,7 @@ import { useProContext } from "@/features/product/hooks/useProContext";
 import { useSpuContext } from "@/features/spu/hooks";
 import { useSkuContext } from "@/features/sku/hooks";
 import { useShoppingCartContext } from "@/features/cart/hooks";
+import { mapCartItem } from "@/features/cart/helpers";
 
 const ProActions = () => {
     const { currentQuantity } = useProContext();
@@ -26,22 +27,10 @@ const ProActions = () => {
 
     const handleAddToCart = useCallback(() => {
         if (!spu || !sku) return;
-        addItem({
-            itemId: sku.sku_id,
-            itemName: spu.product_name,
-            itemImage: spu.product_image,
-            itemSlug: spu.product_slug,
-            itemPrice: Number(sku.sku_price),
-            itemProductId: spu.product_id,
-            itemShopId: spu?.product_shop.shop_id,
-            itemShopName: spu?.product_shop.shop_name,
-            itemShopSlug: spu?.product_shop.shop_slug,
-            itemStock: sku.sku_stock,
-            itemTierIdx: sku.sku_tier_idx,
-            itemVariations: spu.product_variations,
-            quantity: currentQuantity,
-        });
+        addItem(mapCartItem({ sku, spu, currentQuantity }) as any);
+
     }, [sku, spu, addItem, currentQuantity]);
+
 
     const isDisabled = !sku || !!spuError || currentQuantity >= sku.sku_stock;
 

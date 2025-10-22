@@ -1,22 +1,28 @@
 import React from 'react';
 import { Card, CardContent, ScrollArea } from '@/components/ui';
-import CartItem from "../CartItem"
-import { useShoppingCartContext } from '../../hooks';
-// import Loading from "./Loading"
+import { ICartItem } from "@/interfaces/cart"
+import CartItem from '@/features/cart/components/CartItem';
+import LoadingSkeleton from "./Loading"
 import NotFound from './NotFound';
 
-const CartSummary = () => {
-    const { cart } = useShoppingCartContext()
-    const { items } = cart
-    const hasNoData = !items || items.length === 0;
+interface ICartListViewProps {
+    data: ICartItem[]
+    countLoadItems: number;
+    isLoading: boolean;
+    error: Error | null;
+}
 
-    // if (isLoading && hasNoData) {
-    //     return <Loading className={className} count={countLoadItems} />;
-    // }
+const CartListView = ({ data = [], countLoadItems = 0, isLoading = false, error }: ICartListViewProps) => {
 
-    // if (!isLoading && hasNoData && error) {
-    //     return <NotFound message={error.message || "Something went wrong."} />;
-    // }
+    const hasNoData = !data || data.length === 0;
+
+    if (isLoading && hasNoData) {
+        return <LoadingSkeleton count={countLoadItems} />;
+    }
+
+    if (!isLoading && hasNoData && error) {
+        return <NotFound message={error.message || "Something went wrong."} />;
+    }
 
     if (hasNoData) {
         return <NotFound />;
@@ -27,8 +33,8 @@ const CartSummary = () => {
             <CardContent className='p-0'>
                 <ScrollArea className=" aspect-square">
                     <ul className='space-y-1'>
-                        {items.map(item => (
-                            <li key={item.itemId}>
+                        {data.map(item => (
+                            <li key={item.itemSkuId}>
                                 <CartItem data={item} />
                             </li>
                         ))}
@@ -39,4 +45,4 @@ const CartSummary = () => {
     );
 };
 
-export default CartSummary;
+export default CartListView;

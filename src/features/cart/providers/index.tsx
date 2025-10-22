@@ -3,10 +3,13 @@
 import React from "react";
 
 import { cn } from "@/lib/utils"
-import { ICartItem, ICart } from "@/interfaces/cart";
+import { ICart, ICartItem } from "@/interfaces/cart";
 
 interface IShoppingCartContextType {
-    cart: ICart;
+    data: ICart;
+    loading: boolean,
+    error: Error | null,
+    status: "idle" | "loading" | "success" | "error",
     addItem: (cartItem: ICartItem) => void;
     updateItem: (sku_id: string, quantity: number) => void;
     removeItem: (sku_id: string) => void;

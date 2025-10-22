@@ -42,67 +42,67 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
         size: 50,
     },
     {
-        accessorKey: "itemImage",
+        accessorKey: "itemSpuImage",
         header: "Image",
         cell: ({ row }) => {
             const item = row.original as ICartItem
             return (
                 <CartItemImage
-                    src={item.itemImage}
+                    src={item.itemSpuImage}
                     className="w-16 h-16 border rounded-md"
                     _w={64}
                     _h={64}
-                    alt={row.getValue("itemName")}
+                    alt={item.itemSpuName}
                 />
             )
         },
         size: 64,
     },
     {
-        accessorKey: "itemName",
+        accessorKey: "itemSpuName",
         header: "Name",
         cell: ({ row }) => {
             const item = row.original as ICartItem
-            return <CartItemName itemName={item.itemName} />
+            return <CartItemName itemName={item.itemSpuName} />
         },
         size: 400,
     },
     {
-        accessorKey: "itemVariations",
+        accessorKey: "itemSpuVariations",
         header: "Variants",
         cell: ({ row }) => {
             const item = row.original as ICartItem
             return (
                 <CartItemVariantsSelector
-                    itemVariants={item.itemVariations}
-                    itemTierIdx={item.itemTierIdx}
+                    itemVariants={item.itemSpuVariations}
+                    itemTierIdx={item.itemSkuTierIdx}
                 />
             )
         },
     },
     {
-        accessorKey: "itemPrice",
+        accessorKey: "itemSkuPrice",
         header: "Price",
         cell: ({ row }) => {
-            const itemPrice = parseFloat(row.getValue("itemPrice"))
+            const itemSkuPrice = parseFloat(row.getValue("itemSkuPrice"))
             return (
                 <div className="text-right">
-                    <CartItemPrice itemPrice={itemPrice} />
+                    <CartItemPrice itemPrice={itemSkuPrice} />
                 </div>
             )
         },
         size: 120,
     },
     {
-        accessorKey: "quantity",
+        accessorKey: "itemQuantity",
         header: () => <p className="text-center">Quantity</p>,
         cell: ({ row }) => {
             const item = row.original as ICartItem
             return (
                 <div className="flex justify-center">
                     <CartItemQuantitySelector
-                        currentQuantity={item.quantity}
-                        maxQuantity={item.itemStock}
+                        currentQuantity={item.itemQuantity}
+                        maxQuantity={item.itemSkuStock}
                     />
                 </div>
             )
@@ -114,14 +114,14 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
         header: "Total Price",
         cell: ({ row }) => {
             const item = row.original as ICartItem
-            return <CartItemPrice itemPrice={item.itemPrice * item.quantity} />
+            return <CartItemPrice itemPrice={item.itemSkuPrice * item.itemQuantity} />
         },
         size: 150,
     },
     {
-        accessorKey: "itemId",
+        accessorKey: "itemSkuId",
         header: () => <p className="text-right">Features</p>,
-        cell: ({ row }) => <CartItemActions itemId={row.getValue("itemId")} />,
+        cell: ({ row }) => <CartItemActions itemId={row.getValue("itemSkuId")} />,
         size: 150,
     },
     {

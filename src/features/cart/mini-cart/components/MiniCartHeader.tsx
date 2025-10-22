@@ -5,9 +5,8 @@ import { ChevronRight } from "lucide-react";
 import { useShoppingCartContext } from "@/features/cart/hooks";
 export default function MiniCartHeader() {
     const router = useRouter();
-    const { cart } = useShoppingCartContext();
-    const { itemsCount = 0 } = cart;
-
+    const { data } = useShoppingCartContext();
+    const { cart_count_product } = data;
 
     const handleRouterLinkToCart = () => {
         router.push("/cart");
@@ -15,7 +14,7 @@ export default function MiniCartHeader() {
     return (
         <div className="flex justify-between items-center p-0 space-y-0">
             <span className="text-lg uppercase">Cart</span>
-            {itemsCount > 0 && (
+            {cart_count_product > 0 && (
                 <Button variant="link" size="sm" onClick={handleRouterLinkToCart}>
                     View More <ChevronRight />
                 </Button>

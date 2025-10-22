@@ -1,31 +1,32 @@
 import { VariantOption } from "@/interfaces/spu"; // nếu có file này
 
 export interface ICartItem {
-    itemId: string;
-    itemName: string;
-    itemPrice: number;
-    itemImage: string;
-    itemVariations: VariantOption[];
-    itemSlug: string;
+    itemSkuId: string;
+    itemSkuPrice: number;
+    itemSkuStock: number;
+    itemSkuTierIdx: number[];
+    itemSpuName: string;
+    itemSpuImage: string;
+    itemSpuVariations: VariantOption[];
+    itemSpuSlug: string;
+    itemSpuId: string;
     itemShopId: string;
     itemShopName: string;
     itemShopSlug: string;
-    itemProductId: string;
-    itemStock: number;
-    itemTierIdx: number[];
     itemUserId?: string;
-    quantity: number;
+    itemQuantity: number;
 }
 
 export interface ICart {
-    items: ICartItem[];
-    itemsCount?: number;
-    totalQuantity: number;
-    totalAmount: number;
-    totalAmountDiscount: number;
-    totalSelectItems: number;
-    total: number;
-    estimatedShipping: number;
-    estimatedTax: number;
-    selectedItems: string[];
+    cart_products: ICartItem[];
+    cart_count_product: number;
+    cart_total_quantity: number;
+    cart_userId: string;
+    cart_total_amount: number;
+    cart_total_amount_discount: number;
+    cart_total_select_items: number;
+    cart_total: number;
+    cart_estimated_shipping: number;
+    cart_estimated_tax: number;
+    cart_selected_items: string[];
 }

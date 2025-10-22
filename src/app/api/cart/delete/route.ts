@@ -16,15 +16,29 @@ export async function POST(req: Request): Promise<Response> {
             );
         }
 
-        const { data: dataResponse } = await axios.delete(`${API_NEXT}/v1/api/cart/update`, {
+        // ✅ Tạo payload gửi lên server
+        const payload = {
+            userId: '1001',
+            product: { ...body }
+        };
+
+        // ✅ stringify payload theo dạng x-www-form-urlencoded
+        const formData = qs.stringify(payload);
+
+        // ✅ Gửi DELETE request kèm body
+        const { data: dataResponse } = await axios.delete(`${API_NEXT}/v1/api/cart/delete`, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'x-api-key': process.env.NEXT_PUBLIC_API_KEY || '',
             },
-            data: qs.stringify(body)
+            data: formData
         });
+
         return NextResponse.json(dataResponse);
     } catch (error: unknown) {
-        return NextResponse.json(handleError(error as { name: string; errors: string; code: number; message: string; }), { status: 500 });
+        return NextResponse.json(
+            handleError(error as { name: string; errors: string; code: number; message: string; }),
+            { status: 500 }
+        );
     }
 }

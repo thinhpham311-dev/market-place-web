@@ -4,7 +4,7 @@ import { ICartItem } from "@/interfaces/cart"
 
 export async function apiPostShowItems(data: ICartItem) {
     return ApiService.fetchData({
-        url: `/cart/update`,
+        url: `/cart/list`,
         method: 'POST',
         data
     })
@@ -28,7 +28,7 @@ export async function apiPostUpdateItem(data: ICartItem) {
 
 export async function apiPostDeleteItem(data: ICartItem) {
     return ApiService.fetchData({
-        url: `/cart/list`,
+        url: `/cart/delete`,
         method: 'POST',
         data
     })
