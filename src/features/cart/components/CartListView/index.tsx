@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import { Card, CardContent, ScrollArea } from '@/components/ui';
 import { ICartItem } from "@/interfaces/cart"

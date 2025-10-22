@@ -8,8 +8,8 @@ export const makeSelectProTopPickListState = (storeKey: string) =>
         (data) => ({
             products: data?.list ?? [],
             loading: data?.loading ?? false,
-            totalItems: data?.total ?? 0,
             error: data?.error ?? null,
+            totalItems: data?.total ?? 0,
         })
     );
 
