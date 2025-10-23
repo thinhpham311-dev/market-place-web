@@ -10,7 +10,7 @@ export default function MainCartContent() {
     const { data, loading, error } = useShoppingCartContext()
 
     const { cart_products } = data
-
+    console.log("main cart", cart_products)
     return (
         <CardContent>
             <CartDataTable

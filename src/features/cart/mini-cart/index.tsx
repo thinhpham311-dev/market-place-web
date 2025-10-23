@@ -11,10 +11,10 @@ import { useHandleShoppingCart } from "@/features/cart/hooks";
 import MiniCartTrigger from "./components/MiniCartTrigger";
 import MiniCartHeader from "./components/MiniCartHeader";
 import MiniCartContent from "./components/MiniCartContent";
-import { MINI_CART } from "@/features/cart/mini-cart/constants";
+// import { MINI_CART } from "@/features/cart/mini-cart/constants";
 
 export default function MiniCart() {
-    const cart = useHandleShoppingCart({ storeKey: MINI_CART });
+    const cart = useHandleShoppingCart({ userId: "1001" });
 
     return (
         <ShoppingCartProvider contextValues={{ ...cart }}>

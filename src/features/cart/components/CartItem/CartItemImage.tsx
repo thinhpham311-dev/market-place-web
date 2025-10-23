@@ -13,7 +13,6 @@ interface CartItemImageProps {
 }
 
 const CartItemImage: React.FC<CartItemImageProps> = ({ src, alt, imgClassName, className, _w, _h }) => {
-    console.log(src)
     return (
         <Card className={cn(className, "border-none shadow-none bg-transparent")}>
             <CardContent className='p-0'>

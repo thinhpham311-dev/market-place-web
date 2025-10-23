@@ -11,7 +11,7 @@ export default function MainCartHeader() {
     return (
         <Card className="border-none shadow-none">
             <CardHeader>
-                <CardTitle className="text-lg uppercase flex items-center gap-2">
+                <CardTitle className="text-lg uppercase flex items-center gap-2 ">
                     <ShoppingBag className="w-8 h-8" />
                     <span>
                         Cart <span className="font-normal">({cartCount})</span>

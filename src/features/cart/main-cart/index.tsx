@@ -7,10 +7,11 @@ import ShoppingCartProvider from "@/features/cart/providers";
 import { useHandleShoppingCart } from "@/features/cart/hooks";
 import MainCartHeader from './components/MainCartHeader';
 import MainCartContent from './components/MainCartContent';
-import { MAIN_CART } from "@/features/cart/main-cart/constants"
+// import { MAIN_CART } from "@/features/cart/main-cart/constants"
 
 const MainCart = () => {
-    const cart = useHandleShoppingCart({ storeKey: MAIN_CART });
+    const cart = useHandleShoppingCart({ userId: "1001" });
+    console.log(cart)
 
     return (
         <ShoppingCartProvider contextValues={{ ...cart }}>

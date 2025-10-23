@@ -18,7 +18,7 @@ export default function MiniCartContent() {
                     data={cart_products}
                     isLoading={loading}
                     error={error}
-                    countLoadItems={10}
+                    countLoadItems={4}
                 />
             </DropdownMenuItem>
             <DropdownMenuSeparator />
