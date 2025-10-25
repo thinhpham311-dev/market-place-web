@@ -54,6 +54,7 @@ export const useHandleDataTable = ({
         columnVisibility,
     } = cartDataTableState
 
+
     const dispatch = useAppDispatch()
     const setGroupingTable = useCallback((updaterOrValue: Updater<GroupingState>) => {
         const value = typeof updaterOrValue === "function"
@@ -91,7 +92,11 @@ export const useHandleDataTable = ({
         getCoreRowModel: getCoreRowModel(),
         getGroupedRowModel: getGroupedRowModel(),
         getExpandedRowModel: getExpandedRowModel(),
+        enableExpanding: true,
+
     })
+
+
     const cart_total_items = initialData.length
     const cart_selected_items = table.getSelectedRowModel().rows.map(row => row.original)
     const cart_total_selected_amount = cart_selected_items.reduce((sum, item) => sum + ((Number(item.itemSkuPrice) * Number(item.itemQuantity)) || 0), 0)

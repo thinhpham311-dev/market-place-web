@@ -1,5 +1,5 @@
 "use client";
-
+// import { useSearchParams } from "next/navigation";
 //ui
 import { Card, CardHeader, CardContent, Separator } from "@/components/ui"
 // Components
@@ -21,7 +21,6 @@ import ProPriceDisplay from "@/features/product/components/ProPriceDisplay"
 import ProReviewStar from "@/features/product/components/ProReviewStar"
 import ProActions from "@/features/product/components/ProActions"
 import ProShopInfo from "@/features/product/components/ProShopInfo";
-import CartRoot from "@/features/cart/cart-root";
 import ProProvider from "./providers"
 import { useAppSelector } from "@/lib/hooks";
 import { PRO_DETAIL } from "@/features/product/constants"
@@ -36,6 +35,8 @@ interface IProductDetail {
 export default function ProductDetail(
     { product_id = "", shop_id = "" }: IProductDetail
 ) {
+    // const searchParams = useSearchParams()
+    // const idx = searchParams.get("idx")
     const { option_idx: sku_tier_idx, optionsCount } = useAppSelector(selectOptionsStoreKey(PRO_DETAIL));
     const { itemQuantity } = useAppSelector(
         selectQuantitySelectorByStoreKey(PRO_DETAIL)
@@ -81,9 +82,8 @@ export default function ProductDetail(
                                                     <ProPriceDisplay />
                                                     <ProVariantsSelector />
                                                     <ProQuantitySelector />
-                                                    <CartRoot>
-                                                        <ProActions />
-                                                    </CartRoot>
+
+                                                    <ProActions />
                                                 </ProSkuContainer>
                                             </div>
                                         </div>

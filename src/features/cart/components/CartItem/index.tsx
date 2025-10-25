@@ -53,11 +53,11 @@ const CartItem = ({
                     />
                 </div>
             </CardHeader>
-            <CardContent className="md:col-span-3 col-span-3 row-span-3 p-0 space-y-2 ">
+            <CardContent className="md:col-span-3 col-span-3 row-span-3 p-0 space-y-3 ">
                 <div className="grid grid-cols-6 grid-rows-3 items-center">
                     {/* Tên item chiếm hết 5 cột */}
                     <div className="col-span-6">
-                        <div onClick={handleRouterLinkToDetail}>
+                        <div onClick={handleRouterLinkToDetail} className='cursor-pointer'>
                             <CartItemName itemName={itemSpuName} />
                         </div>
                     </div>
@@ -84,7 +84,7 @@ const CartItem = ({
 
                     {/* Actions: chiếm 2 cột (ngang 2 hàng) */}
                     <div className="col-auto row-span-2 row-end-4 col-start-6">
-                        <CartItemActions itemId={itemSkuId} />
+                        <CartItemActions itemSkuId={itemSkuId} />
                     </div>
                 </div>
             </CardContent>

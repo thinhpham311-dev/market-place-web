@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, ShoppingBag } from "lucide-react";
 import { useShoppingCartContext } from "@/features/cart/hooks";
 export default function MiniCartHeader() {
     const router = useRouter();
@@ -13,10 +13,13 @@ export default function MiniCartHeader() {
     };
     return (
         <div className="flex justify-between items-center p-0 space-y-0">
-            <span className="text-lg uppercase">Cart</span>
+            <div className="flex items-center gap-2">
+                <ShoppingBag className="w-5 h-5" />
+                <span className="text-md uppercase">Cart</span>
+            </div>
             {cart_count_product > 0 && (
-                <Button variant="link" size="sm" onClick={handleRouterLinkToCart}>
-                    View More <ChevronRight />
+                <Button className="flex items-center gap-2" variant="link" size="sm" onClick={handleRouterLinkToCart}>
+                    <span>View More</span> <ChevronRight />
                 </Button>
             )}
         </div>

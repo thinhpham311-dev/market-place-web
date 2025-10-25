@@ -12,6 +12,7 @@ import ProductDetail from "@/features/product";
 export default function Page(
     { params }: { params: { segments: string[] } }
 ) {
+
     const fullSlug = params?.segments?.join("/") || "";
 
     const match = fullSlug.match(/(.*)-i\.([\w.]+)/);

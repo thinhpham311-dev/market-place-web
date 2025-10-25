@@ -1,4 +1,4 @@
-import { Skeleton, Card, CardContent } from "@/components/ui"
+import { Skeleton, Card, CardHeader, CardContent } from "@/components/ui"
 import { cn } from "@/lib/utils";
 const Loading = (
     {
@@ -8,14 +8,17 @@ const Loading = (
         className?: string,
         count: number,
     }) => (
-    <div className={cn(className, "grid grid-cols-1 gap-x-3")}>
+    <div className={cn(className, "grid grid-cols-1 gap-3")}>
         {
             Array.from({ length: count }).map((_, index) => (
-                <Card key={index} className="flex flex-col justify-start h-full w-full col-span-1">
-                    <Skeleton className="aspect-square rounded-t-lg " />
-                    <CardContent className="p-3 w-full">
+                <Card layout="horizontal" key={index} className=" justify-start h-full w-full col-span-1">
+                    <CardHeader className="p-3">
+                        <Skeleton className="aspect-square h-full w-full rounded-t-lg " />
+                    </CardHeader>
+                    <CardContent className="p-3 w-full space-y-2">
                         <Skeleton className="h-4 w-full" />
-                        <Skeleton className="h-4 w-1/2" />
+                        <Skeleton className="h-4 w-full" />
+                        <Skeleton className="h-4 w-1/3" />
                     </CardContent>
                 </Card>
             ))

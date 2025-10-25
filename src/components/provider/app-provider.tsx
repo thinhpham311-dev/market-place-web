@@ -17,7 +17,7 @@ import {
 import { Provider } from "react-redux"
 import store, { persistor } from "@/store"
 import { PersistGate } from "redux-persist/integration/react"
-
+import ShoppingCartRoot from "@/features/cart/cart-root"
 
 function getCookie(name: string): string | undefined {
     const value = `; ${document.cookie}`
@@ -48,37 +48,39 @@ export function AppProvider({ children, ...props }: React.ComponentProps<typeof 
                 </div>
                 <div className="flex-1 w-full">
                     <Provider store={store}>
-                        <PersistGate loading={
-                            <div className="h-[100vh] w-full text-center flex justify-center items-center space-x-3 bg-background">
-                                <span><LoadingSpinner /></span>
-                                <p><strong>Loading...</strong></p>
-                            </div>
-                        }
-                            persistor={persistor}>
+                        <ShoppingCartRoot>
+                            <PersistGate loading={
+                                <div className="h-[100vh] w-full text-center flex justify-center items-center space-x-3 bg-background">
+                                    <span><LoadingSpinner /></span>
+                                    <p><strong>Loading...</strong></p>
+                                </div>
+                            }
+                                persistor={persistor}>
 
-                            <AdminHeader />
-                            <Header />
-                            <main>{children}</main>
-                            <Footer />
-                            <ToastProvider>
-                                {toasts.map(function ({ id, title, description, action, ...props }) {
-                                    return (
-                                        <Toast key={id} {...props}>
-                                            <div className="grid gap-1">
-                                                {title && <ToastTitle>{title}</ToastTitle>}
-                                                {description && (
-                                                    <ToastDescription>{description}</ToastDescription>
-                                                )}
-                                            </div>
-                                            {action}
-                                            <ToastClose />
-                                        </Toast>
-                                    )
-                                })}
-                                <ToastViewport />
-                            </ToastProvider>
+                                <AdminHeader />
+                                <Header />
+                                <main>{children}</main>
+                                <Footer />
+                                <ToastProvider>
+                                    {toasts.map(function ({ id, title, description, action, ...props }) {
+                                        return (
+                                            <Toast key={id} {...props}>
+                                                <div className="grid gap-1">
+                                                    {title && <ToastTitle>{title}</ToastTitle>}
+                                                    {description && (
+                                                        <ToastDescription>{description}</ToastDescription>
+                                                    )}
+                                                </div>
+                                                {action}
+                                                <ToastClose />
+                                            </Toast>
+                                        )
+                                    })}
+                                    <ToastViewport />
+                                </ToastProvider>
 
-                        </PersistGate>
+                            </PersistGate>
+                        </ShoppingCartRoot>
                     </Provider>
                 </div>
             </SidebarProvider>

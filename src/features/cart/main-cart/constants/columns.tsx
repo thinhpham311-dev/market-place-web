@@ -1,4 +1,4 @@
-
+import { useRouter } from "next/navigation"
 import { ColumnDef } from "@tanstack/react-table"
 import { Checkbox } from "@/components/ui"
 import { ICartItem } from "@/interfaces/cart"
@@ -43,7 +43,7 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
     },
     {
         accessorKey: "itemSpuImage",
-        header: "Image",
+        header: () => <p className="text-left w-[64px]">Image</p>,
         cell: ({ row }) => {
             const item = row.original as ICartItem
             return (
@@ -60,16 +60,22 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
     },
     {
         accessorKey: "itemSpuName",
-        header: "Name",
+        header: () => <p className="text-left w-[200px]">Name</p>,
         cell: ({ row }) => {
+            const router = useRouter()
+            const handleRouterLinkToDetail = () => {
+                router.push(`/products/${item.itemSpuSlug}-i.${item.itemShopId}.${item.itemSpuId}?idx=${item.itemSkuTierIdx}`)
+            }
             const item = row.original as ICartItem
-            return <CartItemName itemName={item.itemSpuName} />
+            return <div onClick={handleRouterLinkToDetail} className="cursor-pointer">
+                <CartItemName itemName={item.itemSpuName} />
+            </div>
         },
-        size: 400,
+        size: 200,
     },
     {
         accessorKey: "itemSpuVariations",
-        header: "Variants",
+        header: () => <p className="text-left w-[120px]">Variants</p>,
         cell: ({ row }) => {
             const item = row.original as ICartItem
             return (
@@ -79,10 +85,12 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
                 />
             )
         },
+        size: 120,
+
     },
     {
         accessorKey: "itemSkuPrice",
-        header: "Price",
+        header: () => <p className="text-left w-[120px]">Price</p>,
         cell: ({ row }) => {
             const itemSkuPrice = parseFloat(row.getValue("itemSkuPrice"))
             return (
@@ -95,7 +103,7 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
     },
     {
         accessorKey: "itemQuantity",
-        header: () => <p className="text-center">Quantity</p>,
+        header: () => <p className="text-left w-[150px]">Quantity</p>,
         cell: ({ row }) => {
             const item = row.original as ICartItem
             return (
@@ -107,21 +115,30 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
                 </div>
             )
         },
-        size: 120,
+        size: 150,
     },
     {
         id: "totalPrice",
-        header: "Total Price",
+        header: () => <p className="text-center w-[150px]">Total Price</p>,
         cell: ({ row }) => {
             const item = row.original as ICartItem
-            return <CartItemPrice itemPrice={item.itemSkuPrice * item.itemQuantity} />
+            return <div className="flex justify-center">
+                <CartItemPrice itemPrice={item.itemSkuPrice * item.itemQuantity} />
+            </div>
         },
         size: 150,
     },
     {
-        accessorKey: "itemSkuId",
-        header: () => <p className="text-right">Features</p>,
-        cell: ({ row }) => <CartItemActions itemId={row.getValue("itemSkuId")} />,
+        accessorKey: "actions",
+        header: () => <p className="text-right w-[150px]">Features</p>,
+        cell: ({ row }) => {
+            const item = row.original as ICartItem
+            return (
+                <div onClick={() => row.toggleExpanded(true)}>
+                    <CartItemActions itemSkuId={item.itemSkuId} />
+                </div>)
+        },
+
         size: 150,
     },
     {
@@ -129,6 +146,7 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
         cell: () => null,
         enableGrouping: true,
         enableHiding: true,
+
     }
 
 ]

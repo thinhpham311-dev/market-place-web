@@ -1,7 +1,6 @@
 "use client";
 
 import {
-    Card, CardContent, CardDescription,
     Tooltip,
     TooltipContent,
     TooltipTrigger,
@@ -17,20 +16,18 @@ const CartItemPrice = ({
 
 }: CartItemPriceProps) => {
     return (
-        <Card className="border-none shadow-none bg-transparent">
-            <CardContent className="p-0">
-                <CardDescription>
-                    <Tooltip>
-                        <TooltipTrigger className="line-clamp-1">
-                            Price: ${itemPrice}
-                        </TooltipTrigger>
-                        <TooltipContent>
-                            Price: ${itemPrice}
-                        </TooltipContent>
-                    </Tooltip>
-                </CardDescription>
-            </CardContent>
-        </Card>
+
+        <Tooltip>
+            <TooltipTrigger className="line-clamp-1">
+                <p className="text-sm font-medium text-center">
+                    Price: ${itemPrice}
+                </p>
+            </TooltipTrigger>
+            <TooltipContent>
+                Price: ${itemPrice}
+            </TooltipContent>
+        </Tooltip>
+
     );
 };
 

@@ -1,7 +1,7 @@
 "use client";
 
 import {
-    Card, CardContent, CardDescription, Badge,
+    Badge,
     Tooltip,
     TooltipContent,
     TooltipTrigger,
@@ -22,22 +22,18 @@ const CartItemVariantsSelector = ({
     const variantsNode = renderVariants(itemVariants, itemTierIdx)
 
     return (
-        <Card className="border-none shadow-none bg-transparent">
-            <CardContent className="p-0">
-                <CardDescription>
-                    <Badge variant="outline" className="items-center space-x-2">
-                        <Tooltip>
-                            <TooltipTrigger className="bg-transparent  line-clamp-1">
-                                {variantsNode}
-                            </TooltipTrigger>
-                            <TooltipContent>
-                                {variantsNode}
-                            </TooltipContent>
-                        </Tooltip>
-                    </Badge>
-                </CardDescription>
-            </CardContent>
-        </Card>
+
+        <Badge variant="outline" className="items-center space-x-2">
+            <Tooltip>
+                <TooltipTrigger className="bg-transparent  line-clamp-1">
+                    {variantsNode}
+                </TooltipTrigger>
+                <TooltipContent>
+                    {variantsNode}
+                </TooltipContent>
+            </Tooltip>
+        </Badge>
+
     );
 };
 

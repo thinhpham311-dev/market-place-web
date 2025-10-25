@@ -7,11 +7,11 @@ import {
 } from '@/features/cart/services';
 import { ICart, ICartItem } from '@/interfaces/cart';
 import {
-    ITEM_IN_CART_CACHE_KEY,
-    ITEM_IN_CART_RETRY_DELAY,
-    ITEM_IN_CART_RETRIES,
-    ITEM_IN_CART_TTL,
-    ITEM_IN_CART_TAG,
+    SHOPPING_CART_CACHE_KEY,
+    SHOPPING_CART_RETRY_DELAY,
+    SHOPPING_CART_RETRIES,
+    SHOPPING_CART_TTL,
+    SHOPPING_CART_TAG,
 } from '@/features/cart/constants';
 
 type CartResponse = {
@@ -34,14 +34,14 @@ export const getItemsInCart = createAsyncThunk<
             const data = (await dispatch({
                 type: 'api/fetch',
                 payload: {
-                    key: ITEM_IN_CART_CACHE_KEY,
+                    key: SHOPPING_CART_CACHE_KEY,
                     params,
                     apiFn: apiPostShowItems,
                     options: {
-                        TTL: ITEM_IN_CART_TTL,
-                        retries: ITEM_IN_CART_RETRIES,
-                        retryDelay: ITEM_IN_CART_RETRY_DELAY,
-                        tags: [ITEM_IN_CART_TAG],
+                        TTL: SHOPPING_CART_TTL,
+                        retries: SHOPPING_CART_RETRIES,
+                        retryDelay: SHOPPING_CART_RETRY_DELAY,
+                        tags: [SHOPPING_CART_TAG],
                     },
                 },
             })) as unknown as CartResponse;
@@ -239,10 +239,6 @@ const dataSlice = createSlice({
             state.data = initialState.data;
         },
 
-        setItemsInCart: (state, action: PayloadAction<ICartItem[]>) => {
-            state.data.cart_products = action.payload;
-            recalculateTotals(state.data);
-        },
     },
 
     extraReducers: (builder) => {
@@ -316,7 +312,6 @@ export const {
     removeItem,
     updateItem,
     removeSelectedItems,
-    setItemsInCart,
 } = dataSlice.actions;
 
 export default dataSlice.reducer;

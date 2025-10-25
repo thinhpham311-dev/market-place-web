@@ -1,6 +1,6 @@
-export const ITEM_IN_CART = "ITEM_IN_CART";
-export const ITEM_IN_CART_CACHE_KEY = "ITEM_IN_CART_CACHE_KEY"
-export const ITEM_IN_CART_TAG = "ITEM_IN_CART_TAG"
-export const ITEM_IN_CART_TTL = 5 * 60 * 1000 // 5 minutes
-export const ITEM_IN_CART_RETRIES = 2
-export const ITEM_IN_CART_RETRY_DELAY = 500 // 0.5 second
+export const SHOPPING_CART = "SHOPPING_CART";
+export const SHOPPING_CART_CACHE_KEY = "SHOPPING_CART_CACHE_KEY"
+export const SHOPPING_CART_TAG = "SHOPPING_CART_TAG"
+export const SHOPPING_CART_TTL = 5 * 60 * 1000 // 5 minutes
+export const SHOPPING_CART_RETRIES = 2
+export const SHOPPING_CART_RETRY_DELAY = 500 // 0.5 second

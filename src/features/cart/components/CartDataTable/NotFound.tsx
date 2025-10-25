@@ -12,7 +12,7 @@ const NotFound: React.FC<NotFoundProps> = ({
 }) => {
     return (
         <div
-            className={`w-full flex flex-col items-center justify-center  text-center text-muted-foreground aspect-video ${className}`}
+            className={`w-full flex flex-col items-center justify-center  text-center text-muted-foreground h-[350px] ${className}`}
         >
             <AlertTriangle className="w-10 h-10 mb-2 text-yellow-500" />
             <p className="text-sm font-medium">{message}</p>

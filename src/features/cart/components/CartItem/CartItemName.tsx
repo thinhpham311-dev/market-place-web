@@ -1,8 +1,8 @@
 "use client"
 
 import React from 'react';
+
 import {
-    Card, CardContent, CardTitle,
     Tooltip,
     TooltipContent,
     TooltipTrigger,
@@ -15,24 +15,20 @@ interface ICartItemProps {
 
 const CartItemName = ({
     itemName,
-
 }: ICartItemProps) => {
     return (
-        <Card className="border-none shadow-none bg-transparent">
-            <CardContent className=" p-0 ">
-                <CardTitle
-                    className="text-md cursor-pointer ">
-                    <Tooltip>
-                        <TooltipTrigger className='inline-grid truncate'>
-                            {itemName}
-                        </TooltipTrigger>
-                        <TooltipContent>
-                            {itemName}
-                        </TooltipContent>
-                    </Tooltip>
-                </CardTitle>
-            </CardContent>
-        </Card>
+
+        <Tooltip>
+            <TooltipTrigger asChild className='inline-grid truncate'>
+                <p className="text-md font-bold text-center">
+                    {itemName}
+                </p>
+            </TooltipTrigger>
+            <TooltipContent>
+                {itemName}
+            </TooltipContent>
+        </Tooltip>
+
 
     );
 };

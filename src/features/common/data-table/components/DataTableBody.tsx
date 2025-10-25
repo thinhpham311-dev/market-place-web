@@ -8,6 +8,7 @@ import { useDataTableContext } from "@/features/common/data-table/hooks"
 const CartTableBody = () => {
     const router = useRouter()
     const { getRowModel, getAllColumns } = useDataTableContext()
+
     return (
         <TableBody>
             {getRowModel().rows?.length ? (
@@ -16,10 +17,9 @@ const CartTableBody = () => {
                     const selectedCount = subRows.filter((r) => r.getIsSelected()).length
                     const isAllSelected = subRows.length > 0 && selectedCount === subRows.length
                     const isSomeSelected = selectedCount > 0 && selectedCount < subRows.length
-
                     if (row.getIsGrouped()) {
                         return (
-                            <TableRow key={row.id} className="bg-gray-100 font-medium cursor-pointer ">
+                            <TableRow key={row.id} className=" font-medium cursor-pointer space-x-3">
                                 <TableCell>
                                     <Checkbox
                                         checked={isAllSelected}
@@ -28,9 +28,12 @@ const CartTableBody = () => {
                                             subRows.forEach((r) => r.toggleSelected(newValue))
                                         }} />
                                 </TableCell>
-                                <TableCell colSpan={row.getVisibleCells().length} className="p-0">
+                                <TableCell colSpan={row.getVisibleCells().length} className="px-3">
                                     <div className="flex items-center gap-2">
-                                        <Button className="p-0" variant="link" onClick={() => row.toggleExpanded()}>
+                                        <Button className="p-0" variant="link" onClick={(e) => {
+                                            e.stopPropagation()
+                                            row.toggleExpanded()
+                                        }}>
                                             <ChevronDown
                                                 className={`transition-transform ${row.getIsExpanded() ? "rotate-90" : ""}`}
                                                 size={16}
@@ -46,7 +49,7 @@ const CartTableBody = () => {
                     }
 
                     return (
-                        <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                        <TableRow key={row.id} data-state={row.getIsSelected() && "selected"} >
                             {row.getVisibleCells().map((cell) => (
                                 <TableCell key={cell.id}>
                                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -54,6 +57,9 @@ const CartTableBody = () => {
                             ))}
                         </TableRow>
                     )
+
+
+
                 })
             ) : (
                 <TableRow>
@@ -62,7 +68,7 @@ const CartTableBody = () => {
                     </TableCell>
                 </TableRow>
             )}
-        </TableBody>
+        </TableBody >
     )
 }
 

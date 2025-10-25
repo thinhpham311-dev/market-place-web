@@ -13,7 +13,7 @@ interface ICartDataTableProps {
     error: Error | null,
     isLoading: boolean
     initialColumns: any[],
-    countLoadItems: number
+    countLoadItems: number,
 }
 
 const CartDataTable = ({ data = [], isLoading = false, error, countLoadItems = 0, storeKey, initialColumns }: ICartDataTableProps) => {
@@ -35,7 +35,6 @@ const CartDataTable = ({ data = [], isLoading = false, error, countLoadItems = 0
 
 
     return (
-
         <DataTable
             storeKey={storeKey}
             initialColumns={initialColumns}

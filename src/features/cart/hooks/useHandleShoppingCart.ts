@@ -6,6 +6,7 @@ import {
     removeAllItems,
     updateItem,
     removeSelectedItems,
+    clearServerCart
 } from "@/features/cart/store/cartSlice";
 import { getItemsInCart, addItemIntoCart, removeItemOutCart } from "@/features/cart/store/cartSlice";
 import { ICartItem } from "@/interfaces/cart";
@@ -14,36 +15,41 @@ import { ICartItem } from "@/interfaces/cart";
 import reducer from "@/features/cart/store";
 import {
     injectReducer,
-    // removeReducer
 } from "@/store";
 
 //constants
 import { useAppSelector } from "@/lib/hooks";
 import { selectCartByStoreKey } from "@/features/cart/store/selectors"
-import { ITEM_IN_CART } from "@/features/cart/constants";
 
 interface IUseCart {
     userId?: string;
+    storeKey: string
 }
 
-export const useHandleShoppingCart = ({ userId }: IUseCart) => {
-    const dispatch = useDispatch();
+export const useHandleShoppingCart = ({ userId, storeKey }: IUseCart) => {
     useLayoutEffect(() => {
-        const reducerKey = ITEM_IN_CART;
+        const reducerKey = storeKey;
         injectReducer(reducerKey, reducer);
-        // return () => {
-        //     removeReducer(reducerKey);
-        // }
-    }, [dispatch]);
 
-    const cart = useAppSelector(selectCartByStoreKey(ITEM_IN_CART))
+    }, [storeKey]);
+    const dispatch = useDispatch();
+
+    const cart = useAppSelector(selectCartByStoreKey(storeKey))
 
     useEffect(() => {
-        const promise = dispatch(getItemsInCart({ itemUserId: userId } as ICartItem) as any)
+        if (!userId) return; // ✅ condition: only run if userId exists
+
+        dispatch(clearServerCart())
+
+        const promise = dispatch(
+            getItemsInCart({ itemUserId: userId } as ICartItem) as any
+        )
+
         return () => {
             promise.abort()
         }
     }, [dispatch, userId])
+
 
     const handleAddItem = useCallback(
         async (item: ICartItem) => {

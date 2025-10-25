@@ -1,6 +1,3 @@
-
-
-//components
 import Advertisement from "@/features/ads";
 import CatPopularList from "@/features/category/popular";
 import ProPopularList from "@/features/product/list/popular"

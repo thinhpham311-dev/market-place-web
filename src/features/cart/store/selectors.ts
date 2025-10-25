@@ -1,6 +1,5 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "@/store";
-// import { ITEM_IN_CART } from "@/features/cart/constants";
 
 export const makeSelectAddItemInCart = (storeKey: string) =>
     createSelector(

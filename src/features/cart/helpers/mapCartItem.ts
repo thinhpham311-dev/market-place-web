@@ -25,7 +25,7 @@ const mapSku = (sku: ISkuPro) => ({
 const mapSpu = (spu: ISpuPro) => ({
     itemSpuId: spu?.product_id ?? "",
     itemSpuName: spu?.product_name ?? "",
-    itemSpuImage: spu?.product_image ?? "",
+    itemSpuImage: spu?.product_image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
     itemSpuSlug: spu?.product_slug ?? "",
     itemSpuVariations: spu?.product_variations ?? [],
 });
