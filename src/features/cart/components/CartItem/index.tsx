@@ -32,7 +32,6 @@ const CartItem = ({
         itemSkuPrice,
         itemSkuTierIdx,
         itemQuantity,
-        itemSkuStock
     } = data
 
     const handleRouterLinkToDetail = () => {
@@ -47,7 +46,6 @@ const CartItem = ({
                         _w={50}
                         _h={50}
                         src={itemSpuImage}
-
                         imgClassName="h-full w-full"
                         alt="image not found"
                     />
@@ -78,13 +76,12 @@ const CartItem = ({
                         <CartItemQuantitySelector
                             isView={true}
                             currentQuantity={itemQuantity}
-                            maxQuantity={itemSkuStock}
                         />
                     </div>
 
                     {/* Actions: chiếm 2 cột (ngang 2 hàng) */}
                     <div className="col-auto row-span-2 row-end-4 col-start-6">
-                        <CartItemActions itemSkuId={itemSkuId} />
+                        <CartItemActions itemSkuId={itemSkuId} itemShopId={itemShopId} />
                     </div>
                 </div>
             </CardContent>

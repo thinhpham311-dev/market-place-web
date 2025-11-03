@@ -64,7 +64,7 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
         cell: ({ row }) => {
             const router = useRouter()
             const handleRouterLinkToDetail = () => {
-                router.push(`/products/${item.itemSpuSlug}-i.${item.itemShopId}.${item.itemSpuId}?idx=${item.itemSkuTierIdx}`)
+                router.push(`/products/${item.itemSpuSlug}-i.${item.itemShopId}.${item.itemSpuId}`)
             }
             const item = row.original as ICartItem
             return <div onClick={handleRouterLinkToDetail} className="cursor-pointer">
@@ -135,7 +135,7 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
             const item = row.original as ICartItem
             return (
                 <div onClick={() => row.toggleExpanded(true)}>
-                    <CartItemActions itemSkuId={item.itemSkuId} />
+                    <CartItemActions itemSkuId={item.itemSkuId} itemShopId={item.itemShopId} />
                 </div>)
         },
 

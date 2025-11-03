@@ -13,7 +13,6 @@ interface IDataTableProps<TData extends Record<string, any>> {
     storeKey: string,
     initialColumns: ColumnDef<TData>[],
     initialData: TData[]
-    removeSelectedItems: (selectedItems: TData[]) => void
 }
 
 function DataTable<TData extends Record<string, any>>({

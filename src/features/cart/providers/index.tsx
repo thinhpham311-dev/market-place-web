@@ -3,18 +3,18 @@
 import React from "react";
 
 import { cn } from "@/lib/utils"
-import { ICart, ICartItem } from "@/interfaces/cart";
+import { ICartItem, ICart } from "@/interfaces/cart";
 
 interface IShoppingCartContextType {
     data: ICart;
     loading: boolean,
     error: Error | null,
     status: "idle" | "loading" | "success" | "error",
-    addItem: (cartItem: ICartItem) => void;
+    addItem: (item: ICartItem) => void;
     updateItem: (sku_id: string, quantity: number) => void;
-    removeItem: (sku_id: string) => void;
+    removeItem: (sku_id: string, shop_id: string) => void;
     removeAllItems: () => void;
-    removeSelectedItems: (selectedItems: ICartItem[]) => void;
+    removeSelectedItems: (items: ICartItem[]) => void;
 }
 
 interface IShoppingCartProviderProps {

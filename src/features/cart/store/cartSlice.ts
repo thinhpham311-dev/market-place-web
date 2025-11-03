@@ -3,6 +3,7 @@ import {
     apiPostShowItems,
     apiPostAddItem,
     apiPostDeleteItem,
+    apiPostDeleteItems,
     apiPostUpdateItem,
 } from '@/features/cart/services';
 import { ICart, ICartItem } from '@/interfaces/cart';
@@ -25,7 +26,7 @@ interface IErrorPayload {
 
 export const getItemsInCart = createAsyncThunk<
     CartResponse,
-    ICartItem,
+    ICart,
     { rejectValue: IErrorPayload | string }
 >(
     'cart/data/getItemInCart',
@@ -55,11 +56,11 @@ export const getItemsInCart = createAsyncThunk<
 
 export const addItemIntoCart = createAsyncThunk<
     CartResponse,
-    ICartItem,
+    { item: ICartItem },
     { rejectValue: IErrorPayload | string }
 >('cart/data/addItemIntoCart', async (params, { dispatch, rejectWithValue }) => {
     try {
-        await dispatch(addItem({ cartItem: params } as { cartItem: ICartItem }) as any)
+        await dispatch(addItem({ ...params } as { item: ICartItem }))
         const response = (await apiPostAddItem(params)) as { data: CartResponse };
         return response.data;
     } catch (error: any) {
@@ -75,6 +76,21 @@ export const removeItemOutCart = createAsyncThunk<
     try {
         await dispatch(removeItem({ ...params } as ICartItem))
         const response = (await apiPostDeleteItem(params)) as { data: CartResponse };
+        return response.data;
+    } catch (error: any) {
+        return rejectWithValue(error?.response?.data || error.message);
+    }
+});
+
+
+export const removeItemsOutCart = createAsyncThunk<
+    CartResponse,
+    { items: ICartItem[] },
+    { rejectValue: IErrorPayload | string }
+>('cart/data/removeItemsOutCart', async (params, { dispatch, rejectWithValue }) => {
+    try {
+        await dispatch(removeSelectedItems({ ...params } as { items: ICartItem[] }))
+        const response = (await apiPostDeleteItems(params)) as { data: CartResponse };
         return response.data;
     } catch (error: any) {
         return rejectWithValue(error?.response?.data || error.message);
@@ -123,6 +139,8 @@ const recalculateTotals = (cart: ICart) => {
         (sum, item) => sum + (item.itemSkuPrice || 0) * item.itemQuantity,
         0
     );
+    cart.cart_count_product = cart.cart_products.length;
+
     cart.cart_total_select_items = cart.cart_selected_items?.length;
 
     if (cart.cart_products.length === 0) {
@@ -175,19 +193,19 @@ const dataSlice = createSlice({
     name: 'cart/data',
     initialState,
     reducers: {
-        addItem: (state, action: PayloadAction<{ cartItem: ICartItem }>) => {
-            const { cartItem } = action.payload;
+        addItem: (state, action: PayloadAction<{ item: ICartItem }>) => {
+            const { item } = action.payload;
             const existingItem = state.data?.cart_products.find(
-                (item) => item.itemSkuId === cartItem.itemSkuId
+                (item: ICartItem) => item.itemSkuId === item.itemSkuId
             );
 
             if (existingItem) {
-                existingItem.itemQuantity += cartItem.itemQuantity;
+                existingItem.itemQuantity += item.itemQuantity;
             } else {
                 const newItem = {
-                    ...cartItem,
-                    totalPrice: cartItem.itemSkuPrice * cartItem.itemQuantity,
-                    discountedTotalPrice: cartItem.itemSkuPrice * cartItem.itemQuantity,
+                    ...item,
+                    totalPrice: item.itemSkuPrice * item.itemQuantity,
+                    discountedTotalPrice: item.itemSkuPrice * item.itemQuantity,
                 };
                 state.data?.cart_products.unshift(newItem);
             }
@@ -197,13 +215,13 @@ const dataSlice = createSlice({
         updateItem: (state, action: PayloadAction<{ itemSkuId: string; itemQuantity: number }>) => {
             const { itemSkuId, itemQuantity } = action.payload;
             const itemToUpdate = state.data.cart_products.find(
-                (item) => item.itemSkuId === itemSkuId
+                (item: ICartItem) => item.itemSkuId === itemSkuId
             );
 
             if (itemToUpdate) {
                 if (itemQuantity === 0) {
                     state.data.cart_products = state.data.cart_products.filter(
-                        (item) => item.itemSkuId !== itemSkuId
+                        (item: ICartItem) => item.itemSkuId !== itemSkuId
                     );
                 } else {
                     itemToUpdate.itemQuantity = itemQuantity;
@@ -215,7 +233,7 @@ const dataSlice = createSlice({
 
         removeItem: (state, action: PayloadAction<{ itemSkuId: string }>) => {
             state.data.cart_products = state.data.cart_products.filter(
-                (item) => item.itemSkuId !== action.payload.itemSkuId
+                (item: ICartItem) => item.itemSkuId !== action.payload.itemSkuId
             );
             recalculateTotals(state.data);
         },
@@ -227,9 +245,10 @@ const dataSlice = createSlice({
         },
 
         removeSelectedItems: (state, action: PayloadAction<{ items: ICartItem[] }>) => {
+            console.log(action.payload.items)
             const selectedSet = new Set(action.payload.items.map((item) => item.itemSkuId));
             state.data.cart_products = state.data.cart_products.filter(
-                (item) => !selectedSet.has(item.itemSkuId)
+                (item: ICartItem) => !selectedSet.has(item.itemSkuId)
             );
             state.data.cart_selected_items = [];
             recalculateTotals(state.data);

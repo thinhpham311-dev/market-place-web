@@ -8,6 +8,7 @@ export default function MiniCartHeader() {
     const { data } = useShoppingCartContext();
     const { cart_count_product } = data;
 
+
     const handleRouterLinkToCart = () => {
         router.push("/cart");
     };

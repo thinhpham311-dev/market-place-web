@@ -15,7 +15,6 @@ export async function POST(req: Request): Promise<Response> {
                 { status: 500 }
             );
         }
-
         // ✅ Tạo payload gửi lên server
         const payload = {
             userId: '1001',

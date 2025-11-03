@@ -3,9 +3,11 @@
 import { Button, Checkbox, Label, TableFooter, TableRow, TableCell } from "@/components/ui"
 import { formatToCurrency } from "@/lib/formats"
 import { useDataTableContext } from "@/features/common/data-table/hooks"
-
+import { useShoppingCartContext } from "@/features/cart/hooks"
 
 const CartTableFooter = () => {
+    const { removeSelectedItems } = useShoppingCartContext()
+
     const {
         cart_selected_items,
         cart_total_items,
@@ -13,7 +15,6 @@ const CartTableFooter = () => {
         getIsAllRowsSelected,
         toggleAllRowsSelected,
         getAllLeafColumns,
-        removeSelectedItems
     } = useDataTableContext()
 
 

@@ -11,7 +11,6 @@ export interface IDataTableContextType<TData extends Record<string, unknown>> {
     getAllColumns: () => ColumnDef<TData>[]
     getIsAllRowsSelected: () => boolean
     toggleAllRowsSelected: (value: boolean) => void
-    removeSelectedItems: (selectedItems: TData[]) => void
     cart_total_items: number
     cart_selected_items: TData[]
     cart_total_selected_amount: number

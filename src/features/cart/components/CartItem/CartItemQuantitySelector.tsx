@@ -27,12 +27,12 @@ const CartItemQuantitySelector = ({
                     <div className=' line-clamp-1 '>
                         <TooltipTrigger asChild>
                             <p className="text-sm font-medium text-center">
-                                Qty: {currentQuantity} / {maxQuantity}
+                                Qty: {currentQuantity}
                             </p>
                         </TooltipTrigger>
                         <TooltipContent>
                             <p>
-                                Qty: {currentQuantity} / {maxQuantity}
+                                Qty: {currentQuantity}
                             </p>
                         </TooltipContent>
                     </div>

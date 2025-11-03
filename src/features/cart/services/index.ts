@@ -1,8 +1,8 @@
 import ApiService from "@/services/ApiService"
-import { ICartItem } from "@/interfaces/cart"
+import { ICartItem, ICart } from "@/interfaces/cart"
 
 
-export async function apiPostShowItems(data: ICartItem) {
+export async function apiPostShowItems(data: ICart) {
     return ApiService.fetchData({
         url: `/cart/list`,
         method: 'POST',
@@ -10,7 +10,7 @@ export async function apiPostShowItems(data: ICartItem) {
     })
 }
 
-export async function apiPostAddItem(data: ICartItem) {
+export async function apiPostAddItem(data: { item: ICartItem }) {
     return ApiService.fetchData({
         url: `/cart/add`,
         method: 'POST',
@@ -29,6 +29,14 @@ export async function apiPostUpdateItem(data: ICartItem) {
 export async function apiPostDeleteItem(data: ICartItem) {
     return ApiService.fetchData({
         url: `/cart/delete`,
+        method: 'POST',
+        data
+    })
+}
+
+export async function apiPostDeleteItems(data: { items: ICartItem[]; }) {
+    return ApiService.fetchData({
+        url: `/cart/delete-items`,
         method: 'POST',
         data
     })

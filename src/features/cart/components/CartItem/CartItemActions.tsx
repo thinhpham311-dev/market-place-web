@@ -10,12 +10,13 @@ import { useShoppingCartContext } from '@/features/cart/hooks';
 
 interface ICartItemActionsProps {
     itemSkuId: string;
+    itemShopId: string;
 }
 
-const CartItemActions = ({ itemSkuId }: ICartItemActionsProps) => {
+const CartItemActions = ({ itemSkuId, itemShopId }: ICartItemActionsProps) => {
     const { removeItem } = useShoppingCartContext()
     const onHandleRemove = () => {
-        removeItem(itemSkuId)
+        removeItem(itemSkuId, itemShopId)
     };
 
     return (

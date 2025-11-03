@@ -8,7 +8,7 @@ const API_NEXT = process.env.NEXT_PUBLIC_BASE_URL;
 export async function POST(req: Request): Promise<Response> {
     try {
         const body = await req.json();
-
+        const { item } = body
         if (!API_NEXT) {
             return NextResponse.json(
                 { message: 'Server misconfiguration: API_NEXT not set' },
@@ -19,7 +19,7 @@ export async function POST(req: Request): Promise<Response> {
         // ✅ Tạo payload gửi lên server
         const payload = {
             userId: "1001",
-            product: { ...body }
+            product: { ...item }
         };
 
         // Nếu server yêu cầu form-urlencoded:
