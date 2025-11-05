@@ -3,12 +3,15 @@
 import {
     DropdownMenu,
     DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuSeparator,
     DropdownMenuLabel,
     DropdownMenuTrigger,
 } from "@/components/ui";
 import MiniCartTrigger from "./components/MiniCartTrigger";
 import MiniCartHeader from "./components/MiniCartHeader";
 import MiniCartContent from "./components/MiniCartContent";
+import MiniCartFooter from "./components/MiniCartFooter";
 
 export default function MiniCart() {
 
@@ -23,9 +26,14 @@ export default function MiniCart() {
                 <DropdownMenuLabel className="p-0">
                     <MiniCartHeader />
                 </DropdownMenuLabel>
-
-                <MiniCartContent />
-
+                <DropdownMenuSeparator className="mt-0" />
+                <DropdownMenuGroup>
+                    <MiniCartContent />
+                </DropdownMenuGroup>
+                <DropdownMenuSeparator className="mt-0" />
+                <DropdownMenuGroup>
+                    <MiniCartFooter />
+                </DropdownMenuGroup>
             </DropdownMenuContent>
         </DropdownMenu>
     );

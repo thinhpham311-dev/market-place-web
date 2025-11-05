@@ -143,8 +143,9 @@ const recalculateTotals = (cart: ICart) => {
 
     cart.cart_total_select_items = cart.cart_selected_items?.length;
 
+
     if (cart.cart_products.length === 0) {
-        cart.cart_total = 0;
+        cart.cart_total_price = 0;
         cart.cart_estimated_shipping = 0;
         cart.cart_estimated_tax = 0;
     } else {
@@ -153,7 +154,7 @@ const recalculateTotals = (cart: ICart) => {
 
         cart.cart_estimated_shipping = calculateEstimatedShipping(cart.cart_total_amount);
         cart.cart_estimated_tax = calculateEstimatedTax(taxableAmount);
-        cart.cart_total = calculateTotal(
+        cart.cart_total_price = calculateTotal(
             cart.cart_total_amount_discount,
             cart.cart_estimated_shipping,
             cart.cart_estimated_tax
@@ -179,7 +180,7 @@ const initialState: ICartState = {
         cart_total_amount: 0,
         cart_total_amount_discount: 0,
         cart_total_select_items: 0,
-        cart_total: 0,
+        cart_total_price: 0,
         cart_estimated_shipping: 0,
         cart_estimated_tax: 0,
         cart_selected_items: [],
@@ -245,7 +246,6 @@ const dataSlice = createSlice({
         },
 
         removeSelectedItems: (state, action: PayloadAction<{ items: ICartItem[] }>) => {
-            console.log(action.payload.items)
             const selectedSet = new Set(action.payload.items.map((item) => item.itemSkuId));
             state.data.cart_products = state.data.cart_products.filter(
                 (item: ICartItem) => !selectedSet.has(item.itemSkuId)

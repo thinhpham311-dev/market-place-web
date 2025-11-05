@@ -17,6 +17,12 @@ const CartTableFooter = () => {
         getAllLeafColumns,
     } = useDataTableContext()
 
+    const handleDeleteSelectedItems = () => {
+        if (cart_selected_items.length > 0) {
+            removeSelectedItems(cart_selected_items)
+            toggleAllRowsSelected(false)
+        }
+    }
 
     return (
         <TableFooter className="sticky bottom-0 bg-white">
@@ -40,7 +46,7 @@ const CartTableFooter = () => {
 
                         {/* Middle */}
                         <div className="flex-1">
-                            <Button variant="link" disabled={cart_total_items === 0} onClick={() => removeSelectedItems(cart_selected_items)}>
+                            <Button variant="link" disabled={cart_total_items === 0} onClick={handleDeleteSelectedItems}>
                                 Delete
                             </Button>
                         </div>
@@ -53,7 +59,7 @@ const CartTableFooter = () => {
                             <span className="text-md font-semibold">
                                 Total: {formatToCurrency(cart_total_selected_amount)} ({cart_selected_items.length} item)
                             </span>
-                            <Button size="lg" disabled={cart_total_items === 0}>Checkout</Button>
+
                         </div>
                     </div>
                 </TableCell>

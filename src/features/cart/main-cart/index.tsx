@@ -6,6 +6,7 @@ import { Card } from '@/components/ui';
 
 import MainCartHeader from './components/MainCartHeader';
 import MainCartContent from './components/MainCartContent';
+import MainCartFooter from './components/MainCartFooter';
 
 const MainCart = () => {
 
@@ -13,6 +14,7 @@ const MainCart = () => {
         <Card className='border-none shadow-none'>
             <MainCartHeader />
             <MainCartContent />
+            <MainCartFooter />
         </Card>
     );
 };

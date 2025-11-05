@@ -27,7 +27,7 @@ export interface ICart {
     cart_total_amount: number;
     cart_total_amount_discount: number;
     cart_total_select_items: number;
-    cart_total: number;
+    cart_total_price: number;
     cart_estimated_shipping: number;
     cart_estimated_tax: number;
     cart_selected_items: string[];

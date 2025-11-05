@@ -103,7 +103,7 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
     },
     {
         accessorKey: "itemQuantity",
-        header: () => <p className="text-left w-[150px]">Quantity</p>,
+        header: () => <p className="text-center w-[150px]">Quantity</p>,
         cell: ({ row }) => {
             const item = row.original as ICartItem
             return (
