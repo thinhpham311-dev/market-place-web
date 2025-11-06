@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation"
 import { ColumnDef } from "@tanstack/react-table"
-import { Checkbox } from "@/components/ui"
 import { ICartItem } from "@/interfaces/cart"
+import CartItemCheckbox from "../../components/CartItem/CartItemCheckbox"
 import CartItemPrice from "../../components/CartItem/CartItemPrice"
 import CartItemName from "../../components/CartItem/CartItemName"
 import CartItemImage from "../../components/CartItem/CartItemImage"
@@ -9,33 +9,27 @@ import CartItemVariantsSelector from "../../components/CartItem/CartItemVariants
 import CartItemActions from "../../components/CartItem/CartItemActions"
 import CartItemQuantitySelector from "../../components/CartItem/CartItemQuantitySelector"
 
+
 export const initialColumns: ColumnDef<ICartItem>[] = [
     {
         id: "select",
-        header: ({ table }) => (
-            <Checkbox
-                disabled={table.getPreFilteredRowModel().rows.length === 0}
-                checked={table.getIsAllRowsSelected()}
-                onCheckedChange={(value) => table.toggleAllRowsSelected(!!value)} aria-label="Select all products" />
-        ),
+        header: ({ table }) => (<CartItemCheckbox
+            checked={table.getIsAllRowsSelected()}
+            ariaLabel="Select all products"
+            onCheckedChange={(val) => table.toggleAllRowsSelected(val)}
+        />)
+        ,
         cell: ({ row }) => {
-            if (row.getIsGrouped()) {
-                const subRows = row.subRows || []
-                const selectedCount = subRows.filter((r) => r.getIsSelected()).length
-                const isAllSelected = subRows.length > 0 && selectedCount === subRows.length
-                const isSomeSelected = selectedCount > 0 && selectedCount < subRows.length
+            if (!row.getIsGrouped()) {
                 return (
-                    <Checkbox checked={isAllSelected} onCheckedChange={() => {
-                        const newValue = !(isAllSelected || isSomeSelected)
-                        subRows.forEach((r) => r.toggleSelected(newValue))
-                    }} aria-label="Select all products in shop" />)
+                    <CartItemCheckbox
+                        checked={row.getIsSelected()}
+                        ariaLabel="Select all products"
+                        onCheckedChange={(value) => row.toggleSelected(!!value)}
+                    />
+
+                )
             }
-            return (
-                <Checkbox checked={
-                    row.getIsSelected()}
-                    onCheckedChange={(value) => row.toggleSelected(!!value)}
-                    aria-label="Select product" />
-            )
         },
         enableSorting: false,
         enableHiding: false,

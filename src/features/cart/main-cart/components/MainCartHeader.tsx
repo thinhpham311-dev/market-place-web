@@ -6,7 +6,7 @@ import { ShoppingBag } from "lucide-react";
 
 export default function MainCartHeader() {
     const { data } = useShoppingCartContext();
-    const cartCount = data?.cart_count_product ?? 0;
+    const cartCount = data?.cart_product_count ?? 0;
 
     return (
         <Card className="border-none shadow-none">

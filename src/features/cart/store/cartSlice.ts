@@ -131,18 +131,24 @@ const calculateTotal = (
 
 const recalculateTotals = (cart: ICart) => {
     cart.cart_total_quantity = cart.cart_products.reduce((sum, item) => sum + item.itemQuantity, 0);
-    cart.cart_total_amount = cart.cart_products.reduce(
+    cart.cart_sub_total = cart.cart_products.reduce(
         (sum, item) => sum + item.itemSkuPrice * item.itemQuantity,
         0
     );
-    cart.cart_total_amount = cart.cart_products.reduce(
+    cart.cart_sub_total = cart.cart_products.reduce(
         (sum, item) => sum + (item.itemSkuPrice || 0) * item.itemQuantity,
         0
     );
-    cart.cart_count_product = cart.cart_products.length;
+    cart.cart_product_count = cart.cart_products.length;
 
-    cart.cart_total_select_items = cart.cart_selected_items?.length;
+    cart.cart_selected_items_count = cart.cart_selected_items?.length;
+    // Tổng số lượng sản phẩm đã chọn
 
+    // Tổng giá trị sản phẩm đã chọn
+    cart.cart_selected_items_total = cart.cart_selected_items?.reduce(
+        (sum, item) => sum + (item.itemSkuPrice || 0) * item.itemQuantity,
+        0
+    );
 
     if (cart.cart_products.length === 0) {
         cart.cart_total_price = 0;
@@ -150,12 +156,12 @@ const recalculateTotals = (cart: ICart) => {
         cart.cart_estimated_tax = 0;
     } else {
         const taxableAmount =
-            cart.cart_total_amount_discount > 0 ? cart.cart_total_amount_discount : cart.cart_total_amount;
+            cart.cart_total_discount > 0 ? cart.cart_total_discount : cart.cart_sub_total;
 
-        cart.cart_estimated_shipping = calculateEstimatedShipping(cart.cart_total_amount);
+        cart.cart_estimated_shipping = calculateEstimatedShipping(cart.cart_sub_total);
         cart.cart_estimated_tax = calculateEstimatedTax(taxableAmount);
         cart.cart_total_price = calculateTotal(
-            cart.cart_total_amount_discount,
+            cart.cart_total_discount,
             cart.cart_estimated_shipping,
             cart.cart_estimated_tax
         );
@@ -176,18 +182,20 @@ const initialState: ICartState = {
         cart_products: [],
         cart_total_quantity: 0,
         cart_userId: "",
-        cart_count_product: 0,
-        cart_total_amount: 0,
-        cart_total_amount_discount: 0,
-        cart_total_select_items: 0,
+        cart_product_count: 0,
+        cart_sub_total: 0,
+        cart_total_discount: 0,
         cart_total_price: 0,
-        cart_estimated_shipping: 0,
         cart_estimated_tax: 0,
         cart_selected_items: [],
+        cart_selected_items_total: 0,
+        cart_selected_items_count: 0,
+        cart_estimated_shipping: 0,
     },
     status: 'idle',
     error: null,
 };
+
 
 // --- Slice ---
 const dataSlice = createSlice({
@@ -229,6 +237,14 @@ const dataSlice = createSlice({
                 }
             }
 
+            recalculateTotals(state.data);
+        },
+
+        selectItems: (state, action: PayloadAction<{ items: ICartItem[] }>) => {
+            const selectedItems = action.payload.items;
+            state.data.cart_selected_items = selectedItems;
+
+            // Nếu bạn muốn cập nhật thêm tổng tổng thể (optional)
             recalculateTotals(state.data);
         },
 
@@ -327,9 +343,10 @@ const dataSlice = createSlice({
 export const {
     clearServerCart,
     addItem,
+    updateItem,
+    selectItems,
     removeAllItems,
     removeItem,
-    updateItem,
     removeSelectedItems,
 } = dataSlice.actions;
 

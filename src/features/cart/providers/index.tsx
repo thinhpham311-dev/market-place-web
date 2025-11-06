@@ -12,6 +12,7 @@ interface IShoppingCartContextType {
     status: "idle" | "loading" | "success" | "error",
     addItem: (item: ICartItem) => void;
     updateItem: (sku_id: string, quantity: number) => void;
+    selectItems: (items: ICartItem[]) => void;
     removeItem: (sku_id: string, shop_id: string) => void;
     removeAllItems: () => void;
     removeSelectedItems: (items: ICartItem[]) => void;

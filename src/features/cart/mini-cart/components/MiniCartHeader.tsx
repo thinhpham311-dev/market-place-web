@@ -6,8 +6,9 @@ import { useShoppingCartContext } from "@/features/cart/hooks";
 export default function MiniCartHeader() {
     const router = useRouter();
     const { data } = useShoppingCartContext();
-    const { cart_count_product } = data;
+    const { cart_product_count, cart_selected_items } = data;
 
+    console.log("MiniCartHeader cart_selected_items:", cart_selected_items);
 
     const handleRouterLinkToCart = () => {
         router.push("/cart");
@@ -18,7 +19,7 @@ export default function MiniCartHeader() {
                 <ShoppingBag className="w-5 h-5" />
                 <span className="text-md uppercase">Cart</span>
             </div>
-            {cart_count_product > 0 && (
+            {cart_product_count > 0 && (
                 <Button className="flex items-center gap-2" variant="link" size="sm" onClick={handleRouterLinkToCart}>
                     <span>View More</span> <ChevronRight />
                 </Button>

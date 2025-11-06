@@ -21,14 +21,15 @@ export interface ICartItem {
 
 export interface ICart {
     cart_products: ICartItem[];
-    cart_count_product: number;
+    cart_product_count: number;
     cart_total_quantity: number;
     cart_userId: string;
-    cart_total_amount: number;
-    cart_total_amount_discount: number;
-    cart_total_select_items: number;
+    cart_sub_total: number;
+    cart_total_discount: number;
     cart_total_price: number;
     cart_estimated_shipping: number;
     cart_estimated_tax: number;
-    cart_selected_items: string[];
+    cart_selected_items: ICartItem[];
+    cart_selected_items_count: number;
+    cart_selected_items_total: number;
 }

@@ -11,7 +11,7 @@ const CartTableFooter = () => {
     const {
         cart_selected_items,
         cart_total_items,
-        cart_total_selected_amount,
+        cart_selected_items_total,
         getIsAllRowsSelected,
         toggleAllRowsSelected,
         getAllLeafColumns,
@@ -57,7 +57,7 @@ const CartTableFooter = () => {
                                 Đã chọn {selectedItems.length} sản phẩm
                             </span> */}
                             <span className="text-md font-semibold">
-                                Total: {formatToCurrency(cart_total_selected_amount)} ({cart_selected_items.length} item)
+                                Total: {formatToCurrency(cart_selected_items_total)} ({cart_selected_items.length} item)
                             </span>
 
                         </div>

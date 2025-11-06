@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import {
     removeAllItems,
     updateItem,
+    selectItems,
     removeItemsOutCart,
     clearServerCart
 } from "@/features/cart/store/cartSlice";
@@ -74,6 +75,11 @@ export const useHandleShoppingCart = ({ userId, storeKey }: IUseCart) => {
         [dispatch]
     );
 
+    // const handleSelectItems = useCallback(
+    //     async (item: ICartItem) => {
+    //         await dispatch(selectItems({ item } as { item: ICartItem; }) as any)
+    //     }, [])
+
     const handleRemoveAll = useCallback(
         async () => {
             await dispatch(removeAllItems());
@@ -93,6 +99,7 @@ export const useHandleShoppingCart = ({ userId, storeKey }: IUseCart) => {
         ...cart,
         addItem: handleAddItem,
         updateItem: handleUpdateItem,
+        // selectItems: handleSelectItems,
         removeItem: handleRemoveItem,
         removeAllItems: handleRemoveAll,
         removeSelectedItems: handleRemoveSelectedItems,

@@ -13,7 +13,7 @@ export interface IDataTableContextType<TData extends Record<string, unknown>> {
     toggleAllRowsSelected: (value: boolean) => void
     cart_total_items: number
     cart_selected_items: TData[]
-    cart_total_selected_amount: number
+    cart_selected_items_total: number
 }
 
 interface IDataTableProviderProps<TData extends Record<string, any>> {

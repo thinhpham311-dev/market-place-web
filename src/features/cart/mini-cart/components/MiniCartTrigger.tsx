@@ -11,7 +11,7 @@ const MiniCartTrigger = React.forwardRef<HTMLButtonElement, MiniCartTriggerProps
     ({ ...props }, ref) => {
         const { data } = useShoppingCartContext();
 
-        const { cart_count_product = 0 } = data;
+        const { cart_product_count = 0 } = data;
 
         return (
             <Button
@@ -22,9 +22,9 @@ const MiniCartTrigger = React.forwardRef<HTMLButtonElement, MiniCartTriggerProps
                 {...props}
             >
                 <ShoppingCart />
-                {cart_count_product > 0 && (
+                {cart_product_count > 0 && (
                     <span className="absolute -top-2 -right-2 bg-red-600 rounded-full min-w-[18px] h-[18px] text-xs flex justify-center items-center text-white px-1">
-                        {cart_count_product}
+                        {cart_product_count}
                     </span>
                 )}
             </Button>
