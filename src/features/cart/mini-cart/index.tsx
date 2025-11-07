@@ -1,40 +1,21 @@
 "use client";
 
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuGroup,
-    DropdownMenuSeparator,
-    DropdownMenuLabel,
-    DropdownMenuTrigger,
-} from "@/components/ui";
-import MiniCartTrigger from "./components/MiniCartTrigger";
+import MiniCartDropdownContainer from "./components/MiniCartDropdownContainer";
 import MiniCartHeader from "./components/MiniCartHeader";
 import MiniCartContent from "./components/MiniCartContent";
 import MiniCartFooter from "./components/MiniCartFooter";
+import MiniCartDropdownContent from "./components/MiniCartDropdownContent";
+import MiniCartDropdownTrigger from "./components/MiniCartDropdownTrigger";
 
 export default function MiniCart() {
-
     return (
-
-        <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <MiniCartTrigger />
-            </DropdownMenuTrigger>
-
-            <DropdownMenuContent align="end" className="w-[400px] p-3 space-y-3">
-                <DropdownMenuLabel className="p-0">
-                    <MiniCartHeader />
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator className="mt-0" />
-                <DropdownMenuGroup>
-                    <MiniCartContent />
-                </DropdownMenuGroup>
-                <DropdownMenuSeparator className="mt-0" />
-                <DropdownMenuGroup>
-                    <MiniCartFooter />
-                </DropdownMenuGroup>
-            </DropdownMenuContent>
-        </DropdownMenu>
+        <MiniCartDropdownContainer>
+            <MiniCartDropdownTrigger />
+            <MiniCartDropdownContent >
+                <MiniCartHeader />
+                <MiniCartContent />
+                <MiniCartFooter />
+            </MiniCartDropdownContent>
+        </MiniCartDropdownContainer>
     );
 }

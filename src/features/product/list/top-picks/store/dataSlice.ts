@@ -53,7 +53,7 @@ interface ProductState {
     list: ISpuPro[];
     loading: boolean;
     total: number;
-    error: string | null;
+    error: Error | null;
 }
 
 const initialState: ProductState = {
@@ -81,7 +81,7 @@ const dataSlice = createSlice({
             })
             .addCase(getProductList.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload as string || 'Failed to fetch products';
+                state.error = action.payload instanceof Error ? action.payload : new Error(typeof action.payload === 'string' ? action.payload : 'Failed to fetch product list');
                 state.total = 0;
                 state.list = [];
             });

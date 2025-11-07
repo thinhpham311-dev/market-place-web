@@ -2,8 +2,7 @@
 import React from 'react';
 
 //ui
-import { Card } from '@/components/ui';
-
+import MainCartContainer from './components/MainCartContainer';
 import MainCartHeader from './components/MainCartHeader';
 import MainCartContent from './components/MainCartContent';
 import MainCartFooter from './components/MainCartFooter';
@@ -11,11 +10,11 @@ import MainCartFooter from './components/MainCartFooter';
 const MainCart = () => {
 
     return (
-        <Card className='border-none shadow-none'>
+        <MainCartContainer>
             <MainCartHeader />
             <MainCartContent />
             <MainCartFooter />
-        </Card>
+        </MainCartContainer>
     );
 };
 

@@ -1,18 +1,13 @@
 "use client";
-
-import { DropdownMenuItem, DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
 import CartListView from "@/features/cart/components/CartListView";
-import { useShoppingCartContext } from "../../hooks";
+import { DropdownMenuItem, DropdownMenuGroup } from "@radix-ui/react-dropdown-menu";
+import { useShoppingCartContext } from "@/features/cart/hooks";
 
 export default function MiniCartContent() {
-
     const { data, loading, error } = useShoppingCartContext()
-
     const { cart_products } = data
-
     return (
-        <>
-            <DropdownMenuSeparator />
+        <DropdownMenuGroup>
             <DropdownMenuItem disabled>
                 <CartListView
                     data={cart_products}
@@ -21,7 +16,6 @@ export default function MiniCartContent() {
                     countLoadItems={4}
                 />
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
-        </>
+        </DropdownMenuGroup>
     );
 }

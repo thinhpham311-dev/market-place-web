@@ -75,10 +75,11 @@ export const useHandleShoppingCart = ({ userId, storeKey }: IUseCart) => {
         [dispatch]
     );
 
-    // const handleSelectItems = useCallback(
-    //     async (item: ICartItem) => {
-    //         await dispatch(selectItems({ item } as { item: ICartItem; }) as any)
-    //     }, [])
+    const handleSelectItems = useCallback(
+        (items: ICartItem[]) => {
+            console.log(items)
+            dispatch(selectItems({ items } as { items: ICartItem[]; }) as any)
+        }, [dispatch])
 
     const handleRemoveAll = useCallback(
         async () => {
@@ -99,7 +100,7 @@ export const useHandleShoppingCart = ({ userId, storeKey }: IUseCart) => {
         ...cart,
         addItem: handleAddItem,
         updateItem: handleUpdateItem,
-        // selectItems: handleSelectItems,
+        selectItems: handleSelectItems,
         removeItem: handleRemoveItem,
         removeAllItems: handleRemoveAll,
         removeSelectedItems: handleRemoveSelectedItems,

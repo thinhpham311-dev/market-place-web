@@ -4,6 +4,7 @@ import { Button, Checkbox, Label, TableFooter, TableRow, TableCell } from "@/com
 import { formatToCurrency } from "@/lib/formats"
 import { useDataTableContext } from "@/features/common/data-table/hooks"
 import { useShoppingCartContext } from "@/features/cart/hooks"
+import { Trash } from "lucide-react"
 
 const CartTableFooter = () => {
     const { removeSelectedItems } = useShoppingCartContext()
@@ -25,46 +26,48 @@ const CartTableFooter = () => {
     }
 
     return (
-        <TableFooter className="sticky bottom-0 bg-white">
+        <TableFooter className="sticky bottom-0 bg-white border-t border-gray-200">
             <TableRow>
-                <TableCell>
-                    <Checkbox
-                        id="pro_selected"
-                        disabled={cart_total_items === 0}
-                        checked={getIsAllRowsSelected()}
-                        onCheckedChange={(value) => toggleAllRowsSelected(!!value)}
-                    />
+                <TableCell colSpan={getAllLeafColumns().length - 4} >
+                    <Label
+                        htmlFor="pro_selected"
+                        className="font-semibold text-sm whitespace-nowrap flex items-center gap-2"
+                    >
+                        <Checkbox
+                            id="pro_selected"
+                            disabled={cart_total_items === 0}
+                            checked={getIsAllRowsSelected()}
+                            onCheckedChange={(value) => toggleAllRowsSelected(!!value)}
+                        />
+                        <span>Selected All ({cart_selected_items.length}/{cart_total_items})</span>
+                    </Label>
                 </TableCell>
-                <TableCell colSpan={getAllLeafColumns().length} className="p-0">
-                    <div className="flex items-center justify-between p-4 bg-transparent rounded-lg">
-                        {/* Left */}
-                        <div className="flex items-center space-x-4">
-                            <Label htmlFor="pro_selected" className="font-bold">
-                                Selected All ({cart_selected_items.length}/{cart_total_items})
-                            </Label>
-                        </div>
-
-                        {/* Middle */}
-                        <div className="flex-1">
-                            <Button variant="link" disabled={cart_total_items === 0} onClick={handleDeleteSelectedItems}>
-                                Delete
-                            </Button>
-                        </div>
-
-                        {/* Right */}
-                        <div className="flex items-center space-x-5">
-                            {/* <span className="text-sm text-gray-600">
-                                Đã chọn {selectedItems.length} sản phẩm
-                            </span> */}
-                            <span className="text-md font-semibold">
-                                Total: {formatToCurrency(cart_selected_items_total)} ({cart_selected_items.length} item)
-                            </span>
-
-                        </div>
+                <TableCell>
+                    <div className="text-center text-sm font-medium min-w-[150px]">
+                        ({cart_selected_items.length} item)
+                    </div>
+                </TableCell>
+                <TableCell>
+                    <div className="text-center text-sm font-semibold min-w-[150px]">
+                        Total: {formatToCurrency(cart_selected_items_total)}
+                    </div>
+                </TableCell>
+                <TableCell>
+                    <div className="text-end text-sm font-semibold min-w-[150px]">
+                        {/* Actions */}
+                        <Button
+                            variant="destructive"
+                            size="sm"
+                            disabled={cart_total_items === 0}
+                            onClick={handleDeleteSelectedItems}
+                            className="gap-2"
+                        >
+                            <Trash className="w-4 h-4" /> Delete All
+                        </Button>
                     </div>
                 </TableCell>
             </TableRow>
-        </TableFooter>
+        </TableFooter >
     )
 }
 

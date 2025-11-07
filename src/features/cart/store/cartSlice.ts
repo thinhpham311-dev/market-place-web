@@ -288,9 +288,11 @@ const dataSlice = createSlice({
                 state.loading = false;
                 state.status = 'success';
             })
-            .addCase(getItemsInCart.rejected, (state) => {
+            .addCase(getItemsInCart.rejected, (state, action) => {
                 state.loading = false;
                 state.status = 'error';
+                state.error = action.payload instanceof Error ? action.payload : new Error(typeof action.payload === 'string' ? action.payload : 'Failed to fetch product list');
+
             })
 
             // --- add item ---
@@ -303,9 +305,11 @@ const dataSlice = createSlice({
                 state.loading = false;
                 state.status = 'success';
             })
-            .addCase(addItemIntoCart.rejected, (state) => {
+            .addCase(addItemIntoCart.rejected, (state, action) => {
                 state.loading = false;
                 state.status = 'error';
+                state.error = action.payload instanceof Error ? action.payload : new Error(typeof action.payload === 'string' ? action.payload : 'Failed to fetch product list');
+
             })
 
             // --- remove item ---
@@ -318,9 +322,11 @@ const dataSlice = createSlice({
                 state.loading = false;
                 state.status = 'success';
             })
-            .addCase(removeItemOutCart.rejected, (state) => {
+            .addCase(removeItemOutCart.rejected, (state, action) => {
                 state.loading = false;
                 state.status = 'error';
+                state.error = action.payload instanceof Error ? action.payload : new Error(typeof action.payload === 'string' ? action.payload : 'Failed to fetch product list');
+
             })
 
             // --- update item ---
@@ -333,9 +339,11 @@ const dataSlice = createSlice({
                 state.loading = false;
                 state.status = 'success';
             })
-            .addCase(updateItemInCart.rejected, (state) => {
+            .addCase(updateItemInCart.rejected, (state, action) => {
                 state.loading = false;
                 state.status = 'error';
+                state.error = action.payload instanceof Error ? action.payload : new Error(typeof action.payload === 'string' ? action.payload : 'Failed to fetch product list');
+
             });
     },
 });

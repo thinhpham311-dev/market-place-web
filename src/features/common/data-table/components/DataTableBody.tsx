@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation"
 import { flexRender, Row } from "@tanstack/react-table"
 import { TableBody, TableRow, TableCell, Button, Checkbox } from "@/components/ui"
-import { ChevronDown } from "lucide-react"
+import { ChevronDown, ChevronRight, MessagesSquare } from "lucide-react"
 import { useDataTableContext } from "@/features/common/data-table/hooks"
 
 const CartTableBody = () => {
@@ -41,7 +41,14 @@ const CartTableBody = () => {
                                             <span className="font-bold">{row.original.itemShopName}</span>
                                             ({row.subRows.length})
                                         </Button>
-                                        <Button variant="link" onClick={() => router.push(`/shop/${row.original.itemShopSlug}-s.${row.original.itemShopId}`)}>View More</Button>
+                                        <Button variant="ghost" size="icon">
+                                            <MessagesSquare />
+                                        </Button>
+                                        <Button variant="ghost" size="sm" onClick={() => router.push(`/shop/${row.original.itemShopSlug}-s.${row.original.itemShopId}`)}>
+                                            <span>View More</span>
+                                            <ChevronRight />
+
+                                        </Button>
                                     </div>
                                 </TableCell>
                             </TableRow>

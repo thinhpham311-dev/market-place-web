@@ -8,7 +8,7 @@ export function VoucherSection() {
         <CardTitle className="text-md flex items-center gap-2">
             <Tickets />
             <span>Voucher Code:</span>
-            <Button variant="link">
+            <Button variant="ghost" size="sm">
                 <span>View More</span>
                 <ChevronRight />
             </Button>

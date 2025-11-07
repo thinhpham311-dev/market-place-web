@@ -30,10 +30,10 @@ const CartListView = ({ data = [], countLoadItems = 0, isLoading = false, error 
     }
 
     return (
-        <Card className='border-none shadow-none '>
+        <Card className='border-none shadow-none'>
             <CardContent className='p-0'>
-                <ScrollArea className=" aspect-square">
-                    <ul className='space-y-1'>
+                <ScrollArea className="aspect-square">
+                    <ul className='space-y-2'>
                         {data.map(item => (
                             <li key={item.itemSkuId}>
                                 <CartItem data={item} />

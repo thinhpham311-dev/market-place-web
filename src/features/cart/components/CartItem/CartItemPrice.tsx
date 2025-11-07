@@ -5,6 +5,7 @@ import {
     TooltipContent,
     TooltipTrigger,
 } from "@/components/ui";
+import { formatToCurrency } from "@/lib/formats";
 
 interface CartItemPriceProps {
     itemPrice?: number;
@@ -20,11 +21,11 @@ const CartItemPrice = ({
         <Tooltip>
             <TooltipTrigger className="line-clamp-1">
                 <p className="text-sm font-medium text-center">
-                    Price: ${itemPrice}
+                    <strong> Price:</strong> {formatToCurrency(itemPrice)}
                 </p>
             </TooltipTrigger>
             <TooltipContent>
-                Price: ${itemPrice}
+                <strong> Price:</strong> {formatToCurrency(itemPrice)}
             </TooltipContent>
         </Tooltip>
 

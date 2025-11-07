@@ -13,16 +13,21 @@ import CartItemQuantitySelector from "../../components/CartItem/CartItemQuantity
 export const initialColumns: ColumnDef<ICartItem>[] = [
     {
         id: "select",
-        header: ({ table }) => (<CartItemCheckbox
-            checked={table.getIsAllRowsSelected()}
-            ariaLabel="Select all products"
-            onCheckedChange={(val) => table.toggleAllRowsSelected(val)}
-        />)
-        ,
+        header: ({ table }) => {
+            const items = table.getSelectedRowModel().rows.map((r) => r.original as ICartItem)
+            return (<CartItemCheckbox
+                data={items}
+                checked={table.getIsAllRowsSelected()}
+                ariaLabel="Select all products"
+                onCheckedChange={(val) => table.toggleAllRowsSelected(val)}
+            />)
+        },
         cell: ({ row }) => {
             if (!row.getIsGrouped()) {
+                const item = row.original as ICartItem; // 👈 dữ liệu dòng hiện tại
                 return (
                     <CartItemCheckbox
+                        data={[item]}
                         checked={row.getIsSelected()}
                         ariaLabel="Select all products"
                         onCheckedChange={(value) => row.toggleSelected(!!value)}
