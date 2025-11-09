@@ -12,13 +12,14 @@ type MiniCartDropdownTriggerProps = React.ComponentPropsWithoutRef<"button">;
 const MiniCartDropdownTrigger = React.forwardRef<HTMLButtonElement, MiniCartDropdownTriggerProps>(
     ({ ...props }, ref) => {
         const { data, loading, error } = useShoppingCartContext();
-
         const { cart_product_count = 0 } = data;
 
         if (loading) {
             return (
                 <DropdownMenuTrigger asChild>
-                    <Loading />
+                    <div>
+                        <Loading />
+                    </div>
                 </DropdownMenuTrigger>
             );
         }
@@ -26,7 +27,9 @@ const MiniCartDropdownTrigger = React.forwardRef<HTMLButtonElement, MiniCartDrop
         if (error) {
             return (
                 <DropdownMenuTrigger asChild>
-                    <NotFound />
+                    <div>
+                        <NotFound />
+                    </div>
                 </DropdownMenuTrigger>
             );
         }

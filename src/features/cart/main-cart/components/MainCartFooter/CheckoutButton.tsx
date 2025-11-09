@@ -9,7 +9,7 @@ export function CheckoutButton() {
         <Button size="sm">
             <CreditCard />
             <span>
-                <strong>Check Out</strong>
+                Check Out
             </span>
         </Button>
     );

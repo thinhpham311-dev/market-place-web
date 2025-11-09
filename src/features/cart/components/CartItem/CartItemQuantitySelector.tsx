@@ -15,7 +15,7 @@ interface ICartItemQuantitySelectorProps {
 
 const CartItemQuantitySelector = ({
     isView = false,
-    currentQuantity,
+    currentQuantity = 0,
     maxQuantity,
 }: ICartItemQuantitySelectorProps) => {
     // const { updateItem } = useShoppingCartContext()
@@ -27,12 +27,12 @@ const CartItemQuantitySelector = ({
                     <div className=' line-clamp-1 '>
                         <TooltipTrigger asChild>
                             <p className="text-sm font-medium text-center">
-                                Qty: {currentQuantity}
+                                <strong> Qty:</strong> {currentQuantity}
                             </p>
                         </TooltipTrigger>
                         <TooltipContent>
                             <p>
-                                Qty: {currentQuantity}
+                                <strong> Qty:</strong> {currentQuantity}
                             </p>
                         </TooltipContent>
                     </div>

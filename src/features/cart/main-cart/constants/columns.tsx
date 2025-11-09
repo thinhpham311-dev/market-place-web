@@ -15,12 +15,13 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
         id: "select",
         header: ({ table }) => {
             const items = table.getSelectedRowModel().rows.map((r) => r.original as ICartItem)
-            return (<CartItemCheckbox
-                data={items}
-                checked={table.getIsAllRowsSelected()}
-                ariaLabel="Select all products"
-                onCheckedChange={(val) => table.toggleAllRowsSelected(val)}
-            />)
+            return (
+                <CartItemCheckbox
+                    data={items}
+                    checked={table.getIsAllRowsSelected()}
+                    ariaLabel="Select all products"
+                    onCheckedChange={(val) => table.toggleAllRowsSelected(val)}
+                />)
         },
         cell: ({ row }) => {
             if (!row.getIsGrouped()) {

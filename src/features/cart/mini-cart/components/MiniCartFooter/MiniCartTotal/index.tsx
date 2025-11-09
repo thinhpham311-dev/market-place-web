@@ -28,7 +28,7 @@ const MiniCartTotal = () => {
 
     return (
         <CardTitle className="text-md font-bold">
-            {formatToCurrency(cart_total_price)}
+            <span>Total:</span> {formatToCurrency(cart_total_price)}
         </CardTitle>
     );
 };

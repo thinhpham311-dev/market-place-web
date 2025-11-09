@@ -31,7 +31,7 @@ const CartTableFooter = () => {
                 <TableCell colSpan={getAllLeafColumns().length - 4} >
                     <Label
                         htmlFor="pro_selected"
-                        className="font-semibold text-sm whitespace-nowrap flex items-center gap-2"
+                        className="font-semibold text-sm whitespace-nowrap flex items-center space-x-5"
                     >
                         <Checkbox
                             id="pro_selected"
@@ -42,17 +42,17 @@ const CartTableFooter = () => {
                         <span>Selected All ({cart_selected_items.length}/{cart_total_items})</span>
                     </Label>
                 </TableCell>
-                <TableCell>
+                <TableCell >
                     <div className="text-center text-sm font-medium min-w-[150px]">
-                        ({cart_selected_items.length} item)
+                        <strong>Qty:</strong> ({cart_selected_items.length} item)
                     </div>
                 </TableCell>
-                <TableCell>
+                <TableCell >
                     <div className="text-center text-sm font-semibold min-w-[150px]">
                         Total: {formatToCurrency(cart_selected_items_total)}
                     </div>
                 </TableCell>
-                <TableCell>
+                <TableCell >
                     <div className="text-end text-sm font-semibold min-w-[150px]">
                         {/* Actions */}
                         <Button

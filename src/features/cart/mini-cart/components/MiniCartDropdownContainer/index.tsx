@@ -1,12 +1,22 @@
-import React from 'react';
+import React from "react";
 import { DropdownMenu } from "@/components/ui";
 
-const MiniCartDropdownContainer = ({ children }: { children: React.ReactNode }) => {
-    return (
-        <DropdownMenu>
-            {children}
-        </DropdownMenu>
-    );
-};
+interface IMiniCartDropdownContainerProps {
+    children: React.ReactNode;
+}
+
+const MiniCartDropdownContainer = React.forwardRef<HTMLDivElement, IMiniCartDropdownContainerProps>(
+    ({ children }, ref) => {
+        return (
+            <div ref={ref}>
+                <DropdownMenu>
+                    {children}
+                </DropdownMenu>
+            </div>
+        );
+    }
+);
+
+MiniCartDropdownContainer.displayName = "MiniCartDropdownContainer";
 
 export default MiniCartDropdownContainer;
