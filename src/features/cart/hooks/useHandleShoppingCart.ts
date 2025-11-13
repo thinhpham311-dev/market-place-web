@@ -36,7 +36,6 @@ export const useHandleShoppingCart = ({ userId, storeKey }: IUseCart) => {
     }, [storeKey]);
     const dispatch = useDispatch();
 
-    const cart = useAppSelector(selectCartByStoreKey(storeKey))
 
     useEffect(() => {
         if (!userId) return;
@@ -52,6 +51,7 @@ export const useHandleShoppingCart = ({ userId, storeKey }: IUseCart) => {
         }
     }, [dispatch, userId])
 
+    const cart = useAppSelector(selectCartByStoreKey(storeKey))
 
     const handleAddItem = useCallback(
         async (item: ICartItem) => {

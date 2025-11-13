@@ -138,7 +138,6 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
                     <CartItemActions itemSkuId={item.itemSkuId} itemShopId={item.itemShopId} />
                 </div>)
         },
-
         size: 150,
     },
     {

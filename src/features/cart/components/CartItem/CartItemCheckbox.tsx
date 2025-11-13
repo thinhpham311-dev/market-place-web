@@ -4,7 +4,7 @@ import { useShoppingCartContext } from "../../hooks";
 import { ICartItem } from "@/interfaces/cart";
 
 interface ICartItemCheckboxProps {
-    data?: ICartItem[]; // cho phép undefined ở header nếu chưa có
+    data?: ICartItem[];
     checked: boolean;
     disabled?: boolean;
     ariaLabel?: string;
@@ -23,13 +23,10 @@ const CartItemCheckbox = ({
     const handleCheckedChange = (isChecked: boolean) => {
         onCheckedChange?.(isChecked);
 
-        // Nếu có data, ta chọn hoặc bỏ chọn toàn bộ SKU tương ứng
         if (data.length > 0) {
             if (isChecked) {
-                // ✅ chọn tất cả items trong data
-                selectItems(data.map((item) => item.itemSkuId) as any); // truyền string[]
+                selectItems(data.map((item) => item.itemSkuId) as any);
             } else {
-                // ❌ bỏ chọn toàn bộ
                 selectItems([]);
             }
         }
