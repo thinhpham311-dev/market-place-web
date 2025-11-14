@@ -4,7 +4,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import {
     GroupingState,
     VisibilityState,
-    ExpandedState
+    ExpandedState,
+    RowSelectionState,
 } from '@tanstack/react-table'
 
 // Types
@@ -12,6 +13,7 @@ export interface DataTableState {
     grouping: GroupingState
     columnVisibility: VisibilityState
     expanded: ExpandedState
+    rowSelection: RowSelectionState
 }
 
 // Initial state
@@ -21,6 +23,7 @@ const initialState: DataTableState = {
         itemShopId: false,
     },
     expanded: {},
+    rowSelection: {},
 }
 
 // Slice
@@ -39,6 +42,10 @@ const dataTableSlice = createSlice({
         setExpanded: (state, action: PayloadAction<ExpandedState>) => {
             state.expanded = action.payload
         },
+
+        setRowSelection: (state, action: PayloadAction<RowSelectionState>) => {
+            state.rowSelection = action.payload
+        },
     },
 })
 
@@ -46,6 +53,7 @@ export const {
     setGrouping,
     setColumnVisibility,
     setExpanded,
+    setRowSelection
 } = dataTableSlice.actions
 
 

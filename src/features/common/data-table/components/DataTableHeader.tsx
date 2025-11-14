@@ -5,10 +5,10 @@ import { TableHeader, TableRow, TableHead } from "@/components/ui"
 import { useDataTableContext } from "@/features/common/data-table/hooks"
 
 const CartTableHeader = () => {
-    const { getHeaderGroups } = useDataTableContext()
+    const { table } = useDataTableContext()
     return (
         <TableHeader>
-            {getHeaderGroups().map((headerGroup) => (
+            {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id} className="bg-transparent">
                     {headerGroup.headers.map((header) => (
                         <TableHead

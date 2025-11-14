@@ -1,20 +1,22 @@
 "use client"
 
-import { useLayoutEffect, useCallback } from "react"
+import { useEffect, useCallback } from "react"
 import {
     setGrouping,
     setExpanded,
     setColumnVisibility,
+    setRowSelection
 } from "@/features/common/data-table/store/stateSlice"
 import {
     GroupingState,
     ExpandedState,
     VisibilityState,
+    RowSelectionState,
     useReactTable,
     Updater,
     getCoreRowModel,
     getGroupedRowModel,
-    getExpandedRowModel
+    getExpandedRowModel,
 } from "@tanstack/react-table"
 
 import { useAppDispatch, useAppSelector } from "@/lib/hooks"
@@ -32,79 +34,105 @@ interface IUseCartTable {
 export const useHandleDataTable = ({
     storeKey,
     initialData = [],
-    initialColumns = []
+    initialColumns = [],
 }: IUseCartTable) => {
 
-    useLayoutEffect(() => {
-        const reducerKey = `${DATA_TABLE}_${storeKey}`;
-
+    // Dynamically inject/remove reducer
+    useEffect(() => {
+        const reducerKey = `${DATA_TABLE}_${storeKey}`
         injectReducer(reducerKey, reducer)
-        return () => {
-            removeReducer(reducerKey)
-        }
+        return () => removeReducer(reducerKey)
     }, [storeKey])
 
     const cartDataTableState = useAppSelector(
         selectDataTableStateByStoreKey(storeKey)
     )
 
-    const {
-        grouping,
-        expanded,
-        columnVisibility,
-    } = cartDataTableState
-
-
+    const { grouping, expanded, columnVisibility, rowSelection } = cartDataTableState
     const dispatch = useAppDispatch()
-    const setGroupingTable = useCallback((updaterOrValue: Updater<GroupingState>) => {
-        const value = typeof updaterOrValue === "function"
-            ? updaterOrValue(grouping)
-            : updaterOrValue
-        dispatch(setGrouping(value))
-    }, [dispatch, grouping])
 
-    const setExpandedTable = useCallback((updaterOrValue: Updater<ExpandedState>) => {
-        const value = typeof updaterOrValue === "function"
-            ? updaterOrValue(expanded)
-            : updaterOrValue
-        dispatch(setExpanded(value))
-    }, [dispatch, expanded])
+    // Memoized setters to sync table state with Redux
+    const setGroupingTable = useCallback(
+        (updaterOrValue: Updater<GroupingState>) => {
+            const value =
+                typeof updaterOrValue === "function"
+                    ? updaterOrValue(grouping)
+                    : updaterOrValue
+            dispatch(setGrouping(value))
+        },
+        [dispatch, grouping]
+    )
 
-    const setColumnVisibilityTable = useCallback((updaterOrValue: Updater<VisibilityState>) => {
-        const value = typeof updaterOrValue === "function"
-            ? updaterOrValue(columnVisibility)
-            : updaterOrValue
-        dispatch(setColumnVisibility(value))
-    }, [dispatch, columnVisibility])
+    const setExpandedTable = useCallback(
+        (updaterOrValue: Updater<ExpandedState>) => {
+            const value =
+                typeof updaterOrValue === "function"
+                    ? updaterOrValue(expanded)
+                    : updaterOrValue
+            dispatch(setExpanded(value))
+        },
+        [dispatch, expanded]
+    )
+
+    const setColumnVisibilityTable = useCallback(
+        (updaterOrValue: Updater<VisibilityState>) => {
+            const value =
+                typeof updaterOrValue === "function"
+                    ? updaterOrValue(columnVisibility)
+                    : updaterOrValue
+            dispatch(setColumnVisibility(value))
+        },
+        [dispatch, columnVisibility]
+    )
+
+    const setRowSelectionTable = useCallback(
+        (updaterOrValue: Updater<RowSelectionState>) => {
+            const value =
+                typeof updaterOrValue === "function"
+                    ? updaterOrValue(rowSelection)
+                    : updaterOrValue
+            dispatch(setRowSelection(value))
+        },
+        [dispatch, rowSelection]
+    )
 
 
+    // React Table instance
     const table = useReactTable({
         data: initialData,
         columns: initialColumns,
         state: {
             expanded,
             grouping,
-            columnVisibility
+            columnVisibility,
+            rowSelection,
         },
         onExpandedChange: setExpandedTable,
         onGroupingChange: setGroupingTable,
+        onRowSelectionChange: setRowSelectionTable,
         onColumnVisibilityChange: setColumnVisibilityTable,
         getCoreRowModel: getCoreRowModel(),
         getGroupedRowModel: getGroupedRowModel(),
         getExpandedRowModel: getExpandedRowModel(),
         enableExpanding: true,
-
+        enableRowSelection: true, // ensure selection is enabled
     })
 
-
+    // Cart totals & selected items
     const cart_total_items = initialData.length
-    const cart_selected_items = table.getSelectedRowModel().rows.map(row => row.original)
-    const cart_selected_items_total = cart_selected_items.reduce((sum, item) => sum + ((Number(item.itemSkuPrice) * Number(item.itemQuantity)) || 0), 0)
+    const cart_selected_items = table.getSelectedRowModel().rows.map(
+        (row) => row.original
+    )
+    const cart_selected_items_total = cart_selected_items.reduce(
+        (sum, item) =>
+            sum + Number(item.itemSkuPrice || 0) * Number(item.itemQuantity || 0),
+        0
+    )
 
     return {
-        ...table,
+        table,
         cart_total_items,
         cart_selected_items,
-        cart_selected_items_total
+        cart_selected_items_total,
     }
 }

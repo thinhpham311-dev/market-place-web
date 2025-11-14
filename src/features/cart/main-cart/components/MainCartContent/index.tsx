@@ -7,7 +7,7 @@ import { SHOPPING_CART } from "@/features/cart/constants";
 
 export default function MainCartContent() {
     const { data, loading, error } = useShoppingCartContext()
-    const { cart_products } = data
+    const { cart_products = [] } = data
     return (
         <CardContent>
             <CartDataTable

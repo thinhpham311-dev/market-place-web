@@ -13,22 +13,20 @@ const CartTableFooter = () => {
         cart_selected_items,
         cart_total_items,
         cart_selected_items_total,
-        getIsAllRowsSelected,
-        toggleAllRowsSelected,
-        getAllLeafColumns,
+        table
     } = useDataTableContext()
 
     const handleDeleteSelectedItems = () => {
         if (cart_selected_items.length > 0) {
             removeSelectedItems(cart_selected_items)
-            toggleAllRowsSelected(false)
+            table.toggleAllRowsSelected(false)
         }
     }
 
     return (
         <TableFooter className="sticky bottom-0 bg-white border-t border-gray-200">
             <TableRow>
-                <TableCell colSpan={getAllLeafColumns().length - 4} >
+                <TableCell colSpan={table.getAllLeafColumns().length - 4} >
                     <Label
                         htmlFor="pro_selected"
                         className="font-semibold text-sm whitespace-nowrap flex items-center space-x-5"
@@ -36,8 +34,8 @@ const CartTableFooter = () => {
                         <Checkbox
                             id="pro_selected"
                             disabled={cart_total_items === 0}
-                            checked={getIsAllRowsSelected()}
-                            onCheckedChange={(value) => toggleAllRowsSelected(!!value)}
+                            checked={table.getIsAllRowsSelected()}
+                            onCheckedChange={(value) => table.toggleAllRowsSelected(!!value)}
                         />
                         <span>Selected All ({cart_selected_items.length}/{cart_total_items})</span>
                     </Label>
@@ -55,10 +53,11 @@ const CartTableFooter = () => {
                 <TableCell >
                     <div className="text-end text-sm font-semibold min-w-[150px]">
                         {/* Actions */}
+
                         <Button
                             variant="destructive"
                             size="sm"
-                            disabled={cart_total_items === 0}
+                            disabled={cart_selected_items_total === 0}
                             onClick={handleDeleteSelectedItems}
                             className="gap-2"
                         >

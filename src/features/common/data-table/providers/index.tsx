@@ -2,15 +2,10 @@
 
 import React from "react"
 import { cn } from "@/lib/utils"
-import { HeaderGroup, RowModel, ColumnDef } from "@tanstack/react-table"
+import { Table } from "@tanstack/react-table"
 
 export interface IDataTableContextType<TData extends Record<string, unknown>> {
-    getAllLeafColumns: () => ColumnDef<TData>[]
-    getHeaderGroups: () => HeaderGroup<TData>[]
-    getRowModel: () => RowModel<TData>
-    getAllColumns: () => ColumnDef<TData>[]
-    getIsAllRowsSelected: () => boolean
-    toggleAllRowsSelected: (value: boolean) => void
+    table: Table<TData>
     cart_total_items: number
     cart_selected_items: TData[]
     cart_selected_items_total: number

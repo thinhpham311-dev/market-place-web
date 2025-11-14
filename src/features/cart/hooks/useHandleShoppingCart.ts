@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useLayoutEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 import { useDispatch } from "react-redux";
 import {
@@ -16,7 +16,7 @@ import { ICartItem, ICart } from "@/interfaces/cart";
 //store
 import reducer from "@/features/cart/store";
 import {
-    injectReducer,
+    injectReducer
 } from "@/store";
 
 //constants
@@ -29,7 +29,7 @@ interface IUseCart {
 }
 
 export const useHandleShoppingCart = ({ userId, storeKey }: IUseCart) => {
-    useLayoutEffect(() => {
+    useEffect(() => {
         const reducerKey = storeKey;
         injectReducer(reducerKey, reducer);
 
@@ -77,7 +77,6 @@ export const useHandleShoppingCart = ({ userId, storeKey }: IUseCart) => {
 
     const handleSelectItems = useCallback(
         (items: ICartItem[]) => {
-            console.log(items)
             dispatch(selectItems({ items } as { items: ICartItem[]; }) as any)
         }, [dispatch])
 
