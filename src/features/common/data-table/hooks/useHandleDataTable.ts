@@ -5,13 +5,13 @@ import {
     setGrouping,
     setExpanded,
     setColumnVisibility,
-    setRowSelection
+    setSorting
 } from "@/features/common/data-table/store/stateSlice"
 import {
     GroupingState,
     ExpandedState,
     VisibilityState,
-    RowSelectionState,
+    SortingState,
     useReactTable,
     Updater,
     getCoreRowModel,
@@ -48,7 +48,7 @@ export const useHandleDataTable = ({
         selectDataTableStateByStoreKey(storeKey)
     )
 
-    const { grouping, expanded, columnVisibility, rowSelection } = cartDataTableState
+    const { grouping, expanded, columnVisibility, sorting } = cartDataTableState
     const dispatch = useAppDispatch()
 
     // Memoized setters to sync table state with Redux
@@ -85,17 +85,16 @@ export const useHandleDataTable = ({
         [dispatch, columnVisibility]
     )
 
-    const setRowSelectionTable = useCallback(
-        (updaterOrValue: Updater<RowSelectionState>) => {
+    const setSortingTable = useCallback(
+        (updaterOrValue: Updater<SortingState>) => {
             const value =
                 typeof updaterOrValue === "function"
-                    ? updaterOrValue(rowSelection)
+                    ? updaterOrValue(sorting)
                     : updaterOrValue
-            dispatch(setRowSelection(value))
+            dispatch(setSorting(value))
         },
-        [dispatch, rowSelection]
+        [dispatch, sorting]
     )
-
 
     // React Table instance
     const table = useReactTable({
@@ -105,17 +104,16 @@ export const useHandleDataTable = ({
             expanded,
             grouping,
             columnVisibility,
-            rowSelection,
+            sorting
         },
         onExpandedChange: setExpandedTable,
         onGroupingChange: setGroupingTable,
-        onRowSelectionChange: setRowSelectionTable,
         onColumnVisibilityChange: setColumnVisibilityTable,
+        onSortingChange: setSortingTable,
         getCoreRowModel: getCoreRowModel(),
         getGroupedRowModel: getGroupedRowModel(),
         getExpandedRowModel: getExpandedRowModel(),
         enableExpanding: true,
-        enableRowSelection: true, // ensure selection is enabled
     })
 
     // Cart totals & selected items

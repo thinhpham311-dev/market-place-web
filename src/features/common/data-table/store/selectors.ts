@@ -9,7 +9,7 @@ export const makeSelectDataTableState = (storeKey: string) =>
             grouping: dataTable?.grouping ?? [],
             expanded: dataTable?.expanded ?? {},
             columnVisibility: dataTable?.columnVisibility ?? {},
-            rowSelection: dataTable?.rowSelection ?? {},
+            sorting: dataTable?.sorting ?? {},
         })
     );
 

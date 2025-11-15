@@ -5,7 +5,7 @@ import {
     GroupingState,
     VisibilityState,
     ExpandedState,
-    RowSelectionState,
+    SortingState
 } from '@tanstack/react-table'
 
 // Types
@@ -13,7 +13,7 @@ export interface DataTableState {
     grouping: GroupingState
     columnVisibility: VisibilityState
     expanded: ExpandedState
-    rowSelection: RowSelectionState
+    sorting: SortingState
 }
 
 // Initial state
@@ -23,7 +23,7 @@ const initialState: DataTableState = {
         itemShopId: false,
     },
     expanded: {},
-    rowSelection: {},
+    sorting: []
 }
 
 // Slice
@@ -43,9 +43,9 @@ const dataTableSlice = createSlice({
             state.expanded = action.payload
         },
 
-        setRowSelection: (state, action: PayloadAction<RowSelectionState>) => {
-            state.rowSelection = action.payload
-        },
+        setSorting: (state, action: PayloadAction<SortingState>) => {
+            state.sorting = action.payload
+        }
     },
 })
 
@@ -53,7 +53,7 @@ export const {
     setGrouping,
     setColumnVisibility,
     setExpanded,
-    setRowSelection
+    setSorting
 } = dataTableSlice.actions
 
 

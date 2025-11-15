@@ -3,7 +3,6 @@
 import React from 'react';
 
 import {
-    Button,
     Tooltip,
     TooltipContent,
     TooltipTrigger,
@@ -21,9 +20,9 @@ const CartItemName = ({
 
         <Tooltip>
             <TooltipTrigger asChild className='inline-grid truncate'>
-                <Button variant="link" className="text-md font-bold text-center">
+                <p className="text-md font-bold text-center">
                     {itemName}
-                </Button>
+                </p>
             </TooltipTrigger>
             <TooltipContent>
                 {itemName}

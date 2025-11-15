@@ -1,6 +1,7 @@
 import { useRouter } from "next/navigation"
 import { ColumnDef } from "@tanstack/react-table"
 import { ICartItem } from "@/interfaces/cart"
+import { Button } from "@/components/ui"
 import CartItemCheckbox from "../../components/CartItem/CartItemCheckbox"
 import CartItemPrice from "../../components/CartItem/CartItemPrice"
 import CartItemName from "../../components/CartItem/CartItemName"
@@ -67,9 +68,9 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
                 router.push(`/products/${item.itemSpuSlug}-i.${item.itemShopId}.${item.itemSpuId}`)
             }
             const item = row.original as ICartItem
-            return <div onClick={handleRouterLinkToDetail} className="cursor-pointer">
+            return <Button variant="link" onClick={handleRouterLinkToDetail} className="cursor-pointer">
                 <CartItemName itemName={item.itemSpuName} />
-            </div>
+            </Button>
         },
         size: 200,
     },

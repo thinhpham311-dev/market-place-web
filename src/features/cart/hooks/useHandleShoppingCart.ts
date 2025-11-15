@@ -77,6 +77,7 @@ export const useHandleShoppingCart = ({ userId, storeKey }: IUseCart) => {
 
     const handleSelectItems = useCallback(
         (items: ICartItem[]) => {
+            console.log(items)
             dispatch(selectItems({ items } as { items: ICartItem[]; }) as any)
         }, [dispatch])
 
