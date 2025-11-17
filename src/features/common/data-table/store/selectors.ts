@@ -7,9 +7,7 @@ export const makeSelectDataTableState = (storeKey: string) =>
         (state: RootState) => state[`${DATA_TABLE}_${storeKey}`]?.state ?? null,
         (dataTable) => ({
             grouping: dataTable?.grouping ?? [],
-            expanded: dataTable?.expanded ?? {},
             columnVisibility: dataTable?.columnVisibility ?? {},
-            sorting: dataTable?.sorting ?? {},
         })
     );
 

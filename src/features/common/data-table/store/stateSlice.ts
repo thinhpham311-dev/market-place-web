@@ -3,15 +3,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import {
     GroupingState,
-    VisibilityState,
-    ExpandedState
+    VisibilityState
 } from '@tanstack/react-table'
 
 // Types
 export interface DataTableState {
     grouping: GroupingState
     columnVisibility: VisibilityState
-    expanded: ExpandedState
 }
 
 // Initial state
@@ -20,7 +18,6 @@ const initialState: DataTableState = {
     columnVisibility: {
         itemShopId: false,
     },
-    expanded: {},
 }
 
 // Slice
@@ -34,17 +31,13 @@ const dataTableSlice = createSlice({
 
         setColumnVisibility: (state, action: PayloadAction<VisibilityState>) => {
             state.columnVisibility = action.payload
-        },
-        setExpanded: (state, action: PayloadAction<ExpandedState>) => {
-            state.expanded = action.payload
         }
     },
 })
 
 export const {
     setGrouping,
-    setColumnVisibility,
-    setExpanded
+    setColumnVisibility
 } = dataTableSlice.actions
 
 

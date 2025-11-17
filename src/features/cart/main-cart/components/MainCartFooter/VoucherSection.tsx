@@ -1,19 +1,19 @@
 "use client";
 
-import { CardTitle, Button } from "@/components/ui";
+import { Button } from "@/components/ui";
 import { Tickets, ChevronRight } from "lucide-react";
 
-export function VoucherSection() {
+export default function VoucherSection() {
     return (
-        <CardTitle className="flex items-center justify-between text-md w-full border p-3">
-            <strong className="inline-flex items-center gap-2">
+        <div className="flex items-center justify-between w-full border px-3 py-2">
+            <strong className="inline-flex items-center gap-4">
                 <Tickets />
-                Voucher Code:
+                <span className="text-md">Voucher Code:</span>
             </strong>
             <Button variant="ghost" size="sm">
                 View More
                 <ChevronRight />
             </Button>
-        </CardTitle>
+        </div>
     );
 }

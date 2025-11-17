@@ -43,17 +43,19 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
     },
     {
         accessorKey: "itemSpuImage",
-        header: () => <p className="text-left w-[64px]">Image</p>,
+        header: () => <p className="text-left w-[64px] ">Image</p>,
         cell: ({ row }) => {
             const item = row.original as ICartItem
             return (
-                <CartItemImage
-                    src={item.itemSpuImage}
-                    className="w-16 h-16 border rounded-md"
-                    _w={64}
-                    _h={64}
-                    alt={item.itemSpuName}
-                />
+                <div >
+                    <CartItemImage
+                        src={item.itemSpuImage}
+                        className="w-16 h-16 border rounded-md"
+                        _w={64}
+                        _h={64}
+                        alt={item.itemSpuName}
+                    />
+                </div>
             )
         },
         size: 64,
@@ -62,14 +64,14 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
     },
     {
         accessorKey: "itemSpuName",
-        header: () => <p className="text-left w-[200px]">Name</p>,
+        header: () => <p className="text-left w-[200px] ">Name</p>,
         cell: ({ row }) => {
             const router = useRouter()
             const handleRouterLinkToDetail = () => {
                 router.push(`/products/${item.itemSpuSlug}-i.${item.itemShopId}.${item.itemSpuId}`)
             }
             const item = row.original as ICartItem
-            return <Button variant="link" onClick={handleRouterLinkToDetail} className="cursor-pointer">
+            return <Button variant="link" onClick={handleRouterLinkToDetail} className="cursor-pointer px-0">
                 <CartItemName itemName={item.itemSpuName} />
             </Button>
         },
@@ -79,7 +81,7 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
     },
     {
         accessorKey: "itemSpuVariations",
-        header: () => <p className="text-left w-[120px]">Variants</p>,
+        header: () => <p className="text-left w-[120px] px-2.5">Variants</p>,
         cell: ({ row }) => {
             const item = row.original as ICartItem
             return (
@@ -141,7 +143,7 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
     },
     {
         accessorKey: "actions",
-        header: () => <p className="text-right w-[150px]">Features</p>,
+        header: () => <p className="text-right w-[150px] px-3">Features</p>,
         cell: ({ row }) => {
             const item = row.original as ICartItem
             return (

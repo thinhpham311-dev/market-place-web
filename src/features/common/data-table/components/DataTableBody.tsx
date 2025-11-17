@@ -3,165 +3,139 @@
 import { useRouter } from "next/navigation"
 import React, { useState, useEffect, useMemo } from "react"
 import { flexRender } from "@tanstack/react-table"
-import { TableBody, TableRow, TableCell, Button, Checkbox } from "@/components/ui"
-import { ChevronDown, ChevronRight, MessagesSquare, Tickets } from "lucide-react"
+import { TableBody, TableRow, TableCell, Button, Checkbox, Label } from "@/components/ui"
+import { Truck, ChevronRight, MessagesSquare, Tickets } from "lucide-react"
 import { useDataTableContext } from "@/features/common/data-table/hooks"
 import { formatToCurrency } from "@/lib/formats"
+
+// ------------------- Sub-components -------------------
+
+const GroupHeaderRow = ({ row, subRows, router }: any) => {
+    const selectedCount = subRows.filter((r: any) => r.getIsSelected()).length
+    const isAllSelected = selectedCount === subRows.length && subRows.length > 0
+    const isSomeSelected = selectedCount > 0 && selectedCount < subRows.length
+
+    const groupTotal = subRows.reduce(
+        (sum: number, r: any) => sum + Number(r.original.itemSkuPrice || 0) * Number(r.original.itemQuantity || 0),
+        0
+    )
+
+    return (
+        <TableRow className="font-medium cursor-pointer">
+
+            <TableCell colSpan={row.getVisibleCells().length - 3} className="py-2">
+                <div className="flex items-center gap-2">
+                    <Label htmlFor={`group-${row.id}`}
+                        className="font-semibold text-sm whitespace-nowrap inline-flex items-center space-x-4"
+                    >
+                        <Checkbox
+                            checked={isAllSelected}
+                            id={`group-${row.id}`}
+                            onCheckedChange={() => {
+                                const newValue = !(isAllSelected || isSomeSelected)
+                                subRows.forEach((r: any) => r.toggleSelected(newValue))
+                            }}
+                        />
+                        <span className="font-bold cursor-pointer">{row.original.itemShopName}</span>
+                    </Label>
+                    <Button variant="ghost" size="icon">
+                        <MessagesSquare />
+                    </Button>
+                </div>
+            </TableCell>
+
+            <TableCell className="px-3 py-2 text-center">({subRows.length} item)</TableCell>
+            <TableCell className="px-3 py-2 text-center">
+                <strong>{formatToCurrency(groupTotal)}</strong>
+            </TableCell>
+
+            <TableCell className="px-3 py-2">
+                <div className="flex items-center justify-end">
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() =>
+                            router.push(`/shop/${row.original.itemShopSlug}-s.${row.original.itemShopId}`)
+                        }
+                    >
+                        View More
+                        <ChevronRight />
+                    </Button>
+                </div>
+            </TableCell>
+        </TableRow>
+    )
+}
+
+const SubRow = ({ subRow }: any) => (
+    <TableRow data-state={subRow.getIsSelected() ? "selected" : undefined}>
+        {subRow.getVisibleCells().map((cell: any) => (
+            <TableCell className="py-2" key={cell.id}>
+                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+            </TableCell>
+        ))}
+    </TableRow>
+)
+
+const InfoRow = ({ icon: Icon, label, description, totalColumns }: any) => (
+    <TableRow>
+        <TableCell colSpan={totalColumns} className="py-2 ">
+            <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                    <strong className="inline-flex items-center gap-4">
+                        <Icon />
+                        <span className="text-md">{label}</span>
+                    </strong>
+                    <span>{description}</span>
+                </div>
+                <Button variant="ghost" size="sm">
+                    View More
+                    <ChevronRight />
+                </Button>
+            </div>
+        </TableCell>
+    </TableRow>
+)
+
+// ------------------- Main Component -------------------
 
 const CartTableBody = () => {
     const router = useRouter()
     const { table, cart_total_items } = useDataTableContext()
-
     const [mounted, setMounted] = useState(false)
     useEffect(() => setMounted(true), [])
 
-    /** Cached rows */
-    const rows = useMemo(() => {
-        if (!mounted) return []
-        return table.getRowModel().rows
-    }, [mounted, table, cart_total_items])
-
+    const rows = useMemo(() => (mounted ? table.getRowModel().rows : []), [mounted, table, cart_total_items])
     const totalColumns = table.getAllColumns().length
 
-    return (
-        <TableBody>
-            {mounted && rows.length > 0 ? (
-                rows.map(row => {
-                    const subRows = row.subRows ?? []
-
-                    const selectedCount = subRows.filter(r => r.getIsSelected()).length
-                    const isAllSelected = selectedCount === subRows.length && subRows.length > 0
-                    const isSomeSelected = selectedCount > 0 && selectedCount < subRows.length
-
-                    // GROUP ROW
-                    if (row.getIsGrouped()) {
-                        const groupTotal = subRows.reduce(
-                            (sum, r) =>
-                                sum +
-                                Number(r.original.itemSkuPrice || 0) *
-                                Number(r.original.itemQuantity || 0),
-                            0
-                        )
-
-                        return (
-                            <React.Fragment key={row.id}>
-                                {/* GROUP HEADER */}
-
-                                <TableRow className="font-medium cursor-pointer mb-3">
-                                    {/* Checkbox */}
-                                    <TableCell>
-                                        <Checkbox
-                                            checked={isAllSelected}
-                                            onCheckedChange={() => {
-                                                const newValue = !(isAllSelected || isSomeSelected)
-                                                subRows.forEach(r => r.toggleSelected(newValue))
-                                            }}
-                                        />
-                                    </TableCell>
-
-                                    {/* Group Title */}
-                                    <TableCell colSpan={row.getVisibleCells().length - 4} className="px-3 py-0">
-                                        <div className="flex items-center gap-2">
-                                            <Button
-                                                variant="ghost"
-                                                size="sm"
-                                                onClick={e => {
-                                                    e.stopPropagation()
-                                                    row.toggleExpanded()
-                                                }}
-                                            >
-                                                <span className="font-bold">{row.original.itemShopName}</span>
-                                                <ChevronDown
-                                                    className={`transition-transform ${row.getIsExpanded() ? "rotate-90" : ""
-                                                        }`}
-                                                    size={16}
-                                                />
-                                            </Button>
-
-                                            <Button variant="ghost" size="icon">
-                                                <MessagesSquare />
-                                            </Button>
-                                        </div>
-                                    </TableCell>
-
-                                    {/* Item Count */}
-                                    <TableCell className="px-3 py-0 text-center">
-                                        ({subRows.length} item)
-                                    </TableCell>
-
-                                    {/* Total Price */}
-                                    <TableCell className="px-3 py-0 text-center">
-                                        <strong>{formatToCurrency(groupTotal)}</strong>
-                                    </TableCell>
-
-                                    {/* View More */}
-                                    <TableCell className="px-3 py-0">
-                                        <div className="flex items-center justify-end">
-                                            <Button
-                                                variant="ghost"
-                                                size="sm"
-                                                onClick={() =>
-                                                    router.push(
-                                                        `/shop/${row.original.itemShopSlug}-s.${row.original.itemShopId}`
-                                                    )
-                                                }
-                                            >
-                                                View More
-                                                <ChevronRight />
-                                            </Button>
-                                        </div>
-                                    </TableCell>
-                                </TableRow>
-
-                                {/* SUB ROWS */}
-                                {row.getIsExpanded() && (
-                                    <>
-                                        {subRows.map(subRow => (
-                                            <TableRow
-                                                key={subRow.id}
-                                                data-state={subRow.getIsSelected() ? "selected" : undefined}
-                                            >
-                                                {subRow.getVisibleCells().map(cell => (
-                                                    <TableCell key={cell.id}>
-                                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                                    </TableCell>
-                                                ))}
-                                            </TableRow>
-                                        ))}
-
-                                        {/* VOUCHER ROW */}
-                                        <TableRow >
-                                            <TableCell colSpan={totalColumns} className="py-1">
-                                                <div className="flex items-center justify-between text-md">
-                                                    <strong className="inline-flex items-center gap-2">
-                                                        <Tickets />
-                                                        Voucher Code:
-                                                    </strong>
-
-                                                    <Button variant="ghost" size="sm">
-                                                        View More
-                                                        <ChevronRight />
-                                                    </Button>
-                                                </div>
-                                            </TableCell>
-                                        </TableRow>
-                                    </>
-                                )}
-
-                            </React.Fragment>
-                        )
-                    }
-
-                    // Non-group rows are not rendered (handled inside group)
-                    return null
-                })
-            ) : (
+    if (!mounted || rows.length === 0) {
+        return (
+            <TableBody>
                 <TableRow>
                     <TableCell colSpan={totalColumns} className="h-52 text-center">
                         No results.
                     </TableCell>
                 </TableRow>
-            )}
+            </TableBody>
+        )
+    }
+
+    return (
+        <TableBody>
+            {rows.map(row => {
+                if (!row.getIsGrouped()) return null
+                const subRows = row.subRows ?? []
+
+                return (
+                    <React.Fragment key={row.id}>
+                        <GroupHeaderRow row={row} subRows={subRows} totalColumns={totalColumns} router={router} />
+                        {subRows.map(subRow => <SubRow key={subRow.id} subRow={subRow} />)}
+
+                        <InfoRow icon={Tickets} label="Voucher:" description="Voucher giảm đến 40k₫" totalColumns={totalColumns} />
+                        <InfoRow icon={Truck} label="Shipping:" description="Giảm 500.000₫ phí vận chuyển đơn tối thiểu 0₫" totalColumns={totalColumns} />
+                    </React.Fragment>
+                )
+            })}
         </TableBody>
     )
 }

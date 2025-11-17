@@ -28,11 +28,11 @@ const CartTableFooter = () => {
             <TableRow>
                 <TableCell colSpan={table.getAllLeafColumns().length - 4} >
                     <Label
-                        htmlFor="pro_selected"
-                        className="font-semibold text-sm whitespace-nowrap inline-flex items-center space-x-5"
+                        htmlFor="selected-all"
+                        className="font-semibold text-sm whitespace-nowrap inline-flex items-center space-x-4"
                     >
                         <Checkbox
-                            id="pro_selected"
+                            id="selected-all"
                             disabled={cart_total_items === 0}
                             checked={table.getIsAllRowsSelected()}
                             onCheckedChange={(value) => table.toggleAllRowsSelected(!!value)}
@@ -61,7 +61,7 @@ const CartTableFooter = () => {
                             onClick={handleDeleteSelectedItems}
                             className="gap-2"
                         >
-                            <Trash className="w-4 h-4" /> Delete All ({cart_total_items})
+                            <Trash className="w-4 h-4" /> Delete All
                         </Button>
                     </div>
                 </TableCell>

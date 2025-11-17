@@ -3,18 +3,15 @@
 import { useEffect, useCallback } from "react"
 import {
     setGrouping,
-    setExpanded,
     setColumnVisibility,
 } from "@/features/common/data-table/store/stateSlice"
 import {
     GroupingState,
-    ExpandedState,
     VisibilityState,
     useReactTable,
     Updater,
     getCoreRowModel,
     getGroupedRowModel,
-    getExpandedRowModel,
 } from "@tanstack/react-table"
 
 import { useAppDispatch, useAppSelector } from "@/lib/hooks"
@@ -45,7 +42,7 @@ export const useHandleDataTable = ({
         selectDataTableStateByStoreKey(storeKey)
     )
 
-    const { grouping, expanded, columnVisibility, sorting } = state
+    const { grouping, columnVisibility } = state
     const dispatch = useAppDispatch()
 
     // --- Setters to Redux ---
@@ -58,14 +55,6 @@ export const useHandleDataTable = ({
         [dispatch, grouping]
     )
 
-    const setExpandedTable = useCallback(
-        (updated: Updater<ExpandedState>) => {
-            const next =
-                typeof updated === "function" ? updated(expanded) : updated
-            dispatch(setExpanded(next))
-        },
-        [dispatch, expanded]
-    )
 
     const setColumnVisibilityTable = useCallback(
         (updated: Updater<VisibilityState>) => {
@@ -90,18 +79,13 @@ export const useHandleDataTable = ({
         data: initialData,
         columns: initialColumns,
         state: {
-            expanded,
             grouping,
             columnVisibility,
-            sorting,
         },
-        onExpandedChange: setExpandedTable,
         onGroupingChange: setGroupingTable,
         onColumnVisibilityChange: setColumnVisibilityTable,
         getCoreRowModel: getCoreRowModel(),
         getGroupedRowModel: getGroupedRowModel(),
-        getExpandedRowModel: getExpandedRowModel(),
-        enableExpanding: true,
     })
 
     // --- Stats ---
