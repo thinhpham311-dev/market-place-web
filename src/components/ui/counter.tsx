@@ -72,6 +72,7 @@ export const Counter = memo(
                         type="text"
                         value={localCount}
                         readOnly
+                        name="counter"
                         className="text-center text-sm w-12 h-8"
                         aria-label="Counter value"
                         disabled={isDisabled}

@@ -5,13 +5,11 @@ import {
     setGrouping,
     setExpanded,
     setColumnVisibility,
-    setSorting
 } from "@/features/common/data-table/store/stateSlice"
 import {
     GroupingState,
     ExpandedState,
     VisibilityState,
-    SortingState,
     useReactTable,
     Updater,
     getCoreRowModel,
@@ -37,66 +35,57 @@ export const useHandleDataTable = ({
     initialColumns = [],
 }: IUseCartTable) => {
 
-    // Dynamically inject/remove reducer
     useEffect(() => {
         const reducerKey = `${DATA_TABLE}_${storeKey}`
         injectReducer(reducerKey, reducer)
         return () => removeReducer(reducerKey)
     }, [storeKey])
 
-    const cartDataTableState = useAppSelector(
+    const state = useAppSelector(
         selectDataTableStateByStoreKey(storeKey)
     )
 
-    const { grouping, expanded, columnVisibility, sorting } = cartDataTableState
+    const { grouping, expanded, columnVisibility, sorting } = state
     const dispatch = useAppDispatch()
 
-    // Memoized setters to sync table state with Redux
+    // --- Setters to Redux ---
     const setGroupingTable = useCallback(
-        (updaterOrValue: Updater<GroupingState>) => {
-            const value =
-                typeof updaterOrValue === "function"
-                    ? updaterOrValue(grouping)
-                    : updaterOrValue
-            dispatch(setGrouping(value))
+        (updated: Updater<GroupingState>) => {
+            const next =
+                typeof updated === "function" ? updated(grouping) : updated
+            dispatch(setGrouping(next))
         },
         [dispatch, grouping]
     )
 
     const setExpandedTable = useCallback(
-        (updaterOrValue: Updater<ExpandedState>) => {
-            const value =
-                typeof updaterOrValue === "function"
-                    ? updaterOrValue(expanded)
-                    : updaterOrValue
-            dispatch(setExpanded(value))
+        (updated: Updater<ExpandedState>) => {
+            const next =
+                typeof updated === "function" ? updated(expanded) : updated
+            dispatch(setExpanded(next))
         },
         [dispatch, expanded]
     )
 
     const setColumnVisibilityTable = useCallback(
-        (updaterOrValue: Updater<VisibilityState>) => {
-            const value =
-                typeof updaterOrValue === "function"
-                    ? updaterOrValue(columnVisibility)
-                    : updaterOrValue
-            dispatch(setColumnVisibility(value))
+        (updated: Updater<VisibilityState>) => {
+            const next =
+                typeof updated === "function"
+                    ? updated(columnVisibility)
+                    : updated
+            dispatch(setColumnVisibility(next))
         },
         [dispatch, columnVisibility]
     )
 
-    const setSortingTable = useCallback(
-        (updaterOrValue: Updater<SortingState>) => {
-            const value =
-                typeof updaterOrValue === "function"
-                    ? updaterOrValue(sorting)
-                    : updaterOrValue
-            dispatch(setSorting(value))
-        },
-        [dispatch, sorting]
-    )
+    // --- 👈 Set default grouping one time only ---
+    useEffect(() => {
+        if (!grouping || grouping.length === 0) {
+            dispatch(setGrouping(["itemShopId"]))
+        }
+    }, [grouping, dispatch])
 
-    // React Table instance
+    // --- React Table ---
     const table = useReactTable({
         data: initialData,
         columns: initialColumns,
@@ -104,26 +93,26 @@ export const useHandleDataTable = ({
             expanded,
             grouping,
             columnVisibility,
-            sorting
+            sorting,
         },
         onExpandedChange: setExpandedTable,
         onGroupingChange: setGroupingTable,
         onColumnVisibilityChange: setColumnVisibilityTable,
-        onSortingChange: setSortingTable,
         getCoreRowModel: getCoreRowModel(),
         getGroupedRowModel: getGroupedRowModel(),
         getExpandedRowModel: getExpandedRowModel(),
         enableExpanding: true,
     })
 
-    // Cart totals & selected items
+    // --- Stats ---
     const cart_total_items = initialData.length
-    const cart_selected_items = table.getSelectedRowModel().rows.map(
-        (row) => row.original
-    )
+    const cart_selected_items = table
+        .getSelectedRowModel()
+        .rows.map((row) => row.original)
     const cart_selected_items_total = cart_selected_items.reduce(
         (sum, item) =>
-            sum + Number(item.itemSkuPrice || 0) * Number(item.itemQuantity || 0),
+            sum +
+            Number(item.itemSkuPrice || 0) * Number(item.itemQuantity || 0),
         0
     )
 

@@ -16,7 +16,7 @@ export default function PaginationLabel() {
     if (isShowLabel) {
         return (
             <PaginationItem className="flex flex-1">
-                <Label>
+                <Label htmlFor="Showing">
                     Showing {startIndex}–{endIndex} of {totalItems ?? 0}
                 </Label>
             </PaginationItem>

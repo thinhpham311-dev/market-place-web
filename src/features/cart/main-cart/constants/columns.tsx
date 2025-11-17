@@ -25,18 +25,17 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
                 />)
         },
         cell: ({ row }) => {
-            if (!row.getIsGrouped()) {
-                const item = row.original as ICartItem; // 👈 dữ liệu dòng hiện tại
-                return (
-                    <CartItemCheckbox
-                        data={[item]}
-                        checked={row.getIsSelected()}
-                        ariaLabel="Select all products"
-                        onCheckedChange={(value) => row.toggleSelected(!!value)}
-                    />
+            const item = row.original as ICartItem; // 👈 dữ liệu dòng hiện tại
+            return (
+                <CartItemCheckbox
+                    data={[item]}
+                    checked={row.getIsSelected()}
+                    ariaLabel="Select all products"
+                    onCheckedChange={(value) => row.toggleSelected(!!value)}
+                />
 
-                )
-            }
+            )
+
         },
         enableSorting: false,
         enableHiding: false,
@@ -58,6 +57,8 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
             )
         },
         size: 64,
+
+
     },
     {
         accessorKey: "itemSpuName",
@@ -73,6 +74,8 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
             </Button>
         },
         size: 200,
+
+
     },
     {
         accessorKey: "itemSpuVariations",
@@ -88,19 +91,22 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
         },
         size: 120,
 
+
     },
     {
         accessorKey: "itemSkuPrice",
         header: () => <p className="text-left w-[120px]">Price</p>,
         cell: ({ row }) => {
-            const itemSkuPrice = parseFloat(row.getValue("itemSkuPrice"))
+            const item = row.original as ICartItem
             return (
                 <div className="text-right">
-                    <CartItemPrice itemPrice={itemSkuPrice} />
+                    <CartItemPrice itemPrice={item.itemSkuPrice} />
                 </div>
             )
         },
         size: 120,
+
+
     },
     {
         accessorKey: "itemQuantity",
@@ -117,6 +123,8 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
             )
         },
         size: 150,
+
+
     },
     {
         id: "totalPrice",
@@ -128,6 +136,8 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
             </div>
         },
         size: 150,
+
+
     },
     {
         accessorKey: "actions",
@@ -137,15 +147,20 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
             return (
                 <div onClick={() => row.toggleExpanded(true)}>
                     <CartItemActions itemSkuId={item.itemSkuId} itemShopId={item.itemShopId} />
-                </div>)
+                </div>
+            )
         },
         size: 150,
+
+
     },
     {
         accessorKey: "itemShopId",
-        cell: () => null,
+        cell: () => {
+            return <p>shop Id</p>
+        },
         enableGrouping: true,
-        enableHiding: true,
+        enableHiding: false,
 
     }
 

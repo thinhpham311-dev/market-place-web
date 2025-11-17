@@ -29,7 +29,7 @@ const CartTableFooter = () => {
                 <TableCell colSpan={table.getAllLeafColumns().length - 4} >
                     <Label
                         htmlFor="pro_selected"
-                        className="font-semibold text-sm whitespace-nowrap flex items-center space-x-5"
+                        className="font-semibold text-sm whitespace-nowrap inline-flex items-center space-x-5"
                     >
                         <Checkbox
                             id="pro_selected"
@@ -42,12 +42,12 @@ const CartTableFooter = () => {
                 </TableCell>
                 <TableCell >
                     <div className="text-center text-sm font-medium min-w-[150px]">
-                        <strong>Qty:</strong> ({cart_selected_items.length} item)
+                        ({cart_selected_items.length} item)
                     </div>
                 </TableCell>
                 <TableCell >
                     <div className="text-center text-sm font-semibold min-w-[150px]">
-                        Total: {formatToCurrency(cart_selected_items_total)}
+                        {formatToCurrency(cart_selected_items_total)}
                     </div>
                 </TableCell>
                 <TableCell >
@@ -61,7 +61,7 @@ const CartTableFooter = () => {
                             onClick={handleDeleteSelectedItems}
                             className="gap-2"
                         >
-                            <Trash className="w-4 h-4" /> Delete All
+                            <Trash className="w-4 h-4" /> Delete All ({cart_total_items})
                         </Button>
                     </div>
                 </TableCell>

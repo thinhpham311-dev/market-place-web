@@ -123,6 +123,7 @@ export const FormInput = <T extends FieldValues>({
                                     type={inputType}
                                     placeholder={placeholder}
                                     value={displayValue} // Display value with character
+                                    name={name}
                                     className={cn(
                                         "border ",
                                         hasError ? "border-red-500 focus:ring-red-500" : "border-gray-300"
@@ -222,7 +223,7 @@ export const FormSelect = <T extends FieldValues>({
                                 {isRequired && <span className="text-red-500"> *</span>}
                             </FormLabel>}
                             <FormControl>
-                                <Select onValueChange={field.onChange} defaultValue={field.value} autoComplete="off" >
+                                <Select name={name} onValueChange={field.onChange} defaultValue={field.value} autoComplete="off" >
                                     <SelectTrigger id={name.split("").join("-")} className={cn(
                                         "border space-x-3",
                                         hasError ? "border-red-500 focus:ring-red-500" : "border-gray-300"

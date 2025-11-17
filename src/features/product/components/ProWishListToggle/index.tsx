@@ -8,9 +8,9 @@ import WishListButon from "./WishListButton"
 export default function ProWishListToggle() {
     return (
         <Card layout="horizontal" className="border-none shadow-none items-center space-x-3">
-            <CardContent className="p-0 flex flex-row items-center space-x-3">
-                <WishListButon />
-                <Label>
+            <CardContent className="p-0 ">
+                <Label htmlFor="wish-list" className="space-x-3 flex items-center">
+                    <WishListButon />
                     <span className="text-sm font-bold uppercase">WishList(18,8k)</span>
                 </Label>
             </CardContent>

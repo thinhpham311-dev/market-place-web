@@ -20,8 +20,7 @@ const CartItemActions = ({ itemSkuId, itemShopId }: ICartItemActionsProps) => {
     };
 
     return (
-        <div className='flex justify-end'>
-
+        <div className='flex items-center justify-end'>
             <Tooltip>
                 <TooltipTrigger asChild className='p-3' >
                     <Button onClick={onHandleRemove} variant="link" size="icon">

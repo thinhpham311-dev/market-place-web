@@ -5,11 +5,13 @@ import { Tickets, ChevronRight } from "lucide-react";
 
 export function VoucherSection() {
     return (
-        <CardTitle className="text-md flex items-center gap-2">
-            <Tickets />
-            <span>Voucher Code:</span>
+        <CardTitle className="flex items-center justify-between text-md w-full border p-3">
+            <strong className="inline-flex items-center gap-2">
+                <Tickets />
+                Voucher Code:
+            </strong>
             <Button variant="ghost" size="sm">
-                <span>View More</span>
+                View More
                 <ChevronRight />
             </Button>
         </CardTitle>
