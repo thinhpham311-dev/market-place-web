@@ -20,7 +20,7 @@ import { PRO_SEARCH_LIST } from "@/features/product/list/search/constants";
 
 export default function ProSearchList() {
     const router = useRouter()
-    const { products, totalItems, error, status } = useFetchData({
+    const { products, totalItems, error, loading } = useFetchData({
         keyword: "",
         storeKey: PRO_SEARCH_LIST,
     });
@@ -42,7 +42,7 @@ export default function ProSearchList() {
                     error={error}
                     data={products}
                     className="lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-3"
-                    status={status}
+                    isLoading={loading}
                 />
                 <Pagination
                     storeKey={PRO_SEARCH_LIST}

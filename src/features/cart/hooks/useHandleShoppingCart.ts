@@ -5,7 +5,7 @@ import { useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
     removeAllItems,
-    updateItem,
+    updateQtyItemInCart,
     selectItems,
     removeItemsOutCart,
     clearServerCart
@@ -68,9 +68,9 @@ export const useHandleShoppingCart = ({ userId, storeKey }: IUseCart) => {
         [dispatch]
     );
 
-    const handleUpdateItem = useCallback(
+    const handleUpdateQtyItem = useCallback(
         async (itemSkuId: string, itemQuantity: number) => {
-            await dispatch(updateItem({ itemSkuId, itemQuantity } as ICartItem) as any);
+            await dispatch(updateQtyItemInCart({ itemSkuId, itemQuantity } as ICartItem) as any);
         },
         [dispatch]
     );
@@ -99,7 +99,7 @@ export const useHandleShoppingCart = ({ userId, storeKey }: IUseCart) => {
     return {
         ...cart,
         addItem: handleAddItem,
-        updateItem: handleUpdateItem,
+        updateQtyItem: handleUpdateQtyItem,
         selectItems: handleSelectItems,
         removeItem: handleRemoveItem,
         removeAllItems: handleRemoveAll,

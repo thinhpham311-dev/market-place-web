@@ -16,7 +16,7 @@ import { PRO_LIST_BY_CATEGORYID } from "./constants";
 
 
 const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
-    const { products, totalItems, status, error } = useFetchData({ lastId });
+    const { products, totalItems, loading, error } = useFetchData({ lastId });
 
 
     return (
@@ -51,7 +51,7 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
                         <CardContent className="p-3">
                             <SpuGrid
                                 error={error}
-                                status={status}
+                                isLoading={loading}
                                 countLoadItems={20}
                                 data={products}
                                 className="lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-3"

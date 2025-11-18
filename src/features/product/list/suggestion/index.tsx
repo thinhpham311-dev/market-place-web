@@ -15,7 +15,7 @@ import { PRO_SUGGESTION_LIST } from "@/features/product/list/suggestion/constant
 
 export default function ProSuggestionList() {
 
-    const { products, totalItems, error, status } = useFetchData({
+    const { products, totalItems, loading, error } = useFetchData({
         storeKey: PRO_SUGGESTION_LIST,
     });
 
@@ -36,8 +36,8 @@ export default function ProSuggestionList() {
                     countLoadItems={24}
                     error={error}
                     data={products}
+                    isLoading={loading}
                     className=" grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3"
-                    status={status}
                 />
                 <Pagination
                     storeKey={PRO_SUGGESTION_LIST}

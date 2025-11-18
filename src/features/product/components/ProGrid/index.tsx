@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 interface SpuGridProps {
     data: ISpuPro[];
     className?: string;
-    status: "idle" | "loading" | "success" | "empty" | "error";
+    isLoading: boolean;
     error?: Error | null;
     countLoadItems?: number;
 }
@@ -16,33 +16,56 @@ interface SpuGridProps {
 const ProGrid = ({
     data,
     className,
-    status = "loading",
+    isLoading,
     error,
     countLoadItems = 12,
 }: SpuGridProps) => {
-    switch (status) {
-        case "loading":
-            return <Loading className={className} count={countLoadItems} />;
+    // switch (status) {
+    //     case "loading":
+    //         return <Loading className={className} count={countLoadItems} />;
 
-        case "error":
-            return <NotFound message={error?.message || "Something went wrong."} />;
+    //     case "error":
+    //         return <NotFound message={error?.message || "Something went wrong."} />;
 
-        case "empty":
-            return <NotFound message="No products found." />;
+    //     case "empty":
+    //         return <NotFound message="No products found." />;
 
-        case "success":
-            return (
-                <div className={cn("grid w-full", className)}>
-                    {data.map((item) => (
-                        <SpuCard key={item.product_id} item={item} isLoading={false} />
-                    ))}
-                </div>
-            );
+    //     case "success":
+    //         return (
+    //             <div className={cn("grid w-full", className)}>
+    //                 {data.map((item) => (
+    //                     <SpuCard key={item.product_id} item={item} isLoading={false} />
+    //                 ))}
+    //             </div>
+    //         );
 
-        case "idle":
-        default:
-            return null;
+    //     case "idle":
+    //     default:
+    //         return null;
+    // }
+
+    const hasNoData = !data || data.length === 0;
+
+    if (isLoading && hasNoData) {
+        return <Loading className={className} count={countLoadItems} />;
     }
+
+    if (!isLoading && hasNoData && error) {
+        return <NotFound message={error.message || "Something went wrong."} />;
+    }
+
+    if (!isLoading && hasNoData) {
+        return <NotFound />;
+    }
+    return (
+        <div className={cn("grid w-full", className)}>
+            {data.map((item) => (
+                <SpuCard key={item.product_id} item={item} isLoading={false} />
+            ))}
+        </div>
+    );
+
+
 };
 
 export default ProGrid;

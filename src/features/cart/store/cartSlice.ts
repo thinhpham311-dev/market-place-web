@@ -4,7 +4,7 @@ import {
     apiPostAddItem,
     apiPostDeleteItem,
     apiPostDeleteItems,
-    apiPostUpdateItem,
+    apiPostUpdateQtyItem,
 } from '@/features/cart/services';
 import { ICart, ICartItem } from '@/interfaces/cart';
 import {
@@ -97,14 +97,14 @@ export const removeItemsOutCart = createAsyncThunk<
     }
 });
 
-export const updateItemInCart = createAsyncThunk<
+export const updateQtyItemInCart = createAsyncThunk<
     CartResponse,
     ICartItem,
     { rejectValue: IErrorPayload | string }
->('cart/data/updateItemInCart', async (params, { dispatch, rejectWithValue }) => {
+>('cart/data/updateQtyItemInCart', async (params, { dispatch, rejectWithValue }) => {
     try {
-        await dispatch(updateItem({ ...params } as ICartItem))
-        const response = (await apiPostUpdateItem(params)) as { data: CartResponse };
+        await dispatch(updateQtyItem({ ...params } as ICartItem))
+        const response = (await apiPostUpdateQtyItem(params)) as { data: CartResponse };
         return response.data;
     } catch (error: any) {
         return rejectWithValue(error?.response?.data || error.message);
@@ -221,7 +221,7 @@ const dataSlice = createSlice({
             recalculateTotals(state.data);
         },
 
-        updateItem: (state, action: PayloadAction<{ itemSkuId: string; itemQuantity: number }>) => {
+        updateQtyItem: (state, action: PayloadAction<{ itemSkuId: string; itemQuantity: number }>) => {
             const { itemSkuId, itemQuantity } = action.payload;
             const itemToUpdate = state.data.cart_products.find(
                 (item: ICartItem) => item.itemSkuId === itemSkuId
@@ -330,16 +330,16 @@ const dataSlice = createSlice({
             })
 
             // --- update item ---
-            .addCase(updateItemInCart.pending, (state) => {
+            .addCase(updateQtyItemInCart.pending, (state) => {
                 state.loading = true;
                 state.status = 'loading';
             })
-            .addCase(updateItemInCart.fulfilled, (state, action) => {
+            .addCase(updateQtyItemInCart.fulfilled, (state, action) => {
                 state.data = action.payload.metadata;
                 state.loading = false;
                 state.status = 'success';
             })
-            .addCase(updateItemInCart.rejected, (state, action) => {
+            .addCase(updateQtyItemInCart.rejected, (state, action) => {
                 state.loading = false;
                 state.status = 'error';
                 state.error = action.payload instanceof Error ? action.payload : new Error(typeof action.payload === 'string' ? action.payload : 'Failed to fetch product list');
@@ -351,7 +351,7 @@ const dataSlice = createSlice({
 export const {
     clearServerCart,
     addItem,
-    updateItem,
+    updateQtyItem,
     selectItems,
     removeAllItems,
     removeItem,

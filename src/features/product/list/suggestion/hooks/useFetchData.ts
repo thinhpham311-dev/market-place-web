@@ -31,7 +31,6 @@ export function useFetchData({ storeKey }: IUseFetchData) {
         products = [],
         totalItems,
         loading,
-        status = "",
         error = null
     } = useAppSelector(selectProSuggestionListByStoreKey(storeKey));
 
@@ -46,5 +45,5 @@ export function useFetchData({ storeKey }: IUseFetchData) {
         };
     }, [dispatch, currentPage, limit]);
 
-    return { products, totalItems, loading, error, status };
+    return { products, totalItems, loading, error };
 }

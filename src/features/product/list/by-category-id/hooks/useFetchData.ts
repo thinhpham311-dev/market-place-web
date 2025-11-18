@@ -46,7 +46,6 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
         products = [],
         loading = false,
         error = null,
-        status = "",
         totalItems = 0
     } = useAppSelector(selectProByCategoryIdByStoreKey(PRO_LIST_BY_CATEGORYID));
 
@@ -73,5 +72,5 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
         limit
     ]);
 
-    return { products, totalItems, loading, error, status };
+    return { products, totalItems, loading, error };
 }
