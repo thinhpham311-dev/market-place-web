@@ -5,14 +5,13 @@ import * as React from "react";
 import {
     Card
 } from "@/components/ui";
+import { useQuantitySelectorContext } from "@/features/common/quantity-selector/hooks";
 
 const QuantitySelectorWrapper = ({ children }: { children: React.ReactNode }) => {
-
+    const { layout } = useQuantitySelectorContext();
     return (
-        <Card className="border-none shadow-none">
-            <div className="grid grid-cols-12 items-center gap-2">
-                {children}
-            </div>
+        <Card layout={layout} className="border-none shadow-none bg-transparent items-center">
+            {children}
         </Card>
     );
 }

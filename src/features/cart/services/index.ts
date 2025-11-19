@@ -18,7 +18,7 @@ export async function apiPostAddItem(data: { item: ICartItem }) {
     })
 }
 
-export async function apiPostUpdateQtyItem(data: ICartItem) {
+export async function apiPostUpdateQtyItem(data: { item: ICartItem }) {
     return ApiService.fetchData({
         url: `/cart/update-qty-item`,
         method: 'POST',

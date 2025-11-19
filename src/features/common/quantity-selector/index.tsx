@@ -4,9 +4,10 @@ import * as React from "react";
 
 // components
 import QuantitySelectorWrapper from "./components/QuantitySelectorWrapper";
-import ProQuantitySelectorTitle from "./components/QuantitySelectorTitle";
-import ProQuantitySelectorCounter from "./components/QuantitySelectorCounter";
-import ProQuantitySelectorMessage from "./components/QuantitySelectorMessage";
+import QuantitySelectorTitle from "./components/QuantitySelectorTitle";
+import QuantitySelectorCounter from "./components/QuantitySelectorCounter";
+import QuantitySelectorMessage from "./components/QuantitySelectorMessage";
+import QuantitySelectorStock from "./components/QuantitySelectorStock";
 
 //providers
 import QuantitySelectorProvider from "./providers";
@@ -19,18 +20,21 @@ interface IQuantitySelectorProps {
     initialValue: number;
     maxQuantity?: number;
     loading: boolean;
+    layout?: "vertical" | "horizontal";
+    title?: string;
     error?: string | { message?: string } | null;
 }
 
-const QuantitySelector = ({ storeKey, initialValue = 1, maxQuantity = 0, ...rest }: IQuantitySelectorProps) => {
+const QuantitySelector = ({ storeKey = "", initialValue = 1, maxQuantity = 0, ...rest }: IQuantitySelectorProps) => {
     const quantitySelector = useHandleQuantitySelector({ storeKey, initialValue, maxQuantity });
 
     return (
         <QuantitySelectorProvider contextValues={{ ...quantitySelector, ...rest }}>
             <QuantitySelectorWrapper>
-                <ProQuantitySelectorTitle />
-                <ProQuantitySelectorCounter />
-                <ProQuantitySelectorMessage />
+                <QuantitySelectorTitle />
+                <QuantitySelectorCounter />
+                <QuantitySelectorStock />
+                <QuantitySelectorMessage />
             </QuantitySelectorWrapper>
         </QuantitySelectorProvider>
     );

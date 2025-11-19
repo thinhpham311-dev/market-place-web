@@ -6,9 +6,9 @@ import CartItemCheckbox from "../../components/CartItem/CartItemCheckbox"
 import CartItemPrice from "../../components/CartItem/CartItemPrice"
 import CartItemName from "../../components/CartItem/CartItemName"
 import CartItemImage from "../../components/CartItem/CartItemImage"
-import CartItemVariantsSelector from "../../components/CartItem/CartItemVariantsSelector"
+import { CartItemVariantsView } from "../../components/CartItem/CartItemVariantsSelector"
 import CartItemActions from "../../components/CartItem/CartItemActions"
-import CartItemQuantitySelector from "../../components/CartItem/CartItemQuantitySelector"
+import { CartItemQuantityInput } from "../../components/CartItem/CartItemQuantitySelector"
 
 
 export const initialColumns: ColumnDef<ICartItem>[] = [
@@ -85,7 +85,7 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
         cell: ({ row }) => {
             const item = row.original as ICartItem
             return (
-                <CartItemVariantsSelector
+                <CartItemVariantsView
                     itemVariants={item.itemSpuVariations}
                     itemTierIdx={item.itemSkuTierIdx}
                 />
@@ -117,9 +117,10 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
             const item = row.original as ICartItem
             return (
                 <div className="flex justify-center">
-                    <CartItemQuantitySelector
-                        currentQuantity={item.itemQuantity}
-                        maxQuantity={item.itemSkuStock}
+                    <CartItemQuantityInput
+                        currentQuantity={Number(item.itemQuantity)}
+                        maxQuantity={Number(item.itemSkuStock)}
+                        data={item}
                     />
                 </div>
             )
@@ -148,7 +149,9 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
             const item = row.original as ICartItem
             return (
                 <div onClick={() => row.toggleExpanded(true)}>
-                    <CartItemActions itemSkuId={item.itemSkuId} itemShopId={item.itemShopId} />
+                    <CartItemActions
+                        itemSkuId={item.itemSkuId}
+                        itemShopId={item.itemShopId} />
                 </div>
             )
         },

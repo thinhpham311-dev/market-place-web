@@ -7,11 +7,9 @@ import {
     Counter,
     ICounterRef,
     CardContent,
-    Card,
 } from "@/components/ui";
 
 //components
-import ProQuantitySelectorStock from "./QuantitySelectorStock";
 
 
 // hooks
@@ -37,18 +35,15 @@ const QuantitySelectorCounter = () => {
     }, [maxQuantity, resetQuantity]);
 
     return (
-        <Card className="col-span-10 border-none shadow-none">
-            <CardContent className="p-3 space-x-3 flex items-center">
-                <Counter
-                    initialValue={itemQuantity}
-                    maxValue={maxQuantity}
-                    ref={counterRef}
-                    onQuantityChange={handleQuantityChange}
-                    isDisabled={maxQuantity === 0}
-                />
-                <ProQuantitySelectorStock />
-            </CardContent>
-        </Card>
+        <CardContent className="p-3 space-x-3 flex items-center">
+            <Counter
+                initialValue={itemQuantity}
+                maxValue={maxQuantity}
+                ref={counterRef}
+                onQuantityChange={handleQuantityChange}
+                isDisabled={maxQuantity === 0}
+            />
+        </CardContent>
     );
 }
 

@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { memo } from "react";
+import { CardContent } from "@/components/ui";
 import OptionSelectorCard from "./OptionSelectorCard";
 import { useOptionSelectorContext } from "@/features/common/option-selector/hooks";
 import { VariantOption } from "@/interfaces/spu"
@@ -10,7 +11,7 @@ import { VariantOption } from "@/interfaces/spu"
 const OptionSelectorList = () => {
     const { options } = useOptionSelectorContext();
     return (
-        <div className="space-y-5">
+        <CardContent className="p-3 space-y-5 w-full">
             {options.map((_: VariantOption, i: number) => {
                 return (
                     <React.Fragment key={`${_.options}_${i}`}>
@@ -19,11 +20,10 @@ const OptionSelectorList = () => {
                             value={_.value as VariantOption[]}
                             index={i}
                         />
-
                     </React.Fragment>
                 );
             })}
-        </div>
+        </CardContent>
     );
 }
 

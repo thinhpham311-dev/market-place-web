@@ -61,65 +61,67 @@ export default function OptionSelectorCard({
         return () => window.removeEventListener("mousedown", handleClickOutside);
     }, [validationErrors, resetValidationErrors]);
 
+
     return (
         <Card
+            layout="horizontal"
             ref={cardRef}
             className={cn(
-                "leading-none tracking-tight border-none shadow-none ",
+                "leading-none tracking-tight border-none shadow-none items-center",
                 className
             )}
         >
-            <div className="lg:grid block grid-cols-12 gap-x-5 items-center">
-                <CardHeader className="p-0 col-span-2">
-                    {label && <CardTitle className="text-sm uppercase">{label}:</CardTitle>}
-                </CardHeader>
-                <CardContent className="p-0 col-span-10">
-                    <ToggleGroup
-                        type="single"
-                        className="justify-start flex-wrap space-x-1"
-                        onValueChange={handleValueChange}
-                        defaultValue={defaultValue}
-                    >
-                        {value.map((item) => (
-                            <ToggleGroupItem
-                                key={item.value}
-                                value={item.value}
-                                size="sm"
-                                className={cn("relative group p-0")}
-                                aria-label={item.label}
+            <CardHeader className="p-0 min-w-[120px] max-w-[150px] flex-shrink-0 flex ">
+                {label && <CardTitle className="text-sm uppercase ">
+                    <span className="text-start">{label}:</span>
+                </CardTitle>}
+            </CardHeader>
+            <CardContent className="p-0 flex-1">
+                <ToggleGroup
+                    type="single"
+                    className="justify-start flex-wrap space-x-1"
+                    onValueChange={handleValueChange}
+                    defaultValue={defaultValue}
+                >
+                    {value.map((item) => (
+                        <ToggleGroupItem
+                            key={item.value}
+                            value={item.value}
+                            size="sm"
+                            className={cn("relative group p-0")}
+                            aria-label={item.label}
+                        >
+                            <div
+                                className={cn(
+                                    "h-full w-full rounded-md px-3 flex items-center space-x-2 border-2 border-gray-300 transition-colors duration-200",
+                                    validationErrors?.[index] && "border-red-400 bg-red-50",
+                                    "hover:border-blue-400 hover:bg-blue-50",
+                                    "group-data-[state=on]:border-blue-500 group-data-[state=on]:bg-transparent"
+                                )}
                             >
-                                <div
-                                    className={cn(
-                                        "h-full w-full rounded-md px-3 flex items-center space-x-2 border-2 border-gray-300 transition-colors duration-200",
-                                        validationErrors?.[index] && "border-red-400 bg-red-50",
-                                        "hover:border-blue-400 hover:bg-blue-50",
-                                        "group-data-[state=on]:border-blue-500 group-data-[state=on]:bg-transparent"
-                                    )}
-                                >
-                                    <Image
-                                        src={item.image}
-                                        alt={item.label}
-                                        width={20}
-                                        height={20}
-                                    />
-                                    <span className=" group-data-[state=on]:text-blue-500 group-hover:text-blue-500">
-                                        {item.label}
-                                    </span>
-                                    <div className="w-3 h-3 bg-blue-500 hidden group-data-[state=on]:block absolute bottom-[2px] right-[2px] rounded-tl-3xl rounded-br-md">
-                                        <IoIosCheckmark className="text-white" />
-                                    </div>
+                                <Image
+                                    src={item.image}
+                                    alt={item.label}
+                                    width={20}
+                                    height={20}
+                                />
+                                <span className=" group-data-[state=on]:text-blue-500 group-hover:text-blue-500">
+                                    {item.label}
+                                </span>
+                                <div className="w-3 h-3 bg-blue-500 hidden group-data-[state=on]:block absolute bottom-[2px] right-[2px] rounded-tl-3xl rounded-br-md">
+                                    <IoIosCheckmark className="text-white" />
                                 </div>
-                            </ToggleGroupItem>
-                        ))}
-                    </ToggleGroup>
+                            </div>
+                        </ToggleGroupItem>
+                    ))}
+                </ToggleGroup>
 
-                    {validationErrors?.[index] && (
-                        <p className="text-red-500 text-xs mt-2">
-                            {validationErrors[index]}
-                        </p>
-                    )}
-                </CardContent>
-            </div>
+                {validationErrors?.[index] && (
+                    <p className="text-red-500 text-xs mt-2">
+                        {validationErrors[index]}
+                    </p>
+                )}
+            </CardContent>
         </Card>
     );
 }

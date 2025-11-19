@@ -56,11 +56,11 @@ export const getItemsInCart = createAsyncThunk<
 
 export const addItemIntoCart = createAsyncThunk<
     CartResponse,
-    { item: ICartItem },
+    { item: ICartItem, userId: string },
     { rejectValue: IErrorPayload | string }
 >('cart/data/addItemIntoCart', async (params, { dispatch, rejectWithValue }) => {
     try {
-        await dispatch(addItem({ ...params } as { item: ICartItem }))
+        await dispatch(addItem({ ...params } as { item: ICartItem, userId: string }))
         const response = (await apiPostAddItem(params)) as { data: CartResponse };
         return response.data;
     } catch (error: any) {
@@ -99,11 +99,11 @@ export const removeItemsOutCart = createAsyncThunk<
 
 export const updateQtyItemInCart = createAsyncThunk<
     CartResponse,
-    ICartItem,
+    { cartId: string, item: ICartItem, userId: string },
     { rejectValue: IErrorPayload | string }
 >('cart/data/updateQtyItemInCart', async (params, { dispatch, rejectWithValue }) => {
     try {
-        await dispatch(updateQtyItem({ ...params } as ICartItem))
+        await dispatch(updateQtyItem({ ...params } as { cartId: string, item: ICartItem, userId: string }))
         const response = (await apiPostUpdateQtyItem(params)) as { data: CartResponse };
         return response.data;
     } catch (error: any) {
@@ -221,19 +221,19 @@ const dataSlice = createSlice({
             recalculateTotals(state.data);
         },
 
-        updateQtyItem: (state, action: PayloadAction<{ itemSkuId: string; itemQuantity: number }>) => {
-            const { itemSkuId, itemQuantity } = action.payload;
+        updateQtyItem: (state, action: PayloadAction<{ item: ICartItem }>) => {
+            const { item } = action.payload;
             const itemToUpdate = state.data.cart_products.find(
-                (item: ICartItem) => item.itemSkuId === itemSkuId
+                (item: ICartItem) => item.itemSkuId === item.itemSkuId
             );
 
             if (itemToUpdate) {
-                if (itemQuantity === 0) {
+                if (item.itemQuantity === 0) {
                     state.data.cart_products = state.data.cart_products.filter(
-                        (item: ICartItem) => item.itemSkuId !== itemSkuId
+                        (item: ICartItem) => item.itemSkuId !== item.itemSkuId
                     );
                 } else {
-                    itemToUpdate.itemQuantity = itemQuantity;
+                    itemToUpdate.itemQuantity = item.itemQuantity;
                 }
             }
 

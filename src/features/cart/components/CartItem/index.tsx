@@ -7,8 +7,8 @@ import {
 import CartItemName from "@/features/cart/components/CartItem/CartItemName"
 import CartItemImage from '@/features/cart/components/CartItem/CartItemImage';
 import CartItemPrice from '@/features/cart/components/CartItem/CartItemPrice';
-import CartItemVariantsSelector from "@/features/cart/components/CartItem/CartItemVariantsSelector"
-import CartItemQuantitySelector from '@/features/cart/components/CartItem/CartItemQuantitySelector';
+import { CartItemVariantsView } from "@/features/cart/components/CartItem/CartItemVariantsSelector"
+import { CartItemQuantityView } from '@/features/cart/components/CartItem/CartItemQuantitySelector';
 import { ICartItem } from '@/interfaces/cart';
 import { useRouter } from "next/navigation"
 import CartItemActions from './CartItemActions';
@@ -67,14 +67,13 @@ const CartItem = ({
 
                     {/* Variants selector: chiếm 3 cột */}
                     <div className="col-span-3 row-span-1">
-                        <CartItemVariantsSelector
+                        <CartItemVariantsView
                             itemVariants={itemSpuVariations}
                             itemTierIdx={itemSkuTierIdx}
                         />
                     </div>
                     <div className="col-span-2 row-span-2 row-end-4 col-start-4">
-                        <CartItemQuantitySelector
-                            isView={true}
+                        <CartItemQuantityView
                             currentQuantity={itemQuantity}
                         />
                     </div>

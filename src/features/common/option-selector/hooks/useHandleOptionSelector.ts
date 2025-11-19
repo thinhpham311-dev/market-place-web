@@ -103,7 +103,6 @@ export function useHandleOptionSelector({
         option_idx,
         defaultOptionIdx,
         validationErrors,
-        optionsCount: options.length,
         handleChooseOption,
         handleResetOption,
         resetValidationErrors,

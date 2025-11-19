@@ -25,7 +25,6 @@ export async function POST(req: Request): Promise<Response> {
         }
 
         const { sku_tier_idx, product_id } = await req.json();
-
         const query = qs.stringify({
             product_id,
             sku_tier_idx: Array.isArray(sku_tier_idx) ? sku_tier_idx.join(",") : "",

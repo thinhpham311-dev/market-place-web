@@ -1,16 +1,16 @@
 "use client";
 
 import * as React from "react";
-import { Card, CardContent } from "@/components/ui"
+import { Card } from "@/components/ui"
+import { useOptionSelectorContext } from "@/features/common/option-selector/hooks";
 
 
 const VariantsSelectorWrapper = ({ children }: { children: React.ReactNode }) => {
+    const { layout } = useOptionSelectorContext();
 
     return (
-        <Card className="w-full border-none shadow-none">
-            <CardContent className="p-3 space-y-3">
-                {children}
-            </CardContent>
+        <Card layout={layout} className=" border-none shadow-none ">
+            {children}
         </Card>
     );
 }

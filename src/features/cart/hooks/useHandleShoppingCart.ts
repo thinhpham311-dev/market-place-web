@@ -55,9 +55,9 @@ export const useHandleShoppingCart = ({ userId, storeKey }: IUseCart) => {
 
     const handleAddItem = useCallback(
         async (item: ICartItem) => {
-            await dispatch(addItemIntoCart({ item } as { item: ICartItem }) as any);
+            await dispatch(addItemIntoCart({ userId, item } as { userId: string, item: ICartItem }) as any);
         },
-        [dispatch]
+        [dispatch, userId]
     );
 
     const handleRemoveItem = useCallback(
@@ -69,10 +69,10 @@ export const useHandleShoppingCart = ({ userId, storeKey }: IUseCart) => {
     );
 
     const handleUpdateQtyItem = useCallback(
-        async (itemSkuId: string, itemQuantity: number) => {
-            await dispatch(updateQtyItemInCart({ itemSkuId, itemQuantity } as ICartItem) as any);
+        async (item: ICartItem) => {
+            await dispatch(updateQtyItemInCart({ userId, item } as { cartId: string, userId: string, item: ICartItem }) as any);
         },
-        [dispatch]
+        [dispatch, userId]
     );
 
     const handleSelectItems = useCallback(
@@ -83,7 +83,6 @@ export const useHandleShoppingCart = ({ userId, storeKey }: IUseCart) => {
     const handleRemoveAll = useCallback(
         async () => {
             await dispatch(removeAllItems());
-
         },
         [dispatch]
     );

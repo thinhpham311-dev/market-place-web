@@ -28,6 +28,8 @@ const ProQuantitySelector = () => {
         <QuantitySelector
             storeKey={PRO_DETAIL}
             initialValue={1}
+            title="Quantity"
+            layout="horizontal"
             maxQuantity={sku?.sku_stock ?? 0}
             loading={skuLoading}
             error={skuError}

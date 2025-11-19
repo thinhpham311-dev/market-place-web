@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import OptionSelectorWrapper from "./OptionSelectorWrapper"
+import OptionSelectorTitle from "./OptionSelectorTitle";
 import OptionSelectorList from "./OptionSelectorList";
 import { useHandleOptionSelector } from "./hooks";
 import OptionSelectorProvider from "./providers";
@@ -13,15 +14,19 @@ interface IOptionSelectorProps {
     loading?: boolean;
     error?: string | { message?: string } | null;
     defaultOptionIdx?: (number | null)[];
+    title?: string;
+    layout?: "vertical" | "horizontal";
+    layoutItems?: "vertical" | "horizontal";
 }
 
 
-const OptionSelector = (({ storeKey, initialValue = [], defaultOptionIdx = [] }: IOptionSelectorProps) => {
+const OptionSelector = (({ storeKey, initialValue = [], defaultOptionIdx = [], ...rest }: IOptionSelectorProps) => {
     const optionSelector = useHandleOptionSelector({ storeKey, initialValue, defaultOptionIdx });
 
     return (
-        <OptionSelectorProvider contextValues={{ ...optionSelector }}>
+        <OptionSelectorProvider contextValues={{ ...optionSelector, ...rest }}>
             <OptionSelectorWrapper>
+                <OptionSelectorTitle />
                 <OptionSelectorList />
             </OptionSelectorWrapper>
         </OptionSelectorProvider>

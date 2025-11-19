@@ -2,7 +2,7 @@
 
 import React, {
     useState,
-    useEffect,
+    useLayoutEffect,
     forwardRef,
     useImperativeHandle,
     memo,
@@ -17,44 +17,79 @@ interface ICounterProps {
     onQuantityChange?: (quantity: number) => void;
     className?: string;
     maxValue?: number;
-    isDisabled?: boolean; // ✅ thêm prop này
+    minValue?: number; // ✅ thêm minValue để linh hoạt hơn
+    isDisabled?: boolean;
 }
 
 export interface ICounterRef {
     reset: () => void;
     getCount: () => number;
+    setCount: (value: number) => void; // ✅ thêm method setCount
 }
 
 export const Counter = memo(
     forwardRef<ICounterRef, ICounterProps>(
         (
-            { onQuantityChange, initialValue = 1, className, maxValue = 0, isDisabled = false },
+            {
+                onQuantityChange,
+                initialValue = 1,
+                className,
+                maxValue,
+                minValue = 1, // ✅ giá trị mặc định là 1
+                isDisabled = false
+            },
             ref
         ) => {
             const [localCount, setLocalCount] = useState<number>(initialValue);
 
-            useEffect(() => {
+            useLayoutEffect(() => {
                 setLocalCount(initialValue);
             }, [initialValue]);
 
             const updateCount = (newCount: number) => {
                 if (isDisabled) return;
-                if (maxValue !== 0) {
-                    newCount = Math.min(newCount, maxValue);
+
+                // ✅ Validate giá trị
+                let validatedCount = newCount;
+
+                // Giới hạn dưới
+                if (newCount < minValue) {
+                    validatedCount = minValue;
                 }
-                setLocalCount(newCount);
-                onQuantityChange?.(newCount);
+
+                // Giới hạn trên (nếu có maxValue)
+                if (maxValue !== undefined && newCount > maxValue) {
+                    validatedCount = maxValue;
+                }
+
+                // ✅ Chỉ cập nhật nếu giá trị thay đổi
+                if (validatedCount !== localCount) {
+                    setLocalCount(validatedCount);
+                    onQuantityChange?.(validatedCount);
+                }
             };
 
             const increment = () => updateCount(localCount + 1);
-            const decrement = () => updateCount(Math.max(0, localCount - 1));
-            const reset = () => updateCount(initialValue);
+            const decrement = () => updateCount(localCount - 1);
+
+            const reset = () => {
+                setLocalCount(initialValue);
+                onQuantityChange?.(initialValue);
+            };
+
             const getCount = () => localCount;
+
+            const setCount = (value: number) => updateCount(value);
 
             useImperativeHandle(ref, () => ({
                 reset,
                 getCount,
+                setCount, // ✅ expose setCount method
             }));
+
+            // ✅ Tính toán disabled state
+            const isDecrementDisabled = isDisabled || localCount <= minValue;
+            const isIncrementDisabled = isDisabled || (maxValue !== undefined && localCount >= maxValue);
 
             return (
                 <div className={cn(className, "flex items-center space-x-3")}>
@@ -64,7 +99,7 @@ export const Counter = memo(
                         variant="outline"
                         className="w-6 h-6 rounded-xl"
                         aria-label="Decrement"
-                        disabled={isDisabled || localCount <= 1}
+                        disabled={isDecrementDisabled}
                     >
                         <Minus />
                     </Button>
@@ -83,7 +118,7 @@ export const Counter = memo(
                         variant="outline"
                         className="w-6 h-6 rounded-xl"
                         aria-label="Increment"
-                        disabled={isDisabled || localCount >= maxValue}
+                        disabled={isIncrementDisabled}
                     >
                         <Plus />
                     </Button>

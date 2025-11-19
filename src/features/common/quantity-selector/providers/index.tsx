@@ -4,7 +4,9 @@ import React from "react";
 
 import { cn } from "@/lib/utils"
 
-interface QuantitySelectorContextType {
+interface IQuantitySelectorContextType {
+    title?: string,
+    layout?: "vertical" | "horizontal",
     maxQuantity?: number,
     itemQuantity: number,
     errorMessages: string[],
@@ -15,15 +17,15 @@ interface QuantitySelectorContextType {
     error?: string | { message?: string } | null;
 }
 
-interface QuantitySelectorProviderProps {
+interface IQuantitySelectorProviderProps {
     children?: React.ReactNode;
     className?: string;
-    contextValues: QuantitySelectorContextType
+    contextValues: IQuantitySelectorContextType
 }
 
-export const QuantitySelectorContext = React.createContext<QuantitySelectorContextType | null>(null);
+export const QuantitySelectorContext = React.createContext<IQuantitySelectorContextType | null>(null);
 
-const QuantitySelectorProvider = ({ children, className, contextValues }: QuantitySelectorProviderProps) => {
+const QuantitySelectorProvider = ({ children, className, contextValues }: IQuantitySelectorProviderProps) => {
     return (
         <QuantitySelectorContext.Provider value={contextValues} >
             <div className={cn(className)}>

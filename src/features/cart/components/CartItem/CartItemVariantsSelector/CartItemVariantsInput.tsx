@@ -10,15 +10,15 @@ import {
 import { VariantOption } from "@/interfaces/spu";
 import { renderVariants } from "@/features/cart/utils/renderVariants"
 
-interface CartItemVariantsSelectorProps {
+interface CartItemVariantsInputProps {
     itemTierIdx: number[];
     itemVariants: VariantOption[];
 }
 
-const CartItemVariantsSelector = ({
+const CartItemVariantsInput = ({
     itemTierIdx = [],
     itemVariants = [],
-}: CartItemVariantsSelectorProps) => {
+}: CartItemVariantsInputProps) => {
 
     const variantsNode = renderVariants(itemVariants, itemTierIdx)
 
@@ -38,4 +38,4 @@ const CartItemVariantsSelector = ({
     );
 };
 
-export default CartItemVariantsSelector;
+export default CartItemVariantsInput;

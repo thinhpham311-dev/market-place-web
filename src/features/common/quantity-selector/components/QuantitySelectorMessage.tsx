@@ -19,7 +19,7 @@ const QuantitySelectorMessage = () => {
 
 
     return (
-        <CardFooter className="col-span-10 col-start-3 px-3 py-0">
+        <CardFooter className=" col-start-3 px-3 py-0">
             {errorMessages?.length > 0 && (
                 <ErrorMessages messages={errorMessages} />
             )}

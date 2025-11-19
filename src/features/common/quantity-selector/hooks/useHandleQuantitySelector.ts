@@ -45,6 +45,7 @@ export function useHandleQuantitySelector({
         selectQuantitySelectorByStoreKey(storeKey)
     );
 
+
     const validateQuantity = useCallback(
         (newQuantity: number) => {
             if (newQuantity === maxQuantity) {

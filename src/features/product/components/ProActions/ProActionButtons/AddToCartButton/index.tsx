@@ -23,7 +23,8 @@ const AddToCartButton = ({ sku, spu, itemQuantity, disabled }: AddToCartButtonPr
 
     const handleAddToCart = useCallback(() => {
         if (!spu || !sku) return;
-        addItem(mapCartItem({ sku, spu, itemQuantity }) as any);
+        const item = mapCartItem({ sku, spu, itemQuantity }) as any;
+        addItem(item);
     }, [sku, spu, addItem, itemQuantity]);
 
     if (loading) {

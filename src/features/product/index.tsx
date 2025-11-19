@@ -41,6 +41,7 @@ export default function ProductDetail(
     const { itemQuantity } = useAppSelector(
         selectQuantitySelectorByStoreKey(PRO_DETAIL)
     );
+
     return (
         <ProProvider
             contextValues={{

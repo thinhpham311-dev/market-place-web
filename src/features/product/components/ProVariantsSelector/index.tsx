@@ -28,6 +28,7 @@ const ProVariantsSelector = (() => {
 
     return (
         <OptionSelector
+            layout="horizontal"
             storeKey={PRO_DETAIL}
             initialValue={variants}
             loading={skuLoading}

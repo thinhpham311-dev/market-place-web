@@ -8,8 +8,9 @@ import { Option } from "@/features/common/option-selector/types";
 
 interface IOptionSelectorContextType {
     options: Option[];
-    optionsCount: number;
     option_idx: (number | null)[];
+    title?: string;
+    layout?: "vertical" | "horizontal";
     defaultOptionIdx?: (number | null)[];
     validationErrors: Record<number, string>;
     handleChooseOption: (index: number, option: number | null) => void;
@@ -25,9 +26,9 @@ interface IOptionSelectorProviderProps {
 
 export const OptionSelectorContext = React.createContext<IOptionSelectorContextType | null>(null);
 
-const OptionSelectorProvider = ({ children, className, contextValues }: IOptionSelectorProviderProps) => {
+const OptionSelectorProvider = ({ children, className, contextValues, ...rest }: IOptionSelectorProviderProps) => {
     return (
-        <OptionSelectorContext.Provider value={contextValues}>
+        <OptionSelectorContext.Provider value={{ ...contextValues, ...rest }}>
             <div className={cn(className)}>
                 {children}
             </div>
