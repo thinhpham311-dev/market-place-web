@@ -8,22 +8,21 @@ import { MdShoppingCartCheckout } from "react-icons/md";
 import { useShoppingCartContext } from "@/features/cart/hooks";
 import { ISkuPro } from "@/interfaces/sku";
 import { ISpuPro } from "@/interfaces/spu";
+import { ICartItem } from "@/interfaces/cart";
 
 
 interface BuyNowButtonProps {
-    sku: ISkuPro | null;
-    spu: ISpuPro | null;
-    itemQuantity: number;
+    item: ICartItem;
     disabled?: boolean;
 }
 
-const BuyNowButton = ({ sku, spu, itemQuantity, disabled }: BuyNowButtonProps) => {
+const BuyNowButton = ({ item, disabled }: BuyNowButtonProps) => {
     const { loading, error } = useShoppingCartContext();
 
     const handleBuyNow = () => {
-        if (!sku || !spu) return;
+        if (!item) return;
         // ✅ Có thể redirect sang checkout sau này
-        console.log("Proceed to checkout:", { sku, spu, itemQuantity });
+        console.log("Proceed to checkout:", { item });
     };
 
     if (loading) {

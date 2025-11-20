@@ -4,35 +4,35 @@ import * as React from "react";
 
 import OptionSelector from "@/features/common/option-selector"
 import { PRO_DETAIL } from "@/features/product/constants";
-import { useSpuContext } from "@/features/spu/hooks";
-import { useSkuContext } from "@/features/sku/hooks";
 import LoadingSkeleton from "./Loading"
 import NotFound from "./NotFound"
+import { useSpuContext } from "@/features/spu/hooks"
+
 
 const ProVariantsSelector = (() => {
-    const { loading: skuLoading, error: skuError } = useSkuContext()
-    const { spu, loading: spuLoading, error: spuError } = useSpuContext()
-    const hasNoData = !spu || Object.keys(spu).length === 0;
-    if (spuLoading && hasNoData) {
+    const { spu: data, loading: isLoading, error } = useSpuContext()
+
+    const hasNoData = !data || Object.keys(data).length === 0;
+    if (isLoading && hasNoData) {
         return <LoadingSkeleton />;
     }
 
-    if (!spuLoading && hasNoData && spuError) {
-        return <NotFound message={spuError || "Something went wrong."} />;
+    if (!isLoading && hasNoData && error) {
+        return <NotFound message={error || "Something went wrong."} />;
     }
 
-    if (!spuLoading && hasNoData) {
+    if (!isLoading && hasNoData) {
         return <NotFound />;
     }
-    const variants = spu?.product_variations ?? []
+    const variants = data?.product_variations ?? []
 
     return (
         <OptionSelector
             layout="horizontal"
             storeKey={PRO_DETAIL}
             initialValue={variants}
-            loading={skuLoading}
-            error={skuError}
+            loading={isLoading}
+            error={error}
         />
     );
 });

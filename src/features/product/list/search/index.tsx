@@ -29,7 +29,7 @@ export default function ProSearchList() {
         <Card className="border-none shadow-none grid grid-cols-12">
             <CardHeader className="col-span-12 flex-row  items-center mb-3" >
                 <div className="p-0 flex-1">
-                    <CardTitle className="mb-3 capitalize">Popular Products</CardTitle>
+                    <CardTitle className="mb-3 capitalize">Search Products</CardTitle>
                     <CardDescription className="md:line-clamp-2 line-clamp-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque aliquet lobortis erat, sed varius arcu iaculis id</CardDescription>
                 </div>
                 <Button variant="outline" size="icon" className="float-end" onClick={() => router.push("/categories/1")}>

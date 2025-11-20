@@ -1,10 +1,12 @@
 "use client";
 import React from "react";
 import ShopInfo from "@/features/shop/shop-info";
-import { useProContext } from "@/features/product/hooks/useProContext";
 
-const ProShopInfo = () => {
-    const { shop_id } = useProContext()
+interface IProShopInfoProps {
+    shop_id: string;
+}
+
+const ProShopInfo = ({ shop_id }: IProShopInfoProps) => {
 
     return (
         <ShopInfo

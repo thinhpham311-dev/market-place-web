@@ -34,7 +34,7 @@ const mapSpu = (spu: ISpuPro) => ({
 export const mapCartItem = ({ sku, spu, itemQuantity }: IMapCartItem) => {
     const skuMapped = mapSku(sku);
     const spuMapped = mapSpu(spu);
-    const shopMapped = mapShop(spu.product_shop);
+    const shopMapped = mapShop(spu?.product_shop);
 
     return {
         ...skuMapped,

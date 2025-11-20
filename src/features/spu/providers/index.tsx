@@ -6,7 +6,7 @@ import { ISpuPro } from "@/interfaces/spu";
 
 
 interface ISpuContextType {
-    spu?: ISpuPro,
+    spu: ISpuPro,
     loading: boolean,
     error: string,
     status: "idle" | "loading" | "success" | "error",

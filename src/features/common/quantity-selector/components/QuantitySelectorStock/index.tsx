@@ -15,7 +15,7 @@ const QuantitySelectorStock: React.FC = () => {
         maxQuantity === 0 ? "IN STOCK" : `${maxQuantity} pieces available`;
 
     return (
-        <CardDescription className="transition-opacity duration-300 col-span-3 col-start-6">
+        <CardDescription className="transition-opacity duration-300 basic-full">
             {message}
         </CardDescription>
     );

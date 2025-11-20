@@ -1,32 +1,32 @@
 "use client";
 import * as React from "react";
 
-import QuantitySelector from "@/features/common/quantity-selector"
+import QuantitySelector from "@/features/common/quantity-selector";
 import { PRO_DETAIL } from "@/features/product/constants";
 import { useSkuContext } from "@/features/sku/hooks";
 import { useSpuContext } from "@/features/spu/hooks";
-import LoadingSkeleton from "./Loading"
-import NotFound from "./NotFound"
+import LoadingSkeleton from "./Loading";
+import NotFound from "./NotFound";
 
 const ProQuantitySelector = () => {
-    const { sku, loading: skuLoading, error: skuError } = useSkuContext()
-    const { spu, loading: spuLoading, error: spuError } = useSpuContext()
+    const { sku, loading: skuLoading, error: skuError } = useSkuContext();
+    const { spu, loading: spuLoading, error: spuError } = useSpuContext();
+
     const hasNoData = !spu || Object.keys(spu).length === 0;
-    if (spuLoading && hasNoData) {
-        return <LoadingSkeleton />;
-    }
+    const showLoading = spuLoading && hasNoData;
+    const showError = !spuLoading && hasNoData && spuError;
+    const showNotFound = !spuLoading && hasNoData && !spuError;
 
-    if (!spuLoading && hasNoData && spuError) {
-        return <NotFound message={spuError || "Something went wrong."} />;
-    }
+    if (showLoading) return <LoadingSkeleton />;
+    if (showError) return <NotFound message={spuError || "Something went wrong."} />;
+    if (showNotFound) return <NotFound />;
 
-    if (!spuLoading && hasNoData) {
-        return <NotFound />;
-    }
+    const storeKey = `${PRO_DETAIL}_${sku?.sku_id || "default"}`;
 
     return (
         <QuantitySelector
-            storeKey={PRO_DETAIL}
+            reducerKey={PRO_DETAIL}
+            storeKey={storeKey}
             initialValue={1}
             title="Quantity"
             layout="horizontal"
@@ -35,6 +35,6 @@ const ProQuantitySelector = () => {
             error={skuError}
         />
     );
-}
+};
 
-export default ProQuantitySelector
+export default ProQuantitySelector;

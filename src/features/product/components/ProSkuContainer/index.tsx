@@ -2,37 +2,23 @@
 
 //constants
 import { PRO_DETAIL } from "@/features/product/constants";
-import { useProContext } from "@/features/product/hooks/useProContext";
 import SkuRoot from "@/features/sku/sku-root";
-import { useSpuContext } from "@/features/spu/hooks";
-import LoadingSkeleton from "./Loading"
-import NotFound from "./NotFound"
+import { useAppSelector } from "@/lib/hooks";
+import { selectOptionsStoreKey } from "@/features/common/option-selector/store/selectors"
 
 interface IProSkuDetailContainerProps {
+    product_id: string;
     children: React.ReactNode
 }
 
-export default function ProSkuDetailContainer({ children }: IProSkuDetailContainerProps) {
-    const { product_id, sku_tier_idx, optionsCount } = useProContext()
-    const spuContext = useSpuContext()
-    const { spu, loading, error } = spuContext
-    const hasNoData = !spu || Object.keys(spu).length === 0;
-    if (loading && hasNoData) {
-        return <LoadingSkeleton />;
-    }
+export default function ProSkuDetailContainer({ product_id, children }: IProSkuDetailContainerProps) {
+    const { option_idx, optionsCount } = useAppSelector(selectOptionsStoreKey(PRO_DETAIL))
 
-    if (!loading && hasNoData && error) {
-        return <NotFound message={error || "Something went wrong."} />;
-    }
-
-    if (!loading && hasNoData) {
-        return <NotFound />;
-    }
     return (
         <SkuRoot
             storeKey={PRO_DETAIL}
             product_id={product_id}
-            sku_tier_idx={sku_tier_idx}
+            sku_tier_idx={option_idx}
             optionsCount={optionsCount}
         >
             {children}

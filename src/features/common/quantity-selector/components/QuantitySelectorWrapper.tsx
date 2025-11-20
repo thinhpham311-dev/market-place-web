@@ -10,7 +10,7 @@ import { useQuantitySelectorContext } from "@/features/common/quantity-selector/
 const QuantitySelectorWrapper = ({ children }: { children: React.ReactNode }) => {
     const { layout } = useQuantitySelectorContext();
     return (
-        <Card layout={layout} className="border-none shadow-none bg-transparent items-center">
+        <Card layout={layout} className="border-none shadow-none bg-transparent items-center flex-wrap">
             {children}
         </Card>
     );

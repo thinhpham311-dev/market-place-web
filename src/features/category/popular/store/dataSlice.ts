@@ -58,6 +58,7 @@ export const getCategoryList = createAsyncThunk<CategoriesResponse, object, { re
     });
 
 
+
 const dataSlice = createSlice({
     name: 'catPopularList/data',
     initialState,

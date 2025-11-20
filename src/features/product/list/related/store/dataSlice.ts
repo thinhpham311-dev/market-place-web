@@ -16,38 +16,22 @@ type ProductListResponse = {
         total: number;
     };
 };
-interface IErrorPayload {
-    message: string;
-    [key: string]: any;
-}
 
-
-export const getProductList = createAsyncThunk<ProductListResponse, IFilter, { rejectValue: IErrorPayload | string }>(
+export const getProductList = createAsyncThunk<ProductListResponse, IFilter>(
     'proRelatedList/data/getList',
-    async (params: IFilter, { rejectWithValue, dispatch }) => {
+    async (params: IFilter, { rejectWithValue }) => {
         try {
-
-            const data = await dispatch({
-                type: "api/fetch",
-                payload: {
-                    key: PRO_RELATED_LIST_CACHE_KEY,
-                    params,
-                    apiFn: apiPostProductsList,
-                    options: {
-                        TTL: PRO_RELATED_LIST_TTL,
-                        retries: PRO_RELATED_LIST_RETRIES,
-                        retryDelay: PRO_RELATED_LIST_RETRY_DELAY,
-                        tags: [PRO_RELATED_LIST_TAG],
-                    },
-                },
-            }) as unknown as ProductListResponse;
-
-            return data;
-
+            const response = await apiPostProductsList(params) as
+                {
+                    data: ProductListResponse
+                };
+            return response.data;
         } catch (error: any) {
             return rejectWithValue(error?.response?.data || error.message);
         }
     });
+
+
 
 interface IProductState {
     loading: boolean;

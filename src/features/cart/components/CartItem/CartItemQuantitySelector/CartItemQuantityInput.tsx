@@ -13,10 +13,10 @@ interface ICartItemQuantityInputProps {
 const CartItemQuantityInput = ({
     currentQuantity,
     maxQuantity,
-    // data
+    data
 }: ICartItemQuantityInputProps) => {
     const { updateQtyItem, loading, error } = useShoppingCartContext();
-    // const { itemSkuId } = data
+    const { itemSkuId } = data
     // const handleQuantityChange = (value: number) => {
     //     // Nếu không đổi thì không làm gì để tránh gọi API vô nghĩa
     //     const item = {
@@ -28,7 +28,8 @@ const CartItemQuantityInput = ({
 
     return (
         <QuantitySelector
-            storeKey={`${SHOPPING_CART}`}
+            reducerKey={SHOPPING_CART}
+            storeKey={`${SHOPPING_CART}_${itemSkuId}`}
             initialValue={currentQuantity}
             maxQuantity={maxQuantity}
             loading={loading}

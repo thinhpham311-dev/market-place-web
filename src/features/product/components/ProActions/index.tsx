@@ -1,30 +1,42 @@
 "use client";
 
 import React, { memo } from "react";
-import { useProContext } from "@/features/product/hooks/useProContext";
 import { useSpuContext } from "@/features/spu/hooks";
 import { useSkuContext } from "@/features/sku/hooks";
 import ProActionsWrapper from "./ProActionsWrapper";
 import LoadingSkeleton from "./Loading";
 import NotFound from "./NotFound";
-import ProActionButtons from "./ProActionButtons";
+import AddToCartButton from "./ProActionButtons/AddToCartButton";
+import BuyNowButton from "./ProActionButtons/BuyNowButton";
+import { useAppSelector } from "@/lib/hooks";
+import { selectQuantitySelector } from "@/features/common/quantity-selector/store/selectors"
+import { PRO_DETAIL } from "@/features/product/constants"
+import { ICartItem } from "@/interfaces/cart";
+import { mapCartItem } from "@/features/cart/helpers";
 
 const ProActions = () => {
-    const { itemQuantity } = useProContext();
-    const { sku, loading: skuLoading } = useSkuContext();
+
     const { spu, loading: spuLoading, error: spuError } = useSpuContext();
+    const { sku, loading: skuLoading, error: skuError } = useSkuContext();
+    const { itemQuantity } = useAppSelector(selectQuantitySelector(PRO_DETAIL, PRO_DETAIL))
+    const loading = spuLoading;
+    const error = spuError;
 
-    const hasNoData = !spu || Object.keys(spu).length === 0;
-    const isLoading = spuLoading || skuLoading;
-    const hasError = !spuLoading && hasNoData && !!spuError;
+    // Gom thành 1 object item
+    const item: ICartItem = mapCartItem({
+        spu,
+        sku,
+        itemQuantity
+    })
 
-    if (isLoading) return <LoadingSkeleton />;
-    if (hasError) return <NotFound message={spuError || "Something went wrong."} />;
-    if (!spuLoading && hasNoData) return <NotFound />;
+
+    if (loading) return <LoadingSkeleton />;
+    if (error) return <NotFound message={error} />;
 
     return (
         <ProActionsWrapper>
-            <ProActionButtons sku={sku} spu={spu} itemQuantity={itemQuantity} spuError={spuError} />
+            <AddToCartButton item={item} />
+            <BuyNowButton item={item} />
         </ProActionsWrapper>
     );
 };

@@ -10,7 +10,7 @@ interface ProActionsWrapperProps {
 const ProActionsWrapper = ({ children }: ProActionsWrapperProps) => {
     return (
         <Card className="border-none shadow-none lg:static md:fixed sm:fixed fixed bottom-0 left-0 z-50 w-full">
-            <CardContent className="container mx-auto py-3 px-6 flex gap-3">
+            <CardContent className="container mx-auto p-3 flex gap-3">
                 {children}
             </CardContent>
         </Card>

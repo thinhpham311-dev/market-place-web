@@ -1,5 +1,4 @@
 "use client";
-// import { useSearchParams } from "next/navigation";
 //ui
 import { Card, CardHeader, CardContent, Separator } from "@/components/ui"
 // Components
@@ -21,11 +20,10 @@ import ProPriceDisplay from "@/features/product/components/ProPriceDisplay"
 import ProReviewStar from "@/features/product/components/ProReviewStar"
 import ProActions from "@/features/product/components/ProActions"
 import ProShopInfo from "@/features/product/components/ProShopInfo";
-import ProProvider from "./providers"
 import { useAppSelector } from "@/lib/hooks";
 import { PRO_DETAIL } from "@/features/product/constants"
 import { selectOptionsStoreKey } from "@/features/common/option-selector/store/selectors";
-import { selectQuantitySelectorByStoreKey } from "@/features/common/quantity-selector/store/selectors"
+import { selectQuantitySelector } from "@/features/common/quantity-selector/store/selectors"
 
 interface IProductDetail {
     product_id?: string;
@@ -35,76 +33,63 @@ interface IProductDetail {
 export default function ProductDetail(
     { product_id = "", shop_id = "" }: IProductDetail
 ) {
-    // const searchParams = useSearchParams()
-    // const idx = searchParams.get("idx")
-    const { option_idx: sku_tier_idx, optionsCount } = useAppSelector(selectOptionsStoreKey(PRO_DETAIL));
-    const { itemQuantity } = useAppSelector(
-        selectQuantitySelectorByStoreKey(PRO_DETAIL)
-    );
 
     return (
-        <ProProvider
-            contextValues={{
-                product_id,
-                shop_id,
-                sku_tier_idx,
-                optionsCount,
-                itemQuantity
-
-            }}>
-            <ProWrapper>
-                <ProSpuContainer >
-                    <Card className="border-none shadow-none">
-                        <CardHeader className="py-3">
-                            <ProBreadcrumb />
-                        </CardHeader>
-                        <CardContent
-                            className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 pb-0"
-                        >
-                            <div className="md:col-span-3 col-span-3 order-0">
-                                <Card
-                                    layout="horizontal"
-                                    className="rounded-none"
-                                >
-                                    <CardContent className="p-3 ">
-                                        <div className="grid grid-cols-1 lg:grid-cols-5 gap-3">
-                                            <div className="lg:col-span-2 lg:order-1 md:row-span-1">
-                                                <ProThumbnailGallery />
-                                            </div>
-                                            <div className="lg:col-span-2 lg:order-3 md:row-span-1 flex items-center justify-center space-x-3">
-                                                <ProSocialsShare />
-                                                <Separator orientation="vertical" />
-                                                <ProWishListToggle />
-                                            </div>
-                                            <div className="lg:col-span-3 lg:order-2 md:row-span-2">
-                                                <ProTitle />
-                                                <ProReviewStar />
-                                                <ProSkuContainer>
-                                                    <ProPriceDisplay />
-                                                    <ProVariantsSelector />
-                                                    <ProQuantitySelector />
-
-                                                    <ProActions />
-                                                </ProSkuContainer>
-                                            </div>
+        <ProWrapper>
+            <ProSpuContainer
+                product_id={product_id}
+            >
+                <Card className="border-none shadow-none">
+                    <CardHeader className="py-3">
+                        <ProBreadcrumb />
+                    </CardHeader>
+                    <CardContent
+                        className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 pb-0"
+                    >
+                        <div className="md:col-span-3 col-span-3 order-0">
+                            <Card
+                                layout="horizontal"
+                                className="rounded-none"
+                            >
+                                <CardContent className="p-3 ">
+                                    <div className="grid grid-cols-1 lg:grid-cols-5 gap-3">
+                                        <div className="lg:col-span-2 lg:order-1 md:row-span-1">
+                                            <ProThumbnailGallery />
                                         </div>
-                                    </CardContent>
-                                </Card>
-                            </div>
-                            <div className="lg:col-span-3 col-span-3 md:order-1 order-2">
-                                <ProShopInfo />
-                            </div>
-                            <div className="lg:col-span-2 col-span-3 md:order-1 order-2">
-                                <ProDescriptionContent />
-                            </div>
-                            <div className="lg:col-span-1 col-span-3 md:order-2 order-1">
-                                <ProSpecifications />
-                            </div>
-                        </CardContent>
-                    </Card>
-                </ProSpuContainer>
-                {/* <ProductReview /> */}
-            </ProWrapper>
-        </ProProvider >
+                                        <div className="lg:col-span-2 lg:order-3 md:row-span-1 flex items-center justify-center space-x-3">
+                                            <ProSocialsShare />
+                                            <Separator orientation="vertical" />
+                                            <ProWishListToggle />
+                                        </div>
+                                        <div className="lg:col-span-3 lg:order-2 md:row-span-2">
+                                            <ProTitle />
+                                            <ProReviewStar />
+                                            <ProSkuContainer
+                                                product_id={product_id}
+                                            >
+                                                <ProPriceDisplay />
+                                                <ProVariantsSelector />
+                                                <ProQuantitySelector />
+                                                <ProActions />
+                                            </ProSkuContainer>
+                                        </div>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        </div>
+                        <div className="lg:col-span-3 col-span-3 md:order-1 order-2">
+                            <ProShopInfo shop_id={shop_id} />
+                        </div>
+                        <div className="lg:col-span-2 col-span-3 md:order-1 order-2">
+                            <ProDescriptionContent />
+                        </div>
+                        <div className="lg:col-span-1 col-span-3 md:order-2 order-1">
+                            <ProSpecifications />
+                        </div>
+                    </CardContent>
+                </Card>
+            </ProSpuContainer>
+            {/* <ProductReview /> */}
+        </ProWrapper>
     );
 }

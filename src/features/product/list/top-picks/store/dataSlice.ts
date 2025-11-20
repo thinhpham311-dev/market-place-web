@@ -23,31 +23,23 @@ interface IErrorPayload {
 }
 
 
-export const getProductList = createAsyncThunk<ProductListResponse, IFilter, { rejectValue: IErrorPayload | string }
->(
-    'proTopPicksList/data/getList',
-    async (params: IFilter, { rejectWithValue, dispatch }) => {
-        try {
-            const data = await dispatch({
-                type: "api/fetch",
-                payload: {
-                    key: PRO_TOPPICKS_LIST_CACHE_KEY,
-                    params,
-                    apiFn: apiPostProductsList,
-                    options: {
-                        TTL: PRO_TOPPICKS_LIST_TTL,
-                        retries: PRO_TOPPICKS_LIST_RETRIES,
-                        retryDelay: PRO_TOPPICKS_LIST_RETRY_DELAY,
-                        tags: [PRO_TOPPICKS_LIST_TAG],
-                    },
-                },
-            }) as unknown as ProductListResponse;
 
-            return data;
+
+export const getProductList = createAsyncThunk<ProductListResponse, IFilter>(
+    'proTopPicksList/data/getList',
+    async (params: IFilter, { rejectWithValue }) => {
+        try {
+            const response = await apiPostProductsList(params) as
+                {
+                    data: ProductListResponse
+                };
+            return response.data;
         } catch (error: any) {
             return rejectWithValue(error?.response?.data || error.message);
         }
     });
+
+
 
 interface ProductState {
     list: ISpuPro[];

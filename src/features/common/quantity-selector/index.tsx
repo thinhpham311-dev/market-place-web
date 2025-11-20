@@ -1,5 +1,5 @@
 "use client";
-import * as React from "react";
+import { memo } from "react";
 
 
 // components
@@ -16,6 +16,7 @@ import QuantitySelectorProvider from "./providers";
 import { useHandleQuantitySelector } from "./hooks";
 
 interface IQuantitySelectorProps {
+    reducerKey: string;
     storeKey: string;
     initialValue: number;
     maxQuantity?: number;
@@ -25,8 +26,8 @@ interface IQuantitySelectorProps {
     error?: string | { message?: string } | null;
 }
 
-const QuantitySelector = ({ storeKey = "", initialValue = 1, maxQuantity = 0, ...rest }: IQuantitySelectorProps) => {
-    const quantitySelector = useHandleQuantitySelector({ storeKey, initialValue, maxQuantity });
+const QuantitySelector = ({ reducerKey = "", storeKey = "", initialValue = 1, maxQuantity = 0, ...rest }: IQuantitySelectorProps) => {
+    const quantitySelector = useHandleQuantitySelector({ reducerKey, storeKey, initialValue, maxQuantity });
 
     return (
         <QuantitySelectorProvider contextValues={{ ...quantitySelector, ...rest }}>
@@ -40,4 +41,4 @@ const QuantitySelector = ({ storeKey = "", initialValue = 1, maxQuantity = 0, ..
     );
 }
 
-export default QuantitySelector
+export default memo(QuantitySelector)
