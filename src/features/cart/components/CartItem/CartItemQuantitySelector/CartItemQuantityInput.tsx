@@ -15,7 +15,7 @@ const CartItemQuantityInput = ({
     maxQuantity,
     data
 }: ICartItemQuantityInputProps) => {
-    const { updateQtyItem, loading, error } = useShoppingCartContext();
+    const { loading, error } = useShoppingCartContext();
     const { itemSkuId } = data
     // const handleQuantityChange = (value: number) => {
     //     // Nếu không đổi thì không làm gì để tránh gọi API vô nghĩa

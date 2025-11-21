@@ -7,11 +7,15 @@ interface OptionState {
     validationErrors: string[];
 }
 
+
+
 const initialState: OptionState = {
     options: [],
     selectedOptions: [],
     validationErrors: [],
 };
+
+
 
 const optionSlice = createSlice({
     name: "option/state",

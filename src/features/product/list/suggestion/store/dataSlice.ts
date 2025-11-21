@@ -2,14 +2,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { apiPostProductsList } from '@/features/product/list/suggestion/services';
 import { ISpuPro, IFilter } from '@/interfaces/spu';
 
-import {
-    PRO_SUGGESTION_LIST_CACHE_KEY,
-    PRO_SUGGESTION_LIST_RETRY_DELAY,
-    PRO_SUGGESTION_LIST_RETRIES,
-    PRO_SUGGESTION_LIST_TTL,
-    PRO_SUGGESTION_LIST_TAG
-} from "@/features/product/list/suggestion/constants";
-
 
 type ProductListResponse = {
     metadata:

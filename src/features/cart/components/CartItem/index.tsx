@@ -11,7 +11,7 @@ import { CartItemVariantsView } from "@/features/cart/components/CartItem/CartIt
 import { CartItemQuantityView } from '@/features/cart/components/CartItem/CartItemQuantitySelector';
 import { ICartItem } from '@/interfaces/cart';
 import { useRouter } from "next/navigation"
-import CartItemActions from './CartItemActions';
+import CartItemRemove from './CartItemActions/CartItemRemove';
 
 interface ICartItemProps {
     data: ICartItem
@@ -80,7 +80,7 @@ const CartItem = ({
 
                     {/* Actions: chiếm 2 cột (ngang 2 hàng) */}
                     <div className="col-auto row-span-2 row-end-4 col-start-6">
-                        <CartItemActions itemSkuId={itemSkuId} itemShopId={itemShopId} />
+                        <CartItemRemove itemSkuId={itemSkuId} itemShopId={itemShopId} />
                     </div>
                 </div>
             </CardContent>

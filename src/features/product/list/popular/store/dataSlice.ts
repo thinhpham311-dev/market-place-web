@@ -1,13 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { apiPostProductsList } from '@/features/product/list/popular/services'
 import { IFilter, ISpuPro } from '@/interfaces/spu';
-import {
-    PRO_POPULAR_LIST_CACHE_KEY,
-    PRO_POPULAR_LIST_RETRY_DELAY,
-    PRO_POPULAR_LIST_RETRIES,
-    PRO_POPULAR_LIST_TTL,
-    PRO_POPULAR_LIST_TAG
-} from "@/features/product/list/popular/constants";
 
 type ProductListResponse = {
     metadata:

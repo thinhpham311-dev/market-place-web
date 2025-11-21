@@ -7,7 +7,7 @@ import CartItemPrice from "../../components/CartItem/CartItemPrice"
 import CartItemName from "../../components/CartItem/CartItemName"
 import CartItemImage from "../../components/CartItem/CartItemImage"
 import { CartItemVariantsView } from "../../components/CartItem/CartItemVariantsSelector"
-import CartItemActions from "../../components/CartItem/CartItemActions"
+import CartItemRemove from "../../components/CartItem/CartItemActions/CartItemRemove"
 import { CartItemQuantityInput } from "../../components/CartItem/CartItemQuantitySelector"
 
 
@@ -148,8 +148,8 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
         cell: ({ row }) => {
             const item = row.original as ICartItem
             return (
-                <div onClick={() => row.toggleExpanded(true)}>
-                    <CartItemActions
+                <div className="float-end">
+                    <CartItemRemove
                         itemSkuId={item.itemSkuId}
                         itemShopId={item.itemShopId} />
                 </div>

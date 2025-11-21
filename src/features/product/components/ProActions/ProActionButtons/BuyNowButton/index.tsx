@@ -1,53 +1,63 @@
 "use client";
 
-import React from "react";
-import { Button } from "@/components/ui";
-import Loading from "./Loading";
-import NotFound from "./NotFound";
-import { MdShoppingCartCheckout } from "react-icons/md";
-import { useShoppingCartContext } from "@/features/cart/hooks";
-import { ISkuPro } from "@/interfaces/sku";
-import { ISpuPro } from "@/interfaces/spu";
+import React, { memo, useMemo } from "react";
 import { ICartItem } from "@/interfaces/cart";
+import CartBuyNow from "@/features/cart/cart-add"
+
+import { mapCartItem } from "@/features/cart/helpers";
+
+//actions & selectors
+import { selectQuantitySelector } from "@/features/common/quantity-selector/store/selectors";
 
 
-interface BuyNowButtonProps {
-    item: ICartItem;
-    disabled?: boolean;
-}
+//hooks
+import { useSpuContext } from "@/features/spu/hooks";
+import { useSkuContext } from "@/features/sku/hooks";
+import { useAppSelector } from "@/lib/hooks";
 
-const BuyNowButton = ({ item, disabled }: BuyNowButtonProps) => {
-    const { loading, error } = useShoppingCartContext();
 
-    const handleBuyNow = () => {
-        if (!item) return;
-        // ✅ Có thể redirect sang checkout sau này
-        console.log("Proceed to checkout:", { item });
-    };
+//constants
+import { PRO_DETAIL } from "@/features/product/constants";
 
-    if (loading) {
-        return (
-            <Loading />
-        );
-    }
+//icons
+import { MdShoppingCartCheckout } from "react-icons/md";
 
-    if (error) {
-        return (
-            <NotFound />
-        );
-    }
+const BuyNowButton = () => {
+    const { spu, loading: spuLoading, error: spuError } = useSpuContext();
+    const { sku, loading: skuLoading, error: skuError } = useSkuContext();
+
+    const { itemQuantity } = useAppSelector(
+        selectQuantitySelector(PRO_DETAIL, PRO_DETAIL)
+    );
+
+    const loading = spuLoading && skuLoading;
+
+    const error = spuError && skuError;
+
+    const data: ICartItem | null = useMemo(() => {
+        if (!spu || !sku) return null;
+
+        return mapCartItem({
+            spu,
+            sku,
+            itemQuantity,
+        });
+    }, [spu, sku, itemQuantity]);
+
+    const isDisabled = !data || itemQuantity >= sku.sku_stock;
 
     return (
-        <Button
+        <CartBuyNow
+            href="/checkout"
             size="lg"
-            variant="default"
-            onClick={handleBuyNow}
-            disabled={disabled}
-        >
-            <MdShoppingCartCheckout />
-            <span>Buy Now</span>
-        </Button>
+            icon={<MdShoppingCartCheckout />}
+            label="Buy Now"
+            item={data}
+            isLoading={loading}
+            isError={error}
+            disabled={isDisabled}
+        />
     );
 };
 
-export default React.memo(BuyNowButton);
+export default memo(BuyNowButton);

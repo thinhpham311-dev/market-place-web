@@ -1,59 +1,63 @@
 "use client";
 
-import React, { useCallback } from "react";
-import { Button } from "@/components/ui";
-import Loading from "./Loading";
-import NotFound from "./NotFound";
-import { MdAddShoppingCart } from "react-icons/md";
-import { useShoppingCartContext } from "@/features/cart/hooks";
+import React, { memo, useMemo } from "react";
+
+//hooks
 import { useSpuContext } from "@/features/spu/hooks";
 import { useSkuContext } from "@/features/sku/hooks";
 import { useAppSelector } from "@/lib/hooks";
-import { selectQuantitySelector } from "@/features/common/quantity-selector/store/selectors"
-import { PRO_DETAIL } from "@/features/product/constants"
+
 import { ICartItem } from "@/interfaces/cart";
+import CartAddItem from "@/features/cart/cart-add"
+
 import { mapCartItem } from "@/features/cart/helpers";
 
-interface AddToCartButtonProps {
-    item: ICartItem
-    disabled?: boolean;
-}
+//actions & selectors
+import { selectQuantitySelector } from "@/features/common/quantity-selector/store/selectors";
 
-const AddToCartButton = ({ item, disabled }: AddToCartButtonProps) => {
-    const { addItem, loading, error } = useShoppingCartContext();
 
+///constants
+import { PRO_DETAIL } from "@/features/product/constants";
+
+//icons
+import { MdAddShoppingCart } from "react-icons/md";
+
+const AddToCartButton = () => {
     const { spu, loading: spuLoading, error: spuError } = useSpuContext();
     const { sku, loading: skuLoading, error: skuError } = useSkuContext();
-    const { itemQuantity } = useAppSelector(selectQuantitySelector(PRO_DETAIL, PRO_DETAIL))
 
-    const handleAddToCart = () => {
-        if (!item) return;
-        addItem(item);
-    };
+    const { itemQuantity } = useAppSelector(
+        selectQuantitySelector(PRO_DETAIL, PRO_DETAIL)
+    );
 
-    if (loading) {
-        return (
-            <Loading />
-        );
-    }
+    const loading = spuLoading && skuLoading;
 
-    if (error) {
-        return (
-            <NotFound />
-        );
-    }
+    const error = spuError && skuError;
+
+    const data: ICartItem | null = useMemo(() => {
+        if (!spu || !sku) return null;
+
+        return mapCartItem({
+            spu,
+            sku,
+            itemQuantity,
+        });
+    }, [spu, sku, itemQuantity]);
+
+    const isDisabled = !data || itemQuantity >= sku.sku_stock;
 
     return (
-        <Button
+        <CartAddItem
             size="lg"
-            variant="outline"
-            onClick={handleAddToCart}
-            disabled={disabled}
-        >
-            <MdAddShoppingCart />
-            <span>Add to Cart</span>
-        </Button>
+            icon={<MdAddShoppingCart />}
+            label="Add To Cart"
+            variant="secondary"
+            item={data}
+            isLoading={loading}
+            isError={error}
+            disabled={isDisabled}
+        />
     );
 };
 
-export default React.memo(AddToCartButton);
+export default memo(AddToCartButton);

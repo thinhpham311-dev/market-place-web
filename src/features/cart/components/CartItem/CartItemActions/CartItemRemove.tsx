@@ -8,12 +8,12 @@ import {
 import { MdClose } from "react-icons/md";
 import { useShoppingCartContext } from '@/features/cart/hooks';
 
-interface ICartItemActionsProps {
+interface ICartItemRemoveProps {
     itemSkuId: string;
     itemShopId: string;
 }
 
-const CartItemActions = ({ itemSkuId, itemShopId }: ICartItemActionsProps) => {
+const CartItemRemove = ({ itemSkuId, itemShopId }: ICartItemRemoveProps) => {
     const { removeItem } = useShoppingCartContext()
     const onHandleRemove = () => {
         removeItem(itemSkuId, itemShopId)
@@ -36,4 +36,4 @@ const CartItemActions = ({ itemSkuId, itemShopId }: ICartItemActionsProps) => {
     );
 };
 
-export default CartItemActions;
+export default CartItemRemove;

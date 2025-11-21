@@ -1,13 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { apiPostProductsList } from '@/features/product/list/top-picks/services'
 import { IFilter, ISpuPro } from '@/interfaces/spu';
-import {
-    PRO_TOPPICKS_LIST_CACHE_KEY,
-    PRO_TOPPICKS_LIST_RETRY_DELAY,
-    PRO_TOPPICKS_LIST_RETRIES,
-    PRO_TOPPICKS_LIST_TTL,
-    PRO_TOPPICKS_LIST_TAG
-} from "@/features/product/list/top-picks/constants";
 
 type ProductListResponse = {
     metadata:
@@ -16,13 +9,6 @@ type ProductListResponse = {
         total: number;
     };
 };
-
-interface IErrorPayload {
-    message: string;
-    [key: string]: any;
-}
-
-
 
 
 export const getProductList = createAsyncThunk<ProductListResponse, IFilter>(

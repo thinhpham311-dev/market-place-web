@@ -1,0 +1,45 @@
+"use client";
+
+import React, { memo } from "react";
+import LoadingSkeleton from "./Loading";
+import NotFound from "./NotFound";
+import { useRouter } from "next/navigation";
+
+import { useShoppingCartContext } from "@/features/cart/hooks";
+import { ICartItem } from "@/interfaces/cart";
+import CartButtonBase from "@/features/cart/components/CartButtonBase";
+import { ICartButtonBaseProps } from "@/features/cart/components/CartButtonBase"
+
+interface CartAddItemProps extends ICartButtonBaseProps {
+    item?: ICartItem | null;
+    isLoading: boolean;
+    isError: string;
+    disabled?: boolean;
+    href?: string
+}
+
+const CartAddItem = ({ item, disabled, isLoading, isError, href = "", ...rest }: CartAddItemProps) => {
+    const router = useRouter()
+
+    const { addItem, loading, error } = useShoppingCartContext();
+
+    const handleAddToCart = () => {
+        if (!item) return;
+        addItem(item);
+        if (!href) return;
+        router.push(href)
+    };
+
+    if (isLoading || loading) return <LoadingSkeleton />;
+    if (isError || error) return <NotFound />;
+
+    return (
+        <CartButtonBase
+            {...rest}
+            disabled={disabled}
+            onClick={handleAddToCart}
+        />
+    );
+};
+
+export default memo(CartAddItem);
