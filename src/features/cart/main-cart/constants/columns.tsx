@@ -1,3 +1,4 @@
+"use client";
 import { useRouter } from "next/navigation"
 import { ColumnDef } from "@tanstack/react-table"
 import { ICartItem } from "@/interfaces/cart"

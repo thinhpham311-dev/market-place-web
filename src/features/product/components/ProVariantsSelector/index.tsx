@@ -29,8 +29,9 @@ const ProVariantsSelector = (() => {
     return (
         <OptionSelector
             layout="horizontal"
+            reducerKey={PRO_DETAIL}
             storeKey={PRO_DETAIL}
-            initialValue={variants}
+            initialOptions={variants}
             loading={isLoading}
             error={error}
         />

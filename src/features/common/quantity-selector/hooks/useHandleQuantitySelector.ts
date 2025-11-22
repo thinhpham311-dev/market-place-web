@@ -1,6 +1,6 @@
-import { useCallback, useLayoutEffect } from "react";
+import { useCallback, useEffect, useLayoutEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { setQuantity, setErrorMessages, resetQuantity } from "../store/stateSlice";
+import { setInitialState, setQuantity, setErrorMessages, resetQuantity } from "../store/stateSlice";
 import { selectQuantitySelector } from "../store/selectors";
 import { injectReducer, removeReducer } from "@/store";
 import reducer from "../store";
@@ -10,14 +10,14 @@ interface IUseHandleQuantitySelector {
     reducerKey: string;
     storeKey: string;
     maxQuantity: number;
-    initialValue: number;
+    initialQuantity: number;
 }
 
 export function useHandleQuantitySelector({
     reducerKey,
     storeKey,
     maxQuantity,
-    initialValue,
+    initialQuantity,
 }: IUseHandleQuantitySelector) {
     const dispatch = useAppDispatch();
 
@@ -39,21 +39,25 @@ export function useHandleQuantitySelector({
         // Inject reducer
         injectReducer(dynamicReducerKey, reducer);
 
-        // Initialize state
-        dispatch(setQuantity({ storeKey, quantity: initialValue }));
-        dispatch(setErrorMessages({ storeKey, messages: validateQuantity(initialValue) }));
-
         return () => {
-            dispatch(resetQuantity({ storeKey }));
+            dispatch(resetQuantity({ storeKey }))
             removeReducer(dynamicReducerKey);
         };
-    }, [dispatch, reducerKey, storeKey, initialValue, validateQuantity]);
+
+    }, [dispatch, reducerKey, storeKey, validateQuantity]);
+
+    useEffect(() => {
+        const initialValue = {
+            currentQuantity: initialQuantity,
+            errorMessages
+        }
+        dispatch(setInitialState({ storeKey, initialValue }))
+    }, [dispatch, storeKey, initialQuantity])
 
     // Select from dynamic slice
-    const { itemQuantity, errorMessages } = useAppSelector(
+    const { currentQuantity, errorMessages } = useAppSelector(
         selectQuantitySelector(reducerKey, storeKey)
     );
-
 
     const handleQuantityChange = useCallback(
         (newQuantity: number) => {
@@ -66,16 +70,12 @@ export function useHandleQuantitySelector({
     );
 
     const resetQuantityHandler = useCallback(() => {
-        dispatch(resetQuantity({ storeKey }));
-        dispatch(setQuantity({ storeKey, quantity: initialValue }));
-        dispatch(
-            setErrorMessages({ storeKey, messages: validateQuantity(initialValue) })
-        );
-    }, [dispatch, storeKey, initialValue, validateQuantity]);
+        dispatch(resetQuantity({ storeKey }))
+    }, [dispatch, storeKey, initialQuantity, validateQuantity]);
 
     return {
         maxQuantity,
-        itemQuantity,
+        currentQuantity,
         errorMessages,
         handleQuantityChange,
         resetQuantity: resetQuantityHandler,

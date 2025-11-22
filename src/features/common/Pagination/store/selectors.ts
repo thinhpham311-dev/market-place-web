@@ -2,9 +2,9 @@ import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "@/store";
 import { PAGINATION } from "@/features/common/pagination/constants"
 
-export const makeSelectPaginationState = (storeKey: string) =>
+export const makeSelectPaginationState = (reducerKey: string, storeKey: string) =>
     createSelector(
-        (state: RootState) => state[`${PAGINATION}_${storeKey}`] ? state[`${PAGINATION}_${storeKey}`].state : null,
+        (state: RootState) => state[`${PAGINATION}_${reducerKey}`]?.state[storeKey] ?? null,
         (paginationState) => ({
             currentPage: paginationState?.currentPage,
             totalPages: paginationState?.totalPages,
@@ -12,11 +12,19 @@ export const makeSelectPaginationState = (storeKey: string) =>
         })
     );
 
-const paginationSelectorsCache: Record<string, ReturnType<typeof makeSelectPaginationState>> = {};
 
-export const selectPaginationByStoreKey = (storeKey: string) => {
-    if (!paginationSelectorsCache[storeKey]) {
-        paginationSelectorsCache[storeKey] = makeSelectPaginationState(storeKey);
+const selectorCache: Record<
+    string,
+    Record<string, ReturnType<typeof makeSelectPaginationState>>
+> = {};
+
+
+export const selectPaginationByStoreKey = (reducerKey: string, storeKey: string) => {
+    if (!selectorCache[reducerKey]) {
+        selectorCache[reducerKey] = {};
     }
-    return paginationSelectorsCache[storeKey];
+    if (!selectorCache[reducerKey][storeKey]) {
+        selectorCache[reducerKey][storeKey] = makeSelectPaginationState(reducerKey, storeKey);
+    }
+    return selectorCache[reducerKey][storeKey];
 };

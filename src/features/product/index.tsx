@@ -1,4 +1,4 @@
-"use client";
+
 //ui
 import { Card, CardHeader, CardContent, Separator } from "@/components/ui"
 // Components

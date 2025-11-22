@@ -14,3 +14,13 @@ export function getBaseUrl() {
   }
   return `http://localhost:${process.env.PORT ?? 3000}`;
 }
+
+export function ensureItem<T extends object>(
+  state: Record<string, T>,
+  storeKey: string,
+  defaultValue: T
+) {
+  if (!state[storeKey]) {
+    state[storeKey] = defaultValue;
+  }
+}

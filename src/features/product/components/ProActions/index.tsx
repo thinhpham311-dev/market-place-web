@@ -1,6 +1,5 @@
 "use client";
 
-import React, { memo } from "react";
 
 import { Card, CardContent } from "@/components/ui";
 import AddToCartButton from "./ProActionButtons/AddToCartButton";
@@ -19,4 +18,4 @@ const ProActions = () => {
     );
 };
 
-export default memo(ProActions);
+export default ProActions

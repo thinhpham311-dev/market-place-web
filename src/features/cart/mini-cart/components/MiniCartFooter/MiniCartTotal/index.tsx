@@ -1,4 +1,3 @@
-import React from "react";
 import { CardTitle } from "@/components/ui";
 import Loading from "./Loading";
 import NotFound from "./NotFound";

@@ -9,19 +9,20 @@ import OptionSelectorProvider from "./providers";
 import { Option } from "./types";
 
 interface IOptionSelectorProps {
+    reducerKey: string;
     storeKey: string;
-    initialValue?: Option[];
+    initialOptions?: Option[];
     loading?: boolean;
     error?: string | { message?: string } | null;
-    defaultOptionIdx?: (number | null)[];
+    defaultOptionIdx?: (Option | null)[];
     title?: string;
     layout?: "vertical" | "horizontal";
     layoutItems?: "vertical" | "horizontal";
 }
 
 
-const OptionSelector = (({ storeKey, initialValue = [], defaultOptionIdx = [], ...rest }: IOptionSelectorProps) => {
-    const optionSelector = useHandleOptionSelector({ storeKey, initialValue, defaultOptionIdx });
+const OptionSelector = (({ reducerKey, storeKey, initialOptions = [], defaultOptionIdx = [], ...rest }: IOptionSelectorProps) => {
+    const optionSelector = useHandleOptionSelector({ reducerKey, storeKey, initialOptions, defaultOptionIdx });
 
     return (
         <OptionSelectorProvider contextValues={{ ...optionSelector, ...rest }}>

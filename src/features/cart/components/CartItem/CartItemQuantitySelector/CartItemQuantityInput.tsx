@@ -6,7 +6,7 @@ import { SHOPPING_CART } from "@/features/cart/constants";
 
 interface ICartItemQuantityInputProps {
     currentQuantity: number;
-    maxQuantity?: number;
+    maxQuantity: number;
     data: ICartItem
 }
 
@@ -30,7 +30,7 @@ const CartItemQuantityInput = ({
         <QuantitySelector
             reducerKey={SHOPPING_CART}
             storeKey={`${SHOPPING_CART}_${itemSkuId}`}
-            initialValue={currentQuantity}
+            initialQuantity={currentQuantity}
             maxQuantity={maxQuantity}
             loading={loading}
             error={error}

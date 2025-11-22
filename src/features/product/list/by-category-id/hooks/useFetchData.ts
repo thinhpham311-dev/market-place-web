@@ -30,7 +30,7 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
 
     // Selectors
     const { currentPage = 1, limit = 15 } = useAppSelector(
-        selectPaginationByStoreKey(PRO_LIST_BY_CATEGORYID)
+        selectPaginationByStoreKey(PRO_LIST_BY_CATEGORYID, PRO_LIST_BY_CATEGORYID)
     );
 
     const { filter } = useAppSelector(

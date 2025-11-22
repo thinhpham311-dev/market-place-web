@@ -45,6 +45,7 @@ export default function ProSearchList() {
                     isLoading={loading}
                 />
                 <Pagination
+                    reducerKey={PRO_SEARCH_LIST}
                     storeKey={PRO_SEARCH_LIST}
                     isShowDot
                     isShowNav

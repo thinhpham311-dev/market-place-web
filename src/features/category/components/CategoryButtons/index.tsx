@@ -1,6 +1,4 @@
-"use client";
 
-import React from "react";
 import {
     Card,
     CardContent,
@@ -86,4 +84,4 @@ const CategoryButtons: React.FC<ButtonsProps> = ({
     );
 };
 
-export default React.memo(CategoryButtons);
+export default CategoryButtons;

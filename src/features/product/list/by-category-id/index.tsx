@@ -39,6 +39,7 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
                                 </div>
                                 <div>
                                     <Pagination
+                                        reducerKey={PRO_LIST_BY_CATEGORYID}
                                         storeKey={PRO_LIST_BY_CATEGORYID}
                                         isShowNav
                                         initialLimit={10}
@@ -60,6 +61,7 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
 
                         <CardFooter className="p-3 justify-center">
                             <Pagination
+                                reducerKey={PRO_LIST_BY_CATEGORYID}
                                 storeKey={PRO_LIST_BY_CATEGORYID}
                                 isShowDot
                                 isShowNav

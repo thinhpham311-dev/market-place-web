@@ -1,4 +1,3 @@
-"use client";
 
 import { CardFooter } from "@/components/ui";
 import VoucherSection from "./VoucherSection";

@@ -1,4 +1,4 @@
-"use client";
+
 import CartListView from "@/features/cart/components/CartListView";
 import { DropdownMenuItem, DropdownMenuGroup } from "@radix-ui/react-dropdown-menu";
 import { useShoppingCartContext } from "@/features/cart/hooks";

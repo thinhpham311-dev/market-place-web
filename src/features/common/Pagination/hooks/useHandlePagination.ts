@@ -1,4 +1,4 @@
-import { useLayoutEffect, useMemo } from "react";
+import { useLayoutEffect, useEffect, useMemo } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import {
     setPage,
@@ -12,40 +12,41 @@ import reducer from "@/features/common/pagination/store";
 import { PAGINATION } from "../constants";
 
 interface IUseHandlePaginationProps {
+    reducerKey: string;
     initialTotal?: number;
     initialLimit?: number;
     siblingCount?: number;
     storeKey: string;
 }
+const DOTS = "...";
 
 export function useHandlePagination({
+    reducerKey,
+    storeKey,
     initialTotal = 0,
     initialLimit = 0,
     siblingCount = 1,
-    storeKey,
 }: IUseHandlePaginationProps) {
 
     const dispatch = useAppDispatch();
     useLayoutEffect(() => {
-        const reducerKey = `${PAGINATION}_${storeKey}`;
-        injectReducer(reducerKey, reducer);
+        const dynamicReducerKey = `${PAGINATION}_${reducerKey}`;
+        injectReducer(dynamicReducerKey, reducer);
 
         return () => {
             dispatch(resetPagination())
             removeReducer(reducerKey);
         };
-    }, [storeKey, dispatch]);
+    }, [reducerKey, storeKey, dispatch]);
 
 
     const { currentPage, totalPages, limit: storeLimit } = useAppSelector(
-        selectPaginationByStoreKey(storeKey)
+        selectPaginationByStoreKey(reducerKey, storeKey)
     );
 
-
-    // Set limit and total pages when totalItems or limit changes
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (initialLimit) {
-            dispatch(setLimit(initialLimit)); // Automatically resets currentPage to 1
+            dispatch(setLimit(initialLimit));
         }
 
         if (initialTotal && initialLimit) {
@@ -54,7 +55,6 @@ export function useHandlePagination({
         }
     }, [initialLimit, initialTotal, dispatch]);
 
-    const DOTS = "...";
 
     const paginationRange = useMemo(
         () => calculatePaginationRange(currentPage, totalPages, siblingCount, DOTS),

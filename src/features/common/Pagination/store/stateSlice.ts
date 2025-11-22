@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface ICommon {
+interface IPagination {
     limit: number;
     currentPage: number;
     totalPages: number;
 }
 
-export const initialState: ICommon = {
+export const initialState: IPagination = {
     limit: 0,
     currentPage: 1,
     totalPages: 1,

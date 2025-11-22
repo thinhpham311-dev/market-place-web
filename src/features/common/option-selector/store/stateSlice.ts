@@ -1,43 +1,53 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Option } from "@/features/common/option-selector/types";
 
-interface OptionState {
-    options: (Option | null)[],
-    selectedOptions: (Option | null)[];
+interface IOption {
+    options: (Option | null)[];
+    selectedOptions: (Option | number | null)[];
     validationErrors: string[];
 }
 
+interface IState {
+    [storeKey: string]: IOption;
+}
 
-
-const initialState: OptionState = {
-    options: [],
-    selectedOptions: [],
-    validationErrors: [],
-};
-
-
+const initialState: IState = {};
 
 const optionSlice = createSlice({
     name: "option/state",
     initialState,
     reducers: {
-        initialOptions(state, action) {
-            state.options = action.payload;
-            state.validationErrors = [];
+        setInitialState: (
+            state,
+            action: PayloadAction<{ storeKey: string; initialValue: IOption }>
+        ) => {
+            const { storeKey, initialValue } = action.payload;
+            state[storeKey] = initialValue
         },
-        setSelectedOption: (state, action) => {
-            const { index, value } = action.payload
-            state.selectedOptions[index] = value;
+        setSelectedOption: (
+            state,
+            action: PayloadAction<{ storeKey: string; currentValue: { index: number; value: Option | number | null } }>
+        ) => {
+            const { storeKey, currentValue } = action.payload;
+            const { index, value } = currentValue
+            state[storeKey].selectedOptions[index] = value;
         },
-        setValidationErrors: (state, action) => {
-            state.validationErrors = action.payload;
+        setValidationErrors: (
+            state,
+            action: PayloadAction<{ storeKey: string; errors: string[] }>
+        ) => {
+            const { storeKey, errors } = action.payload;
+            state[storeKey].validationErrors = errors;
         },
-        resetOptions: (state) => {
-            state.selectedOptions = [];
-            state.validationErrors = [];
+        resetOptions: (state, action: PayloadAction<{ storeKey: string }>) => {
+            const { storeKey } = action.payload;
+            state[storeKey].selectedOptions = [];
+            state[storeKey].validationErrors = [];
         },
     },
 });
 
-export const { initialOptions, setSelectedOption, setValidationErrors, resetOptions } = optionSlice.actions;
+export const { setInitialState, setSelectedOption, setValidationErrors, resetOptions } =
+    optionSlice.actions;
+
 export default optionSlice.reducer;

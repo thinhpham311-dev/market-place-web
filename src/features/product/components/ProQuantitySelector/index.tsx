@@ -21,13 +21,13 @@ const ProQuantitySelector = () => {
     if (showError) return <NotFound message={spuError || "Something went wrong."} />;
     if (showNotFound) return <NotFound />;
 
-    const storeKey = `${PRO_DETAIL}_${sku?.sku_id || "default"}`;
+    // const storeKey = `${PRO_DETAIL}_${sku?.sku_id || "default"}`;
 
     return (
         <QuantitySelector
             reducerKey={PRO_DETAIL}
-            storeKey={storeKey}
-            initialValue={1}
+            storeKey={PRO_DETAIL}
+            initialQuantity={1}
             title="Quantity"
             layout="horizontal"
             maxQuantity={sku?.sku_stock ?? 0}

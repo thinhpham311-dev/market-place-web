@@ -23,7 +23,7 @@ const QuantitySelectorCounter = () => {
         handleQuantityChange,
         resetQuantity,
         maxQuantity,
-        itemQuantity,
+        currentQuantity,
     } = useQuantitySelectorContext();
 
 
@@ -37,7 +37,7 @@ const QuantitySelectorCounter = () => {
     return (
         <CardContent className="p-3 space-x-3 flex items-center">
             <Counter
-                initialValue={itemQuantity}
+                initialValue={currentQuantity}
                 maxValue={maxQuantity}
                 ref={counterRef}
                 onQuantityChange={handleQuantityChange}

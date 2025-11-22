@@ -6,7 +6,10 @@ export const makeSelectQuantitySelectorState = (reducerKey: string, storeKey: st
     createSelector(
         (state: RootState) =>
             state[`${QUANTITY_COUNTER}_${reducerKey}`]?.state[storeKey] ?? null,
-        (quantityState) => quantityState || { itemQuantity: 1, errorMessages: [] }
+        (quantityState) => ({
+            currentQuantity: quantityState?.currentQuantity ?? 1,
+            errorMessages: quantityState?.errorMessages ?? []
+        })
     );
 
 const selectorCache: Record<

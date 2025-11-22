@@ -26,7 +26,7 @@ const BuyNowButton = () => {
     const { spu, loading: spuLoading, error: spuError } = useSpuContext();
     const { sku, loading: skuLoading, error: skuError } = useSkuContext();
 
-    const { itemQuantity } = useAppSelector(
+    const { currentQuantity } = useAppSelector(
         selectQuantitySelector(PRO_DETAIL, PRO_DETAIL)
     );
 
@@ -36,15 +36,15 @@ const BuyNowButton = () => {
 
     const data: ICartItem | null = useMemo(() => {
         if (!spu || !sku) return null;
-
+        if (!currentQuantity) return null
         return mapCartItem({
             spu,
             sku,
-            itemQuantity,
+            itemQuantity: currentQuantity,
         });
-    }, [spu, sku, itemQuantity]);
+    }, [spu, sku, currentQuantity]);
 
-    const isDisabled = !data || itemQuantity >= sku.sku_stock;
+    const isDisabled = !data || currentQuantity >= sku.sku_stock;
 
     return (
         <CartBuyNow

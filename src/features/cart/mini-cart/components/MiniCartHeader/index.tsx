@@ -1,4 +1,4 @@
-"use client";
+
 import { DropdownMenuLabel } from "@/components/ui";
 import CartTitle from "./MiniCartTitle";
 import MiniCartViewMoreButton from "./MiniCartViewMoreButton";

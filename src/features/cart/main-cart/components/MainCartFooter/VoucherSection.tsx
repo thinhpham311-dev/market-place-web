@@ -1,4 +1,3 @@
-"use client";
 
 import { Button } from "@/components/ui";
 import { Tickets, ChevronRight } from "lucide-react";

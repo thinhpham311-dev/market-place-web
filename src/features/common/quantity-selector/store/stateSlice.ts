@@ -1,36 +1,48 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface QuantityItem {
-    itemQuantity: number;
+interface IQuantity {
+    currentQuantity: number;
     errorMessages: string[];
 }
 
-interface QuantityState {
-    [storeKey: string]: QuantityItem;
+interface IState {
+    [storeKey: string]: IQuantity;
 }
 
-const initialState: QuantityState = {};
+const initialState: IState = {};
+
+export const DEFAULT_VALUE: IQuantity = {
+    currentQuantity: 1,
+    errorMessages: []
+}
 
 const quantitySlice = createSlice({
     name: "quantity",
     initialState,
     reducers: {
+        setInitialState(state, action: PayloadAction<{ storeKey: string; initialValue: IQuantity }>) {
+            const { storeKey, initialValue } = action.payload;
+            state[storeKey] = initialValue ?? { ...DEFAULT_VALUE };
+        },
         setQuantity(state, action: PayloadAction<{ storeKey: string; quantity: number }>) {
             const { storeKey, quantity } = action.payload;
-            state[storeKey] = state[storeKey] || { itemQuantity: 0, errorMessages: [] };
-            state[storeKey].itemQuantity = quantity;
+            if (!state[storeKey]) state[storeKey] = { ...DEFAULT_VALUE };
+
+            state[storeKey].currentQuantity = quantity;
         },
         setErrorMessages(state, action: PayloadAction<{ storeKey: string; messages: string[] }>) {
             const { storeKey, messages } = action.payload;
-            state[storeKey] = state[storeKey] || { itemQuantity: 0, errorMessages: [] };
+            if (!state[storeKey]) state[storeKey] = { ...DEFAULT_VALUE };
+
             state[storeKey].errorMessages = messages;
         },
         resetQuantity(state, action: PayloadAction<{ storeKey: string }>) {
             const { storeKey } = action.payload;
-            state[storeKey] = { itemQuantity: 1, errorMessages: [] };
+            state[storeKey] = DEFAULT_VALUE
+
         },
     },
 });
 
-export const { setQuantity, setErrorMessages, resetQuantity } = quantitySlice.actions;
+export const { setInitialState, setQuantity, setErrorMessages, resetQuantity } = quantitySlice.actions;
 export default quantitySlice.reducer;

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card } from "@/components/ui";
 
 const MainCartContainer = ({ children }: { children: React.ReactNode }) => {

@@ -1,4 +1,4 @@
-"use client";
+
 
 import MiniCartDropdownContainer from "./components/MiniCartDropdownContainer";
 import MiniCartHeader from "./components/MiniCartHeader";

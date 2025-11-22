@@ -8,7 +8,7 @@ interface IQuantitySelectorContextType {
     title?: string,
     layout?: "vertical" | "horizontal",
     maxQuantity?: number,
-    itemQuantity: number,
+    currentQuantity: number,
     errorMessages: string[],
     handleQuantityChange: (n: number) => void,
     resetQuantity: () => void,

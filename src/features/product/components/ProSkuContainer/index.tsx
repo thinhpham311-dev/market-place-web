@@ -12,7 +12,7 @@ interface IProSkuDetailContainerProps {
 }
 
 export default function ProSkuDetailContainer({ product_id, children }: IProSkuDetailContainerProps) {
-    const { option_idx, optionsCount } = useAppSelector(selectOptionsStoreKey(PRO_DETAIL))
+    const { option_idx, optionsCount } = useAppSelector(selectOptionsStoreKey(PRO_DETAIL, PRO_DETAIL))
 
     return (
         <SkuRoot

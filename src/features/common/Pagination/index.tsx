@@ -11,23 +11,25 @@ import { useHandlePagination } from "@/features/common/pagination/hooks";
 
 
 interface IPaginationCustomProps {
+    reducerKey: string
+    storeKey: string
     initialTotal: number;
     initialLimit: number;
     isShowDot?: boolean;
     isShowNav?: boolean;
     isShowLabel?: boolean;
     className?: string;
-    storeKey: string
 }
 
 const Pagination = ({
+    reducerKey,
     storeKey,
     initialTotal,
     initialLimit,
     ...rest
 }: IPaginationCustomProps) => {
 
-    const pagination = useHandlePagination({ storeKey, initialTotal, initialLimit });
+    const pagination = useHandlePagination({ reducerKey, storeKey, initialTotal, initialLimit });
 
     return (
         <PaginationProvider contextValues={{ ...pagination, ...rest }}>

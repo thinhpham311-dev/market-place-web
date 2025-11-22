@@ -2,9 +2,9 @@ import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "@/store";
 import { OPTION_SELECTOR } from "@/features/common/option-selector/constants"
 
-export const makeSelectOptionsState = (storeKey: string) =>
+export const makeSelectOptionsState = (reducerKey: string, storeKey: string) =>
     createSelector(
-        (state: RootState) => state[`${OPTION_SELECTOR}_${storeKey}`] ? state[`${OPTION_SELECTOR}_${storeKey}`].state : null,
+        (state: RootState) => state[`${OPTION_SELECTOR}_${reducerKey}`]?.state[storeKey] ?? null,
         (optionState) => ({
             options: optionState?.options || [],
             option_idx: (optionState?.selectedOptions
@@ -14,11 +14,18 @@ export const makeSelectOptionsState = (storeKey: string) =>
         })
     );
 
-const optionsSelectorsCache: Record<string, ReturnType<typeof makeSelectOptionsState>> = {};
+const selectorCache: Record<
+    string,
+    Record<string, ReturnType<typeof makeSelectOptionsState>>
+> = {};
 
-export const selectOptionsStoreKey = (storeKey: string) => {
-    if (!optionsSelectorsCache[storeKey]) {
-        optionsSelectorsCache[storeKey] = makeSelectOptionsState(storeKey);
+
+export const selectOptionsStoreKey = (reducerKey: string, storeKey: string) => {
+    if (!selectorCache[reducerKey]) {
+        selectorCache[reducerKey] = {};
     }
-    return optionsSelectorsCache[storeKey];
+    if (!selectorCache[reducerKey][storeKey]) {
+        selectorCache[reducerKey][storeKey] = makeSelectOptionsState(reducerKey, storeKey);
+    }
+    return selectorCache[reducerKey][storeKey];
 };

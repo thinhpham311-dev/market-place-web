@@ -24,7 +24,7 @@ export function useFetchData({ storeKey }: IUseFetchData) {
     const dispatch = useAppDispatch();
 
     const { currentPage = 1, limit = 15 } = useAppSelector(
-        selectPaginationByStoreKey(storeKey)
+        selectPaginationByStoreKey(storeKey, storeKey)
     );
 
     const {
