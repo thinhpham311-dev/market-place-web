@@ -13,7 +13,7 @@ interface IShoppingCartContextType {
     addItem: (item: ICartItem) => void;
     updateQtyItem: (item: ICartItem) => void;
     selectItems: (items: ICartItem[]) => void;
-    removeItem: (sku_id: string, shop_id: string) => void;
+    removeItem: (item_id: string) => void;
     removeAllItems: () => void;
     removeSelectedItems: (items: ICartItem[]) => void;
 }

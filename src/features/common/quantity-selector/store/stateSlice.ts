@@ -13,7 +13,7 @@ const initialState: IState = {};
 
 export const DEFAULT_VALUE: IQuantity = {
     currentQuantity: 1,
-    errorMessages: []
+    errorMessages: [],
 }
 
 const quantitySlice = createSlice({
@@ -41,6 +41,7 @@ const quantitySlice = createSlice({
             state[storeKey] = DEFAULT_VALUE
 
         },
+
     },
 });
 

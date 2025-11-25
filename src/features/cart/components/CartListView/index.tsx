@@ -35,7 +35,7 @@ const CartListView = ({ data = [], countLoadItems = 0, isLoading = false, error 
                 <ScrollArea className="aspect-square">
                     <ul className='space-y-2'>
                         {data.map(item => (
-                            <li key={item.itemSkuId}>
+                            <li key={item.itemId}>
                                 <CartItem data={item} />
                             </li>
                         ))}

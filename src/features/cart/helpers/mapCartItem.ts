@@ -6,6 +6,7 @@ export interface IMapCartItem {
     sku: ISkuPro;
     spu: ISpuPro;
     itemQuantity: number;
+    itemId: string
 }
 
 // --- Mapping helpers ---
@@ -31,7 +32,7 @@ const mapSpu = (spu: ISpuPro) => ({
 });
 
 // --- Main mapper ---
-export const mapCartItem = ({ sku, spu, itemQuantity }: IMapCartItem) => {
+export const mapCartItem = ({ sku, spu, ...rest }: IMapCartItem) => {
     const skuMapped = mapSku(sku);
     const spuMapped = mapSpu(spu);
     const shopMapped = mapShop(spu?.product_shop);
@@ -40,7 +41,7 @@ export const mapCartItem = ({ sku, spu, itemQuantity }: IMapCartItem) => {
         ...skuMapped,
         ...spuMapped,
         ...shopMapped,
-        itemQuantity,
+        ...rest
     };
 };
 

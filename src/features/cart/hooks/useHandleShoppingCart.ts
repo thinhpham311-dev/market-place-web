@@ -61,8 +61,8 @@ export const useHandleShoppingCart = ({ userId, storeKey }: IUseCart) => {
     );
 
     const handleRemoveItem = useCallback(
-        async (itemSkuId: string, itemShopId: string) => {
-            await dispatch(removeItemOutCart({ itemSkuId, itemShopId } as ICartItem) as any);
+        async (itemId: string) => {
+            await dispatch(removeItemOutCart({ itemId } as ICartItem) as any);
 
         },
         [dispatch]

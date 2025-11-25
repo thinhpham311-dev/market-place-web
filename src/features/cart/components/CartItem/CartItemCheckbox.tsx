@@ -25,7 +25,7 @@ const CartItemCheckbox = ({
 
         if (data.length > 0) {
             if (isChecked) {
-                selectItems(data.map((item) => item.itemSkuId) as any);
+                selectItems(data.map((item) => item.itemId) as any);
             } else {
                 selectItems([]);
             }

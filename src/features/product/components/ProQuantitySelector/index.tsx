@@ -1,5 +1,5 @@
 "use client";
-import * as React from "react";
+import { useMemo } from "react";
 
 import QuantitySelector from "@/features/common/quantity-selector";
 import { PRO_DETAIL } from "@/features/product/constants";
@@ -22,6 +22,10 @@ const ProQuantitySelector = () => {
     if (showNotFound) return <NotFound />;
 
     // const storeKey = `${PRO_DETAIL}_${sku?.sku_id || "default"}`;
+    const isDisable = useMemo(() => {
+        const hasError = !!(typeof skuError === "string" || skuError);
+        return !!(skuLoading || hasError);
+    }, [skuLoading, skuError]);
 
     return (
         <QuantitySelector
@@ -31,8 +35,7 @@ const ProQuantitySelector = () => {
             title="Quantity"
             layout="horizontal"
             maxQuantity={sku?.sku_stock ?? 0}
-            loading={skuLoading}
-            error={skuError}
+            isDisable={isDisable}
         />
     );
 };

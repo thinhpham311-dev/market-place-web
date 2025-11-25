@@ -1,4 +1,4 @@
-import React from "react";
+import { useMemo } from "react";
 import { ICartItem } from "@/interfaces/cart";
 import { useShoppingCartContext } from "@/features/cart/hooks";
 import QuantitySelector from "@/features/common/quantity-selector";
@@ -15,25 +15,29 @@ const CartItemQuantityInput = ({
     maxQuantity,
     data
 }: ICartItemQuantityInputProps) => {
-    const { loading, error } = useShoppingCartContext();
-    const { itemSkuId } = data
-    // const handleQuantityChange = (value: number) => {
-    //     // Nếu không đổi thì không làm gì để tránh gọi API vô nghĩa
-    //     const item = {
-    //         ...data,
-    //         itemQuantity: value,
-    //     }
-    //     updateQtyItem(item);
-    // };
+    const { loading, error, updateQtyItem } = useShoppingCartContext();
+    const { itemId } = data
+    const handleQuantityChange = (value: number) => {
+        updateQtyItem({
+            ...data,
+            itemQuantity: value
+        })
+    };
+
+    const isDisable = useMemo(() => {
+        const hasError = !!(typeof error === "string" || error?.message);
+        return !!(loading || hasError);
+    }, [loading, maxQuantity, error]);
+
 
     return (
         <QuantitySelector
             reducerKey={SHOPPING_CART}
-            storeKey={`${SHOPPING_CART}_${itemSkuId}`}
+            storeKey={`${SHOPPING_CART}_${itemId}`}
             initialQuantity={currentQuantity}
             maxQuantity={maxQuantity}
-            loading={loading}
-            error={error}
+            isDisable={isDisable}
+            onChangeQuantity={handleQuantityChange}
         />
     );
 };

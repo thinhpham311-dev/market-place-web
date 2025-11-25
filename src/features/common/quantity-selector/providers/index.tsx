@@ -10,11 +10,11 @@ interface IQuantitySelectorContextType {
     maxQuantity?: number,
     currentQuantity: number,
     errorMessages: string[],
-    handleQuantityChange: (n: number) => void,
+    updateQuantity: (n: number) => void,
     resetQuantity: () => void,
-    validateQuantity: (n: number) => string[],
-    loading: boolean;
-    error?: string | { message?: string } | null;
+    getValidate: (n: number, m: string[]) => string[],
+    isDisableQuantity: boolean
+
 }
 
 interface IQuantitySelectorProviderProps {

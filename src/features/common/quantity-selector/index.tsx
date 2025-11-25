@@ -20,14 +20,14 @@ interface IQuantitySelectorProps {
     storeKey: string;
     initialQuantity: number;
     maxQuantity: number;
-    loading: boolean;
     layout?: "vertical" | "horizontal";
     title?: string;
-    error?: string | { message?: string } | null;
+    onChangeQuantity?: (value: number) => void
+    isDisable: boolean
 }
 
 const QuantitySelector = ({ reducerKey = "", storeKey = "", initialQuantity, maxQuantity, ...rest }: IQuantitySelectorProps) => {
-    const quantitySelector = useHandleQuantitySelector({ reducerKey, storeKey, initialQuantity, maxQuantity });
+    const quantitySelector = useHandleQuantitySelector({ reducerKey, storeKey, initialQuantity, maxQuantity, ...rest });
 
     return (
         <QuantitySelectorProvider contextValues={{ ...quantitySelector, ...rest }}>

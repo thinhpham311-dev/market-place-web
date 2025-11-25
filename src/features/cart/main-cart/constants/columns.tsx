@@ -127,8 +127,6 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
             )
         },
         size: 150,
-
-
     },
     {
         id: "totalPrice",
@@ -140,8 +138,6 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
             </div>
         },
         size: 150,
-
-
     },
     {
         accessorKey: "actions",
@@ -151,14 +147,11 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
             return (
                 <div className="float-end">
                     <CartItemRemove
-                        itemSkuId={item.itemSkuId}
-                        itemShopId={item.itemShopId} />
+                        itemId={item?.itemId} />
                 </div>
             )
         },
         size: 150,
-
-
     },
     {
         accessorKey: "itemShopId",
@@ -167,7 +160,5 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
         },
         enableGrouping: true,
         enableHiding: false,
-
     }
-
 ]

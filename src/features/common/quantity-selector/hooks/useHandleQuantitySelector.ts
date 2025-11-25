@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect } from "react";
+import { useCallback, useLayoutEffect, useMemo } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { setInitialState, setQuantity, setErrorMessages, resetQuantity } from "../store/stateSlice";
 import { selectQuantitySelector } from "../store/selectors";
@@ -11,6 +11,8 @@ interface IUseHandleQuantitySelector {
     storeKey: string;
     maxQuantity: number;
     initialQuantity: number;
+    onChangeQuantity?: (value: number) => void
+    isDisable: boolean
 }
 
 export function useHandleQuantitySelector({
@@ -18,21 +20,20 @@ export function useHandleQuantitySelector({
     storeKey,
     maxQuantity,
     initialQuantity,
+    ...rest
 }: IUseHandleQuantitySelector) {
+    const { onChangeQuantity, isDisable } = rest
     const dispatch = useAppDispatch();
 
     const validateQuantity = useCallback(
-        (newQuantity: number) => {
+        (newQuantity: number, messages: string[]) => {
             if (newQuantity === maxQuantity) {
-                return [
-                    "If more quantity is added, purchase limit will be exceeded and price may change",
-                ];
+                dispatch(setErrorMessages({ storeKey, messages }));
             }
             return [];
         },
-        [maxQuantity]
+        [dispatch, storeKey, maxQuantity]
     );
-
 
     useLayoutEffect(() => {
         const dynamicReducerKey = `${QUANTITY_COUNTER}_${reducerKey}`;
@@ -46,7 +47,7 @@ export function useHandleQuantitySelector({
 
     }, [dispatch, reducerKey, storeKey, validateQuantity]);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const initialValue = {
             currentQuantity: initialQuantity,
             errorMessages
@@ -62,23 +63,25 @@ export function useHandleQuantitySelector({
     const handleQuantityChange = useCallback(
         (newQuantity: number) => {
             dispatch(setQuantity({ storeKey, quantity: newQuantity }));
-            dispatch(
-                setErrorMessages({ storeKey, messages: validateQuantity(newQuantity) })
-            );
+            onChangeQuantity?.(newQuantity);
         },
-        [dispatch, storeKey, validateQuantity]
-    );
+        [dispatch, storeKey, onChangeQuantity])
 
     const resetQuantityHandler = useCallback(() => {
         dispatch(resetQuantity({ storeKey }))
     }, [dispatch, storeKey, initialQuantity, validateQuantity]);
 
+    const isDisableQuantity = useMemo(() => {
+        return !!(maxQuantity === 0 || isDisable);
+    }, [maxQuantity, isDisable]);
+
     return {
+        isDisableQuantity,
         maxQuantity,
         currentQuantity,
         errorMessages,
-        handleQuantityChange,
+        updateQuantity: handleQuantityChange,
         resetQuantity: resetQuantityHandler,
-        validateQuantity,
+        getValidate: validateQuantity,
     };
 }

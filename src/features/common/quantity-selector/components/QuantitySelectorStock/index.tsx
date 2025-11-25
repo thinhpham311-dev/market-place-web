@@ -3,14 +3,10 @@
 import React from "react";
 import { CardDescription } from "@/components/ui";
 import { useQuantitySelectorContext } from "../../hooks";
-import LoadingSkeleton from "./Loading"
 
 const QuantitySelectorStock: React.FC = () => {
-    const { maxQuantity = 0, loading } = useQuantitySelectorContext();
+    const { maxQuantity = 0 } = useQuantitySelectorContext();
 
-    if (loading) {
-        return <LoadingSkeleton />;
-    }
     const message =
         maxQuantity === 0 ? "IN STOCK" : `${maxQuantity} pieces available`;
 
