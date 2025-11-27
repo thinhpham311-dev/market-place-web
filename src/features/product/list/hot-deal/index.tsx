@@ -1,5 +1,4 @@
 'use client'
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 //components
@@ -9,32 +8,18 @@ import {
 import ProCarousel from "@/features/product/components/ProCarousel"
 
 //datas
-// import { productData } from "@/constants/data";
 
 //stores
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { getProductList } from "./store/dataSlice";
-import reducer from "./store";
-import { injectReducer } from "@/store";
+import { useFetchData } from "./hooks";
 
 //icons
 import { ArrowRight } from "lucide-react"
 import { FaHotjar } from "react-icons/fa"
 
-injectReducer("proHotDealList", reducer)
 
 export default function ProHotDealList() {
     const router = useRouter()
-    const dispatch = useAppDispatch();
-    const { list: products = [], loading, error = null } = useAppSelector((state) => state.proHotDealList.data);
-
-    useEffect(() => {
-
-        const promise = dispatch(getProductList({ limit: 12, sort: "ctime", page: 1 }) as any);
-        return () => {
-            promise.abort();
-        };
-    }, [dispatch]);
+    const { products = [], loading, error = null } = useFetchData()
 
     return (
         <Card className="border-none shadow-nonee grid grid-cols-12">

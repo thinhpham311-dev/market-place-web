@@ -19,14 +19,12 @@ type ProductListResponse = {
 interface IProductState {
     loading: boolean;
     error: string | null;
-    status: "idle" | "loading" | "success" | "error" | "empty";
     list: ISpuPro[];
     total: number;
 }
 
 const initialState: IProductState = {
     loading: false,
-    status: "idle",
     list: [],
     total: 0,
     error: null
@@ -59,6 +57,8 @@ export const getProductListByCategories = createAsyncThunk<ProductListResponse, 
 );
 
 
+
+
 const dataSlice = createSlice({
     name: 'proListByCategoryId/data',
     initialState,
@@ -66,7 +66,6 @@ const dataSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getProductListByCategories.pending, (state) => {
-                state.status = "loading";
                 state.loading = true;
                 state.error = null;
             })
@@ -75,11 +74,9 @@ const dataSlice = createSlice({
                 state.list = list;
                 state.total = total;
                 state.loading = false;
-                state.status = list.length > 0 ? "success" : "empty";
             })
             .addCase(getProductListByCategories.rejected, (state, action) => {
                 state.loading = false;
-                state.status = "error";
                 state.error = action.payload as string || 'Failed to fetch products';
                 state.total = 0;
                 state.list = [];

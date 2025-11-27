@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect, useMemo } from "react";
+import { useCallback, useLayoutEffect, useEffect, useMemo } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { setInitialState, setQuantity, setErrorMessages, resetQuantity } from "../store/stateSlice";
 import { selectQuantitySelector } from "../store/selectors";
@@ -47,7 +47,7 @@ export function useHandleQuantitySelector({
 
     }, [dispatch, reducerKey, storeKey, validateQuantity]);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const initialValue = {
             currentQuantity: initialQuantity,
             errorMessages

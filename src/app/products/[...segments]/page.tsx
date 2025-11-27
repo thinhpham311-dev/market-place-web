@@ -1,12 +1,37 @@
+import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
+import { Skeleton } from "@/components/ui";
 
+const ProBundleDealList = dynamic(() => import('@/features/product/list/bundle-deal'), {
+    ssr: false,
+    loading: () => <Skeleton className="w-full h-lvh" />,
+
+});
+
+const ProTopPicksList = dynamic(() => import('@/features/product/list/top-picks'), {
+    ssr: false,
+    loading: () => <Skeleton className="w-full h-lvh" />,
+
+});
+
+const ProRelatedList = dynamic(() => import('@/features/product/list/related'), {
+    ssr: false,
+    loading: () => <Skeleton className="w-full h-lvh" />,
+
+});
+
+const ProductDetail = dynamic(() => import('@/features/product'), {
+    ssr: false,
+    loading: () => <Skeleton className="w-full h-lvh" />,
+
+});
 
 // Components
-import ProBundleDealList from "@/features/product/list/bundle-deal"
-import ProTopPicksList from "@/features/product/list/top-picks"
-import ProRelatedList from "@/features/product/list/related"
+// import ProBundleDealList from "@/features/product/list/bundle-deal"
+// import ProTopPicksList from "@/features/product/list/top-picks"
+// import ProRelatedList from "@/features/product/list/related"
 // import StoreInfo from './components/StoreInfo';
-import ProductDetail from "@/features/product";
+// import ProductDetail from "@/features/product";
 
 
 export default function Page(

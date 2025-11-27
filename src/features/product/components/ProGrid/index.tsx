@@ -20,29 +20,6 @@ const ProGrid = ({
     error,
     countLoadItems = 12,
 }: SpuGridProps) => {
-    // switch (status) {
-    //     case "loading":
-    //         return <Loading className={className} count={countLoadItems} />;
-
-    //     case "error":
-    //         return <NotFound message={error?.message || "Something went wrong."} />;
-
-    //     case "empty":
-    //         return <NotFound message="No products found." />;
-
-    //     case "success":
-    //         return (
-    //             <div className={cn("grid w-full", className)}>
-    //                 {data.map((item) => (
-    //                     <SpuCard key={item.product_id} item={item} isLoading={false} />
-    //                 ))}
-    //             </div>
-    //         );
-
-    //     case "idle":
-    //     default:
-    //         return null;
-    // }
 
     const hasNoData = !data || data.length === 0;
 
@@ -54,7 +31,7 @@ const ProGrid = ({
         return <NotFound message={error.message || "Something went wrong."} />;
     }
 
-    if (!isLoading && hasNoData) {
+    if (hasNoData) {
         return <NotFound />;
     }
     return (

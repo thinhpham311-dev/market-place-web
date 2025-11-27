@@ -6,7 +6,6 @@ export interface IMapCartItem {
     sku: ISkuPro;
     spu: ISpuPro;
     itemQuantity: number;
-    itemId: string
 }
 
 // --- Mapping helpers ---

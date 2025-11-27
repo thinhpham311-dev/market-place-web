@@ -39,7 +39,6 @@ const AddToCartButton = () => {
         if (!spu || !sku) return null;
 
         return mapCartItem({
-            itemId: "",
             spu,
             sku,
             itemQuantity: currentQuantity,

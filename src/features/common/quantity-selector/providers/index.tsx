@@ -14,7 +14,6 @@ interface IQuantitySelectorContextType {
     resetQuantity: () => void,
     getValidate: (n: number, m: string[]) => string[],
     isDisableQuantity: boolean
-
 }
 
 interface IQuantitySelectorProviderProps {

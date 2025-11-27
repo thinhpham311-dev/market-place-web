@@ -38,7 +38,6 @@ const BuyNowButton = () => {
         if (!spu || !sku) return null;
         if (!currentQuantity) return null
         return mapCartItem({
-            itemId: "",
             spu,
             sku,
             itemQuantity: currentQuantity,

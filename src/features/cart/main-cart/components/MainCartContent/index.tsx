@@ -9,7 +9,7 @@ export default function MainCartContent() {
     const { data, loading, error } = useShoppingCartContext()
     const { cart_products = [] } = data
     return (
-        <CardContent>
+        <CardContent className="col-span-12">
             <CartDataTable
                 data={cart_products}
                 countLoadItems={5}

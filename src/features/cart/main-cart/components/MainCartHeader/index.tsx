@@ -5,7 +5,7 @@ import MainCartTitle from "./MainCartTitle";
 export default function MainCartHeader() {
 
     return (
-        <CardHeader className="flex flex-row justify-between items-center  space-y-0">
+        <CardHeader className="flex flex-row justify-between items-center  space-y-0 col-span-12">
             <MainCartTitle />
         </CardHeader>
     );

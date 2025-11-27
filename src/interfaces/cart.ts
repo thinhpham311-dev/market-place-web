@@ -1,7 +1,7 @@
 import { VariantOption } from "@/interfaces/spu"; // nếu có file này
 
 export interface ICartItem {
-    itemId: string;
+    itemId?: string;
     itemSkuId: string;
     itemSkuPrice: number;
     itemSkuStock: number;
