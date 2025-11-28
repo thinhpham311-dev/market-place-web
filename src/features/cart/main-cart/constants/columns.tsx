@@ -147,7 +147,7 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
             return (
                 <div className="float-end">
                     <CartItemRemove
-                        itemId={item?.itemId} />
+                        data={item} />
                 </div>
             )
         },

@@ -6,7 +6,6 @@ import { memo } from "react";
 import QuantitySelectorWrapper from "./components/QuantitySelectorWrapper";
 import QuantitySelectorTitle from "./components/QuantitySelectorTitle";
 import QuantitySelectorCounter from "./components/QuantitySelectorCounter";
-import QuantitySelectorMessage from "./components/QuantitySelectorMessage";
 import QuantitySelectorStock from "./components/QuantitySelectorStock";
 
 //providers
@@ -23,7 +22,7 @@ interface IQuantitySelectorProps {
     layout?: "vertical" | "horizontal";
     title?: string;
     onChangeQuantity?: (value: number) => void
-    isDisable: boolean
+    isDisabled: boolean
 }
 
 const QuantitySelector = ({ reducerKey = "", storeKey = "", initialQuantity, maxQuantity, ...rest }: IQuantitySelectorProps) => {
@@ -35,7 +34,6 @@ const QuantitySelector = ({ reducerKey = "", storeKey = "", initialQuantity, max
                 <QuantitySelectorTitle />
                 <QuantitySelectorCounter />
                 <QuantitySelectorStock />
-                <QuantitySelectorMessage />
             </QuantitySelectorWrapper>
         </QuantitySelectorProvider>
     );

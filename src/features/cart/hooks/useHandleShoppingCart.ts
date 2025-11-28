@@ -16,7 +16,8 @@ import { ICartItem, ICart } from "@/interfaces/cart";
 //store
 import reducer from "@/features/cart/store";
 import {
-    injectReducer
+    injectReducer,
+    removeReducer
 } from "@/store";
 
 //constants
@@ -32,8 +33,12 @@ export const useHandleShoppingCart = ({ userId, storeKey }: IUseCart) => {
     useEffect(() => {
         const reducerKey = storeKey;
         injectReducer(reducerKey, reducer);
-
+        return () => {
+            // Optionally remove the reducer when the component unmounts
+            removeReducer(reducerKey);
+        }
     }, [storeKey]);
+
     const dispatch = useDispatch();
 
 

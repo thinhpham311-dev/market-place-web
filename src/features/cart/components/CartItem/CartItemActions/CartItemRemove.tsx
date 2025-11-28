@@ -7,15 +7,30 @@ import {
 } from '@/components/ui';
 import { MdClose } from "react-icons/md";
 import { useShoppingCartContext } from '@/features/cart/hooks';
+import { toast } from "sonner"
+import { ICartItem } from '@/interfaces/cart';
+import { renderVariants } from "@/features/cart/utils/renderVariants"
 
 interface ICartItemRemoveProps {
-    itemId?: string;
+    data: ICartItem
 }
 
-const CartItemRemove = ({ itemId }: ICartItemRemoveProps) => {
+const CartItemRemove = ({ data }: ICartItemRemoveProps) => {
+    const { itemId, itemSpuName, itemSpuVariations, itemSkuTierIdx, itemQuantity } = data;
     const { removeItem } = useShoppingCartContext()
     const onHandleRemove = () => {
         removeItem(itemId!);
+        setTimeout(() => {
+            const id = toast.success("Deleted Product Out Cart!", {
+                description: <span>The product {itemSpuName} - ({renderVariants(itemSpuVariations, itemSkuTierIdx)} x {itemQuantity}) has been removed from your cart.</span>,
+                action: {
+                    label: "Close",
+                    onClick: () => {
+                        toast.dismiss(id);
+                    },
+                },
+            });
+        }, 500);
     };
 
     return (

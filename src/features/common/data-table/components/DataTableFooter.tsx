@@ -5,6 +5,7 @@ import { formatToCurrency } from "@/lib/formats"
 import { useDataTableContext } from "@/features/common/data-table/hooks"
 import { useShoppingCartContext } from "@/features/cart/hooks"
 import { Trash } from "lucide-react"
+import { toast } from "sonner"
 
 const CartTableFooter = () => {
     const { removeSelectedItems } = useShoppingCartContext()
@@ -19,6 +20,17 @@ const CartTableFooter = () => {
     const handleDeleteSelectedItems = () => {
         if (cart_selected_items.length > 0) {
             removeSelectedItems(cart_selected_items)
+            const id = toast.success("Deleted All Product out cart!", {
+                description: (
+                    <p>
+                        All product has been added to your cart.
+                    </p>
+                ),
+                action: {
+                    label: "Close",
+                    onClick: () => toast.dismiss(id),
+                },
+            });
             table.toggleAllRowsSelected(false)
         }
     }

@@ -3,17 +3,18 @@ import dynamic from "next/dynamic";
 // import ProListByCategoryId from "@/features/product/list/by-category-id";
 import { Skeleton } from "@/components/ui";
 
+const MainCart = dynamic(() => import('@/features/cart/main-cart'), {
+    ssr: false,
+    loading: () => <Skeleton className="w-full h-lvh" />,
+
+});
+
 const ProRelatedList = dynamic(() => import('@/features/product/list/related'), {
     ssr: false,
     loading: () => <Skeleton className="w-full h-48" />,
 
 });
 
-const MainCart = dynamic(() => import('@/features/cart/main-cart'), {
-    ssr: false,
-    loading: () => <Skeleton className="w-full h-48" />,
-
-});
 
 // import ProRelatedList from "@/features/product/list/related";
 // import MainCart from "@/features/cart/main-cart"

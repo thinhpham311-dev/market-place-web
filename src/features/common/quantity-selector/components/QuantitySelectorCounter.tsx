@@ -27,8 +27,9 @@ const QuantitySelectorCounter = () => {
         updateQuantity,
         maxQuantity,
         currentQuantity,
-        isDisableQuantity,
-        resetQuantity
+        isDisabledQuantity,
+        resetQuantity,
+
     } = useQuantitySelectorContext();
 
     React.useEffect(() => {
@@ -39,10 +40,9 @@ const QuantitySelectorCounter = () => {
     }, [maxQuantity, resetQuantity]);
 
     const handleUpdateQuantity = (value: number) => {
-        getValidate(value, [ERROR_QUANTITY_COUNTER]);
+        getValidate?.(value, [ERROR_QUANTITY_COUNTER]);
         updateQuantity(value);
     };
-
 
     return (
         <CardContent className="p-3 space-x-3 flex items-center">
@@ -51,10 +51,11 @@ const QuantitySelectorCounter = () => {
                 maxValue={maxQuantity}
                 ref={counterRef}
                 onQuantityChange={handleUpdateQuantity}
-                isDisabled={isDisableQuantity}
+                isDisabled={isDisabledQuantity}
             />
         </CardContent>
     );
+
 }
 
 export default QuantitySelectorCounter

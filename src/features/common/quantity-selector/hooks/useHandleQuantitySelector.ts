@@ -1,7 +1,8 @@
-import { useCallback, useLayoutEffect, useEffect, useMemo } from "react";
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { setInitialState, setQuantity, setErrorMessages, resetQuantity } from "../store/stateSlice";
-import { selectQuantitySelector } from "../store/selectors";
+import { toast } from "sonner"
+
+import { useCallback, useLayoutEffect, useEffect, useMemo, useRef, } from "react";
+import { useAppDispatch } from "@/lib/hooks";
+import { setInitialState, setQuantity, resetQuantity } from "../store/stateSlice";
 import { injectReducer, removeReducer } from "@/store";
 import reducer from "../store";
 import { QUANTITY_COUNTER } from "../constants";
@@ -12,74 +13,96 @@ interface IUseHandleQuantitySelector {
     maxQuantity: number;
     initialQuantity: number;
     onChangeQuantity?: (value: number) => void
-    isDisable: boolean
+    isDisabled: boolean
 }
-
 export function useHandleQuantitySelector({
     reducerKey,
     storeKey,
     maxQuantity,
     initialQuantity,
-    ...rest
+    onChangeQuantity,
+    isDisabled,
 }: IUseHandleQuantitySelector) {
-    const { onChangeQuantity, isDisable } = rest
-    const dispatch = useAppDispatch();
 
-    const validateQuantity = useCallback(
-        (newQuantity: number, messages: string[]) => {
-            if (newQuantity === maxQuantity) {
-                dispatch(setErrorMessages({ storeKey, messages }));
-            }
-            return [];
-        },
-        [dispatch, storeKey, maxQuantity]
+    const dispatch = useAppDispatch();
+    const isInitializedRef = useRef(false);
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+    const safeInitialQuantityRef = useRef(
+        typeof initialQuantity === "number" ? initialQuantity : 1
     );
 
     useLayoutEffect(() => {
         const dynamicReducerKey = `${QUANTITY_COUNTER}_${reducerKey}`;
-        // Inject reducer
         injectReducer(dynamicReducerKey, reducer);
 
         return () => {
-            dispatch(resetQuantity({ storeKey }))
+            dispatch(resetQuantity({ storeKey }));
             removeReducer(dynamicReducerKey);
         };
+    }, [dispatch, reducerKey, storeKey]);
 
-    }, [dispatch, reducerKey, storeKey, validateQuantity]);
+    const validateQuantity = useCallback(
+        (newQuantity: number, messages: string[]) => {
+            if (newQuantity === maxQuantity) {
+                setTimeout(() => {
+                    const id = toast.error("Reached maximum quantity!", {
+                        description: messages.join(", "),
+                        action: {
+                            label: "Close",
+                            onClick: () => {
+                                toast.dismiss(id); // 👈 CLOSE TOAST
+                            },
+                        },
+                    });
+                }, 500);
+            }
+        },
+        [dispatch, storeKey, maxQuantity]
+    );
 
     useEffect(() => {
-        const initialValue = {
-            currentQuantity: initialQuantity,
-            errorMessages
-        }
-        dispatch(setInitialState({ storeKey, initialValue }))
-    }, [dispatch, storeKey, initialQuantity])
 
-    // Select from dynamic slice
-    const { currentQuantity, errorMessages } = useAppSelector(
-        selectQuantitySelector(reducerKey, storeKey)
-    );
+        if (!isInitializedRef.current) {
+            dispatch(
+                setInitialState({
+                    storeKey,
+                    initialValue: {
+                        currentQuantity: safeInitialQuantityRef.current,
+                    },
+                })
+            );
+            isInitializedRef.current = true;
+        }
+    }, [dispatch, storeKey, safeInitialQuantityRef]);
+
 
     const handleQuantityChange = useCallback(
         (newQuantity: number) => {
             dispatch(setQuantity({ storeKey, quantity: newQuantity }));
-            onChangeQuantity?.(newQuantity);
+
+            if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
+            timeoutRef.current = setTimeout(() => {
+                onChangeQuantity?.(newQuantity);
+                timeoutRef.current = null;
+            }, 250);
         },
-        [dispatch, storeKey, onChangeQuantity])
+        [dispatch, storeKey, onChangeQuantity]
+    );
 
     const resetQuantityHandler = useCallback(() => {
-        dispatch(resetQuantity({ storeKey }))
-    }, [dispatch, storeKey, initialQuantity, validateQuantity]);
+        dispatch(resetQuantity({ storeKey }));
+    }, [dispatch, storeKey]);
 
-    const isDisableQuantity = useMemo(() => {
-        return !!(maxQuantity === 0 || isDisable);
-    }, [maxQuantity, isDisable]);
+    const isDisabledQuantity = useMemo(() => {
+        return maxQuantity === 0 || isDisabled;
+    }, [maxQuantity, isDisabled]);
 
     return {
-        isDisableQuantity,
+        isDisabledQuantity,
         maxQuantity,
-        currentQuantity,
-        errorMessages,
+        currentQuantity: safeInitialQuantityRef.current,
         updateQuantity: handleQuantityChange,
         resetQuantity: resetQuantityHandler,
         getValidate: validateQuantity,

@@ -26,8 +26,8 @@ const BuyNowButton = () => {
     const { spu, loading: spuLoading, error: spuError } = useSpuContext();
     const { sku, loading: skuLoading, error: skuError } = useSkuContext();
 
-    const { currentQuantity } = useAppSelector(
-        selectQuantitySelector(PRO_DETAIL, PRO_DETAIL)
+    const { currentQuantity = 1 } = useAppSelector(
+        selectQuantitySelector(PRO_DETAIL, `${PRO_DETAIL}_${sku?.sku_id}`)
     );
 
     const loading = spuLoading && skuLoading;

@@ -13,7 +13,7 @@ import { Plus, Minus } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ICounterProps {
-    initialValue?: number;
+    initialValue: number;
     onQuantityChange?: (quantity: number) => void;
     className?: string;
     maxValue?: number;
@@ -32,7 +32,7 @@ export const Counter = memo(
         (
             {
                 onQuantityChange,
-                initialValue = 1,
+                initialValue,
                 className,
                 maxValue,
                 minValue = 1, // ✅ giá trị mặc định là 1

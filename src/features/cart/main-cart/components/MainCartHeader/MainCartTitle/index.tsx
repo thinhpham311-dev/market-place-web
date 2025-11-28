@@ -2,7 +2,7 @@
 
 import { ShoppingBag } from "lucide-react";
 import { CardTitle } from "@/components/ui";
-import Loading from "./Loading";
+import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
 import { useShoppingCartContext } from "@/features/cart/hooks";
 
@@ -12,17 +12,13 @@ export default function MainCartTitle() {
 
     if (loading) {
         return (
-            <CardTitle className="text-md space-x-2">
-                <Loading />
-            </CardTitle>
+            <LoadingSkeleton />
         );
     }
 
     if (error) {
         return (
-            <CardTitle className="text-md space-x-2">
-                <NotFound />
-            </CardTitle>
+            <NotFound />
         );
     }
     return (

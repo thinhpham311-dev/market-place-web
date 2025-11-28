@@ -2,6 +2,17 @@ import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import { Skeleton } from "@/components/ui";
 
+const ProDetail = dynamic(() => import('@/features/product'), {
+    ssr: false,
+    loading: () => <>
+        <Skeleton className="w-full h-lvh" />
+        <Skeleton className="w-full h-48" />
+
+    </>
+    ,
+
+});
+
 const ProBundleDealList = dynamic(() => import('@/features/product/list/bundle-deal'), {
     ssr: false,
     loading: () => <Skeleton className="w-full h-lvh" />,
@@ -20,11 +31,7 @@ const ProRelatedList = dynamic(() => import('@/features/product/list/related'), 
 
 });
 
-const ProductDetail = dynamic(() => import('@/features/product'), {
-    ssr: false,
-    loading: () => <Skeleton className="w-full h-lvh" />,
 
-});
 
 // Components
 // import ProBundleDealList from "@/features/product/list/bundle-deal"
@@ -57,7 +64,7 @@ export default function Page(
 
     return (
         <div className="space-y-5 md:my-5 container mx-auto">
-            <ProductDetail
+            <ProDetail
                 product_id={product_id}
                 shop_id={shop_id}
             />

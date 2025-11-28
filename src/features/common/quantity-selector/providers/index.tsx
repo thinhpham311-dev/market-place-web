@@ -9,11 +9,12 @@ interface IQuantitySelectorContextType {
     layout?: "vertical" | "horizontal",
     maxQuantity?: number,
     currentQuantity: number,
-    errorMessages: string[],
     updateQuantity: (n: number) => void,
     resetQuantity: () => void,
-    getValidate: (n: number, m: string[]) => string[],
-    isDisableQuantity: boolean
+    getValidate: (n: number, m: string[]) => void,
+    isDisabledQuantity: boolean
+    isReadOnlyQuantity?: boolean
+
 }
 
 interface IQuantitySelectorProviderProps {

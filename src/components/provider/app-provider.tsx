@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { ThemeProvider as NextThemesProvider } from "next-themes"
-import { useToast } from "@/lib/hooks"
+import { Toaster } from "@/components/ui"
 
 // Layout components
 import { Header, Footer, SidebarNavigation, AdminHeader } from "@/components/layout"
@@ -11,12 +11,6 @@ import { Header, Footer, SidebarNavigation, AdminHeader } from "@/components/lay
 import {
     LoadingSpinner,
     SidebarProvider,
-    Toast,
-    ToastClose,
-    ToastDescription,
-    ToastProvider,
-    ToastTitle,
-    ToastViewport,
 } from "@/components/ui"
 
 // Redux
@@ -34,31 +28,6 @@ const getCookie = (name: string): string | undefined => {
     const parts = value.split(`; ${name}=`)
     return parts.length === 2 ? parts.pop()?.split(";").shift() : undefined
 }
-
-/* ------------------------------- Toast Renderer ------------------------------ */
-
-const ToastRenderer = () => {
-    const { toasts } = useToast()
-
-    return (
-        <ToastProvider>
-            {toasts.map(({ id, title, description, action, ...props }) => (
-                <Toast key={id} {...props}>
-                    <div className="grid gap-1">
-                        {title && <ToastTitle>{title}</ToastTitle>}
-                        {description && <ToastDescription>{description}</ToastDescription>}
-                    </div>
-
-                    {action}
-                    <ToastClose />
-                </Toast>
-            ))}
-            <ToastViewport />
-        </ToastProvider>
-    )
-}
-
-/* ------------------------------- Main Provider ------------------------------- */
 
 const AppProvider = ({
     children,
@@ -97,7 +66,7 @@ const AppProvider = ({
                                 <main>{children}</main>
 
                                 <Footer />
-                                <ToastRenderer />
+                                <Toaster />
                             </PersistGate>
                         </ShoppingCartRoot>
                     </Provider>

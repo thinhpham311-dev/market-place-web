@@ -17,25 +17,24 @@ const ProQuantitySelector = () => {
     const showError = !spuLoading && hasNoData && spuError;
     const showNotFound = !spuLoading && hasNoData && !spuError;
 
+    const isDisabled = useMemo(() => {
+        const hasError = typeof skuError === "string" || !!skuError;
+        return skuLoading || hasError;
+    }, [skuLoading, skuError]);
+
     if (showLoading) return <LoadingSkeleton />;
     if (showError) return <NotFound message={spuError || "Something went wrong."} />;
     if (showNotFound) return <NotFound />;
 
-    // const storeKey = `${PRO_DETAIL}_${sku?.sku_id || "default"}`;
-    const isDisable = useMemo(() => {
-        const hasError = !!(typeof skuError === "string" || skuError);
-        return !!(skuLoading || hasError);
-    }, [skuLoading, skuError]);
-
     return (
         <QuantitySelector
             reducerKey={PRO_DETAIL}
-            storeKey={PRO_DETAIL}
+            storeKey={`${PRO_DETAIL}_${sku?.sku_id ?? "default"}`}
             initialQuantity={1}
             title="Quantity"
             layout="horizontal"
             maxQuantity={sku?.sku_stock ?? 0}
-            isDisable={isDisable}
+            isDisabled={isDisabled}
         />
     );
 };

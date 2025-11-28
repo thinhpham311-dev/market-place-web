@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/ui";
 
 const Advertisement = dynamic(() => import('@/features/ads'), {
   ssr: false,
-  loading: () => <Skeleton className="w-full h-48" />,
+  loading: () => <Skeleton className="w-full h-lvh" />,
 });
 const CatPopularList = dynamic(() => import('@/features/category/popular'), {
   ssr: true,

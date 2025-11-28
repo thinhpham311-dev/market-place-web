@@ -22,7 +22,6 @@ const CartItem = ({
 }: ICartItemProps) => {
     const router = useRouter()
     const {
-        itemId,
         itemSpuSlug,
         itemShopId,
         itemSpuId,
@@ -80,7 +79,7 @@ const CartItem = ({
 
                     {/* Actions: chiếm 2 cột (ngang 2 hàng) */}
                     <div className="col-auto row-span-2 row-end-4 col-start-6">
-                        <CartItemRemove itemId={itemId} />
+                        <CartItemRemove data={data} />
                     </div>
                 </div>
             </CardContent>
