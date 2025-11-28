@@ -13,7 +13,6 @@ interface IQuantitySelectorContextType {
     resetQuantity: () => void,
     getValidate: (n: number, m: string[]) => void,
     isDisabledQuantity: boolean
-    isReadOnlyQuantity?: boolean
 
 }
 

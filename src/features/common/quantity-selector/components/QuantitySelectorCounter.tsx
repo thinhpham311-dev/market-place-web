@@ -29,7 +29,6 @@ const QuantitySelectorCounter = () => {
         currentQuantity,
         isDisabledQuantity,
         resetQuantity,
-
     } = useQuantitySelectorContext();
 
     React.useEffect(() => {

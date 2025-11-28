@@ -15,7 +15,7 @@ const DEFAULT_VALUE: IQuantity = {
 const initialState: IState = {};
 
 const quantitySlice = createSlice({
-    name: "quantity",
+    name: "quantity/state",
     initialState,
     reducers: {
         setInitialState(
@@ -23,7 +23,6 @@ const quantitySlice = createSlice({
             action: PayloadAction<{ storeKey: string; initialValue?: IQuantity }>
         ) {
             const { storeKey, initialValue } = action.payload;
-
             // nếu không truyền initialValue → lấy default (1)
             state[storeKey] = initialValue
                 ? { ...initialValue }

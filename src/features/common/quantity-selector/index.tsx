@@ -1,7 +1,6 @@
 "use client";
 import { memo } from "react";
 
-
 // components
 import QuantitySelectorWrapper from "./components/QuantitySelectorWrapper";
 import QuantitySelectorTitle from "./components/QuantitySelectorTitle";

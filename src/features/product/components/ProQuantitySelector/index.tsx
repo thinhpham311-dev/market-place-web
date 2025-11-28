@@ -33,7 +33,7 @@ const ProQuantitySelector = () => {
             initialQuantity={1}
             title="Quantity"
             layout="horizontal"
-            maxQuantity={sku?.sku_stock ?? 0}
+            maxQuantity={sku?.sku_stock}
             isDisabled={isDisabled}
         />
     );

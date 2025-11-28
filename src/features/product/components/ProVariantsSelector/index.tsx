@@ -30,7 +30,7 @@ const ProVariantsSelector = (() => {
         <OptionSelector
             layout="horizontal"
             reducerKey={PRO_DETAIL}
-            storeKey={PRO_DETAIL}
+            storeKey={`${PRO_DETAIL}_${data?.product_id}`}
             initialOptions={variants}
             loading={isLoading}
             error={error}
