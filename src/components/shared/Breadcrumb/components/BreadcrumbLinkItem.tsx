@@ -1,4 +1,4 @@
-import { BreadcrumbItem, BreadcrumbLink } from '@/components/ui';
+import { BreadcrumbItem, BreadcrumbLink } from '@/components/ui/breadcrumb';
 import { LucideIcon } from 'lucide-react';
 
 interface Props {

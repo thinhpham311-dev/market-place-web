@@ -1,5 +1,5 @@
 
-import { CardFooter } from "@/components/ui";
+import { CardFooter } from "@/components/ui/card";
 import VoucherSection from "./VoucherSection";
 import ActionsSection from "./ActionsSection";
 

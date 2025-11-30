@@ -1,12 +1,15 @@
 "use client";
 
 import {
-    Badge,
     Tooltip,
     TooltipContent,
     TooltipTrigger,
 
-} from "@/components/ui";
+} from "@/components/ui/tooltip";
+import {
+    Badge,
+
+} from "@/components/ui/badge";
 import { VariantOption } from "@/interfaces/spu";
 import { renderVariants } from "@/features/cart/utils/renderVariants"
 

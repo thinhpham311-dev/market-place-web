@@ -2,7 +2,7 @@
 import React from "react";
 
 // ui
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 // components
 import CategoryButtons from "../components/CategoryButtons";

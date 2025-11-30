@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { memo } from "react";
-import { CardContent } from "@/components/ui";
+import { CardContent } from "@/components/ui/card";
 import OptionSelectorCard from "./OptionSelectorCard";
 import { useOptionSelectorContext } from "@/features/common/option-selector/hooks";
 import { VariantOption } from "@/interfaces/spu"

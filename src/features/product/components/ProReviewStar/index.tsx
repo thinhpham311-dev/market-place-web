@@ -3,7 +3,7 @@ import * as React from "react";
 import {
     Card,
     CardContent,
-} from "@/components/ui";
+} from "@/components/ui/card";
 import ReviewStars from "@/features/reviews/components/ReviewStars"
 import { useSpuContext } from "@/features/spu/hooks";
 import LoadingSkeleton from "./Loading"

@@ -2,7 +2,7 @@
 
 import {
     Card, CardHeader, CardContent, CardTitle, CardDescription
-} from "@/components/ui";
+} from "@/components/ui/card";
 import SpuGrid from "@/features/product/components/ProGrid";
 // import LoadMoreTrigger from "@/features/common/infinite-scroll";
 import Pagination from "@/features/common/pagination";

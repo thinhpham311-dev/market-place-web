@@ -1,6 +1,6 @@
 'use client'
 //components
-import { Button } from "@/components/ui";
+import { Button } from "@/components/ui/button";
 import { FormInput, FormGroup } from "@/components/shared";
 
 //validations

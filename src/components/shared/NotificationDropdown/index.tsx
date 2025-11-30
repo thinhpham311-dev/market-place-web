@@ -6,7 +6,7 @@ import {
     DropdownMenuContent,
     DropdownMenuLabel,
     DropdownMenuSeparator,
-} from '@/components/ui';
+} from '@/components/ui/dropdown-menu';
 import NotificationButton from './components/NotificationButton';
 import NotificationList from './components/NotificationList';
 

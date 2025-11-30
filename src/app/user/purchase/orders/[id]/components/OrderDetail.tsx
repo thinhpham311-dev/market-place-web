@@ -6,7 +6,10 @@ import { useMemo } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 
 // Components
-import { Badge, Button, Card, CardContent, CardTitle, Table, TableHeader, TableBody, TableRow, TableHead, TableCell, CardHeader } from '@/components/ui';
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
+import { Card, CardContent, CardTitle, CardHeader } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 
 import { orderData } from '@/constants/data';
 

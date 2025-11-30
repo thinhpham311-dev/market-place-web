@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 // import CatByCategoryId from "@/features/category/by-category-id";
 // import ProListByCategoryId from "@/features/product/list/by-category-id";
-import { Skeleton } from "@/components/ui";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const MainCart = dynamic(() => import('@/features/cart/main-cart'), {
     ssr: false,

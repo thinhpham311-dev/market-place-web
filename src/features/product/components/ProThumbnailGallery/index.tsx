@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Card, CardContent, CardFooter } from "@/components/ui";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import GalleryCarousel from "./GalleryCarousel";
 import GalleryNavigation from "./GalleryNavigation";
 import { injectReducer } from "@/store";

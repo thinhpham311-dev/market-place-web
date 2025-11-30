@@ -6,7 +6,7 @@ import {
     CardDescription,
     CardContent,
     CardHeader,
-} from "@/components/ui";
+} from "@/components/ui/card";
 import { useSpuContext } from "@/features/spu/hooks";
 import LoadingSkeleton from "./Loading"
 import NotFound from "./NotFound"

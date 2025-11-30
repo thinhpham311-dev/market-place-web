@@ -2,8 +2,11 @@
 import {
     Card,
     CardContent,
+} from "@/components/ui/card";
+
+import {
     ScrollArea, ScrollBar
-} from "@/components/ui";
+} from "@/components/ui/scroll-area";
 import NotFound from "./NotFound";
 import Loading from "./Loading";
 import { Category } from "@/features/category/types";

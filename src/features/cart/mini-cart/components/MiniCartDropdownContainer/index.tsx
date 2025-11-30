@@ -1,5 +1,5 @@
 import React from "react";
-import { DropdownMenu } from "@/components/ui";
+import { DropdownMenu } from "@/components/ui/dropdown-menu";
 
 interface IMiniCartDropdownContainerProps {
     children: React.ReactNode;

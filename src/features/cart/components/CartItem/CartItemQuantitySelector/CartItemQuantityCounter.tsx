@@ -8,20 +8,23 @@ import { renderVariants } from "@/features/cart/utils/renderVariants"
 import { toast } from "sonner"
 
 
-interface ICartItemQuantityInputProps {
-    currentQuantity: number;
-    maxQuantity: number;
+interface ICartItemQuantityCounterProps {
     data: ICartItem
 }
 
-const CartItemQuantityInput = ({
-    currentQuantity,
-    maxQuantity,
+const CartItemQuantityCounter = ({
     data
-}: ICartItemQuantityInputProps) => {
+}: ICartItemQuantityCounterProps) => {
 
     const { loading, error, updateQtyItem } = useShoppingCartContext();
-    const { itemSkuId, itemSpuName, itemSpuVariations, itemSkuTierIdx } = data;
+    const {
+        itemSkuId,
+        itemSpuName,
+        itemSpuVariations,
+        itemQuantity,
+        itemSkuStock,
+        itemSkuTierIdx
+    } = data;
 
     const handleQuantityChange = (value: number) => {
 
@@ -46,18 +49,18 @@ const CartItemQuantityInput = ({
     const isDisabled = useMemo(() => {
         const hasError = !!(typeof error === "string" || error?.message);
         return !!(loading || hasError);
-    }, [loading, maxQuantity, error]);
+    }, [loading, itemSkuStock, error]);
 
     return (
         <QuantitySelector
             reducerKey={SHOPPING_CART}
             storeKey={`${SHOPPING_CART}_${itemSkuId}`}
-            initialQuantity={currentQuantity}
-            maxQuantity={maxQuantity}
+            initialQuantity={itemQuantity}
+            maxQuantity={itemSkuStock}
             isDisabled={isDisabled}
             onChangeQuantity={handleQuantityChange}
         />
     );
 };
 
-export default CartItemQuantityInput;
+export default CartItemQuantityCounter;

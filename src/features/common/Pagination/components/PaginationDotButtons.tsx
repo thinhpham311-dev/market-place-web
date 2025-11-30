@@ -1,7 +1,9 @@
 "use client";
 
 import React from "react";
-import { PaginationItem, PaginationLink, Button } from "@/components/ui";
+import { PaginationItem, PaginationLink } from "@/components/ui/pagination";
+import { Button } from "@/components/ui/button";
+
 import { usePaginationContext } from "@/features/common/pagination/hooks";
 
 export default function PaginationDotButtons() {

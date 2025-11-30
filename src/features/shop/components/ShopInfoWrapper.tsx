@@ -1,4 +1,4 @@
-import { Item } from "@/components/ui";
+import { Item } from "@/components/ui/item";
 
 
 const ShopInfoWrapper = ({ children }: { children: React.ReactNode }) => {

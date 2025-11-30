@@ -1,5 +1,5 @@
 import React from "react";
-import { DropdownMenuGroup } from "@/components/ui";
+import { DropdownMenuGroup } from "@/components/ui/dropdown-menu";
 import MiniCartTotal from "./MiniCartTotal";
 import MiniCartCheckoutButton from "./MiniCartCheckoutButton";
 

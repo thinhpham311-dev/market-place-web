@@ -2,7 +2,9 @@
 // src/components/ProductReview.tsx
 import React from 'react';
 import { injectReducer } from '@/store';
-import { Card, Button, CardContent } from '@/components/ui';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+
 import ReviewStars, { ReviewStarsRef } from "../ReviewStars"
 import ReviewComment, { ReviewCommentRef } from '../ReviewComment';
 import reducer from './store';

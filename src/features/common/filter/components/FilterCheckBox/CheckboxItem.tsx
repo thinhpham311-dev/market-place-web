@@ -1,7 +1,11 @@
 "use client";
 
 import React from "react";
-import { Label, Checkbox, Card, CardContent } from "@/components/ui";
+import { Card, CardContent } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+
+import { Checkbox } from "@/components/ui/checkbox";
+
 import { useFilterContext } from "@/features/common/filter/hooks";
 import type { Filter } from "../../types";
 

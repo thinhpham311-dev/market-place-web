@@ -2,7 +2,7 @@
 
 
 //ui
-import { Card, CardContent } from "@/components/ui";
+import { Card, CardContent } from "@/components/ui/card";
 
 
 export default function ProWrapper({ children }: { children?: React.ReactNode }) {

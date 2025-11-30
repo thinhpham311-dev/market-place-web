@@ -2,7 +2,7 @@
 "use client";
 
 import React from "react";
-import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui";
+import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 import AverageRating from "./AverageRating";
 import RatingDistributionList from "./RatingDistributionList";
 import { Review } from "../../types";

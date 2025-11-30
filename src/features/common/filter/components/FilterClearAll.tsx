@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Button } from '@/components/ui';
+import { Button } from '@/components/ui/button';
 import { useFilterContext } from "@/features/common/filter/hooks"
 
 const FilterClearAll = () => {

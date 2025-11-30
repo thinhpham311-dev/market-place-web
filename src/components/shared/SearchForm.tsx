@@ -1,7 +1,7 @@
 import React from 'react';
 
 //ui
-import { Button } from "@/components/ui";
+import { Button } from "@/components/ui/button";
 
 //components
 import { FormGroup, FormSelect, FormInput } from "@/components/shared"

@@ -1,7 +1,9 @@
 "use client";
 
 import React from "react";
-import { PaginationItem, Label } from "@/components/ui";
+import { PaginationItem } from "@/components/ui/pagination";
+import { Label } from "@/components/ui/label";
+
 import { usePaginationContext } from "@/features/common/pagination/hooks";
 
 export default function PaginationLabel() {

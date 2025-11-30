@@ -1,7 +1,9 @@
 
 
 import * as React from "react";
-import { Button, DropdownMenuTrigger } from "@/components/ui";
+import { DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+
 import Loading from "./Loading";
 import NotFound from "./NotFound";
 import { ShoppingCart } from "lucide-react";

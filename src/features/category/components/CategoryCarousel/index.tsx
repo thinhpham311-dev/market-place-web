@@ -1,5 +1,5 @@
 import React from "react";
-import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui";
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
 import NotFound from "./NotFound";
 import Loading from "./Loading";
 import CategoryCard from "../CategoryCard";

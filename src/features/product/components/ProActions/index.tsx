@@ -1,7 +1,7 @@
 "use client";
 
 
-import { Card, CardContent } from "@/components/ui";
+import { Card, CardContent } from "@/components/ui/card";
 import AddToCartButton from "./ProActionButtons/AddToCartButton";
 import BuyNowButton from "./ProActionButtons/BuyNowButton";
 

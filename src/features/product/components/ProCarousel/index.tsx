@@ -1,6 +1,6 @@
 "use client";
 
-import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui";
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
 import SpuCard from "../ProCard";
 import Loading from "./Loading";
 import NotFound from "./NotFound";

@@ -5,12 +5,14 @@ import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
 import {
-    Button,
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
-} from "@/components/ui";
+} from "@/components/ui/dropdown-menu";
+import {
+    Button
+} from "@/components/ui/button";
 
 const themeOptions = [
     { label: "Light", value: "light" },

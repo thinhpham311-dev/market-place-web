@@ -1,5 +1,5 @@
 
-import { DropdownMenuLabel } from "@/components/ui";
+import { DropdownMenuLabel } from "@/components/ui/dropdown-menu";
 import CartTitle from "./MiniCartTitle";
 import MiniCartViewMoreButton from "./MiniCartViewMoreButton";
 

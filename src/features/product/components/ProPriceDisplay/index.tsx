@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Card, CardContent } from "@/components/ui";
+import { Card, CardContent } from "@/components/ui/card";
 
 import PriceDisplay from "@/features/common/price-display";
 import { PRO_DETAIL } from "@/features/product/constants";

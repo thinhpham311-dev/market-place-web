@@ -4,14 +4,15 @@ import { useRouter } from "next/navigation";
 
 // Components
 import {
-    Button,
     Card,
     CardHeader,
     CardTitle,
     CardDescription,
     CardContent,
-
-} from "@/components/ui";
+} from "@/components/ui/card";
+import {
+    Button,
+} from "@/components/ui/button";
 import CategoryCarousel from "../components/CategoryCarousel";
 
 // Icons

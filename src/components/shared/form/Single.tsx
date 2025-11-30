@@ -1,15 +1,21 @@
 "use client";
 
 import {
-    Input,
+    Input
+} from "@/components/ui/input";
+import {
     Select,
     SelectTrigger,
     SelectContent,
     SelectItem,
-    SelectValue,
+    SelectValue
+} from "@/components/ui/select";
+import {
     Checkbox,
+} from "@/components/ui/checkbox";
+import {
     Textarea
-} from "@/components/ui";
+} from "@/components/ui/textarea";
 import {
     FormField,
     FormItem,
@@ -17,7 +23,7 @@ import {
     FormControl,
     FormMessage,
     Form,
-} from "@/components/ui";
+} from "@/components/ui/form";
 import { Control, FieldValues } from "react-hook-form";
 import { cn } from "@/lib/utils";
 import { ReactNode } from "react";

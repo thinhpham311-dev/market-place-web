@@ -9,7 +9,7 @@ import {
     CarouselNext,
     CarouselPrevious,
     CarouselItem,
-} from "@/components/ui"
+} from "@/components/ui/carousel"
 import AdsCard from "./AdsCard"
 import { NotFound } from "@/components/layout"
 import LoadingPlaceholder from "./LoadingSkeleton"

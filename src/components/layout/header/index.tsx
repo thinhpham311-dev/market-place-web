@@ -1,6 +1,6 @@
 "use client"
 import { usePathname } from "next/navigation";
-import { SidebarTrigger } from "@/components/ui"
+import { SidebarTrigger } from "@/components/ui/sidebar"
 import { ThemeToggle } from "@/components/shared"
 import { UserDropdown, SearchForm, Logo, ShoppingCart } from "@/components/shared"
 

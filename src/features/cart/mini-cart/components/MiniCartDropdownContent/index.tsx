@@ -1,6 +1,6 @@
 "use client";
 
-import { DropdownMenuContent } from "@/components/ui";
+import { DropdownMenuContent } from "@/components/ui/dropdown-menu";
 
 export default function MiniCartDropdownContent({ children }: { children: React.ReactNode }) {
     return (

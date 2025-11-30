@@ -2,7 +2,7 @@
 import * as React from "react"
 
 //components
-import { Card, CardContent } from "@/components/ui"
+import { Card, CardContent } from "@/components/ui/card"
 import AdsCarousel from "./components/AdsCarousel"
 
 //datas

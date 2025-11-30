@@ -1,6 +1,10 @@
 "use client"
 
-import { Button, Checkbox, Label, TableFooter, TableRow, TableCell } from "@/components/ui"
+import { TableFooter, TableRow, TableCell } from "@/components/ui/table"
+import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
+import { Checkbox } from "@/components/ui/checkbox"
+
 import { formatToCurrency } from "@/lib/formats"
 import { useDataTableContext } from "@/features/common/data-table/hooks"
 import { useShoppingCartContext } from "@/features/cart/hooks"

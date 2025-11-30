@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui";
+import { Button } from "@/components/ui/button";
 import Loading from "./Loading";
 import NotFound from "./NotFound";
 import { ChevronRight } from "lucide-react";

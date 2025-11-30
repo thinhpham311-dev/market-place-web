@@ -1,6 +1,6 @@
 'use client'
 //ui
-import { Button } from "@/components/ui";
+import { Button } from "@/components/ui/button";
 
 //components
 import { FormInput, FormGroup, FormSelect } from "@/components/shared";

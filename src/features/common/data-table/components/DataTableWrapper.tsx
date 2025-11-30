@@ -1,5 +1,7 @@
 import React from 'react';
-import { Card, CardContent, Table } from "@/components/ui"
+import { Card, CardContent } from "@/components/ui/card"
+import { Table } from "@/components/ui/table"
+
 
 const CartTableWrapper = ({ children }: { children: React.ReactNode }) => {
     return (

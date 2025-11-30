@@ -2,7 +2,9 @@
 
 import * as React from "react"
 
-import { Card, CardContent, Skeleton } from "@/components/ui"
+import { Card, CardContent } from "@/components/ui/card"
+import { Skeleton } from "@/components/ui/skeleton"
+
 
 
 const Loading = () => {

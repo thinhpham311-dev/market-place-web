@@ -2,12 +2,14 @@ import * as React from "react";
 
 //ui
 import {
-    Button,
     DropdownMenu,
     DropdownMenuCheckboxItem,
     DropdownMenuContent,
     DropdownMenuTrigger,
-} from "@/components/ui";
+} from "@/components/ui/dropdown-menu";
+import {
+    Button
+} from "@/components/ui/button";
 import { Table } from "@tanstack/react-table";
 
 //icons

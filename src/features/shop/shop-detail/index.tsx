@@ -6,7 +6,7 @@ import ShopHeader from '../components/ShopHeader';
 import ShopStats from '../components/ShopStats';
 import ShopActions from '../components/ShopActions';
 import { useFetchData } from '../hooks';
-import { Card, CardContent } from "@/components/ui";
+import { Card, CardContent } from "@/components/ui/card";
 import { SHOP_DETAIL } from "@/features/shop/shop-detail/constants";
 
 interface IShopProps {

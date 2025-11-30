@@ -3,14 +3,16 @@ import { useRouter } from "next/navigation"
 
 //ui
 import {
-    Button,
     DropdownMenu,
     DropdownMenuLabel,
     DropdownMenuContent,
     DropdownMenuTrigger,
     DropdownMenuItem,
     DropdownMenuSeparator
-} from "@/components/ui";
+} from "@/components/ui/dropdown-menu";
+import {
+    Button
+} from "@/components/ui/button";
 
 //types
 import { IOrder } from "@/interfaces/order";

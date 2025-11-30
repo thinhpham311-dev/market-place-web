@@ -4,14 +4,15 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 
 import {
-    Button,
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
     DropdownMenuGroup,
-} from "@/components/ui";
-
+} from "@/components/ui/dropdown-menu";
+import {
+    Button,
+} from "@/components/ui/button";
 // Icons
 import { User, LogOut, LogIn } from "lucide-react";
 

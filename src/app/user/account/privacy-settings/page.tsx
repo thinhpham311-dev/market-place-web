@@ -1,5 +1,6 @@
 //ui
-import { Button, Card, CardHeader, CardContent, CardTitle, CardDescription } from "@/components/ui";
+import { Card, CardHeader, CardContent, CardTitle, CardDescription } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 //icons
 import { Delete } from "lucide-react";

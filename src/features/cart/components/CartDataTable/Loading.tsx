@@ -1,4 +1,6 @@
-import { Skeleton, Card, CardHeader, CardContent } from "@/components/ui"
+import { Card, CardHeader, CardContent } from "@/components/ui/card"
+import { Skeleton } from "@/components/ui/skeleton"
+
 import { cn } from "@/lib/utils";
 const Loading = (
     {

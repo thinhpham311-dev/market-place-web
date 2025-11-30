@@ -1,6 +1,7 @@
 
 //ui
-import { Card, CardHeader, CardContent, Separator } from "@/components/ui"
+import { Card, CardHeader, CardContent } from "@/components/ui/card"
+import { Separator } from "@/components/ui/separator"
 // Components
 import ProWrapper from "@/features/product/components/ProWrapper";
 import ProSpuContainer from "@/features/product/components/ProSpuContainer";

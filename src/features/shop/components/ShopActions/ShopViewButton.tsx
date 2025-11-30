@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui";
+import { Button } from "@/components/ui/button";
 import { Eye } from "lucide-react";
 
 interface ShopViewButtonProps {

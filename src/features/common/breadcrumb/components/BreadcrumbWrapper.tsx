@@ -1,4 +1,4 @@
-import { Breadcrumb, BreadcrumbList } from "@/components/ui";
+import { Breadcrumb, BreadcrumbList } from "@/components/ui/breadcrumb";
 
 // ✅ Render helpers
 const BreadcrumbWrapper = ({ children }: { children?: React.ReactNode }) => (

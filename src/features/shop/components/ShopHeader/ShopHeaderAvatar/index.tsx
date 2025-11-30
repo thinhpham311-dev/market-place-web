@@ -1,6 +1,8 @@
 "use client";
 import React from "react";
-import { ItemMedia, Avatar, AvatarImage, AvatarFallback } from "@/components/ui";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { ItemMedia } from "@/components/ui/item";
+
 import { useShopInfoContext } from "@/features/shop/hooks";
 import LoadingSkeleton from "./Loading"
 import NotFound from "./NotFound"

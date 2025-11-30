@@ -1,7 +1,7 @@
 "use client";
 
 import { ShoppingBag } from "lucide-react";
-import { CardTitle } from "@/components/ui";
+import { CardTitle } from "@/components/ui/card";
 import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
 import { useShoppingCartContext } from "@/features/cart/hooks";

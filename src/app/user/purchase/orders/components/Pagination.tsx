@@ -1,7 +1,7 @@
 import * as React from "react";
 
 //ui
-import { Button } from "@/components/ui";
+import { Button } from "@/components/ui/button";
 import { Table } from "@tanstack/react-table";
 
 //types

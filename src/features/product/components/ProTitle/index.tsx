@@ -1,5 +1,5 @@
 "use client";
-import { Card, CardContent, CardTitle } from "@/components/ui";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { useSpuContext } from "@/features/spu/hooks";
 import LoadingSkeleton from "./Loading"
 import NotFound from "./NotFound"

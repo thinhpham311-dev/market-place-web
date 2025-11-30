@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { CarouselApi } from "@/components/ui";
+import { CarouselApi } from "@/components/ui/carousel";
 import { setCurrent } from "../store/stateSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 

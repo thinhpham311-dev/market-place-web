@@ -2,9 +2,9 @@ import React from 'react';
 import {
     Tooltip,
     TooltipContent,
-    TooltipTrigger,
-    Button
-} from '@/components/ui';
+    TooltipTrigger
+} from '@/components/ui/tooltip';
+import { Button } from '@/components/ui/button';
 import { MdClose } from "react-icons/md";
 import { useShoppingCartContext } from '@/features/cart/hooks';
 import { toast } from "sonner"

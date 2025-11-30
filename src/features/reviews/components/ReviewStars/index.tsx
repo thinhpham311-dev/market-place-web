@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardContent } from '@/components/ui';
+import { Card, CardContent } from '@/components/ui/card';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { setRating, resetRating } from './store/stateSlice';
 import reducer from "./store";

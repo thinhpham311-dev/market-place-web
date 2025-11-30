@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Card } from "@/components/ui"
+import { Card } from "@/components/ui/card"
 import { useOptionSelectorContext } from "@/features/common/option-selector/hooks";
 
 

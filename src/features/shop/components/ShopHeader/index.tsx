@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { ItemHeader, Item } from "@/components/ui";
+import { ItemHeader, Item } from "@/components/ui/item";
 import ShopHeaderAvatar from "./ShopHeaderAvatar";
 import ShopHeaderInfo from "./ShopHeaderInfo";
 import { useShopInfoContext } from "@/features/shop/hooks";

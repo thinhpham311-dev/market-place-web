@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { CardDescription } from "@/components/ui";
+import { CardDescription } from "@/components/ui/card";
 import { useQuantitySelectorContext } from "../../hooks";
 
 const QuantitySelectorStock: React.FC = () => {

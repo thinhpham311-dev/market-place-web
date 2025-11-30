@@ -2,14 +2,14 @@
 import { useRouter } from "next/navigation"
 import { ColumnDef } from "@tanstack/react-table"
 import { ICartItem } from "@/interfaces/cart"
-import { Button } from "@/components/ui"
-import CartItemCheckbox from "../../components/CartItem/CartItemCheckbox"
-import CartItemPrice from "../../components/CartItem/CartItemPrice"
-import CartItemName from "../../components/CartItem/CartItemName"
-import CartItemImage from "../../components/CartItem/CartItemImage"
-import { CartItemVariantsView } from "../../components/CartItem/CartItemVariantsSelector"
-import CartItemRemove from "../../components/CartItem/CartItemActions/CartItemRemove"
-import { CartItemQuantityInput } from "../../components/CartItem/CartItemQuantitySelector"
+import { Button } from "@/components/ui/button"
+import CartItemCheckbox from "@/features/cart/components/CartItem/CartItemCheckbox"
+import CartItemPrice from "@/features/cart/components/CartItem/CartItemPrice"
+import CartItemName from "@/features/cart/components/CartItem/CartItemName"
+import CartItemImage from "@/features/cart/components/CartItem/CartItemImage"
+import CartItemRemove from "@/features/cart/components/CartItem/CartItemActions/CartItemRemove"
+import { CartItemVariantsDrawer } from "@/features/cart/components/CartItem/CartItemVariantsSelector"
+import { CartItemQuantityCounter } from "@/features/cart/components/CartItem/CartItemQuantitySelector"
 
 
 export const initialColumns: ColumnDef<ICartItem>[] = [
@@ -86,10 +86,7 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
         cell: ({ row }) => {
             const item = row.original as ICartItem
             return (
-                <CartItemVariantsView
-                    itemVariants={item.itemSpuVariations}
-                    itemTierIdx={item.itemSkuTierIdx}
-                />
+                <CartItemVariantsDrawer data={item} />
             )
         },
         size: 120,
@@ -118,9 +115,7 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
             const item = row.original as ICartItem
             return (
                 <div className="flex justify-center">
-                    <CartItemQuantityInput
-                        currentQuantity={Number(item.itemQuantity)}
-                        maxQuantity={Number(item.itemSkuStock)}
+                    <CartItemQuantityCounter
                         data={item}
                     />
                 </div>

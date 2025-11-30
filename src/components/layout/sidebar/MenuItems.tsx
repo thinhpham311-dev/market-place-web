@@ -3,7 +3,7 @@ import { IMenuItem } from "@/interfaces/menu";
 import {
     SidebarMenuButton,
     SidebarMenuItem,
-} from "@/components/ui";
+} from "@/components/ui/sidebar";
 
 interface ISidebarMenuItemProps {
     item: IMenuItem;

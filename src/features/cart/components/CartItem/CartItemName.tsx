@@ -6,7 +6,7 @@ import {
     Tooltip,
     TooltipContent,
     TooltipTrigger,
-} from '@/components/ui';
+} from '@/components/ui/tooltip';
 
 
 interface ICartItemProps {

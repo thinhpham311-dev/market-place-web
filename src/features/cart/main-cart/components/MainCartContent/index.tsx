@@ -1,6 +1,6 @@
 "use client";
 import { useShoppingCartContext } from "@/features/cart/hooks";
-import { CardContent } from "@/components/ui";
+import { CardContent } from "@/components/ui/card";
 import CartDataTable from "@/features/cart/components/CartDataTable"
 import { initialColumns } from "@/features/cart/main-cart/constants"
 import { SHOPPING_CART } from "@/features/cart/constants";

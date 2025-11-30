@@ -1,4 +1,4 @@
-import { Card } from "@/components/ui";
+import { Card } from "@/components/ui/card";
 
 const MainCartContainer = ({ children }: { children: React.ReactNode }) => {
     return (

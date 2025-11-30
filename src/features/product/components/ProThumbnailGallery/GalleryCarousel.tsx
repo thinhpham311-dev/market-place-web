@@ -5,7 +5,7 @@ import {
     CarouselContent,
     CarouselItem,
     CarouselApi,
-} from "@/components/ui";
+} from "@/components/ui/carousel";
 import ProImage from "../ProImage";
 import { cn } from "@/lib/utils";
 

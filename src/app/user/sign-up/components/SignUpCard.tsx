@@ -1,7 +1,7 @@
 'use client'
 
 //ui
-import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui";
+import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 
 //components
 import SignUpForm from "./SignUpForm";

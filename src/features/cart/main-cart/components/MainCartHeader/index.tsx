@@ -1,5 +1,5 @@
 "use client";
-import { CardHeader } from "@/components/ui";
+import { CardHeader } from "@/components/ui/card";
 import MainCartTitle from "./MainCartTitle";
 
 export default function MainCartHeader() {

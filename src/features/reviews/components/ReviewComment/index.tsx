@@ -1,6 +1,6 @@
 import React from 'react';
 import { injectReducer } from '@/store';
-import { Textarea } from '@/components/ui';
+import { Textarea } from '@/components/ui/textarea';
 import reducer from './store';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { setComment, resetComment } from './store/stateSlice';

@@ -1,7 +1,7 @@
 "use client"
 
 import { flexRender } from "@tanstack/react-table"
-import { TableHeader, TableRow, TableHead } from "@/components/ui"
+import { TableHeader, TableRow, TableHead } from "@/components/ui/table"
 import { useDataTableContext } from "@/features/common/data-table/hooks"
 
 const CartTableHeader = () => {

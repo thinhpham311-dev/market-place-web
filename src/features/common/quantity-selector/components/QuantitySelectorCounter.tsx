@@ -4,12 +4,12 @@ import { useRef } from "react";
 
 // ui
 import {
+    CardContent,
+} from "@/components/ui/card";
+import {
     Counter,
     ICounterRef,
-    CardContent,
-} from "@/components/ui";
-
-//components
+} from "@/components/ui/counter";
 
 
 // hooks

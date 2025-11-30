@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Button } from '@/components/ui';
+import { Button } from '@/components/ui/button';
 import { FaRegCheckCircle } from "react-icons/fa";
 import { useSortByContext } from '../hooks';
 import type { Sort } from "../types"

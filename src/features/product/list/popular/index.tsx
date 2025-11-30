@@ -3,8 +3,9 @@ import { useRouter } from "next/navigation";
 
 //components
 import {
-    Button, Card, CardHeader, CardContent, CardTitle, CardDescription
-} from '@/components/ui';
+    Card, CardHeader, CardContent, CardTitle, CardDescription
+} from '@/components/ui/card';
+import { Button } from "@/components/ui/button";
 import ProCarousel from "@/features/product/components/ProCarousel"
 
 //hooks

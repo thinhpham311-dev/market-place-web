@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ItemActions } from "@/components/ui";
+import { ItemActions } from "@/components/ui/item";
 import { useShopInfoContext } from "@/features/shop/hooks";
 import ShopFollowButton from "./ShopFollowButton";
 import ShopViewButton from "./ShopViewButton";

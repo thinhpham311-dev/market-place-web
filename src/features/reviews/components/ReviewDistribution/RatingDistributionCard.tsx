@@ -1,6 +1,7 @@
 // src/components/product/review/ReviewDistribution/RatingDistributionItem.tsx
 import React from "react";
-import { Card, CardContent, Progress } from "@/components/ui";
+import { Card, CardContent } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
 
 interface Props {
     star: number;

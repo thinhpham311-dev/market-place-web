@@ -1,5 +1,5 @@
 import { ShoppingBag } from "lucide-react";
-import { CardTitle } from "@/components/ui";
+import { CardTitle } from "@/components/ui/card";
 import Loading from "./Loading";
 import NotFound from "./NotFound";
 import { useShoppingCartContext } from "@/features/cart/hooks";

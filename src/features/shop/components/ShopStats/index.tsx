@@ -1,5 +1,5 @@
 import React from "react";
-import { ItemContent, Item, ItemTitle, ItemDescription } from "@/components/ui";
+import { ItemContent, Item, ItemTitle, ItemDescription } from "@/components/ui/item";
 
 const ShopStats = () => {
     const stats = [

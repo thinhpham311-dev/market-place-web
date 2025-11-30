@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Button } from "@/components/ui";
+import { Button } from "@/components/ui/button";
 import { Category } from "@/features/category/types";
 import { cn } from "@/lib/utils";
 import { useNavigationActive } from "@/features/category/hooks/useNavigationActive";

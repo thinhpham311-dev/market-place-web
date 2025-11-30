@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Pagination, PaginationContent } from "@/components/ui";
+import { Pagination, PaginationContent } from "@/components/ui/pagination";
 
 export default function PaginationWrapper({
     children,

@@ -27,7 +27,7 @@ import {
     CardHeader,
     CardTitle,
     CardFooter
-} from "@/components/ui";
+} from "@/components/ui/card";
 import DropDownMenuOfItem from "./DropDownMenuOfItem";
 
 //types

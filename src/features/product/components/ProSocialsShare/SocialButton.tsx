@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Button } from "@/components/ui";
+import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
 interface ISocialButtonProps {

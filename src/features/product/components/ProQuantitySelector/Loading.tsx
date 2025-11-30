@@ -1,12 +1,12 @@
-import { Skeleton } from "@/components/ui";
+import { Skeleton } from "@/components/ui/skeleton";
 
 
 const LoadingSkeleton = () => {
     return (
         <>
-            <Skeleton className="h-[50px] rounded-xl col-span-5 my-3" />
-            <Skeleton className="h-[50px] rounded-xl col-span-5 my-3" />
-            <Skeleton className="h-[50px] rounded-xl col-span-5 my-3" />
+            {Array.from({ length: 3 }).map((_, idx) => (
+                <Skeleton key={idx} className="h-[50px] rounded-xl col-span-5 my-3" />
+            ))}
         </>
     );
 };

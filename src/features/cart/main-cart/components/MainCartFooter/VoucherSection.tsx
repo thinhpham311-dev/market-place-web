@@ -1,5 +1,5 @@
 
-import { Button } from "@/components/ui";
+import { Button } from "@/components/ui/button";
 import { Tickets, ChevronRight } from "lucide-react";
 
 export default function VoucherSection() {

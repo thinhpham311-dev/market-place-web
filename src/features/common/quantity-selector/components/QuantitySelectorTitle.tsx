@@ -4,7 +4,7 @@ import * as React from "react";
 import {
     CardHeader,
     CardTitle,
-} from "@/components/ui";
+} from "@/components/ui/card";
 import { useQuantitySelectorContext } from "@/features/common/quantity-selector/hooks";
 
 

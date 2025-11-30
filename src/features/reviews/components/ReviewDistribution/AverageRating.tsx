@@ -1,6 +1,6 @@
 // src/components/product/review/ReviewDistribution/AverageRating.tsx
 import React from "react";
-import { Card, CardContent, CardDescription } from "@/components/ui";
+import { Card, CardContent, CardDescription } from "@/components/ui/card";
 import ReviewStars from "../ReviewStars";
 import { Review } from "../../types";
 

@@ -2,16 +2,18 @@
 
 import * as React from "react"
 import { ThemeProvider as NextThemesProvider } from "next-themes"
-import { Toaster } from "@/components/ui"
+import { Toaster } from "@/components/ui/sonner"
 
 // Layout components
 import { Header, Footer, SidebarNavigation, AdminHeader } from "@/components/layout"
 
 // UI components
 import {
-    LoadingSpinner,
     SidebarProvider,
-} from "@/components/ui"
+} from "@/components/ui/sidebar"
+import {
+    LoadingSpinner
+} from "@/components/ui/loading-spinner"
 
 // Redux
 import { Provider } from "react-redux"

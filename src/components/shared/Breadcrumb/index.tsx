@@ -4,7 +4,7 @@ import {
     Breadcrumb,
     BreadcrumbList,
     BreadcrumbSeparator,
-} from '@/components/ui';
+} from '@/components/ui/breadcrumb';
 import { Tally1 } from 'lucide-react';
 import BreadcrumbLinkItem from './components/BreadcrumbLinkItem';
 import { Warehouse, ArrowDownToLine } from 'lucide-react';

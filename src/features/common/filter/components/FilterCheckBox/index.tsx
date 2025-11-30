@@ -2,9 +2,11 @@
 
 import React from "react";
 import {
-    Button,
     Card, CardContent
-} from "@/components/ui";
+} from "@/components/ui/card";
+import {
+    Button,
+} from "@/components/ui/button";
 import CheckboxItem from "./CheckboxItem";
 // import { useFilterContext } from "../../hooks";
 import { Filter } from "../../types";

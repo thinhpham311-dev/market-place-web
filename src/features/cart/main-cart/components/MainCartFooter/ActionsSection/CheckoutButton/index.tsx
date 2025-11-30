@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui";
+import { Button } from "@/components/ui/button";
 import Loading from "./Loading";
 import NotFound from "./NotFound";
 import { CreditCard } from "lucide-react";

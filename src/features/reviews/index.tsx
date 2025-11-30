@@ -2,7 +2,7 @@
 // src/components/ProductReview.tsx
 import React from 'react';
 import { injectReducer } from '@/store';
-import { Card, CardHeader, CardContent, CardTitle } from '@/components/ui';
+import { Card, CardHeader, CardContent, CardTitle } from '@/components/ui/card';
 import ReviewForm from "./components/ReviewForm"
 import ReviewRow from "./components/ReviewRow"
 import ReviewDistribution from "./components/ReviewDistribution"

@@ -5,7 +5,7 @@ import { memo } from "react";
 import { useRouter } from "next/navigation";
 
 // components
-import { Card, CardContent, CardTitle, CardImage } from "@/components/ui";
+import { Card, CardContent, CardTitle, CardImage } from "@/components/ui/card";
 import Loading from "./Loading";
 import NotFound from "./NotFound";
 

@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 
 import { notFound } from "next/navigation";
-import { Skeleton } from "@/components/ui";
+import { Skeleton } from "@/components/ui/skeleton";
 // import ShopDetail from "@/features/shop/shop-detail";
 // import ProRecommendedList from "@/features/product/list/recommended"
 // import ProHotDealList from "@/features/product/list/hot-deal"

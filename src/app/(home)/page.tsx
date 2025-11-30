@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { Skeleton } from "@/components/ui";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Advertisement = dynamic(() => import('@/features/ads'), {
   ssr: false,

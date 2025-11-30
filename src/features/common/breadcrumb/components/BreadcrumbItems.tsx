@@ -6,7 +6,7 @@ import {
     BreadcrumbPage,
     BreadcrumbLink,
     BreadcrumbSeparator,
-} from "@/components/ui";
+} from "@/components/ui/breadcrumb";
 import { useBreadcrumbContext } from "../hooks/useBreadcrumbContext";
 
 export default function BreadcrumbItemsList() {

@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 import { AlertDialogTrigger } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui";
+import { Button } from "@/components/ui/button";
 import { MdClose } from "react-icons/md";
 
 const CloseButtonTrigger = forwardRef<HTMLButtonElement>((props, ref) => (

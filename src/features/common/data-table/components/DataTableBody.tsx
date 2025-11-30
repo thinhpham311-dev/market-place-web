@@ -3,7 +3,13 @@
 import { useRouter } from "next/navigation"
 import React, { useState, useEffect, useMemo } from "react"
 import { flexRender } from "@tanstack/react-table"
-import { TableBody, TableRow, TableCell, Button, Checkbox, Label } from "@/components/ui"
+import { TableBody, TableRow, TableCell } from "@/components/ui/table"
+import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
+
+import { Label } from "@/components/ui/label"
+
+
 import { Truck, ChevronRight, MessagesSquare, Tickets } from "lucide-react"
 import { useDataTableContext } from "@/features/common/data-table/hooks"
 import { formatToCurrency } from "@/lib/formats"

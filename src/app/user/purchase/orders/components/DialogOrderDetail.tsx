@@ -1,6 +1,5 @@
 //ui
 import {
-    Button, Label,
     Dialog,
     DialogContent,
     DialogDescription,
@@ -8,7 +7,13 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui"
+} from "@/components/ui/dialog"
+import {
+    Label
+} from "@/components/ui/label"
+import {
+    Button
+} from "@/components/ui/button"
 
 //icons
 import { Receipt } from "lucide-react"

@@ -3,7 +3,7 @@
 // ui
 import {
     Card
-} from "@/components/ui";
+} from "@/components/ui/card";
 import { useQuantitySelectorContext } from "@/features/common/quantity-selector/hooks";
 
 

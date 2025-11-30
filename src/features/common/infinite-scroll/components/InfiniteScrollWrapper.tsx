@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, CardContent } from '@/components/ui';
+import { Card, CardContent } from '@/components/ui/card';
 
 export default function InfiniteScrollWrapper({ children }: { children?: React.ReactNode }) {
 

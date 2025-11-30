@@ -3,7 +3,7 @@
 import React from 'react';
 import {
     Card, CardContent, CardHeader
-} from '@/components/ui';
+} from '@/components/ui/card';
 import CartItemName from "@/features/cart/components/CartItem/CartItemName"
 import CartItemImage from '@/features/cart/components/CartItem/CartItemImage';
 import CartItemPrice from '@/features/cart/components/CartItem/CartItemPrice';

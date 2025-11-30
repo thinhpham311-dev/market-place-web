@@ -7,9 +7,11 @@ import {
     CardHeader,
     CardContent,
     CardTitle,
+} from "@/components/ui/card";
+import {
     ToggleGroup,
     ToggleGroupItem,
-} from "@/components/ui";
+} from "@/components/ui/toggle-group";
 import { cn } from "@/lib/utils";
 import { Option } from "@/features/common/option-selector/types";
 import { useOptionSelectorContext } from "@/features/common/option-selector/hooks";

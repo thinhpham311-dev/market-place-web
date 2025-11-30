@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Card, CardContent } from "@/components/ui"
+import { Card, CardContent } from "@/components/ui/card"
 import SortByOptionButton from './SortByOptionButton';
 import { useSortByContext } from '../hooks';
 

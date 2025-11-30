@@ -1,4 +1,4 @@
-import { CardTitle } from "@/components/ui";
+import { CardTitle } from "@/components/ui/card";
 import Loading from "./Loading";
 import NotFound from "./NotFound";
 import { formatToCurrency } from "@/lib/formats/formatToCurrency";

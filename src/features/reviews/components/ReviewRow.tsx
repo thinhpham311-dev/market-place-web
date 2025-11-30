@@ -3,7 +3,7 @@
 import React from 'react';
 import LoadingPlaceholder from "./LoadingSkeleton"
 import { NotFound } from "@/components/layout"
-import { Card, CardContent } from "@/components/ui"
+import { Card, CardContent } from "@/components/ui/card"
 import ReviewCard from './ReviewCard';
 import { Review } from '../types';
 

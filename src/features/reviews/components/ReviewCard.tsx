@@ -1,7 +1,7 @@
 "use client"
 // src/components/ProductReview.tsx
 import React from 'react';
-import { Card, CardContent, CardHeader, CardDescription } from '@/components/ui';
+import { Card, CardHeader, CardContent, CardDescription } from '@/components/ui/card';
 import ReviewStars from "./ReviewStars"
 
 type Review = {

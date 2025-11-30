@@ -17,8 +17,8 @@ import {
     SidebarGroupLabel,
     SidebarFooter,
     SidebarHeader
-} from "@/components/ui";
-import { Button } from "@/components/ui";
+} from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
 
 interface MenuItem {
     title: string;

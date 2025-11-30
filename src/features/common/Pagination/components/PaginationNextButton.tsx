@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { PaginationItem, PaginationNext } from "@/components/ui";
+import { PaginationItem, PaginationNext } from "@/components/ui/pagination";
 import { usePaginationContext } from "@/features/common/pagination/hooks";
 import { cn } from "@/lib/utils";
 
