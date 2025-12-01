@@ -31,6 +31,7 @@ export default function OptionSelectorCard({
     index,
 }: IOptionSelectorProps) {
     const { defaultOptionIdx, handleChooseOption, validationErrors, resetValidationErrors } = useOptionSelectorContext();
+
     const cardRef = React.useRef<HTMLDivElement>(null);
     const defaultValue = React.useMemo(() => {
         if (Array.isArray(defaultOptionIdx)) {

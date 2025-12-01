@@ -11,7 +11,7 @@ interface IOptionSelectorContextType {
     option_idx: (number | null)[];
     title?: string;
     layout?: "vertical" | "horizontal";
-    defaultOptionIdx?: (Option | null)[];
+    defaultOptionIdx?: (number | null)[];
     validationErrors: Record<number, string>;
     handleChooseOption: (index: number, option: Option | number | null) => void;
     resetValidationErrors: () => void;

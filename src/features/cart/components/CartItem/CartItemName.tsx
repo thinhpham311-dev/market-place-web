@@ -8,7 +8,6 @@ import {
     TooltipTrigger,
 } from '@/components/ui/tooltip';
 
-
 interface ICartItemProps {
     itemName: string
 }
@@ -17,19 +16,19 @@ const CartItemName = ({
     itemName,
 }: ICartItemProps) => {
     return (
-
         <Tooltip>
-            <TooltipTrigger asChild className='inline-grid truncate'>
-                <p className="text-md font-bold text-center">
+            <TooltipTrigger asChild>
+                <p
+                    className="text-md font-bold text-center  w-[150px] truncate"
+                >
                     {itemName}
                 </p>
             </TooltipTrigger>
+
             <TooltipContent>
                 {itemName}
             </TooltipContent>
         </Tooltip>
-
-
     );
 };
 

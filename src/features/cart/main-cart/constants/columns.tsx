@@ -65,7 +65,7 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
     },
     {
         accessorKey: "itemSpuName",
-        header: () => <p className="text-left w-[200px] ">Name</p>,
+        header: () => <p className="text-left w-[150px] ">Name</p>,
         cell: ({ row }) => {
             const router = useRouter()
             const handleRouterLinkToDetail = () => {
@@ -76,7 +76,7 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
                 <CartItemName itemName={item.itemSpuName} />
             </Button>
         },
-        size: 200,
+        size: 150,
 
 
     },
@@ -95,16 +95,16 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
     },
     {
         accessorKey: "itemSkuPrice",
-        header: () => <p className="text-left w-[120px]">Price</p>,
+        header: () => <p className="text-center w-[100px]">Price</p>,
         cell: ({ row }) => {
             const item = row.original as ICartItem
             return (
-                <div className="text-right">
+                <div className="flex justify-center">
                     <CartItemPrice itemPrice={item.itemSkuPrice} />
                 </div>
             )
         },
-        size: 120,
+        size: 100,
 
 
     },
@@ -129,7 +129,7 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
         cell: ({ row }) => {
             const item = row.original as ICartItem
             return <div className="flex justify-center">
-                <CartItemPrice itemPrice={item.itemSkuPrice * item.itemQuantity} />
+                <CartItemPrice itemPrice={item.itemTotalPrice} />
             </div>
         },
         size: 150,

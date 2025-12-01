@@ -16,7 +16,7 @@ export interface ICartItem {
     itemShopSlug: string;
     itemUserId?: string;
     itemQuantity: number;
-    itemSkuTotalPrice?: number
+    itemTotalPrice?: number
 }
 
 export interface ICart {

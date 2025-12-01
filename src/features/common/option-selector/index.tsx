@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { memo } from "react";
 import OptionSelectorWrapper from "./OptionSelectorWrapper"
 import OptionSelectorTitle from "./OptionSelectorTitle";
 import OptionSelectorList from "./OptionSelectorList";
@@ -11,17 +11,17 @@ import { Option } from "./types";
 interface IOptionSelectorProps {
     reducerKey: string;
     storeKey: string;
-    initialOptions?: Option[];
+    initialOptions: Option[];
     loading?: boolean;
     error?: string | { message?: string } | null;
-    defaultOptionIdx?: (Option | null)[];
+    defaultOptionIdx?: (number | null)[];
     title?: string;
     layout?: "vertical" | "horizontal";
     layoutItems?: "vertical" | "horizontal";
 }
 
 
-const OptionSelector = (({ reducerKey, storeKey, initialOptions = [], defaultOptionIdx = [], ...rest }: IOptionSelectorProps) => {
+const OptionSelector = (({ reducerKey, storeKey, initialOptions, defaultOptionIdx, ...rest }: IOptionSelectorProps) => {
     const optionSelector = useHandleOptionSelector({ reducerKey, storeKey, initialOptions, defaultOptionIdx });
 
     return (
@@ -34,4 +34,4 @@ const OptionSelector = (({ reducerKey, storeKey, initialOptions = [], defaultOpt
     );
 });
 
-export default OptionSelector;
+export default memo(OptionSelector);
