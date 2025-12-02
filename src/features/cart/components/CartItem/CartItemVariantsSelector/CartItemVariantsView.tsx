@@ -3,12 +3,10 @@
 import {
     Tooltip,
     TooltipContent,
-    TooltipTrigger,
-
+    TooltipTrigger
 } from "@/components/ui/tooltip";
 import {
-    Badge,
-
+    Badge
 } from "@/components/ui/badge";
 import { VariantOption } from "@/interfaces/spu";
 import { renderVariants } from "@/features/cart/utils/renderVariants"
@@ -26,7 +24,6 @@ const CartItemVariantsView = ({
     const variantsNode = renderVariants(itemVariants, itemTierIdx)
 
     return (
-
         <Badge variant="outline" className="items-center space-x-2">
             <Tooltip>
                 <TooltipTrigger className="bg-transparent  line-clamp-1">
@@ -37,7 +34,6 @@ const CartItemVariantsView = ({
                 </TooltipContent>
             </Tooltip>
         </Badge>
-
     );
 };
 

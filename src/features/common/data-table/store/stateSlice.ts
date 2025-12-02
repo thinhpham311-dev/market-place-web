@@ -7,35 +7,52 @@ import {
 } from '@tanstack/react-table'
 
 // Types
-export interface DataTableState {
+export interface IDataTable {
     grouping: GroupingState
     columnVisibility: VisibilityState
 }
 
-// Initial state
-const initialState: DataTableState = {
+const DEFAULT_VALUE: IDataTable = {
     grouping: ['itemShopId'],
     columnVisibility: {
         itemShopId: false,
     },
+};
+
+
+interface IState {
+    [storeKey: string]: IDataTable;
 }
+
+const initialState: IState = {};
+
 
 // Slice
 const dataTableSlice = createSlice({
     name: 'dataTable',
     initialState,
     reducers: {
-        setGrouping: (state, action: PayloadAction<GroupingState>) => {
-            state.grouping = action.payload
+        setInitialState: (
+            state,
+            action: PayloadAction<{ storeKey: string }>
+        ) => {
+            const { storeKey } = action.payload;
+            state[storeKey] = DEFAULT_VALUE
+        },
+        setGrouping: (state, action: PayloadAction<{ storeKey: string; grouping: GroupingState }>) => {
+            const { storeKey, grouping } = action.payload
+            state[storeKey].grouping = grouping
         },
 
-        setColumnVisibility: (state, action: PayloadAction<VisibilityState>) => {
-            state.columnVisibility = action.payload
+        setColumnVisibility: (state, action: PayloadAction<{ storeKey: string; columnVisibility: VisibilityState }>) => {
+            const { storeKey, columnVisibility } = action.payload
+            state[storeKey].columnVisibility = columnVisibility
         }
     },
 })
 
 export const {
+    setInitialState,
     setGrouping,
     setColumnVisibility
 } = dataTableSlice.actions

@@ -95,7 +95,7 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
     },
     {
         accessorKey: "itemSkuPrice",
-        header: () => <p className="text-center w-[100px]">Price</p>,
+        header: () => <p className="text-center w-[100px]">Unit Price</p>,
         cell: ({ row }) => {
             const item = row.original as ICartItem
             return (

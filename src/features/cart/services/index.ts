@@ -26,6 +26,14 @@ export async function apiPostUpdateQtyItem(data: { item: ICartItem }) {
     })
 }
 
+export async function apiPostUpdateVariantsItem(data: { item: ICartItem }) {
+    return ApiService.fetchData({
+        url: `/cart/update-variants-item`,
+        method: 'POST',
+        data
+    })
+}
+
 export async function apiPostDeleteItem(data: ICartItem) {
     return ApiService.fetchData({
         url: `/cart/delete`,

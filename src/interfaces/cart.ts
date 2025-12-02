@@ -20,6 +20,7 @@ export interface ICartItem {
 }
 
 export interface ICart {
+    cart_id: string;
     cart_products: ICartItem[];
     cart_product_count: number;
     cart_total_quantity: number;

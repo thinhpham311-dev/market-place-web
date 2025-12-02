@@ -20,12 +20,12 @@ const CartItemPrice = ({
 
         <Tooltip>
             <TooltipTrigger className="line-clamp-1">
-                <p className="text-sm font-medium text-center">
-                    <strong> {label}</strong> {formatToCurrency(itemPrice)}
+                <p className="text-sm font-bold text-center">
+                    <span> {label}</span> {formatToCurrency(itemPrice)}
                 </p>
             </TooltipTrigger>
             <TooltipContent>
-                <strong> Price:</strong> {formatToCurrency(itemPrice)}
+                <strong>  {label}</strong> {formatToCurrency(itemPrice)}
             </TooltipContent>
         </Tooltip>
 

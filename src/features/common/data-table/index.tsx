@@ -10,12 +10,14 @@ import DataTableFooter from "@/features/common/data-table/components/DataTableFo
 import { useHandleDataTable } from "@/features/common/data-table/hooks"
 
 interface IDataTableProps<TData extends Record<string, any>> {
+    reducerKey: string,
     storeKey: string,
     initialColumns: ColumnDef<TData>[],
     initialData: TData[]
 }
 
 function DataTable<TData extends Record<string, any>>({
+    reducerKey,
     storeKey,
     initialData,
     initialColumns,
@@ -23,6 +25,7 @@ function DataTable<TData extends Record<string, any>>({
 }: IDataTableProps<TData>) {
 
     const dataTable = useHandleDataTable({
+        reducerKey,
         storeKey,
         initialData,
         initialColumns

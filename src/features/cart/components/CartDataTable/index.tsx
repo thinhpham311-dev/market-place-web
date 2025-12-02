@@ -7,7 +7,8 @@ import LoadingSkeleton from "./Loading"
 import NotFound from './NotFound';
 
 interface ICartDataTableProps {
-    storeKey: string,
+    cartKey: string
+    cartId: string,
     data: ICartItem[],
     error: Error | null,
     isLoading: boolean
@@ -15,8 +16,7 @@ interface ICartDataTableProps {
     countLoadItems: number,
 }
 
-const CartDataTable = ({ data = [], isLoading = false, error, countLoadItems = 0, storeKey, initialColumns }: ICartDataTableProps) => {
-
+const CartDataTable = ({ cartKey = "", data = [], isLoading = false, error, countLoadItems = 0, cartId = "", initialColumns }: ICartDataTableProps) => {
     const hasNoData = !data || data.length === 0;
 
     if (isLoading && hasNoData) {
@@ -33,7 +33,8 @@ const CartDataTable = ({ data = [], isLoading = false, error, countLoadItems = 0
 
     return (
         <DataTable
-            storeKey={storeKey}
+            reducerKey={cartKey}
+            storeKey={`${cartKey}_${cartId}`}
             initialColumns={initialColumns}
             initialData={data}
         />

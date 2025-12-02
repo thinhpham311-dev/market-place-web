@@ -179,6 +179,7 @@ export interface ICartState {
 const initialState: ICartState = {
     loading: false,
     data: {
+        cart_id: "",
         cart_products: [],
         cart_total_quantity: 0,
         cart_userId: "",

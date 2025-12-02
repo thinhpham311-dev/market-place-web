@@ -1,7 +1,8 @@
 "use client"
 
-import { useEffect, useCallback } from "react"
+import { useLayoutEffect, useEffect, useRef, useCallback } from "react"
 import {
+    setInitialState,
     setGrouping,
     setColumnVisibility,
 } from "@/features/common/data-table/store/stateSlice"
@@ -16,43 +17,56 @@ import {
 
 import { useAppDispatch, useAppSelector } from "@/lib/hooks"
 import { injectReducer, removeReducer } from "@/store"
-import { selectDataTableStateByStoreKey } from "@/features/common/data-table/store/selectors"
+import { selectDataTableStoreKey } from "@/features/common/data-table/store/selectors"
 import { DATA_TABLE } from "@/features/common/data-table/constants"
 import reducer from "@/features/common/data-table/store"
 
 interface IUseCartTable {
+    reducerKey: string;
     storeKey: string
     initialData: any[]
     initialColumns: any[]
 }
 
 export const useHandleDataTable = ({
+    reducerKey,
     storeKey,
     initialData = [],
     initialColumns = [],
 }: IUseCartTable) => {
+    const initRef = useRef(false);
+    const dispatch = useAppDispatch()
+
+    useLayoutEffect(() => {
+        const dynamicReducerKey = `${DATA_TABLE}_${reducerKey}`
+        injectReducer(dynamicReducerKey, reducer)
+        return () => removeReducer(dynamicReducerKey)
+    }, [reducerKey])
 
     useEffect(() => {
-        const reducerKey = `${DATA_TABLE}_${storeKey}`
-        injectReducer(reducerKey, reducer)
-        return () => removeReducer(reducerKey)
-    }, [storeKey])
+        if (!initRef.current) {
+            dispatch(
+                setInitialState({
+                    storeKey
+                })
+            );
+            initRef.current = true;
+        }
+    }, [dispatch, storeKey, initialData]);
 
-    const state = useAppSelector(
-        selectDataTableStateByStoreKey(storeKey)
+    const { grouping, columnVisibility } = useAppSelector(
+        selectDataTableStoreKey(reducerKey, storeKey)
     )
 
-    const { grouping, columnVisibility } = state
-    const dispatch = useAppDispatch()
 
     // --- Setters to Redux ---
     const setGroupingTable = useCallback(
         (updated: Updater<GroupingState>) => {
             const next =
                 typeof updated === "function" ? updated(grouping) : updated
-            dispatch(setGrouping(next))
+            dispatch(setGrouping({ storeKey, grouping: next }))
         },
-        [dispatch, grouping]
+        [dispatch, storeKey, grouping]
     )
 
 
@@ -62,15 +76,15 @@ export const useHandleDataTable = ({
                 typeof updated === "function"
                     ? updated(columnVisibility)
                     : updated
-            dispatch(setColumnVisibility(next))
+            dispatch(setColumnVisibility({ storeKey, columnVisibility: next }))
         },
-        [dispatch, columnVisibility]
+        [dispatch, storeKey, columnVisibility]
     )
 
     // --- 👈 Set default grouping one time only ---
     useEffect(() => {
         if (!grouping || grouping.length === 0) {
-            dispatch(setGrouping(["itemShopId"]))
+            dispatch(setGrouping({ storeKey, grouping: ["itemShopId"] }))
         }
     }, [grouping, dispatch])
 

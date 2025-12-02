@@ -15,9 +15,8 @@ import OptionSelector from "@/features/common/option-selector"
 import { ICartItem } from "@/interfaces/cart";
 import { renderVariants } from "@/features/cart/utils/renderVariants"
 import { SHOPPING_CART } from "@/features/cart/constants";
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Save, Ban } from 'lucide-react';
 import { useShoppingCartContext } from "@/features/cart/hooks";
-
 
 interface CartItemVariantsDrawerProps {
     data: ICartItem
@@ -34,6 +33,9 @@ const CartItemVariantsDrawer = ({ data }: CartItemVariantsDrawerProps) => {
             : []
         , [itemSkuTierIdx]);
 
+    const handleSave = () => {
+        console.log("save changes")
+    }
 
     return (
         <Drawer key={`${SHOPPING_CART}_${itemId}`}>
@@ -43,7 +45,7 @@ const CartItemVariantsDrawer = ({ data }: CartItemVariantsDrawerProps) => {
                         <Button asChild variant="outline">
                             <span>{variantsNode}</span>
                         </Button>
-                        <Button asChild variant="outline" size="icon">
+                        <Button asChild variant="default" size="icon">
                             <span>
                                 <ChevronDown />
                             </span>
@@ -69,10 +71,13 @@ const CartItemVariantsDrawer = ({ data }: CartItemVariantsDrawerProps) => {
                         />
                     </CardContent>
                 </Card>
-                <DrawerFooter>
+                <DrawerFooter className="flex flex-row justify-end">
+                    <Button type="button" variant="default" onClick={handleSave}>
+                        <Save />  <span> Save</span>
+                    </Button>
                     <DrawerClose asChild>
-                        <Button asChild variant="outline">
-                            <span>Cancel</span>
+                        <Button variant="outline">
+                            <Ban /> <span>Cancel</span>
                         </Button>
                     </DrawerClose>
                 </DrawerFooter>

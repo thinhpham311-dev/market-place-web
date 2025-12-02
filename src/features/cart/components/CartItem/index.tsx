@@ -61,7 +61,7 @@ const CartItem = ({
 
                     {/* Giá: chiếm 3 cột */}
                     <div className="col-span-3 row-span-1">
-                        <CartItemPrice label="Price:" itemPrice={itemSkuPrice} />
+                        <CartItemPrice label="Unit Price:" itemPrice={itemSkuPrice} />
                     </div>
 
                     {/* Variants selector: chiếm 3 cột */}

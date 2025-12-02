@@ -2,9 +2,9 @@ import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "@/store";
 import { DATA_TABLE } from "@/features/common/data-table/constants";
 
-export const makeSelectDataTableState = (storeKey: string) =>
+export const makeSelectDataTableState = (reducerKey: string, storeKey: string) =>
     createSelector(
-        (state: RootState) => state[`${DATA_TABLE}_${storeKey}`]?.state ?? null,
+        (state: RootState) => state[`${DATA_TABLE}_${reducerKey}`]?.state[storeKey] ?? null,
         (dataTable) => ({
             grouping: dataTable?.grouping ?? [],
             columnVisibility: dataTable?.columnVisibility ?? {},
@@ -12,25 +12,18 @@ export const makeSelectDataTableState = (storeKey: string) =>
     );
 
 
+const selectorCache: Record<
+    string,
+    Record<string, ReturnType<typeof makeSelectDataTableState>>
+> = {};
 
-const MAX_CACHE_SIZE = 100;
-const dataTableStateSelectorsCache: Record<string, ReturnType<typeof makeSelectDataTableState>> = {};
 
-const cacheKeys: string[] = [];
-
-export const selectDataTableStateByStoreKey = (storeKey: string) => {
-    if (!dataTableStateSelectorsCache[storeKey]) {
-        dataTableStateSelectorsCache[storeKey] = makeSelectDataTableState(storeKey);
-        cacheKeys.push(storeKey);
-
-        if (cacheKeys.length > MAX_CACHE_SIZE) {
-            const oldestKey = cacheKeys.shift();
-            if (oldestKey) {
-                delete dataTableStateSelectorsCache[oldestKey];
-            }
-        }
+export const selectDataTableStoreKey = (reducerKey: string, storeKey: string) => {
+    if (!selectorCache[reducerKey]) {
+        selectorCache[reducerKey] = {};
     }
-
-    return dataTableStateSelectorsCache[storeKey];
+    if (!selectorCache[reducerKey][storeKey]) {
+        selectorCache[reducerKey][storeKey] = makeSelectDataTableState(reducerKey, storeKey);
+    }
+    return selectorCache[reducerKey][storeKey];
 };
-
