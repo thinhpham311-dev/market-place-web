@@ -42,10 +42,10 @@ const CartItemVariantsDrawer = ({ data }: CartItemVariantsDrawerProps) => {
             <DrawerTrigger asChild>
                 <div>
                     <ButtonGroup aria-label="Button group">
-                        <Button asChild variant="outline">
-                            <span>{variantsNode}</span>
+                        <Button asChild variant="ghost">
+                            <span className="font-bold">{variantsNode}</span>
                         </Button>
-                        <Button asChild variant="default" size="icon">
+                        <Button asChild variant="ghost" size="icon">
                             <span>
                                 <ChevronDown />
                             </span>

@@ -5,6 +5,7 @@ import {
     apiPostDeleteItem,
     apiPostDeleteItems,
     apiPostUpdateQtyItem,
+    apiPostUpdateVariantsItem
 } from '@/features/cart/services';
 import { ICart, ICartItem } from '@/interfaces/cart';
 import {
@@ -110,6 +111,24 @@ export const updateQtyItemInCart = createAsyncThunk<
         return rejectWithValue(error?.response?.data || error.message);
     }
 });
+
+
+export const updateVariantsItemInCart = createAsyncThunk<
+    CartResponse,
+    { cartId: string, item: ICartItem, userId: string },
+    { rejectValue: IErrorPayload | string }
+>('cart/data/updateVariantsItemInCart', async (params, {
+    //  dispatch, 
+    rejectWithValue }) => {
+    try {
+        // await dispatch(updateQtyItem({ ...params } as { cartId: string, item: ICartItem, userId: string }))
+        const response = (await apiPostUpdateVariantsItem(params)) as { data: CartResponse };
+        return response.data;
+    } catch (error: any) {
+        return rejectWithValue(error?.response?.data || error.message);
+    }
+});
+
 
 // --- Helper functions ---
 const calculateEstimatedShipping = (totalAmount: number): number => {
@@ -229,17 +248,13 @@ const dataSlice = createSlice({
             );
 
             if (itemToUpdate) {
-                if (item.itemQuantity === 0) {
-                    state.data.cart_products = state.data.cart_products.filter(
-                        (item: ICartItem) => item.itemSkuId !== item.itemSkuId
-                    );
-                } else {
-                    itemToUpdate.itemQuantity = item.itemQuantity;
-                }
+                itemToUpdate.itemQuantity = item.itemQuantity;
+                itemToUpdate.itemTotalPrice = item.itemSkuPrice * item.itemQuantity;
             }
 
             recalculateTotals(state.data);
         },
+
 
         selectItems: (state, action: PayloadAction<{ items: ICartItem[] }>) => {
             const selectedItems = action.payload.items;
@@ -330,7 +345,7 @@ const dataSlice = createSlice({
 
             })
 
-            // --- update item ---
+            // --- update quantity item ---
             .addCase(updateQtyItemInCart.pending, (state) => {
                 state.loading = true;
                 state.status = 'loading';
@@ -341,6 +356,23 @@ const dataSlice = createSlice({
                 state.status = 'success';
             })
             .addCase(updateQtyItemInCart.rejected, (state, action) => {
+                state.loading = false;
+                state.status = 'error';
+                state.error = action.payload instanceof Error ? action.payload : new Error(typeof action.payload === 'string' ? action.payload : 'Failed to fetch product list');
+
+            })
+
+            // --- update variants item ---
+            .addCase(updateVariantsItemInCart.pending, (state) => {
+                state.loading = true;
+                state.status = 'loading';
+            })
+            .addCase(updateVariantsItemInCart.fulfilled, (state, action) => {
+                state.data = action.payload.metadata;
+                state.loading = false;
+                state.status = 'success';
+            })
+            .addCase(updateVariantsItemInCart.rejected, (state, action) => {
                 state.loading = false;
                 state.status = 'error';
                 state.error = action.payload instanceof Error ? action.payload : new Error(typeof action.payload === 'string' ? action.payload : 'Failed to fetch product list');
