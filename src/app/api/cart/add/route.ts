@@ -23,7 +23,7 @@ export async function POST(req: Request): Promise<Response> {
         };
 
         // Nếu server yêu cầu form-urlencoded:
-        const query = qs.stringify(payload);
+        const query = qs.parse(payload);
 
         // ✅ Gọi axios.post đúng cú pháp
         const { data: dataResponse } = await axios.post(

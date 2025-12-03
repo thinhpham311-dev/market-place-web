@@ -21,7 +21,7 @@ export async function POST(req: Request): Promise<Response> {
             product: { ...item }
         };
 
-        const query = qs.stringify(payload);
+        const query = qs.parse(payload);
         const { data: dataResponse } = await axios.post(
             `${API_NEXT}/v1/api/cart/update-variants-item`,
             query,

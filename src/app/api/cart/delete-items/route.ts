@@ -22,7 +22,7 @@ export async function POST(req: Request): Promise<Response> {
         };
 
         // ✅ stringify payload theo dạng x-www-form-urlencoded
-        const formData = qs.stringify(payload);
+        const formData = qs.parse(payload);
 
         // ✅ Gửi DELETE request kèm body
         const { data: dataResponse } = await axios.delete(`${API_NEXT}/v1/api/cart/delete-items`, {
