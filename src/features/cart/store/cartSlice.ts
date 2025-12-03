@@ -118,10 +118,10 @@ export const updateVariantsItemInCart = createAsyncThunk<
     { cartId: string, item: ICartItem, userId: string },
     { rejectValue: IErrorPayload | string }
 >('cart/data/updateVariantsItemInCart', async (params, {
-    //  dispatch, 
+    dispatch,
     rejectWithValue }) => {
     try {
-        // await dispatch(updateQtyItem({ ...params } as { cartId: string, item: ICartItem, userId: string }))
+        await dispatch(updateVariantsItem({ ...params } as { cartId: string, item: ICartItem, userId: string }))
         const response = (await apiPostUpdateVariantsItem(params)) as { data: CartResponse };
         return response.data;
     } catch (error: any) {
@@ -249,18 +249,33 @@ const dataSlice = createSlice({
 
             if (itemToUpdate) {
                 itemToUpdate.itemQuantity = item.itemQuantity;
-                itemToUpdate.itemTotalPrice = item.itemSkuPrice * item.itemQuantity;
+                itemToUpdate.itemTotalPrice = (item.itemSkuPrice || 0) * item.itemQuantity;
             }
 
             recalculateTotals(state.data);
         },
 
+        updateVariantsItem: (state, action: PayloadAction<{ item: ICartItem }>) => {
+            const { item } = action.payload;
+
+            const itemToUpdate = state.data.cart_products.find(
+                (p: ICartItem) => p.itemSkuId === item.itemSkuId
+            );
+
+            if (itemToUpdate) {
+                itemToUpdate.itemSkuId = item.itemSkuId;
+                itemToUpdate.itemSkuTierIdx = item.itemSkuTierIdx;
+                itemToUpdate.itemSkuPrice = item.itemSkuPrice;
+                itemToUpdate.itemTotalPrice = (item.itemSkuPrice || 0) * item.itemQuantity;
+            }
+
+            recalculateTotals(state.data);
+        },
 
         selectItems: (state, action: PayloadAction<{ items: ICartItem[] }>) => {
             const selectedItems = action.payload.items;
             state.data.cart_selected_items = selectedItems;
 
-            // Nếu bạn muốn cập nhật thêm tổng tổng thể (optional)
             recalculateTotals(state.data);
         },
 
@@ -385,6 +400,7 @@ export const {
     clearServerCart,
     addItem,
     updateQtyItem,
+    updateVariantsItem,
     selectItems,
     removeAllItems,
     removeItem,
