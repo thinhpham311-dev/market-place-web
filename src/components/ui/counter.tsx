@@ -89,7 +89,7 @@ export const Counter = memo(
 
             // ✅ Tính toán disabled state
             const isDecrementDisabled = isDisabled || localCount <= minValue;
-            const isIncrementDisabled = isDisabled || (maxValue !== undefined && localCount >= maxValue);
+            const isIncrementDisabled = isDisabled || (maxValue !== undefined && Number.isInteger(maxValue) && localCount >= maxValue);
 
             return (
                 <div className={cn(className, "flex items-center space-x-3")}>
