@@ -37,6 +37,12 @@ const CartDataTable = ({ cartKey = "", data = [], isLoading = false, error, coun
             storeKey={`${cartKey}_${cartId}`}
             initialColumns={initialColumns}
             initialData={data}
+            initialValue={{
+                grouping: ['itemShopId'],
+                columnVisibility: {
+                    itemShopId: false,
+                },
+            }}
         />
     )
 }

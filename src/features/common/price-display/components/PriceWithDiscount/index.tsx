@@ -1,57 +1,78 @@
+"use client";
+
 import PriceText from "./PriceText";
 import OldPrice from "./OldPrice";
 import DiscountBadge from "./DiscountBadge";
 import { usePriceDisplayContext } from "@/features/common/price-display/hooks";
-import LoadingSkeleton from "../Loading"
+import LoadingSkeleton from "../Loading";
+import { useMemo } from "react";
 
 const PriceWithDiscount = () => {
     const { defaultPrice, currentPrice, flashSalePrice, loading } = usePriceDisplayContext();
+    if (loading) return <LoadingSkeleton />;
 
+    const {
+        current,
+        old,
+        hasDiscount,
+        discountPercent,
+        isFlashSaleActive,
+    } = useMemo(() => {
+        const hasFlashSale =
+            flashSalePrice &&
+            flashSalePrice > 0 &&
+            flashSalePrice < currentPrice;
 
-    if (loading) {
-        return <LoadingSkeleton />;
-    }
+        const hasDefaultDiscount =
+            !hasFlashSale &&
+            defaultPrice &&
+            defaultPrice > currentPrice;
 
-    // Tính toán giá hiện tại và giá cũ
-    const hasFlashSale = flashSalePrice && flashSalePrice > 0 && flashSalePrice < currentPrice;
-    const hasDiscountFromDefault = !hasFlashSale && defaultPrice && defaultPrice > currentPrice;
+        const current = hasFlashSale ? flashSalePrice : currentPrice;
+        const old =
+            hasFlashSale
+                ? currentPrice
+                : hasDefaultDiscount
+                    ? defaultPrice
+                    : undefined;
 
-    const current = hasFlashSale ? flashSalePrice : currentPrice;
-    const old = hasFlashSale ? currentPrice : (hasDiscountFromDefault ? defaultPrice : undefined);
+        let discountPercent = 0;
 
-    // Tính phần trăm giảm giá
-    const calculateDiscountPercent = () => {
         if (hasFlashSale && currentPrice > 0) {
-            return Math.round(((currentPrice - flashSalePrice) / currentPrice) * 100);
+            discountPercent = Math.round(((currentPrice - flashSalePrice) / currentPrice) * 100);
+        } else if (hasDefaultDiscount && defaultPrice) {
+            discountPercent = Math.round(((defaultPrice - currentPrice) / defaultPrice) * 100);
         }
-        if (hasDiscountFromDefault && defaultPrice) {
-            return Math.round(((defaultPrice - currentPrice) / defaultPrice) * 100);
-        }
-        return 0;
-    };
 
-    const discountPercent = calculateDiscountPercent();
-    const hasDiscount = discountPercent > 0;
-
-
+        return {
+            current,
+            old,
+            discountPercent,
+            hasDiscount: discountPercent > 0,
+            isFlashSaleActive: !!hasFlashSale,
+        };
+    }, [defaultPrice, currentPrice, flashSalePrice]);
 
     return (
         <div className="price-with-discount">
             <div className="flex items-center gap-2">
-                <PriceText value={current} className={hasDiscount ? "text-red-600 font-bold" : ""} />
-                {old !== undefined && (
-                    <OldPrice value={old} />
-                )}
+                <PriceText
+                    value={current}
+                    className={hasDiscount ? "text-red-600 font-bold" : ""}
+                />
+
+                {old !== undefined && <OldPrice value={old} />}
+
                 {hasDiscount && (
                     <DiscountBadge
                         percent={discountPercent}
-                        isFlashSale={hasFlashSale}
+                        isFlashSale={isFlashSaleActive}
                     />
                 )}
             </div>
 
-            {/* Hiển thị thông tin chi tiết về khuyến mãi */}
-            {hasFlashSale && (
+            {/* Flash sale timer (nếu cần hiển thị) */}
+            {isFlashSaleActive && (
                 <div className="flash-sale-timer mt-1 text-sm text-red-500">
                     ⚡ Flash sale: Kết thúc sau 02:15:33
                 </div>

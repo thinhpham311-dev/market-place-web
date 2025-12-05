@@ -17,7 +17,8 @@ import ProQuantitySelector from "@/features/product/components/ProQuantitySelect
 import ProVariantsSelector from "@/features/product/components/ProVariantsSelector";
 import ProSocialsShare from "@/features/product/components/ProSocialsShare";
 import ProWishListToggle from "@/features/product/components/ProWishListToggle";
-import ProPriceDisplay from "@/features/product/components/ProPriceDisplay"
+import ProPriceDisplay from "@/features/product/components/ProPriceDisplay";
+
 import ProReviewStar from "@/features/product/components/ProReviewStar"
 import ProActions from "@/features/product/components/ProActions"
 import ProShopInfo from "@/features/product/components/ProShopInfo";

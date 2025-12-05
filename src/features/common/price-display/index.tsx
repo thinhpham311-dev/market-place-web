@@ -4,26 +4,24 @@ import PriceWithDiscount from "./components/PriceWithDiscount";
 import PriceRange from "./components/PriceRange";
 import PriceDisplayProvider from "@/features/common/price-display/providers"
 import { useHandlePriceDisplay } from "@/features/common/price-display/hooks"
+import { IPriceDisplay } from "@/features/common/price-display/store/initial";
 
 interface IPriceDisplayProps {
-    defaultPrice: number;
-    currentPrice: number;
-    flashSalePrice?: number;
-    minPrice?: number;
-    maxPrice?: number;
+    reducerKey: string;
     storeKey: string;
-    loading: boolean;
-    error?: string | { message?: string } | null;
+    initialValue: IPriceDisplay;
 
 }
 
 export default function PriceDisplay({
+    reducerKey,
     storeKey,
-    ...rest
+    initialValue
 }: IPriceDisplayProps) {
     const priceDisplay = useHandlePriceDisplay({
+        reducerKey,
         storeKey,
-        initialValue: rest
+        initialValue
     })
 
     return <PriceDisplayProvider

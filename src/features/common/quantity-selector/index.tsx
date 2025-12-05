@@ -13,10 +13,12 @@ import QuantitySelectorProvider from "./providers";
 //hooks
 import { useHandleQuantitySelector } from "./hooks";
 
+import { IQuantity } from "./store/initial";
+
 interface IQuantitySelectorProps {
     reducerKey: string;
     storeKey: string;
-    initialQuantity: number;
+    initialValue: IQuantity;
     maxQuantity: number;
     layout?: "vertical" | "horizontal";
     title?: string;
@@ -24,8 +26,8 @@ interface IQuantitySelectorProps {
     isDisabled: boolean
 }
 
-const QuantitySelector = ({ reducerKey = "", storeKey = "", initialQuantity, maxQuantity, ...rest }: IQuantitySelectorProps) => {
-    const quantitySelector = useHandleQuantitySelector({ reducerKey, storeKey, initialQuantity, maxQuantity, ...rest });
+const QuantitySelector = ({ reducerKey = "", storeKey = "", initialValue, maxQuantity, ...rest }: IQuantitySelectorProps) => {
+    const quantitySelector = useHandleQuantitySelector({ reducerKey, storeKey, initialValue, maxQuantity, ...rest });
 
     return (
         <QuantitySelectorProvider contextValues={{ ...quantitySelector, ...rest }}>

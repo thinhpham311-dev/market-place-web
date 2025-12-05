@@ -1,64 +1,71 @@
 "use client";
-import { useLayoutEffect, useEffect } from "react"
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+
+import { useLayoutEffect, useEffect, useMemo } from "react";
+import { useAppDispatch } from "@/lib/hooks";
 import {
+    setInitialState,
     setPrice,
     setFlashSalePrice,
     setDefaultPrice,
-    setLoading,
-    setError,
     resetPrice,
 } from "@/features/common/price-display/store/stateSlice";
+import { IPriceDisplay } from "@/features/common/price-display/store/initial";
 
-import { selectPriceDisplayByStoreKey } from "@/features/common/price-display/store/selectors"
+import { useGetPriceValue } from "@/features/common/price-display/hooks/useGetPriceValue";
 import { injectReducer, removeReducer } from "@/store";
-import reducer from "@/features/common/price-display/store"
-import { PRICE_DISPLAY } from "@/features/common/price-display/constants"
+import reducer from "@/features/common/price-display/store";
+import { PRICE_DISPLAY } from "@/features/common/price-display/constants";
 
 interface IUseHandlePriceDisplay {
+    reducerKey: string;
     storeKey: string;
-    initialValue?: {
-        currentPrice?: number;
-        flashSalePrice?: number;
-        defaultPrice?: number;
-        loading?: boolean;
-        error?: string | { message?: string } | null;
-    };
+    initialValue: IPriceDisplay;
 }
 
-export function useHandlePriceDisplay({ storeKey, initialValue }: IUseHandlePriceDisplay) {
+export function useHandlePriceDisplay({
+    reducerKey,
+    storeKey,
+    initialValue,
+}: IUseHandlePriceDisplay) {
     const dispatch = useAppDispatch();
 
+    // 🔥 Memo hóa key để không tạo lại string mỗi render
+    const dynamicReducerKey = useMemo(
+        () => `${PRICE_DISPLAY}_${reducerKey}`,
+        [reducerKey]
+    );
+
+    // 🔥 Inject reducer chỉ 1 lần cho mỗi reducerKey
     useLayoutEffect(() => {
-        const reducerKey = `${PRICE_DISPLAY}_${storeKey}`;
-        injectReducer(reducerKey, reducer);
+        injectReducer(dynamicReducerKey, reducer);
 
         return () => {
-            dispatch(resetPrice())
-            removeReducer(reducerKey);
+            removeReducer(dynamicReducerKey);
         };
-    }, [storeKey, dispatch]);
+    }, [dynamicReducerKey]);
 
+    // 🔥 Lấy state hiện tại
+    const price = useGetPriceValue(reducerKey, storeKey, initialValue);
+
+    // 🔥 Chỉ setInitialState nếu chưa tồn tại trong Redux
     useEffect(() => {
-        if (initialValue) {
-            if (initialValue.currentPrice !== undefined) dispatch(setPrice(initialValue.currentPrice));
-            if (initialValue.flashSalePrice !== undefined) dispatch(setFlashSalePrice(initialValue.flashSalePrice));
-            if (initialValue.defaultPrice !== undefined) dispatch(setDefaultPrice(initialValue.defaultPrice));
-            if (initialValue.loading !== undefined) dispatch(setLoading(initialValue.loading));
-            if (initialValue.error !== undefined) dispatch(setError(initialValue.error));
+        if (!price) {
+            dispatch(
+                setInitialState({
+                    storeKey,
+                    initialValue,
+                })
+            );
         }
-
-    }, [dispatch, initialValue]);
-
-    const price = useAppSelector(selectPriceDisplayByStoreKey(storeKey));
+    }, [dispatch, storeKey, initialValue, price]);
 
     return {
         ...price,
-        setPrice: (val: number) => dispatch(setPrice(val)),
-        setFlashSalePrice: (val?: number) => dispatch(setFlashSalePrice(val)),
-        setDefaultPrice: (val?: number) => dispatch(setDefaultPrice(val)),
-        setLoading: (val: boolean) => dispatch(setLoading(val)),
-        setError: (err: string | { message?: string } | null) => dispatch(setError(err)),
-        resetPrice: () => dispatch(resetPrice()),
+        setPrice: (val: number) => dispatch(setPrice({ storeKey, currentPrice: val })),
+        setFlashSalePrice: (val: number) =>
+            dispatch(setFlashSalePrice({ storeKey, flashSalePrice: val })),
+        setDefaultPrice: (val: number) =>
+            dispatch(setDefaultPrice({ storeKey, defaultPrice: val })),
+        resetPrice: () => dispatch(resetPrice({ storeKey })),
     };
 }

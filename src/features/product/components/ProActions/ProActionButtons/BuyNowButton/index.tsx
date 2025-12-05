@@ -7,13 +7,12 @@ import CartBuyNow from "@/features/cart/cart-add"
 import { mapCartItem } from "@/features/cart/helpers";
 
 //actions & selectors
-import { selectQuantitySelector } from "@/features/common/quantity-selector/store/selectors";
+import { useGetQuantityValue } from "@/features/common/quantity-selector/hooks/useGetQuantityValue";
 
 
 //hooks
 import { useSpuContext } from "@/features/spu/hooks";
 import { useSkuContext } from "@/features/sku/hooks";
-import { useAppSelector } from "@/lib/hooks";
 
 
 //constants
@@ -26,9 +25,10 @@ const BuyNowButton = () => {
     const { spu, loading: spuLoading, error: spuError } = useSpuContext();
     const { sku, loading: skuLoading, error: skuError } = useSkuContext();
 
-    const { currentQuantity = 1 } = useAppSelector(
-        selectQuantitySelector(PRO_DETAIL, `${PRO_DETAIL}_${sku?.sku_id}`)
-    );
+    const { currentQuantity: qty } = useGetQuantityValue(PRO_DETAIL, `${PRO_DETAIL}_${sku?.sku_id}`, {
+        currentQuantity: 1
+    })
+
 
     const loading = spuLoading && skuLoading;
 
@@ -36,15 +36,15 @@ const BuyNowButton = () => {
 
     const data: ICartItem | null = useMemo(() => {
         if (!spu || !sku) return null;
-        if (!currentQuantity) return null
+        if (!qty) return null
         return mapCartItem({
             spu,
             sku,
-            itemQuantity: currentQuantity,
+            itemQuantity: qty,
         });
-    }, [spu, sku, currentQuantity]);
+    }, [spu, sku, qty]);
 
-    const isDisabled = !data || currentQuantity >= sku.sku_stock;
+    const isDisabled = !data || qty >= sku.sku_stock;
 
     return (
         <CartBuyNow

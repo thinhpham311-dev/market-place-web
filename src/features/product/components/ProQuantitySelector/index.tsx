@@ -30,7 +30,9 @@ const ProQuantitySelector = () => {
         <QuantitySelector
             reducerKey={PRO_DETAIL}
             storeKey={`${PRO_DETAIL}_${sku?.sku_id ?? "default"}`}
-            initialQuantity={1}
+            initialValue={{
+                currentQuantity: 1
+            }}
             title="Quantity"
             layout="horizontal"
             maxQuantity={sku?.sku_stock}

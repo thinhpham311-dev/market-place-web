@@ -8,17 +8,17 @@ import { cn } from "@/lib/utils"
 interface IPriceDisplaySelectorContextType {
     defaultPrice: number;
     currentPrice: number;
-    flashSalePrice?: number;
+    flashSalePrice: number;
     minPrice: number;
     maxPrice: number;
     setPrice: (val: number) => void;
-    setFlashSalePrice: (val?: number) => void;
-    setDefaultPrice: (val?: number) => void;
+    setFlashSalePrice: (val: number) => void;
+    setDefaultPrice: (val: number) => void;
     setLoading: (val: boolean) => void;
     setError: (err: string | { message?: string } | null) => void;
     resetPrice: () => void;
     loading: boolean;
-    error?: string | { message?: string } | null;
+    error: string | { message?: string } | null;
 }
 
 interface IPriceDisplayProviderProps {

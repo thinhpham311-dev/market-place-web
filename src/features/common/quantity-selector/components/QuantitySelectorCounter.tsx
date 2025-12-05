@@ -21,7 +21,6 @@ import { ERROR_QUANTITY_COUNTER } from "@/features/common/quantity-selector/cons
 
 const QuantitySelectorCounter = () => {
     const counterRef = useRef<ICounterRef>(null);
-
     const {
         getValidate,
         updateQuantity,
@@ -42,6 +41,7 @@ const QuantitySelectorCounter = () => {
         getValidate?.(value, [ERROR_QUANTITY_COUNTER]);
         updateQuantity(value);
     };
+
 
     return (
         <CardContent className="p-3 space-x-3 flex items-center">

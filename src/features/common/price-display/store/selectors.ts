@@ -1,26 +1,28 @@
-import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "@/store";
 import { PRICE_DISPLAY } from "@/features/common/price-display/constants"
 
-export const makeSelectPriceDisplayState = (storeKey: string) =>
-    createSelector(
-        (state: RootState) => state[`${PRICE_DISPLAY}_${storeKey}`] ? state[`${PRICE_DISPLAY}_${storeKey}`].state : null,
-        (priceState) => ({
-            currentPrice: priceState?.currentPrice,
-            minPrice: priceState?.minPrice,
-            maxPrice: priceState?.maxPrice,
-            flashSalePrice: priceState?.flashSalePrice,
-            defaultPrice: priceState?.defaultPrice,
-            loading: priceState?.loading,
-            error: priceState?.error,
-        })
-    );
 
-const priceDisplaySelectorsCache: Record<string, ReturnType<typeof makeSelectPriceDisplayState>> = {};
+const makePriceDisplayBaseSelector = (reducerKey: string, storeKey: string) =>
+    (state: RootState) =>
+        state[`${PRICE_DISPLAY}_${reducerKey}`]?.state?.[storeKey]
 
-export const selectPriceDisplayByStoreKey = (storeKey: string) => {
-    if (!priceDisplaySelectorsCache[storeKey]) {
-        priceDisplaySelectorsCache[storeKey] = makeSelectPriceDisplayState(storeKey);
+/**
+ * Cache để đảm bảo mỗi selector chỉ được tạo 1 lần
+ */
+const selectorCache: Record<
+    string,
+    Record<string, ReturnType<typeof makePriceDisplayBaseSelector>>
+> = {};
+
+
+export const selectPriceDisplaySelector = (reducerKey: string, storeKey: string) => {
+    if (!selectorCache[reducerKey]) {
+        selectorCache[reducerKey] = {};
     }
-    return priceDisplaySelectorsCache[storeKey];
+
+    if (!selectorCache[reducerKey][storeKey]) {
+        selectorCache[reducerKey][storeKey] = makePriceDisplayBaseSelector(reducerKey, storeKey);
+    }
+
+    return selectorCache[reducerKey][storeKey];
 };

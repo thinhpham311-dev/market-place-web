@@ -5,26 +5,7 @@ import {
     GroupingState,
     VisibilityState
 } from '@tanstack/react-table'
-
-// Types
-export interface IDataTable {
-    grouping: GroupingState
-    columnVisibility: VisibilityState
-}
-
-const DEFAULT_VALUE: IDataTable = {
-    grouping: ['itemShopId'],
-    columnVisibility: {
-        itemShopId: false,
-    },
-};
-
-
-interface IState {
-    [storeKey: string]: IDataTable;
-}
-
-const initialState: IState = {};
+import { initialState, createDefault, IDataTable } from "@/features/common/data-table/store/initial"
 
 
 // Slice
@@ -34,10 +15,15 @@ const dataTableSlice = createSlice({
     reducers: {
         setInitialState: (
             state,
-            action: PayloadAction<{ storeKey: string }>
+            action: PayloadAction<{ storeKey: string, initialValue: IDataTable }>
         ) => {
-            const { storeKey } = action.payload;
-            state[storeKey] = DEFAULT_VALUE
+            const { storeKey, initialValue } = action.payload;
+
+            if (!state[storeKey]) {
+                state[storeKey] = initialValue
+                    ? { ...initialValue }
+                    : createDefault();
+            }
         },
         setGrouping: (state, action: PayloadAction<{ storeKey: string; grouping: GroupingState }>) => {
             const { storeKey, grouping } = action.payload

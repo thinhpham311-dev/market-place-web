@@ -8,7 +8,7 @@ import { Option } from "@/features/common/option-selector/types";
 
 interface IOptionSelectorContextType {
     options: Option[];
-    option_idx: (number | null)[];
+    selectedOptions: (number | null)[];
     title?: string;
     layout?: "vertical" | "horizontal";
     defaultOptionIdx?: (number | null)[];

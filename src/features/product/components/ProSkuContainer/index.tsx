@@ -3,8 +3,7 @@
 //constants
 import { PRO_DETAIL } from "@/features/product/constants";
 import SkuRoot from "@/features/sku/sku-root";
-import { useAppSelector } from "@/lib/hooks";
-import { selectOptionsStoreKey } from "@/features/common/option-selector/store/selectors"
+import { useGetOptionSelectorValue } from "@/features/common/option-selector/hooks";
 
 interface IProSkuDetailContainerProps {
     product_id: string;
@@ -12,13 +11,17 @@ interface IProSkuDetailContainerProps {
 }
 
 export default function ProSkuDetailContainer({ product_id, children }: IProSkuDetailContainerProps) {
-    const { option_idx, optionsCount } = useAppSelector(selectOptionsStoreKey(PRO_DETAIL, `${PRO_DETAIL}_${product_id}`))
+    const { selectedOptions, optionsCount } = useGetOptionSelectorValue(PRO_DETAIL, `${PRO_DETAIL}_${product_id}`, {
+        options: [],
+        selectedOptions: [],
+        validationErrors: []
+    })
 
     return (
         <SkuRoot
             storeKey={PRO_DETAIL}
             product_id={product_id}
-            sku_tier_idx={option_idx}
+            sku_tier_idx={selectedOptions}
             optionsCount={optionsCount}
         >
             {children}

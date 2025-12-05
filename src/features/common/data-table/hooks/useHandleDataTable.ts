@@ -14,16 +14,17 @@ import {
     getCoreRowModel,
     getGroupedRowModel,
 } from "@tanstack/react-table"
-
-import { useAppDispatch, useAppSelector } from "@/lib/hooks"
+import { IDataTable } from "@/features/common/data-table/store/initial"
+import { useGetDataTableValue } from "./useGetDataTableValue"
+import { useAppDispatch } from "@/lib/hooks"
 import { injectReducer, removeReducer } from "@/store"
-import { selectDataTableStoreKey } from "@/features/common/data-table/store/selectors"
 import { DATA_TABLE } from "@/features/common/data-table/constants"
 import reducer from "@/features/common/data-table/store"
 
 interface IUseCartTable {
     reducerKey: string;
     storeKey: string
+    initialValue: IDataTable
     initialData: any[]
     initialColumns: any[]
 }
@@ -31,6 +32,7 @@ interface IUseCartTable {
 export const useHandleDataTable = ({
     reducerKey,
     storeKey,
+    initialValue,
     initialData = [],
     initialColumns = [],
 }: IUseCartTable) => {
@@ -47,16 +49,18 @@ export const useHandleDataTable = ({
         if (!initRef.current) {
             dispatch(
                 setInitialState({
-                    storeKey
+                    storeKey,
+                    initialValue
                 })
             );
             initRef.current = true;
         }
-    }, [dispatch, storeKey, initialData]);
+    }, [dispatch, storeKey, initialValue]);
 
-    const { grouping, columnVisibility } = useAppSelector(
-        selectDataTableStoreKey(reducerKey, storeKey)
-    )
+    const { grouping, columnVisibility } = useGetDataTableValue(reducerKey, storeKey, {
+        grouping: [],
+        columnVisibility: {},
+    })
 
 
     // --- Setters to Redux ---

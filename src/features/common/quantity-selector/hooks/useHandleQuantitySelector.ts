@@ -1,5 +1,4 @@
 import { toast } from "sonner";
-import { selectQuantitySelector } from "../store/selectors";
 
 import {
     useCallback,
@@ -8,9 +7,10 @@ import {
     useMemo,
     useRef,
 } from "react";
-
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { setInitialState, setQuantity, resetQuantity } from "../store/stateSlice";
+import { IQuantity } from "@/features/common/quantity-selector/store/initial"
+import { useAppDispatch } from "@/lib/hooks";
+import { useGetQuantityValue } from "@/features/common/quantity-selector/hooks/useGetQuantityValue";
+import { setInitialState, setQuantity, resetQuantity } from "@/features/common/quantity-selector/store/stateSlice";
 import { injectReducer, removeReducer } from "@/store";
 import reducer from "../store";
 import { QUANTITY_COUNTER } from "../constants";
@@ -19,7 +19,7 @@ interface IUseHandleQuantitySelector {
     reducerKey: string;
     storeKey: string;
     maxQuantity: number;
-    initialQuantity: number;
+    initialValue: IQuantity;
     onChangeQuantity?: (value: number) => void;
     isDisabled: boolean;
 }
@@ -28,7 +28,7 @@ export function useHandleQuantitySelector({
     reducerKey,
     storeKey,
     maxQuantity,
-    initialQuantity,
+    initialValue,
     onChangeQuantity,
     isDisabled,
 }: IUseHandleQuantitySelector) {
@@ -38,18 +38,19 @@ export function useHandleQuantitySelector({
     const initRef = useRef(false);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+    // 🔥 Memo hóa key để không tạo lại string mỗi render
+    const dynamicReducerKey = useMemo(
+        () => `${QUANTITY_COUNTER}_${reducerKey}`,
+        [reducerKey]
+    );
     // ⬅ reducer injection - only once
     useLayoutEffect(() => {
-        const dynamicReducerKey = `${QUANTITY_COUNTER}_${reducerKey}`;
         injectReducer(dynamicReducerKey, reducer);
 
         return () => {
-            dispatch(resetQuantity({ storeKey }));
             removeReducer(dynamicReducerKey);
-
-            if (timeoutRef.current) clearTimeout(timeoutRef.current);
         };
-    }, [dispatch, reducerKey, storeKey]);
+    }, [dispatch, dynamicReducerKey]);
 
     // ⬅ initial quantity set
     useEffect(() => {
@@ -57,18 +58,14 @@ export function useHandleQuantitySelector({
             dispatch(
                 setInitialState({
                     storeKey,
-                    initialValue: { currentQuantity: initialQuantity },
+                    initialValue,
                 })
             );
             initRef.current = true;
         }
-    }, [dispatch, storeKey, initialQuantity]);
+    }, [dispatch, storeKey, initialValue]);
 
-    const { currentQuantity = initialQuantity } = useAppSelector(
-        selectQuantitySelector(reducerKey, storeKey)
-    );
-
-    // ⬅ validate
+    const { currentQuantity } = useGetQuantityValue(reducerKey, storeKey, initialValue);
     const getValidateQuantity = useCallback(
         (newQuantity: number, messages: string[]) => {
             if (newQuantity >= maxQuantity) {

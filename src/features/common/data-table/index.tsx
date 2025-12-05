@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { ColumnDef } from "@tanstack/react-table"
+import { IDataTable } from "@/features/common/data-table/store/initial"
 import DataTableProvider from "@/features/common/data-table/providers"
 import DataTableWrapper from "@/features/common/data-table/components/DataTableWrapper"
 import DataTableHeader from "@/features/common/data-table/components/DataTableHeader"
@@ -13,22 +14,20 @@ interface IDataTableProps<TData extends Record<string, any>> {
     reducerKey: string,
     storeKey: string,
     initialColumns: ColumnDef<TData>[],
+    initialValue: IDataTable,
     initialData: TData[]
 }
 
 function DataTable<TData extends Record<string, any>>({
     reducerKey,
     storeKey,
-    initialData,
-    initialColumns,
     ...rest
 }: IDataTableProps<TData>) {
 
     const dataTable = useHandleDataTable({
         reducerKey,
         storeKey,
-        initialData,
-        initialColumns
+        ...rest,
     })
 
     return (

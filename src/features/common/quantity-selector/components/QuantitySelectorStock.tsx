@@ -1,10 +1,10 @@
 "use client";
 
-import React from "react";
+import { memo } from "react";
 import { CardDescription } from "@/components/ui/card";
-import { useQuantitySelectorContext } from "../../hooks";
+import { useQuantitySelectorContext } from "@/features/common/quantity-selector/hooks";
 
-const QuantitySelectorStock: React.FC = () => {
+const QuantitySelectorStock = () => {
     const { maxQuantity = 0 } = useQuantitySelectorContext();
 
     const message =
@@ -17,4 +17,4 @@ const QuantitySelectorStock: React.FC = () => {
     );
 };
 
-export default React.memo(QuantitySelectorStock);
+export default memo(QuantitySelectorStock);
