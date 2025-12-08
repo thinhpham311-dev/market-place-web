@@ -6,8 +6,7 @@ import CartProvider from "@/features/cart/providers";
 
 //format
 import { useHandleShoppingCart } from "../hooks";
-import { SHOPPING_CART } from "@/features/cart/constants";
-
+import { CART_ROOT } from "@/features/cart/cart-root/constants";
 
 interface ICartProps {
     children?: React.ReactNode;
@@ -16,7 +15,9 @@ interface ICartProps {
 
 export default function ShoppingCartRoot({ children }: ICartProps) {
 
-    const cart = useHandleShoppingCart({ storeKey: SHOPPING_CART, userId: "1001" });
+    const cart = useHandleShoppingCart({
+        storeKey: `${CART_ROOT}_1001`, userId: "1001"
+    });
 
     return (
         <CartProvider contextValues={{ ...cart }}>

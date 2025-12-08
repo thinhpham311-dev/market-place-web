@@ -19,7 +19,7 @@ export async function POST(req: Request): Promise<Response> {
         const payload = {
             cartId,
             userId,
-            product: { ...item }
+            product: item
         };
 
         // Nếu server yêu cầu form-urlencoded:

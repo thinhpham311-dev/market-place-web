@@ -18,7 +18,7 @@ export async function POST(req: Request): Promise<Response> {
         const payload = {
             cartId,
             userId,
-            product: { ...item }
+            product: item
         };
 
         const query = qs.parse(payload);

@@ -1,8 +1,8 @@
 import ApiService from "@/services/ApiService"
-import { ICartItem, ICart } from "@/interfaces/cart"
+import { ICartItem } from "@/interfaces/cart"
 
 
-export async function apiPostShowItems(data: ICart) {
+export async function apiPostShowItems(data: { userId: string }) {
     return ApiService.fetchData({
         url: `/cart/list`,
         method: 'POST',
@@ -10,7 +10,7 @@ export async function apiPostShowItems(data: ICart) {
     })
 }
 
-export async function apiPostAddItem(data: { item: ICartItem }) {
+export async function apiPostAddItem(data: { userId: string, item: ICartItem }) {
     return ApiService.fetchData({
         url: `/cart/add`,
         method: 'POST',
@@ -18,7 +18,7 @@ export async function apiPostAddItem(data: { item: ICartItem }) {
     })
 }
 
-export async function apiPostUpdateQtyItem(data: { item: ICartItem }) {
+export async function apiPostUpdateQtyItem(data: { userId: string, item: ICartItem }) {
     return ApiService.fetchData({
         url: `/cart/update-qty-item`,
         method: 'POST',
@@ -26,7 +26,7 @@ export async function apiPostUpdateQtyItem(data: { item: ICartItem }) {
     })
 }
 
-export async function apiPostUpdateVariantsItem(data: { item: ICartItem }) {
+export async function apiPostUpdateVariantsItem(data: { userId: string, item: ICartItem }) {
     return ApiService.fetchData({
         url: `/cart/update-variants-item`,
         method: 'POST',
@@ -34,7 +34,7 @@ export async function apiPostUpdateVariantsItem(data: { item: ICartItem }) {
     })
 }
 
-export async function apiPostDeleteItem(data: ICartItem) {
+export async function apiPostDeleteItem(data: { userId: string, item: ICartItem }) {
     return ApiService.fetchData({
         url: `/cart/delete`,
         method: 'POST',
@@ -42,7 +42,7 @@ export async function apiPostDeleteItem(data: ICartItem) {
     })
 }
 
-export async function apiPostDeleteItems(data: { items: ICartItem[]; }) {
+export async function apiPostDeleteItems(data: { userId: string, items: ICartItem[]; }) {
     return ApiService.fetchData({
         url: `/cart/delete-items`,
         method: 'POST',

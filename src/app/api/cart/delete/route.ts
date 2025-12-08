@@ -7,7 +7,7 @@ const API_NEXT = process.env.NEXT_PUBLIC_BASE_URL;
 
 export async function POST(req: Request): Promise<Response> {
     try {
-        const body = await req.json();
+        const { userId, item } = await req.json();
 
         if (!API_NEXT) {
             return NextResponse.json(
@@ -17,9 +17,10 @@ export async function POST(req: Request): Promise<Response> {
         }
         // ✅ Tạo payload gửi lên server
         const payload = {
-            userId: '1001',
-            product: { ...body }
+            userId,
+            product: item
         };
+
 
         // ✅ stringify payload theo dạng x-www-form-urlencoded
         const formData = qs.parse(payload);
