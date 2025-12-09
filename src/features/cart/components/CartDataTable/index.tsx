@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import DataTable from "@/features/common/data-table"
+import { DataTable } from "@/features/common"
 import { ICartItem } from "@/interfaces/cart"
 import LoadingSkeleton from "./Loading"
 import NotFound from './NotFound';

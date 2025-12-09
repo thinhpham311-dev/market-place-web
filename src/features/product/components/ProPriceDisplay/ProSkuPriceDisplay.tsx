@@ -1,6 +1,6 @@
 "use client";
 
-import PriceDisplay from "@/features/common/price-display";
+import { PriceDisplay } from "@/features/common";
 import { PRO_DETAIL } from "@/features/product/constants";
 import { useSkuContext } from "@/features/sku/hooks";
 import LoadingSkeleton from "./Loading";

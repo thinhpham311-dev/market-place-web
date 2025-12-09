@@ -24,26 +24,24 @@ const AddToCartButton = () => {
     const { spu, loading: spuLoading, error: spuError } = useSpuContext();
     const { sku, loading: skuLoading, error: skuError } = useSkuContext();
 
-    const { currentQuantity } = useGetQuantityValue(PRO_DETAIL, `${PRO_DETAIL}_${sku?.sku_id}`, {
-        currentQuantity: 1
-    })
+    const { currentQuantity: qty } = useGetQuantityValue(PRO_DETAIL, `${PRO_DETAIL}_${sku?.sku_id}`)
     const loading = spuLoading && skuLoading;
 
     const error = spuError && skuError;
 
     const data: ICartItem | null = useMemo(() => {
         if (!spu || !sku) return null;
-        if (!currentQuantity) return null
+        if (!qty) return null
 
         return mapCartItem({
             spu,
             sku,
-            itemQuantity: currentQuantity,
+            itemQuantity: qty,
         });
 
-    }, [spu, sku, currentQuantity]);
+    }, [spu, sku, qty]);
 
-    const isDisabled = !data || currentQuantity >= sku.sku_stock;
+    const isDisabled = !data || qty >= sku.sku_stock;
 
     return (
         <CartAddItem

@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { ICartItem } from "@/interfaces/cart";
 import { useShoppingCartContext } from "@/features/cart/hooks";
-import QuantitySelector from "@/features/common/quantity-selector";
+import { QuantitySelector } from "@/features/common";
 import { SHOPPING_CART } from "@/features/cart/constants";
 import { renderVariants } from "@/features/cart/utils/renderVariants"
 

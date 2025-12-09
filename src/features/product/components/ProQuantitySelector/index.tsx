@@ -1,7 +1,7 @@
 "use client";
 import { useMemo } from "react";
 
-import QuantitySelector from "@/features/common/quantity-selector";
+import { QuantitySelector } from "@/features/common";
 import { PRO_DETAIL } from "@/features/product/constants";
 import { useSkuContext } from "@/features/sku/hooks";
 import { useSpuContext } from "@/features/spu/hooks";
