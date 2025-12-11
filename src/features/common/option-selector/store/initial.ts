@@ -3,7 +3,7 @@ import { Option } from "@/features/common/option-selector/types";
 export interface IOption {
     options: (Option | null)[];
     selectedOptions: (Option | number | null)[];
-    validationErrors: string[];
+    validationErrors: Record<number, string>;
     optionsCount?: number;
 }
 

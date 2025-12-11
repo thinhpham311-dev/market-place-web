@@ -24,11 +24,11 @@ interface CartAddItemProps extends ICartButtonBaseProps {
 const CartAddItem = ({ item, disabled, isLoading, isError, href = "", ...rest }: CartAddItemProps) => {
     const router = useRouter()
 
-    const { addItem, loading, error } = useShoppingCartContext();
+    const { createItem, loading, error } = useShoppingCartContext();
 
     const handleAddToCart = () => {
         if (!item) return;
-        addItem(item);
+        createItem(item);
         setTimeout(() => {
             const id = toast.success("Add To  Successfully!", {
                 description: (

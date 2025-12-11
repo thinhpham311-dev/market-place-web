@@ -8,7 +8,7 @@ const API_NEXT = process.env.NEXT_PUBLIC_BASE_URL;
 export async function POST(req: Request): Promise<Response> {
     try {
         const body = await req.json();
-        const { cartId, userId, item } = body
+        const { userId, item } = body
         if (!API_NEXT) {
             return NextResponse.json(
                 { message: 'Server misconfiguration: API_NEXT not set' },
@@ -16,7 +16,6 @@ export async function POST(req: Request): Promise<Response> {
             );
         }
         const payload = {
-            cartId,
             userId,
             product: item
         };
@@ -27,7 +26,7 @@ export async function POST(req: Request): Promise<Response> {
             query,
             {
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Content-Type': 'application/json',
                     'x-api-key': process.env.NEXT_PUBLIC_API_KEY || '',
                 }
             }

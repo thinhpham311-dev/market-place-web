@@ -42,17 +42,14 @@ const optionSlice = createSlice({
                 state[storeKey].selectedOptions = [];
             }
 
-            // 🔒 fill missing indexes
-            while (state[storeKey].selectedOptions.length <= index) {
-                state[storeKey].selectedOptions.push(null);
-            }
+
 
             state[storeKey].selectedOptions[index] = value;
         },
 
         setValidationErrors: (
             state,
-            action: PayloadAction<{ storeKey: string; errors: string[] }>
+            action: PayloadAction<{ storeKey: string; errors: Record<number, string> }>
         ) => {
             const { storeKey, errors } = action.payload;
 
@@ -66,7 +63,8 @@ const optionSlice = createSlice({
         resetOptions: (state, action: PayloadAction<{ storeKey: string }>) => {
             const { storeKey } = action.payload;
 
-            state[storeKey] = createDefault();
+            state[storeKey].selectedOptions = [];
+            state[storeKey].validationErrors = [];
         },
     },
 });

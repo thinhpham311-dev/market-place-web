@@ -49,10 +49,11 @@ export default function OptionSelectorCard({
         handleChooseOption(index, option);
     };
 
+
+
     React.useEffect(() => {
-        if (!validationErrors || Object.keys(validationErrors).length === 0) {
-            return;
-        }
+        if (!validationErrors || Object.keys(validationErrors).length === 0) return;
+
 
         const handleClickOutside = (event: MouseEvent) => {
             if (cardRef.current && !cardRef.current.contains(event.target as Node)) {
@@ -60,9 +61,11 @@ export default function OptionSelectorCard({
             }
         };
 
+
         window.addEventListener("mousedown", handleClickOutside);
         return () => window.removeEventListener("mousedown", handleClickOutside);
     }, [validationErrors, resetValidationErrors]);
+
 
 
     return (
@@ -119,8 +122,13 @@ export default function OptionSelectorCard({
                     ))}
                 </ToggleGroup>
 
+                {/* error message: đặt ngay sau ToggleGroup để luôn hiển thị dưới nó */}
                 {validationErrors?.[index] && (
-                    <p className="text-red-500 text-xs mt-2">
+                    <p
+                        className="text-red-500 text-xs mt-2"
+                        role="alert"
+                        id={`option-${index}-error`}
+                    >
                         {validationErrors[index]}
                     </p>
                 )}

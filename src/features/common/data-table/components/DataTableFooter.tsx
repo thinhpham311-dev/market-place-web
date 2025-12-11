@@ -12,18 +12,18 @@ import { Trash } from "lucide-react"
 import { toast } from "sonner"
 
 const CartTableFooter = () => {
-    const { removeSelectedItems } = useShoppingCartContext()
+    const { removeItemsSelected } = useShoppingCartContext()
 
     const {
-        cart_selected_items,
-        cart_total_items,
-        cart_selected_items_total,
+        items_selected,
+        total_items,
+        total_items_selected,
         table
     } = useDataTableContext()
 
     const handleDeleteSelectedItems = () => {
-        if (cart_selected_items.length > 0) {
-            removeSelectedItems(cart_selected_items)
+        if (items_selected.length > 0) {
+            removeItemsSelected(items_selected)
             const id = toast.success("Deleted All Product out cart!", {
                 description: (
                     <p>
@@ -49,21 +49,21 @@ const CartTableFooter = () => {
                     >
                         <Checkbox
                             id="selected-all"
-                            disabled={cart_total_items === 0}
+                            disabled={total_items === 0}
                             checked={table.getIsAllRowsSelected()}
                             onCheckedChange={(value) => table.toggleAllRowsSelected(!!value)}
                         />
-                        <span>Selected All ({cart_selected_items.length}/{cart_total_items})</span>
+                        <span>Selected All ({items_selected.length}/{total_items})</span>
                     </Label>
                 </TableCell>
                 <TableCell >
                     <div className="text-center text-sm font-medium min-w-[150px]">
-                        ({cart_selected_items.length} item)
+                        ({items_selected.length} item)
                     </div>
                 </TableCell>
                 <TableCell >
                     <div className="text-center text-sm font-semibold min-w-[150px]">
-                        {formatToCurrency(cart_selected_items_total)}
+                        {formatToCurrency(total_items_selected)}
                     </div>
                 </TableCell>
                 <TableCell >
@@ -73,7 +73,7 @@ const CartTableFooter = () => {
                         <Button
                             variant="destructive"
                             size="sm"
-                            disabled={cart_selected_items_total === 0}
+                            disabled={total_items_selected === 0}
                             onClick={handleDeleteSelectedItems}
                             className="gap-2"
                         >

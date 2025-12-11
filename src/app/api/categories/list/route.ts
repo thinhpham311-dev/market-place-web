@@ -16,7 +16,7 @@ export async function POST(): Promise<Response> {
 
         const { data: dataResponse } = await axios.get(`${API_NEXT}/v1/api/category/all/list`, {
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'application/json',
                 'x-api-key': process.env.NEXT_PUBLIC_API_KEY || '',
             },
         });

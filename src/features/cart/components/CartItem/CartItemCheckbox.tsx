@@ -18,16 +18,16 @@ const CartItemCheckbox = ({
     ariaLabel = "Select item",
     onCheckedChange,
 }: ICartItemCheckboxProps) => {
-    const { selectItems } = useShoppingCartContext();
+    const { setItemsSelected } = useShoppingCartContext();
 
     const handleCheckedChange = (isChecked: boolean) => {
         onCheckedChange?.(isChecked);
 
         if (data.length > 0) {
             if (isChecked) {
-                selectItems(data.map((item) => item.itemId) as any);
+                setItemsSelected(data.map((item) => item.itemId) as any);
             } else {
-                selectItems([]);
+                setItemsSelected([]);
             }
         }
     };

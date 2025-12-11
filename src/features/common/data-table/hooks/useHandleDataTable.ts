@@ -28,7 +28,6 @@ interface IUseCartTable {
     initialData: any[]
     initialColumns: any[]
 }
-
 export const useHandleDataTable = ({
     reducerKey,
     storeKey,
@@ -36,13 +35,17 @@ export const useHandleDataTable = ({
     initialData = [],
     initialColumns = [],
 }: IUseCartTable) => {
-    const initRef = useRef(false);
+    const initRef = useRef(false)
+    const data = useMemo(() => initialData, [initialData]);
+    const columns = useMemo(() => initialColumns, [initialColumns]);
+
     const dispatch = useAppDispatch()
 
     const dynamicReducerKey = useMemo(
         () => `${DATA_TABLE}_${reducerKey}`,
         [reducerKey]
-    );
+    )
+
 
     useLayoutEffect(() => {
         injectReducer(dynamicReducerKey, reducer)
@@ -51,28 +54,26 @@ export const useHandleDataTable = ({
 
     useEffect(() => {
         if (!initRef.current) {
-            dispatch(
-                setInitialState({
-                    storeKey,
-                    initialValue
-                })
-            );
-            initRef.current = true;
+            dispatch(setInitialState({ storeKey, initialValue }))
+            initRef.current = true
         }
-    }, [dispatch, storeKey, initialValue]);
+    }, [dispatch, storeKey, initialValue])
 
-    const { grouping, columnVisibility } = useGetDataTableValue(reducerKey, storeKey, initialValue)
+    const { grouping, columnVisibility } = useGetDataTableValue(
+        reducerKey,
+        storeKey,
+        initialValue
+    )
 
-    // --- Setters to Redux ---
+
+
     const setGroupingTable = useCallback(
         (updated: Updater<GroupingState>) => {
-            const next =
-                typeof updated === "function" ? updated(grouping) : updated
+            const next = typeof updated === "function" ? updated(grouping) : updated
             dispatch(setGrouping({ storeKey, grouping: next }))
         },
         [dispatch, storeKey, grouping]
     )
-
 
     const setColumnVisibilityTable = useCallback(
         (updated: Updater<VisibilityState>) => {
@@ -85,17 +86,16 @@ export const useHandleDataTable = ({
         [dispatch, storeKey, columnVisibility]
     )
 
-    // --- 👈 Set default grouping one time only ---
     useEffect(() => {
         if (!grouping || grouping.length === 0) {
             dispatch(setGrouping({ storeKey, grouping: ["itemShopId"] }))
         }
     }, [grouping, dispatch])
 
-    // --- React Table ---
+
     const table = useReactTable({
-        data: initialData,
-        columns: initialColumns,
+        data,
+        columns,
         state: {
             grouping,
             columnVisibility,
@@ -106,22 +106,25 @@ export const useHandleDataTable = ({
         getGroupedRowModel: getGroupedRowModel(),
     })
 
-    // --- Stats ---
-    const cart_total_items = initialData.length
-    const cart_selected_items = table
-        .getSelectedRowModel()
-        .rows.map((row) => row.original)
-    const cart_selected_items_total = cart_selected_items.reduce(
+    const total_items = initialData.length
+
+    // Always fresh selected rows
+    const items_selected = table.getSelectedRowModel().rows.map(
+        (row) => row.original
+    )
+
+    const total_items_selected = items_selected.reduce(
         (sum, item) =>
             sum +
             Number(item.itemSkuPrice || 0) * Number(item.itemQuantity || 0),
         0
     )
 
+
     return {
         table,
-        cart_total_items,
-        cart_selected_items,
-        cart_selected_items_total,
+        total_items,
+        items_selected,
+        total_items_selected,
     }
 }

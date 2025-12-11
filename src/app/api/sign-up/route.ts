@@ -20,7 +20,7 @@ export const POST = async (req: NextRequest) => {
             method: 'post',
             url: `${API_NEXT}/v1/api/user/register`,
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/json'
             },
             data: qs.stringify({
                 email

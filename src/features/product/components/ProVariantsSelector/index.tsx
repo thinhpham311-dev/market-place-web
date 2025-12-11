@@ -2,6 +2,7 @@
 
 import * as React from "react";
 
+import { Card, CardContent } from "@/components/ui/card"
 import OptionSelector from "@/features/common/option-selector"
 import { PRO_DETAIL } from "@/features/product/constants";
 import LoadingSkeleton from "./Loading"
@@ -27,14 +28,18 @@ const ProVariantsSelector = (() => {
     const variants = data?.product_variations ?? []
 
     return (
-        <OptionSelector
-            layout="horizontal"
-            reducerKey={PRO_DETAIL}
-            storeKey={`${PRO_DETAIL}_${data?.product_id}`}
-            initialOptions={variants}
-            loading={isLoading}
-            error={error}
-        />
+        <Card className="border-none shadow-none rounded-none">
+            <CardContent className="p-3 flex flex-col gap-1">
+                <OptionSelector
+                    layout="horizontal"
+                    reducerKey={PRO_DETAIL}
+                    storeKey={`${PRO_DETAIL}_${data?.product_id}`}
+                    initialOptions={variants}
+                    loading={isLoading}
+                    error={error}
+                />
+            </CardContent>
+        </Card>
     );
 });
 

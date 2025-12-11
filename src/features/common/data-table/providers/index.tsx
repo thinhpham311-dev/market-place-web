@@ -6,9 +6,9 @@ import { Table } from "@tanstack/react-table"
 
 export interface IDataTableContextType<TData extends Record<string, unknown>> {
     table: Table<TData>
-    cart_total_items: number
-    cart_selected_items: TData[]
-    cart_selected_items_total: number
+    total_items: number
+    items_selected: TData[]
+    total_items_selected: number
 }
 
 interface IDataTableProviderProps<TData extends Record<string, any>> {

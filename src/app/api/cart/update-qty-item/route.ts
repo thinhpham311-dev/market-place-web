@@ -29,7 +29,7 @@ export async function POST(req: Request): Promise<Response> {
             query,
             {
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Content-Type': 'application/json',
                     'x-api-key': process.env.NEXT_PUBLIC_API_KEY || '',
                 }
             }

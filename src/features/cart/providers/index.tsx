@@ -10,12 +10,13 @@ interface IShoppingCartContextType {
     loading: boolean,
     error: Error | null,
     status: "idle" | "loading" | "success" | "error",
-    addItem: (item: ICartItem) => void;
+    createItem: (item: ICartItem) => void;
+    updateVariantsItem: (item: ICartItem) => void;
     updateQtyItem: (item: ICartItem) => void;
-    selectItems: (items: ICartItem[]) => void;
+    setItemsSelected: (items: ICartItem[]) => void;
     removeItem: (item: ICartItem) => void;
-    removeAllItems: () => void;
-    removeSelectedItems: (items: ICartItem[]) => void;
+    removeItemsAll: () => void;
+    removeItemsSelected: (items: ICartItem[]) => void;
 }
 
 interface IShoppingCartProviderProps {

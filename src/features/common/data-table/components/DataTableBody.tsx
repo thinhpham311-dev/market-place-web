@@ -1,7 +1,7 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import React, { useState, useEffect, useMemo } from "react"
+import React, { useState, useEffect } from "react"
 import { flexRender } from "@tanstack/react-table"
 import { TableBody, TableRow, TableCell } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
@@ -103,15 +103,14 @@ const InfoRow = ({ icon: Icon, label, description, totalColumns }: any) => (
     </TableRow>
 )
 
-// ------------------- Main Component -------------------
 
 const CartTableBody = () => {
     const router = useRouter()
-    const { table, cart_total_items } = useDataTableContext()
+    const { table } = useDataTableContext()
     const [mounted, setMounted] = useState(false)
     useEffect(() => setMounted(true), [])
 
-    const rows = useMemo(() => (mounted ? table.getRowModel().rows : []), [mounted, table, cart_total_items])
+    const rows = mounted ? table.getRowModel().rows : []
     const totalColumns = table.getAllColumns().length
 
     if (!mounted || rows.length === 0) {

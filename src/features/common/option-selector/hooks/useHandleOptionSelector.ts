@@ -1,4 +1,5 @@
 "use client";
+import { toast } from "sonner";
 
 import { useLayoutEffect, useEffect, useCallback, useRef } from "react";
 import { useAppDispatch } from "@/lib/hooks";
@@ -93,33 +94,37 @@ export function useHandleOptionSelector({
         const updated = [...selectedOptions];
         updated[index] = value ?? null;
 
-        dispatch(setSelectedOption({
-            storeKey,
-            currentValue: { index, value }
-        }));
+
+        dispatch(setSelectedOption({ storeKey, currentValue: { index, value } }));
+
 
         const errorsObj = getValidationErrors(updated);
-        dispatch(setValidationErrors({
-            storeKey,
-            errors: Object.values(errorsObj)
-        }));
+
+        if (Object.keys(errorsObj).length > 0) {
+            setTimeout(() => {
+                toast.error("Validation error", {
+                    description: Object.values(errorsObj).join(", "),
+                });
+            }, 200);
+        }
+
+        dispatch(setValidationErrors({ storeKey, errors: errorsObj }));
     };
 
 
     const handleResetOption = useCallback(() => {
         dispatch(resetOptions({ storeKey }));
-        dispatch(setValidationErrors({ storeKey, errors: [] })); // FIX BUG
+        dispatch(setValidationErrors({ storeKey, errors: {} }));
+
 
         defaultOptionIdx.forEach((value, i) => {
             if (value != null) {
-                dispatch(setSelectedOption({
-                    storeKey,
-                    currentValue: { index: i, value }
-                }));
+                dispatch(
+                    setSelectedOption({ storeKey, currentValue: { index: i, value } })
+                );
             }
         });
     }, [dispatch, defaultOptionIdx, storeKey]);
-
 
     const resetValidationErrors = useCallback(() => {
         dispatch(setValidationErrors({ storeKey, errors: [] }));

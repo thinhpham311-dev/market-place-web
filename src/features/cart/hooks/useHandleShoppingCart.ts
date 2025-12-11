@@ -3,8 +3,8 @@
 import { useCallback, useLayoutEffect, useEffect, useMemo } from "react";
 
 
-import { getItemsInCart, addItemIntoCart, removeItemOutCart, updateQtyItemInCart, removeItemsOutCart } from "@/features/cart/store/cartSlice";
-import { updateQtyItem, selectItems, removeAllItems } from "@/features/cart/store/cartSlice";
+import { getItemsInCart, addItemIntoCart, removeItemOutCart, updateQtyItemInCart, removeItemsOutCart, updateVariantsItemInCart } from "@/features/cart/store/cartSlice";
+import { selectItems, removeAllItems } from "@/features/cart/store/cartSlice";
 import reducer from "@/features/cart/store"
 import { ICartItem } from "@/interfaces/cart";
 import { injectReducer, removeReducer } from "@/store";
@@ -23,12 +23,10 @@ interface IUseCart {
 
 export const useHandleShoppingCart = ({ reducerKey, storeKey, userId }: IUseCart) => {
     const dispatch = useAppDispatch()
-    // 🔥 Memo hóa key để không tạo lại string mỗi render
     const dynamicReducerKey = useMemo(
         () => `${SHOPPING_CART}_${reducerKey}`,
         [reducerKey]
     );
-    // ⬅ reducer injection - only once
     useLayoutEffect(() => {
         injectReducer(dynamicReducerKey, reducer);
 
@@ -38,7 +36,6 @@ export const useHandleShoppingCart = ({ reducerKey, storeKey, userId }: IUseCart
     }, [dispatch, dynamicReducerKey]);
 
     const state = useGetShoppingCartValue(reducerKey, storeKey)
-
     useEffect(() => {
         if (!userId) return;
 
@@ -50,7 +47,7 @@ export const useHandleShoppingCart = ({ reducerKey, storeKey, userId }: IUseCart
     }, [dispatch, storeKey, userId]);
 
 
-    const handleAddItem = useCallback(
+    const handleCreateItem = useCallback(
         async (item: ICartItem) => {
             await dispatch(addItemIntoCart({ storeKey, userId, item } as { storeKey: string, userId: string, item: ICartItem }) as any);
         },
@@ -66,26 +63,32 @@ export const useHandleShoppingCart = ({ reducerKey, storeKey, userId }: IUseCart
 
     const handleUpdateQtyItem = useCallback(
         async (item: ICartItem) => {
-            await dispatch(updateQtyItem({ storeKey, userId, item } as { storeKey: string, userId: string, item: ICartItem }) as any)
-
             await dispatch(updateQtyItemInCart({ storeKey, userId, item } as { storeKey: string, userId: string, item: ICartItem }) as any);
         },
         [dispatch, storeKey, userId]
     );
 
-    const handleSelectItems = useCallback(
+    const handleUpdateVariantsItem = useCallback(
+        async (item: ICartItem) => {
+            await dispatch(updateVariantsItemInCart({ storeKey, userId, item } as { storeKey: string, userId: string, item: ICartItem }) as any);
+        },
+        [dispatch, storeKey, userId]
+    );
+
+
+    const handleItemsSelected = useCallback(
         (items: ICartItem[]) => {
             dispatch(selectItems({ storeKey, userId, items } as { storeKey: string, userId: string; items: ICartItem[]; }) as any)
         }, [dispatch, storeKey, userId])
 
-    const handleRemoveAll = useCallback(
+    const handleRemoveItemsAll = useCallback(
         async () => {
             await dispatch(removeAllItems({ storeKey } as { storeKey: string }));
         },
         [dispatch, storeKey]
     );
 
-    const handleRemoveSelectedItems = useCallback(
+    const handleRemoveItemsSelected = useCallback(
         async (items: ICartItem[]) => {
             await dispatch(removeItemsOutCart({ storeKey, userId, items } as { storeKey: string, userId: string, items: ICartItem[]; }) as any)
         },
@@ -94,11 +97,12 @@ export const useHandleShoppingCart = ({ reducerKey, storeKey, userId }: IUseCart
 
     return {
         ...state,
-        addItem: handleAddItem,
+        createItem: handleCreateItem,
+        setItemsSelected: handleItemsSelected,
         updateQtyItem: handleUpdateQtyItem,
-        selectItems: handleSelectItems,
+        updateVariantsItem: handleUpdateVariantsItem,
         removeItem: handleRemoveItem,
-        removeAllItems: handleRemoveAll,
-        removeSelectedItems: handleRemoveSelectedItems,
+        removeItemsAll: handleRemoveItemsAll,
+        removeItemsSelected: handleRemoveItemsSelected,
     };
 };

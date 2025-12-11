@@ -31,6 +31,7 @@ const CartDataTable = ({ cartKey = "", data = [], isLoading = false, error, coun
         return <NotFound />;
     }
 
+
     return (
         <DataTable
             reducerKey={cartKey}

@@ -11,7 +11,7 @@ import { Option } from "@/features/common/option-selector/types";
 const OptionSelectorList = () => {
     const { options } = useOptionSelectorContext();
     return (
-        <CardContent className="p-3 space-y-5 w-full">
+        <CardContent className="p-0 space-y-5 w-full">
             {options.map((_: Option | null, i: number) => {
                 return (
                     <React.Fragment key={`${_?.options}_${i}`}>

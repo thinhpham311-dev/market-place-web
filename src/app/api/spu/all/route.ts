@@ -19,7 +19,7 @@ export async function POST(req: Request): Promise<Response> {
         const query = qs.stringify({ limit, sort, page });
         const { data: dataResponse } = await axios.get(`${API_NEXT}/v1/api/product/spu/all/list?${query}`, {
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'application/json',
                 'x-api-key': process.env.NEXT_PUBLIC_API_KEY || '',
             },
         });

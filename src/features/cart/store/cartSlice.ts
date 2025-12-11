@@ -105,8 +105,10 @@ export const updateQtyItemInCart = createAsyncThunk<
     CartResponse,
     { storeKey: string, item: ICartItem, userId: string },
     { rejectValue: IErrorPayload | string }
->('cart/data/updateQtyItemInCart', async (params, { rejectWithValue }) => {
+>('cart/data/updateQtyItemInCart', async (params, { dispatch, rejectWithValue }) => {
     try {
+        await dispatch(updateQtyItem({ ...params }))
+
         const response = (await apiPostUpdateQtyItem({ ...params })) as { data: CartResponse };
         return response.data;
     } catch (error: any) {
@@ -117,12 +119,12 @@ export const updateQtyItemInCart = createAsyncThunk<
 
 export const updateVariantsItemInCart = createAsyncThunk<
     CartResponse,
-    { storeKey: string, cartId: string, item: ICartItem, userId: string },
+    { storeKey: string, item: ICartItem, userId: string },
     { rejectValue: IErrorPayload | string }
->('cart/data/updateVariantsItemInCart', async (params, {
-    rejectWithValue }) => {
+>('cart/data/updateVariantsItemInCart', async (params, { dispatch, rejectWithValue }) => {
     try {
-        const response = (await apiPostUpdateVariantsItem(params)) as { data: CartResponse };
+        await dispatch(updateVariantsItem({ ...params }))
+        const response = (await apiPostUpdateVariantsItem({ ...params })) as { data: CartResponse };
         return response.data;
     } catch (error: any) {
         return rejectWithValue(error?.response?.data || error.message);
@@ -179,42 +181,80 @@ const cartSlice = createSlice({
         updateQtyItem: (state, action: PayloadAction<{ storeKey: string, item: ICartItem }>) => {
             const { storeKey, item } = action.payload;
             ensureStoreKeyState(state, storeKey);
-            const itemToUpdate = state[storeKey].data.cart_products.find(
-                (p: ICartItem) => p.itemSkuId === item.itemSkuId
-            );
-            if (itemToUpdate) {
-                itemToUpdate.itemQuantity = item.itemQuantity;
-                itemToUpdate.itemTotalPrice = (item.itemSkuPrice || 0) * item.itemQuantity;
-            }
 
             const cartState = state[storeKey].data;
+            const itemToUpdate = cartState.cart_products.find(
+                (p: ICartItem) => p.itemSkuId === item.itemSkuId
+            );
 
-            // Nếu cart đã có item → tính lại totals
-            if (cartState?.cart_products?.length > 0) {
+            if (itemToUpdate) {
+                itemToUpdate.itemQuantity = item.itemQuantity;
+
+                // 🔥 ALWAYS update itemTotalPrice correctly
+                itemToUpdate.itemTotalPrice =
+                    (itemToUpdate.itemSkuPrice || 0) * itemToUpdate.itemQuantity;
+            }
+
+            // 🔥 Recalculate cart totals
+            if (cartState.cart_products.length > 0) {
                 recalculateTotals(cartState);
             }
         },
 
-        updateVariantsItem: (state, action: PayloadAction<{ storeKey: string, item: ICartItem }>) => {
+        updateVariantsItem: (
+            state,
+            action: PayloadAction<{ storeKey: string; item: ICartItem }>
+        ) => {
             const { storeKey, item } = action.payload;
             ensureStoreKeyState(state, storeKey);
 
-
-            const itemToUpdate = state[storeKey].data.cart_products.find(
-                (p: ICartItem) => p.itemSkuId === item.itemSkuId
-            );
-
-            if (itemToUpdate) {
-                itemToUpdate.itemSkuId = item.itemSkuId;
-                itemToUpdate.itemSkuTierIdx = item.itemSkuTierIdx;
-                itemToUpdate.itemSkuPrice = item.itemSkuPrice;
-                itemToUpdate.itemTotalPrice = (item.itemSkuPrice || 0) * item.itemQuantity;
-            }
-
             const cartState = state[storeKey].data;
 
-            // Nếu cart đã có item → tính lại totals
-            if (cartState?.cart_products?.length > 0) {
+            if (!cartState?.cart_products) return;
+
+            const products = cartState.cart_products;
+
+            // Tìm item cũ trong cart
+            const oldItem = products.find((p) => p.itemId === item.itemId);
+            if (!oldItem) return;
+
+            const oldQuantity = Number(oldItem.itemQuantity);
+
+            // Tìm item khác có cùng SKU tier mới
+            const duplicatedItem = products.find(
+                (p) =>
+                    p.itemSkuTierIdx === item.itemSkuTierIdx &&
+                    p.itemSkuId !== oldItem.itemSkuId
+            );
+
+            if (duplicatedItem) {
+                // ===========================
+                // SKU mới đã tồn tại → GỘP
+                // ===========================
+                duplicatedItem.itemQuantity =
+                    Number(duplicatedItem.itemQuantity) + oldQuantity;
+
+                duplicatedItem.itemTotalPrice =
+                    duplicatedItem.itemQuantity *
+                    Number(duplicatedItem.itemSkuPrice || 0);
+
+                // Xóa item cũ khỏi cart
+                cartState.cart_products = products.filter(
+                    (p) => p.itemSkuId !== oldItem.itemSkuId
+                );
+            } else {
+                // ===========================
+                // SKU mới chưa tồn tại → UPDATE
+                // ===========================
+                oldItem.itemSkuId = item.itemSkuId;
+                oldItem.itemSkuTierIdx = item.itemSkuTierIdx;
+                oldItem.itemSkuPrice = item.itemSkuPrice;
+                oldItem.itemTotalPrice =
+                    Number(item.itemSkuPrice || 0) * oldQuantity;
+            }
+
+            // Recalculate totals
+            if (cartState.cart_products.length > 0) {
                 recalculateTotals(cartState);
             }
         },

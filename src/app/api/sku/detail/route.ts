@@ -10,7 +10,7 @@ const API_KEY = process.env.NEXT_PUBLIC_API_KEY || "";
 const apiClient = axios.create({
     baseURL: API_NEXT,
     headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type": "application/json",
         "x-api-key": API_KEY,
     },
 });

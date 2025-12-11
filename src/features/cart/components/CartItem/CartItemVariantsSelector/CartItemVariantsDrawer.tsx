@@ -17,14 +17,26 @@ import { renderVariants } from "@/features/cart/utils/renderVariants"
 import { SHOPPING_CART } from "@/features/cart/constants";
 import { ChevronDown, Save, Ban } from 'lucide-react';
 import { useShoppingCartContext } from "@/features/cart/hooks";
+import { useGetOptionSelectorValue } from "@/features/common/option-selector/hooks";
+import { toast } from "sonner"
 
 interface CartItemVariantsDrawerProps {
     data: ICartItem
 }
 
 const CartItemVariantsDrawer = ({ data }: CartItemVariantsDrawerProps) => {
-    const { itemId, itemSpuName, itemSkuTierIdx, itemSpuVariations } = data;
-    const { loading, error } = useShoppingCartContext();
+    const {
+        updateVariantsItem,
+        loading, error } = useShoppingCartContext();
+    const {
+        itemId,
+        itemSpuName,
+        itemSkuTierIdx,
+        itemSpuVariations
+    } = data;
+    const { selectedOptions } = useGetOptionSelectorValue(SHOPPING_CART, `${SHOPPING_CART}_${itemId}`)
+
+
     const variantsNode = renderVariants(itemSpuVariations, itemSkuTierIdx);
 
     const skuTierIdx = useMemo(() =>
@@ -34,7 +46,21 @@ const CartItemVariantsDrawer = ({ data }: CartItemVariantsDrawerProps) => {
         , [itemSkuTierIdx]);
 
     const handleSave = () => {
-        console.log("save changes")
+        updateVariantsItem({
+            ...data,
+            itemSkuTierIdx: selectedOptions
+        });
+        setTimeout(() => {
+            const id = toast.success("update quantity!", {
+                description: <span>The product {itemSpuName} - ({renderVariants(itemSpuVariations, itemSkuTierIdx)}) has been removed from your cart.</span>,
+                action: {
+                    label: "Close",
+                    onClick: () => {
+                        toast.dismiss(id);
+                    },
+                },
+            });
+        }, 500);
     }
 
     return (
@@ -54,33 +80,37 @@ const CartItemVariantsDrawer = ({ data }: CartItemVariantsDrawerProps) => {
                 </div>
             </DrawerTrigger>
             <DrawerContent>
-                <DrawerHeader>
-                    <DrawerTitle>{itemSpuName}</DrawerTitle>
-                    <DrawerDescription>{variantsNode}</DrawerDescription>
-                </DrawerHeader>
-                <Card className="border-none shadow-none">
-                    <CardContent className="p-0">
-                        <OptionSelector
-                            layout="horizontal"
-                            reducerKey={SHOPPING_CART}
-                            storeKey={`${SHOPPING_CART}_${itemId}`}
-                            initialOptions={itemSpuVariations}
-                            defaultOptionIdx={skuTierIdx}
-                            loading={loading}
-                            error={error}
-                        />
-                    </CardContent>
-                </Card>
-                <DrawerFooter className="flex flex-row justify-end">
-                    <Button type="button" variant="default" onClick={handleSave}>
-                        <Save />  <span> Save</span>
-                    </Button>
-                    <DrawerClose asChild>
-                        <Button variant="outline">
-                            <Ban /> <span>Cancel</span>
-                        </Button>
-                    </DrawerClose>
-                </DrawerFooter>
+                <div className="container mx-auto px-3">
+                    <DrawerHeader>
+                        <DrawerTitle>{itemSpuName}</DrawerTitle>
+                        <DrawerDescription>{variantsNode}</DrawerDescription>
+                    </DrawerHeader>
+                    <Card className="border-none shadow-none">
+                        <CardContent className="p-3">
+                            <OptionSelector
+                                layout="horizontal"
+                                reducerKey={SHOPPING_CART}
+                                storeKey={`${SHOPPING_CART}_${itemId}`}
+                                initialOptions={itemSpuVariations}
+                                defaultOptionIdx={skuTierIdx}
+                                loading={loading}
+                                error={error}
+                            />
+                        </CardContent>
+                    </Card>
+                    <DrawerFooter className="flex flex-row justify-end">
+                        <DrawerClose asChild>
+                            <Button type="button" variant="default" onClick={handleSave}>
+                                <Save />  <span> Save</span>
+                            </Button>
+                        </DrawerClose>
+                        <DrawerClose asChild>
+                            <Button variant="outline">
+                                <Ban /> <span>Cancel</span>
+                            </Button>
+                        </DrawerClose>
+                    </DrawerFooter>
+                </div>
             </DrawerContent>
         </Drawer>
 

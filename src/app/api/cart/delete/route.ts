@@ -28,7 +28,7 @@ export async function POST(req: Request): Promise<Response> {
         // ✅ Gửi DELETE request kèm body
         const { data: dataResponse } = await axios.delete(`${API_NEXT}/v1/api/cart/delete`, {
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'application/json',
                 'x-api-key': process.env.NEXT_PUBLIC_API_KEY || '',
             },
             data: formData

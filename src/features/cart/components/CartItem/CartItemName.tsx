@@ -19,7 +19,7 @@ const CartItemName = ({
         <Tooltip>
             <TooltipTrigger asChild>
                 <p
-                    className="text-md font-bold text-center  w-[150px] truncate"
+                    className="text-md font-bold  w-full truncate"
                 >
                     {itemName}
                 </p>
