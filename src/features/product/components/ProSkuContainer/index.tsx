@@ -11,18 +11,14 @@ interface IProSkuDetailContainerProps {
 }
 
 export default function ProSkuDetailContainer({ product_id, children }: IProSkuDetailContainerProps) {
-    const { selectedOptions, optionsCount } = useGetOptionSelectorValue(PRO_DETAIL, `${PRO_DETAIL}_${product_id}`, {
-        options: [],
-        selectedOptions: [],
-        validationErrors: []
-    })
-
+    const { selectedOptions, optionsCount } = useGetOptionSelectorValue(PRO_DETAIL, `${PRO_DETAIL}_${product_id}`)
     return (
         <SkuRoot
             storeKey={PRO_DETAIL}
             product_id={product_id}
             sku_tier_idx={selectedOptions}
             optionsCount={optionsCount}
+
         >
             {children}
         </SkuRoot>

@@ -16,7 +16,7 @@ interface ICartProps {
 export default function ShoppingCartRoot({ children }: ICartProps) {
 
     const cart = useHandleShoppingCart({
-        storeKey: `${CART_ROOT}_1001`, userId: "1001"
+        reducerKey: CART_ROOT, storeKey: `${CART_ROOT}_1001`, userId: "1001"
     });
 
     return (

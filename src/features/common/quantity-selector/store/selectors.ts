@@ -1,15 +1,15 @@
 import { RootState } from "@/store";
-
+import { QUANTITY_COUNTER } from "../constants";
 /**
  * Base selector — return primitive only to avoid rerenders
  */
-const makeQuantityBaseSelector = (dynamicReducerKey: string, storeKey: string) =>
+const makeQuantityBaseSelector = (reducerKey: string, storeKey: string) =>
     (state: RootState) =>
-        state[dynamicReducerKey]?.state?.[storeKey]?.quantity ?? 0;
+        state[`${QUANTITY_COUNTER}_${reducerKey}`]?.state?.[storeKey];
 
 /**
  * Cache theo dạng:
- * selectorCache[dynamicReducerKey][storeKey]
+ * selectorCache[reducerKey][storeKey]
  */
 const selectorCache: Record<
     string,
@@ -17,20 +17,20 @@ const selectorCache: Record<
 > = {};
 
 /**
- * Public API — ALWAYS use dynamicReducerKey, not reducerKey
+ * Public API — ALWAYS use reducerKey, not reducerKey
  */
 export const selectQuantitySelector = (
-    dynamicReducerKey: string,
+    reducerKey: string,
     storeKey: string
 ) => {
-    if (!selectorCache[dynamicReducerKey]) {
-        selectorCache[dynamicReducerKey] = {};
+    if (!selectorCache[reducerKey]) {
+        selectorCache[reducerKey] = {};
     }
 
-    if (!selectorCache[dynamicReducerKey][storeKey]) {
-        selectorCache[dynamicReducerKey][storeKey] =
-            makeQuantityBaseSelector(dynamicReducerKey, storeKey);
+    if (!selectorCache[reducerKey][storeKey]) {
+        selectorCache[reducerKey][storeKey] =
+            makeQuantityBaseSelector(reducerKey, storeKey);
     }
 
-    return selectorCache[dynamicReducerKey][storeKey];
+    return selectorCache[reducerKey][storeKey];
 };

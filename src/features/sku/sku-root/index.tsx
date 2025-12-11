@@ -6,7 +6,7 @@ import SkuProvider from "@/features/sku/providers";
 
 import { useFetchData } from "@/features/sku/hooks";
 
-interface ISkuDetailWrapperProps {
+interface ISkuRootProps {
     children?: React.ReactNode
     storeKey: string
     sku_tier_idx: number[];
@@ -14,11 +14,11 @@ interface ISkuDetailWrapperProps {
     optionsCount: number;
 }
 
-export default function SkuDetailWrapper({
+export default function SkuRoot({
     children,
     storeKey,
     ...rest
-}: ISkuDetailWrapperProps) {
+}: ISkuRootProps) {
     const skuData = useFetchData({
         storeKey,
         ...rest

@@ -47,7 +47,7 @@ export function useFetchData({ product_id, storeKey, sku_tier_idx, optionsCount 
             getSkuDetail({
                 product_id,
                 sku_tier_idx,
-                optionsCount
+                optionsCount,
             } as { optionsCount: number } & ISkuPro) as any
         );
 

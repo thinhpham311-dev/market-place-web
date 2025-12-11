@@ -61,11 +61,7 @@ export const useHandleDataTable = ({
         }
     }, [dispatch, storeKey, initialValue]);
 
-    const { grouping, columnVisibility } = useGetDataTableValue(reducerKey, storeKey, {
-        grouping: [],
-        columnVisibility: {},
-    })
-
+    const { grouping, columnVisibility } = useGetDataTableValue(reducerKey, storeKey, initialValue)
 
     // --- Setters to Redux ---
     const setGroupingTable = useCallback(

@@ -1,12 +1,15 @@
-import { ICart } from '@/interfaces/cart';
-interface IShoppingCart {
+import { ICart } from "@/interfaces/cart"
+export interface IShoppingCart {
     loading: boolean;
     data: ICart;
     error: Error | null;
 }
+export interface IState {
+    [storeKey: string]: IShoppingCart;
+}
 
-// initial root state
-export const initialState: IShoppingCart = {
+// default value for a single store
+export const createDefault = (): IShoppingCart => ({
     loading: false,
     data: {
         cart_id: "",
@@ -24,4 +27,15 @@ export const initialState: IShoppingCart = {
         cart_estimated_shipping: 0,
     },
     error: null,
+});
+
+
+export const ensureStoreKeyState = (state: any, storeKey: string) => {
+    if (!state[storeKey]) {
+        state[storeKey] = createDefault();
+    }
 };
+
+
+// initial root state
+export const initialState: IState = {};

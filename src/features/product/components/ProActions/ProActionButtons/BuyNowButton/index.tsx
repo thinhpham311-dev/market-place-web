@@ -27,6 +27,7 @@ const BuyNowButton = () => {
 
     const { currentQuantity: qty } = useGetQuantityValue(PRO_DETAIL, `${PRO_DETAIL}_${sku?.sku_id}`)
 
+
     const loading = spuLoading && skuLoading;
 
     const error = spuError && skuError;

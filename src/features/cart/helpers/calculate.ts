@@ -1,6 +1,7 @@
 import { ICart } from "@/interfaces/cart"
 
 
+
 const calculateEstimatedShipping = (totalAmount: number): number => {
     if (totalAmount === 0) return 0;
     return totalAmount > 100 ? 0 : 10;
