@@ -4,7 +4,6 @@ import { TableFooter, TableRow, TableCell } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
-
 import { formatToCurrency } from "@/lib/formats"
 import { useDataTableContext } from "@/features/common/data-table/hooks"
 import { useShoppingCartContext } from "@/features/cart/hooks"
@@ -12,18 +11,19 @@ import { Trash } from "lucide-react"
 import { toast } from "sonner"
 
 const CartTableFooter = () => {
-    const { removeItemsSelected } = useShoppingCartContext()
+    const { deleteItemsSelected } = useShoppingCartContext()
 
     const {
         items_selected,
         total_items,
         total_items_selected,
+        total_price_items_selected,
         table
     } = useDataTableContext()
 
     const handleDeleteSelectedItems = () => {
         if (items_selected.length > 0) {
-            removeItemsSelected(items_selected)
+            deleteItemsSelected(items_selected)
             const id = toast.success("Deleted All Product out cart!", {
                 description: (
                     <p>
@@ -63,21 +63,19 @@ const CartTableFooter = () => {
                 </TableCell>
                 <TableCell >
                     <div className="text-center text-sm font-semibold min-w-[150px]">
-                        {formatToCurrency(total_items_selected)}
+                        {formatToCurrency(total_price_items_selected)}
                     </div>
                 </TableCell>
                 <TableCell >
-                    <div className="text-end text-sm font-semibold min-w-[150px]">
-                        {/* Actions */}
-
+                    <div className="flex items-center space-x-3">
                         <Button
                             variant="destructive"
                             size="sm"
-                            disabled={total_items_selected === 0}
+                            disabled={total_price_items_selected === 0}
                             onClick={handleDeleteSelectedItems}
                             className="gap-2"
                         >
-                            <Trash className="w-4 h-4" /> Delete All
+                            <Trash className="w-4 h-4" /> Delete ({total_items_selected}) Item
                         </Button>
                     </div>
                 </TableCell>

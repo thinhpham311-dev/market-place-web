@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import {
     apiPostShowItems,
-    apiPostAddItem,
+    apiPostCreateItem,
     apiPostDeleteItem,
-    apiPostDeleteItems,
+    apiPostDeleteItemsSelected,
+    apiPostDeleteItemsAll,
     apiPostUpdateQtyItem,
     apiPostUpdateVariantsItem
 } from '@/features/cart/services';
@@ -16,7 +17,7 @@ import {
     SHOPPING_CART_TAG,
 } from '@/features/cart/constants';
 import { initialState, ensureStoreKeyState } from '@/features/cart/store/initial';
-import { recalculateTotals } from "@/features/cart/helpers"
+import { checkIsSameVariant, recalculateTotals } from "@/features/cart/helpers"
 
 type CartResponse = {
     metadata: ICart;
@@ -58,43 +59,14 @@ export const getItemsInCart = createAsyncThunk<
     }
 );
 
-export const addItemIntoCart = createAsyncThunk<
+export const createItemInCart = createAsyncThunk<
     CartResponse,
     { storeKey: string, item: ICartItem, userId: string },
     { rejectValue: IErrorPayload | string }
->('cart/data/addItemIntoCart', async (params, { dispatch, rejectWithValue }) => {
+>('cart/data/createItemInCart', async (params, { dispatch, rejectWithValue }) => {
     try {
-        await dispatch(addItem({ ...params }));
-        const response = (await apiPostAddItem({ ...params })) as { data: CartResponse };
-        return response.data;
-    } catch (error: any) {
-        return rejectWithValue(error?.response?.data || error.message);
-    }
-});
-
-export const removeItemOutCart = createAsyncThunk<
-    CartResponse,
-    { storeKey: string, userId: string, item: ICartItem },
-    { rejectValue: IErrorPayload | string }
->('cart/data/removeItemOutCart', async (params, { dispatch, rejectWithValue }) => {
-    try {
-        await dispatch(removeItem({ ...params }))
-        const response = (await apiPostDeleteItem({ ...params })) as { data: CartResponse };
-        return response.data;
-    } catch (error: any) {
-        return rejectWithValue(error?.response?.data || error.message);
-    }
-});
-
-
-export const removeItemsOutCart = createAsyncThunk<
-    CartResponse,
-    { storeKey: string, userId: string; items: ICartItem[] },
-    { rejectValue: IErrorPayload | string }
->('cart/data/removeItemsOutCart', async (params, { dispatch, rejectWithValue }) => {
-    try {
-        await dispatch(removeSelectedItems({ ...params }))
-        const response = (await apiPostDeleteItems({ ...params })) as { data: CartResponse };
+        await dispatch(createItem({ ...params }));
+        const response = (await apiPostCreateItem({ ...params })) as { data: CartResponse };
         return response.data;
     } catch (error: any) {
         return rejectWithValue(error?.response?.data || error.message);
@@ -116,7 +88,6 @@ export const updateQtyItemInCart = createAsyncThunk<
     }
 });
 
-
 export const updateVariantsItemInCart = createAsyncThunk<
     CartResponse,
     { storeKey: string, item: ICartItem, userId: string },
@@ -132,34 +103,75 @@ export const updateVariantsItemInCart = createAsyncThunk<
 });
 
 
-// --- Helper functions ---
+
+export const deleteItemOutCart = createAsyncThunk<
+    CartResponse,
+    { storeKey: string, userId: string, item: ICartItem },
+    { rejectValue: IErrorPayload | string }
+>('cart/data/deleteItemOutCart', async (params, { dispatch, rejectWithValue }) => {
+    try {
+        await dispatch(removeItem({ ...params }))
+        const response = (await apiPostDeleteItem({ ...params })) as { data: CartResponse };
+        return response.data;
+    } catch (error: any) {
+        return rejectWithValue(error?.response?.data || error.message);
+    }
+});
+
+export const deleteItemsSelectedOutCart = createAsyncThunk<
+    CartResponse,
+    { storeKey: string, userId: string; items: ICartItem[] },
+    { rejectValue: IErrorPayload | string }
+>('cart/data/deleteItemsSelectedOutCart', async (params, { dispatch, rejectWithValue }) => {
+    try {
+        await dispatch(removeSelectedItems({ ...params }))
+        const response = (await apiPostDeleteItemsSelected({ ...params })) as { data: CartResponse };
+        return response.data;
+    } catch (error: any) {
+        return rejectWithValue(error?.response?.data || error.message);
+    }
+});
+
+export const deleteItemsAllOutCart = createAsyncThunk<
+    CartResponse,
+    { storeKey: string, userId: string; },
+    { rejectValue: IErrorPayload | string }
+>('cart/data/deleteItemsAllOutCart', async (params, { dispatch, rejectWithValue }) => {
+    try {
+        await dispatch(removeAllItems({ ...params }))
+        const response = (await apiPostDeleteItemsAll({ ...params })) as { data: CartResponse };
+        return response.data;
+    } catch (error: any) {
+        return rejectWithValue(error?.response?.data || error.message);
+    }
+});
 
 
-
-// --- Slice ---
 const cartSlice = createSlice({
     name: `cart/state`,
     initialState,
     reducers: {
-        getItems: (state, action: PayloadAction<{ storeKey: string, userId: string }>) => {
+        getItems: (state, action: PayloadAction<{
+            storeKey: string,
+            userId: string
+        }>) => {
             const { storeKey, userId } = action.payload;
-
             ensureStoreKeyState(state, storeKey);
-
             if (!userId) return;
             const cartState = state[storeKey].data;
             if (cartState?.cart_products?.length > 0) {
                 recalculateTotals(cartState);
             }
         },
-        addItem: (state, action: PayloadAction<{ storeKey: string, item: ICartItem }>) => {
+        createItem: (state, action: PayloadAction<{
+            storeKey: string,
+            item: ICartItem
+        }>) => {
             const { storeKey, item } = action.payload;
             ensureStoreKeyState(state, storeKey);
-
             const existingItem = state[storeKey].data?.cart_products.find(
                 (item: ICartItem) => item.itemSkuId === item.itemSkuId
             );
-
             if (existingItem) {
                 existingItem.itemQuantity += item.itemQuantity;
             } else {
@@ -171,149 +183,119 @@ const cartSlice = createSlice({
                 state[storeKey].data?.cart_products.unshift(newItem);
             }
             const cartState = state[storeKey].data;
-
-            // Nếu cart đã có item → tính lại totals
             if (cartState?.cart_products?.length > 0) {
                 recalculateTotals(cartState);
             }
         },
 
-        updateQtyItem: (state, action: PayloadAction<{ storeKey: string, item: ICartItem }>) => {
+        updateQtyItem: (state, action: PayloadAction<{
+            storeKey: string,
+            item: ICartItem
+        }>) => {
             const { storeKey, item } = action.payload;
             ensureStoreKeyState(state, storeKey);
-
             const cartState = state[storeKey].data;
             const itemToUpdate = cartState.cart_products.find(
                 (p: ICartItem) => p.itemSkuId === item.itemSkuId
             );
-
             if (itemToUpdate) {
                 itemToUpdate.itemQuantity = item.itemQuantity;
-
-                // 🔥 ALWAYS update itemTotalPrice correctly
                 itemToUpdate.itemTotalPrice =
                     (itemToUpdate.itemSkuPrice || 0) * itemToUpdate.itemQuantity;
             }
-
-            // 🔥 Recalculate cart totals
             if (cartState.cart_products.length > 0) {
                 recalculateTotals(cartState);
             }
         },
-
         updateVariantsItem: (
             state,
-            action: PayloadAction<{ storeKey: string; item: ICartItem }>
+            action: PayloadAction<{
+                storeKey: string;
+                item: ICartItem
+            }>
         ) => {
             const { storeKey, item } = action.payload;
             ensureStoreKeyState(state, storeKey);
-
             const cartState = state[storeKey].data;
-
             if (!cartState?.cart_products) return;
-
             const products = cartState.cart_products;
-
-            // Tìm item cũ trong cart
             const oldItem = products.find((p) => p.itemId === item.itemId);
             if (!oldItem) return;
-
             const oldQuantity = Number(oldItem.itemQuantity);
-
-            // Tìm item khác có cùng SKU tier mới
             const duplicatedItem = products.find(
                 (p) =>
-                    p.itemSkuTierIdx === item.itemSkuTierIdx &&
+                    checkIsSameVariant(p.itemSkuTierIdx, item.itemSkuTierIdx) &&
                     p.itemSkuId !== oldItem.itemSkuId
             );
-
             if (duplicatedItem) {
-                // ===========================
-                // SKU mới đã tồn tại → GỘP
-                // ===========================
                 duplicatedItem.itemQuantity =
                     Number(duplicatedItem.itemQuantity) + oldQuantity;
-
                 duplicatedItem.itemTotalPrice =
                     duplicatedItem.itemQuantity *
                     Number(duplicatedItem.itemSkuPrice || 0);
-
-                // Xóa item cũ khỏi cart
                 cartState.cart_products = products.filter(
                     (p) => p.itemSkuId !== oldItem.itemSkuId
                 );
             } else {
-                // ===========================
-                // SKU mới chưa tồn tại → UPDATE
-                // ===========================
                 oldItem.itemSkuId = item.itemSkuId;
                 oldItem.itemSkuTierIdx = item.itemSkuTierIdx;
                 oldItem.itemSkuPrice = item.itemSkuPrice;
                 oldItem.itemTotalPrice =
                     Number(item.itemSkuPrice || 0) * oldQuantity;
             }
-
-            // Recalculate totals
             if (cartState.cart_products.length > 0) {
                 recalculateTotals(cartState);
             }
         },
-
-        selectItems: (state, action: PayloadAction<{ storeKey: string, items: ICartItem[] }>) => {
+        selectItems: (state, action: PayloadAction<{
+            storeKey: string,
+            items: ICartItem[]
+        }>) => {
             const { storeKey, items } = action.payload;
             ensureStoreKeyState(state, storeKey);
-
             state[storeKey].data.cart_selected_items = items;
-
             const cartState = state[storeKey].data;
-
-            // Nếu cart đã có item → tính lại totals
             if (cartState?.cart_products?.length > 0) {
                 recalculateTotals(cartState);
             }
         },
-
-        removeItem: (state, action: PayloadAction<{ storeKey: string, item: ICartItem }>) => {
+        removeItem: (state, action: PayloadAction<{
+            storeKey: string,
+            item: ICartItem
+        }>) => {
             const { storeKey, item } = action.payload;
             ensureStoreKeyState(state, storeKey);
-
-
             state[storeKey].data.cart_products = state[storeKey].data.cart_products.filter(
                 (p: ICartItem) => p.itemSkuId !== item.itemSkuId
             );
             const cartState = state[storeKey].data;
-
-            // Nếu cart đã có item → tính lại totals
             if (cartState?.cart_products?.length > 0) {
                 recalculateTotals(cartState);
             }
         },
-
-        removeAllItems: (state, action: PayloadAction<{ storeKey: string }>) => {
+        removeAllItems: (state, action: PayloadAction<{
+            storeKey: string
+        }>) => {
             const { storeKey } = action.payload;
-
             state[storeKey].data.cart_products = [];
             state[storeKey].data.cart_selected_items = [];
             const cartState = state[storeKey].data;
-
-            // Nếu cart đã có item → tính lại totals
             if (cartState?.cart_products?.length > 0) {
                 recalculateTotals(cartState);
             }
         },
-
-        removeSelectedItems: (state, action: PayloadAction<{ storeKey: string, items: ICartItem[] }>) => {
+        removeSelectedItems: (state, action: PayloadAction<{
+            storeKey: string,
+            items: ICartItem[]
+        }>) => {
             const { storeKey, items } = action.payload;
             ensureStoreKeyState(state, storeKey);
-
             const selectedSet = new Set(items.map((item) => item.itemSkuId));
             state[storeKey].data.cart_products = state[storeKey].data.cart_products.filter(
                 (item: ICartItem) => !selectedSet.has(item.itemSkuId)
             );
             state[storeKey].data.cart_selected_items = [];
             const cartState = state[storeKey].data;
-
-            // Nếu cart đã có item → tính lại totals
             if (cartState?.cart_products?.length > 0) {
                 recalculateTotals(cartState);
             }
@@ -321,135 +303,132 @@ const cartSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            // --- get items ---
             .addCase(getItemsInCart.pending, (state, action) => {
                 const { storeKey } = action.meta.arg
                 ensureStoreKeyState(state, storeKey);
-
                 state[storeKey].loading = true;
             })
             .addCase(getItemsInCart.fulfilled, (state, action) => {
                 const { storeKey } = action.meta.arg
                 ensureStoreKeyState(state, storeKey);
-
                 state[storeKey].data = action.payload.metadata;
                 state[storeKey].loading = false;
             })
             .addCase(getItemsInCart.rejected, (state, action) => {
                 const { storeKey } = action.meta.arg
                 ensureStoreKeyState(state, storeKey);
-
                 state[storeKey].loading = false;
                 state[storeKey].error = action.payload instanceof Error ? action.payload : new Error(typeof action.payload === 'string' ? action.payload : 'Failed to fetch product list');
             })
-
-            // --- add item ---
-            .addCase(addItemIntoCart.pending, (state, action) => {
+            .addCase(createItemInCart.pending, (state, action) => {
                 const { storeKey } = action.meta.arg
                 ensureStoreKeyState(state, storeKey);
-
-
                 state[storeKey].loading = true;
             })
-            .addCase(addItemIntoCart.fulfilled, (state, action) => {
+            .addCase(createItemInCart.fulfilled, (state, action) => {
                 const { storeKey } = action.meta.arg
                 ensureStoreKeyState(state, storeKey);
-
-
                 state[storeKey].data = action.payload.metadata;
                 state[storeKey].loading = false;
             })
-            .addCase(addItemIntoCart.rejected, (state, action) => {
+            .addCase(createItemInCart.rejected, (state, action) => {
                 const { storeKey } = action.meta.arg
                 ensureStoreKeyState(state, storeKey);
-
-
                 state[storeKey].loading = false;
                 state[storeKey].error = action.payload instanceof Error ? action.payload : new Error(typeof action.payload === 'string' ? action.payload : 'Failed to fetch product list');
             })
-
-            // --- remove item ---
-            .addCase(removeItemOutCart.pending, (state, action) => {
-                const { storeKey } = action.meta.arg
-                ensureStoreKeyState(state, storeKey);
-
-                state[storeKey].loading = true;
-            })
-            .addCase(removeItemOutCart.fulfilled, (state, action) => {
-                const { storeKey } = action.meta.arg
-                ensureStoreKeyState(state, storeKey);
-
-
-                state[storeKey].data = action.payload.metadata;
-                state[storeKey].loading = false;
-            })
-            .addCase(removeItemOutCart.rejected, (state, action) => {
-                const { storeKey } = action.meta.arg
-                ensureStoreKeyState(state, storeKey);
-
-
-                state[storeKey].loading = false;
-                state[storeKey].error = action.payload instanceof Error ? action.payload : new Error(typeof action.payload === 'string' ? action.payload : 'Failed to fetch product list');
-            })
-
-            // --- update quantity item ---
             .addCase(updateQtyItemInCart.pending, (state, action) => {
                 const { storeKey } = action.meta.arg
                 ensureStoreKeyState(state, storeKey);
-
-
                 state[storeKey].loading = true;
             })
             .addCase(updateQtyItemInCart.fulfilled, (state, action) => {
                 const { storeKey } = action.meta.arg
                 ensureStoreKeyState(state, storeKey);
-
-
                 state[storeKey].data = action.payload.metadata;
                 state[storeKey].loading = false;
             })
             .addCase(updateQtyItemInCart.rejected, (state, action) => {
                 const { storeKey } = action.meta.arg
                 ensureStoreKeyState(state, storeKey);
-
-
                 state[storeKey].loading = false;
                 state[storeKey].error = action.payload instanceof Error ? action.payload : new Error(typeof action.payload === 'string' ? action.payload : 'Failed to fetch product list');
-
             })
-
-            // --- update variants item ---
             .addCase(updateVariantsItemInCart.pending, (state, action) => {
                 const { storeKey } = action.meta.arg
                 ensureStoreKeyState(state, storeKey);
-
-
                 state[storeKey].loading = true;
             })
             .addCase(updateVariantsItemInCart.fulfilled, (state, action) => {
                 const { storeKey } = action.meta.arg
                 ensureStoreKeyState(state, storeKey);
-
-
                 state[storeKey].data = action.payload.metadata;
                 state[storeKey].loading = false;
             })
             .addCase(updateVariantsItemInCart.rejected, (state, action) => {
                 const { storeKey } = action.meta.arg
                 ensureStoreKeyState(state, storeKey);
-
-
                 state[storeKey].loading = false;
                 state[storeKey].error = action.payload instanceof Error ? action.payload : new Error(typeof action.payload === 'string' ? action.payload : 'Failed to fetch product list');
-            });
+            })
+
+            .addCase(deleteItemOutCart.pending, (state, action) => {
+                const { storeKey } = action.meta.arg
+                ensureStoreKeyState(state, storeKey);
+                state[storeKey].loading = true;
+            })
+            .addCase(deleteItemOutCart.fulfilled, (state, action) => {
+                const { storeKey } = action.meta.arg
+                ensureStoreKeyState(state, storeKey);
+                state[storeKey].data = action.payload.metadata;
+                state[storeKey].loading = false;
+            })
+            .addCase(deleteItemOutCart.rejected, (state, action) => {
+                const { storeKey } = action.meta.arg
+                ensureStoreKeyState(state, storeKey);
+                state[storeKey].loading = false;
+                state[storeKey].error = action.payload instanceof Error ? action.payload : new Error(typeof action.payload === 'string' ? action.payload : 'Failed to fetch product list');
+            })
+            .addCase(deleteItemsSelectedOutCart.pending, (state, action) => {
+                const { storeKey } = action.meta.arg
+                ensureStoreKeyState(state, storeKey);
+                state[storeKey].loading = true;
+            })
+            .addCase(deleteItemsSelectedOutCart.fulfilled, (state, action) => {
+                const { storeKey } = action.meta.arg
+                ensureStoreKeyState(state, storeKey);
+                state[storeKey].data = action.payload.metadata;
+                state[storeKey].loading = false;
+            })
+            .addCase(deleteItemsSelectedOutCart.rejected, (state, action) => {
+                const { storeKey } = action.meta.arg
+                ensureStoreKeyState(state, storeKey);
+                state[storeKey].loading = false;
+                state[storeKey].error = action.payload instanceof Error ? action.payload : new Error(typeof action.payload === 'string' ? action.payload : 'Failed to fetch product list');
+            })
+            .addCase(deleteItemsAllOutCart.pending, (state, action) => {
+                const { storeKey } = action.meta.arg
+                ensureStoreKeyState(state, storeKey);
+                state[storeKey].loading = true;
+            })
+            .addCase(deleteItemsAllOutCart.fulfilled, (state, action) => {
+                const { storeKey } = action.meta.arg
+                ensureStoreKeyState(state, storeKey);
+                state[storeKey].data = action.payload.metadata;
+                state[storeKey].loading = false;
+            })
+            .addCase(deleteItemsAllOutCart.rejected, (state, action) => {
+                const { storeKey } = action.meta.arg
+                ensureStoreKeyState(state, storeKey);
+                state[storeKey].loading = false;
+                state[storeKey].error = action.payload instanceof Error ? action.payload : new Error(typeof action.payload === 'string' ? action.payload : 'Failed to fetch product list');
+            })
     },
 });
 
-
-
 export const {
     getItems,
-    addItem,
+    createItem,
     updateQtyItem,
     updateVariantsItem,
     selectItems,

@@ -1,10 +1,16 @@
 "use client";
 
 import { useCallback, useLayoutEffect, useEffect, useMemo } from "react";
-
-
-import { getItemsInCart, addItemIntoCart, removeItemOutCart, updateQtyItemInCart, removeItemsOutCart, updateVariantsItemInCart } from "@/features/cart/store/cartSlice";
-import { selectItems, removeAllItems } from "@/features/cart/store/cartSlice";
+import {
+    getItemsInCart,
+    createItemInCart,
+    deleteItemOutCart,
+    updateQtyItemInCart,
+    deleteItemsSelectedOutCart,
+    deleteItemsAllOutCart,
+    updateVariantsItemInCart
+} from "@/features/cart/store/cartSlice";
+import { selectItems } from "@/features/cart/store/cartSlice";
 import reducer from "@/features/cart/store"
 import { ICartItem } from "@/interfaces/cart";
 import { injectReducer, removeReducer } from "@/store";
@@ -36,6 +42,7 @@ export const useHandleShoppingCart = ({ reducerKey, storeKey, userId }: IUseCart
     }, [dispatch, dynamicReducerKey]);
 
     const state = useGetShoppingCartValue(reducerKey, storeKey)
+
     useEffect(() => {
         if (!userId) return;
 
@@ -49,14 +56,14 @@ export const useHandleShoppingCart = ({ reducerKey, storeKey, userId }: IUseCart
 
     const handleCreateItem = useCallback(
         async (item: ICartItem) => {
-            await dispatch(addItemIntoCart({ storeKey, userId, item } as { storeKey: string, userId: string, item: ICartItem }) as any);
+            await dispatch(createItemInCart({ storeKey, userId, item } as { storeKey: string, userId: string, item: ICartItem }) as any);
         },
         [dispatch, storeKey, userId]
     );
 
-    const handleRemoveItem = useCallback(
+    const handleDeleteItem = useCallback(
         async (item: ICartItem) => {
-            await dispatch(removeItemOutCart({ storeKey, userId, item } as { storeKey: string, userId: string, item: ICartItem }) as any);
+            await dispatch(deleteItemOutCart({ storeKey, userId, item } as { storeKey: string, userId: string, item: ICartItem }) as any);
         },
         [dispatch, storeKey, userId]
     );
@@ -75,22 +82,23 @@ export const useHandleShoppingCart = ({ reducerKey, storeKey, userId }: IUseCart
         [dispatch, storeKey, userId]
     );
 
-
     const handleItemsSelected = useCallback(
         (items: ICartItem[]) => {
             dispatch(selectItems({ storeKey, userId, items } as { storeKey: string, userId: string; items: ICartItem[]; }) as any)
         }, [dispatch, storeKey, userId])
 
-    const handleRemoveItemsAll = useCallback(
-        async () => {
-            await dispatch(removeAllItems({ storeKey } as { storeKey: string }));
-        },
-        [dispatch, storeKey]
-    );
 
-    const handleRemoveItemsSelected = useCallback(
+
+    const handleDeleteItemsSelected = useCallback(
         async (items: ICartItem[]) => {
-            await dispatch(removeItemsOutCart({ storeKey, userId, items } as { storeKey: string, userId: string, items: ICartItem[]; }) as any)
+            await dispatch(deleteItemsSelectedOutCart({ storeKey, userId, items } as { storeKey: string, userId: string, items: ICartItem[]; }) as any)
+        },
+        [dispatch, storeKey, userId]
+    )
+
+    const handleDeleteItemsAll = useCallback(
+        async () => {
+            await dispatch(deleteItemsAllOutCart({ storeKey, userId } as { storeKey: string, userId: string }) as any)
         },
         [dispatch, storeKey, userId]
     )
@@ -101,8 +109,8 @@ export const useHandleShoppingCart = ({ reducerKey, storeKey, userId }: IUseCart
         setItemsSelected: handleItemsSelected,
         updateQtyItem: handleUpdateQtyItem,
         updateVariantsItem: handleUpdateVariantsItem,
-        removeItem: handleRemoveItem,
-        removeItemsAll: handleRemoveItemsAll,
-        removeItemsSelected: handleRemoveItemsSelected,
+        deleteItem: handleDeleteItem,
+        deleteItemsAll: handleDeleteItemsAll,
+        deleteItemsSelected: handleDeleteItemsSelected,
     };
 };

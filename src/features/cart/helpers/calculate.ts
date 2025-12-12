@@ -1,6 +1,8 @@
 import { ICart } from "@/interfaces/cart"
 
-
+const checkIsSameVariant = (a: number[], b: number[]) => {
+    return a.length === b.length && a.every((v, i) => v === b[i]);
+}
 
 const calculateEstimatedShipping = (totalAmount: number): number => {
     if (totalAmount === 0) return 0;
@@ -55,4 +57,4 @@ const recalculateTotals = (cart: ICart) => {
     }
 };
 
-export { recalculateTotals }
+export { checkIsSameVariant, recalculateTotals }

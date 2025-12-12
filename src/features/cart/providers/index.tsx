@@ -14,9 +14,9 @@ interface IShoppingCartContextType {
     updateVariantsItem: (item: ICartItem) => void;
     updateQtyItem: (item: ICartItem) => void;
     setItemsSelected: (items: ICartItem[]) => void;
-    removeItem: (item: ICartItem) => void;
-    removeItemsAll: () => void;
-    removeItemsSelected: (items: ICartItem[]) => void;
+    deleteItem: (item: ICartItem) => void;
+    deleteItemsAll: () => void;
+    deleteItemsSelected: (items: ICartItem[]) => void;
 }
 
 interface IShoppingCartProviderProps {

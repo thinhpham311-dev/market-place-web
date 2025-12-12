@@ -36,7 +36,6 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
                 />
 
             )
-
         },
         enableSorting: false,
         enableHiding: false,
@@ -60,8 +59,6 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
             )
         },
         size: 64,
-
-
     },
     {
         accessorKey: "itemSpuName",
@@ -77,8 +74,6 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
             </Button>
         },
         size: 150,
-
-
     },
     {
         accessorKey: "itemSpuVariations",
@@ -90,8 +85,6 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
             )
         },
         size: 120,
-
-
     },
     {
         accessorKey: "itemSkuPrice",
@@ -105,8 +98,6 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
             )
         },
         size: 100,
-
-
     },
     {
         accessorKey: "itemQuantity",

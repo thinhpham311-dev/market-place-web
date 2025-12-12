@@ -113,7 +113,9 @@ export const useHandleDataTable = ({
         (row) => row.original
     )
 
-    const total_items_selected = items_selected.reduce(
+    const total_items_selected = items_selected.length
+
+    const total_price_items_selected = items_selected.reduce(
         (sum, item) =>
             sum +
             Number(item.itemSkuPrice || 0) * Number(item.itemQuantity || 0),
@@ -123,8 +125,10 @@ export const useHandleDataTable = ({
 
     return {
         table,
-        total_items,
         items_selected,
+        total_items,
         total_items_selected,
+        total_price_items_selected,
+
     }
 }

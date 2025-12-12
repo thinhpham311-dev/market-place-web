@@ -17,9 +17,9 @@ interface ICartItemRemoveProps {
 
 const CartItemRemove = ({ data }: ICartItemRemoveProps) => {
     const { itemSpuName, itemSpuVariations, itemSkuTierIdx, itemQuantity } = data;
-    const { removeItem } = useShoppingCartContext()
+    const { deleteItem } = useShoppingCartContext()
     const onHandleRemove = () => {
-        removeItem(data!);
+        deleteItem(data!);
         setTimeout(() => {
             const id = toast.success("Deleted Product Out Cart!", {
                 description: <span>The product {itemSpuName} - ({renderVariants(itemSpuVariations, itemSkuTierIdx)} x {itemQuantity}) has been removed from your cart.</span>,

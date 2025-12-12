@@ -10,9 +10,9 @@ export async function apiPostShowItems(data: { userId: string }) {
     })
 }
 
-export async function apiPostAddItem(data: { userId: string, item: ICartItem }) {
+export async function apiPostCreateItem(data: { userId: string, item: ICartItem }) {
     return ApiService.fetchData({
-        url: `/cart/add`,
+        url: `/cart/create`,
         method: 'POST',
         data
     })
@@ -42,9 +42,17 @@ export async function apiPostDeleteItem(data: { userId: string, item: ICartItem 
     })
 }
 
-export async function apiPostDeleteItems(data: { userId: string, items: ICartItem[]; }) {
+export async function apiPostDeleteItemsSelected(data: { userId: string, items: ICartItem[]; }) {
     return ApiService.fetchData({
         url: `/cart/delete-items`,
+        method: 'POST',
+        data
+    })
+}
+
+export async function apiPostDeleteItemsAll(data: { userId: string }) {
+    return ApiService.fetchData({
+        url: `/cart/delete-all`,
         method: 'POST',
         data
     })
