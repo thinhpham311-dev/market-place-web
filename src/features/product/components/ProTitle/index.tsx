@@ -1,7 +1,7 @@
 "use client";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { useSpuContext } from "@/features/spu/hooks";
-import LoadingSkeleton from "./Loading"
+import LoadingSkeleton from "./LoadingSkeleton"
 import NotFound from "./NotFound"
 
 export default function ProTitle() {

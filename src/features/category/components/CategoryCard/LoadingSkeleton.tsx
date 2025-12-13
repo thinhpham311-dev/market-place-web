@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 
 
-const Loading = () => {
+const LoadingSkeleton = () => {
     return (
         <Card className="rounded-3xl  aspect-square flex flex-col justify-center items-center ">
             <CardContent className="p-0 rounded-full bg-white dark:bg-white  w-1/2 border  overflow-hidden">
@@ -16,4 +16,4 @@ const Loading = () => {
     );
 };
 
-export default Loading;
+export default LoadingSkeleton;

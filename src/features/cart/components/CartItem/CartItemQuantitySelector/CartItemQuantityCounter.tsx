@@ -3,7 +3,6 @@ import { ICartItem } from "@/interfaces/cart";
 import { useShoppingCartContext } from "@/features/cart/hooks";
 import { QuantitySelector } from "@/features/common";
 import { SHOPPING_CART } from "@/features/cart/constants";
-import { renderVariants } from "@/features/cart/utils/renderVariants"
 
 import { toast } from "sonner"
 
@@ -20,10 +19,8 @@ const CartItemQuantityCounter = ({
     const {
         itemSkuId,
         itemSpuName,
-        itemSpuVariations,
         itemQuantity,
         itemSkuStock,
-        itemSkuTierIdx
     } = data;
 
     const handleQuantityChange = (value: number) => {
@@ -35,7 +32,7 @@ const CartItemQuantityCounter = ({
 
         setTimeout(() => {
             const id = toast.success("update quantity!", {
-                description: <span>The product {itemSpuName} - ({renderVariants(itemSpuVariations, itemSkuTierIdx)} x {value}) has been removed from your cart.</span>,
+                description: <span className="text-white">The product {itemSpuName} x {value} has been removed from your cart.</span>,
                 action: {
                     label: "Close",
                     onClick: () => {

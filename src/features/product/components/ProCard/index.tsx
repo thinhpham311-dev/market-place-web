@@ -3,7 +3,7 @@
 import * as React from "react"
 import { memo } from "react"
 import { useRouter } from "next/navigation"
-import Loading from "./Loading"
+import LoadingSkeleton from "./LoadingSkeleton"
 import { Card, CardContent, CardTitle, CardDescription, CardImage } from "@/components/ui/card"
 import { ISpuPro } from "@/interfaces/spu"
 import NotFound from "./NotFound"
@@ -21,7 +21,7 @@ const ProCard = ({
     const router = useRouter()
 
     if (isLoading) {
-        <Loading />
+        <LoadingSkeleton />
     }
 
     if (!item) {

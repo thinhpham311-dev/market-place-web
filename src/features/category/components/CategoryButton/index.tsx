@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Category } from "@/features/category/types";
 import { cn } from "@/lib/utils";
 import { useNavigationActive } from "@/features/category/hooks/useNavigationActive";
-import Loading from "./Loading";
+import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
 
 interface CategoryButtonProps {
@@ -26,7 +26,7 @@ const CategoryButton: React.FC<CategoryButtonProps> = ({
     if (!lastId) return null
 
     if (isLoading) {
-        return <Loading className="h-10" />
+        return <LoadingSkeleton className="h-10" />
     }
 
     if (!category) {

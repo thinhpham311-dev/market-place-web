@@ -1,7 +1,7 @@
 "use client";
 
-import { memo } from "react";
-import OptionSelectorWrapper from "./OptionSelectorWrapper"
+import React, { memo } from "react";
+import OptionSelectorWrapper from "./OptionSelectorWrapper";
 import OptionSelectorTitle from "./OptionSelectorTitle";
 import OptionSelectorList from "./OptionSelectorList";
 import { useHandleOptionSelector } from "./hooks";
@@ -20,18 +20,37 @@ interface IOptionSelectorProps {
     layoutItems?: "vertical" | "horizontal";
 }
 
+const OptionSelector = React.forwardRef<
+    HTMLDivElement,
+    IOptionSelectorProps
+>(({
+    reducerKey,
+    storeKey,
+    initialOptions,
+    defaultOptionIdx,
+    ...rest
+}, ref) => {
 
-const OptionSelector = (({ reducerKey, storeKey, initialOptions, defaultOptionIdx, ...rest }: IOptionSelectorProps) => {
-    const optionSelector = useHandleOptionSelector({ reducerKey, storeKey, initialOptions, defaultOptionIdx });
+    const optionSelector = useHandleOptionSelector({
+        reducerKey,
+        storeKey,
+        initialOptions,
+        defaultOptionIdx
+    });
 
     return (
         <OptionSelectorProvider contextValues={{ ...optionSelector, ...rest }}>
-            <OptionSelectorWrapper>
-                <OptionSelectorTitle />
-                <OptionSelectorList />
-            </OptionSelectorWrapper>
+            {/* 👇 ref phải gắn vào DOM */}
+            <div ref={ref}>
+                <OptionSelectorWrapper>
+                    <OptionSelectorTitle />
+                    <OptionSelectorList />
+                </OptionSelectorWrapper>
+            </div>
         </OptionSelectorProvider>
     );
 });
+
+OptionSelector.displayName = "OptionSelector";
 
 export default memo(OptionSelector);

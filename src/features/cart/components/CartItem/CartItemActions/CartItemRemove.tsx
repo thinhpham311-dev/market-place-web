@@ -22,7 +22,7 @@ const CartItemRemove = ({ data }: ICartItemRemoveProps) => {
         deleteItem(data!);
         setTimeout(() => {
             const id = toast.success("Deleted Product Out Cart!", {
-                description: <span>The product {itemSpuName} - ({renderVariants(itemSpuVariations, itemSkuTierIdx)} x {itemQuantity}) has been removed from your cart.</span>,
+                description: <span className='text-white'>The product {itemSpuName} - {renderVariants(itemSpuVariations, itemSkuTierIdx)} x {itemQuantity} has been removed from your cart.</span>,
                 action: {
                     label: "Close",
                     onClick: () => {

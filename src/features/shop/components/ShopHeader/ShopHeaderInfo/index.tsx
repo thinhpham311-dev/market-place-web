@@ -2,7 +2,7 @@ import React from "react";
 import { ItemContent, ItemTitle } from "@/components/ui/item";
 import { useShopInfoContext } from "@/features/shop/hooks";
 import { formatPhone } from "@/lib/formats";
-import LoadingSkeleton from "./Loading";
+import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
 
 const ShopHeaderInfo = () => {

@@ -8,7 +8,7 @@ import {
     ScrollArea, ScrollBar
 } from "@/components/ui/scroll-area";
 import NotFound from "./NotFound";
-import Loading from "./Loading";
+import LoadingSkeleton from "./LoadingSkeleton";
 import { Category } from "@/features/category/types";
 import CategoryButton from "../CategoryButton";
 
@@ -32,7 +32,7 @@ const CategoryButtons: React.FC<ButtonsProps> = ({
     }
 
     if (isLoading && (!data || data.length === 0)) {
-        return <Loading count={6} className="h-10" />;
+        return <LoadingSkeleton count={6} className="h-10" />;
     }
 
     if (!isLoading && (!data || data.length === 0)) {

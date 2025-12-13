@@ -1,4 +1,5 @@
 import { VariantOption } from "@/interfaces/spu";
+import { Badge } from "@/components/ui/badge"
 
 export const renderVariants = (variants: VariantOption[], itemTierIdx: number[]) =>
     variants.map((variant, index) => {
@@ -7,10 +8,9 @@ export const renderVariants = (variants: VariantOption[], itemTierIdx: number[])
             : null;
 
         return (
-            <span className="cursor-pointer" key={index}>
+            <Badge variant="default" className="cursor-pointer mx-1" key={index}>
                 {option?.label ?? "N/A"}
-                {index < variants.length - 1 && ", "}
-            </span>
+            </Badge>
         );
     });
 

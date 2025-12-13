@@ -1,7 +1,7 @@
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { Button } from "@/components/ui/button";
 
-export default function Loading() {
+export default function LoadingSkeleton() {
     return (
         <Button
             variant="outline"

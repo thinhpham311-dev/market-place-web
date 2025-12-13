@@ -2,8 +2,9 @@
 
 import * as React from "react"
 import { DataTable } from "@/features/common"
+import type { ColumnDef } from "@tanstack/react-table"
 import { ICartItem } from "@/interfaces/cart"
-import LoadingSkeleton from "./Loading"
+import LoadingSkeleton from "./LoadingSkeleton"
 import NotFound from './NotFound';
 
 interface ICartDataTableProps {
@@ -12,7 +13,7 @@ interface ICartDataTableProps {
     data: ICartItem[],
     error: Error | null,
     isLoading: boolean
-    initialColumns: any[],
+    initialColumns: ColumnDef<ICartItem>[],
     countLoadItems: number,
 }
 

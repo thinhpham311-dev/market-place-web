@@ -43,7 +43,7 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
     },
     {
         accessorKey: "itemSpuImage",
-        header: () => <p className="text-left w-[64px] ">Image</p>,
+        header: () => <p className="text-left">Image</p>,
         cell: ({ row }) => {
             const item = row.original as ICartItem
             return (
@@ -62,7 +62,7 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
     },
     {
         accessorKey: "itemSpuName",
-        header: () => <p className="text-left w-[150px] ">Name</p>,
+        header: () => <p className="text-left ">Name</p>,
         cell: ({ row }) => {
             const router = useRouter()
             const handleRouterLinkToDetail = () => {
@@ -77,7 +77,7 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
     },
     {
         accessorKey: "itemSpuVariations",
-        header: () => <p className="text-left w-[120px] px-2.5">Variants</p>,
+        header: () => <p className="text-left px-2.5">Variants</p>,
         cell: ({ row }) => {
             const item = row.original as ICartItem
             return (
@@ -88,7 +88,7 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
     },
     {
         accessorKey: "itemSkuPrice",
-        header: () => <p className="text-center w-[100px]">Unit Price</p>,
+        header: () => <p className="text-center ">Unit</p>,
         cell: ({ row }) => {
             const item = row.original as ICartItem
             return (
@@ -101,7 +101,7 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
     },
     {
         accessorKey: "itemQuantity",
-        header: () => <p className="text-center w-[150px]">Quantity</p>,
+        header: () => <p className="text-center">Quantity</p>,
         cell: ({ row }) => {
             const item = row.original as ICartItem
             return (
@@ -116,18 +116,18 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
     },
     {
         id: "totalPrice",
-        header: () => <p className="text-center w-[150px]">Total Price</p>,
+        header: () => <p className="text-center ">Total</p>,
         cell: ({ row }) => {
             const item = row.original as ICartItem
             return <div className="flex justify-center">
                 <CartItemPrice itemPrice={item.itemTotalPrice} />
             </div>
         },
-        size: 150,
+        size: 120,
     },
     {
         accessorKey: "actions",
-        header: () => <p className="text-right w-[150px] px-3">Features</p>,
+        header: () => <p className="text-right  px-3">Features</p>,
         cell: ({ row }) => {
             const item = row.original as ICartItem
             return (
@@ -137,7 +137,7 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
                 </div>
             )
         },
-        size: 150,
+        size: 120,
     },
     {
         accessorKey: "itemShopId",
@@ -145,6 +145,6 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
             return <p>shop Id</p>
         },
         enableGrouping: true,
-        enableHiding: false,
+        enableHiding: true,
     }
 ]

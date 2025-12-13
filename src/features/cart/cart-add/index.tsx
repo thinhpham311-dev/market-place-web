@@ -3,7 +3,7 @@
 import React, { memo } from "react";
 import { toast } from "sonner"
 
-import LoadingSkeleton from "./Loading";
+import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
 import { useRouter } from "next/navigation";
 
@@ -30,12 +30,12 @@ const CartAddItem = ({ item, disabled, isLoading, isError, href = "", ...rest }:
         if (!item) return;
         createItem(item);
         setTimeout(() => {
-            const id = toast.success("Add To  Successfully!", {
+            const id = toast.success("Add To Successfully!", {
                 description: (
-                    <span>
-                        The product {item.itemSpuName} - (
+                    <span className="text-white">
+                        The product {item.itemSpuName} -
                         {renderVariants(item.itemSpuVariations, item.itemSkuTierIdx)} x {item.itemQuantity}
-                        ) has been added to your cart.
+                        has been added to your cart.
                     </span>
                 ),
                 action: {

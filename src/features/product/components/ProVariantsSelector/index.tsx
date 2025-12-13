@@ -5,7 +5,7 @@ import * as React from "react";
 import { Card, CardContent } from "@/components/ui/card"
 import OptionSelector from "@/features/common/option-selector"
 import { PRO_DETAIL } from "@/features/product/constants";
-import LoadingSkeleton from "./Loading"
+import LoadingSkeleton from "./LoadingSkeleton"
 import NotFound from "./NotFound"
 import { useSpuContext } from "@/features/spu/hooks"
 

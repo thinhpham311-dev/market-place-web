@@ -7,7 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 
 
-const Loading = () => {
+const LoadingSkeleton = () => {
 
     return (
         <Card className="flex flex-col justify-start h-full w-full col-span-1">
@@ -20,4 +20,4 @@ const Loading = () => {
     )
 }
 
-export default Loading
+export default LoadingSkeleton

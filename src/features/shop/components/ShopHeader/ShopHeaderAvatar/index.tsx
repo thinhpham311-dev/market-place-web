@@ -4,7 +4,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { ItemMedia } from "@/components/ui/item";
 
 import { useShopInfoContext } from "@/features/shop/hooks";
-import LoadingSkeleton from "./Loading"
+import LoadingSkeleton from "./LoadingSkeleton"
 import NotFound from "./NotFound"
 
 const ShopHeaderAvatar = () => {

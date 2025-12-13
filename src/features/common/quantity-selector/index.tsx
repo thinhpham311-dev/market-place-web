@@ -1,5 +1,5 @@
 "use client";
-import { memo } from "react";
+import React, { memo } from "react";
 
 // components
 import QuantitySelectorWrapper from "./components/QuantitySelectorWrapper";
@@ -7,10 +7,10 @@ import QuantitySelectorTitle from "./components/QuantitySelectorTitle";
 import QuantitySelectorCounter from "./components/QuantitySelectorCounter";
 import QuantitySelectorStock from "./components/QuantitySelectorStock";
 
-//providers
+// providers
 import QuantitySelectorProvider from "./providers";
 
-//hooks
+// hooks
 import { useHandleQuantitySelector } from "./hooks";
 
 import { IQuantity } from "./store/initial";
@@ -22,22 +22,42 @@ interface IQuantitySelectorProps {
     maxQuantity: number;
     layout?: "vertical" | "horizontal";
     title?: string;
-    onChangeQuantity?: (value: number) => void
-    isDisabled: boolean
+    onChangeQuantity?: (value: number) => void;
+    isDisabled: boolean;
 }
 
-const QuantitySelector = ({ reducerKey = "", storeKey = "", initialValue, maxQuantity, ...rest }: IQuantitySelectorProps) => {
-    const quantitySelector = useHandleQuantitySelector({ reducerKey, storeKey, initialValue, maxQuantity, ...rest });
+const QuantitySelector = React.forwardRef<
+    HTMLDivElement,
+    IQuantitySelectorProps
+>(({
+    reducerKey = "",
+    storeKey = "",
+    initialValue,
+    maxQuantity,
+    ...rest
+}, ref) => {
+
+    const quantitySelector = useHandleQuantitySelector({
+        reducerKey,
+        storeKey,
+        initialValue,
+        maxQuantity,
+        ...rest
+    });
 
     return (
         <QuantitySelectorProvider contextValues={{ ...quantitySelector, ...rest }}>
-            <QuantitySelectorWrapper>
-                <QuantitySelectorTitle />
-                <QuantitySelectorCounter />
-                <QuantitySelectorStock />
-            </QuantitySelectorWrapper>
+            <div ref={ref}>
+                <QuantitySelectorWrapper>
+                    <QuantitySelectorTitle />
+                    <QuantitySelectorCounter />
+                    <QuantitySelectorStock />
+                </QuantitySelectorWrapper>
+            </div>
         </QuantitySelectorProvider>
     );
-}
+});
 
-export default memo(QuantitySelector)
+QuantitySelector.displayName = "QuantitySelector";
+
+export default memo(QuantitySelector);

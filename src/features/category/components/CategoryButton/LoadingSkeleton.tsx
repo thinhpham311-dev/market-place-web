@@ -1,8 +1,8 @@
 import { Skeleton } from "@/components/ui/skeleton"
 import { cn } from "@/lib/utils";
 
-const Loading = ({ className }: { className?: string }) => (
+const LoadingSkeleton = ({ className }: { className?: string }) => (
     <Skeleton className={cn(className, "rounded-md")} />
 );
 
-export default Loading
+export default LoadingSkeleton

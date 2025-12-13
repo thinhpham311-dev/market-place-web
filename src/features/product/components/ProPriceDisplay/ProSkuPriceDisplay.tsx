@@ -3,7 +3,7 @@
 import { PriceDisplay } from "@/features/common";
 import { PRO_DETAIL } from "@/features/product/constants";
 import { useSkuContext } from "@/features/sku/hooks";
-import LoadingSkeleton from "./Loading";
+import LoadingSkeleton from "./LoadingSkeleton";
 
 export default function SkuPriceDisplay({ spu }: { spu: any }) {
     const { sku, loading: skuLoading } = useSkuContext();

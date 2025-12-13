@@ -2,7 +2,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 
 
-const LoadingPlaceholder = (
+const LoadingSkeleton = (
     {
         count
     }: {
@@ -24,4 +24,4 @@ const LoadingPlaceholder = (
     </div>
 );
 
-export default LoadingPlaceholder
+export default LoadingSkeleton

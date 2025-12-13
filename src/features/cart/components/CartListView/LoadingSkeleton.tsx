@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 
 import { cn } from "@/lib/utils";
-const Loading = (
+const LoadingSkeleton = (
     {
         className,
         count
@@ -28,4 +28,4 @@ const Loading = (
     </div>
 );
 
-export default Loading
+export default LoadingSkeleton

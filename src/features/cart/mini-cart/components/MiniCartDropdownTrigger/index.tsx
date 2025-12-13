@@ -4,7 +4,7 @@ import * as React from "react";
 import { DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 
-import Loading from "./Loading";
+import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
 import { ShoppingCart } from "lucide-react";
 import { useShoppingCartContext } from "@/features/cart/hooks";
@@ -20,7 +20,7 @@ const MiniCartDropdownTrigger = React.forwardRef<HTMLButtonElement, MiniCartDrop
             return (
                 <DropdownMenuTrigger asChild>
                     <div>
-                        <Loading />
+                        <LoadingSkeleton />
                     </div>
                 </DropdownMenuTrigger>
             );

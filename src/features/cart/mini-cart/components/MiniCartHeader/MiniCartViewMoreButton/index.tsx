@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import Loading from "./Loading";
+import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
 import { ChevronRight } from "lucide-react";
 import { useShoppingCartContext } from "@/features/cart/hooks";
@@ -19,7 +19,7 @@ export default function MiniCartViewMoreButton() {
                 size="sm"
                 disabled
             >
-                <Loading />
+                <LoadingSkeleton />
             </Button>
         );
     }

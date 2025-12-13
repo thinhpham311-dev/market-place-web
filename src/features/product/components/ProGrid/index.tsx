@@ -1,7 +1,7 @@
 import React from "react";
 import SpuCard from "../ProCard";
 import { ISpuPro } from "@/interfaces/spu";
-import Loading from "./Loading";
+import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
 import { cn } from "@/lib/utils";
 
@@ -24,7 +24,7 @@ const ProGrid = ({
     const hasNoData = !data || data.length === 0;
 
     if (isLoading && hasNoData) {
-        return <Loading className={className} count={countLoadItems} />;
+        return <LoadingSkeleton className={className} count={countLoadItems} />;
     }
 
     if (!isLoading && hasNoData && error) {

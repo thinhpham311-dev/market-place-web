@@ -9,7 +9,7 @@ import {
 import SpecificationItem from "./SpecificationItem";
 import { useSpuContext } from "@/features/spu/hooks";
 import { specs } from "@/features/product/constants";
-import LoadingSkeleton from "./Loading"
+import LoadingSkeleton from "./LoadingSkeleton"
 import NotFound from "./NotFound"
 
 export default function ProSpecifications() {

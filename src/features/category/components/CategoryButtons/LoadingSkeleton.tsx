@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/skeleton"
 import { cn } from "@/lib/utils";
 
-const LoadingPlaceholder = (
+const LoadingSkeleton = (
     {
         count,
         className
@@ -25,4 +25,4 @@ const LoadingPlaceholder = (
     </Card>
 );
 
-export default LoadingPlaceholder
+export default LoadingSkeleton

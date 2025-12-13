@@ -2,7 +2,7 @@
 
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
 import SpuCard from "../ProCard";
-import Loading from "./Loading";
+import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
 import { cn } from "@/lib/utils";
 import { ISpuPro } from "@/interfaces/spu";
@@ -20,7 +20,7 @@ const SpuCarousel = ({ data, itemsPerPage = 12, className, isLoading, error, cou
     const hasNoData = !data || data.length === 0;
 
     if (isLoading && hasNoData) {
-        return <Loading className={className} count={countLoadItems} />;
+        return <LoadingSkeleton className={className} count={countLoadItems} />;
     }
 
     if (!isLoading && hasNoData && error) {

@@ -8,7 +8,7 @@ import {
 import BreadcrumbItem from "./BreadcrumbItem";
 import { useSpuContext } from "@/features/spu/hooks";
 import { breadcrumbs } from "@/features/product/constants"
-import LoadingSkeleton from "./Loading"
+import LoadingSkeleton from "./LoadingSkeleton"
 import NotFound from "./NotFound"
 
 export default function ProBreadcrumb() {

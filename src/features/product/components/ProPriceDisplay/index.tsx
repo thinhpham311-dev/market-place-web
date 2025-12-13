@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 import { useSpuContext } from "@/features/spu/hooks";
 
-import LoadingSkeleton from "./Loading";
+import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
 import ProSkuPriceDisplay from "./ProSkuPriceDisplay";
 

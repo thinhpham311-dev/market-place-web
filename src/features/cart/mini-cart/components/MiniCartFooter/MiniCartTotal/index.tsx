@@ -1,5 +1,5 @@
 import { CardTitle } from "@/components/ui/card";
-import Loading from "./Loading";
+import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
 import { formatToCurrency } from "@/lib/formats/formatToCurrency";
 import { useShoppingCartContext } from "@/features/cart/hooks";
@@ -12,7 +12,7 @@ const MiniCartTotal = () => {
     if (loading) {
         return (
             <CardTitle className="text-md space-x-2">
-                <Loading />
+                <LoadingSkeleton />
             </CardTitle>
         );
     }

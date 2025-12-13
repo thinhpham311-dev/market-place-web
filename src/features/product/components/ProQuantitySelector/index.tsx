@@ -5,7 +5,7 @@ import { QuantitySelector } from "@/features/common";
 import { PRO_DETAIL } from "@/features/product/constants";
 import { useSkuContext } from "@/features/sku/hooks";
 import { useSpuContext } from "@/features/spu/hooks";
-import LoadingSkeleton from "./Loading";
+import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
 
 const ProQuantitySelector = () => {

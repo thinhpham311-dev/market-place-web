@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 // components
 import { Card, CardContent, CardTitle, CardImage } from "@/components/ui/card";
-import Loading from "./Loading";
+import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
 
 // types
@@ -21,7 +21,7 @@ const CategoryCard = ({ item, isLoading }: IItemProps) => {
     const router = useRouter();
 
     if (isLoading) {
-        return <Loading />;
+        return <LoadingSkeleton />;
     }
 
     if (!item) {

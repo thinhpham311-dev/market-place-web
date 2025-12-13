@@ -25,7 +25,7 @@ type CartResponse = {
 
 interface IErrorPayload {
     message: string;
-    [key: string]: any;
+    [key: string]: string;
 }
 
 export const getItemsInCart = createAsyncThunk<

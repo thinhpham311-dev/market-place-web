@@ -9,7 +9,7 @@ import { Filter } from "../types";
 interface FilterContextType {
     data: Filter[],
     filter?: Filter
-    handleSetFilter: (key: string, value: any) => void
+    handleSetFilter: (key: string, value: string | object) => void
     handleResetFilter: (key: string) => void
     handleResetAllFilters: () => void
 }

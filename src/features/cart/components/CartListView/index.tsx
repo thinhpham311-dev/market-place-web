@@ -5,7 +5,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 
 import { ICartItem } from "@/interfaces/cart"
 import CartItem from '@/features/cart/components/CartItem';
-import LoadingSkeleton from "./Loading"
+import LoadingSkeleton from "./LoadingSkeleton"
 import NotFound from './NotFound';
 
 interface ICartListViewProps {

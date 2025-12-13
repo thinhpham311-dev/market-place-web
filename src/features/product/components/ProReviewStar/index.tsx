@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/card";
 import ReviewStars from "@/features/reviews/components/ReviewStars"
 import { useSpuContext } from "@/features/spu/hooks";
-import LoadingSkeleton from "./Loading"
+import LoadingSkeleton from "./LoadingSkeleton"
 import NotFound from "./NotFound"
 
 export default function ProDescriptionContent() {

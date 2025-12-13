@@ -1,7 +1,7 @@
 import React from "react";
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
 import NotFound from "./NotFound";
-import Loading from "./Loading";
+import LoadingSkeleton from "./LoadingSkeleton";
 import CategoryCard from "../CategoryCard";
 import { cn } from "@/lib/utils";
 import { Category } from "@/features/category/types";
@@ -20,7 +20,7 @@ const CategoryCarousel = ({ data, itemsPerPage = 12, className, isLoading, error
         return <NotFound message={error.message || "Something went wrong."} />;
     }
     if (isLoading && (!data || data.length === 0)) {
-        return <Loading count={countLoadItems} />;
+        return <LoadingSkeleton count={countLoadItems} />;
     }
 
     if (!isLoading && (!data || data.length === 0)) {
