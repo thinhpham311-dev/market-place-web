@@ -1,19 +1,33 @@
+"use client";
 
 import CartListView from "@/features/cart/components/CartListView";
 import { DropdownMenuItem, DropdownMenuGroup } from "@radix-ui/react-dropdown-menu";
-import { useShoppingCartContext } from "@/features/cart/hooks";
+import { useShoppingCartContext, useCartErrorHandler } from "@/features/cart/hooks";
+import ErrorMsg from "./ErrorMsg"
+import LoadingSkeleton from "./LoadingSkeleton";
 
 export default function MiniCartContent() {
     const { data, loading, error } = useShoppingCartContext()
-    const { cart_products } = data
+    const { cart_products = [], cart_product_count = 0 } = data
+    const showListError = error?.actions.showList;
+
+    const { shouldRenderError, errorMessage } = useCartErrorHandler(showListError, "SHOW_LIST");
+
+
+    if (shouldRenderError) {
+        return <ErrorMsg message={errorMessage} />;
+    }
+
+    if (loading.actions.showList) {
+        return <LoadingSkeleton count={cart_product_count} />;
+    }
+
+
     return (
         <DropdownMenuGroup>
             <DropdownMenuItem disabled>
                 <CartListView
                     data={cart_products}
-                    isLoading={loading}
-                    error={error}
-                    countLoadItems={4}
                 />
             </DropdownMenuItem>
         </DropdownMenuGroup>

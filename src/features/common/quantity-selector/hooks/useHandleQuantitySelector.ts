@@ -21,7 +21,6 @@ interface IUseHandleQuantitySelector {
     maxQuantity: number;
     initialValue: IQuantity;
     onChangeQuantity?: (value: number) => void;
-    isDisabled: boolean;
 }
 
 export function useHandleQuantitySelector({
@@ -30,7 +29,6 @@ export function useHandleQuantitySelector({
     maxQuantity,
     initialValue,
     onChangeQuantity,
-    isDisabled,
 }: IUseHandleQuantitySelector) {
 
     const dispatch = useAppDispatch();
@@ -89,7 +87,7 @@ export function useHandleQuantitySelector({
     // ⬅ update quantity
     const handleQuantityChange = useCallback(
         (newQuantity: number) => {
-            if (maxQuantity === 0 || isDisabled) return;
+            if (maxQuantity === 0) return;
 
             dispatch(setQuantity({ storeKey, quantity: newQuantity }));
 
@@ -100,7 +98,7 @@ export function useHandleQuantitySelector({
                 timeoutRef.current = null;
             }, 250);
         },
-        [dispatch, storeKey, onChangeQuantity, maxQuantity, isDisabled]
+        [dispatch, storeKey, onChangeQuantity, maxQuantity]
     );
 
     const resetQuantityHandler = useCallback(() => {
@@ -108,8 +106,8 @@ export function useHandleQuantitySelector({
     }, [dispatch, storeKey]);
 
     const isDisabledQuantity = useMemo(() => {
-        return maxQuantity === 0 || isDisabled;
-    }, [maxQuantity, isDisabled]);
+        return maxQuantity === 0;
+    }, [maxQuantity]);
 
     return {
         isDisabledQuantity,

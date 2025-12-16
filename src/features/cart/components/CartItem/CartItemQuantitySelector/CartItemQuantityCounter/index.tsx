@@ -1,8 +1,9 @@
-import { useMemo } from "react";
 import { ICartItem } from "@/interfaces/cart";
 import { useShoppingCartContext } from "@/features/cart/hooks";
 import { QuantitySelector } from "@/features/common";
 import { SHOPPING_CART } from "@/features/cart/constants";
+import ErrorMsg from "./ErrorMsg"
+import LoadingSkeleton from "./LoadingSkeleton";
 
 import { toast } from "sonner"
 
@@ -16,6 +17,7 @@ const CartItemQuantityCounter = ({
 }: ICartItemQuantityCounterProps) => {
 
     const { loading, error, updateQtyItem } = useShoppingCartContext();
+
     const {
         itemSkuId,
         itemSpuName,
@@ -43,10 +45,14 @@ const CartItemQuantityCounter = ({
         }, 500);
     };
 
-    const isDisabled = useMemo(() => {
-        const hasError = !!(typeof error === "string" || error?.message);
-        return !!(loading || hasError);
-    }, [loading, itemSkuStock, error]);
+
+    if (error?.byItem[itemSkuId]?.updateQty) {
+        return <ErrorMsg message={error?.byItem[itemSkuId]?.updateQty?.message} />;
+    }
+
+    if (loading.byItem[itemSkuId]?.updateQty) {
+        return <LoadingSkeleton />;
+    }
 
     return (
         <QuantitySelector
@@ -54,7 +60,6 @@ const CartItemQuantityCounter = ({
             storeKey={`${SHOPPING_CART}_${itemSkuId}`}
             initialValue={{ currentQuantity: itemQuantity }}
             maxQuantity={itemSkuStock}
-            isDisabled={isDisabled}
             onChangeQuantity={handleQuantityChange}
         />
     );

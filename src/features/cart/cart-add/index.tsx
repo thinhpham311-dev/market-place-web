@@ -1,27 +1,25 @@
 "use client";
 
 import React, { memo } from "react";
-import { toast } from "sonner"
 
 import LoadingSkeleton from "./LoadingSkeleton";
-import NotFound from "./NotFound";
+import ErrorMsg from "./ErrorMsg";
 import { useRouter } from "next/navigation";
 
-import { useShoppingCartContext } from "@/features/cart/hooks";
+import { useShoppingCartContext, } from "@/features/cart/hooks";
 import { ICartItem } from "@/interfaces/cart";
 import CartButtonBase from "@/features/cart/components/CartButtonBase";
 import { ICartButtonBaseProps } from "@/features/cart/components/CartButtonBase"
 import { renderVariants } from "@/features/cart/utils/renderVariants"
+import { showSuccessToast } from "@/features/common/toast-msg";
 
 interface CartAddItemProps extends ICartButtonBaseProps {
     item?: ICartItem | null;
-    isLoading: boolean;
-    isError: string;
     disabled?: boolean;
     href?: string
 }
 
-const CartAddItem = ({ item, disabled, isLoading, isError, href = "", ...rest }: CartAddItemProps) => {
+const CartAddItem = ({ item, disabled, href = "", ...rest }: CartAddItemProps) => {
     const router = useRouter()
 
     const { createItem, loading, error } = useShoppingCartContext();
@@ -29,28 +27,33 @@ const CartAddItem = ({ item, disabled, isLoading, isError, href = "", ...rest }:
     const handleAddToCart = () => {
         if (!item) return;
         createItem(item);
+
         setTimeout(() => {
-            const id = toast.success("Add To Successfully!", {
+
+            showSuccessToast({
+                title: "Add To Successfully!",
                 description: (
                     <span className="text-white">
                         The product {item.itemSpuName} -
                         {renderVariants(item.itemSpuVariations, item.itemSkuTierIdx)} x {item.itemQuantity}
                         has been added to your cart.
                     </span>
-                ),
-                action: {
-                    label: "Close",
-                    onClick: () => {
-                        toast.dismiss(id);
-                    },
-                },
-            });
+                )
+            })
+
         }, 500);
         if (href) router.push(href);
     };
 
-    if (isLoading || loading) return <LoadingSkeleton />;
-    if (isError || error) return <NotFound />;
+
+
+    if (error?.actions.createItem) {
+        return <ErrorMsg />;
+    }
+
+    if (loading.actions.createItem) {
+        return <LoadingSkeleton />;
+    }
 
     return (
         <CartButtonBase

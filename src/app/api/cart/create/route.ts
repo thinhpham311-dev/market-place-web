@@ -1,7 +1,7 @@
 import axios from 'axios';
 import qs from "qs";
 import { NextResponse } from 'next/server';
-import { handleError } from '@/lib/handleError/error';
+import { handleAxiosError } from '@/lib/http/handleAxiosError';
 
 const API_NEXT = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -41,8 +41,7 @@ export async function POST(req: Request): Promise<Response> {
 
     } catch (error: unknown) {
         return NextResponse.json(
-            handleError(error as { name: string; errors: string; code: number; message: string }),
-            { status: 500 }
+            handleAxiosError(error)
         );
     }
 }

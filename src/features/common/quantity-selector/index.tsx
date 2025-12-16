@@ -23,7 +23,6 @@ interface IQuantitySelectorProps {
     layout?: "vertical" | "horizontal";
     title?: string;
     onChangeQuantity?: (value: number) => void;
-    isDisabled: boolean;
 }
 
 const QuantitySelector = React.forwardRef<

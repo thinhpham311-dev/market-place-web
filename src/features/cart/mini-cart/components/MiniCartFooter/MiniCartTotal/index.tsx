@@ -1,28 +1,17 @@
+"use client";
 import { CardTitle } from "@/components/ui/card";
 import LoadingSkeleton from "./LoadingSkeleton";
-import NotFound from "./NotFound";
+import ErrorMsg from "./ErrorMsg";
 import { formatToCurrency } from "@/lib/formats/formatToCurrency";
 import { useShoppingCartContext } from "@/features/cart/hooks";
 
 
 const MiniCartTotal = () => {
-    const { data, loading, error } = useShoppingCartContext();
+    const { data, loading } = useShoppingCartContext();
     const { cart_total_price = 0 } = data
 
-    if (loading) {
-        return (
-            <CardTitle className="text-md space-x-2">
-                <LoadingSkeleton />
-            </CardTitle>
-        );
-    }
-
-    if (error) {
-        return (
-            <CardTitle className="text-md space-x-2">
-                <NotFound />
-            </CardTitle>
-        );
+    if (loading.actions.showList) {
+        return <LoadingSkeleton />;
     }
 
     return (

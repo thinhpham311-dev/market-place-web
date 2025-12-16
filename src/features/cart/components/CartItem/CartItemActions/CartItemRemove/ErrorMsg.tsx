@@ -1,13 +1,13 @@
 import React from "react";
 import { AlertTriangle } from "lucide-react";
 
-interface NotFoundProps {
+interface ErrorMsgProps {
     message?: string;
     className?: string;
 }
 
-const NotFound: React.FC<NotFoundProps> = ({
-    message = "No data found.",
+const ErrorMsg: React.FC<ErrorMsgProps> = ({
+    message = "",
     className = "",
 }) => {
     return (
@@ -20,4 +20,4 @@ const NotFound: React.FC<NotFoundProps> = ({
     );
 };
 
-export default NotFound;
+export default ErrorMsg;

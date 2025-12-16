@@ -4,12 +4,12 @@ import React from "react";
 
 import { cn } from "@/lib/utils"
 import { ICartItem, ICart } from "@/interfaces/cart";
+import { ILoadingState, IErrorState } from "@/features/cart/types"
 
 interface IShoppingCartContextType {
     data: ICart;
-    loading: boolean,
-    error: Error | null,
-    status: "idle" | "loading" | "success" | "error",
+    loading: ILoadingState,
+    error?: IErrorState,
     createItem: (item: ICartItem) => void;
     updateVariantsItem: (item: ICartItem) => void;
     updateQtyItem: (item: ICartItem) => void;

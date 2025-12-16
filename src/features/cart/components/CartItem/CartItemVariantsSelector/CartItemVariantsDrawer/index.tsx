@@ -14,6 +14,9 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
+import ErrorMsg from "./ErrorMsg"
+import LoadingSkeleton from "./LoadingSkeleton";
+
 import { ChevronDown, Save, Ban } from "lucide-react";
 import { toast } from "sonner";
 
@@ -34,6 +37,7 @@ const CartItemVariantsDrawer = ({ data }: CartItemVariantsDrawerProps) => {
 
     const {
         itemId,
+        itemSkuId,
         itemSpuName,
         itemSkuTierIdx,
         itemSpuVariations,
@@ -84,6 +88,14 @@ const CartItemVariantsDrawer = ({ data }: CartItemVariantsDrawerProps) => {
         setTimeout(showSuccessToast, 500);
     }, [data, selectedOptions, updateVariantsItem, showSuccessToast]);
 
+    if (error?.byItem[itemSkuId]?.updateVariant) {
+        return <ErrorMsg message={error?.byItem[itemSkuId].updateVariant.message} />;
+    }
+
+    if (loading.byItem[itemSkuId]?.updateVariant) {
+        return <LoadingSkeleton />;
+    }
+
     return (
         <Drawer>
             <DrawerTrigger asChild>
@@ -112,8 +124,7 @@ const CartItemVariantsDrawer = ({ data }: CartItemVariantsDrawerProps) => {
                                 storeKey={`${SHOPPING_CART}_${itemId}`}
                                 initialOptions={itemSpuVariations}
                                 defaultOptionIdx={skuTierIdx}
-                                loading={loading}
-                                error={error}
+
                             />
                         </CardContent>
                     </Card>

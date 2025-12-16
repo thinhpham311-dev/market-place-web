@@ -17,7 +17,7 @@ import { injectReducer, removeReducer } from "@/store";
 
 //hooks
 import { useGetShoppingCartValue } from "./useGetShoppingCartValue";
-
+import { useCartErrorHandler } from "./useCartErrorHandler"
 //constants
 import { SHOPPING_CART } from "@/features/cart/constants"
 import { useAppDispatch } from "@/lib/hooks";

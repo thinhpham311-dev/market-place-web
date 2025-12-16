@@ -2,39 +2,17 @@
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import LoadingSkeleton from "./LoadingSkeleton";
-import NotFound from "./NotFound";
+import ErrorMsg from "./ErrorMsg";
 import { ChevronRight } from "lucide-react";
-import { useShoppingCartContext } from "@/features/cart/hooks";
+import { useShoppingCartContext, useCartErrorHandler } from "@/features/cart/hooks";
 
 export default function MiniCartViewMoreButton() {
     const router = useRouter();
-    const { data, loading, error } = useShoppingCartContext();
+    const { data, loading } = useShoppingCartContext();
     const { cart_product_count = 0 } = data;
 
-    if (loading) {
-        return (
-            <Button
-                className="flex items-center gap-2"
-                variant="link"
-                size="sm"
-                disabled
-            >
-                <LoadingSkeleton />
-            </Button>
-        );
-    }
-
-    if (error) {
-        return (
-            <Button
-                className="flex items-center gap-2"
-                variant="link"
-                size="sm"
-                disabled
-            >
-                <NotFound />
-            </Button>
-        );
+    if (loading.actions.showList) {
+        return <LoadingSkeleton />;
     }
 
     const handleRouterLinkToCart = () => {

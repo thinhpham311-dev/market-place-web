@@ -5,30 +5,20 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 
 import { ICartItem } from "@/interfaces/cart"
 import CartItem from '@/features/cart/components/CartItem';
-import LoadingSkeleton from "./LoadingSkeleton"
-import NotFound from './NotFound';
-
+import { AlertTriangle } from "lucide-react"
 interface ICartListViewProps {
     data: ICartItem[]
-    countLoadItems: number;
-    isLoading: boolean;
-    error: Error | null;
 }
 
-const CartListView = ({ data = [], countLoadItems = 0, isLoading = false, error }: ICartListViewProps) => {
+const CartListView = ({ data = [] }: ICartListViewProps) => {
 
-    const hasNoData = !data || data.length === 0;
-
-    if (isLoading && hasNoData) {
-        return <LoadingSkeleton count={countLoadItems} />;
-    }
-
-    if (!isLoading && hasNoData && error) {
-        return <NotFound message={error.message || "Something went wrong."} />;
-    }
-
-    if (hasNoData) {
-        return <NotFound />;
+    if (data.length === 0) {
+        return <div
+            className={`w-full flex flex-col items-center justify-center aspect-square text-center text-muted-foreground`}
+        >
+            <AlertTriangle className="w-10 h-10 mb-2 text-yellow-500" />
+            <p className="text-sm font-medium">No data found.</p>
+        </div>
     }
 
     return (

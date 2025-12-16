@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { AlertCircle } from "lucide-react";
 
 
-const NotFound = () => {
+const ErrorMsg = () => {
     return (
         <Button
             variant="outline"
@@ -17,4 +17,4 @@ const NotFound = () => {
     );
 };
 
-export default NotFound;
+export default ErrorMsg;

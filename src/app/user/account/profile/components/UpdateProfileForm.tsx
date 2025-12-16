@@ -7,7 +7,7 @@ import { FormInput, FormGroup, FormSelect } from "@/components/shared";
 
 //libs
 import { z } from "zod";
-import { isValidPhoneNumber } from "@/lib/handleError"
+import { isValidPhoneNumber } from "@/lib/handleError/validate"
 
 //icons
 import { Save } from "lucide-react";

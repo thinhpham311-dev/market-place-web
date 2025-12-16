@@ -1,25 +1,17 @@
 import { ShoppingBag } from "lucide-react";
 import { CardTitle } from "@/components/ui/card";
 import LoadingSkeleton from "./LoadingSkeleton";
-import NotFound from "./NotFound";
-import { useShoppingCartContext } from "@/features/cart/hooks";
+import ErrorMsg from "./ErrorMsg";
+import { useShoppingCartContext, useCartErrorHandler } from "@/features/cart/hooks";
 
 export default function MiniCartTitle() {
-    const { data, loading, error } = useShoppingCartContext();
+    const { data, loading } = useShoppingCartContext();
     const { cart_product_count = 0 } = data;
 
-
-    if (loading) {
-        return (
-            <LoadingSkeleton />
-        );
+    if (loading.actions.showList) {
+        return <LoadingSkeleton />;
     }
 
-    if (error) {
-        return (
-            <NotFound />
-        );
-    }
     return (
         <CardTitle className="text-md space-x-1 uppercase">
             <ShoppingBag className="w-5 h-5 inline align-middle mr-1" />

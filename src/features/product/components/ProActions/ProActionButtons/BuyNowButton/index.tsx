@@ -22,15 +22,10 @@ import { PRO_DETAIL } from "@/features/product/constants";
 import { MdShoppingCartCheckout } from "react-icons/md";
 
 const BuyNowButton = () => {
-    const { spu, loading: spuLoading, error: spuError } = useSpuContext();
-    const { sku, loading: skuLoading, error: skuError } = useSkuContext();
+    const { spu } = useSpuContext();
+    const { sku } = useSkuContext();
 
     const { currentQuantity: qty } = useGetQuantityValue(PRO_DETAIL, `${PRO_DETAIL}_${sku?.sku_id}`)
-
-
-    const loading = spuLoading && skuLoading;
-
-    const error = spuError && skuError;
 
     const data: ICartItem | null = useMemo(() => {
         if (!spu || !sku) return null;
@@ -51,8 +46,6 @@ const BuyNowButton = () => {
             icon={<MdShoppingCartCheckout />}
             label="Buy Now"
             item={data}
-            isLoading={loading}
-            isError={error}
             disabled={isDisabled}
         />
     );

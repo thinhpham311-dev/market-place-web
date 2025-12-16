@@ -2,16 +2,25 @@
 
 import { Button } from "@/components/ui/button";
 import LoadingSkeleton from "./LoadingSkeleton";
-import NotFound from "./NotFound";
+import ErrorMsg from "./ErrorMsg";
 import { Trash } from "lucide-react";
-import { useShoppingCartContext } from "@/features/cart/hooks";
+import { useShoppingCartContext, useCartErrorHandler } from "@/features/cart/hooks";
 
 function DeleteAllButton() {
     const { data, loading, error, deleteItemsAll } = useShoppingCartContext()
     const { cart_product_count = 0 } = data;
+    const showListError = error?.actions.showList;
 
-    if (loading) return <LoadingSkeleton />;
-    if (error) return <NotFound />;
+    const { shouldRenderError } = useCartErrorHandler(showListError, "SHOW_LIST");
+
+    if (shouldRenderError) {
+        return <ErrorMsg />;
+    }
+
+
+    if (loading.actions.deleteItemsAll) {
+        return <LoadingSkeleton />;
+    }
 
     const isDisabled = cart_product_count === 0;
 

@@ -2,8 +2,8 @@
 import { useMemo } from "react";
 import { useAppSelector } from "@/lib/hooks";
 import { selectShoppingCart } from "@/features/cart/store/selectors";
-import { IShoppingCart, createDefault } from "@/features/cart/store/initial"
-
+import { createDefault } from "@/features/cart/store/initial"
+import { IShoppingCart } from "@/features/cart/types"
 
 export function useGetShoppingCartValue(dynamicReducerKey: string, storeKey: string, initialValue: IShoppingCart = createDefault()) {
     const state = useAppSelector(selectShoppingCart(dynamicReducerKey, storeKey));

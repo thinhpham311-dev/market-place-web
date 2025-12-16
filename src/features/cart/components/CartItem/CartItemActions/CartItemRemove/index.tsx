@@ -5,6 +5,9 @@ import {
     TooltipTrigger
 } from '@/components/ui/tooltip';
 import { Button } from '@/components/ui/button';
+import ErrorMsg from "./ErrorMsg"
+import LoadingSkeleton from "./LoadingSkeleton";
+
 import { MdClose } from "react-icons/md";
 import { useShoppingCartContext } from '@/features/cart/hooks';
 import { toast } from "sonner"
@@ -16,8 +19,8 @@ interface ICartItemRemoveProps {
 }
 
 const CartItemRemove = ({ data }: ICartItemRemoveProps) => {
-    const { itemSpuName, itemSpuVariations, itemSkuTierIdx, itemQuantity } = data;
-    const { deleteItem } = useShoppingCartContext()
+    const { itemSpuName, itemSpuVariations, itemSkuTierIdx, itemQuantity, itemSkuId } = data;
+    const { deleteItem, loading, error } = useShoppingCartContext()
     const onHandleRemove = () => {
         deleteItem(data!);
         setTimeout(() => {
@@ -32,6 +35,14 @@ const CartItemRemove = ({ data }: ICartItemRemoveProps) => {
             });
         }, 500);
     };
+
+    if (error?.byItem[itemSkuId]?.deleteItem) {
+        return <ErrorMsg message={error?.byItem[itemSkuId]?.deleteItem.message} />;
+    }
+
+    if (loading.byItem[itemSkuId]?.deleteItem) {
+        return <LoadingSkeleton />;
+    }
 
     return (
         <div className='flex items-center justify-end'>

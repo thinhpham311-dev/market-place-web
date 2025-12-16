@@ -16,22 +16,28 @@ import {
     SHOPPING_CART_TTL,
     SHOPPING_CART_TAG,
 } from '@/features/cart/constants';
-import { initialState, ensureStoreKeyState } from '@/features/cart/store/initial';
-import { checkIsSameVariant, recalculateTotals } from "@/features/cart/helpers"
+import { initialState } from "@/features/cart/store/initial"
+import {
+    checkIsSameVariant,
+    recalculateTotals,
+    setItemLoading,
+    setActionLoading,
+    setItemError,
+    setActionError,
+    ensureStoreKeyState
+
+} from "@/features/cart/helpers"
+import { handleAxiosError, NormalizedApiError } from "@/lib/http/handleAxiosError"
 
 type CartResponse = {
     metadata: ICart;
 };
 
-interface IErrorPayload {
-    message: string;
-    [key: string]: string;
-}
 
 export const getItemsInCart = createAsyncThunk<
     CartResponse,
     { storeKey: string, userId: string },
-    { rejectValue: IErrorPayload | string }
+    { rejectValue: NormalizedApiError }
 >(
     'cart/data/getItemInCart',
     async (params, { rejectWithValue, dispatch }) => {
@@ -40,7 +46,7 @@ export const getItemsInCart = createAsyncThunk<
                 type: 'api/fetch',
                 payload: {
                     key: SHOPPING_CART_CACHE_KEY,
-                    params,
+                    // params,
                     apiFn: apiPostShowItems,
                     options: {
                         TTL: SHOPPING_CART_TTL,
@@ -54,7 +60,7 @@ export const getItemsInCart = createAsyncThunk<
             return data;
 
         } catch (error: any) {
-            return rejectWithValue(error?.response?.data || error.message);
+            return rejectWithValue(handleAxiosError(error));
         }
     }
 );
@@ -62,21 +68,21 @@ export const getItemsInCart = createAsyncThunk<
 export const createItemInCart = createAsyncThunk<
     CartResponse,
     { storeKey: string, item: ICartItem, userId: string },
-    { rejectValue: IErrorPayload | string }
+    { rejectValue: NormalizedApiError }
 >('cart/data/createItemInCart', async (params, { dispatch, rejectWithValue }) => {
     try {
         await dispatch(createItem({ ...params }));
         const response = (await apiPostCreateItem({ ...params })) as { data: CartResponse };
         return response.data;
     } catch (error: any) {
-        return rejectWithValue(error?.response?.data || error.message);
+        return rejectWithValue(handleAxiosError(error));
     }
 });
 
 export const updateQtyItemInCart = createAsyncThunk<
     CartResponse,
     { storeKey: string, item: ICartItem, userId: string },
-    { rejectValue: IErrorPayload | string }
+    { rejectValue: NormalizedApiError }
 >('cart/data/updateQtyItemInCart', async (params, { dispatch, rejectWithValue }) => {
     try {
         await dispatch(updateQtyItem({ ...params }))
@@ -84,21 +90,21 @@ export const updateQtyItemInCart = createAsyncThunk<
         const response = (await apiPostUpdateQtyItem({ ...params })) as { data: CartResponse };
         return response.data;
     } catch (error: any) {
-        return rejectWithValue(error?.response?.data || error.message);
+        return rejectWithValue(handleAxiosError(error));
     }
 });
 
 export const updateVariantsItemInCart = createAsyncThunk<
     CartResponse,
     { storeKey: string, item: ICartItem, userId: string },
-    { rejectValue: IErrorPayload | string }
+    { rejectValue: NormalizedApiError }
 >('cart/data/updateVariantsItemInCart', async (params, { dispatch, rejectWithValue }) => {
     try {
         await dispatch(updateVariantsItem({ ...params }))
         const response = (await apiPostUpdateVariantsItem({ ...params })) as { data: CartResponse };
         return response.data;
     } catch (error: any) {
-        return rejectWithValue(error?.response?.data || error.message);
+        return rejectWithValue(handleAxiosError(error));
     }
 });
 
@@ -107,42 +113,42 @@ export const updateVariantsItemInCart = createAsyncThunk<
 export const deleteItemOutCart = createAsyncThunk<
     CartResponse,
     { storeKey: string, userId: string, item: ICartItem },
-    { rejectValue: IErrorPayload | string }
+    { rejectValue: NormalizedApiError }
 >('cart/data/deleteItemOutCart', async (params, { dispatch, rejectWithValue }) => {
     try {
         await dispatch(removeItem({ ...params }))
         const response = (await apiPostDeleteItem({ ...params })) as { data: CartResponse };
         return response.data;
     } catch (error: any) {
-        return rejectWithValue(error?.response?.data || error.message);
+        return rejectWithValue(handleAxiosError(error));
     }
 });
 
 export const deleteItemsSelectedOutCart = createAsyncThunk<
     CartResponse,
     { storeKey: string, userId: string; items: ICartItem[] },
-    { rejectValue: IErrorPayload | string }
+    { rejectValue: NormalizedApiError }
 >('cart/data/deleteItemsSelectedOutCart', async (params, { dispatch, rejectWithValue }) => {
     try {
         await dispatch(removeSelectedItems({ ...params }))
         const response = (await apiPostDeleteItemsSelected({ ...params })) as { data: CartResponse };
         return response.data;
     } catch (error: any) {
-        return rejectWithValue(error?.response?.data || error.message);
+        return rejectWithValue(handleAxiosError(error));
     }
 });
 
 export const deleteItemsAllOutCart = createAsyncThunk<
     CartResponse,
     { storeKey: string, userId: string; },
-    { rejectValue: IErrorPayload | string }
+    { rejectValue: NormalizedApiError }
 >('cart/data/deleteItemsAllOutCart', async (params, { dispatch, rejectWithValue }) => {
     try {
         await dispatch(removeAllItems({ ...params }))
         const response = (await apiPostDeleteItemsAll({ ...params })) as { data: CartResponse };
         return response.data;
     } catch (error: any) {
-        return rejectWithValue(error?.response?.data || error.message);
+        return rejectWithValue(handleAxiosError(error));
     }
 });
 
@@ -305,123 +311,113 @@ const cartSlice = createSlice({
         builder
             .addCase(getItemsInCart.pending, (state, action) => {
                 const { storeKey } = action.meta.arg
-                ensureStoreKeyState(state, storeKey);
-                state[storeKey].loading = true;
+                setActionLoading(state, storeKey, "showList", true);
             })
             .addCase(getItemsInCart.fulfilled, (state, action) => {
                 const { storeKey } = action.meta.arg
-                ensureStoreKeyState(state, storeKey);
                 state[storeKey].data = action.payload.metadata;
-                state[storeKey].loading = false;
+                setActionLoading(state, storeKey, "showList", false);
             })
             .addCase(getItemsInCart.rejected, (state, action) => {
                 const { storeKey } = action.meta.arg
-                ensureStoreKeyState(state, storeKey);
-                state[storeKey].loading = false;
-                state[storeKey].error = action.payload instanceof Error ? action.payload : new Error(typeof action.payload === 'string' ? action.payload : 'Failed to fetch product list');
+                setActionError(state, action.meta.arg.storeKey, "showList", action.payload)
+                setActionLoading(state, storeKey, "showList", false);
             })
+        builder
             .addCase(createItemInCart.pending, (state, action) => {
                 const { storeKey } = action.meta.arg
-                ensureStoreKeyState(state, storeKey);
-                state[storeKey].loading = true;
+                setActionLoading(state, storeKey, "createItem", true);
+
             })
             .addCase(createItemInCart.fulfilled, (state, action) => {
                 const { storeKey } = action.meta.arg
-                ensureStoreKeyState(state, storeKey);
                 state[storeKey].data = action.payload.metadata;
-                state[storeKey].loading = false;
+                setActionLoading(state, storeKey, "createItem", false);
             })
             .addCase(createItemInCart.rejected, (state, action) => {
                 const { storeKey } = action.meta.arg
-                ensureStoreKeyState(state, storeKey);
-                state[storeKey].loading = false;
-                state[storeKey].error = action.payload instanceof Error ? action.payload : new Error(typeof action.payload === 'string' ? action.payload : 'Failed to fetch product list');
+                setActionError(state, storeKey, "createItem", action.payload)
+                setActionLoading(state, storeKey, "createItem", false);
+
             })
+        builder
             .addCase(updateQtyItemInCart.pending, (state, action) => {
-                const { storeKey } = action.meta.arg
-                ensureStoreKeyState(state, storeKey);
-                state[storeKey].loading = true;
+                const { storeKey, item } = action.meta.arg
+                setItemLoading(state, storeKey, item.itemSkuId, "updateQty", true);
             })
             .addCase(updateQtyItemInCart.fulfilled, (state, action) => {
-                const { storeKey } = action.meta.arg
-                ensureStoreKeyState(state, storeKey);
+                const { storeKey, item } = action.meta.arg
                 state[storeKey].data = action.payload.metadata;
-                state[storeKey].loading = false;
+                setItemLoading(state, storeKey, item.itemSkuId, "updateQty", false);
+
             })
             .addCase(updateQtyItemInCart.rejected, (state, action) => {
-                const { storeKey } = action.meta.arg
-                ensureStoreKeyState(state, storeKey);
-                state[storeKey].loading = false;
-                state[storeKey].error = action.payload instanceof Error ? action.payload : new Error(typeof action.payload === 'string' ? action.payload : 'Failed to fetch product list');
+                const { storeKey, item } = action.meta.arg
+                setItemLoading(state, storeKey, item.itemSkuId, "updateQty", false);
+                setItemError(state, storeKey, item.itemSkuId, "updateQty", action.payload)
+
             })
+        builder
             .addCase(updateVariantsItemInCart.pending, (state, action) => {
-                const { storeKey } = action.meta.arg
-                ensureStoreKeyState(state, storeKey);
-                state[storeKey].loading = true;
+                const { storeKey, item } = action.meta.arg
+                setItemLoading(state, storeKey, item.itemSkuId, "updateVariant", true);
             })
             .addCase(updateVariantsItemInCart.fulfilled, (state, action) => {
-                const { storeKey } = action.meta.arg
-                ensureStoreKeyState(state, storeKey);
+                const { storeKey, item } = action.meta.arg
                 state[storeKey].data = action.payload.metadata;
-                state[storeKey].loading = false;
+                setItemLoading(state, storeKey, item.itemSkuId, "updateVariant", false);
             })
             .addCase(updateVariantsItemInCart.rejected, (state, action) => {
-                const { storeKey } = action.meta.arg
-                ensureStoreKeyState(state, storeKey);
-                state[storeKey].loading = false;
-                state[storeKey].error = action.payload instanceof Error ? action.payload : new Error(typeof action.payload === 'string' ? action.payload : 'Failed to fetch product list');
+                const { storeKey, item } = action.meta.arg
+                setItemLoading(state, storeKey, item.itemSkuId, "updateVariant", false);
+                setItemError(state, storeKey, item.itemSkuId, "updateVariant", action.payload)
             })
-
+        builder
             .addCase(deleteItemOutCart.pending, (state, action) => {
-                const { storeKey } = action.meta.arg
-                ensureStoreKeyState(state, storeKey);
-                state[storeKey].loading = true;
+                const { storeKey, item } = action.meta.arg
+                setItemLoading(state, storeKey, item.itemSkuId, "deleteItem", true);
+
             })
             .addCase(deleteItemOutCart.fulfilled, (state, action) => {
-                const { storeKey } = action.meta.arg
-                ensureStoreKeyState(state, storeKey);
+                const { storeKey, item } = action.meta.arg
                 state[storeKey].data = action.payload.metadata;
-                state[storeKey].loading = false;
+                setItemLoading(state, storeKey, item.itemSkuId, "deleteItem", false);
             })
             .addCase(deleteItemOutCart.rejected, (state, action) => {
-                const { storeKey } = action.meta.arg
-                ensureStoreKeyState(state, storeKey);
-                state[storeKey].loading = false;
-                state[storeKey].error = action.payload instanceof Error ? action.payload : new Error(typeof action.payload === 'string' ? action.payload : 'Failed to fetch product list');
+                const { storeKey, item } = action.meta.arg
+                setItemLoading(state, storeKey, item.itemSkuId, "deleteItem", false);
+                setItemError(state, storeKey, item.itemSkuId, "deleteItem", action.payload)
             })
+        builder
             .addCase(deleteItemsSelectedOutCart.pending, (state, action) => {
                 const { storeKey } = action.meta.arg
-                ensureStoreKeyState(state, storeKey);
-                state[storeKey].loading = true;
+                setActionLoading(state, storeKey, "deleteItemsSelected", true);
+
             })
             .addCase(deleteItemsSelectedOutCart.fulfilled, (state, action) => {
                 const { storeKey } = action.meta.arg
-                ensureStoreKeyState(state, storeKey);
                 state[storeKey].data = action.payload.metadata;
-                state[storeKey].loading = false;
+                setActionLoading(state, storeKey, "deleteItemsSelected", false);
             })
             .addCase(deleteItemsSelectedOutCart.rejected, (state, action) => {
                 const { storeKey } = action.meta.arg
-                ensureStoreKeyState(state, storeKey);
-                state[storeKey].loading = false;
-                state[storeKey].error = action.payload instanceof Error ? action.payload : new Error(typeof action.payload === 'string' ? action.payload : 'Failed to fetch product list');
+                setActionLoading(state, action.meta.arg.storeKey, "deleteItemsSelected", false);
+                setActionError(state, storeKey, "deleteItemsSelected", action.payload)
             })
+        builder
             .addCase(deleteItemsAllOutCart.pending, (state, action) => {
                 const { storeKey } = action.meta.arg
-                ensureStoreKeyState(state, storeKey);
-                state[storeKey].loading = true;
+                setActionLoading(state, storeKey, "deleteItemsAll", true);
             })
             .addCase(deleteItemsAllOutCart.fulfilled, (state, action) => {
                 const { storeKey } = action.meta.arg
-                ensureStoreKeyState(state, storeKey);
                 state[storeKey].data = action.payload.metadata;
-                state[storeKey].loading = false;
+                setActionLoading(state, action.meta.arg.storeKey, "deleteItemsAll", false);
             })
             .addCase(deleteItemsAllOutCart.rejected, (state, action) => {
                 const { storeKey } = action.meta.arg
-                ensureStoreKeyState(state, storeKey);
-                state[storeKey].loading = false;
-                state[storeKey].error = action.payload instanceof Error ? action.payload : new Error(typeof action.payload === 'string' ? action.payload : 'Failed to fetch product list');
+                setActionLoading(state, action.meta.arg.storeKey, "deleteItemsAll", false);
+                setActionError(state, storeKey, "deleteItemsAll", action.payload)
             })
     },
 });

@@ -1,5 +1,4 @@
 "use client";
-import { useMemo } from "react";
 
 import { QuantitySelector } from "@/features/common";
 import { PRO_DETAIL } from "@/features/product/constants";
@@ -9,7 +8,7 @@ import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
 
 const ProQuantitySelector = () => {
-    const { sku, loading: skuLoading, error: skuError } = useSkuContext();
+    const { sku } = useSkuContext();
     const { spu, loading: spuLoading, error: spuError } = useSpuContext();
 
     const hasNoData = !spu || Object.keys(spu).length === 0;
@@ -17,10 +16,6 @@ const ProQuantitySelector = () => {
     const showError = !spuLoading && hasNoData && spuError;
     const showNotFound = !spuLoading && hasNoData && !spuError;
 
-    const isDisabled = useMemo(() => {
-        const hasError = typeof skuError === "string" || !!skuError;
-        return skuLoading || hasError;
-    }, [skuLoading, skuError]);
 
     if (showLoading) return <LoadingSkeleton />;
     if (showError) return <NotFound message={spuError || "Something went wrong."} />;
@@ -36,7 +31,6 @@ const ProQuantitySelector = () => {
             title="Quantity"
             layout="horizontal"
             maxQuantity={sku?.sku_stock}
-            isDisabled={isDisabled}
         />
     );
 };

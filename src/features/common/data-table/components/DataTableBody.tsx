@@ -1,7 +1,7 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import React, { useMemo } from "react"
+import React, { useMemo, useEffect, useState } from "react"
 import { flexRender } from "@tanstack/react-table"
 import { TableBody, TableRow, TableCell } from "@/components/ui/table"
 import type { Row } from "@tanstack/react-table"
@@ -151,11 +151,30 @@ InfoRow.displayName = "InfoRow"
 
 
 const CartTableBody = () => {
+    const [isMounted, setIsMounted] = useState(false)
+
+    // This ensures context is only accessed after component is mounted
     const { table } = useDataTableContext()
 
+    useEffect(() => {
+        setIsMounted(true)
+    }, [])
 
-    const rows = table.getRowModel().rows
-    const totalColumns = table.getAllColumns().length
+
+    const rows = isMounted ? table?.getRowModel().rows || [] : []
+    const totalColumns = isMounted ? table?.getAllColumns().length || 0 : 0
+
+    if (!isMounted) {
+        return (
+            <TableBody>
+                <TableRow>
+                    <TableCell colSpan={totalColumns} className="h-52 text-center">
+                        Loading...
+                    </TableCell>
+                </TableRow>
+            </TableBody>
+        )
+    }
 
     if (rows.length === 0) {
         return (

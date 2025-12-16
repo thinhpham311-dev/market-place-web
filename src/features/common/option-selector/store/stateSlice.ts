@@ -63,6 +63,9 @@ const optionSlice = createSlice({
         resetOptions: (state, action: PayloadAction<{ storeKey: string }>) => {
             const { storeKey } = action.payload;
 
+            if (!state[storeKey]) {
+                state[storeKey] = createDefault();
+            }
             state[storeKey].selectedOptions = [];
             state[storeKey].validationErrors = [];
         },
