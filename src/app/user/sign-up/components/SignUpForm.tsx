@@ -7,7 +7,7 @@ import { FormGroup, FormInput } from "@/components/shared"
 
 //validations
 import { z } from "zod";
-import { isValidPhoneNumber } from "@/lib/handleError/validate"
+import { isValidPhoneNumber } from "@/utils/validates"
 
 
 // Form schema for validation

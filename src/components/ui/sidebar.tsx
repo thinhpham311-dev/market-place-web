@@ -7,7 +7,7 @@ import { Menu } from "lucide-react"
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 
 import { useIsMobile } from "@/lib/hooks"
-import { cn } from "@/lib/utils"
+import { cn } from "@/utils/styles"
 import {
   Tooltip,
   TooltipContent,

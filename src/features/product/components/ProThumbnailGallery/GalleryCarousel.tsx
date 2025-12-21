@@ -7,7 +7,7 @@ import {
     CarouselApi,
 } from "@/components/ui/carousel";
 import ProImage from "../ProImage";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/styles";
 
 interface GalleryCarouselProps {
     data: string[];

@@ -12,7 +12,7 @@ import { ICartItem } from "@/interfaces/cart"
 
 import { Truck, ChevronRight, Tickets, MessagesSquare } from "lucide-react"
 import { useDataTableContext } from "@/features/common/data-table/hooks"
-import { formatToCurrency } from "@/lib/formats"
+import { formatToCurrency } from "@/utils/formats"
 
 // ------------------- Sub-components -------------------
 interface IGroupHeaderRowProps {

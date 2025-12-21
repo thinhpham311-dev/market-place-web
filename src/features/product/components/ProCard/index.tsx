@@ -7,7 +7,7 @@ import LoadingSkeleton from "./LoadingSkeleton"
 import { Card, CardContent, CardTitle, CardDescription, CardImage } from "@/components/ui/card"
 import { ISpuPro } from "@/interfaces/spu"
 import NotFound from "./NotFound"
-import { formatToCurrency } from "@/lib/formats"
+import { formatToCurrency } from "@/utils/formats"
 
 interface ISpuCardProps {
     item: ISpuPro

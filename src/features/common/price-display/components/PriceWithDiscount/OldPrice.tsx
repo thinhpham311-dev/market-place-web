@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { formatToCurrency } from "@/lib/formats"
+import { formatToCurrency } from "@/utils/formats"
 
 interface IOldPriceProps {
     value: number;

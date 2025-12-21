@@ -35,8 +35,8 @@ import { IOrder } from "@/interfaces/order";
 // import { orderData } from "@/constants/data/order";
 
 //libs
-import { formatDateTime } from "@/lib/formats";
-import { formatToCurrency } from "@/lib/formats"
+import { formatDateTime } from "@/utils/formats";
+import { formatToCurrency } from "@/utils/formats"
 // import Toolbar from "./Toolbar";
 // import Pagination from "./Pagination";
 

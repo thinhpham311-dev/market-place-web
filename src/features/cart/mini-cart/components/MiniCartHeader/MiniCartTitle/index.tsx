@@ -1,8 +1,7 @@
 import { ShoppingBag } from "lucide-react";
 import { CardTitle } from "@/components/ui/card";
 import LoadingSkeleton from "./LoadingSkeleton";
-import ErrorMsg from "./ErrorMsg";
-import { useShoppingCartContext, useCartErrorHandler } from "@/features/cart/hooks";
+import { useShoppingCartContext } from "@/features/cart/hooks";
 
 export default function MiniCartTitle() {
     const { data, loading } = useShoppingCartContext();

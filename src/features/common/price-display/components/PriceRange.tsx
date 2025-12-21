@@ -1,4 +1,4 @@
-import { formatToCurrency } from "@/lib/formats";
+import { formatToCurrency } from "@/utils/formats";
 import { usePriceDisplayContext } from "@/features/common/price-display/hooks";
 
 const PriceRange = () => {

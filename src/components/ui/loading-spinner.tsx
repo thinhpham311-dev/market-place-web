@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils"
+import { cn } from "@/utils/styles"
 export const LoadingSpinner = ({ className }: { className?: string }) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"

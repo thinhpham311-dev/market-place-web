@@ -1,8 +1,7 @@
 "use client";
 import { CardTitle } from "@/components/ui/card";
 import LoadingSkeleton from "./LoadingSkeleton";
-import ErrorMsg from "./ErrorMsg";
-import { formatToCurrency } from "@/lib/formats/formatToCurrency";
+import { formatToCurrency } from "@/utils/formats/formatToCurrency";
 import { useShoppingCartContext } from "@/features/cart/hooks";
 
 

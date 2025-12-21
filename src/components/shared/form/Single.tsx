@@ -25,7 +25,7 @@ import {
     Form,
 } from "@/components/ui/form";
 import { Control, FieldValues } from "react-hook-form";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/styles";
 import { ReactNode } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler, Path, DefaultValues, FormProvider, useFormContext } from "react-hook-form";

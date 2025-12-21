@@ -7,7 +7,7 @@ import { SHOPPING_CART } from "@/features/cart/constants";
  */
 const makeShoppingCartBase = (dynamicReducerKey: string, storeKey: string) =>
     (state: RootState) =>
-        state[`${SHOPPING_CART}_${dynamicReducerKey}`]?.cart?.[storeKey];
+        state[`${SHOPPING_CART}_${dynamicReducerKey}`]?.data?.[storeKey];
 
 /**
  * Cache theo dạng:

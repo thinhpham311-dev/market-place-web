@@ -16,7 +16,7 @@ import LoadingPlaceholder from "./LoadingSkeleton"
 
 //types
 import { IAds } from "@/features/ads/types"
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/styles";
 
 
 interface AdsCarouselProps {

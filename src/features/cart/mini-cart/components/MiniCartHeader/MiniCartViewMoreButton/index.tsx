@@ -2,9 +2,8 @@
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import LoadingSkeleton from "./LoadingSkeleton";
-import ErrorMsg from "./ErrorMsg";
 import { ChevronRight } from "lucide-react";
-import { useShoppingCartContext, useCartErrorHandler } from "@/features/cart/hooks";
+import { useShoppingCartContext } from "@/features/cart/hooks";
 
 export default function MiniCartViewMoreButton() {
     const router = useRouter();

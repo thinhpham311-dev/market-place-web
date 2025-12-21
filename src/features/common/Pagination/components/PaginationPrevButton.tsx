@@ -3,7 +3,7 @@
 import React from "react";
 import { PaginationItem, PaginationPrevious } from "@/components/ui/pagination";
 import { usePaginationContext } from "@/features/common/pagination/hooks";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/styles";
 
 export default function PaginationPrevButton() {
     const { currentPage, setPage, hasPrev, pages, isShowNav } = usePaginationContext();

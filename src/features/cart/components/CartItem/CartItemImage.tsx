@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { cn } from '@/lib/utils';
+import { cn } from "@/utils/styles";
 
 interface CartItemImageProps {
     _w: number;

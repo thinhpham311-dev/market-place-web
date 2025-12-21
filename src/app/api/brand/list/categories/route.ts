@@ -24,6 +24,14 @@ export async function POST(req: Request): Promise<Response> {
         });
         return NextResponse.json(dataResponse);
     } catch (error: unknown) {
-        return NextResponse.json(handleAxiosError(error));
+        const normalized = handleAxiosError(error);
+
+        return NextResponse.json(
+            {
+                message: normalized.message,
+                errors: normalized.errors,
+            },
+            { status: normalized.status }
+        );
     }
 }

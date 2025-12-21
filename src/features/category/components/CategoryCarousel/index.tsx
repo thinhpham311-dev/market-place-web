@@ -3,7 +3,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext
 import NotFound from "./NotFound";
 import LoadingSkeleton from "./LoadingSkeleton";
 import CategoryCard from "../CategoryCard";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/styles";
 import { Category } from "@/features/category/types";
 
 interface ProductRowProps {

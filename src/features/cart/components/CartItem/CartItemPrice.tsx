@@ -5,7 +5,7 @@ import {
     TooltipContent,
     TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { formatToCurrency } from "@/lib/formats";
+import { formatToCurrency } from "@/utils/formats";
 
 interface CartItemPriceProps {
     label?: string

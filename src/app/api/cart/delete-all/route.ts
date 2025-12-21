@@ -23,7 +23,6 @@ export async function POST(req: Request): Promise<Response> {
         // ✅ stringify payload theo dạng x-www-form-urlencoded
         const formData = qs.parse(payload);
 
-        console.log(formData)
         // ✅ Gửi DELETE request kèm body
         const { data: dataResponse } = await axios.delete(`${API_NEXT}/v1/api/cart/delete-all`, {
             headers: {
@@ -36,8 +35,14 @@ export async function POST(req: Request): Promise<Response> {
 
         return NextResponse.json(dataResponse);
     } catch (error: unknown) {
+        const normalized = handleAxiosError(error);
+
         return NextResponse.json(
-            handleAxiosError(error)
+            {
+                message: normalized.message,
+                errors: normalized.errors,
+            },
+            { status: normalized.status }
         );
     }
 }

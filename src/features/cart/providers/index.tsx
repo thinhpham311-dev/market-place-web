@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/utils/styles"
 import { ICartItem, ICart } from "@/interfaces/cart";
 import { ILoadingState, IErrorState } from "@/features/cart/types"
 

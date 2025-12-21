@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { parseApiError } from "@/lib/handleError/parseApiError";
+import { parseApiError } from "@/utils/errors/parseApiError";
 import { NormalizedApiError } from "@/lib/http/handleAxiosError";
 import { showErrorToast } from "@/features/common/toast-msg";
 

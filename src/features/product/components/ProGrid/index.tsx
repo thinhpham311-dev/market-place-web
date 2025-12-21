@@ -3,7 +3,7 @@ import SpuCard from "../ProCard";
 import { ISpuPro } from "@/interfaces/spu";
 import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/styles";
 
 interface SpuGridProps {
     data: ISpuPro[];

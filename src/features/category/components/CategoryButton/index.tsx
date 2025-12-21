@@ -3,7 +3,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Category } from "@/features/category/types";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/styles";
 import { useNavigationActive } from "@/features/category/hooks/useNavigationActive";
 import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";

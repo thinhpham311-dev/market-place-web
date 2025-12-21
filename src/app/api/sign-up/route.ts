@@ -1,7 +1,7 @@
 import axios from 'axios';
 import qs from 'qs';
 import { NextRequest, NextResponse } from 'next/server';
-
+import { handleAxiosError } from "@/lib/http/handleAxiosError"
 const API_NEXT = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const POST = async (req: NextRequest) => {
@@ -36,15 +36,14 @@ export const POST = async (req: NextRequest) => {
         console.error('API returned error message:', returnMessage);
         return NextResponse.json({}, { status: 203 });
     } catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-            console.error('API error response:', error.response.data);
-            return NextResponse.json(
-                error.response.data,
-                { status: 400 }
-            );
-        }
-        const message = String(error);
-        console.error('Unexpected error:', message);
-        return NextResponse.json({ message }, { status: 400 });
+        const normalized = handleAxiosError(error);
+
+        return NextResponse.json(
+            {
+                message: normalized.message,
+                errors: normalized.errors,
+            },
+            { status: normalized.status }
+        );
     }
 };

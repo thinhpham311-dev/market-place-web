@@ -18,14 +18,10 @@ import {
 } from '@/features/cart/constants';
 import { initialState } from "@/features/cart/store/initial"
 import {
-    checkIsSameVariant,
-    recalculateTotals,
     setItemLoading,
     setActionLoading,
     setItemError,
     setActionError,
-    ensureStoreKeyState
-
 } from "@/features/cart/helpers"
 import { handleAxiosError, NormalizedApiError } from "@/lib/http/handleAxiosError"
 
@@ -46,7 +42,7 @@ export const getItemsInCart = createAsyncThunk<
                 type: 'api/fetch',
                 payload: {
                     key: SHOPPING_CART_CACHE_KEY,
-                    // params,
+                    params,
                     apiFn: apiPostShowItems,
                     options: {
                         TTL: SHOPPING_CART_TTL,
@@ -69,9 +65,8 @@ export const createItemInCart = createAsyncThunk<
     CartResponse,
     { storeKey: string, item: ICartItem, userId: string },
     { rejectValue: NormalizedApiError }
->('cart/data/createItemInCart', async (params, { dispatch, rejectWithValue }) => {
+>('cart/data/createItemInCart', async (params, { rejectWithValue }) => {
     try {
-        await dispatch(createItem({ ...params }));
         const response = (await apiPostCreateItem({ ...params })) as { data: CartResponse };
         return response.data;
     } catch (error: any) {
@@ -83,10 +78,8 @@ export const updateQtyItemInCart = createAsyncThunk<
     CartResponse,
     { storeKey: string, item: ICartItem, userId: string },
     { rejectValue: NormalizedApiError }
->('cart/data/updateQtyItemInCart', async (params, { dispatch, rejectWithValue }) => {
+>('cart/data/updateQtyItemInCart', async (params, { rejectWithValue }) => {
     try {
-        await dispatch(updateQtyItem({ ...params }))
-
         const response = (await apiPostUpdateQtyItem({ ...params })) as { data: CartResponse };
         return response.data;
     } catch (error: any) {
@@ -98,9 +91,9 @@ export const updateVariantsItemInCart = createAsyncThunk<
     CartResponse,
     { storeKey: string, item: ICartItem, userId: string },
     { rejectValue: NormalizedApiError }
->('cart/data/updateVariantsItemInCart', async (params, { dispatch, rejectWithValue }) => {
+>('cart/data/updateVariantsItemInCart', async (params, { rejectWithValue }) => {
     try {
-        await dispatch(updateVariantsItem({ ...params }))
+        //
         const response = (await apiPostUpdateVariantsItem({ ...params })) as { data: CartResponse };
         return response.data;
     } catch (error: any) {
@@ -108,15 +101,12 @@ export const updateVariantsItemInCart = createAsyncThunk<
     }
 });
 
-
-
 export const deleteItemOutCart = createAsyncThunk<
     CartResponse,
     { storeKey: string, userId: string, item: ICartItem },
     { rejectValue: NormalizedApiError }
->('cart/data/deleteItemOutCart', async (params, { dispatch, rejectWithValue }) => {
+>('cart/data/deleteItemOutCart', async (params, { rejectWithValue }) => {
     try {
-        await dispatch(removeItem({ ...params }))
         const response = (await apiPostDeleteItem({ ...params })) as { data: CartResponse };
         return response.data;
     } catch (error: any) {
@@ -128,9 +118,8 @@ export const deleteItemsSelectedOutCart = createAsyncThunk<
     CartResponse,
     { storeKey: string, userId: string; items: ICartItem[] },
     { rejectValue: NormalizedApiError }
->('cart/data/deleteItemsSelectedOutCart', async (params, { dispatch, rejectWithValue }) => {
+>('cart/data/deleteItemsSelectedOutCart', async (params, { rejectWithValue }) => {
     try {
-        await dispatch(removeSelectedItems({ ...params }))
         const response = (await apiPostDeleteItemsSelected({ ...params })) as { data: CartResponse };
         return response.data;
     } catch (error: any) {
@@ -142,9 +131,8 @@ export const deleteItemsAllOutCart = createAsyncThunk<
     CartResponse,
     { storeKey: string, userId: string; },
     { rejectValue: NormalizedApiError }
->('cart/data/deleteItemsAllOutCart', async (params, { dispatch, rejectWithValue }) => {
+>('cart/data/deleteItemsAllOutCart', async (params, { rejectWithValue }) => {
     try {
-        await dispatch(removeAllItems({ ...params }))
         const response = (await apiPostDeleteItemsAll({ ...params })) as { data: CartResponse };
         return response.data;
     } catch (error: any) {
@@ -154,158 +142,9 @@ export const deleteItemsAllOutCart = createAsyncThunk<
 
 
 const cartSlice = createSlice({
-    name: `cart/state`,
+    name: `cart/data`,
     initialState,
     reducers: {
-        getItems: (state, action: PayloadAction<{
-            storeKey: string,
-            userId: string
-        }>) => {
-            const { storeKey, userId } = action.payload;
-            ensureStoreKeyState(state, storeKey);
-            if (!userId) return;
-            const cartState = state[storeKey].data;
-            if (cartState?.cart_products?.length > 0) {
-                recalculateTotals(cartState);
-            }
-        },
-        createItem: (state, action: PayloadAction<{
-            storeKey: string,
-            item: ICartItem
-        }>) => {
-            const { storeKey, item } = action.payload;
-            ensureStoreKeyState(state, storeKey);
-            const existingItem = state[storeKey].data?.cart_products.find(
-                (item: ICartItem) => item.itemSkuId === item.itemSkuId
-            );
-            if (existingItem) {
-                existingItem.itemQuantity += item.itemQuantity;
-            } else {
-                const newItem = {
-                    ...item,
-                    totalPrice: item.itemSkuPrice * item.itemQuantity,
-                    discountedTotalPrice: item.itemSkuPrice * item.itemQuantity,
-                };
-                state[storeKey].data?.cart_products.unshift(newItem);
-            }
-            const cartState = state[storeKey].data;
-            if (cartState?.cart_products?.length > 0) {
-                recalculateTotals(cartState);
-            }
-        },
-
-        updateQtyItem: (state, action: PayloadAction<{
-            storeKey: string,
-            item: ICartItem
-        }>) => {
-            const { storeKey, item } = action.payload;
-            ensureStoreKeyState(state, storeKey);
-            const cartState = state[storeKey].data;
-            const itemToUpdate = cartState.cart_products.find(
-                (p: ICartItem) => p.itemSkuId === item.itemSkuId
-            );
-            if (itemToUpdate) {
-                itemToUpdate.itemQuantity = item.itemQuantity;
-                itemToUpdate.itemTotalPrice =
-                    (itemToUpdate.itemSkuPrice || 0) * itemToUpdate.itemQuantity;
-            }
-            if (cartState.cart_products.length > 0) {
-                recalculateTotals(cartState);
-            }
-        },
-        updateVariantsItem: (
-            state,
-            action: PayloadAction<{
-                storeKey: string;
-                item: ICartItem
-            }>
-        ) => {
-            const { storeKey, item } = action.payload;
-            ensureStoreKeyState(state, storeKey);
-            const cartState = state[storeKey].data;
-            if (!cartState?.cart_products) return;
-            const products = cartState.cart_products;
-            const oldItem = products.find((p) => p.itemId === item.itemId);
-            if (!oldItem) return;
-            const oldQuantity = Number(oldItem.itemQuantity);
-            const duplicatedItem = products.find(
-                (p) =>
-                    checkIsSameVariant(p.itemSkuTierIdx, item.itemSkuTierIdx) &&
-                    p.itemSkuId !== oldItem.itemSkuId
-            );
-            if (duplicatedItem) {
-                duplicatedItem.itemQuantity =
-                    Number(duplicatedItem.itemQuantity) + oldQuantity;
-                duplicatedItem.itemTotalPrice =
-                    duplicatedItem.itemQuantity *
-                    Number(duplicatedItem.itemSkuPrice || 0);
-                cartState.cart_products = products.filter(
-                    (p) => p.itemSkuId !== oldItem.itemSkuId
-                );
-            } else {
-                oldItem.itemSkuId = item.itemSkuId;
-                oldItem.itemSkuTierIdx = item.itemSkuTierIdx;
-                oldItem.itemSkuPrice = item.itemSkuPrice;
-                oldItem.itemTotalPrice =
-                    Number(item.itemSkuPrice || 0) * oldQuantity;
-            }
-            if (cartState.cart_products.length > 0) {
-                recalculateTotals(cartState);
-            }
-        },
-        selectItems: (state, action: PayloadAction<{
-            storeKey: string,
-            items: ICartItem[]
-        }>) => {
-            const { storeKey, items } = action.payload;
-            ensureStoreKeyState(state, storeKey);
-            state[storeKey].data.cart_selected_items = items;
-            const cartState = state[storeKey].data;
-            if (cartState?.cart_products?.length > 0) {
-                recalculateTotals(cartState);
-            }
-        },
-        removeItem: (state, action: PayloadAction<{
-            storeKey: string,
-            item: ICartItem
-        }>) => {
-            const { storeKey, item } = action.payload;
-            ensureStoreKeyState(state, storeKey);
-            state[storeKey].data.cart_products = state[storeKey].data.cart_products.filter(
-                (p: ICartItem) => p.itemSkuId !== item.itemSkuId
-            );
-            const cartState = state[storeKey].data;
-            if (cartState?.cart_products?.length > 0) {
-                recalculateTotals(cartState);
-            }
-        },
-        removeAllItems: (state, action: PayloadAction<{
-            storeKey: string
-        }>) => {
-            const { storeKey } = action.payload;
-            state[storeKey].data.cart_products = [];
-            state[storeKey].data.cart_selected_items = [];
-            const cartState = state[storeKey].data;
-            if (cartState?.cart_products?.length > 0) {
-                recalculateTotals(cartState);
-            }
-        },
-        removeSelectedItems: (state, action: PayloadAction<{
-            storeKey: string,
-            items: ICartItem[]
-        }>) => {
-            const { storeKey, items } = action.payload;
-            ensureStoreKeyState(state, storeKey);
-            const selectedSet = new Set(items.map((item) => item.itemSkuId));
-            state[storeKey].data.cart_products = state[storeKey].data.cart_products.filter(
-                (item: ICartItem) => !selectedSet.has(item.itemSkuId)
-            );
-            state[storeKey].data.cart_selected_items = [];
-            const cartState = state[storeKey].data;
-            if (cartState?.cart_products?.length > 0) {
-                recalculateTotals(cartState);
-            }
-        },
     },
     extraReducers: (builder) => {
         builder
@@ -422,15 +261,5 @@ const cartSlice = createSlice({
     },
 });
 
-export const {
-    getItems,
-    createItem,
-    updateQtyItem,
-    updateVariantsItem,
-    selectItems,
-    removeItem,
-    removeAllItems,
-    removeSelectedItems
-} = cartSlice.actions;
 
 export default cartSlice.reducer;

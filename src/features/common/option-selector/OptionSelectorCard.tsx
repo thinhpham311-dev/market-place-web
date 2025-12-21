@@ -12,7 +12,7 @@ import {
     ToggleGroup,
     ToggleGroupItem,
 } from "@/components/ui/toggle-group";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/styles";
 import { Option } from "@/features/common/option-selector/types";
 import { useOptionSelectorContext } from "@/features/common/option-selector/hooks";
 import { IoIosCheckmark } from "react-icons/io";

@@ -4,7 +4,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext
 import SpuCard from "../ProCard";
 import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/styles";
 import { ISpuPro } from "@/interfaces/spu";
 
 interface ISpuCarouselProps {

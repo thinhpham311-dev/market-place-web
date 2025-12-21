@@ -9,15 +9,13 @@ import {
     deleteItemsSelectedOutCart,
     deleteItemsAllOutCart,
     updateVariantsItemInCart
-} from "@/features/cart/store/cartSlice";
-import { selectItems } from "@/features/cart/store/cartSlice";
+} from "@/features/cart/store/dataSlice";
 import reducer from "@/features/cart/store"
 import { ICartItem } from "@/interfaces/cart";
 import { injectReducer, removeReducer } from "@/store";
 
 //hooks
 import { useGetShoppingCartValue } from "./useGetShoppingCartValue";
-import { useCartErrorHandler } from "./useCartErrorHandler"
 //constants
 import { SHOPPING_CART } from "@/features/cart/constants"
 import { useAppDispatch } from "@/lib/hooks";
@@ -82,12 +80,6 @@ export const useHandleShoppingCart = ({ reducerKey, storeKey, userId }: IUseCart
         [dispatch, storeKey, userId]
     );
 
-    const handleItemsSelected = useCallback(
-        (items: ICartItem[]) => {
-            dispatch(selectItems({ storeKey, userId, items } as { storeKey: string, userId: string; items: ICartItem[]; }) as any)
-        }, [dispatch, storeKey, userId])
-
-
 
     const handleDeleteItemsSelected = useCallback(
         async (items: ICartItem[]) => {
@@ -106,7 +98,6 @@ export const useHandleShoppingCart = ({ reducerKey, storeKey, userId }: IUseCart
     return {
         ...state,
         createItem: handleCreateItem,
-        setItemsSelected: handleItemsSelected,
         updateQtyItem: handleUpdateQtyItem,
         updateVariantsItem: handleUpdateVariantsItem,
         deleteItem: handleDeleteItem,

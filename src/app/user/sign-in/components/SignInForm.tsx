@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 
 //components
 import { FormGroup, FormInput, FormCheckBox } from "@/components/shared"
-import { isValidPhoneNumber } from "@/lib/handleError/validate"
+import { isValidPhoneNumber } from "@/utils/validates"
 import { z } from "zod";
 
 // Form schema for validation

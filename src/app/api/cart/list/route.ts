@@ -1,7 +1,7 @@
 import axios from 'axios';
 import qs from 'qs';
 import { NextResponse } from 'next/server';
-import { handleAxiosError } from '@/lib/http/handleAxiosError';
+import { handleAxiosError } from "@/lib/http/handleAxiosError";
 
 const API_NEXT = process.env.NEXT_PUBLIC_BASE_URL;
 

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ShoppingCart } from "lucide-react";
 
 import LoadingSkeleton from "./LoadingSkeleton";
-import { useShoppingCartContext, useCartErrorHandler } from "@/features/cart/hooks";
+import { useShoppingCartContext } from "@/features/cart/hooks";
 
 type MiniCartDropdownTriggerProps =
     React.ComponentPropsWithoutRef<"button">;
