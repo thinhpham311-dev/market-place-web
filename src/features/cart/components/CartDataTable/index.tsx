@@ -3,13 +3,13 @@
 import * as React from "react"
 import { DataTable } from "@/features/common"
 import type { ColumnDef } from "@tanstack/react-table"
-import { ICartItem } from "@/interfaces/cart"
+import { ICartItemModel } from "@/models/cart";
 
 interface ICartDataTableProps {
     cartKey: string
     cartId: string,
-    data: ICartItem[],
-    initialColumns: ColumnDef<ICartItem>[],
+    data: ICartItemModel[],
+    initialColumns: ColumnDef<ICartItemModel>[],
 }
 
 const CartDataTable = ({ cartKey = "", data = [], cartId = "", initialColumns }: ICartDataTableProps) => {

@@ -2,11 +2,11 @@
 
 import React from "react";
 import { cn } from "@/utils/styles";
-import { ISkuPro } from "@/interfaces/sku";
+import { ISkuModel } from "@/models/sku";
 
 
 interface SkuContextType {
-    sku: ISkuPro,
+    sku: ISkuModel,
     loading: boolean,
     error: string,
     status: "idle" | "loading" | "success" | "error",

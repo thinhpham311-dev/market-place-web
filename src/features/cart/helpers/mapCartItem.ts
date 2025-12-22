@@ -1,28 +1,28 @@
-import { ISkuPro } from "@/interfaces/sku";
-import { ISpuPro } from "@/interfaces/spu";
-import { IShop } from "@/interfaces/shop";
+import { ISkuModel } from "@/models/sku";
+import { ISpuModel } from "@/models/spu";
+import { IShopModel } from "@/models/shop";
 
 export interface IMapCartItem {
-    sku: ISkuPro;
-    spu: ISpuPro;
+    sku: ISkuModel;
+    spu: ISpuModel;
     itemQuantity: number;
 }
 
 // --- Mapping helpers ---
-const mapShop = (shop: IShop) => ({
+const mapShop = (shop: IShopModel) => ({
     itemShopId: shop?.shop_id ?? "",
     itemShopName: shop?.shop_name ?? "",
     itemShopSlug: shop?.shop_slug ?? "",
 });
 
-const mapSku = (sku: ISkuPro) => ({
+const mapSku = (sku: ISkuModel) => ({
     itemSkuId: sku?.sku_id ?? "",
     itemSkuPrice: sku?.sku_price ?? 0,
     itemSkuStock: sku?.sku_stock ?? 0,
     itemSkuTierIdx: sku?.sku_tier_idx ?? [],
 });
 
-const mapSpu = (spu: ISpuPro) => ({
+const mapSpu = (spu: ISpuModel) => ({
     itemSpuId: spu?.product_id ?? "",
     itemSpuName: spu?.product_name ?? "",
     itemSpuImage: spu?.product_image ?? "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",

@@ -5,7 +5,7 @@ const Advertisement = dynamic(() => import('@/features/ads'), {
   ssr: false,
   loading: () => <Skeleton className="w-full h-lvh" />,
 });
-const CatPopularList = dynamic(() => import('@/features/category/popular'), {
+const CatPopularList = dynamic(() => import('@/features/category/list/popular'), {
   ssr: true,
   loading: () => <Skeleton className="w-full h-48" />,
 

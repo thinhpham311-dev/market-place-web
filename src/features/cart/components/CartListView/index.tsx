@@ -3,11 +3,11 @@ import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
-import { ICartItem } from "@/interfaces/cart"
+import { ICartItemModel } from "@/models/cart";
 import CartItem from '@/features/cart/components/CartItem';
 import { AlertTriangle } from "lucide-react"
 interface ICartListViewProps {
-    data: ICartItem[]
+    data: ICartItemModel[]
 }
 
 const CartListView = ({ data = [] }: ICartListViewProps) => {

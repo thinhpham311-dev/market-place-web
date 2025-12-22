@@ -7,8 +7,8 @@ import ShopHeaderInfo from "./ShopHeaderInfo";
 import { useShopInfoContext } from "@/features/shop/hooks";
 
 const ShopHeader = () => {
-    const { shopInfo } = useShopInfoContext();
-    const { shop_id, shop_slug } = shopInfo || {};
+    const { data } = useShopInfoContext();
+    const { shop_id, shop_slug } = data || {};
     return (
         <ItemHeader className=" flex  basis-auto ">
             <Item size="sm" asChild className="p-0 flex items-center gap-3">

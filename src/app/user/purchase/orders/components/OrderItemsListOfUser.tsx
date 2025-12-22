@@ -31,7 +31,7 @@ import {
 import DropDownMenuOfItem from "./DropDownMenuOfItem";
 
 //types
-import { IOrder } from "@/interfaces/order";
+import { IOrderModel } from "@/models/order";
 // import { orderData } from "@/constants/data/order";
 
 //libs
@@ -50,7 +50,7 @@ const statusMapping: Record<string, { label: string; color: string }> = {
 };
 
 // Table Columns
-export const columns: ColumnDef<IOrder>[] = [
+export const columns: ColumnDef<IOrderModel>[] = [
     {
         accessorKey: "user",
         header: "Full Name",

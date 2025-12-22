@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { apiPostShopDetail } from '@/features/shop/services'
-import { IShop } from '@/interfaces/shop';
+import { IShopModel } from '@/models/shop';
 import { SHOP_KEY_CACHE_KEY, SHOP_KEY_RETRY_DELAY, SHOP_KEY_RETRIES, SHOP_KEY_TTL, SHOP_KEY_TAG } from "@/features/shop/constants";
 
 
 type ShopDetailResponse = {
-    metadata: IShop
+    metadata: IShopModel
 };
 
 // Định nghĩa error payload
@@ -14,7 +14,7 @@ interface IErrorPayload {
     [key: string]: any; // nếu API trả thêm field thì vẫn nhận được
 }
 
-export const getShopById = createAsyncThunk<ShopDetailResponse, IShop, { rejectValue: IErrorPayload | string }>(
+export const getShopById = createAsyncThunk<ShopDetailResponse, IShopModel, { rejectValue: IErrorPayload | string }>(
     'shopInfoById/data/getList',
     async (params, { rejectWithValue, dispatch }) => {
         try {
@@ -44,7 +44,7 @@ export const getShopById = createAsyncThunk<ShopDetailResponse, IShop, { rejectV
 interface IProductState {
     loading: boolean;
     error: string | null;
-    shopInfo: IShop | null;
+    shopInfo: IShopModel | null;
 }
 
 const initialState: IProductState = {

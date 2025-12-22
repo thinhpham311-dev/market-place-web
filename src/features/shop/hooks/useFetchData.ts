@@ -9,9 +9,7 @@ import { getShopById } from "../store/dataSlice";
 // Reducer & constants
 import reducer from "@/features/shop/store";
 import { injectReducer, removeReducer } from "@/store";
-
-// types
-import { IShop } from "@/interfaces/shop";
+import { IShopModel } from '@/models/shop';
 
 // constants
 import { SHOP_KEY } from "@/features/shop/constants";
@@ -43,7 +41,7 @@ export function useFetchData({ shop_id, storeKey }: IUseFetchDataParams) {
         const promise = dispatch(
             getShopById({
                 shop_id
-            } as IShop) as any
+            } as IShopModel) as any
         );
 
         return () => {

@@ -11,7 +11,7 @@ import {
     updateVariantsItemInCart
 } from "@/features/cart/store/dataSlice";
 import reducer from "@/features/cart/store"
-import { ICartItem } from "@/interfaces/cart";
+import { ICartItemModel } from "@/models/cart";;
 import { injectReducer, removeReducer } from "@/store";
 
 //hooks
@@ -45,7 +45,7 @@ export const useHandleShoppingCart = ({ reducerKey, storeKey, userId }: IUseCart
         if (!userId) return;
 
         const promise = dispatch(
-            getItemsInCart({ storeKey, userId } as { storeKey: string, items: ICartItem[], userId: string }) as any
+            getItemsInCart({ storeKey, userId } as { storeKey: string, items: ICartItemModel[], userId: string }) as any
         );
         return () => promise.abort();
 
@@ -53,37 +53,37 @@ export const useHandleShoppingCart = ({ reducerKey, storeKey, userId }: IUseCart
 
 
     const handleCreateItem = useCallback(
-        async (item: ICartItem) => {
-            await dispatch(createItemInCart({ storeKey, userId, item } as { storeKey: string, userId: string, item: ICartItem }) as any);
+        async (item: ICartItemModel) => {
+            await dispatch(createItemInCart({ storeKey, userId, item } as { storeKey: string, userId: string, item: ICartItemModel }) as any);
         },
         [dispatch, storeKey, userId]
     );
 
     const handleDeleteItem = useCallback(
-        async (item: ICartItem) => {
-            await dispatch(deleteItemOutCart({ storeKey, userId, item } as { storeKey: string, userId: string, item: ICartItem }) as any);
+        async (item: ICartItemModel) => {
+            await dispatch(deleteItemOutCart({ storeKey, userId, item } as { storeKey: string, userId: string, item: ICartItemModel }) as any);
         },
         [dispatch, storeKey, userId]
     );
 
     const handleUpdateQtyItem = useCallback(
-        async (item: ICartItem) => {
-            await dispatch(updateQtyItemInCart({ storeKey, userId, item } as { storeKey: string, userId: string, item: ICartItem }) as any);
+        async (item: ICartItemModel) => {
+            await dispatch(updateQtyItemInCart({ storeKey, userId, item } as { storeKey: string, userId: string, item: ICartItemModel }) as any);
         },
         [dispatch, storeKey, userId]
     );
 
     const handleUpdateVariantsItem = useCallback(
-        async (item: ICartItem) => {
-            await dispatch(updateVariantsItemInCart({ storeKey, userId, item } as { storeKey: string, userId: string, item: ICartItem }) as any);
+        async (item: ICartItemModel) => {
+            await dispatch(updateVariantsItemInCart({ storeKey, userId, item } as { storeKey: string, userId: string, item: ICartItemModel }) as any);
         },
         [dispatch, storeKey, userId]
     );
 
 
     const handleDeleteItemsSelected = useCallback(
-        async (items: ICartItem[]) => {
-            await dispatch(deleteItemsSelectedOutCart({ storeKey, userId, items } as { storeKey: string, userId: string, items: ICartItem[]; }) as any)
+        async (items: ICartItemModel[]) => {
+            await dispatch(deleteItemsSelectedOutCart({ storeKey, userId, items } as { storeKey: string, userId: string, items: ICartItemModel[]; }) as any)
         },
         [dispatch, storeKey, userId]
     )

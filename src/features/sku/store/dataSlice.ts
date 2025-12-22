@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { apiPostSkuDetail } from '@/features/sku/services';
-import { ISkuPro } from '@/interfaces/sku';
+import { ISkuModel } from '@/models/sku';
 import {
     SKU_KEY_CACHE_KEY,
     SKU_KEY_RETRY_DELAY,
@@ -10,7 +10,7 @@ import {
 } from "@/features/sku/constants";
 
 type SkuDetailResponse = {
-    metadata: ISkuPro;
+    metadata: ISkuModel;
 };
 
 interface IErrorPayload {
@@ -18,7 +18,7 @@ interface IErrorPayload {
     [key: string]: any;
 }
 
-interface IGetSkuDetailParams extends ISkuPro {
+interface IGetSkuDetailParams extends ISkuModel {
     optionsCount: number;
 }
 
@@ -63,7 +63,7 @@ export const getSkuDetail = createAsyncThunk<
 
 interface ISkuDetailState {
     loading: boolean;
-    sku: ISkuPro | null;
+    sku: ISkuModel | null;
     error: IErrorPayload | string | null;
     status: "idle" | "loading" | "success" | "error";
 }

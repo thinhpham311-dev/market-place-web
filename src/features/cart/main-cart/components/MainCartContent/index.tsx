@@ -9,7 +9,7 @@ import LoadingSkeleton from "./LoadingSkeleton";
 
 export default function MainCartContent() {
     const { data, loading, error } = useShoppingCartContext()
-    const { cart_products = [], cart_product_count, cart_id = "" } = data
+    const { cart_items = [], cart_items_count, cart_id = "" } = data
 
 
     if (error?.actions.showList) {
@@ -20,7 +20,7 @@ export default function MainCartContent() {
 
     if (loading.actions.showList) {
         return <CardContent className="col-span-12">
-            <LoadingSkeleton count={cart_product_count} />
+            <LoadingSkeleton count={cart_items_count} />
         </CardContent>;
     }
 
@@ -29,7 +29,7 @@ export default function MainCartContent() {
         <CardContent className="col-span-12">
             <CartDataTable
                 cartKey={MAIN_CART}
-                data={cart_products}
+                data={cart_items}
                 cartId={cart_id}
                 initialColumns={initialColumns}
             />

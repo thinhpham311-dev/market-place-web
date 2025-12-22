@@ -6,8 +6,8 @@ import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
 
 const ShopHeaderInfo = () => {
-    const { shopInfo, loading, error } = useShopInfoContext();
-    const { shop_name, shop_address, shop_phone } = shopInfo || {};
+    const { data, loading, error } = useShopInfoContext();
+    const { shop_name, shop_address, shop_phone } = data || {};
 
     if (loading) {
         return (

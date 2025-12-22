@@ -1,5 +1,5 @@
 import ApiService from "@/services/ApiService"
-import { ICartItem } from "@/interfaces/cart"
+import { ICartItemModel } from "@/models/cart";
 
 
 export async function apiPostShowItems(data: { userId: string }) {
@@ -10,7 +10,7 @@ export async function apiPostShowItems(data: { userId: string }) {
     })
 }
 
-export async function apiPostCreateItem(data: { userId: string, item: ICartItem }) {
+export async function apiPostCreateItem(data: { userId: string, item: ICartItemModel }) {
     return ApiService.fetchData({
         url: `/cart/create`,
         method: 'POST',
@@ -18,7 +18,7 @@ export async function apiPostCreateItem(data: { userId: string, item: ICartItem 
     })
 }
 
-export async function apiPostUpdateQtyItem(data: { userId: string, item: ICartItem }) {
+export async function apiPostUpdateQtyItem(data: { userId: string, item: ICartItemModel }) {
     return ApiService.fetchData({
         url: `/cart/update-qty-item`,
         method: 'POST',
@@ -26,7 +26,7 @@ export async function apiPostUpdateQtyItem(data: { userId: string, item: ICartIt
     })
 }
 
-export async function apiPostUpdateVariantsItem(data: { userId: string, item: ICartItem }) {
+export async function apiPostUpdateVariantsItem(data: { userId: string, item: ICartItemModel }) {
     return ApiService.fetchData({
         url: `/cart/update-variants-item`,
         method: 'POST',
@@ -34,7 +34,7 @@ export async function apiPostUpdateVariantsItem(data: { userId: string, item: IC
     })
 }
 
-export async function apiPostDeleteItem(data: { userId: string, item: ICartItem }) {
+export async function apiPostDeleteItem(data: { userId: string, item: ICartItemModel }) {
     return ApiService.fetchData({
         url: `/cart/delete`,
         method: 'POST',
@@ -42,7 +42,7 @@ export async function apiPostDeleteItem(data: { userId: string, item: ICartItem 
     })
 }
 
-export async function apiPostDeleteItemsSelected(data: { userId: string, items: ICartItem[]; }) {
+export async function apiPostDeleteItemsSelected(data: { userId: string, items: ICartItemModel[]; }) {
     return ApiService.fetchData({
         url: `/cart/delete-items`,
         method: 'POST',

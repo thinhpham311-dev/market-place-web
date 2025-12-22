@@ -8,12 +8,12 @@ import {
 import {
     Badge
 } from "@/components/ui/badge";
-import { VariantOption } from "@/interfaces/spu";
+import { IVariationModel } from "@/models/spu";
 import { renderVariants } from "@/features/cart/utils/renderVariants"
 
 interface CartItemVariantsViewProps {
     itemTierIdx: number[];
-    itemVariants: VariantOption[];
+    itemVariants: IVariationModel[];
 }
 
 const CartItemVariantsView = ({

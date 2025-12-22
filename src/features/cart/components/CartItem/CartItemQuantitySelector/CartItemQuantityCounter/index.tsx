@@ -1,4 +1,4 @@
-import { ICartItem } from "@/interfaces/cart";
+import { ICartItemModel } from "@/models/cart";;
 import { useShoppingCartContext } from "@/features/cart/hooks";
 import { QuantitySelector } from "@/features/common";
 import { SHOPPING_CART } from "@/features/cart/constants";
@@ -9,7 +9,7 @@ import { toast } from "sonner"
 
 
 interface ICartItemQuantityCounterProps {
-    data: ICartItem
+    data: ICartItemModel
 }
 
 const CartItemQuantityCounter = ({

@@ -1,7 +1,7 @@
 import ApiService from "@/services/ApiService"
-import { IShop } from "@/interfaces/shop"
+import { IShopModel } from "@/models/shop"
 
-export async function apiPostShopDetail(data: IShop) {
+export async function apiPostShopDetail(data: IShopModel) {
     return ApiService.fetchData({
         url: `/shop/detail`,
         method: 'POST',

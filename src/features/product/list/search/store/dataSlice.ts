@@ -1,38 +1,16 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { apiPostProductsList } from '@/features/product/list/search/services'
-import { IFilter, ISpuPro } from '@/interfaces/spu';
+import { IProductListRequest, IProductListResponse } from "@/features/product/list/search/interfaces"
+import { initialState } from "./initials"
 
-type ProductListResponse = {
-    metadata:
-    {
-        list: ISpuPro[],
-        total: number;
-    };
-};
 
-interface ProductState {
-    list: ISpuPro[];
-    loading: boolean;
-    status: "idle" | "loading" | "success" | "error";
-    total: number;
-    error: string | null;
-}
-
-const initialState: ProductState = {
-    list: [],
-    loading: false,
-    total: 0,
-    status: "idle",
-    error: null
-};
-
-export const getProductList = createAsyncThunk<ProductListResponse, IFilter>(
+export const getProductList = createAsyncThunk<IProductListResponse, IProductListRequest>(
     'proSearchList/data/getList',
-    async (params: IFilter, { rejectWithValue }) => {
+    async (params: IProductListRequest, { rejectWithValue }) => {
         try {
             const response = await apiPostProductsList(params) as
                 {
-                    data: ProductListResponse
+                    data: IProductListResponse
                 };
             return response.data;
         } catch (error: any) {

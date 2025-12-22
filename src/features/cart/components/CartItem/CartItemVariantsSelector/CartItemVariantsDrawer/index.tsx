@@ -26,10 +26,10 @@ import { useShoppingCartContext } from "@/features/cart/hooks";
 import { renderVariants } from "@/features/cart/utils/renderVariants";
 import { checkIsSameVariant } from "@/features/cart/helpers";
 import { SHOPPING_CART } from "@/features/cart/constants";
-import { ICartItem } from "@/interfaces/cart";
+import { ICartItemModel } from "@/models/cart";;
 
 interface CartItemVariantsDrawerProps {
-    data: ICartItem;
+    data: ICartItemModel;
 }
 
 const CartItemVariantsDrawer = ({ data }: CartItemVariantsDrawerProps) => {

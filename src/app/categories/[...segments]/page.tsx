@@ -4,7 +4,7 @@ import { notFound } from "next/navigation"; // ✅ import notFound
 // import ProListByCategoryId from "@/features/product/list/by-category-id";
 import { Skeleton } from "@/components/ui/skeleton";
 
-const CatByCategoryId = dynamic(() => import('@/features/category/by-category-id'), {
+const CatByCategoryId = dynamic(() => import('@/features/category/list/by-category-id'), {
     ssr: false,
     loading: () => <Skeleton className="w-full h-10" />,
 

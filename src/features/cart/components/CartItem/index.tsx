@@ -9,12 +9,12 @@ import CartItemImage from '@/features/cart/components/CartItem/CartItemImage';
 import CartItemPrice from '@/features/cart/components/CartItem/CartItemPrice';
 import { CartItemVariantsView } from "@/features/cart/components/CartItem/CartItemVariantsSelector"
 import { CartItemQuantityView } from '@/features/cart/components/CartItem/CartItemQuantitySelector';
-import { ICartItem } from '@/interfaces/cart';
+import { ICartItemModel } from '@/models/cart';
 import { useRouter } from "next/navigation"
 import CartItemRemove from './CartItemActions/CartItemRemove';
 
 interface ICartItemProps {
-    data: ICartItem
+    data: ICartItemModel
 }
 
 const CartItem = ({

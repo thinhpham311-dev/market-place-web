@@ -5,13 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Table } from "@tanstack/react-table";
 
 //types
-import { IOrder } from "@/interfaces/order";
+import { IOrderModel } from "@/models/order";
 
 //icons
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
 interface ToolbarProps {
-    table: Table<IOrder>;
+    table: Table<IOrderModel>;
 }
 
 export default function Pagination({ table }: ToolbarProps) {

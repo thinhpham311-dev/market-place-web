@@ -1,10 +1,10 @@
 import React from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useShoppingCartContext } from "../../hooks";
-import { ICartItem } from "@/interfaces/cart";
+import { ICartItemModel } from "@/models/cart";;
 
 interface ICartItemCheckboxProps {
-    data?: ICartItem[];
+    data?: ICartItemModel[];
     checked: boolean;
     disabled?: boolean;
     ariaLabel?: string;

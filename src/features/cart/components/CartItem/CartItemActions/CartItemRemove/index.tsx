@@ -11,11 +11,11 @@ import LoadingSkeleton from "./LoadingSkeleton";
 import { MdClose } from "react-icons/md";
 import { useShoppingCartContext } from '@/features/cart/hooks';
 import { toast } from "sonner"
-import { ICartItem } from '@/interfaces/cart';
+import { ICartItemModel } from '@/models/cart';
 import { renderVariants } from "@/features/cart/utils/renderVariants"
 
 interface ICartItemRemoveProps {
-    data: ICartItem
+    data: ICartItemModel
 }
 
 const CartItemRemove = ({ data }: ICartItemRemoveProps) => {

@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { apiPostProductsListByCategories } from '@/features/product/list/by-category-id/services';
-import { IFilter, ISpuPro } from '@/interfaces/spu';
 import {
     PRO_LIST_BY_CATEGORYID_CACHE_KEY,
     PRO_LIST_BY_CATEGORYID_RETRY_DELAY,
@@ -8,31 +7,13 @@ import {
     PRO_LIST_BY_CATEGORYID_TTL,
     PRO_LIST_BY_CATEGORYID_TAG
 } from "@/features/product/list/by-category-id/constants";
+import { IProductListRequest, IProductListResponse } from "@/features/product/list/by-category-id/interfaces"
+import { initialState } from "./initials"
 
-type ProductListResponse = {
-    metadata: {
-        list: ISpuPro[],
-        total: number;
-    },
-};
 
-interface IProductState {
-    loading: boolean;
-    error: string | null;
-    list: ISpuPro[];
-    total: number;
-}
-
-const initialState: IProductState = {
-    loading: false,
-    list: [],
-    total: 0,
-    error: null
-};
-
-export const getProductListByCategories = createAsyncThunk<ProductListResponse, IFilter>(
+export const getProductListByCategories = createAsyncThunk<IProductListResponse, IProductListRequest>(
     'proListByCategoryId/data/getList',
-    async (params: IFilter, { rejectWithValue, dispatch }) => {
+    async (params: IProductListRequest, { rejectWithValue, dispatch }) => {
         try {
             const data = await dispatch({
                 type: "api/fetch",
@@ -47,7 +28,7 @@ export const getProductListByCategories = createAsyncThunk<ProductListResponse, 
                         tags: [PRO_LIST_BY_CATEGORYID_TAG],
                     },
                 },
-            }) as unknown as ProductListResponse;
+            }) as unknown as IProductListResponse;
 
             return data;
         } catch (error: any) {

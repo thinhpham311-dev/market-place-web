@@ -2,11 +2,11 @@
 
 import React from "react";
 import { cn } from "@/utils/styles";
-import { ISpuPro } from "@/interfaces/spu";
+import { ISpuModel } from "@/models/spu";
 
 
 interface ISpuContextType {
-    spu: ISpuPro,
+    spu: ISpuModel,
     loading: boolean,
     error: string,
     status: "idle" | "loading" | "success" | "error",

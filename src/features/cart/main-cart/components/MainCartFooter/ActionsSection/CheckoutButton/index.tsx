@@ -8,7 +8,7 @@ import { useShoppingCartContext, useCartErrorHandler } from "@/features/cart/hoo
 
 function CheckoutButton() {
     const { data, loading, error } = useShoppingCartContext()
-    const { cart_product_count = 0 } = data;
+    const { cart_items_count = 0 } = data;
 
     const showListError = error?.actions.showList;
 
@@ -22,7 +22,7 @@ function CheckoutButton() {
         return <LoadingSkeleton />;
     }
 
-    const isDisabled = cart_product_count === 0;
+    const isDisabled = cart_items_count === 0;
 
     return (
         <Button size="sm" disabled={isDisabled}>

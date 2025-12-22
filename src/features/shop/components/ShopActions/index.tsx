@@ -7,8 +7,8 @@ import ShopFollowButton from "./ShopFollowButton";
 import ShopViewButton from "./ShopViewButton";
 
 const ShopActions = () => {
-    const { shopInfo } = useShopInfoContext();
-    const { shop_id, shop_slug } = shopInfo || {};
+    const { data } = useShopInfoContext();
+    const { shop_id, shop_slug } = data || {};
 
     const [isFollowing, setIsFollowing] = React.useState(false);
     const handleToggleFollow = () => setIsFollowing((prev) => !prev);

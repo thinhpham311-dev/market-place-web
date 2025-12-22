@@ -2,10 +2,10 @@
 
 import React from "react";
 import { cn } from "@/utils/styles";
-import { IShop } from "@/interfaces/shop";
+import { IShopModel } from "@/models/shop/shop.model";
 
 interface IShopInfoContextType {
-    shopInfo?: IShop,
+    data?: IShopModel,
     loading: boolean,
     error: string,
     status: "idle" | "loading" | "success" | "error",

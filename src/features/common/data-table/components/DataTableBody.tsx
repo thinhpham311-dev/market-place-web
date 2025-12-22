@@ -8,7 +8,7 @@ import type { Row } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
-import { ICartItem } from "@/interfaces/cart"
+import { ICartItemModel } from "@/models/cart";
 
 import { Truck, ChevronRight, Tickets, MessagesSquare } from "lucide-react"
 import { useDataTableContext } from "@/features/common/data-table/hooks"
@@ -16,8 +16,8 @@ import { formatToCurrency } from "@/utils/formats"
 
 // ------------------- Sub-components -------------------
 interface IGroupHeaderRowProps {
-    row: Row<ICartItem>
-    subRows: Row<ICartItem>[]
+    row: Row<ICartItemModel>
+    subRows: Row<ICartItemModel>[]
 }
 
 const GroupHeaderRow = React.forwardRef<
@@ -92,7 +92,7 @@ const GroupHeaderRow = React.forwardRef<
 GroupHeaderRow.displayName = "GroupHeaderRow"
 
 interface ISubRowProps {
-    subRow: Row<ICartItem>
+    subRow: Row<ICartItemModel>
 }
 
 const SubRow = React.forwardRef<

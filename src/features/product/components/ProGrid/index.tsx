@@ -1,12 +1,12 @@
 import React from "react";
 import SpuCard from "../ProCard";
-import { ISpuPro } from "@/interfaces/spu";
+import { ISpuModel } from "@/models/spu";
 import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
 import { cn } from "@/utils/styles";
 
 interface SpuGridProps {
-    data: ISpuPro[];
+    data: ISpuModel[];
     className?: string;
     isLoading: boolean;
     error?: Error | null;

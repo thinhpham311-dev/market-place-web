@@ -5,12 +5,12 @@ import { memo } from "react"
 import { useRouter } from "next/navigation"
 import LoadingSkeleton from "./LoadingSkeleton"
 import { Card, CardContent, CardTitle, CardDescription, CardImage } from "@/components/ui/card"
-import { ISpuPro } from "@/interfaces/spu"
+import { ISpuModel } from "@/models/spu"
 import NotFound from "./NotFound"
 import { formatToCurrency } from "@/utils/formats"
 
 interface ISpuCardProps {
-    item: ISpuPro
+    item: ISpuModel
     isLoading?: boolean
 }
 

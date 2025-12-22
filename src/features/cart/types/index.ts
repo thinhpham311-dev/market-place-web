@@ -1,4 +1,4 @@
-import { ICart } from "@/interfaces/cart";
+import { ICartModel } from "@/models/cart";
 import { NormalizedApiError } from "@/lib/http/handleAxiosError";
 
 /* ---------- Keys ---------- */
@@ -37,7 +37,7 @@ export interface IErrorState {
 /* ---------- Cart ---------- */
 export interface IShoppingCart {
     loading: ILoadingState;
-    data: ICart;
+    data: ICartModel;
     error: IErrorState;
 }
 

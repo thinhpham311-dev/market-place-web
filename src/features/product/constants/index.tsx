@@ -1,7 +1,7 @@
 import { FaFacebook, FaTiktok, FaInstagram } from "react-icons/fa"
 import { SiZalo } from "react-icons/si";
 import Breadcrumb from "@/features/common/breadcrumb";
-import { ISpuPro } from "@/interfaces/spu";
+import { ISpuModel } from "@/models/spu";
 
 export const PRO_DETAIL = "PRO_DETAIL";
 
@@ -41,7 +41,7 @@ export const socials = [
     },
 ]
 
-export const breadcrumbs = (product?: ISpuPro) => {
+export const breadcrumbs = (product?: ISpuModel) => {
     const breadcrumbItems = [
         {
             category_id: "home",
@@ -82,7 +82,7 @@ export const breadcrumbs = (product?: ISpuPro) => {
 };
 
 
-export const specs = (product?: ISpuPro) => [
+export const specs = (product?: ISpuModel) => [
     {
         label: "Product Name:",
         value: (

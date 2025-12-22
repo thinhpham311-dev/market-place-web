@@ -5,10 +5,10 @@ import SpuCard from "../ProCard";
 import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
 import { cn } from "@/utils/styles";
-import { ISpuPro } from "@/interfaces/spu";
+import { ISpuModel } from "@/models/spu";
 
 interface ISpuCarouselProps {
-    data: ISpuPro[];
+    data: ISpuModel[];
     itemsPerPage?: number;
     className?: string;
     isLoading: boolean;

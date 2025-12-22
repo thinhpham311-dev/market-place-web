@@ -7,14 +7,14 @@ import ErrorMsg from "./ErrorMsg";
 import { useRouter } from "next/navigation";
 
 import { useShoppingCartContext, } from "@/features/cart/hooks";
-import { ICartItem } from "@/interfaces/cart";
+import { ICartItemModel } from "@/models/cart";
 import CartButtonBase from "@/features/cart/components/CartButtonBase";
 import { ICartButtonBaseProps } from "@/features/cart/components/CartButtonBase"
 import { renderVariants } from "@/features/cart/utils/renderVariants"
 import { showSuccessToast } from "@/features/common/toast-msg";
 
 interface CartAddItemProps extends ICartButtonBaseProps {
-    item?: ICartItem | null;
+    item?: ICartItemModel | null;
     disabled?: boolean;
     href?: string
 }

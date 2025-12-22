@@ -15,20 +15,20 @@ import {
 } from "@/components/ui/button";
 
 //types
-import { IOrder } from "@/interfaces/order";
+import { IOrderModel } from "@/models/order";
 
 //icons
 import { MoreHorizontal, Copy, Receipt } from "lucide-react";
 
 // Assuming IOrder is your data type
 interface IDropDownMenuOfItemProps {
-    order: IOrder;  // Type the table prop correctly
+    order: IOrderModel;  // Type the table prop correctly
 }
 
 export default function DropDownMenuOfItem({ order }: IDropDownMenuOfItemProps) {
     const router = useRouter()
     const handleRouterLinkToDetail = () => {
-        router.push(`/user/purchase/orders/${order._id}`)
+        router.push(`/user/purchase/orders/${order.id}`)
     }
     return (
         <DropdownMenu>
@@ -41,7 +41,7 @@ export default function DropDownMenuOfItem({ order }: IDropDownMenuOfItemProps) 
             <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuItem
-                    onClick={() => navigator.clipboard.writeText(order._id)}
+                    onClick={() => navigator.clipboard.writeText(order.id)}
                 >
                     <Copy /> <span> Copy payment ID</span>
                 </DropdownMenuItem>

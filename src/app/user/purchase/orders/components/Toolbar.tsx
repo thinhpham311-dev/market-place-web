@@ -16,11 +16,11 @@ import { Table } from "@tanstack/react-table";
 import { ChevronDown } from "lucide-react";
 
 //types
-import { IOrder } from "@/interfaces/order";
+import { IOrderModel } from "@/models/order";
 
 // Assuming IOrder is your data type
 interface ToolbarProps {
-    table: Table<IOrder>;  // Type the table prop correctly
+    table: Table<IOrderModel>;  // Type the table prop correctly
 }
 
 export default function Toolbar({ table }: ToolbarProps) {

@@ -8,8 +8,8 @@ import LoadingSkeleton from "./LoadingSkeleton"
 import NotFound from "./NotFound"
 
 const ShopHeaderAvatar = () => {
-    const { shopInfo, loading, error } = useShopInfoContext();
-    const { shop_name } = shopInfo || {};
+    const { data, loading, error } = useShopInfoContext();
+    const { shop_name } = data || {};
 
     if (loading) {
         return (

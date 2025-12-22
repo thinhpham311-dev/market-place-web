@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import {
     apiPostShowItems,
     apiPostCreateItem,
@@ -8,7 +8,7 @@ import {
     apiPostUpdateQtyItem,
     apiPostUpdateVariantsItem
 } from '@/features/cart/services';
-import { ICart, ICartItem } from '@/interfaces/cart';
+import { ICartModel, ICartItemModel } from '@/models/cart';
 import {
     SHOPPING_CART_CACHE_KEY,
     SHOPPING_CART_RETRY_DELAY,
@@ -26,7 +26,7 @@ import {
 import { handleAxiosError, NormalizedApiError } from "@/lib/http/handleAxiosError"
 
 type CartResponse = {
-    metadata: ICart;
+    metadata: ICartModel;
 };
 
 
@@ -63,7 +63,7 @@ export const getItemsInCart = createAsyncThunk<
 
 export const createItemInCart = createAsyncThunk<
     CartResponse,
-    { storeKey: string, item: ICartItem, userId: string },
+    { storeKey: string, item: ICartItemModel, userId: string },
     { rejectValue: NormalizedApiError }
 >('cart/data/createItemInCart', async (params, { rejectWithValue }) => {
     try {
@@ -76,7 +76,7 @@ export const createItemInCart = createAsyncThunk<
 
 export const updateQtyItemInCart = createAsyncThunk<
     CartResponse,
-    { storeKey: string, item: ICartItem, userId: string },
+    { storeKey: string, item: ICartItemModel, userId: string },
     { rejectValue: NormalizedApiError }
 >('cart/data/updateQtyItemInCart', async (params, { rejectWithValue }) => {
     try {
@@ -89,7 +89,7 @@ export const updateQtyItemInCart = createAsyncThunk<
 
 export const updateVariantsItemInCart = createAsyncThunk<
     CartResponse,
-    { storeKey: string, item: ICartItem, userId: string },
+    { storeKey: string, item: ICartItemModel, userId: string },
     { rejectValue: NormalizedApiError }
 >('cart/data/updateVariantsItemInCart', async (params, { rejectWithValue }) => {
     try {
@@ -103,7 +103,7 @@ export const updateVariantsItemInCart = createAsyncThunk<
 
 export const deleteItemOutCart = createAsyncThunk<
     CartResponse,
-    { storeKey: string, userId: string, item: ICartItem },
+    { storeKey: string, userId: string, item: ICartItemModel },
     { rejectValue: NormalizedApiError }
 >('cart/data/deleteItemOutCart', async (params, { rejectWithValue }) => {
     try {
@@ -116,7 +116,7 @@ export const deleteItemOutCart = createAsyncThunk<
 
 export const deleteItemsSelectedOutCart = createAsyncThunk<
     CartResponse,
-    { storeKey: string, userId: string; items: ICartItem[] },
+    { storeKey: string, userId: string; items: ICartItemModel[] },
     { rejectValue: NormalizedApiError }
 >('cart/data/deleteItemsSelectedOutCart', async (params, { rejectWithValue }) => {
     try {

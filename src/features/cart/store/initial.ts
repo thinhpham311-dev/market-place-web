@@ -25,10 +25,10 @@ const createDefaultError = () => ({
 
 const createDefaultData = () => ({
     cart_id: "",
-    cart_products: [],
+    cart_items: [],
     cart_total_quantity: 0,
     cart_userId: "",
-    cart_product_count: 0,
+    cart_items_count: 0,
     cart_sub_total: 0,
     cart_total_discount: 0,
     cart_total_price: 0,

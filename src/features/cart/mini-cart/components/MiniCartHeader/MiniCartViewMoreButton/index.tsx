@@ -8,7 +8,7 @@ import { useShoppingCartContext } from "@/features/cart/hooks";
 export default function MiniCartViewMoreButton() {
     const router = useRouter();
     const { data, loading } = useShoppingCartContext();
-    const { cart_product_count = 0 } = data;
+    const { cart_items_count = 0 } = data;
 
     if (loading.actions.showList) {
         return <LoadingSkeleton />;
@@ -18,7 +18,7 @@ export default function MiniCartViewMoreButton() {
         router.push("/cart");
     };
 
-    if (cart_product_count > 0) {
+    if (cart_items_count > 0) {
         return (
             <Button
                 className="flex items-center gap-2"

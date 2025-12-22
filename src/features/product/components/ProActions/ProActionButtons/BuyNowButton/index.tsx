@@ -1,7 +1,7 @@
 "use client";
 
 import React, { memo, useMemo } from "react";
-import { ICartItem } from "@/interfaces/cart";
+import { ICartItemModel } from "@/models/cart";;
 import CartBuyNow from "@/features/cart/cart-add"
 
 import { mapCartItem } from "@/features/cart/helpers";
@@ -27,7 +27,7 @@ const BuyNowButton = () => {
 
     const { currentQuantity: qty } = useGetQuantityValue(PRO_DETAIL, `${PRO_DETAIL}_${sku?.sku_id}`)
 
-    const data: ICartItem | null = useMemo(() => {
+    const data: ICartItemModel | null = useMemo(() => {
         if (!spu || !sku) return null;
         if (!qty) return null
         return mapCartItem({

@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation"
 import { ColumnDef } from "@tanstack/react-table"
-import { ICartItem } from "@/interfaces/cart"
+import { ICartItemModel } from "@/models/cart";
 import { Button } from "@/components/ui/button"
 import CartItemCheckbox from "@/features/cart/components/CartItem/CartItemCheckbox"
 import CartItemPrice from "@/features/cart/components/CartItem/CartItemPrice"
@@ -12,11 +12,11 @@ import { CartItemVariantsDrawer } from "@/features/cart/components/CartItem/Cart
 import { CartItemQuantityCounter } from "@/features/cart/components/CartItem/CartItemQuantitySelector"
 
 
-export const initialColumns: ColumnDef<ICartItem>[] = [
+export const initialColumns: ColumnDef<ICartItemModel>[] = [
     {
         id: "select",
         header: ({ table }) => {
-            const items = table.getSelectedRowModel().rows.map((r) => r.original as ICartItem)
+            const items = table.getSelectedRowModel().rows.map((r) => r.original as ICartItemModel)
             return (
                 <CartItemCheckbox
                     data={items}
@@ -26,7 +26,7 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
                 />)
         },
         cell: ({ row }) => {
-            const item = row.original as ICartItem; // 👈 dữ liệu dòng hiện tại
+            const item = row.original as ICartItemModel; // 👈 dữ liệu dòng hiện tại
             return (
                 <CartItemCheckbox
                     data={[item]}
@@ -45,7 +45,7 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
         accessorKey: "itemSpuImage",
         header: () => <p className="text-left">Image</p>,
         cell: ({ row }) => {
-            const item = row.original as ICartItem
+            const item = row.original as ICartItemModel
             return (
                 <div >
                     <CartItemImage
@@ -68,7 +68,7 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
             const handleRouterLinkToDetail = () => {
                 router.push(`/products/${item.itemSpuSlug}-i.${item.itemShopId}.${item.itemSpuId}`)
             }
-            const item = row.original as ICartItem
+            const item = row.original as ICartItemModel
             return <Button variant="link" onClick={handleRouterLinkToDetail} className="cursor-pointer px-0">
                 <CartItemName itemName={item.itemSpuName} />
             </Button>
@@ -79,7 +79,7 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
         accessorKey: "itemSpuVariations",
         header: () => <p className="text-left px-2.5">Variants</p>,
         cell: ({ row }) => {
-            const item = row.original as ICartItem
+            const item = row.original as ICartItemModel
             return (
                 <CartItemVariantsDrawer data={item} />
             )
@@ -90,7 +90,7 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
         accessorKey: "itemSkuPrice",
         header: () => <p className="text-center ">Unit</p>,
         cell: ({ row }) => {
-            const item = row.original as ICartItem
+            const item = row.original as ICartItemModel
             return (
                 <div className="flex justify-center">
                     <CartItemPrice itemPrice={item.itemSkuPrice} />
@@ -103,7 +103,7 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
         accessorKey: "itemQuantity",
         header: () => <p className="text-center">Quantity</p>,
         cell: ({ row }) => {
-            const item = row.original as ICartItem
+            const item = row.original as ICartItemModel
             return (
                 <div className="flex justify-center">
                     <CartItemQuantityCounter
@@ -118,7 +118,7 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
         id: "totalPrice",
         header: () => <p className="text-center ">Total</p>,
         cell: ({ row }) => {
-            const item = row.original as ICartItem
+            const item = row.original as ICartItemModel
             return <div className="flex justify-center">
                 <CartItemPrice itemPrice={item.itemTotalPrice} />
             </div>
@@ -129,7 +129,7 @@ export const initialColumns: ColumnDef<ICartItem>[] = [
         accessorKey: "actions",
         header: () => <p className="text-right  px-3">Features</p>,
         cell: ({ row }) => {
-            const item = row.original as ICartItem
+            const item = row.original as ICartItemModel
             return (
                 <div className="float-end">
                     <CartItemRemove

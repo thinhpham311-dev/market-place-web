@@ -8,7 +8,7 @@ import LoadingSkeleton from "./LoadingSkeleton";
 
 export default function MiniCartContent() {
     const { data, loading, error } = useShoppingCartContext()
-    const { cart_products = [], cart_product_count = 0 } = data
+    const { cart_items = [], cart_items_count = 0 } = data
     const showListError = error?.actions.showList;
 
     const { shouldRenderError, errorMessage } = useCartErrorHandler(showListError, "SHOW_LIST");
@@ -19,7 +19,7 @@ export default function MiniCartContent() {
     }
 
     if (loading.actions.showList) {
-        return <LoadingSkeleton count={cart_product_count} />;
+        return <LoadingSkeleton count={cart_items_count} />;
     }
 
 
@@ -27,7 +27,7 @@ export default function MiniCartContent() {
         <DropdownMenuGroup>
             <DropdownMenuItem disabled>
                 <CartListView
-                    data={cart_products}
+                    data={cart_items}
                 />
             </DropdownMenuItem>
         </DropdownMenuGroup>

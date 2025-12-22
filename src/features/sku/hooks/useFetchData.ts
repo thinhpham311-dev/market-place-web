@@ -10,7 +10,7 @@ import reducer from "@/features/sku/store";
 import { injectReducer, removeReducer } from "@/store";
 
 // types
-import { ISkuPro } from "@/interfaces/sku";
+import { ISkuModel } from "@/models/sku";
 
 // constants
 import { SKU_KEY } from "@/features/sku/constants";
@@ -48,7 +48,7 @@ export function useFetchData({ product_id, storeKey, sku_tier_idx, optionsCount 
                 product_id,
                 sku_tier_idx,
                 optionsCount,
-            } as { optionsCount: number } & ISkuPro) as any
+            } as { optionsCount: number } & ISkuModel) as any
         );
 
         return () => {

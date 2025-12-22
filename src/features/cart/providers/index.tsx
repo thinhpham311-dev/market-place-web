@@ -3,20 +3,20 @@
 import React from "react";
 
 import { cn } from "@/utils/styles"
-import { ICartItem, ICart } from "@/interfaces/cart";
+import { ICartItemModel, ICartModel } from "@/models/cart";
 import { ILoadingState, IErrorState } from "@/features/cart/types"
 
 interface IShoppingCartContextType {
-    data: ICart;
+    data: ICartModel;
     loading: ILoadingState,
     error?: IErrorState,
-    createItem: (item: ICartItem) => void;
-    updateVariantsItem: (item: ICartItem) => void;
-    updateQtyItem: (item: ICartItem) => void;
-    setItemsSelected: (items: ICartItem[]) => void;
-    deleteItem: (item: ICartItem) => void;
+    createItem: (item: ICartItemModel) => void;
+    updateVariantsItem: (item: ICartItemModel) => void;
+    updateQtyItem: (item: ICartItemModel) => void;
+    setItemsSelected: (items: ICartItemModel[]) => void;
+    deleteItem: (item: ICartItemModel) => void;
     deleteItemsAll: () => void;
-    deleteItemsSelected: (items: ICartItem[]) => void;
+    deleteItemsSelected: (items: ICartItemModel[]) => void;
 }
 
 interface IShoppingCartProviderProps {

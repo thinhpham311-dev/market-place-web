@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { apiPostSpuDetail } from '@/features/spu/services';
-import { ISpuPro } from '@/interfaces/spu';
+import { ISpuModel } from '@/models/spu';
 import { SPU_KEY_CACHE_KEY, SPU_KEY_RETRY_DELAY, SPU_KEY_RETRIES, SPU_KEY_TTL, SPU_KEY_TAG } from "@/features/spu/constants";
 
 type SpuDetailResponse = {
-    metadata: ISpuPro
+    metadata: ISpuModel
 };
 
 interface IErrorPayload {
@@ -12,7 +12,7 @@ interface IErrorPayload {
     [key: string]: any;
 }
 
-export const getSpuDetail = createAsyncThunk<SpuDetailResponse, ISpuPro, { rejectValue: IErrorPayload | string }>(
+export const getSpuDetail = createAsyncThunk<SpuDetailResponse, ISpuModel, { rejectValue: IErrorPayload | string }>(
     'detail/data/getSpuDetail',
     async (params, { rejectWithValue, dispatch }) => {
         try {
@@ -40,7 +40,7 @@ export const getSpuDetail = createAsyncThunk<SpuDetailResponse, ISpuPro, { rejec
 
 interface ISpuDetailState {
     loading: boolean;
-    spu: ISpuPro | null;
+    spu: ISpuModel | null;
     error: IErrorPayload | string | null;
     status: "idle" | "loading" | "success" | "error";
 }

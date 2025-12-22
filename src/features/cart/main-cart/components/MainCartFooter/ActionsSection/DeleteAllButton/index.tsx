@@ -8,7 +8,7 @@ import { useShoppingCartContext, useCartErrorHandler } from "@/features/cart/hoo
 
 function DeleteAllButton() {
     const { data, loading, error, deleteItemsAll } = useShoppingCartContext()
-    const { cart_product_count = 0 } = data;
+    const { cart_items_count = 0 } = data;
     const showListError = error?.actions.showList;
 
     const { shouldRenderError } = useCartErrorHandler(showListError, "SHOW_LIST");
@@ -22,7 +22,7 @@ function DeleteAllButton() {
         return <LoadingSkeleton />;
     }
 
-    const isDisabled = cart_product_count === 0;
+    const isDisabled = cart_items_count === 0;
 
     return (
         <Button

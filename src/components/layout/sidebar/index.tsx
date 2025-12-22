@@ -19,64 +19,68 @@ import {
     SidebarHeader
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
+import { MenuItem } from "@/interfaces/common/menu.interface";
 
-interface MenuItem {
-    title: string;
-    url?: string;
-    icon?: React.ComponentType<{ className?: string }>;
-    children?: MenuItem[];
-}
 
 const items: MenuItem[] = [
     {
+        type: "link",
         title: "Shop Live",
-        icon: CgMediaLive
+        icon: CgMediaLive,
+        url: "/"
     },
     {
+        type: "link",
         title: "Flash Sale",
-        icon: IoIosFlash
+        icon: IoIosFlash,
+        url: "/"
     },
     {
+        type: "group",
         title: "Categories",
         icon: ShoppingBasket,
         children: [
-            { title: "Product Type 1", url: "/category-1" },
-            { title: "Product Type 2", url: "/category-2" },
+            { type: "link", title: "Product Type 1", url: "/category-1" },
+            { type: "link", title: "Product Type 2", url: "/category-2" },
         ],
     },
     {
+        type: "group",
         title: "Stores Saved",
         icon: Store,
         children: [
-            { title: "Shop 1", url: "/shop/shop-1" },
-            { title: "Shop 2", url: "/shop/shop-2" },
+            { type: "link", title: "Shop 1", url: "/shop/shop-1" },
+            { type: "link", title: "Shop 2", url: "/shop/shop-2" },
         ],
     },
 ];
 
 const profileMenuItems: MenuItem[] = [
     {
+        type: "group",
         title: "My Account",
         icon: User,
         children: [
-            { title: "Profile Info", url: "/user/account/profile" },
-            { title: "Change Password", url: "/user/account/change-password" },
-            { title: "Privacy Settings", url: "/user/account/privacy-settings" },
+            { type: "link", title: "Profile Info", url: "/user/account/profile" },
+            { type: "link", title: "Change Password", url: "/user/account/change-password" },
+            { type: "link", title: "Privacy Settings", url: "/user/account/privacy-settings" },
         ],
     },
     {
+        type: "group",
         title: "My Purchase",
         icon: ShoppingBag,
-        children: [{ title: "Orders", url: "/user/purchase/orders" }],
+        children: [{ type: "link", title: "Orders", url: "/user/purchase/orders" }],
     },
     {
+        type: "group",
         title: "Notifications",
         icon: Bell,
         children: [
-            { title: "Order Update", url: "/user/notifications/order-update" },
-            { title: "Promotions", url: "/user/notifications/promotions" },
-            { title: "Wallet Update", url: "/user/notifications/wallet-update" },
-            { title: "Market Place Update", url: "/user/notifications/marketplace-update" },
+            { type: "link", title: "Order Update", url: "/user/notifications/order-update" },
+            { type: "link", title: "Promotions", url: "/user/notifications/promotions" },
+            { type: "link", title: "Wallet Update", url: "/user/notifications/wallet-update" },
+            { type: "link", title: "Market Place Update", url: "/user/notifications/marketplace-update" },
         ],
     },
 ];
@@ -116,7 +120,6 @@ export default function SidebarNavigation() {
                                 <MenuItems
                                     key={item.title}
                                     item={item}
-                                    isActive={pathname === item.url}
                                     pathname={pathname}
                                 />
                             ))}

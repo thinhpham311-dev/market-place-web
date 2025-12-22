@@ -1,4 +1,4 @@
-import { ICart } from "@/interfaces/cart"
+import { ICartModel } from "@/models/cart"
 
 const checkIsSameVariant = (a: number[], b: number[]) => {
     return a.length === b.length && a.every((v, i) => v === b[i]);
@@ -21,17 +21,17 @@ const calculateTotal = (
     return totalAmount + estimatedShipping + estimatedTax;
 };
 
-const recalculateTotals = (cart: ICart) => {
-    cart.cart_total_quantity = cart.cart_products.reduce((sum, item) => sum + item.itemQuantity, 0);
-    cart.cart_sub_total = cart.cart_products.reduce(
+const recalculateTotals = (cart: ICartModel) => {
+    cart.cart_total_quantity = cart.cart_items.reduce((sum, item) => sum + item.itemQuantity, 0);
+    cart.cart_sub_total = cart.cart_items.reduce(
         (sum, item) => sum + item.itemSkuPrice * item.itemQuantity,
         0
     );
-    cart.cart_sub_total = cart.cart_products.reduce(
+    cart.cart_sub_total = cart.cart_items.reduce(
         (sum, item) => sum + (item.itemSkuPrice || 0) * item.itemQuantity,
         0
     );
-    cart.cart_product_count = cart.cart_products.length;
+    cart.cart_items_count = cart.cart_items.length;
 
     cart.cart_selected_items_count = cart.cart_selected_items?.length;
     cart.cart_selected_items_total = cart.cart_selected_items?.reduce(
@@ -39,7 +39,7 @@ const recalculateTotals = (cart: ICart) => {
         0
     );
 
-    if (cart.cart_products.length === 0) {
+    if (cart.cart_items.length === 0) {
         cart.cart_total_price = 0;
         cart.cart_estimated_shipping = 0;
         cart.cart_estimated_tax = 0;

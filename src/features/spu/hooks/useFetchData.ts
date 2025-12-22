@@ -11,7 +11,7 @@ import reducer from "@/features/spu/store";
 import { injectReducer, removeReducer } from "@/store";
 
 //types
-import { ISpuPro } from "@/interfaces/spu";
+import { ISpuModel } from "@/models/spu";
 
 //constants
 import { SPU_KEY } from "@/features/spu/constants";
@@ -46,7 +46,7 @@ export function useFetchData({ product_id, storeKey }: IUseFetchDataParams) {
         if (!product_id) return;
         const promise = dispatch(getSpuDetail({
             product_id
-        } as ISpuPro) as any);
+        } as ISpuModel) as any);
 
 
         return () => {

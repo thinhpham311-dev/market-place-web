@@ -6,7 +6,7 @@ import React, { memo, useMemo } from "react";
 import { useSpuContext } from "@/features/spu/hooks";
 import { useSkuContext } from "@/features/sku/hooks";
 
-import { ICartItem } from "@/interfaces/cart";
+import { ICartItemModel } from "@/models/cart";;
 import CartAddItem from "@/features/cart/cart-add"
 
 import { mapCartItem } from "@/features/cart/helpers";
@@ -26,7 +26,7 @@ const AddToCartButton = () => {
 
     const { currentQuantity: qty } = useGetQuantityValue(PRO_DETAIL, `${PRO_DETAIL}_${sku?.sku_id}`)
 
-    const data: ICartItem | null = useMemo(() => {
+    const data: ICartItemModel | null = useMemo(() => {
         if (!spu || !sku) return null;
         if (!qty) return null
 

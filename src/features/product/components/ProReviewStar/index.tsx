@@ -23,7 +23,7 @@ export default function ProDescriptionContent() {
     if (!loading && hasNoData) {
         return <NotFound />;
     }
-    const rating = spu?.product_ratingsAverange ?? 0;
+    const rating = spu?.product_ratingsAverage ?? 0;
 
     return (
         <Card className="shadow-none border-none">
