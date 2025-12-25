@@ -29,13 +29,11 @@ export function useHandlePriceDisplay({
 }: IUseHandlePriceDisplay) {
     const dispatch = useAppDispatch();
 
-    // 🔥 Memo hóa key để không tạo lại string mỗi render
     const dynamicReducerKey = useMemo(
         () => `${PRICE_DISPLAY}_${reducerKey}`,
         [reducerKey]
     );
 
-    // 🔥 Inject reducer chỉ 1 lần cho mỗi reducerKey
     useLayoutEffect(() => {
         injectReducer(dynamicReducerKey, reducer);
 
@@ -44,10 +42,8 @@ export function useHandlePriceDisplay({
         };
     }, [dynamicReducerKey]);
 
-    // 🔥 Lấy state hiện tại
-    const price = useGetPriceValue(reducerKey, storeKey, initialValue);
+    const price = useGetPriceValue({ reducerKey, storeKey, initialValue });
 
-    // 🔥 Chỉ setInitialState nếu chưa tồn tại trong Redux
     useEffect(() => {
         if (!price) {
             dispatch(

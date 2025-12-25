@@ -21,7 +21,6 @@ export default function SkuPriceDisplay({ spu }: { spu: any }) {
 
     return (
         <PriceDisplay
-            reducerKey={PRO_DETAIL}
             storeKey={`${PRO_DETAIL}_${sku?.sku_id ?? "default"}`}
             initialValue={{
                 flashSalePrice: 0,

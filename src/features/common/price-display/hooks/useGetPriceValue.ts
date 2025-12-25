@@ -1,17 +1,30 @@
 "use client";
-
+import { useMemo } from "react"
 import { useAppSelector } from "@/lib/hooks";
 import { selectPriceDisplaySelector } from "@/features/common/price-display/store/selectors";
-import { IPriceDisplay } from "@/features/common/price-display/store/initial";
+import { IPriceDisplay, createDefault } from "@/features/common/price-display/store/initial";
+import { PRICE_DISPLAY } from "@/features/common/price-display/constants";
 
-export const useGetPriceValue = (
-    reducerKey: string,
+interface IGetPriceValue {
+    reducerKey?: string,
     storeKey: string,
-    defaultValue: IPriceDisplay
-) => {
+    initialValue: IPriceDisplay
+}
+
+export const useGetPriceValue = ({
+    reducerKey = PRICE_DISPLAY,
+    storeKey,
+    initialValue = createDefault()
+}: IGetPriceValue) => {
     const state = useAppSelector(
         selectPriceDisplaySelector(reducerKey, storeKey)
     );
 
-    return state ?? defaultValue;
+    return useMemo(() => {
+        if (!state) {
+            return initialValue
+        }
+
+        return state
+    }, [state, initialValue]);
 };
