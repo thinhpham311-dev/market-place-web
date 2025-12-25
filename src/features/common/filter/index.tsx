@@ -7,14 +7,16 @@ import FilterProvider from './providers';
 import { useHandleFilter } from '@/features/common/filter/hooks';
 // import RangeFilter from './components/PriceRangeFilter';
 import type { Filter } from './types';
+import { FILTER } from "@/features/common/filter/constants";
+import { IFilterState } from './store/initials';
 
 interface IFilterProps {
     storeKey: string;
-    options: Filter[];
+    initialValue: IFilterState
 }
 
-const Filter = ({ storeKey, options }: IFilterProps) => {
-    const filter = useHandleFilter({ storeKey, options });
+const Filter = ({ storeKey, ...rest }: IFilterProps) => {
+    const filter = useHandleFilter({ reducerKey: FILTER, storeKey, ...rest });
 
     return (
         <FilterProvider contextValues={filter}>

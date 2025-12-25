@@ -52,8 +52,12 @@ export default function ProSearchList() {
                     storeKey={PRO_SEARCH_LIST}
                     isShowDot
                     isShowNav
-                    initialLimit={15}
-                    initialTotal={totalItems}
+                    initialValue={{
+                        limit: 15,
+                        totalItems,
+                        totalPages: 0,
+                        currentPage: 1
+                    }}
                 />
             </CardContent>
         </Card>

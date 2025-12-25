@@ -22,7 +22,7 @@ import {
     setActionLoading,
     setItemError,
     setActionError,
-} from "@/features/cart/helpers"
+} from "@/features/cart/helpers/stateHelpers"
 import { handleAxiosError, NormalizedApiError } from "@/lib/http/handleAxiosError"
 
 type CartResponse = {

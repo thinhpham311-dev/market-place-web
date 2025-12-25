@@ -32,7 +32,7 @@ export function useHandleQuantitySelector({
 
     const dispatch = useAppDispatch();
 
-    const initRef = useRef(false);
+    const initializedRef = useRef(false);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     // ⬅ reducer injection - only once
@@ -46,14 +46,14 @@ export function useHandleQuantitySelector({
 
     // ⬅ initial quantity set
     useEffect(() => {
-        if (!initRef.current) {
+        if (!initializedRef.current && initialValue) {
             dispatch(
                 setInitialState({
                     storeKey,
                     initialValue,
                 })
             );
-            initRef.current = true;
+            initializedRef.current = true;
         }
     }, [dispatch, storeKey, initialValue]);
 

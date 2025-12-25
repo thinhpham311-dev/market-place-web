@@ -4,10 +4,9 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 // Actions and selectors
 import { getProductListByCategories } from "../store/dataSlice";
 import { selectProByCategoryIdByStoreKey } from "../store/selectors";
-import { selectPaginationByStoreKey } from "@/features/common/pagination/store/selectors";
-import { selectSortByStoreKey } from "@/features/common/sort/store/selectors";
-import { selectFilterStoreKey } from "@/features/common/filter/store/selectors";
-
+import { useGetPaginationValue } from "@/features/common/pagination/hooks";
+import { useGetSortByValue } from "@/features/common/sort/hooks";
+import { useGetFilterValue } from "@/features/common/filter/hooks";
 // Reducer & constants
 import reducer from "@/features/product/list/by-category-id/store";
 import { injectReducer, removeReducer } from "@/store";
@@ -29,18 +28,14 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
     }, [PRO_LIST_BY_CATEGORYID]);
 
     // Selectors
-    const { currentPage = 1, limit = 15 } = useAppSelector(
-        selectPaginationByStoreKey(PRO_LIST_BY_CATEGORYID, PRO_LIST_BY_CATEGORYID)
-    );
+    const { currentPage = 1, limit = 15 } = useGetPaginationValue({ storeKey: PRO_LIST_BY_CATEGORYID })
 
-    const { filter } = useAppSelector(
-        selectFilterStoreKey(PRO_LIST_BY_CATEGORYID)
-    );
+    const { filter } = useGetFilterValue({ storeKey: PRO_LIST_BY_CATEGORYID })
 
 
     const {
-        sortBy: { value: sort = "" } = { value: "" }
-    } = useAppSelector(selectSortByStoreKey(PRO_LIST_BY_CATEGORYID));
+        sortBy
+    } = useGetSortByValue({ storeKey: PRO_LIST_BY_CATEGORYID });
 
     const {
         products = [],
@@ -54,7 +49,7 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
         const promise = dispatch(
             getProductListByCategories({
                 limit,
-                sort,
+                sortBy,
                 page: currentPage,
                 ids: lastId,
                 filter
@@ -67,7 +62,7 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
     }, [dispatch,
         lastId,
         filter,
-        sort,
+        sortBy,
         currentPage,
         limit
     ]);

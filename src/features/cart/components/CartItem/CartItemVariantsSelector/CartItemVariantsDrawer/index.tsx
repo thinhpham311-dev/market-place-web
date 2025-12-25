@@ -24,7 +24,7 @@ import OptionSelector from "@/features/common/option-selector";
 import { useGetOptionSelectorValue } from "@/features/common/option-selector/hooks";
 import { useShoppingCartContext } from "@/features/cart/hooks";
 import { renderVariants } from "@/features/cart/utils/renderVariants";
-import { checkIsSameVariant } from "@/features/cart/helpers";
+import { checkIsSameVariant } from "@/features/cart/helpers/calculate";
 import { SHOPPING_CART } from "@/features/cart/constants";
 import { ICartItemModel } from "@/models/cart";;
 

@@ -1,51 +1,57 @@
 "use client";
 
-import { useLayoutEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { setSortBy, resetSortBy } from "../store/stateSlice";
+import { useCallback, useEffect, useRef } from "react";
+import { useAppDispatch } from "@/lib/hooks";
+import { setInitialValue, setSortBy, resetSortBy } from "@/features/common/sort/store/stateSlice";
+import { useGetSortByValue } from "@/features/common/sort/hooks";
 import type { Sort } from "../types";
 import { injectReducer, removeReducer } from "@/store";
 import reducer from "@/features/common/sort/store";
-import { SORT } from "@/features/common/sort/constants"
-import { selectSortByStoreKey } from "@/features/common/sort/store/selectors";
+import { ISortState } from "@/features/common/sort/store/initials"
 
 interface IUseSortBy {
-    options: readonly Sort[] | undefined
+    reducerKey: string;
+    initialValue: ISortState
     storeKey: string;
 }
 
 export function useSortBy({
-    options,
-    storeKey
+    reducerKey,
+    storeKey,
+    initialValue,
 }: IUseSortBy) {
+    const initializedRef = useRef(false);
 
     const dispatch = useAppDispatch();
-    useLayoutEffect(() => {
-        const reducerKey = `${SORT}_${storeKey}`;
+    useEffect(() => {
         injectReducer(reducerKey, reducer);
 
         return () => {
-            dispatch(resetSortBy())
             removeReducer(reducerKey);
         };
-    }, [storeKey, dispatch]);
+    }, [reducerKey]);
 
-    const { sortBy } = useAppSelector(
-        selectSortByStoreKey(storeKey)
-    );
 
-    const handleSortChange = (value: Sort) => {
-        dispatch(setSortBy(value));
-    };
+    useEffect(() => {
+        if (!initializedRef.current || initialValue) {
+            dispatch(setInitialValue({ storeKey, initialValue }))
+            initializedRef.current = true
+        }
+    }, [dispatch, storeKey])
 
-    const handleResetSort = () => {
-        dispatch(resetSortBy());
-    };
+    const state = useGetSortByValue({ reducerKey, storeKey, initialValue })
+
+    const handleSortChange = useCallback((value: Sort) => {
+        dispatch(setSortBy({ storeKey, sortBy: value }));
+    }, [dispatch, storeKey])
+
+    const handleResetSort = useCallback(() => {
+        dispatch(resetSortBy({ storeKey }));
+    }, [dispatch, storeKey])
 
     return {
-        sortBy,
+        ...state,
         setSortBy: handleSortChange,
         resetSortBy: handleResetSort,
-        options, // ✅ trả ra luôn options để map trong UI
     };
 }

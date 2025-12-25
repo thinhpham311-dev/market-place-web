@@ -8,13 +8,14 @@ import PaginationNextButton from "./components/PaginationNextButton";
 import PaginationDotButtons from "./components/PaginationDotButtons";
 import PaginationLabel from "./components/PaginationLabel"
 import { useHandlePagination } from "@/features/common/pagination/hooks";
-
+import { IPaginationState } from "@/features/common/pagination/store/initials"
 
 interface IPaginationCustomProps {
     reducerKey: string
     storeKey: string
-    initialTotal: number;
-    initialLimit: number;
+    // initialTotal: number;
+    // initialLimit: number;
+    initialValue: IPaginationState
     isShowDot?: boolean;
     isShowNav?: boolean;
     isShowLabel?: boolean;
@@ -24,12 +25,11 @@ interface IPaginationCustomProps {
 const Pagination = ({
     reducerKey,
     storeKey,
-    initialTotal,
-    initialLimit,
+    initialValue,
     ...rest
 }: IPaginationCustomProps) => {
 
-    const pagination = useHandlePagination({ reducerKey, storeKey, initialTotal, initialLimit });
+    const pagination = useHandlePagination({ reducerKey, storeKey, initialValue });
 
     return (
         <PaginationProvider contextValues={{ ...pagination, ...rest }}>

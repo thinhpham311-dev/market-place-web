@@ -1,20 +1,22 @@
-import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "@/store";
-import { SORT } from "@/features/common/sort/constants"
 
-export const makeSelectSortState = (storeKey: string) =>
-    createSelector(
-        (state: RootState) => state[`${SORT}_${storeKey}`] ? state[`${SORT}_${storeKey}`].state : null,
-        (sortState) => ({
-            sortBy: sortState ? sortState.sortBy : { label: 'Newest', value: 'ctime' }
-        })
-    );
+export const makeSelectSortState = (reducerKey: string, storeKey: string) => (state: RootState) =>
+    state[reducerKey]?.state?.[storeKey]
 
-const sortSelectorsCache: Record<string, ReturnType<typeof makeSelectSortState>> = {};
 
-export const selectSortByStoreKey = (storeKey: string) => {
-    if (!sortSelectorsCache[storeKey]) {
-        sortSelectorsCache[storeKey] = makeSelectSortState(storeKey);
+const selectorCache: Record<
+    string,
+    Record<string, ReturnType<typeof makeSelectSortState>>
+> = {};
+
+export const selectSortBySelector = (reducerKey: string, storeKey: string) => {
+    if (!selectorCache[reducerKey]) {
+        selectorCache[reducerKey] = {};
     }
-    return sortSelectorsCache[storeKey];
+
+    if (!selectorCache[reducerKey][storeKey]) {
+        selectorCache[reducerKey][storeKey] = makeSelectSortState(reducerKey, storeKey);
+    }
+
+    return selectorCache[reducerKey][storeKey];
 };

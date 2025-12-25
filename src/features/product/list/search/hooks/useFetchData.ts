@@ -2,9 +2,9 @@ import { useEffect, useLayoutEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getProductList } from "../store/dataSlice";
 import { selectProSearchListByStoreKey } from "@/features/product/list/search/store/selectors";
-import { selectPaginationByStoreKey } from "@/features/common/pagination/store/selectors";
-import { selectSortByStoreKey } from "@/features/common/sort/store/selectors";
-import { selectFilterStoreKey } from "@/features/common/filter/store/selectors";
+import { useGetPaginationValue } from "@/features/common/pagination/hooks";
+import { useGetSortByValue } from "@/features/common/sort/hooks";
+import { useGetFilterValue } from "@/features/common/filter/hooks";
 //stores
 import reducer from "@/features/product/list/search/store";
 import { injectReducer, removeReducer } from "@/store";
@@ -27,17 +27,11 @@ export function useFetchData({ storeKey, keyword }: IUseFetchData) {
 
     const dispatch = useAppDispatch();
 
-    const { currentPage = 1, limit = 15 } = useAppSelector(
-        selectPaginationByStoreKey(storeKey, storeKey)
-    );
+    const { currentPage = 1, limit = 15 } = useGetPaginationValue({ storeKey });
 
-    const { filter } = useAppSelector(
-        selectFilterStoreKey(storeKey)
-    );
+    const { filter } = useGetFilterValue({ storeKey });
 
-    const {
-        sortBy: { value: sort = "" } = { value: "" }
-    } = useAppSelector(selectSortByStoreKey(storeKey));
+    const { sortBy } = useGetSortByValue({ storeKey });
 
 
     const {
@@ -51,7 +45,7 @@ export function useFetchData({ storeKey, keyword }: IUseFetchData) {
     useEffect(() => {
         const promise = dispatch(getProductList({
             limit,
-            sort,
+            sortBy,
             page: currentPage,
             filter,
             search: keyword
@@ -59,7 +53,7 @@ export function useFetchData({ storeKey, keyword }: IUseFetchData) {
         return () => {
             promise.abort();
         };
-    }, [dispatch, keyword, filter, sort, currentPage, limit]);
+    }, [dispatch, keyword, filter, sortBy, currentPage, limit]);
 
     return { products, totalItems, loading, error, status };
 }

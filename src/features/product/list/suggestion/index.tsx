@@ -44,8 +44,12 @@ export default function ProSuggestionList() {
                     storeKey={PRO_SUGGESTION_LIST}
                     isShowDot
                     isShowNav
-                    initialLimit={24}
-                    initialTotal={totalItems}
+                    initialValue={{
+                        limit: 24,
+                        totalItems,
+                        totalPages: 0,
+                        currentPage: 1
+                    }}
                 />
             </CardContent>
         </Card>

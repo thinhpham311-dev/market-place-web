@@ -14,7 +14,7 @@ import {
     getCoreRowModel,
     getGroupedRowModel,
 } from "@tanstack/react-table"
-import { IDataTable } from "@/features/common/data-table/store/initial"
+import { IDataTable } from "@/features/common/data-table/store/initials"
 import { useGetDataTableValue } from "./useGetDataTableValue"
 import { useAppDispatch } from "@/lib/hooks"
 import { injectReducer, removeReducer } from "@/store"
@@ -34,7 +34,7 @@ export const useHandleDataTable = ({
     initialData = [],
     initialColumns = [],
 }: IUseCartTable) => {
-    const initRef = useRef(false)
+    const initializedRef = useRef(false)
     const data = useMemo(() => initialData, [initialData]);
     const columns = useMemo(() => initialColumns, [initialColumns]);
 
@@ -48,9 +48,9 @@ export const useHandleDataTable = ({
     }, [reducerKey])
 
     useEffect(() => {
-        if (!initRef.current) {
+        if (!initializedRef.current && initialValue) {
             dispatch(setInitialState({ storeKey, initialValue }))
-            initRef.current = true
+            initializedRef.current = true
         }
     }, [dispatch, storeKey, initialValue])
 

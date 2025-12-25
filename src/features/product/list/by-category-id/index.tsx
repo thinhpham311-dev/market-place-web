@@ -8,10 +8,10 @@ import SpuGrid from "@/features/product/components/ProGrid";
 import { Pagination, SortBy, Filter } from "@/features/common";
 
 
-// hooks
+// // hooks
 import { useFetchData } from "@/features/product/list/by-category-id/hooks"
 
-// constants
+// // constants
 import { SORTBY_OPTIONS, FILTER_OPTIONS } from "./constants";
 import { PRO_LIST_BY_CATEGORYID } from "./constants";
 
@@ -26,7 +26,11 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
                 <div className="col-span-2 space-y-3">
                     <Filter
                         storeKey={PRO_LIST_BY_CATEGORYID}
-                        options={FILTER_OPTIONS} />
+                        initialValue={{
+                            data: FILTER_OPTIONS,
+                            filter: {}
+                        }}
+                    />
                 </div>
 
                 <div className="col-span-10 flex flex-col space-y-3">
@@ -36,15 +40,24 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
                                 <div className="flex-1">
                                     <SortBy
                                         storeKey={PRO_LIST_BY_CATEGORYID}
-                                        data={SORTBY_OPTIONS} />
+                                        initialValue={{
+                                            data: SORTBY_OPTIONS,
+                                            sortBy: null
+                                        }}
+                                    />
                                 </div>
                                 <div>
                                     <Pagination
                                         reducerKey={PRO_LIST_BY_CATEGORYID}
                                         storeKey={PRO_LIST_BY_CATEGORYID}
                                         isShowNav
-                                        initialLimit={10}
-                                        initialTotal={totalItems}
+                                        initialValue={{
+                                            limit: 10,
+                                            totalItems,
+                                            totalPages: 0,
+                                            currentPage: 1
+                                        }}
+
                                     />
                                 </div>
                             </div>
@@ -67,8 +80,13 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
                                 isShowDot
                                 isShowNav
                                 isShowLabel
-                                initialLimit={20}
-                                initialTotal={totalItems}
+                                initialValue={{
+                                    limit: 20,
+                                    currentPage: 1,
+                                    totalItems,
+                                    totalPages: 0
+                                }}
+
                             />
                         </CardFooter>
                     </Card>

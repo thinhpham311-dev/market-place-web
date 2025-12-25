@@ -13,6 +13,7 @@ export const getProductList = createAsyncThunk<IProductListResponse, IProductLis
                 {
                     data: IProductListResponse
                 };
+            console.log(response)
             return response.data;
         } catch (error: any) {
             return rejectWithValue(error?.response?.data || error.message);

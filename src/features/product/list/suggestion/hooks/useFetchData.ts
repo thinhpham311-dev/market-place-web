@@ -2,8 +2,7 @@ import { useEffect, useLayoutEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getProductList } from "../store/dataSlice";
 import { selectProSuggestionListByStoreKey } from "@/features/product/list/suggestion/store/selectors";
-import { selectPaginationByStoreKey } from "@/features/common/pagination/store/selectors";
-
+import { useGetPaginationValue } from "@/features/common/pagination/hooks";
 //stores
 import reducer from "@/features/product/list/suggestion/store";
 import { injectReducer, removeReducer } from "@/store";
@@ -23,9 +22,7 @@ export function useFetchData({ storeKey }: IUseFetchData) {
 
     const dispatch = useAppDispatch();
 
-    const { currentPage = 1, limit = 15 } = useAppSelector(
-        selectPaginationByStoreKey(storeKey, storeKey)
-    );
+    const { currentPage = 1, limit = 15 } = useGetPaginationValue({ storeKey });
 
     const {
         products = [],
@@ -37,7 +34,7 @@ export function useFetchData({ storeKey }: IUseFetchData) {
     useEffect(() => {
         const promise = dispatch(getProductList({
             limit,
-            sort: "ctime",
+            sortBy: "ctime",
             page: currentPage,
         }) as any);
         return () => {

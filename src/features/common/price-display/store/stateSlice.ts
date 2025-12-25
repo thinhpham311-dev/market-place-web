@@ -25,7 +25,6 @@ const stateSlice = createSlice({
         setPrice(state, action: PayloadAction<{ storeKey: string; currentPrice: number }>) {
             const { storeKey, currentPrice } = action.payload;
 
-            // 🔒 đảm bảo state tồn tại
             if (!state[storeKey]) {
                 state[storeKey] = createDefault();
             }
@@ -34,7 +33,6 @@ const stateSlice = createSlice({
         setMinPrice(state, action: PayloadAction<{ storeKey: string; minPrice: number }>) {
             const { storeKey, minPrice } = action.payload;
 
-            // 🔒 đảm bảo state tồn tại
             if (!state[storeKey]) {
                 state[storeKey] = createDefault();
             }
@@ -43,7 +41,6 @@ const stateSlice = createSlice({
         setMaxPrice(state, action: PayloadAction<{ storeKey: string; maxPrice: number }>) {
             const { storeKey, maxPrice } = action.payload;
 
-            // 🔒 đảm bảo state tồn tại
             if (!state[storeKey]) {
                 state[storeKey] = createDefault();
             }
@@ -52,7 +49,6 @@ const stateSlice = createSlice({
         setFlashSalePrice(state, action: PayloadAction<{ storeKey: string; flashSalePrice: number }>) {
             const { storeKey, flashSalePrice } = action.payload;
 
-            // 🔒 đảm bảo state tồn tại
             if (!state[storeKey]) {
                 state[storeKey] = createDefault();
             }
@@ -61,7 +57,6 @@ const stateSlice = createSlice({
         setDefaultPrice(state, action: PayloadAction<{ storeKey: string; defaultPrice: number }>) {
             const { storeKey, defaultPrice } = action.payload;
 
-            // 🔒 đảm bảo state tồn tại
             if (!state[storeKey]) {
                 state[storeKey] = createDefault();
             }

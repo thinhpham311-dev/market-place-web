@@ -2,7 +2,7 @@
 import { useMemo } from "react";
 import { useAppSelector } from "@/lib/hooks";
 import { selectDataTableStoreKey } from "@/features/common/data-table/store/selectors";
-import { createDefault, IDataTable } from "@/features/common/data-table/store/initial";
+import { createDefault, IDataTable } from "@/features/common/data-table/store/initials";
 import { DATA_TABLE } from "@/features/common/data-table/constants"
 
 interface IGetDataTableValue {

@@ -1,20 +1,18 @@
-import { useLayoutEffect, useEffect, useMemo } from "react";
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { useLayoutEffect, useEffect, useMemo, useRef, useCallback } from "react";
+import { useAppDispatch } from "@/lib/hooks";
 import {
     setPage,
-    setTotalPages,
+    setInitialValue,
     resetPagination,
-    setLimit,
 } from "@/features/common/pagination/store/stateSlice";
-import { selectPaginationByStoreKey } from "@/features/common/pagination/store/selectors";
+import { useGetPaginationValue } from "@/features/common/pagination/hooks";
 import { injectReducer, removeReducer } from "@/store";
 import reducer from "@/features/common/pagination/store";
-import { PAGINATION } from "../constants";
+import { IPaginationState } from "@/features/common/pagination/store/initials"
 
 interface IUseHandlePaginationProps {
     reducerKey: string;
-    initialTotal?: number;
-    initialLimit?: number;
+    initialValue: IPaginationState
     siblingCount?: number;
     storeKey: string;
 }
@@ -23,37 +21,30 @@ const DOTS = "...";
 export function useHandlePagination({
     reducerKey,
     storeKey,
-    initialTotal = 0,
-    initialLimit = 0,
+    initialValue,
     siblingCount = 1,
 }: IUseHandlePaginationProps) {
-
+    const initializedRef = useRef(false);
+    const { } = initialValue
     const dispatch = useAppDispatch();
     useLayoutEffect(() => {
-        const dynamicReducerKey = `${PAGINATION}_${reducerKey}`;
-        injectReducer(dynamicReducerKey, reducer);
+        injectReducer(reducerKey, reducer);
 
         return () => {
-            dispatch(resetPagination())
             removeReducer(reducerKey);
         };
-    }, [reducerKey, storeKey, dispatch]);
-
-
-    const { currentPage, totalPages, limit: storeLimit } = useAppSelector(
-        selectPaginationByStoreKey(reducerKey, storeKey)
-    );
+    }, [reducerKey]);
 
     useEffect(() => {
-        if (initialLimit) {
-            dispatch(setLimit(initialLimit));
+        if (!initializedRef.current && initialValue) {
+            dispatch(setInitialValue({ storeKey, initialValue }));
+            initializedRef.current = true
         }
+    }, [dispatch, storeKey, initialValue]);
 
-        if (initialTotal && initialLimit) {
-            const totalPageCount = Math.ceil(initialTotal / initialLimit);
-            dispatch(setTotalPages(totalPageCount));
-        }
-    }, [initialLimit, initialTotal, dispatch]);
+
+    const state = useGetPaginationValue({ reducerKey, storeKey, initialValue });
+    const { currentPage, totalPages } = state
 
 
     const paginationRange = useMemo(
@@ -62,21 +53,18 @@ export function useHandlePagination({
     );
 
 
-    const setPageSafe = (page: number) => {
+    const setPageSafe = useCallback((page: number) => {
         if (page >= 1 && page <= totalPages) {
-            dispatch(setPage(page));
+            dispatch(setPage({ storeKey, page }));
         }
-    };
+    }, [dispatch, storeKey])
 
-    const resetPaginationSafe = () => {
-        dispatch(resetPagination());
-    };
+    const resetPaginationSafe = useCallback(() => {
+        dispatch(resetPagination({ storeKey }));
+    }, [dispatch, storeKey]);
 
     return {
-        currentPage,
-        totalPages,
-        totalItems: initialTotal,
-        perPage: storeLimit,
+        ...state,
         pages: paginationRange,
         setPage: setPageSafe,
         resetPagination: resetPaginationSafe,

@@ -1,57 +1,75 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { useCallback, useEffect, useRef } from "react";
+import { useAppDispatch } from "@/lib/hooks";
 import {
-    initialFilter,
+    setInitialFilter,
     setFilter,
     resetFilter,
     resetAllFilters,
 } from "../store/stateSlice";
-import { Filter } from "@/features/common/filter/types";
+import { IFilterState } from "@/features/common/filter/store/initials";
 import { injectReducer, removeReducer } from "@/store";
 import reducer from "@/features/common/filter/store";
-import { FILTER } from "@/features/common/filter/constants";
-import { selectFilterStoreKey } from "@/features/common/filter/store/selectors"
+import { useGetFilterValue } from "@/features/common/filter/hooks";
 
 interface IUseFilterParams {
+    reducerKey: string;
     storeKey: string;
-    options?: readonly Filter[];
+    initialValue: IFilterState;
 }
 
-export function useHandleFilter({ storeKey, options }: IUseFilterParams) {
+export function useHandleFilter({
+    reducerKey,
+    storeKey,
+    initialValue,
+}: IUseFilterParams) {
     const dispatch = useAppDispatch();
+    const initializedRef = useRef(false);
 
     useEffect(() => {
-        const reducerKey = `${FILTER}_${storeKey}`;
         injectReducer(reducerKey, reducer);
+        return () => removeReducer(reducerKey);
+    }, [reducerKey]);
 
-        return () => {
-            dispatch(resetAllFilters())
-            removeReducer(reducerKey);
-        };
-    }, [storeKey, dispatch]);
-
-    const { filter, data } = useAppSelector(selectFilterStoreKey(storeKey));
-    const initialized = useRef(false);
+    const state = useGetFilterValue({
+        reducerKey,
+        storeKey,
+        initialValue,
+    });
 
     useEffect(() => {
-        if (!initialized.current && options) {
-            dispatch(initialFilter(options as Filter[]));
-            initialized.current = true;
+        if (!initializedRef.current && initialValue) {
+            dispatch(
+                setInitialFilter({
+                    storeKey,
+                    initialValue,
+                })
+            );
+            initializedRef.current = true;
         }
-    }, [dispatch, options]);
+    }, [dispatch, storeKey, initialValue]);
 
-    const handleSetFilter = (key: string, value: any) =>
-        dispatch(setFilter({ key, value }));
+    const handleSetFilter = useCallback(
+        <T = unknown>(key: string, value: T) => {
+            dispatch(setFilter({ storeKey, key, value }));
+        },
+        [dispatch, storeKey]
+    );
 
-    const handleResetFilter = (key: string) => dispatch(resetFilter(key));
+    const handleResetFilter = useCallback(
+        (key: string) => {
+            dispatch(resetFilter({ storeKey, key }));
+        },
+        [dispatch, storeKey]
+    );
 
-    const handleResetAllFilters = () => dispatch(resetAllFilters());
+    const handleResetAllFilters = useCallback(() => {
+        dispatch(resetAllFilters({ storeKey }));
+    }, [dispatch, storeKey]);
 
     return {
-        data,
-        filter,
+        ...state,
         handleSetFilter,
         handleResetFilter,
         handleResetAllFilters,

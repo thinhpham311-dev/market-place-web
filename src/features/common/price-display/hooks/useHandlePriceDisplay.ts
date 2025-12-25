@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useEffect, useMemo } from "react";
+import { useLayoutEffect, useEffect, useMemo, useRef } from "react";
 import { useAppDispatch } from "@/lib/hooks";
 import {
     setInitialState,
@@ -28,6 +28,7 @@ export function useHandlePriceDisplay({
     initialValue,
 }: IUseHandlePriceDisplay) {
     const dispatch = useAppDispatch();
+    const initializedRef = useRef(false);
 
     const dynamicReducerKey = useMemo(
         () => `${PRICE_DISPLAY}_${reducerKey}`,
@@ -45,15 +46,16 @@ export function useHandlePriceDisplay({
     const price = useGetPriceValue({ reducerKey, storeKey, initialValue });
 
     useEffect(() => {
-        if (!price) {
+        if (!initializedRef.current && initialValue) {
             dispatch(
                 setInitialState({
                     storeKey,
                     initialValue,
                 })
             );
+            initializedRef.current = true;
         }
-    }, [dispatch, storeKey, initialValue, price]);
+    }, [dispatch, storeKey, initialValue]);
 
     return {
         ...price,

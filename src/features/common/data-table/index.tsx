@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { ColumnDef } from "@tanstack/react-table"
-import { IDataTable } from "@/features/common/data-table/store/initial"
+import { IDataTable } from "@/features/common/data-table/store/initials"
 import DataTableProvider from "@/features/common/data-table/providers"
 import DataTableWrapper from "@/features/common/data-table/components/DataTableWrapper"
 import DataTableHeader from "@/features/common/data-table/components/DataTableHeader"

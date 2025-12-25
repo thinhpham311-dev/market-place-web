@@ -29,7 +29,8 @@ export function useFetchData() {
     } = useAppSelector(selectProRecommendedListByStoreKey(PRO_RECOMMENDDED_LIST));
 
     useEffect(() => {
-        const promise = dispatch(getProductList({ limit: 12, sort: "ctime", page: 1 }) as any);
+        const promise = dispatch(getProductList({ limit: 12, sortBy: "ctime", page: 1 }) as any);
+        ;
         return () => {
             promise.abort();
         };

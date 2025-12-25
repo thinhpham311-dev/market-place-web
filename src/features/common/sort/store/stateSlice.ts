@@ -1,26 +1,32 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import type { Sort } from '../types';
-
-interface SortState {
-    sortBy: Sort;
-}
-
-const initialState: SortState = {
-    sortBy: { label: 'Newest', value: 'ctime' },
-};
+import { createSlice } from '@reduxjs/toolkit';
+import { initialState, createDefault } from '@/features/common/sort/store/initials';
 
 const stateSlice = createSlice({
     name: 'sort/state',
     initialState,
     reducers: {
-        setSortBy: (state, action: PayloadAction<Sort>) => {
-            state.sortBy = action.payload;
+        setInitialValue: (state, action) => {
+            const { storeKey, initialValue } = action.payload
+            if (!state[storeKey]) {
+                state[storeKey] = initialValue
+                    ? { ...initialValue }
+                    : createDefault();
+            }
         },
-        resetSortBy: (state) => {
-            state.sortBy = initialState.sortBy;
+        setSortBy: (state, action) => {
+            const { storeKey, sortBy } = action.payload
+            state[storeKey].sortBy = sortBy;
+            if (!state[storeKey]) {
+                state[storeKey] = createDefault();
+            }
+        },
+        resetSortBy: (state, action) => {
+            const { storeKey } = action.payload
+            state[storeKey] = createDefault();
+
         },
     },
 });
 
-export const { setSortBy, resetSortBy } = stateSlice.actions;
+export const { setInitialValue, setSortBy, resetSortBy } = stateSlice.actions;
 export default stateSlice.reducer;

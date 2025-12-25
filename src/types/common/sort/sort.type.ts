@@ -4,3 +4,4 @@ export type SortBy =
     | 'sales_desc'
     | 'price_asc'
     | 'price_desc'
+    | 'ctime'

@@ -1,11 +1,6 @@
 // features/cartTable/dataTableSlice.ts
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-
-import {
-    GroupingState,
-    VisibilityState
-} from '@tanstack/react-table'
-import { initialState, createDefault, IDataTable } from "@/features/common/data-table/store/initial"
+import { createSlice } from '@reduxjs/toolkit'
+import { initialState, createDefault } from "@/features/common/data-table/store/initials"
 
 
 // Slice
@@ -15,7 +10,7 @@ const dataTableSlice = createSlice({
     reducers: {
         setInitialState: (
             state,
-            action: PayloadAction<{ storeKey: string, initialValue: IDataTable }>
+            action
         ) => {
             const { storeKey, initialValue } = action.payload;
 
@@ -25,14 +20,20 @@ const dataTableSlice = createSlice({
                     : createDefault();
             }
         },
-        setGrouping: (state, action: PayloadAction<{ storeKey: string; grouping: GroupingState }>) => {
+        setGrouping: (state, action) => {
             const { storeKey, grouping } = action.payload
             state[storeKey].grouping = grouping
+            if (!state[storeKey]) {
+                state[storeKey] = createDefault();
+            }
         },
 
-        setColumnVisibility: (state, action: PayloadAction<{ storeKey: string; columnVisibility: VisibilityState }>) => {
+        setColumnVisibility: (state, action) => {
             const { storeKey, columnVisibility } = action.payload
             state[storeKey].columnVisibility = columnVisibility
+            if (!state[storeKey]) {
+                state[storeKey] = createDefault();
+            }
         }
     },
 })
