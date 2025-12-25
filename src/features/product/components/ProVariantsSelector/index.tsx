@@ -32,7 +32,6 @@ const ProVariantsSelector = (() => {
             <CardContent className="p-3 flex flex-col gap-1">
                 <OptionSelector
                     layout="horizontal"
-                    reducerKey={PRO_DETAIL}
                     storeKey={`${PRO_DETAIL}_${data?.product_id}`}
                     initialOptions={variants}
                     loading={isLoading}

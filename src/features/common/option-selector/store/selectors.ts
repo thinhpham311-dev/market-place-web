@@ -1,10 +1,9 @@
 import { RootState } from "@/store";
-import { OPTION_SELECTOR } from "@/features/common/option-selector/constants"
 
 
 const makeSelectOptionsBaseSelector = (reducerKey: string, storeKey: string) =>
     (state: RootState) =>
-        state[`${OPTION_SELECTOR}_${reducerKey}`]?.state?.[storeKey]
+        state[reducerKey]?.state?.[storeKey]
 
 const selectorCache: Record<
     string,

@@ -14,7 +14,6 @@ import { Option } from "@/features/common/option-selector/types";
 import { injectReducer, removeReducer } from "@/store";
 import { useGetOptionSelectorValue } from "./useGetOptionSelectorValue";
 import reducer from "@/features/common/option-selector/store";
-import { OPTION_SELECTOR } from "@/features/common/option-selector/constants";
 
 interface UseHandleOptionSelectorProps {
     reducerKey: string;
@@ -35,12 +34,11 @@ export function useHandleOptionSelector({
 
 
     useLayoutEffect(() => {
-        const dynamicReducerKey = `${OPTION_SELECTOR}_${reducerKey}`;
-        injectReducer(dynamicReducerKey, reducer);
+        injectReducer(reducerKey, reducer);
 
         return () => {
             dispatch(resetOptions({ storeKey }));
-            removeReducer(dynamicReducerKey);
+            removeReducer(reducerKey);
         };
     }, [reducerKey, storeKey]);
 
@@ -70,10 +68,12 @@ export function useHandleOptionSelector({
     }, [dispatch, storeKey, initialOptions, defaultOptionIdx]);
 
 
-    const { options, selectedOptions, validationErrors } = useGetOptionSelectorValue(reducerKey, storeKey, {
-        options: initialOptions,
-        selectedOptions: [],
-        validationErrors: []
+    const { options, selectedOptions, validationErrors } = useGetOptionSelectorValue({
+        reducerKey, storeKey, initialValue: {
+            options: initialOptions,
+            selectedOptions: [],
+            validationErrors: []
+        }
     })
 
 

@@ -11,7 +11,7 @@ interface IProSkuDetailContainerProps {
 }
 
 export default function ProSkuDetailContainer({ product_id, children }: IProSkuDetailContainerProps) {
-    const { selectedOptions, optionsCount } = useGetOptionSelectorValue(PRO_DETAIL, `${PRO_DETAIL}_${product_id}`)
+    const { selectedOptions, optionsCount } = useGetOptionSelectorValue({ storeKey: `${PRO_DETAIL}_${product_id}` })
     return (
         <SkuRoot
             storeKey={PRO_DETAIL}

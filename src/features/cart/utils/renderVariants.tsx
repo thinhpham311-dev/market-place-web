@@ -8,7 +8,7 @@ export const renderVariants = (
     variants.map((variant, index) => {
         const option =
             itemTierIdx[index] !== undefined
-                ? variant.values?.[itemTierIdx[index]]
+                ? variant.value?.[itemTierIdx[index]]
                 : null;
 
         return (

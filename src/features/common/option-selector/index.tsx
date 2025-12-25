@@ -7,9 +7,9 @@ import OptionSelectorList from "./OptionSelectorList";
 import { useHandleOptionSelector } from "./hooks";
 import OptionSelectorProvider from "./providers";
 import { Option } from "./types";
+import { OPTION_SELECTOR } from "@/features/common/option-selector/constants";
 
 interface IOptionSelectorProps {
-    reducerKey: string;
     storeKey: string;
     initialOptions: Option[];
     loading?: boolean;
@@ -24,7 +24,6 @@ const OptionSelector = React.forwardRef<
     HTMLDivElement,
     IOptionSelectorProps
 >(({
-    reducerKey,
     storeKey,
     initialOptions,
     defaultOptionIdx,
@@ -32,7 +31,7 @@ const OptionSelector = React.forwardRef<
 }, ref) => {
 
     const optionSelector = useHandleOptionSelector({
-        reducerKey,
+        reducerKey: OPTION_SELECTOR,
         storeKey,
         initialOptions,
         defaultOptionIdx

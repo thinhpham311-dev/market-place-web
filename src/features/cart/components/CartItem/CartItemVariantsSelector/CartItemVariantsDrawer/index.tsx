@@ -43,10 +43,9 @@ const CartItemVariantsDrawer = ({ data }: CartItemVariantsDrawerProps) => {
         itemSpuVariations,
     } = data;
 
-    const { selectedOptions } = useGetOptionSelectorValue(
-        SHOPPING_CART,
-        `${SHOPPING_CART}_${itemId}`
-    );
+    const { selectedOptions } = useGetOptionSelectorValue({
+        storeKey: `${SHOPPING_CART}_${itemId}`
+    });
 
     const skuTierIdx = useMemo<number[]>(() => {
         if (!Array.isArray(itemSkuTierIdx)) return [];
@@ -120,7 +119,6 @@ const CartItemVariantsDrawer = ({ data }: CartItemVariantsDrawerProps) => {
                         <CardContent className="p-3">
                             <OptionSelector
                                 layout="horizontal"
-                                reducerKey={SHOPPING_CART}
                                 storeKey={`${SHOPPING_CART}_${itemId}`}
                                 initialOptions={itemSpuVariations}
                                 defaultOptionIdx={skuTierIdx}

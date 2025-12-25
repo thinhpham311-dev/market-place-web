@@ -4,12 +4,20 @@ import { useMemo } from "react";
 import { useAppSelector } from "@/lib/hooks";
 import { selectOptionsSelector } from "@/features/common/option-selector/store/selectors";
 import { IOption, createDefault } from "@/features/common/option-selector/store/initial";
+import { OPTION_SELECTOR } from "@/features/common/option-selector/constants";
 
-export const useGetOptionSelectorValue = (
-    reducerKey: string,
-    storeKey: string,
-    initialValue: IOption = createDefault()
-) => {
+interface IGetOptionSelectorValue {
+    reducerKey?: string;
+    storeKey: string;
+    initialValue?: IOption;
+
+}
+
+export const useGetOptionSelectorValue = ({
+    reducerKey = OPTION_SELECTOR,
+    storeKey,
+    initialValue = createDefault()
+}: IGetOptionSelectorValue) => {
     const state = useAppSelector(
         selectOptionsSelector(reducerKey, storeKey)
     );
