@@ -1,8 +1,7 @@
 import { RootState } from "@/store";
-import { DATA_TABLE } from "../constants";
 
 export const makeSelectDataTableState = (reducerKey: string, storeKey: string) =>
-    (state: RootState) => state[`${DATA_TABLE}_${reducerKey}`]?.state[storeKey]
+    (state: RootState) => state[reducerKey]?.state[storeKey]
 
 
 const selectorCache: Record<

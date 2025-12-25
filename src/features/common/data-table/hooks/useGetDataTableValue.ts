@@ -3,12 +3,19 @@ import { useMemo } from "react";
 import { useAppSelector } from "@/lib/hooks";
 import { selectDataTableStoreKey } from "@/features/common/data-table/store/selectors";
 import { createDefault, IDataTable } from "@/features/common/data-table/store/initial";
+import { DATA_TABLE } from "@/features/common/data-table/constants"
 
-export const useGetDataTableValue = (
-    reducerKey: string,
+interface IGetDataTableValue {
+    reducerKey?: string,
     storeKey: string,
-    initialValue: IDataTable = createDefault()
-) => {
+    initialValue?: IDataTable
+}
+
+export const useGetDataTableValue = ({
+    reducerKey = DATA_TABLE,
+    storeKey,
+    initialValue = createDefault()
+}: IGetDataTableValue) => {
 
     const state = useAppSelector(
         selectDataTableStoreKey(reducerKey, storeKey)

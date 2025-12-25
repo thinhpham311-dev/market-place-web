@@ -9,9 +9,9 @@ import DataTableHeader from "@/features/common/data-table/components/DataTableHe
 import DataTableBody from "@/features/common/data-table/components/DataTableBody"
 import DataTableFooter from "@/features/common/data-table/components/DataTableFooter"
 import { useHandleDataTable } from "@/features/common/data-table/hooks"
+import { DATA_TABLE } from "@/features/common/data-table/constants"
 
 interface IDataTableProps<TData extends Record<string, any>> {
-    reducerKey: string,
     storeKey: string,
     initialColumns: ColumnDef<TData>[],
     initialValue: IDataTable,
@@ -19,13 +19,12 @@ interface IDataTableProps<TData extends Record<string, any>> {
 }
 
 function DataTable<TData extends Record<string, any>>({
-    reducerKey,
     storeKey,
     ...rest
 }: IDataTableProps<TData>) {
 
     const dataTable = useHandleDataTable({
-        reducerKey,
+        reducerKey: DATA_TABLE,
         storeKey,
         ...rest,
     })

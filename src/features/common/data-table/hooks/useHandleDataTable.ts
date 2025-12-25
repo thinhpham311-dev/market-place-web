@@ -18,7 +18,6 @@ import { IDataTable } from "@/features/common/data-table/store/initial"
 import { useGetDataTableValue } from "./useGetDataTableValue"
 import { useAppDispatch } from "@/lib/hooks"
 import { injectReducer, removeReducer } from "@/store"
-import { DATA_TABLE } from "@/features/common/data-table/constants"
 import reducer from "@/features/common/data-table/store"
 
 interface IUseCartTable {
@@ -41,16 +40,12 @@ export const useHandleDataTable = ({
 
     const dispatch = useAppDispatch()
 
-    const dynamicReducerKey = useMemo(
-        () => `${DATA_TABLE}_${reducerKey}`,
-        [reducerKey]
-    )
 
 
     useLayoutEffect(() => {
-        injectReducer(dynamicReducerKey, reducer)
-        return () => removeReducer(dynamicReducerKey)
-    }, [dynamicReducerKey])
+        injectReducer(reducerKey, reducer)
+        return () => removeReducer(reducerKey)
+    }, [reducerKey])
 
     useEffect(() => {
         if (!initRef.current) {
@@ -59,11 +54,11 @@ export const useHandleDataTable = ({
         }
     }, [dispatch, storeKey, initialValue])
 
-    const { grouping, columnVisibility } = useGetDataTableValue(
+    const { grouping, columnVisibility } = useGetDataTableValue({
         reducerKey,
         storeKey,
         initialValue
-    )
+    })
 
 
 

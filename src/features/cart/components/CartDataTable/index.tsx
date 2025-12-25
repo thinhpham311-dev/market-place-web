@@ -13,11 +13,8 @@ interface ICartDataTableProps {
 }
 
 const CartDataTable = ({ cartKey = "", data = [], cartId = "", initialColumns }: ICartDataTableProps) => {
-
-
     return (
         <DataTable
-            reducerKey={cartKey}
             storeKey={`${cartKey}_${cartId}`}
             initialColumns={initialColumns}
             initialData={data}
