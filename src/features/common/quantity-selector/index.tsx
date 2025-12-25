@@ -14,9 +14,9 @@ import QuantitySelectorProvider from "./providers";
 import { useHandleQuantitySelector } from "./hooks";
 
 import { IQuantity } from "./store/initial";
+import { QUANTITY_COUNTER } from "@/features/common/quantity-selector/constants";
 
 interface IQuantitySelectorProps {
-    reducerKey: string;
     storeKey: string;
     initialValue: IQuantity;
     maxQuantity: number;
@@ -29,7 +29,6 @@ const QuantitySelector = React.forwardRef<
     HTMLDivElement,
     IQuantitySelectorProps
 >(({
-    reducerKey = "",
     storeKey = "",
     initialValue,
     maxQuantity,
@@ -37,7 +36,7 @@ const QuantitySelector = React.forwardRef<
 }, ref) => {
 
     const quantitySelector = useHandleQuantitySelector({
-        reducerKey,
+        reducerKey: QUANTITY_COUNTER,
         storeKey,
         initialValue,
         maxQuantity,

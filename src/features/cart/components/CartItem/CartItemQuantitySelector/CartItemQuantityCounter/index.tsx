@@ -56,7 +56,6 @@ const CartItemQuantityCounter = ({
 
     return (
         <QuantitySelector
-            reducerKey={SHOPPING_CART}
             storeKey={`${SHOPPING_CART}_${itemSkuId}`}
             initialValue={{ currentQuantity: itemQuantity }}
             maxQuantity={itemSkuStock}

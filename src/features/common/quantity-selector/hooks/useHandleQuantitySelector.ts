@@ -13,7 +13,6 @@ import { useGetQuantityValue } from "@/features/common/quantity-selector/hooks/u
 import { setInitialState, setQuantity, resetQuantity } from "@/features/common/quantity-selector/store/stateSlice";
 import { injectReducer, removeReducer } from "@/store";
 import reducer from "../store";
-import { QUANTITY_COUNTER } from "../constants";
 
 interface IUseHandleQuantitySelector {
     reducerKey: string;
@@ -36,19 +35,14 @@ export function useHandleQuantitySelector({
     const initRef = useRef(false);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-    // 🔥 Memo hóa key để không tạo lại string mỗi render
-    const dynamicReducerKey = useMemo(
-        () => `${QUANTITY_COUNTER}_${reducerKey}`,
-        [reducerKey]
-    );
     // ⬅ reducer injection - only once
     useLayoutEffect(() => {
-        injectReducer(dynamicReducerKey, reducer);
+        injectReducer(reducerKey, reducer);
 
         return () => {
-            removeReducer(dynamicReducerKey);
+            removeReducer(reducerKey);
         };
-    }, [dispatch, dynamicReducerKey]);
+    }, [dispatch, reducerKey]);
 
     // ⬅ initial quantity set
     useEffect(() => {

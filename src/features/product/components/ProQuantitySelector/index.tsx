@@ -23,7 +23,6 @@ const ProQuantitySelector = () => {
 
     return (
         <QuantitySelector
-            reducerKey={PRO_DETAIL}
             storeKey={`${PRO_DETAIL}_${sku?.sku_id ?? "default"}`}
             initialValue={{
                 currentQuantity: 1

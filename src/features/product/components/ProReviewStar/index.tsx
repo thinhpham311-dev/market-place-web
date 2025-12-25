@@ -11,7 +11,7 @@ import NotFound from "./NotFound"
 
 export default function ProDescriptionContent() {
     const { spu, loading, error } = useSpuContext();
-    const { product_ratingsAverange } = spu
+
     const hasNoData = !spu || Object.keys(spu).length === 0;
     if (loading && hasNoData) {
         return <LoadingSkeleton />;
@@ -24,7 +24,7 @@ export default function ProDescriptionContent() {
     if (!loading && hasNoData) {
         return <NotFound />;
     }
-    const rating = product_ratingsAverange ?? 0;
+    const rating = spu?.product_ratingsAverange ?? 0;
 
     return (
         <Card className="shadow-none border-none">
