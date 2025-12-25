@@ -58,7 +58,7 @@ export function useHandleQuantitySelector({
     }, [dispatch, storeKey, initialValue]);
 
 
-    const { currentQuantity } = useGetQuantityValue(reducerKey, storeKey, initialValue);
+    const { currentQuantity } = useGetQuantityValue({ reducerKey, storeKey, initialValue });
 
 
     const getValidateQuantity = useCallback(

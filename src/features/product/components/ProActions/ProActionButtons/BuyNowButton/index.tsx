@@ -25,7 +25,7 @@ const BuyNowButton = () => {
     const { spu } = useSpuContext();
     const { sku } = useSkuContext();
 
-    const { currentQuantity: qty } = useGetQuantityValue(PRO_DETAIL, `${PRO_DETAIL}_${sku?.sku_id}`)
+    const { currentQuantity: qty } = useGetQuantityValue({ storeKey: `${PRO_DETAIL}_${sku?.sku_id}` })
 
     const data: ICartItemModel | null = useMemo(() => {
         if (!spu || !sku) return null;
