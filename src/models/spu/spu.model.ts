@@ -12,5 +12,5 @@ export interface ISpuModel {
     product_slug: string
     product_brand: string
     product_variations: IVariationModel[]
-    product_ratingsAverage: number
+    product_ratingsAverange: number
 }
