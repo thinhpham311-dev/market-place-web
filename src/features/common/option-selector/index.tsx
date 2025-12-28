@@ -6,15 +6,13 @@ import OptionSelectorTitle from "./OptionSelectorTitle";
 import OptionSelectorList from "./OptionSelectorList";
 import { useHandleOptionSelector } from "./hooks";
 import OptionSelectorProvider from "./providers";
-import { Option } from "./types";
-import { OPTION_SELECTOR } from "@/features/common/option-selector/constants";
+import { IOptionInitialValue } from "@/features/common/option-selector/interfaces";
 
 interface IOptionSelectorProps {
     storeKey: string;
-    initialOptions: Option[];
+    initialValue: IOptionInitialValue;
     loading?: boolean;
     error?: string | { message?: string } | null;
-    defaultOptionIdx?: (number | null)[];
     title?: string;
     layout?: "vertical" | "horizontal";
     layoutItems?: "vertical" | "horizontal";
@@ -25,16 +23,13 @@ const OptionSelector = React.forwardRef<
     IOptionSelectorProps
 >(({
     storeKey,
-    initialOptions,
-    defaultOptionIdx,
+    initialValue,
     ...rest
 }, ref) => {
 
     const optionSelector = useHandleOptionSelector({
-        reducerKey: OPTION_SELECTOR,
         storeKey,
-        initialOptions,
-        defaultOptionIdx
+        initialValue
     });
 
     return (

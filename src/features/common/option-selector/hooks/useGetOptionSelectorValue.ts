@@ -3,13 +3,14 @@
 import { useMemo } from "react";
 import { useAppSelector } from "@/lib/hooks";
 import { selectOptionsSelector } from "@/features/common/option-selector/store/selectors";
-import { IOption, createDefault } from "@/features/common/option-selector/store/initial";
+import { createDefault } from "@/features/common/option-selector/store/initials";
+import { IOptionInitialState } from "@/features/common/option-selector/interfaces";
 import { OPTION_SELECTOR } from "@/features/common/option-selector/constants";
 
 interface IGetOptionSelectorValue {
     reducerKey?: string;
     storeKey: string;
-    initialValue?: IOption;
+    initialValue?: IOptionInitialState;
 
 }
 
@@ -23,7 +24,7 @@ export const useGetOptionSelectorValue = ({
     );
 
     return useMemo(() => {
-        const options = state?.options ?? initialValue.options;
+        const options = state?.options ?? [];
         const selected = state?.selectedOptions ?? initialValue.selectedOptions;
 
         return {

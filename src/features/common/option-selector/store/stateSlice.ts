@@ -1,48 +1,27 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Option } from "@/features/common/option-selector/types";
 import {
-    IOption,
-    createDefault,
     initialState,
-} from "./initial";
+} from "@/features/common/option-selector/store/initials";
+import { ensureStoreKeyState } from "@/features/common/option-selector/helpers";
 
 const optionSlice = createSlice({
     name: "option/state",
     initialState,
     reducers: {
-        setInitialState(
-            state,
-            action: PayloadAction<{ storeKey: string; initialValue?: IOption }>
-        ) {
-            const { storeKey, initialValue } = action.payload;
-
-            if (!state[storeKey]) {
-                state[storeKey] = initialValue
-                    ? { ...initialValue }
-                    : createDefault();
-            }
-        },
         setSelectedOption: (
             state,
             action: PayloadAction<{
                 storeKey: string;
-                currentValue: { index: number; value: Option | number | null };
+                currentValue: { index: number; value: number | null };
             }>
         ) => {
             const { storeKey, currentValue } = action.payload;
             const { index, value } = currentValue;
+            ensureStoreKeyState(state, storeKey);
 
-            // 🔒 đảm bảo state tồn tại
-            if (!state[storeKey]) {
-                state[storeKey] = createDefault();
-            }
-
-            // 🔒 ensure array length
             if (!Array.isArray(state[storeKey].selectedOptions)) {
                 state[storeKey].selectedOptions = [];
             }
-
-
 
             state[storeKey].selectedOptions[index] = value;
         },
@@ -52,20 +31,13 @@ const optionSlice = createSlice({
             action: PayloadAction<{ storeKey: string; errors: Record<number, string> }>
         ) => {
             const { storeKey, errors } = action.payload;
-
-            if (!state[storeKey]) {
-                state[storeKey] = createDefault();
-            }
-
+            ensureStoreKeyState(state, storeKey);
             state[storeKey].validationErrors = errors;
         },
 
         resetOptions: (state, action: PayloadAction<{ storeKey: string }>) => {
             const { storeKey } = action.payload;
-
-            if (!state[storeKey]) {
-                state[storeKey] = createDefault();
-            }
+            ensureStoreKeyState(state, storeKey);
             state[storeKey].selectedOptions = [];
             state[storeKey].validationErrors = [];
         },
@@ -73,7 +45,6 @@ const optionSlice = createSlice({
 });
 
 export const {
-    setInitialState,
     setSelectedOption,
     setValidationErrors,
     resetOptions,

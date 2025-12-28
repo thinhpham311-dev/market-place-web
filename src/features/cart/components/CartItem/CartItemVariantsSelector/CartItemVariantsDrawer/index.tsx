@@ -120,8 +120,11 @@ const CartItemVariantsDrawer = ({ data }: CartItemVariantsDrawerProps) => {
                             <OptionSelector
                                 layout="horizontal"
                                 storeKey={`${SHOPPING_CART}_${itemId}`}
-                                initialOptions={itemSpuVariations}
-                                defaultOptionIdx={skuTierIdx}
+                                initialValue={{
+                                    initialOptions: itemSpuVariations,
+                                    defaultOptionIdx: skuTierIdx
+                                }}
+
 
                             />
                         </CardContent>

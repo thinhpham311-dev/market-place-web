@@ -13,7 +13,7 @@ interface IOptionSelectorContextType {
     layout?: "vertical" | "horizontal";
     defaultOptionIdx?: (number | null)[];
     validationErrors: Record<number, string>;
-    handleChooseOption: (index: number, option: Option | number | null) => void;
+    handleChooseOption: (index: number, option: number | null) => void;
     resetValidationErrors: () => void;
 }
 
