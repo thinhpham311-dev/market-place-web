@@ -1,42 +1,22 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
-    IQuantity, createDefault,
+    createDefault,
     initialState
 } from "@/features/common/quantity-selector/store/initials"
+import { ensureStoreKeyState } from "@/features/common/quantity-selector/helpers";
 
 const quantitySlice = createSlice({
     name: "quantity/state",
     initialState,
     reducers: {
-        // Khởi tạo state cho 1 storeKey nếu chưa có
-        setInitialState(
-            state,
-            action: PayloadAction<{ storeKey: string; initialValue?: IQuantity }>
-        ) {
-            const { storeKey, initialValue } = action.payload;
-
-            if (!state[storeKey]) {
-                state[storeKey] = initialValue
-                    ? { ...initialValue }
-                    : createDefault();
-            }
-        },
-
-        // Set số lượng trực tiếp
         setQuantity(
             state,
             action: PayloadAction<{ storeKey: string; quantity: number }>
         ) {
             const { storeKey, quantity } = action.payload;
-
-            if (!state[storeKey]) {
-                state[storeKey] = createDefault();
-            }
-
+            ensureStoreKeyState(state, storeKey);
             state[storeKey].currentQuantity = quantity;
         },
-
-        // Reset về mặc định
         resetQuantity(state, action: PayloadAction<{ storeKey: string }>) {
             const { storeKey } = action.payload;
             state[storeKey] = createDefault();
@@ -45,7 +25,6 @@ const quantitySlice = createSlice({
 });
 
 export const {
-    setInitialState,
     setQuantity,
     resetQuantity,
 } = quantitySlice.actions;
