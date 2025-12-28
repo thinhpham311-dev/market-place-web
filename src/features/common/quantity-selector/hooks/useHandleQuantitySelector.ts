@@ -3,36 +3,32 @@ import { toast } from "sonner";
 import {
     useCallback,
     useLayoutEffect,
-    useEffect,
     useMemo,
     useRef,
 } from "react";
-import { IQuantity } from "@/features/common/quantity-selector/store/initial"
+import { IQuantityInitialValue } from "@/features/common/quantity-selector/interfaces"
 import { useAppDispatch } from "@/lib/hooks";
 import { useGetQuantityValue } from "@/features/common/quantity-selector/hooks/useGetQuantityValue";
-import { setInitialState, setQuantity, resetQuantity } from "@/features/common/quantity-selector/store/stateSlice";
+import { setQuantity, resetQuantity } from "@/features/common/quantity-selector/store/stateSlice";
 import { injectReducer, removeReducer } from "@/store";
 import reducer from "../store";
+import { QUANTITY_COUNTER } from "@/features/common/quantity-selector/constants";
 
 interface IUseHandleQuantitySelector {
-    reducerKey: string;
+    reducerKey?: string;
     storeKey: string;
-    maxQuantity: number;
-    initialValue: IQuantity;
+    initialValue: IQuantityInitialValue;
     onChangeQuantity?: (value: number) => void;
 }
 
 export function useHandleQuantitySelector({
-    reducerKey,
+    reducerKey = QUANTITY_COUNTER,
     storeKey,
-    maxQuantity,
     initialValue,
     onChangeQuantity,
 }: IUseHandleQuantitySelector) {
-
     const dispatch = useAppDispatch();
-
-    const initializedRef = useRef(false);
+    const { maxQuantity } = initialValue
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     // ⬅ reducer injection - only once
@@ -44,22 +40,7 @@ export function useHandleQuantitySelector({
         };
     }, [dispatch, reducerKey]);
 
-    // ⬅ initial quantity set
-    useEffect(() => {
-        if (!initializedRef.current && initialValue) {
-            dispatch(
-                setInitialState({
-                    storeKey,
-                    initialValue,
-                })
-            );
-            initializedRef.current = true;
-        }
-    }, [dispatch, storeKey, initialValue]);
-
-
-    const { currentQuantity } = useGetQuantityValue({ reducerKey, storeKey, initialValue });
-
+    const { currentQuantity } = useGetQuantityValue({ storeKey });
 
     const getValidateQuantity = useCallback(
         (newQuantity: number, messages: string[]) => {
@@ -100,7 +81,7 @@ export function useHandleQuantitySelector({
     }, [dispatch, storeKey]);
 
     const isDisabledQuantity = useMemo(() => {
-        return maxQuantity === 0;
+        return !maxQuantity || maxQuantity === 0;
     }, [maxQuantity]);
 
     return {

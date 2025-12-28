@@ -6,8 +6,8 @@ import React, { memo, useMemo } from "react";
 import { useSpuContext } from "@/features/spu/hooks";
 import { useSkuContext } from "@/features/sku/hooks";
 
-import { ICartItemModel } from "@/models/cart";;
-import CartAddItem from "@/features/cart/cart-add"
+import { ICartItemModel } from "@/models/cart";
+import CartAddItem from "@/features/cart/cart-add";
 
 import { mapCartItem } from "@/features/cart/helpers";
 

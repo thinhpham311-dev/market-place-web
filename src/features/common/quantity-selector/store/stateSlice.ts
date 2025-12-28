@@ -1,9 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
-    IQuantity,
-    createDefault,
+    IQuantity, createDefault,
     initialState
-} from "./initial";
+} from "@/features/common/quantity-selector/store/initials"
 
 const quantitySlice = createSlice({
     name: "quantity/state",

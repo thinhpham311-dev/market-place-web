@@ -4,7 +4,7 @@ import React, { memo, useMemo } from "react";
 import { ICartItemModel } from "@/models/cart";;
 import CartBuyNow from "@/features/cart/cart-add"
 
-import { mapCartItem } from "@/features/cart/helpers";
+import { mapCartItem } from "@/features/cart/helpers/mapCartItem";
 
 //actions & selectors
 import { useGetQuantityValue } from "@/features/common/quantity-selector/hooks/useGetQuantityValue";

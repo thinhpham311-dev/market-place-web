@@ -1,5 +1,6 @@
 // quantity.initial.ts
 
+
 export interface IQuantity {
     currentQuantity: number;
 }

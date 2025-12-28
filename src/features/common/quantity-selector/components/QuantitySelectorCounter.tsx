@@ -42,7 +42,6 @@ const QuantitySelectorCounter = () => {
         updateQuantity(value);
     };
 
-
     return (
         <CardContent className="p-3 space-x-3 flex items-center">
             <Counter

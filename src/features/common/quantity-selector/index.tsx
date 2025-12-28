@@ -13,13 +13,11 @@ import QuantitySelectorProvider from "./providers";
 // hooks
 import { useHandleQuantitySelector } from "./hooks";
 
-import { IQuantity } from "./store/initial";
-import { QUANTITY_COUNTER } from "@/features/common/quantity-selector/constants";
+import { IQuantityInitialValue } from "@/features/common/quantity-selector/interfaces";
 
 interface IQuantitySelectorProps {
     storeKey: string;
-    initialValue: IQuantity;
-    maxQuantity: number;
+    initialValue: IQuantityInitialValue;
     layout?: "vertical" | "horizontal";
     title?: string;
     onChangeQuantity?: (value: number) => void;
@@ -31,16 +29,12 @@ const QuantitySelector = React.forwardRef<
 >(({
     storeKey = "",
     initialValue,
-    maxQuantity,
     ...rest
 }, ref) => {
 
     const quantitySelector = useHandleQuantitySelector({
-        reducerKey: QUANTITY_COUNTER,
         storeKey,
         initialValue,
-        maxQuantity,
-        ...rest
     });
 
     return (

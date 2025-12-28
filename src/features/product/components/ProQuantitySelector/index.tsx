@@ -16,7 +16,6 @@ const ProQuantitySelector = () => {
     const showError = !spuLoading && hasNoData && spuError;
     const showNotFound = !spuLoading && hasNoData && !spuError;
 
-
     if (showLoading) return <LoadingSkeleton />;
     if (showError) return <NotFound message={spuError || "Something went wrong."} />;
     if (showNotFound) return <NotFound />;
@@ -25,11 +24,11 @@ const ProQuantitySelector = () => {
         <QuantitySelector
             storeKey={`${PRO_DETAIL}_${sku?.sku_id ?? "default"}`}
             initialValue={{
-                currentQuantity: 1
+                currentQuantity: 1,
+                maxQuantity: sku?.sku_stock
             }}
             title="Quantity"
             layout="horizontal"
-            maxQuantity={sku?.sku_stock}
         />
     );
 };
