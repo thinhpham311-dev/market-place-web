@@ -1,1 +1,1 @@
-export const SORT = "SORT"
+export const SORT = "SORT";

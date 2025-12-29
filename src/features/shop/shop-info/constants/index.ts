@@ -1,1 +1,1 @@
-export const SHOP_INFO = "SHOP_INFO"
+export const SHOP_INFO = "SHOP_INFO";

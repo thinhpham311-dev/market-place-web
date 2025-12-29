@@ -1,2 +1,2 @@
-export * from "./useShopContext"
-export * from "./useFetchData"
+export * from "./useShopContext";
+export * from "./useFetchData";

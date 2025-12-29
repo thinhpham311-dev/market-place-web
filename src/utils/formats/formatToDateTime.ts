@@ -6,25 +6,24 @@
  * @returns {string} - The formatted date-time string.
  */
 export function formatDateTime(
-    date: Date | string | number,
-    options: Intl.DateTimeFormatOptions = {},
-    locale: string = 'en-US'
+  date: Date | string | number,
+  options: Intl.DateTimeFormatOptions = {},
+  locale: string = "en-US",
 ): string {
-    const validDate = new Date(date);
-    if (isNaN(validDate.getTime())) {
-        throw new Error("Invalid date input");
-    }
+  const validDate = new Date(date);
+  if (isNaN(validDate.getTime())) {
+    throw new Error("Invalid date input");
+  }
 
-    const defaultOptions: Intl.DateTimeFormatOptions = {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true, // For 12-hour format, set to false for 24-hour format.
-    };
+  const defaultOptions: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true, // For 12-hour format, set to false for 24-hour format.
+  };
 
-    return new Intl.DateTimeFormat(locale, { ...defaultOptions, ...options }).format(validDate);
+  return new Intl.DateTimeFormat(locale, { ...defaultOptions, ...options }).format(validDate);
 }
-

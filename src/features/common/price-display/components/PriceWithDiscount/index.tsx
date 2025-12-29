@@ -8,77 +8,52 @@ import LoadingSkeleton from "../Loading";
 import { useMemo } from "react";
 
 const PriceWithDiscount = () => {
-    const { defaultPrice, currentPrice, flashSalePrice, loading } = usePriceDisplayContext();
-    if (loading) return <LoadingSkeleton />;
+  const { defaultPrice, currentPrice, flashSalePrice, loading } = usePriceDisplayContext();
+  if (loading) return <LoadingSkeleton />;
 
-    const {
-        current,
-        old,
-        hasDiscount,
-        discountPercent,
-        isFlashSaleActive,
-    } = useMemo(() => {
-        const hasFlashSale =
-            flashSalePrice &&
-            flashSalePrice > 0 &&
-            flashSalePrice < currentPrice;
+  const { current, old, hasDiscount, discountPercent, isFlashSaleActive } = useMemo(() => {
+    const hasFlashSale = flashSalePrice && flashSalePrice > 0 && flashSalePrice < currentPrice;
 
-        const hasDefaultDiscount =
-            !hasFlashSale &&
-            defaultPrice &&
-            defaultPrice > currentPrice;
+    const hasDefaultDiscount = !hasFlashSale && defaultPrice && defaultPrice > currentPrice;
 
-        const current = hasFlashSale ? flashSalePrice : currentPrice;
-        const old =
-            hasFlashSale
-                ? currentPrice
-                : hasDefaultDiscount
-                    ? defaultPrice
-                    : undefined;
+    const current = hasFlashSale ? flashSalePrice : currentPrice;
+    const old = hasFlashSale ? currentPrice : hasDefaultDiscount ? defaultPrice : undefined;
 
-        let discountPercent = 0;
+    let discountPercent = 0;
 
-        if (hasFlashSale && currentPrice > 0) {
-            discountPercent = Math.round(((currentPrice - flashSalePrice) / currentPrice) * 100);
-        } else if (hasDefaultDiscount && defaultPrice) {
-            discountPercent = Math.round(((defaultPrice - currentPrice) / defaultPrice) * 100);
-        }
+    if (hasFlashSale && currentPrice > 0) {
+      discountPercent = Math.round(((currentPrice - flashSalePrice) / currentPrice) * 100);
+    } else if (hasDefaultDiscount && defaultPrice) {
+      discountPercent = Math.round(((defaultPrice - currentPrice) / defaultPrice) * 100);
+    }
 
-        return {
-            current,
-            old,
-            discountPercent,
-            hasDiscount: discountPercent > 0,
-            isFlashSaleActive: !!hasFlashSale,
-        };
-    }, [defaultPrice, currentPrice, flashSalePrice]);
+    return {
+      current,
+      old,
+      discountPercent,
+      hasDiscount: discountPercent > 0,
+      isFlashSaleActive: !!hasFlashSale,
+    };
+  }, [defaultPrice, currentPrice, flashSalePrice]);
 
-    return (
-        <div className="price-with-discount">
-            <div className="flex items-center gap-2">
-                <PriceText
-                    value={current}
-                    className={hasDiscount ? "text-red-600 font-bold" : ""}
-                />
+  return (
+    <div className="price-with-discount">
+      <div className="flex items-center gap-2">
+        <PriceText value={current} className={hasDiscount ? "text-red-600 font-bold" : ""} />
 
-                {old !== undefined && <OldPrice value={old} />}
+        {old !== undefined && <OldPrice value={old} />}
 
-                {hasDiscount && (
-                    <DiscountBadge
-                        percent={discountPercent}
-                        isFlashSale={isFlashSaleActive}
-                    />
-                )}
-            </div>
+        {hasDiscount && <DiscountBadge percent={discountPercent} isFlashSale={isFlashSaleActive} />}
+      </div>
 
-            {/* Flash sale timer (nếu cần hiển thị) */}
-            {isFlashSaleActive && (
-                <div className="flash-sale-timer mt-1 text-sm text-red-500">
-                    ⚡ Flash sale: Kết thúc sau 02:15:33
-                </div>
-            )}
+      {/* Flash sale timer (nếu cần hiển thị) */}
+      {isFlashSaleActive && (
+        <div className="flash-sale-timer mt-1 text-sm text-red-500">
+          ⚡ Flash sale: Kết thúc sau 02:15:33
         </div>
-    );
+      )}
+    </div>
+  );
 };
 
 export default PriceWithDiscount;

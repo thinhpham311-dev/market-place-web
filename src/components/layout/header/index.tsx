@@ -1,11 +1,11 @@
-"use client"
+"use client";
 import { usePathname } from "next/navigation";
-import { SidebarTrigger } from "@/components/ui/sidebar"
-import { ThemeToggle } from "@/components/shared"
-import { UserDropdown, SearchForm, Logo, ShoppingCart } from "@/components/shared"
+import { SidebarTrigger } from "@/components/ui/sidebar";
+import { ThemeToggle } from "@/components/shared";
+import { UserDropdown, SearchForm, Logo, ShoppingCart } from "@/components/shared";
 
 export default function SiteHeader() {
-  const path = usePathname()
+  const path = usePathname();
 
   return (
     <header className="w-full border-b sticky top-0 bg-background z-10">

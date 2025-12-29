@@ -10,26 +10,26 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'res.cloudinary.com',
-        pathname: '**',
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        pathname: "**",
       },
       {
-        protocol: 'https',
-        hostname: 'images2.thanhnien.vn',
-        pathname: '**',
+        protocol: "https",
+        hostname: "images2.thanhnien.vn",
+        pathname: "**",
       },
       {
-        protocol: 'https',
-        hostname: 'cdn.grofers.com',
-        pathname: "**"
+        protocol: "https",
+        hostname: "cdn.grofers.com",
+        pathname: "**",
       },
       {
-        protocol: 'http',
-        hostname: 'localhost',
+        protocol: "http",
+        hostname: "localhost",
       },
     ],
-  }
+  },
 };
 
 export default nextConfig;

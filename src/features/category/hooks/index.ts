@@ -1,1 +1,1 @@
-export * from "./useNavigationActive"
+export * from "./useNavigationActive";

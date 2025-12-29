@@ -13,59 +13,52 @@ import { injectReducer, removeReducer } from "@/store";
 import { PRO_LIST_BY_CATEGORYID } from "@/features/product/list/by-category-id/constants";
 
 interface UseFetchDataParams {
-    lastId?: string;
+  lastId?: string;
 }
 
 export function useFetchData({ lastId }: UseFetchDataParams) {
-    const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
-    // Inject and clean up reducer
-    useLayoutEffect(() => {
-        injectReducer(PRO_LIST_BY_CATEGORYID, reducer);
-        return () => {
-            removeReducer(PRO_LIST_BY_CATEGORYID);
-        };
-    }, [PRO_LIST_BY_CATEGORYID]);
+  // Inject and clean up reducer
+  useLayoutEffect(() => {
+    injectReducer(PRO_LIST_BY_CATEGORYID, reducer);
+    return () => {
+      removeReducer(PRO_LIST_BY_CATEGORYID);
+    };
+  }, [PRO_LIST_BY_CATEGORYID]);
 
-    // Selectors
-    const { currentPage = 1, limit = 15 } = useGetPaginationValue({ storeKey: PRO_LIST_BY_CATEGORYID })
+  // Selectors
+  const { currentPage = 1, limit = 15 } = useGetPaginationValue({
+    storeKey: PRO_LIST_BY_CATEGORYID,
+  });
 
-    const { filter } = useGetFilterValue({ storeKey: PRO_LIST_BY_CATEGORYID })
+  const { filter } = useGetFilterValue({ storeKey: PRO_LIST_BY_CATEGORYID });
 
+  const { sortBy } = useGetSortByValue({ storeKey: PRO_LIST_BY_CATEGORYID });
 
-    const {
-        sortBy
-    } = useGetSortByValue({ storeKey: PRO_LIST_BY_CATEGORYID });
+  const {
+    products = [],
+    loading = false,
+    error = null,
+    totalItems = 0,
+  } = useAppSelector(selectProByCategoryIdByStoreKey(PRO_LIST_BY_CATEGORYID));
 
-    const {
-        products = [],
-        loading = false,
-        error = null,
-        totalItems = 0
-    } = useAppSelector(selectProByCategoryIdByStoreKey(PRO_LIST_BY_CATEGORYID));
-
-    // Fetch product list
-    useEffect(() => {
-        const promise = dispatch(
-            getProductListByCategories({
-                limit,
-                sortBy,
-                page: currentPage,
-                ids: lastId,
-                filter
-            }) as any
-        );
-
-        return () => {
-            promise.abort?.(); // optional chaining in case abort is not available
-        };
-    }, [dispatch,
-        lastId,
-        filter,
+  // Fetch product list
+  useEffect(() => {
+    const promise = dispatch(
+      getProductListByCategories({
+        limit,
         sortBy,
-        currentPage,
-        limit
-    ]);
+        page: currentPage,
+        ids: lastId,
+        filter,
+      }) as any,
+    );
 
-    return { products, totalItems, loading, error };
+    return () => {
+      promise.abort?.(); // optional chaining in case abort is not available
+    };
+  }, [dispatch, lastId, filter, sortBy, currentPage, limit]);
+
+  return { products, totalItems, loading, error };
 }

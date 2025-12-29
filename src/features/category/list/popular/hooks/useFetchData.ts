@@ -9,29 +9,30 @@ import { injectReducer, removeReducer } from "@/store";
 //constants
 import { CAT_POPULAR_LIST } from "@/features/category/list/popular/constants";
 
-
 export function useFetchData() {
-    useLayoutEffect(() => {
-        injectReducer(CAT_POPULAR_LIST, reducer)
+  useLayoutEffect(() => {
+    injectReducer(CAT_POPULAR_LIST, reducer);
 
-        return () => {
-            removeReducer(CAT_POPULAR_LIST)
-        }
-    }, [CAT_POPULAR_LIST])
+    return () => {
+      removeReducer(CAT_POPULAR_LIST);
+    };
+  }, [CAT_POPULAR_LIST]);
 
-    const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
-    const { categories, totalItems, loading, error = null } = useAppSelector(
-        selectCatPopularListByStoreKey(CAT_POPULAR_LIST)
-    );
+  const {
+    categories,
+    totalItems,
+    loading,
+    error = null,
+  } = useAppSelector(selectCatPopularListByStoreKey(CAT_POPULAR_LIST));
 
+  useEffect(() => {
+    const promise = dispatch(getCategoryList({}) as any);
+    return () => {
+      promise.abort();
+    };
+  }, [dispatch]);
 
-    useEffect(() => {
-        const promise = dispatch(getCategoryList({}) as any);
-        return () => {
-            promise.abort();
-        };
-    }, [dispatch]);
-
-    return { categories, totalItems, loading, error };
+  return { categories, totalItems, loading, error };
 }

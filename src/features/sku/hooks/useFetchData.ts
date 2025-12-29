@@ -16,45 +16,49 @@ import { ISkuModel } from "@/models/sku";
 import { SKU_KEY } from "@/features/sku/constants";
 
 interface IUseFetchDataParams {
-    product_id?: string;
-    storeKey: string;
-    sku_tier_idx?: (number | null)[];
-    optionsCount: number
+  product_id?: string;
+  storeKey: string;
+  sku_tier_idx?: (number | null)[];
+  optionsCount: number;
 }
 
-export function useFetchData({ product_id, storeKey, sku_tier_idx, optionsCount }: IUseFetchDataParams) {
-    useLayoutEffect(() => {
-        const reducerKey = `${SKU_KEY}_${storeKey}`;
-        injectReducer(reducerKey, reducer);
-        return () => {
-            removeReducer(reducerKey);
-        };
-    }, [storeKey]);
+export function useFetchData({
+  product_id,
+  storeKey,
+  sku_tier_idx,
+  optionsCount,
+}: IUseFetchDataParams) {
+  useLayoutEffect(() => {
+    const reducerKey = `${SKU_KEY}_${storeKey}`;
+    injectReducer(reducerKey, reducer);
+    return () => {
+      removeReducer(reducerKey);
+    };
+  }, [storeKey]);
 
-    const dispatch = useAppDispatch();
-    const {
-        sku,
-        loading = false,
-        error = null,
-        status = "",
-    } = useAppSelector(selectSkuDetailByStoreKey(storeKey));
+  const dispatch = useAppDispatch();
+  const {
+    sku,
+    loading = false,
+    error = null,
+    status = "",
+  } = useAppSelector(selectSkuDetailByStoreKey(storeKey));
 
+  useEffect(() => {
+    if (!product_id) return;
+    if (!sku_tier_idx) return;
+    const promise = dispatch(
+      getSkuDetail({
+        product_id,
+        sku_tier_idx,
+        optionsCount,
+      } as { optionsCount: number } & ISkuModel) as any,
+    );
 
-    useEffect(() => {
-        if (!product_id) return;
-        if (!sku_tier_idx) return;
-        const promise = dispatch(
-            getSkuDetail({
-                product_id,
-                sku_tier_idx,
-                optionsCount,
-            } as { optionsCount: number } & ISkuModel) as any
-        );
+    return () => {
+      promise.abort?.();
+    };
+  }, [dispatch, product_id, sku_tier_idx, optionsCount]);
 
-        return () => {
-            promise.abort?.();
-        };
-    }, [dispatch, product_id, sku_tier_idx, optionsCount]);
-
-    return { sku, loading, error, status };
+  return { sku, loading, error, status };
 }

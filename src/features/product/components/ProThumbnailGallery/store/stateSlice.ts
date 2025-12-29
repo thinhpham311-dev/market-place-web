@@ -1,23 +1,21 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-
 interface ProductState {
-    current: number;
+  current: number;
 }
 
-
 const initialState: ProductState = {
-    current: 0,
+  current: 0,
 };
 
 const stateSlice = createSlice({
-    name: "gallery",
-    initialState,
-    reducers: {
-        setCurrent: (state, action: PayloadAction<number>) => {
-            state.current = action.payload;
-        },
+  name: "gallery",
+  initialState,
+  reducers: {
+    setCurrent: (state, action: PayloadAction<number>) => {
+      state.current = action.payload;
     },
+  },
 });
 
 export const { setCurrent } = stateSlice.actions;

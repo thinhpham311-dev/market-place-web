@@ -9,33 +9,32 @@ import { injectReducer, removeReducer } from "@/store";
 //constants
 
 interface IUseFetchData {
-    storeKey: string;
+  storeKey: string;
 }
 
 export function useFetchData({ storeKey }: IUseFetchData) {
-    useLayoutEffect(() => {
-        injectReducer(storeKey, reducer)
-        return () => {
-            removeReducer(storeKey)
-        }
-    }, [storeKey])
+  useLayoutEffect(() => {
+    injectReducer(storeKey, reducer);
+    return () => {
+      removeReducer(storeKey);
+    };
+  }, [storeKey]);
 
-    const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
-    const {
-        products = [],
-        totalItems,
-        loading,
-        error = null
-    } = useAppSelector(selectProTopPickListByStoreKey(storeKey));
+  const {
+    products = [],
+    totalItems,
+    loading,
+    error = null,
+  } = useAppSelector(selectProTopPickListByStoreKey(storeKey));
 
-    useEffect(() => {
-        const promise = dispatch(getProductList({ limit: 12, sortBy: "ctime", page: 1 }) as any);
-        ;
-        return () => {
-            promise.abort();
-        };
-    }, [dispatch]);
+  useEffect(() => {
+    const promise = dispatch(getProductList({ limit: 12, sortBy: "ctime", page: 1 }) as any);
+    return () => {
+      promise.abort();
+    };
+  }, [dispatch]);
 
-    return { products, totalItems, loading, error };
+  return { products, totalItems, loading, error };
 }

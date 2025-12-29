@@ -1,3 +1,3 @@
-import { NormalizedApiError } from '@/lib/http/handleAxiosError'
+import { NormalizedApiError } from "@/lib/http/handleAxiosError";
 
-export type MaybeError = NormalizedApiError | null
+export type MaybeError = NormalizedApiError | null;

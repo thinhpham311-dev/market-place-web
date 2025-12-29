@@ -1,2 +1,2 @@
-export * from "./order-status.type"
-export * from "../payment/payment-method.type"
+export * from "./order-status.type";
+export * from "../payment/payment-method.type";

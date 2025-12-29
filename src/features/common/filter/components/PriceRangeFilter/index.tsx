@@ -8,42 +8,34 @@ import PriceApplyButton from "./PriceApplyButton";
 // import { useFilterContext } from "@/features/common/filter/hooks"
 
 interface IFilterPriceRangeProps {
-    options: string
+  options: string;
 }
 
-const FilterPriceRange = ({
+const FilterPriceRange = (
+  {
     //  options
-}: IFilterPriceRangeProps) => {
+  }: IFilterPriceRangeProps,
+) => {
+  // const { handleSetFilter } = useFilterContext()
 
-    // const { handleSetFilter } = useFilterContext()
+  const handleInputChange = (index: 0 | 1, value: string) => {
+    console.log(index, value);
+  };
 
-    const handleInputChange = (index: 0 | 1, value: string) => {
-        console.log(index, value)
-    };
+  const handleApply = () => {};
 
-    const handleApply = () => {
-    };
-
-    return (
-        <Card className="border-none shadow-none">
-            <CardContent className="p-0">
-                <div className="grid grid-cols-5 items-center gap-y-3">
-                    <PriceInput
-                        placeholder="Min"
-                        value={0}
-                        onChange={(v) => handleInputChange(0, v)}
-                    />
-                    <span className="text-center">-</span>
-                    <PriceInput
-                        placeholder="Max"
-                        value={1000}
-                        onChange={(v) => handleInputChange(1, v)}
-                    />
-                    <PriceApplyButton onClick={handleApply} />
-                </div>
-            </CardContent>
-        </Card>
-    );
+  return (
+    <Card className="border-none shadow-none">
+      <CardContent className="p-0">
+        <div className="grid grid-cols-5 items-center gap-y-3">
+          <PriceInput placeholder="Min" value={0} onChange={(v) => handleInputChange(0, v)} />
+          <span className="text-center">-</span>
+          <PriceInput placeholder="Max" value={1000} onChange={(v) => handleInputChange(1, v)} />
+          <PriceApplyButton onClick={handleApply} />
+        </div>
+      </CardContent>
+    </Card>
+  );
 };
 
 export default FilterPriceRange;

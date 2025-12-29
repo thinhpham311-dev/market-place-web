@@ -1,1 +1,1 @@
-export type PriceRange = [min: number, max: number]
+export type PriceRange = [min: number, max: number];

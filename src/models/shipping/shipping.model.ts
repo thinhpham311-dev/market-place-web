@@ -1,5 +1,5 @@
-import { IShippingAddressModel } from "./shipping-address.model"
+import { IShippingAddressModel } from "./shipping-address.model";
 
 export interface IShippingModel {
-    shippingAddress: IShippingAddressModel
+  shippingAddress: IShippingAddressModel;
 }

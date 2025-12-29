@@ -1,32 +1,32 @@
-"use client"
+"use client";
 
 import * as React from "react";
 
 //ui
 import {
-    ColumnDef,
-    // ColumnFiltersState,
-    // SortingState,
-    // VisibilityState,
-    // flexRender,
-    // getCoreRowModel,
-    // getFilteredRowModel,
-    // getPaginationRowModel,
-    // getSortedRowModel,
-    // useReactTable,
+  ColumnDef,
+  // ColumnFiltersState,
+  // SortingState,
+  // VisibilityState,
+  // flexRender,
+  // getCoreRowModel,
+  // getFilteredRowModel,
+  // getPaginationRowModel,
+  // getSortedRowModel,
+  // useReactTable,
 } from "@tanstack/react-table";
 import {
-    // Table,
-    // TableBody,
-    // TableCell,
-    // TableHead,
-    // TableHeader,
-    // TableRow,
-    Card,
-    CardContent,
-    CardHeader,
-    CardTitle,
-    CardFooter
+  // Table,
+  // TableBody,
+  // TableCell,
+  // TableHead,
+  // TableHeader,
+  // TableRow,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardFooter,
 } from "@/components/ui/card";
 import DropDownMenuOfItem from "./DropDownMenuOfItem";
 
@@ -36,129 +36,121 @@ import { IOrderModel } from "@/models/order";
 
 //libs
 import { formatDateTime } from "@/utils/formats";
-import { formatToCurrency } from "@/utils/formats"
+import { formatToCurrency } from "@/utils/formats";
 // import Toolbar from "./Toolbar";
 // import Pagination from "./Pagination";
 
 //lib
 
 const statusMapping: Record<string, { label: string; color: string }> = {
-    inProgress: { label: "In Progress", color: "text-blue-500" },
-    tranforming: { label: "TranForming", color: "text-yellow-500" },
-    completed: { label: "Completed", color: "text-green-500" },
-    cancel: { label: "Cancel", color: "text-red-500" },
+  inProgress: { label: "In Progress", color: "text-blue-500" },
+  tranforming: { label: "TranForming", color: "text-yellow-500" },
+  completed: { label: "Completed", color: "text-green-500" },
+  cancel: { label: "Cancel", color: "text-red-500" },
 };
 
 // Table Columns
 export const columns: ColumnDef<IOrderModel>[] = [
-    {
-        accessorKey: "user",
-        header: "Full Name",
-        cell: ({ row }) => {
-            const { user } = row.original
-            return (
-                <div className="capitalize">{user?.name}</div>
-            )
-        }
+  {
+    accessorKey: "user",
+    header: "Full Name",
+    cell: ({ row }) => {
+      const { user } = row.original;
+      return <div className="capitalize">{user?.name}</div>;
     },
-    {
-        accessorKey: "totalPrice",
-        header: "Total Price",
-        cell: ({ row }) => (
-            <div className="capitalize">{formatToCurrency(row.getValue("totalPrice"))}</div>
-        ),
+  },
+  {
+    accessorKey: "totalPrice",
+    header: "Total Price",
+    cell: ({ row }) => (
+      <div className="capitalize">{formatToCurrency(row.getValue("totalPrice"))}</div>
+    ),
+  },
+  {
+    accessorKey: "shippingPrice",
+    header: "Shipping Price",
+    cell: ({ row }) => (
+      <div className="capitalize">{formatToCurrency(row.getValue("shippingPrice"))}</div>
+    ),
+  },
+  {
+    accessorKey: "taxPrice",
+    header: "Tax Price",
+    cell: ({ row }) => (
+      <div className="capitalize">{formatToCurrency(row.getValue("taxPrice"))}</div>
+    ),
+  },
+  {
+    accessorKey: "createdAt",
+    header: "Create At",
+    cell: ({ row }) => (
+      <div className="capitalize">{formatDateTime(row.getValue("createdAt"))}</div>
+    ),
+  },
+  {
+    accessorKey: "deliveredAt",
+    header: "Delivered At",
+    cell: ({ row }) => (
+      <div className="capitalize">{formatDateTime(row.getValue("deliveredAt"))}</div>
+    ),
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+    cell: ({ row }) => {
+      const statusKey = row.getValue<string>("status");
+      const statusInfo = statusMapping[statusKey] || { label: "Unknown", color: "text-gray-500" };
+      return <div className={`capitalize font-bold ${statusInfo.color}`}>{statusInfo.label}</div>;
     },
-    {
-        accessorKey: "shippingPrice",
-        header: "Shipping Price",
-        cell: ({ row }) => (
-            <div className="capitalize">{formatToCurrency(row.getValue("shippingPrice"))}</div>
-        ),
-    },
-    {
-        accessorKey: "taxPrice",
-        header: "Tax Price",
-        cell: ({ row }) => (
-            <div className="capitalize">{formatToCurrency(row.getValue("taxPrice"))}</div>
-        ),
-    },
-    {
-        accessorKey: "createdAt",
-        header: "Create At",
-        cell: ({ row }) => (
-            <div className="capitalize">{formatDateTime(row.getValue("createdAt"))}</div>
-        ),
-    },
-    {
-        accessorKey: "deliveredAt",
-        header: "Delivered At",
-        cell: ({ row }) => (
-            <div className="capitalize">{formatDateTime(row.getValue("deliveredAt"))}</div>
-        ),
-    },
-    {
-        accessorKey: "status",
-        header: "Status",
-        cell: ({ row }) => {
-            const statusKey = row.getValue<string>("status");
-            const statusInfo = statusMapping[statusKey] || { label: "Unknown", color: "text-gray-500" };
-            return (
-                <div className={`capitalize font-bold ${statusInfo.color}`}>
-                    {statusInfo.label}
-                </div>
-            );
-        },
-    },
-    {
-        id: "actions",
-        enableHiding: false,
-        cell: ({ row }) => {
-            const order = row.original;
+  },
+  {
+    id: "actions",
+    enableHiding: false,
+    cell: ({ row }) => {
+      const order = row.original;
 
-            return <DropDownMenuOfItem order={order} />
-        },
+      return <DropDownMenuOfItem order={order} />;
     },
+  },
 ];
 
 // Main Component
 export default function OrderItemsListOfUser() {
-    // const [sorting, setSorting] = React.useState<SortingState>([]);
-    // const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    //     []
-    // );
-    // const [columnVisibility, setColumnVisibility] =
-    //     React.useState<VisibilityState>({});
-    // const [rowSelection, setRowSelection] = React.useState({});
+  // const [sorting, setSorting] = React.useState<SortingState>([]);
+  // const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+  //     []
+  // );
+  // const [columnVisibility, setColumnVisibility] =
+  //     React.useState<VisibilityState>({});
+  // const [rowSelection, setRowSelection] = React.useState({});
 
-    // const table = useReactTable<IOrder>({
-    //     data: orderData as IOrder[],
-    //     columns,
-    //     onSortingChange: setSorting,
-    //     onColumnFiltersChange: setColumnFilters,
-    //     getCoreRowModel: getCoreRowModel(),
-    //     getPaginationRowModel: getPaginationRowModel(),
-    //     getSortedRowModel: getSortedRowModel(),
-    //     getFilteredRowModel: getFilteredRowModel(),
-    //     onColumnVisibilityChange: setColumnVisibility,
-    //     onRowSelectionChange: setRowSelection,
-    //     state: {
-    //         sorting,
-    //         columnFilters,
-    //         columnVisibility,
-    //         rowSelection,
-    //     },
-    // });
+  // const table = useReactTable<IOrder>({
+  //     data: orderData as IOrder[],
+  //     columns,
+  //     onSortingChange: setSorting,
+  //     onColumnFiltersChange: setColumnFilters,
+  //     getCoreRowModel: getCoreRowModel(),
+  //     getPaginationRowModel: getPaginationRowModel(),
+  //     getSortedRowModel: getSortedRowModel(),
+  //     getFilteredRowModel: getFilteredRowModel(),
+  //     onColumnVisibilityChange: setColumnVisibility,
+  //     onRowSelectionChange: setRowSelection,
+  //     state: {
+  //         sorting,
+  //         columnFilters,
+  //         columnVisibility,
+  //         rowSelection,
+  //     },
+  // });
 
-    return (
-        <Card className="w-full p-3 md:p-6">
-            <CardHeader className="flex flex-row items-center justify-between py-0">
-                <CardTitle>
-                    Order History List
-                </CardTitle>
-                {/* <Toolbar table={table} /> */}
-            </CardHeader>
-            <CardContent className="rounded-md p-0">
-                {/* <Table>
+  return (
+    <Card className="w-full p-3 md:p-6">
+      <CardHeader className="flex flex-row items-center justify-between py-0">
+        <CardTitle>Order History List</CardTitle>
+        {/* <Toolbar table={table} /> */}
+      </CardHeader>
+      <CardContent className="rounded-md p-0">
+        {/* <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
@@ -206,10 +198,8 @@ export default function OrderItemsListOfUser() {
                         )}
                     </TableBody>
                 </Table> */}
-            </CardContent>
-            <CardFooter className="py-0">
-                {/* <Pagination table={table} /> */}
-            </CardFooter>
-        </Card>
-    );
+      </CardContent>
+      <CardFooter className="py-0">{/* <Pagination table={table} /> */}</CardFooter>
+    </Card>
+  );
 }

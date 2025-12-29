@@ -12,48 +12,49 @@ import { injectReducer, removeReducer } from "@/store";
 //constants
 
 interface IUseFetchData {
-    storeKey: string;
-    keyword?: string;
+  storeKey: string;
+  keyword?: string;
 }
 
 export function useFetchData({ storeKey, keyword }: IUseFetchData) {
-    useLayoutEffect(() => {
-        injectReducer(storeKey, reducer)
+  useLayoutEffect(() => {
+    injectReducer(storeKey, reducer);
 
-        return () => {
-            removeReducer(storeKey)
-        }
-    }, [storeKey])
+    return () => {
+      removeReducer(storeKey);
+    };
+  }, [storeKey]);
 
-    const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
-    const { currentPage = 1, limit = 15 } = useGetPaginationValue({ storeKey });
+  const { currentPage = 1, limit = 15 } = useGetPaginationValue({ storeKey });
 
-    const { filter } = useGetFilterValue({ storeKey });
+  const { filter } = useGetFilterValue({ storeKey });
 
-    const { sortBy } = useGetSortByValue({ storeKey });
+  const { sortBy } = useGetSortByValue({ storeKey });
 
+  const {
+    products = [],
+    totalItems,
+    loading,
+    error = null,
+    status = "",
+  } = useAppSelector(selectProSearchListByStoreKey(storeKey));
 
-    const {
-        products = [],
-        totalItems,
-        loading,
-        error = null,
-        status = ""
-    } = useAppSelector(selectProSearchListByStoreKey(storeKey));
+  useEffect(() => {
+    const promise = dispatch(
+      getProductList({
+        limit,
+        sortBy,
+        page: currentPage,
+        filter,
+        search: keyword,
+      }) as any,
+    );
+    return () => {
+      promise.abort();
+    };
+  }, [dispatch, keyword, filter, sortBy, currentPage, limit]);
 
-    useEffect(() => {
-        const promise = dispatch(getProductList({
-            limit,
-            sortBy,
-            page: currentPage,
-            filter,
-            search: keyword
-        }) as any);
-        return () => {
-            promise.abort();
-        };
-    }, [dispatch, keyword, filter, sortBy, currentPage, limit]);
-
-    return { products, totalItems, loading, error, status };
+  return { products, totalItems, loading, error, status };
 }

@@ -1,1 +1,1 @@
-export const DATA_TABLE = "DATA_TABLE"
+export const DATA_TABLE = "DATA_TABLE";

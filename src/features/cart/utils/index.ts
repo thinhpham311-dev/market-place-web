@@ -1,1 +1,1 @@
-export * from "./renderVariants"
+export * from "./renderVariants";

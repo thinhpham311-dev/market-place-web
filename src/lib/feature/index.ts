@@ -1,3 +1,3 @@
-export * from "./wildCardSearch"
-export * from "./sortBy"
-export * from "./paginate"
+export * from "./wildCardSearch";
+export * from "./sortBy";
+export * from "./paginate";

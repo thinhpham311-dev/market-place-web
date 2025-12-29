@@ -8,37 +8,32 @@ import reducer from "./store";
 import { useSyncCarousels } from "./hooks";
 import { images } from "@/constants/data";
 
-
 injectReducer("gallery", reducer);
 
 export default function ProThumbnailGallery() {
-    const { current, setApi, navigateTo } = useSyncCarousels();
+  const { current, setApi, navigateTo } = useSyncCarousels();
 
-    return (
-        <Card className="border-none shadow-none space-y-2">
-            <CardContent className="w-full lg:w-auto p-0">
-                <GalleryCarousel
-                    data={images}
-                    onSetApi={(api) => setApi("main", api)}
-                    onNavigate={navigateTo}
-                />
-            </CardContent>
+  return (
+    <Card className="border-none shadow-none space-y-2">
+      <CardContent className="w-full lg:w-auto p-0">
+        <GalleryCarousel
+          data={images}
+          onSetApi={(api) => setApi("main", api)}
+          onNavigate={navigateTo}
+        />
+      </CardContent>
 
-            <CardFooter className="relative p-0">
-                <GalleryCarousel
-                    data={images}
-                    onSetApi={(api) => setApi("thumbnail", api)}
-                    current={current}
-                    className="basis-1/6"
-                    onNavigate={navigateTo}
-                />
+      <CardFooter className="relative p-0">
+        <GalleryCarousel
+          data={images}
+          onSetApi={(api) => setApi("thumbnail", api)}
+          current={current}
+          className="basis-1/6"
+          onNavigate={navigateTo}
+        />
 
-                <GalleryNavigation
-                    current={current}
-                    total={images.length}
-                    onNavigate={navigateTo}
-                />
-            </CardFooter>
-        </Card>
-    );
+        <GalleryNavigation current={current} total={images.length} onNavigate={navigateTo} />
+      </CardFooter>
+    </Card>
+  );
 }

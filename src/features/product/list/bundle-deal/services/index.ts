@@ -1,10 +1,10 @@
-import ApiService from "@/services/ApiService"
-import { IProductListRequest } from "@/features/product/list/bundle-deal/interfaces"
+import ApiService from "@/services/ApiService";
+import { IProductListRequest } from "@/features/product/list/bundle-deal/interfaces";
 
 export async function apiPostProductsList(data: IProductListRequest) {
-    return ApiService.fetchData({
-        url: `/spu/all`,
-        method: 'POST',
-        data
-    })
+  return ApiService.fetchData({
+    url: `/spu/all`,
+    method: "POST",
+    data,
+  });
 }

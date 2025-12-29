@@ -1,17 +1,16 @@
 // quantity.initial.ts
 
-
 export interface IQuantity {
-    currentQuantity: number;
+  currentQuantity: number;
 }
 
 export interface IState {
-    [storeKey: string]: IQuantity;
+  [storeKey: string]: IQuantity;
 }
 
 // default value for a single store
 export const createDefault = (): IQuantity => ({
-    currentQuantity: 1,
+  currentQuantity: 1,
 });
 
 // initial root state

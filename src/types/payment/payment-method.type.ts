@@ -1,5 +1,1 @@
-export type PaymentMethod =
-    | 'cod'
-    | 'paypal'
-    | 'stripe'
-    | 'bank_transfer'
+export type PaymentMethod = "cod" | "paypal" | "stripe" | "bank_transfer";

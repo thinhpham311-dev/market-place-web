@@ -1,30 +1,30 @@
-import { IOrderItemModel } from './order-item.model'
-import { IShippingModel } from '@/models/shipping'
-import { IPaymentModel } from '../payment/payment.model'
-import { OrderStatus } from '@/types/order/order-status.type'
+import { IOrderItemModel } from "./order-item.model";
+import { IShippingModel } from "@/models/shipping";
+import { IPaymentModel } from "../payment/payment.model";
+import { OrderStatus } from "@/types/order/order-status.type";
 
 export interface IOrderModel {
-    id: string
+  id: string;
 
-    user?: {
-        name: string
-    }
+  user?: {
+    name: string;
+  };
 
-    items: IOrderItemModel[]
+  items: IOrderItemModel[];
 
-    shipping: IShippingModel
-    payment: IPaymentModel
-    itemsPrice: number
-    shippingPrice: number
-    taxPrice: number
-    totalPrice: number
+  shipping: IShippingModel;
+  payment: IPaymentModel;
+  itemsPrice: number;
+  shippingPrice: number;
+  taxPrice: number;
+  totalPrice: number;
 
-    isPaid: boolean
-    isDelivered: boolean
+  isPaid: boolean;
+  isDelivered: boolean;
 
-    paidAt?: string
-    deliveredAt?: string
-    createdAt: string
+  paidAt?: string;
+  deliveredAt?: string;
+  createdAt: string;
 
-    status: OrderStatus
+  status: OrderStatus;
 }

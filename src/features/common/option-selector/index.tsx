@@ -9,41 +9,35 @@ import OptionSelectorProvider from "./providers";
 import { IOptionInitialValue } from "@/features/common/option-selector/interfaces";
 
 interface IOptionSelectorProps {
-    storeKey: string;
-    initialValue: IOptionInitialValue;
-    loading?: boolean;
-    error?: string | { message?: string } | null;
-    title?: string;
-    layout?: "vertical" | "horizontal";
-    layoutItems?: "vertical" | "horizontal";
+  storeKey: string;
+  initialValue: IOptionInitialValue;
+  loading?: boolean;
+  error?: string | { message?: string } | null;
+  title?: string;
+  layout?: "vertical" | "horizontal";
+  layoutItems?: "vertical" | "horizontal";
 }
 
-const OptionSelector = React.forwardRef<
-    HTMLDivElement,
-    IOptionSelectorProps
->(({
-    storeKey,
-    initialValue,
-    ...rest
-}, ref) => {
-
+const OptionSelector = React.forwardRef<HTMLDivElement, IOptionSelectorProps>(
+  ({ storeKey, initialValue, ...rest }, ref) => {
     const optionSelector = useHandleOptionSelector({
-        storeKey,
-        initialValue
+      storeKey,
+      initialValue,
     });
 
     return (
-        <OptionSelectorProvider contextValues={{ ...optionSelector, ...rest }}>
-            {/* 👇 ref phải gắn vào DOM */}
-            <div ref={ref}>
-                <OptionSelectorWrapper>
-                    <OptionSelectorTitle />
-                    <OptionSelectorList />
-                </OptionSelectorWrapper>
-            </div>
-        </OptionSelectorProvider>
+      <OptionSelectorProvider contextValues={{ ...optionSelector, ...rest }}>
+        {/* 👇 ref phải gắn vào DOM */}
+        <div ref={ref}>
+          <OptionSelectorWrapper>
+            <OptionSelectorTitle />
+            <OptionSelectorList />
+          </OptionSelectorWrapper>
+        </div>
+      </OptionSelectorProvider>
     );
-});
+  },
+);
 
 OptionSelector.displayName = "OptionSelector";
 

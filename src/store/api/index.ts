@@ -1,8 +1,8 @@
-import { combineReducers } from '@reduxjs/toolkit'
-import cache from './cacheSlice'
+import { combineReducers } from "@reduxjs/toolkit";
+import cache from "./cacheSlice";
 
 const reducer = combineReducers({
-    cache
-})
+  cache,
+});
 
-export default reducer
+export default reducer;

@@ -1,1 +1,1 @@
-export type PaymentStatus = 'success' | 'failed' | 'pending'
+export type PaymentStatus = "success" | "failed" | "pending";

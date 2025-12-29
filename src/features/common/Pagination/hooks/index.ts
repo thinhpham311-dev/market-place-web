@@ -1,3 +1,3 @@
-export * from "./useHandlePagination"
-export * from "./usePaginationContext"
-export * from "./useGetPaginationValue"
+export * from "./useHandlePagination";
+export * from "./usePaginationContext";
+export * from "./useGetPaginationValue";

@@ -1,1 +1,1 @@
-export * from "./sku.model"
+export * from "./sku.model";

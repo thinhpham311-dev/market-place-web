@@ -1,1 +1,1 @@
-export const PAGINATION = "PAGINATION"
+export const PAGINATION = "PAGINATION";

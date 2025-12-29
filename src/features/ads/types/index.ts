@@ -1,6 +1,5 @@
-
 export interface IAds {
-    image: string,
-    title?: string | undefined,
-    description?: string
+  image: string;
+  title?: string | undefined;
+  description?: string;
 }

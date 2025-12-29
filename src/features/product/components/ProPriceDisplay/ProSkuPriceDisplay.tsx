@@ -6,29 +6,27 @@ import { useSkuContext } from "@/features/sku/hooks";
 import LoadingSkeleton from "./LoadingSkeleton";
 
 export default function SkuPriceDisplay({ spu }: { spu: any }) {
-    const { sku, loading: skuLoading } = useSkuContext();
+  const { sku, loading: skuLoading } = useSkuContext();
 
-    const defaultPrice = spu?.product_price;
-    const currentPrice = sku?.sku_price ?? defaultPrice;
+  const defaultPrice = spu?.product_price;
+  const currentPrice = sku?.sku_price ?? defaultPrice;
 
-    const hasNoData = !sku || Object.keys(sku).length === 0;
+  const hasNoData = !sku || Object.keys(sku).length === 0;
 
+  if (skuLoading && hasNoData) {
+    return <LoadingSkeleton />;
+  }
 
-    if (skuLoading && hasNoData) {
-        return <LoadingSkeleton />;
-    }
-
-
-    return (
-        <PriceDisplay
-            storeKey={`${PRO_DETAIL}_${sku?.sku_id ?? "default"}`}
-            initialValue={{
-                flashSalePrice: 0,
-                maxPrice: 0,
-                minPrice: 0,
-                defaultPrice,
-                currentPrice
-            }}
-        />
-    );
+  return (
+    <PriceDisplay
+      storeKey={`${PRO_DETAIL}_${sku?.sku_id ?? "default"}`}
+      initialValue={{
+        flashSalePrice: 0,
+        maxPrice: 0,
+        minPrice: 0,
+        defaultPrice,
+        currentPrice,
+      }}
+    />
+  );
 }

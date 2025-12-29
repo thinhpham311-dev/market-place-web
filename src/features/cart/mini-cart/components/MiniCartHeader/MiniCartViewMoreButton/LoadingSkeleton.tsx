@@ -1,9 +1,5 @@
-import { Skeleton } from "@/components/ui/skeleton"
+import { Skeleton } from "@/components/ui/skeleton";
 
-const LoadingSkeleton = () => (
+const LoadingSkeleton = () => <Skeleton className="h-4 w-8" />;
 
-    <Skeleton className="h-4 w-8" />
-
-);
-
-export default LoadingSkeleton
+export default LoadingSkeleton;

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
@@ -16,45 +16,41 @@ import { ISpuModel } from "@/models/spu";
 //constants
 import { SPU_KEY } from "@/features/spu/constants";
 
-
 interface IUseFetchDataParams {
-    product_id?: string;
-    storeKey: string;
+  product_id?: string;
+  storeKey: string;
 }
 
 export function useFetchData({ product_id, storeKey }: IUseFetchDataParams) {
+  useEffect(() => {
+    const reducerKey = `${SPU_KEY}_${storeKey}`;
+    injectReducer(reducerKey, reducer);
+    return () => {
+      removeReducer(reducerKey);
+    };
+  }, [storeKey]);
 
-    useEffect(() => {
-        const reducerKey = `${SPU_KEY}_${storeKey}`;
-        injectReducer(reducerKey, reducer);
-        return () => {
-            removeReducer(reducerKey);
-        };
-    }, [storeKey]);
+  const dispatch = useAppDispatch();
 
-    const dispatch = useAppDispatch();
+  const {
+    spu,
+    loading = false,
+    error = null,
+    status = "",
+  } = useAppSelector(selectSpuDetailByStoreKey(storeKey));
 
-    const {
-        spu,
-        loading = false,
-        error = null,
-        status = "",
-    } = useAppSelector(selectSpuDetailByStoreKey(storeKey));
+  useEffect(() => {
+    if (!product_id) return;
+    const promise = dispatch(
+      getSpuDetail({
+        product_id,
+      } as ISpuModel) as any,
+    );
 
+    return () => {
+      promise.abort?.();
+    };
+  }, [dispatch, product_id]);
 
-    useEffect(() => {
-        if (!product_id) return;
-        const promise = dispatch(getSpuDetail({
-            product_id
-        } as ISpuModel) as any);
-
-
-        return () => {
-            promise.abort?.();
-        };
-    }, [dispatch,
-        product_id
-    ]);
-
-    return { spu, loading, error, status };
+  return { spu, loading, error, status };
 }

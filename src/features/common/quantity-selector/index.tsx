@@ -16,39 +16,34 @@ import { useHandleQuantitySelector } from "./hooks";
 import { IQuantityInitialValue } from "@/features/common/quantity-selector/interfaces";
 
 interface IQuantitySelectorProps {
-    storeKey: string;
-    initialValue: IQuantityInitialValue;
-    layout?: "vertical" | "horizontal";
-    title?: string;
-    onChangeQuantity?: (value: number) => void;
+  storeKey: string;
+  initialValue: IQuantityInitialValue;
+  layout?: "vertical" | "horizontal";
+  title?: string;
+  onChangeQuantity?: (value: number) => void;
 }
 
-const QuantitySelector = React.forwardRef<
-    HTMLDivElement,
-    IQuantitySelectorProps
->(({
-    storeKey = "",
-    initialValue,
-    ...rest
-}, ref) => {
-
+const QuantitySelector = React.forwardRef<HTMLDivElement, IQuantitySelectorProps>(
+  ({ storeKey = "", initialValue, ...rest }, ref) => {
     const quantitySelector = useHandleQuantitySelector({
-        storeKey,
-        initialValue,
+      storeKey,
+      initialValue,
+      ...rest,
     });
 
     return (
-        <QuantitySelectorProvider contextValues={{ ...quantitySelector, ...rest }}>
-            <div ref={ref}>
-                <QuantitySelectorWrapper>
-                    <QuantitySelectorTitle />
-                    <QuantitySelectorCounter />
-                    <QuantitySelectorStock />
-                </QuantitySelectorWrapper>
-            </div>
-        </QuantitySelectorProvider>
+      <QuantitySelectorProvider contextValues={{ ...quantitySelector, ...rest }}>
+        <div ref={ref}>
+          <QuantitySelectorWrapper>
+            <QuantitySelectorTitle />
+            <QuantitySelectorCounter />
+            <QuantitySelectorStock />
+          </QuantitySelectorWrapper>
+        </div>
+      </QuantitySelectorProvider>
     );
-});
+  },
+);
 
 QuantitySelector.displayName = "QuantitySelector";
 

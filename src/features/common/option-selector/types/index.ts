@@ -1,4 +1,3 @@
-
 export type Option = {
-    [key: string]: any;
+  [key: string]: any;
 };

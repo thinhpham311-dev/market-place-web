@@ -1,4 +1,1 @@
-export type StoreKey =
-    | `user:${string}`
-    | `session:${string}`
-    | `cart:${string}`
+export type StoreKey = `user:${string}` | `session:${string}` | `cart:${string}`;

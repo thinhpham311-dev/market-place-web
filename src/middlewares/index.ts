@@ -1,1 +1,1 @@
-export * from "./smartCacheMiddleware"
+export * from "./smartCacheMiddleware";

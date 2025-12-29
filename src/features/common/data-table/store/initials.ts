@@ -1,23 +1,20 @@
-import {
-    GroupingState,
-    VisibilityState
-} from '@tanstack/react-table'
+import { GroupingState, VisibilityState } from "@tanstack/react-table";
 
 export interface IDataTable {
-    grouping: GroupingState
-    columnVisibility: VisibilityState
+  grouping: GroupingState;
+  columnVisibility: VisibilityState;
 }
 
 export interface IState {
-    [storeKey: string]: IDataTable;
+  [storeKey: string]: IDataTable;
 }
 
 // default value for a single store
 export const createDefault = (): IDataTable => ({
-    grouping: ['itemShopId'],
-    columnVisibility: {
-        itemShopId: false,
-    },
+  grouping: ["itemShopId"],
+  columnVisibility: {
+    itemShopId: false,
+  },
 });
 
 // initial root state

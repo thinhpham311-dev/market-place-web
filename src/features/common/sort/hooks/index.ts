@@ -1,3 +1,3 @@
-export * from "./useHandleSortBy"
-export * from "./useSortByContext"
-export * from "./useGetSortByValue"
+export * from "./useHandleSortBy";
+export * from "./useSortByContext";
+export * from "./useGetSortByValue";

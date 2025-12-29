@@ -8,39 +8,41 @@ import reducer from "@/features/product/list/suggestion/store";
 import { injectReducer, removeReducer } from "@/store";
 
 interface IUseFetchData {
-    storeKey: string;
+  storeKey: string;
 }
 
 export function useFetchData({ storeKey }: IUseFetchData) {
-    useLayoutEffect(() => {
-        injectReducer(storeKey, reducer)
+  useLayoutEffect(() => {
+    injectReducer(storeKey, reducer);
 
-        return () => {
-            removeReducer(storeKey)
-        }
-    }, [storeKey])
+    return () => {
+      removeReducer(storeKey);
+    };
+  }, [storeKey]);
 
-    const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
-    const { currentPage = 1, limit = 15 } = useGetPaginationValue({ storeKey });
+  const { currentPage = 1, limit = 15 } = useGetPaginationValue({ storeKey });
 
-    const {
-        products = [],
-        totalItems,
-        loading,
-        error = null
-    } = useAppSelector(selectProSuggestionListByStoreKey(storeKey));
+  const {
+    products = [],
+    totalItems,
+    loading,
+    error = null,
+  } = useAppSelector(selectProSuggestionListByStoreKey(storeKey));
 
-    useEffect(() => {
-        const promise = dispatch(getProductList({
-            limit,
-            sortBy: "ctime",
-            page: currentPage,
-        }) as any);
-        return () => {
-            promise.abort();
-        };
-    }, [dispatch, currentPage, limit]);
+  useEffect(() => {
+    const promise = dispatch(
+      getProductList({
+        limit,
+        sortBy: "ctime",
+        page: currentPage,
+      }) as any,
+    );
+    return () => {
+      promise.abort();
+    };
+  }, [dispatch, currentPage, limit]);
 
-    return { products, totalItems, loading, error };
+  return { products, totalItems, loading, error };
 }

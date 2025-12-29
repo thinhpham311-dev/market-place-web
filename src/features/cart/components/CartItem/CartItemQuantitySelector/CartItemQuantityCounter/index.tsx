@@ -1,69 +1,63 @@
-import { ICartItemModel } from "@/models/cart";;
+import { ICartItemModel } from "@/models/cart";
 import { useShoppingCartContext } from "@/features/cart/hooks";
 import { QuantitySelector } from "@/features/common";
 import { SHOPPING_CART } from "@/features/cart/constants";
-import ErrorMsg from "./ErrorMsg"
+import ErrorMsg from "./ErrorMsg";
 import LoadingSkeleton from "./LoadingSkeleton";
 
-import { toast } from "sonner"
-
+import { toast } from "sonner";
 
 interface ICartItemQuantityCounterProps {
-    data: ICartItemModel
+  data: ICartItemModel;
 }
 
-const CartItemQuantityCounter = ({
-    data
-}: ICartItemQuantityCounterProps) => {
+const CartItemQuantityCounter = ({ data }: ICartItemQuantityCounterProps) => {
+  const { loading, error, updateQtyItem } = useShoppingCartContext();
 
-    const { loading, error, updateQtyItem } = useShoppingCartContext();
+  const { itemSkuId, itemSpuName, itemQuantity, itemSkuStock } = data;
 
-    const {
-        itemSkuId,
-        itemSpuName,
-        itemQuantity,
-        itemSkuStock,
-    } = data;
+  const handleQuantityChange = (value: number) => {
+    console.log(value);
+    updateQtyItem({
+      ...data,
+      itemQuantity: value,
+    });
 
-    const handleQuantityChange = (value: number) => {
+    setTimeout(() => {
+      const id = toast.success("update quantity!", {
+        description: (
+          <span className="text-white">
+            The product {itemSpuName} x {value} has been removed from your cart.
+          </span>
+        ),
+        action: {
+          label: "Close",
+          onClick: () => {
+            toast.dismiss(id);
+          },
+        },
+      });
+    }, 500);
+  };
 
-        updateQtyItem({
-            ...data,
-            itemQuantity: value,
-        });
+  if (error?.byItem[itemSkuId]?.updateQty) {
+    return <ErrorMsg message={error?.byItem[itemSkuId]?.updateQty?.message} />;
+  }
 
-        setTimeout(() => {
-            const id = toast.success("update quantity!", {
-                description: <span className="text-white">The product {itemSpuName} x {value} has been removed from your cart.</span>,
-                action: {
-                    label: "Close",
-                    onClick: () => {
-                        toast.dismiss(id);
-                    },
-                },
-            });
-        }, 500);
-    };
+  if (loading.byItem[itemSkuId]?.updateQty) {
+    return <LoadingSkeleton />;
+  }
 
-
-    if (error?.byItem[itemSkuId]?.updateQty) {
-        return <ErrorMsg message={error?.byItem[itemSkuId]?.updateQty?.message} />;
-    }
-
-    if (loading.byItem[itemSkuId]?.updateQty) {
-        return <LoadingSkeleton />;
-    }
-
-    return (
-        <QuantitySelector
-            storeKey={`${SHOPPING_CART}_${itemSkuId}`}
-            initialValue={{
-                currentQuantity: itemQuantity,
-                maxQuantity: itemSkuStock
-            }}
-            onChangeQuantity={handleQuantityChange}
-        />
-    );
+  return (
+    <QuantitySelector
+      storeKey={`${SHOPPING_CART}_${itemSkuId}`}
+      initialValue={{
+        defaultCurrentQuantity: itemQuantity,
+        maxQuantity: itemSkuStock,
+      }}
+      onChangeQuantity={handleQuantityChange}
+    />
+  );
 };
 
 export default CartItemQuantityCounter;

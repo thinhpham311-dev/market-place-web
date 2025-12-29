@@ -1,6 +1,6 @@
-export const PRO_HOT_DEAL_LIST = "PRO_HOT_DEAL_LIST"
-export const PRO_HOT_DEAL_LIST_CACHE_KEY = "PRO_HOT_DEAL_LIST_CACHE_KEY"
-export const PRO_HOT_DEAL_LIST_TAG = "PRO_HOT_DEAL_LIST_TAG"
-export const PRO_HOT_DEAL_LIST_TTL = 5 * 60 * 1000 // 5 minutes
-export const PRO_HOT_DEAL_LIST_RETRIES = 2
-export const PRO_HOT_DEAL_LIST_RETRY_DELAY = 500 // 0.5 second
+export const PRO_HOT_DEAL_LIST = "PRO_HOT_DEAL_LIST";
+export const PRO_HOT_DEAL_LIST_CACHE_KEY = "PRO_HOT_DEAL_LIST_CACHE_KEY";
+export const PRO_HOT_DEAL_LIST_TAG = "PRO_HOT_DEAL_LIST_TAG";
+export const PRO_HOT_DEAL_LIST_TTL = 5 * 60 * 1000; // 5 minutes
+export const PRO_HOT_DEAL_LIST_RETRIES = 2;
+export const PRO_HOT_DEAL_LIST_RETRY_DELAY = 500; // 0.5 second

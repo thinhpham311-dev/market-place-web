@@ -1,26 +1,26 @@
-'use client';
+"use client";
 
-import { useRouter, usePathname } from 'next/navigation';
-import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import { useRouter, usePathname } from "next/navigation";
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 
 interface Props {
-    locale: string;
-    label: string;
-    currentLang: string;
+  locale: string;
+  label: string;
+  currentLang: string;
 }
 
 export default function LanguageItem({ locale, label, currentLang }: Props) {
-    const pathname = usePathname();
-    const router = useRouter();
+  const pathname = usePathname();
+  const router = useRouter();
 
-    const handleChangeLanguage = () => {
-        const newPath = `/${locale}${pathname}`;
-        router.push(newPath);
-    };
+  const handleChangeLanguage = () => {
+    const newPath = `/${locale}${pathname}`;
+    router.push(newPath);
+  };
 
-    return (
-        <DropdownMenuItem onSelect={handleChangeLanguage} disabled={locale === currentLang}>
-            {label}
-        </DropdownMenuItem>
-    );
+  return (
+    <DropdownMenuItem onSelect={handleChangeLanguage} disabled={locale === currentLang}>
+      {label}
+    </DropdownMenuItem>
+  );
 }

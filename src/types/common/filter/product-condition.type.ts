@@ -1,4 +1,1 @@
-export type ProductCondition =
-    | 'new'
-    | 'used'
-    | 'refurbished'
+export type ProductCondition = "new" | "used" | "refurbished";

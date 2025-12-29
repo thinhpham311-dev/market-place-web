@@ -1,2 +1,2 @@
-export * from "./useHandlePriceDisplay"
-export * from "./usePriceDisplayContext"
+export * from "./useHandlePriceDisplay";
+export * from "./usePriceDisplayContext";

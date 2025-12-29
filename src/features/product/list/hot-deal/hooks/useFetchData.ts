@@ -9,31 +9,30 @@ import { injectReducer, removeReducer } from "@/store";
 //constants
 import { PRO_HOT_DEAL_LIST } from "@/features/product/list/hot-deal/constants";
 
-
 export function useFetchData() {
-    useLayoutEffect(() => {
-        injectReducer(PRO_HOT_DEAL_LIST, reducer)
+  useLayoutEffect(() => {
+    injectReducer(PRO_HOT_DEAL_LIST, reducer);
 
-        return () => {
-            removeReducer(PRO_HOT_DEAL_LIST)
-        }
-    }, [PRO_HOT_DEAL_LIST])
+    return () => {
+      removeReducer(PRO_HOT_DEAL_LIST);
+    };
+  }, [PRO_HOT_DEAL_LIST]);
 
-    const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
-    const {
-        products = [],
-        totalItems,
-        loading,
-        error = null
-    } = useAppSelector(selectProHotDealListByStoreKey(PRO_HOT_DEAL_LIST));
+  const {
+    products = [],
+    totalItems,
+    loading,
+    error = null,
+  } = useAppSelector(selectProHotDealListByStoreKey(PRO_HOT_DEAL_LIST));
 
-    useEffect(() => {
-        const promise = dispatch(getProductList({ limit: 12, sortBy: "ctime", page: 1 }) as any);
-        return () => {
-            promise.abort();
-        };
-    }, [dispatch]);
+  useEffect(() => {
+    const promise = dispatch(getProductList({ limit: 12, sortBy: "ctime", page: 1 }) as any);
+    return () => {
+      promise.abort();
+    };
+  }, [dispatch]);
 
-    return { products, totalItems, loading, error };
+  return { products, totalItems, loading, error };
 }

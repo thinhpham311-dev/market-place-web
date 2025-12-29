@@ -1,2 +1,2 @@
-export * from "./useDataTableContext"
-export * from "./useHandleDataTable"
+export * from "./useDataTableContext";
+export * from "./useHandleDataTable";

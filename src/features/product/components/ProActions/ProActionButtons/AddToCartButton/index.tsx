@@ -21,35 +21,35 @@ import { PRO_DETAIL } from "@/features/product/constants";
 import { MdAddShoppingCart } from "react-icons/md";
 
 const AddToCartButton = () => {
-    const { spu } = useSpuContext();
-    const { sku } = useSkuContext();
+  const { spu } = useSpuContext();
+  const { sku } = useSkuContext();
 
-    const { currentQuantity: qty } = useGetQuantityValue({ storeKey: `${PRO_DETAIL}_${sku?.sku_id}` })
+  const { currentQuantity: qty } = useGetQuantityValue({
+    storeKey: `${PRO_DETAIL}_${sku?.sku_id}`,
+  });
+  const data: ICartItemModel | null = useMemo(() => {
+    if (!spu || !sku) return null;
+    if (!qty) return null;
 
-    const data: ICartItemModel | null = useMemo(() => {
-        if (!spu || !sku) return null;
-        if (!qty) return null
+    return mapCartItem({
+      spu,
+      sku,
+      itemQuantity: qty,
+    });
+  }, [spu, sku, qty]);
 
-        return mapCartItem({
-            spu,
-            sku,
-            itemQuantity: qty,
-        });
+  const isDisabled = !data || qty >= sku.sku_stock;
 
-    }, [spu, sku, qty]);
-
-    const isDisabled = !data || qty >= sku.sku_stock;
-
-    return (
-        <CartAddItem
-            size="lg"
-            icon={<MdAddShoppingCart />}
-            label="Add To Cart"
-            variant="secondary"
-            item={data}
-            disabled={isDisabled}
-        />
-    );
+  return (
+    <CartAddItem
+      size="lg"
+      icon={<MdAddShoppingCart />}
+      label="Add To Cart"
+      variant="secondary"
+      item={data}
+      disabled={isDisabled}
+    />
+  );
 };
 
 export default memo(AddToCartButton);

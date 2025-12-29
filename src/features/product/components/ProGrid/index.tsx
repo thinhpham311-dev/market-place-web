@@ -6,43 +6,34 @@ import NotFound from "./NotFound";
 import { cn } from "@/utils/styles";
 
 interface SpuGridProps {
-    data: ISpuModel[];
-    className?: string;
-    isLoading: boolean;
-    error?: Error | null;
-    countLoadItems?: number;
+  data: ISpuModel[];
+  className?: string;
+  isLoading: boolean;
+  error?: Error | null;
+  countLoadItems?: number;
 }
 
-const ProGrid = ({
-    data,
-    className,
-    isLoading,
-    error,
-    countLoadItems = 12,
-}: SpuGridProps) => {
+const ProGrid = ({ data, className, isLoading, error, countLoadItems = 12 }: SpuGridProps) => {
+  const hasNoData = !data || data.length === 0;
 
-    const hasNoData = !data || data.length === 0;
+  if (isLoading && hasNoData) {
+    return <LoadingSkeleton className={className} count={countLoadItems} />;
+  }
 
-    if (isLoading && hasNoData) {
-        return <LoadingSkeleton className={className} count={countLoadItems} />;
-    }
+  if (!isLoading && hasNoData && error) {
+    return <NotFound message={error.message || "Something went wrong."} />;
+  }
 
-    if (!isLoading && hasNoData && error) {
-        return <NotFound message={error.message || "Something went wrong."} />;
-    }
-
-    if (hasNoData) {
-        return <NotFound />;
-    }
-    return (
-        <div className={cn("grid w-full", className)}>
-            {data.map((item) => (
-                <SpuCard key={item.product_id} item={item} isLoading={false} />
-            ))}
-        </div>
-    );
-
-
+  if (hasNoData) {
+    return <NotFound />;
+  }
+  return (
+    <div className={cn("grid w-full", className)}>
+      {data.map((item) => (
+        <SpuCard key={item.product_id} item={item} isLoading={false} />
+      ))}
+    </div>
+  );
 };
 
 export default ProGrid;

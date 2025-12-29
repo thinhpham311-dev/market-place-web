@@ -1,13 +1,13 @@
 // quantity.initial.ts
 export interface IQuantityInitialValue {
-    currentQuantity: number;
-    maxQuantity: number;
+  defaultCurrentQuantity: number;
+  maxQuantity: number;
 }
 
 export interface IQuantityInitialState {
-    currentQuantity: number;
+  currentQuantity: number;
 }
 
 export interface IState {
-    [storeKey: string]: IQuantityInitialState;
+  [storeKey: string]: IQuantityInitialState;
 }

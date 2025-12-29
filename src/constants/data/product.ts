@@ -1,10 +1,12 @@
 export const productData = [
-    {
-        _id: "1",
-        product_name: "Product 1",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
-        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
-        description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
+  {
+    _id: "1",
+    product_name: "Product 1",
+    image:
+      "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
+    article:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+    description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
                         </p><p>- Thành phần tự nhiên 100% cotton, chất bông mềm mịn.</p><p>
                         </p><p>- Miếng bông có thiết kế hình vuông, kích thước 6x5cm, cực kỳ vừa vặn khi sử dụng.</p><p>
@@ -38,53 +40,55 @@ export const productData = [
                         </p><p>- Bảo quản nơi khô ráo, tránh ánh nắng mặt trời trực tiếp và nhiệt độ cao.</p><p>
                         </p><p>- Thời hạn sử dụng là 3 năm kể từ ngày sản xuất</p><p>
                         </p><p>✪ Lưu ý khi mua hàng: Khách tham khảo kỹ bảng size, mô tả sản phẩm và ảnh cận chất liệu để lựa chọn sản phẩm phù hợp với mình (tránh trường hợp mua sản phẩm không phù hợp với ý thích). Mọi thắc mắc khác vui lòng liên hệ qua Shopee chat để được trả lời nhanh nhất.</p><p>#shopeechoice #shopeechoicevietnam #choicevietnam</p></div></div>`,
-        options: [
-            {
-                label: "Size",
-                value: [
-                    {
-                        label: "Size S",
-                        value: "size-s"
-                    },
-                    {
-                        label: "Size M",
-                        value: "size-m"
-                    },
-                    {
-                        label: "Size L",
-                        value: "size-l"
-                    },
-                    {
-                        label: "Size XL",
-                        value: "size-xl"
-                    },
-                    {
-                        label: "Size XXL",
-                        value: "size-xxl"
-                    }
-                ],
-            },
-            {
-                label: "Color",
-                value: [
-                    { label: "White", value: "white" },
-                    { label: "Black", value: "black" },
-                    { label: "Red", value: "red" },
-                    { label: "Yellow", value: "Yellow" }
-                ],
-            }
+    options: [
+      {
+        label: "Size",
+        value: [
+          {
+            label: "Size S",
+            value: "size-s",
+          },
+          {
+            label: "Size M",
+            value: "size-m",
+          },
+          {
+            label: "Size L",
+            value: "size-l",
+          },
+          {
+            label: "Size XL",
+            value: "size-xl",
+          },
+          {
+            label: "Size XXL",
+            value: "size-xxl",
+          },
         ],
-        product_slug: "product-1",
-        product_price: 20,
-        discountPrice: 30,
-        quantity: 30,
-    },
-    {
-        _id: "2",
-        product_name: "Product 2",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
-        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
-        description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
+      },
+      {
+        label: "Color",
+        value: [
+          { label: "White", value: "white" },
+          { label: "Black", value: "black" },
+          { label: "Red", value: "red" },
+          { label: "Yellow", value: "Yellow" },
+        ],
+      },
+    ],
+    product_slug: "product-1",
+    product_price: 20,
+    discountPrice: 30,
+    quantity: 30,
+  },
+  {
+    _id: "2",
+    product_name: "Product 2",
+    image:
+      "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
+    article:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+    description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
                         </p><p>- Thành phần tự nhiên 100% cotton, chất bông mềm mịn.</p><p>
                         </p><p>- Miếng bông có thiết kế hình vuông, kích thước 6x5cm, cực kỳ vừa vặn khi sử dụng.</p><p>
@@ -118,53 +122,55 @@ export const productData = [
                         </p><p>- Bảo quản nơi khô ráo, tránh ánh nắng mặt trời trực tiếp và nhiệt độ cao.</p><p>
                         </p><p>- Thời hạn sử dụng là 3 năm kể từ ngày sản xuất</p><p>
                         </p><p>✪ Lưu ý khi mua hàng: Khách tham khảo kỹ bảng size, mô tả sản phẩm và ảnh cận chất liệu để lựa chọn sản phẩm phù hợp với mình (tránh trường hợp mua sản phẩm không phù hợp với ý thích). Mọi thắc mắc khác vui lòng liên hệ qua Shopee chat để được trả lời nhanh nhất.</p><p>#shopeechoice #shopeechoicevietnam #choicevietnam</p></div></div>`,
-        options: [
-            {
-                label: "Size",
-                value: [
-                    {
-                        label: "Size S",
-                        value: "size-s"
-                    },
-                    {
-                        label: "Size M",
-                        value: "size-m"
-                    },
-                    {
-                        label: "Size L",
-                        value: "size-l"
-                    },
-                    {
-                        label: "Size XL",
-                        value: "size-xl"
-                    },
-                    {
-                        label: "Size XXL",
-                        value: "size-xxl"
-                    }
-                ],
-            },
-            {
-                label: "Color",
-                value: [
-                    { label: "White", value: "white" },
-                    { label: "Black", value: "black" },
-                    { label: "Red", value: "red" },
-                    { label: "Yellow", value: "Yellow" }
-                ],
-            }
+    options: [
+      {
+        label: "Size",
+        value: [
+          {
+            label: "Size S",
+            value: "size-s",
+          },
+          {
+            label: "Size M",
+            value: "size-m",
+          },
+          {
+            label: "Size L",
+            value: "size-l",
+          },
+          {
+            label: "Size XL",
+            value: "size-xl",
+          },
+          {
+            label: "Size XXL",
+            value: "size-xxl",
+          },
         ],
-        product_slug: 'product-2',
-        product_price: 2000,
-        discountPrice: 2000,
-        quantity: 30,
-    },
-    {
-        _id: "3",
-        product_name: "Product 3",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
-        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
-        description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
+      },
+      {
+        label: "Color",
+        value: [
+          { label: "White", value: "white" },
+          { label: "Black", value: "black" },
+          { label: "Red", value: "red" },
+          { label: "Yellow", value: "Yellow" },
+        ],
+      },
+    ],
+    product_slug: "product-2",
+    product_price: 2000,
+    discountPrice: 2000,
+    quantity: 30,
+  },
+  {
+    _id: "3",
+    product_name: "Product 3",
+    image:
+      "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
+    article:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+    description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
                         </p><p>- Thành phần tự nhiên 100% cotton, chất bông mềm mịn.</p><p>
                         </p><p>- Miếng bông có thiết kế hình vuông, kích thước 6x5cm, cực kỳ vừa vặn khi sử dụng.</p><p>
@@ -198,53 +204,55 @@ export const productData = [
                         </p><p>- Bảo quản nơi khô ráo, tránh ánh nắng mặt trời trực tiếp và nhiệt độ cao.</p><p>
                         </p><p>- Thời hạn sử dụng là 3 năm kể từ ngày sản xuất</p><p>
                         </p><p>✪ Lưu ý khi mua hàng: Khách tham khảo kỹ bảng size, mô tả sản phẩm và ảnh cận chất liệu để lựa chọn sản phẩm phù hợp với mình (tránh trường hợp mua sản phẩm không phù hợp với ý thích). Mọi thắc mắc khác vui lòng liên hệ qua Shopee chat để được trả lời nhanh nhất.</p><p>#shopeechoice #shopeechoicevietnam #choicevietnam</p></div></div>`,
-        options: [
-            {
-                label: "Size",
-                value: [
-                    {
-                        label: "Size S",
-                        value: "size-s"
-                    },
-                    {
-                        label: "Size M",
-                        value: "size-m"
-                    },
-                    {
-                        label: "Size L",
-                        value: "size-l"
-                    },
-                    {
-                        label: "Size XL",
-                        value: "size-xl"
-                    },
-                    {
-                        label: "Size XXL",
-                        value: "size-xxl"
-                    }
-                ],
-            },
-            {
-                label: "Color",
-                value: [
-                    { label: "White", value: "white" },
-                    { label: "Black", value: "black" },
-                    { label: "Red", value: "red" },
-                    { label: "Yellow", value: "Yellow" }
-                ],
-            }
+    options: [
+      {
+        label: "Size",
+        value: [
+          {
+            label: "Size S",
+            value: "size-s",
+          },
+          {
+            label: "Size M",
+            value: "size-m",
+          },
+          {
+            label: "Size L",
+            value: "size-l",
+          },
+          {
+            label: "Size XL",
+            value: "size-xl",
+          },
+          {
+            label: "Size XXL",
+            value: "size-xxl",
+          },
         ],
-        product_slug: 'product-3',
-        product_price: 2000,
-        discountPrice: 2000,
-        quantity: 30,
-    },
-    {
-        _id: "4",
-        product_name: "Product 4",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
-        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
-        description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
+      },
+      {
+        label: "Color",
+        value: [
+          { label: "White", value: "white" },
+          { label: "Black", value: "black" },
+          { label: "Red", value: "red" },
+          { label: "Yellow", value: "Yellow" },
+        ],
+      },
+    ],
+    product_slug: "product-3",
+    product_price: 2000,
+    discountPrice: 2000,
+    quantity: 30,
+  },
+  {
+    _id: "4",
+    product_name: "Product 4",
+    image:
+      "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
+    article:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+    description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
                         </p><p>- Thành phần tự nhiên 100% cotton, chất bông mềm mịn.</p><p>
                         </p><p>- Miếng bông có thiết kế hình vuông, kích thước 6x5cm, cực kỳ vừa vặn khi sử dụng.</p><p>
@@ -278,44 +286,46 @@ export const productData = [
                         </p><p>- Bảo quản nơi khô ráo, tránh ánh nắng mặt trời trực tiếp và nhiệt độ cao.</p><p>
                         </p><p>- Thời hạn sử dụng là 3 năm kể từ ngày sản xuất</p><p>
                         </p><p>✪ Lưu ý khi mua hàng: Khách tham khảo kỹ bảng size, mô tả sản phẩm và ảnh cận chất liệu để lựa chọn sản phẩm phù hợp với mình (tránh trường hợp mua sản phẩm không phù hợp với ý thích). Mọi thắc mắc khác vui lòng liên hệ qua Shopee chat để được trả lời nhanh nhất.</p><p>#shopeechoice #shopeechoicevietnam #choicevietnam</p></div></div>`,
-        options: [
-            {
-                label: "Size",
-                value: [
-                    {
-                        label: "Size S",
-                        value: "size-s"
-                    },
-                    {
-                        label: "Size M",
-                        value: "size-m"
-                    },
-                    {
-                        label: "Size L",
-                        value: "size-l"
-                    },
-                    {
-                        label: "Size XL",
-                        value: "size-xl"
-                    },
-                    {
-                        label: "Size XXL",
-                        value: "size-xxl"
-                    }
-                ],
-            }
+    options: [
+      {
+        label: "Size",
+        value: [
+          {
+            label: "Size S",
+            value: "size-s",
+          },
+          {
+            label: "Size M",
+            value: "size-m",
+          },
+          {
+            label: "Size L",
+            value: "size-l",
+          },
+          {
+            label: "Size XL",
+            value: "size-xl",
+          },
+          {
+            label: "Size XXL",
+            value: "size-xxl",
+          },
         ],
-        product_slug: 'product-4',
-        product_price: 2000,
-        discountPrice: 2000,
-        quantity: 30,
-    },
-    {
-        _id: "5",
-        product_name: "Product",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
-        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
-        description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
+      },
+    ],
+    product_slug: "product-4",
+    product_price: 2000,
+    discountPrice: 2000,
+    quantity: 30,
+  },
+  {
+    _id: "5",
+    product_name: "Product",
+    image:
+      "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
+    article:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+    description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
                         </p><p>- Thành phần tự nhiên 100% cotton, chất bông mềm mịn.</p><p>
                         </p><p>- Miếng bông có thiết kế hình vuông, kích thước 6x5cm, cực kỳ vừa vặn khi sử dụng.</p><p>
@@ -349,53 +359,55 @@ export const productData = [
                         </p><p>- Bảo quản nơi khô ráo, tránh ánh nắng mặt trời trực tiếp và nhiệt độ cao.</p><p>
                         </p><p>- Thời hạn sử dụng là 3 năm kể từ ngày sản xuất</p><p>
                         </p><p>✪ Lưu ý khi mua hàng: Khách tham khảo kỹ bảng size, mô tả sản phẩm và ảnh cận chất liệu để lựa chọn sản phẩm phù hợp với mình (tránh trường hợp mua sản phẩm không phù hợp với ý thích). Mọi thắc mắc khác vui lòng liên hệ qua Shopee chat để được trả lời nhanh nhất.</p><p>#shopeechoice #shopeechoicevietnam #choicevietnam</p></div></div>`,
-        options: [
-            {
-                label: "Size",
-                value: [
-                    {
-                        label: "Size S",
-                        value: "size-s"
-                    },
-                    {
-                        label: "Size M",
-                        value: "size-m"
-                    },
-                    {
-                        label: "Size L",
-                        value: "size-l"
-                    },
-                    {
-                        label: "Size XL",
-                        value: "size-xl"
-                    },
-                    {
-                        label: "Size XXL",
-                        value: "size-xxl"
-                    }
-                ],
-            },
-            {
-                label: "Color",
-                value: [
-                    { label: "White", value: "white" },
-                    { label: "Black", value: "black" },
-                    { label: "Red", value: "red" },
-                    { label: "Yellow", value: "Yellow" }
-                ],
-            }
+    options: [
+      {
+        label: "Size",
+        value: [
+          {
+            label: "Size S",
+            value: "size-s",
+          },
+          {
+            label: "Size M",
+            value: "size-m",
+          },
+          {
+            label: "Size L",
+            value: "size-l",
+          },
+          {
+            label: "Size XL",
+            value: "size-xl",
+          },
+          {
+            label: "Size XXL",
+            value: "size-xxl",
+          },
         ],
-        product_slug: 'product-5',
-        product_price: 2000,
-        discountPrice: 2000,
-        quantity: 30,
-    },
-    {
-        _id: "6",
-        product_name: "Product",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
-        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
-        description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
+      },
+      {
+        label: "Color",
+        value: [
+          { label: "White", value: "white" },
+          { label: "Black", value: "black" },
+          { label: "Red", value: "red" },
+          { label: "Yellow", value: "Yellow" },
+        ],
+      },
+    ],
+    product_slug: "product-5",
+    product_price: 2000,
+    discountPrice: 2000,
+    quantity: 30,
+  },
+  {
+    _id: "6",
+    product_name: "Product",
+    image:
+      "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
+    article:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+    description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
                         </p><p>- Thành phần tự nhiên 100% cotton, chất bông mềm mịn.</p><p>
                         </p><p>- Miếng bông có thiết kế hình vuông, kích thước 6x5cm, cực kỳ vừa vặn khi sử dụng.</p><p>
@@ -429,53 +441,55 @@ export const productData = [
                         </p><p>- Bảo quản nơi khô ráo, tránh ánh nắng mặt trời trực tiếp và nhiệt độ cao.</p><p>
                         </p><p>- Thời hạn sử dụng là 3 năm kể từ ngày sản xuất</p><p>
                         </p><p>✪ Lưu ý khi mua hàng: Khách tham khảo kỹ bảng size, mô tả sản phẩm và ảnh cận chất liệu để lựa chọn sản phẩm phù hợp với mình (tránh trường hợp mua sản phẩm không phù hợp với ý thích). Mọi thắc mắc khác vui lòng liên hệ qua Shopee chat để được trả lời nhanh nhất.</p><p>#shopeechoice #shopeechoicevietnam #choicevietnam</p></div></div>`,
-        options: [
-            {
-                label: "Size",
-                value: [
-                    {
-                        label: "Size S",
-                        value: "size-s"
-                    },
-                    {
-                        label: "Size M",
-                        value: "size-m"
-                    },
-                    {
-                        label: "Size L",
-                        value: "size-l"
-                    },
-                    {
-                        label: "Size XL",
-                        value: "size-xl"
-                    },
-                    {
-                        label: "Size XXL",
-                        value: "size-xxl"
-                    }
-                ],
-            },
-            {
-                label: "Color",
-                value: [
-                    { label: "White", value: "white" },
-                    { label: "Black", value: "black" },
-                    { label: "Red", value: "red" },
-                    { label: "Yellow", value: "Yellow" }
-                ],
-            }
+    options: [
+      {
+        label: "Size",
+        value: [
+          {
+            label: "Size S",
+            value: "size-s",
+          },
+          {
+            label: "Size M",
+            value: "size-m",
+          },
+          {
+            label: "Size L",
+            value: "size-l",
+          },
+          {
+            label: "Size XL",
+            value: "size-xl",
+          },
+          {
+            label: "Size XXL",
+            value: "size-xxl",
+          },
         ],
-        product_slug: 'product-6',
-        product_price: 2000,
-        discountPrice: 2000,
-        quantity: 30,
-    },
-    {
-        _id: "7",
-        product_name: "Product",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
-        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
-        description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
+      },
+      {
+        label: "Color",
+        value: [
+          { label: "White", value: "white" },
+          { label: "Black", value: "black" },
+          { label: "Red", value: "red" },
+          { label: "Yellow", value: "Yellow" },
+        ],
+      },
+    ],
+    product_slug: "product-6",
+    product_price: 2000,
+    discountPrice: 2000,
+    quantity: 30,
+  },
+  {
+    _id: "7",
+    product_name: "Product",
+    image:
+      "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
+    article:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+    description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
                         </p><p>- Thành phần tự nhiên 100% cotton, chất bông mềm mịn.</p><p>
                         </p><p>- Miếng bông có thiết kế hình vuông, kích thước 6x5cm, cực kỳ vừa vặn khi sử dụng.</p><p>
@@ -509,53 +523,55 @@ export const productData = [
                         </p><p>- Bảo quản nơi khô ráo, tránh ánh nắng mặt trời trực tiếp và nhiệt độ cao.</p><p>
                         </p><p>- Thời hạn sử dụng là 3 năm kể từ ngày sản xuất</p><p>
                         </p><p>✪ Lưu ý khi mua hàng: Khách tham khảo kỹ bảng size, mô tả sản phẩm và ảnh cận chất liệu để lựa chọn sản phẩm phù hợp với mình (tránh trường hợp mua sản phẩm không phù hợp với ý thích). Mọi thắc mắc khác vui lòng liên hệ qua Shopee chat để được trả lời nhanh nhất.</p><p>#shopeechoice #shopeechoicevietnam #choicevietnam</p></div></div>`,
-        options: [
-            {
-                label: "Size",
-                value: [
-                    {
-                        label: "Size S",
-                        value: "size-s"
-                    },
-                    {
-                        label: "Size M",
-                        value: "size-m"
-                    },
-                    {
-                        label: "Size L",
-                        value: "size-l"
-                    },
-                    {
-                        label: "Size XL",
-                        value: "size-xl"
-                    },
-                    {
-                        label: "Size XXL",
-                        value: "size-xxl"
-                    }
-                ],
-            },
-            {
-                label: "Color",
-                value: [
-                    { label: "White", value: "white" },
-                    { label: "Black", value: "black" },
-                    { label: "Red", value: "red" },
-                    { label: "Yellow", value: "Yellow" }
-                ],
-            }
+    options: [
+      {
+        label: "Size",
+        value: [
+          {
+            label: "Size S",
+            value: "size-s",
+          },
+          {
+            label: "Size M",
+            value: "size-m",
+          },
+          {
+            label: "Size L",
+            value: "size-l",
+          },
+          {
+            label: "Size XL",
+            value: "size-xl",
+          },
+          {
+            label: "Size XXL",
+            value: "size-xxl",
+          },
         ],
-        product_slug: 'product-7',
-        product_price: 2000,
-        discountPrice: 2000,
-        quantity: 30,
-    },
-    {
-        _id: "8",
-        product_name: "Product",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
-        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
-        description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
+      },
+      {
+        label: "Color",
+        value: [
+          { label: "White", value: "white" },
+          { label: "Black", value: "black" },
+          { label: "Red", value: "red" },
+          { label: "Yellow", value: "Yellow" },
+        ],
+      },
+    ],
+    product_slug: "product-7",
+    product_price: 2000,
+    discountPrice: 2000,
+    quantity: 30,
+  },
+  {
+    _id: "8",
+    product_name: "Product",
+    image:
+      "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
+    article:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+    description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
                         </p><p>- Thành phần tự nhiên 100% cotton, chất bông mềm mịn.</p><p>
                         </p><p>- Miếng bông có thiết kế hình vuông, kích thước 6x5cm, cực kỳ vừa vặn khi sử dụng.</p><p>
@@ -589,53 +605,55 @@ export const productData = [
                         </p><p>- Bảo quản nơi khô ráo, tránh ánh nắng mặt trời trực tiếp và nhiệt độ cao.</p><p>
                         </p><p>- Thời hạn sử dụng là 3 năm kể từ ngày sản xuất</p><p>
                         </p><p>✪ Lưu ý khi mua hàng: Khách tham khảo kỹ bảng size, mô tả sản phẩm và ảnh cận chất liệu để lựa chọn sản phẩm phù hợp với mình (tránh trường hợp mua sản phẩm không phù hợp với ý thích). Mọi thắc mắc khác vui lòng liên hệ qua Shopee chat để được trả lời nhanh nhất.</p><p>#shopeechoice #shopeechoicevietnam #choicevietnam</p></div></div>`,
-        options: [
-            {
-                label: "Size",
-                value: [
-                    {
-                        label: "Size S",
-                        value: "size-s"
-                    },
-                    {
-                        label: "Size M",
-                        value: "size-m"
-                    },
-                    {
-                        label: "Size L",
-                        value: "size-l"
-                    },
-                    {
-                        label: "Size XL",
-                        value: "size-xl"
-                    },
-                    {
-                        label: "Size XXL",
-                        value: "size-xxl"
-                    }
-                ],
-            },
-            {
-                label: "Color",
-                value: [
-                    { label: "White", value: "white" },
-                    { label: "Black", value: "black" },
-                    { label: "Red", value: "red" },
-                    { label: "Yellow", value: "Yellow" }
-                ],
-            }
+    options: [
+      {
+        label: "Size",
+        value: [
+          {
+            label: "Size S",
+            value: "size-s",
+          },
+          {
+            label: "Size M",
+            value: "size-m",
+          },
+          {
+            label: "Size L",
+            value: "size-l",
+          },
+          {
+            label: "Size XL",
+            value: "size-xl",
+          },
+          {
+            label: "Size XXL",
+            value: "size-xxl",
+          },
         ],
-        product_slug: 'product-8',
-        product_price: 2000,
-        discountPrice: 2000,
-        quantity: 30,
-    },
-    {
-        _id: "9",
-        product_name: "Product",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
-        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
-        description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
+      },
+      {
+        label: "Color",
+        value: [
+          { label: "White", value: "white" },
+          { label: "Black", value: "black" },
+          { label: "Red", value: "red" },
+          { label: "Yellow", value: "Yellow" },
+        ],
+      },
+    ],
+    product_slug: "product-8",
+    product_price: 2000,
+    discountPrice: 2000,
+    quantity: 30,
+  },
+  {
+    _id: "9",
+    product_name: "Product",
+    image:
+      "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
+    article:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+    description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
                         </p><p>- Thành phần tự nhiên 100% cotton, chất bông mềm mịn.</p><p>
                         </p><p>- Miếng bông có thiết kế hình vuông, kích thước 6x5cm, cực kỳ vừa vặn khi sử dụng.</p><p>
@@ -669,53 +687,55 @@ export const productData = [
                         </p><p>- Bảo quản nơi khô ráo, tránh ánh nắng mặt trời trực tiếp và nhiệt độ cao.</p><p>
                         </p><p>- Thời hạn sử dụng là 3 năm kể từ ngày sản xuất</p><p>
                         </p><p>✪ Lưu ý khi mua hàng: Khách tham khảo kỹ bảng size, mô tả sản phẩm và ảnh cận chất liệu để lựa chọn sản phẩm phù hợp với mình (tránh trường hợp mua sản phẩm không phù hợp với ý thích). Mọi thắc mắc khác vui lòng liên hệ qua Shopee chat để được trả lời nhanh nhất.</p><p>#shopeechoice #shopeechoicevietnam #choicevietnam</p></div></div>`,
-        options: [
-            {
-                label: "Size",
-                value: [
-                    {
-                        label: "Size S",
-                        value: "size-s"
-                    },
-                    {
-                        label: "Size M",
-                        value: "size-m"
-                    },
-                    {
-                        label: "Size L",
-                        value: "size-l"
-                    },
-                    {
-                        label: "Size XL",
-                        value: "size-xl"
-                    },
-                    {
-                        label: "Size XXL",
-                        value: "size-xxl"
-                    }
-                ],
-            },
-            {
-                label: "Color",
-                value: [
-                    { label: "White", value: "white" },
-                    { label: "Black", value: "black" },
-                    { label: "Red", value: "red" },
-                    { label: "Yellow", value: "Yellow" }
-                ],
-            }
+    options: [
+      {
+        label: "Size",
+        value: [
+          {
+            label: "Size S",
+            value: "size-s",
+          },
+          {
+            label: "Size M",
+            value: "size-m",
+          },
+          {
+            label: "Size L",
+            value: "size-l",
+          },
+          {
+            label: "Size XL",
+            value: "size-xl",
+          },
+          {
+            label: "Size XXL",
+            value: "size-xxl",
+          },
         ],
-        product_slug: 'product-9',
-        product_price: 2000,
-        discountPrice: 2000,
-        quantity: 30,
-    },
-    {
-        _id: "10",
-        product_name: "Product",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
-        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
-        description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
+      },
+      {
+        label: "Color",
+        value: [
+          { label: "White", value: "white" },
+          { label: "Black", value: "black" },
+          { label: "Red", value: "red" },
+          { label: "Yellow", value: "Yellow" },
+        ],
+      },
+    ],
+    product_slug: "product-9",
+    product_price: 2000,
+    discountPrice: 2000,
+    quantity: 30,
+  },
+  {
+    _id: "10",
+    product_name: "Product",
+    image:
+      "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
+    article:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+    description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
                         </p><p>- Thành phần tự nhiên 100% cotton, chất bông mềm mịn.</p><p>
                         </p><p>- Miếng bông có thiết kế hình vuông, kích thước 6x5cm, cực kỳ vừa vặn khi sử dụng.</p><p>
@@ -749,53 +769,55 @@ export const productData = [
                         </p><p>- Bảo quản nơi khô ráo, tránh ánh nắng mặt trời trực tiếp và nhiệt độ cao.</p><p>
                         </p><p>- Thời hạn sử dụng là 3 năm kể từ ngày sản xuất</p><p>
                         </p><p>✪ Lưu ý khi mua hàng: Khách tham khảo kỹ bảng size, mô tả sản phẩm và ảnh cận chất liệu để lựa chọn sản phẩm phù hợp với mình (tránh trường hợp mua sản phẩm không phù hợp với ý thích). Mọi thắc mắc khác vui lòng liên hệ qua Shopee chat để được trả lời nhanh nhất.</p><p>#shopeechoice #shopeechoicevietnam #choicevietnam</p></div></div>`,
-        options: [
-            {
-                label: "Size",
-                value: [
-                    {
-                        label: "Size S",
-                        value: "size-s"
-                    },
-                    {
-                        label: "Size M",
-                        value: "size-m"
-                    },
-                    {
-                        label: "Size L",
-                        value: "size-l"
-                    },
-                    {
-                        label: "Size XL",
-                        value: "size-xl"
-                    },
-                    {
-                        label: "Size XXL",
-                        value: "size-xxl"
-                    }
-                ],
-            },
-            {
-                label: "Color",
-                value: [
-                    { label: "White", value: "white" },
-                    { label: "Black", value: "black" },
-                    { label: "Red", value: "red" },
-                    { label: "Yellow", value: "Yellow" }
-                ],
-            }
+    options: [
+      {
+        label: "Size",
+        value: [
+          {
+            label: "Size S",
+            value: "size-s",
+          },
+          {
+            label: "Size M",
+            value: "size-m",
+          },
+          {
+            label: "Size L",
+            value: "size-l",
+          },
+          {
+            label: "Size XL",
+            value: "size-xl",
+          },
+          {
+            label: "Size XXL",
+            value: "size-xxl",
+          },
         ],
-        product_slug: 'product-10',
-        product_price: 2000,
-        discountPrice: 2000,
-        quantity: 30,
-    },
-    {
-        _id: "11",
-        product_name: "Product",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
-        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
-        description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
+      },
+      {
+        label: "Color",
+        value: [
+          { label: "White", value: "white" },
+          { label: "Black", value: "black" },
+          { label: "Red", value: "red" },
+          { label: "Yellow", value: "Yellow" },
+        ],
+      },
+    ],
+    product_slug: "product-10",
+    product_price: 2000,
+    discountPrice: 2000,
+    quantity: 30,
+  },
+  {
+    _id: "11",
+    product_name: "Product",
+    image:
+      "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
+    article:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+    description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
                         </p><p>- Thành phần tự nhiên 100% cotton, chất bông mềm mịn.</p><p>
                         </p><p>- Miếng bông có thiết kế hình vuông, kích thước 6x5cm, cực kỳ vừa vặn khi sử dụng.</p><p>
@@ -829,53 +851,55 @@ export const productData = [
                         </p><p>- Bảo quản nơi khô ráo, tránh ánh nắng mặt trời trực tiếp và nhiệt độ cao.</p><p>
                         </p><p>- Thời hạn sử dụng là 3 năm kể từ ngày sản xuất</p><p>
                         </p><p>✪ Lưu ý khi mua hàng: Khách tham khảo kỹ bảng size, mô tả sản phẩm và ảnh cận chất liệu để lựa chọn sản phẩm phù hợp với mình (tránh trường hợp mua sản phẩm không phù hợp với ý thích). Mọi thắc mắc khác vui lòng liên hệ qua Shopee chat để được trả lời nhanh nhất.</p><p>#shopeechoice #shopeechoicevietnam #choicevietnam</p></div></div>`,
-        options: [
-            {
-                label: "Size",
-                value: [
-                    {
-                        label: "Size S",
-                        value: "size-s"
-                    },
-                    {
-                        label: "Size M",
-                        value: "size-m"
-                    },
-                    {
-                        label: "Size L",
-                        value: "size-l"
-                    },
-                    {
-                        label: "Size XL",
-                        value: "size-xl"
-                    },
-                    {
-                        label: "Size XXL",
-                        value: "size-xxl"
-                    }
-                ],
-            },
-            {
-                label: "Color",
-                value: [
-                    { label: "White", value: "white" },
-                    { label: "Black", value: "black" },
-                    { label: "Red", value: "red" },
-                    { label: "Yellow", value: "Yellow" }
-                ],
-            }
+    options: [
+      {
+        label: "Size",
+        value: [
+          {
+            label: "Size S",
+            value: "size-s",
+          },
+          {
+            label: "Size M",
+            value: "size-m",
+          },
+          {
+            label: "Size L",
+            value: "size-l",
+          },
+          {
+            label: "Size XL",
+            value: "size-xl",
+          },
+          {
+            label: "Size XXL",
+            value: "size-xxl",
+          },
         ],
-        product_slug: 'product-11',
-        product_price: 2000,
-        discountPrice: 2000,
-        quantity: 30,
-    },
-    {
-        _id: "12",
-        product_name: "Product",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
-        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
-        description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
+      },
+      {
+        label: "Color",
+        value: [
+          { label: "White", value: "white" },
+          { label: "Black", value: "black" },
+          { label: "Red", value: "red" },
+          { label: "Yellow", value: "Yellow" },
+        ],
+      },
+    ],
+    product_slug: "product-11",
+    product_price: 2000,
+    discountPrice: 2000,
+    quantity: 30,
+  },
+  {
+    _id: "12",
+    product_name: "Product",
+    image:
+      "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
+    article:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+    description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
                         </p><p>- Thành phần tự nhiên 100% cotton, chất bông mềm mịn.</p><p>
                         </p><p>- Miếng bông có thiết kế hình vuông, kích thước 6x5cm, cực kỳ vừa vặn khi sử dụng.</p><p>
@@ -909,53 +933,55 @@ export const productData = [
                         </p><p>- Bảo quản nơi khô ráo, tránh ánh nắng mặt trời trực tiếp và nhiệt độ cao.</p><p>
                         </p><p>- Thời hạn sử dụng là 3 năm kể từ ngày sản xuất</p><p>
                         </p><p>✪ Lưu ý khi mua hàng: Khách tham khảo kỹ bảng size, mô tả sản phẩm và ảnh cận chất liệu để lựa chọn sản phẩm phù hợp với mình (tránh trường hợp mua sản phẩm không phù hợp với ý thích). Mọi thắc mắc khác vui lòng liên hệ qua Shopee chat để được trả lời nhanh nhất.</p><p>#shopeechoice #shopeechoicevietnam #choicevietnam</p></div></div>`,
-        options: [
-            {
-                label: "Size",
-                value: [
-                    {
-                        label: "Size S",
-                        value: "size-s"
-                    },
-                    {
-                        label: "Size M",
-                        value: "size-m"
-                    },
-                    {
-                        label: "Size L",
-                        value: "size-l"
-                    },
-                    {
-                        label: "Size XL",
-                        value: "size-xl"
-                    },
-                    {
-                        label: "Size XXL",
-                        value: "size-xxl"
-                    }
-                ],
-            },
-            {
-                label: "Color",
-                value: [
-                    { label: "White", value: "white" },
-                    { label: "Black", value: "black" },
-                    { label: "Red", value: "red" },
-                    { label: "Yellow", value: "Yellow" }
-                ],
-            }
+    options: [
+      {
+        label: "Size",
+        value: [
+          {
+            label: "Size S",
+            value: "size-s",
+          },
+          {
+            label: "Size M",
+            value: "size-m",
+          },
+          {
+            label: "Size L",
+            value: "size-l",
+          },
+          {
+            label: "Size XL",
+            value: "size-xl",
+          },
+          {
+            label: "Size XXL",
+            value: "size-xxl",
+          },
         ],
-        product_slug: 'product-12',
-        product_price: 2000,
-        discountPrice: 2000,
-        quantity: 30,
-    },
-    {
-        _id: "13",
-        product_name: "Product",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
-        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
-        description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
+      },
+      {
+        label: "Color",
+        value: [
+          { label: "White", value: "white" },
+          { label: "Black", value: "black" },
+          { label: "Red", value: "red" },
+          { label: "Yellow", value: "Yellow" },
+        ],
+      },
+    ],
+    product_slug: "product-12",
+    product_price: 2000,
+    discountPrice: 2000,
+    quantity: 30,
+  },
+  {
+    _id: "13",
+    product_name: "Product",
+    image:
+      "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
+    article:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+    description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
                         </p><p>- Thành phần tự nhiên 100% cotton, chất bông mềm mịn.</p><p>
                         </p><p>- Miếng bông có thiết kế hình vuông, kích thước 6x5cm, cực kỳ vừa vặn khi sử dụng.</p><p>
@@ -989,53 +1015,55 @@ export const productData = [
                         </p><p>- Bảo quản nơi khô ráo, tránh ánh nắng mặt trời trực tiếp và nhiệt độ cao.</p><p>
                         </p><p>- Thời hạn sử dụng là 3 năm kể từ ngày sản xuất</p><p>
                         </p><p>✪ Lưu ý khi mua hàng: Khách tham khảo kỹ bảng size, mô tả sản phẩm và ảnh cận chất liệu để lựa chọn sản phẩm phù hợp với mình (tránh trường hợp mua sản phẩm không phù hợp với ý thích). Mọi thắc mắc khác vui lòng liên hệ qua Shopee chat để được trả lời nhanh nhất.</p><p>#shopeechoice #shopeechoicevietnam #choicevietnam</p></div></div>`,
-        options: [
-            {
-                label: "Size",
-                value: [
-                    {
-                        label: "Size S",
-                        value: "size-s"
-                    },
-                    {
-                        label: "Size M",
-                        value: "size-m"
-                    },
-                    {
-                        label: "Size L",
-                        value: "size-l"
-                    },
-                    {
-                        label: "Size XL",
-                        value: "size-xl"
-                    },
-                    {
-                        label: "Size XXL",
-                        value: "size-xxl"
-                    }
-                ],
-            },
-            {
-                label: "Color",
-                value: [
-                    { label: "White", value: "white" },
-                    { label: "Black", value: "black" },
-                    { label: "Red", value: "red" },
-                    { label: "Yellow", value: "Yellow" }
-                ],
-            }
+    options: [
+      {
+        label: "Size",
+        value: [
+          {
+            label: "Size S",
+            value: "size-s",
+          },
+          {
+            label: "Size M",
+            value: "size-m",
+          },
+          {
+            label: "Size L",
+            value: "size-l",
+          },
+          {
+            label: "Size XL",
+            value: "size-xl",
+          },
+          {
+            label: "Size XXL",
+            value: "size-xxl",
+          },
         ],
-        product_slug: 'product-13',
-        product_price: 2000,
-        discountPrice: 2000,
-        quantity: 30,
-    },
-    {
-        _id: "14",
-        product_name: "Product",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
-        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
-        description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
+      },
+      {
+        label: "Color",
+        value: [
+          { label: "White", value: "white" },
+          { label: "Black", value: "black" },
+          { label: "Red", value: "red" },
+          { label: "Yellow", value: "Yellow" },
+        ],
+      },
+    ],
+    product_slug: "product-13",
+    product_price: 2000,
+    discountPrice: 2000,
+    quantity: 30,
+  },
+  {
+    _id: "14",
+    product_name: "Product",
+    image:
+      "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
+    article:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+    description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
                         </p><p>- Thành phần tự nhiên 100% cotton, chất bông mềm mịn.</p><p>
                         </p><p>- Miếng bông có thiết kế hình vuông, kích thước 6x5cm, cực kỳ vừa vặn khi sử dụng.</p><p>
@@ -1069,53 +1097,55 @@ export const productData = [
                         </p><p>- Bảo quản nơi khô ráo, tránh ánh nắng mặt trời trực tiếp và nhiệt độ cao.</p><p>
                         </p><p>- Thời hạn sử dụng là 3 năm kể từ ngày sản xuất</p><p>
                         </p><p>✪ Lưu ý khi mua hàng: Khách tham khảo kỹ bảng size, mô tả sản phẩm và ảnh cận chất liệu để lựa chọn sản phẩm phù hợp với mình (tránh trường hợp mua sản phẩm không phù hợp với ý thích). Mọi thắc mắc khác vui lòng liên hệ qua Shopee chat để được trả lời nhanh nhất.</p><p>#shopeechoice #shopeechoicevietnam #choicevietnam</p></div></div>`,
-        options: [
-            {
-                label: "Size",
-                value: [
-                    {
-                        label: "Size S",
-                        value: "size-s"
-                    },
-                    {
-                        label: "Size M",
-                        value: "size-m"
-                    },
-                    {
-                        label: "Size L",
-                        value: "size-l"
-                    },
-                    {
-                        label: "Size XL",
-                        value: "size-xl"
-                    },
-                    {
-                        label: "Size XXL",
-                        value: "size-xxl"
-                    }
-                ],
-            },
-            {
-                label: "Color",
-                value: [
-                    { label: "White", value: "white" },
-                    { label: "Black", value: "black" },
-                    { label: "Red", value: "red" },
-                    { label: "Yellow", value: "Yellow" }
-                ],
-            }
+    options: [
+      {
+        label: "Size",
+        value: [
+          {
+            label: "Size S",
+            value: "size-s",
+          },
+          {
+            label: "Size M",
+            value: "size-m",
+          },
+          {
+            label: "Size L",
+            value: "size-l",
+          },
+          {
+            label: "Size XL",
+            value: "size-xl",
+          },
+          {
+            label: "Size XXL",
+            value: "size-xxl",
+          },
         ],
-        product_slug: 'product-14',
-        product_price: 2000,
-        discountPrice: 2000,
-        quantity: 30,
-    },
-    {
-        _id: "15",
-        product_name: "Product",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
-        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
-        description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
+      },
+      {
+        label: "Color",
+        value: [
+          { label: "White", value: "white" },
+          { label: "Black", value: "black" },
+          { label: "Red", value: "red" },
+          { label: "Yellow", value: "Yellow" },
+        ],
+      },
+    ],
+    product_slug: "product-14",
+    product_price: 2000,
+    discountPrice: 2000,
+    quantity: 30,
+  },
+  {
+    _id: "15",
+    product_name: "Product",
+    image:
+      "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
+    article:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+    description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
                         </p><p>- Thành phần tự nhiên 100% cotton, chất bông mềm mịn.</p><p>
                         </p><p>- Miếng bông có thiết kế hình vuông, kích thước 6x5cm, cực kỳ vừa vặn khi sử dụng.</p><p>
@@ -1149,53 +1179,55 @@ export const productData = [
                         </p><p>- Bảo quản nơi khô ráo, tránh ánh nắng mặt trời trực tiếp và nhiệt độ cao.</p><p>
                         </p><p>- Thời hạn sử dụng là 3 năm kể từ ngày sản xuất</p><p>
                         </p><p>✪ Lưu ý khi mua hàng: Khách tham khảo kỹ bảng size, mô tả sản phẩm và ảnh cận chất liệu để lựa chọn sản phẩm phù hợp với mình (tránh trường hợp mua sản phẩm không phù hợp với ý thích). Mọi thắc mắc khác vui lòng liên hệ qua Shopee chat để được trả lời nhanh nhất.</p><p>#shopeechoice #shopeechoicevietnam #choicevietnam</p></div></div>`,
-        options: [
-            {
-                label: "Size",
-                value: [
-                    {
-                        label: "Size S",
-                        value: "size-s"
-                    },
-                    {
-                        label: "Size M",
-                        value: "size-m"
-                    },
-                    {
-                        label: "Size L",
-                        value: "size-l"
-                    },
-                    {
-                        label: "Size XL",
-                        value: "size-xl"
-                    },
-                    {
-                        label: "Size XXL",
-                        value: "size-xxl"
-                    }
-                ],
-            },
-            {
-                label: "Color",
-                value: [
-                    { label: "White", value: "white" },
-                    { label: "Black", value: "black" },
-                    { label: "Red", value: "red" },
-                    { label: "Yellow", value: "Yellow" }
-                ],
-            }
+    options: [
+      {
+        label: "Size",
+        value: [
+          {
+            label: "Size S",
+            value: "size-s",
+          },
+          {
+            label: "Size M",
+            value: "size-m",
+          },
+          {
+            label: "Size L",
+            value: "size-l",
+          },
+          {
+            label: "Size XL",
+            value: "size-xl",
+          },
+          {
+            label: "Size XXL",
+            value: "size-xxl",
+          },
         ],
-        product_slug: 'product-15',
-        product_price: 2000,
-        discountPrice: 2000,
-        quantity: 30,
-    },
-    {
-        _id: "16",
-        product_name: "Product",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
-        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
-        description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
+      },
+      {
+        label: "Color",
+        value: [
+          { label: "White", value: "white" },
+          { label: "Black", value: "black" },
+          { label: "Red", value: "red" },
+          { label: "Yellow", value: "Yellow" },
+        ],
+      },
+    ],
+    product_slug: "product-15",
+    product_price: 2000,
+    discountPrice: 2000,
+    quantity: 30,
+  },
+  {
+    _id: "16",
+    product_name: "Product",
+    image:
+      "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
+    article:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+    description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
                         </p><p>- Thành phần tự nhiên 100% cotton, chất bông mềm mịn.</p><p>
                         </p><p>- Miếng bông có thiết kế hình vuông, kích thước 6x5cm, cực kỳ vừa vặn khi sử dụng.</p><p>
@@ -1229,53 +1261,55 @@ export const productData = [
                         </p><p>- Bảo quản nơi khô ráo, tránh ánh nắng mặt trời trực tiếp và nhiệt độ cao.</p><p>
                         </p><p>- Thời hạn sử dụng là 3 năm kể từ ngày sản xuất</p><p>
                         </p><p>✪ Lưu ý khi mua hàng: Khách tham khảo kỹ bảng size, mô tả sản phẩm và ảnh cận chất liệu để lựa chọn sản phẩm phù hợp với mình (tránh trường hợp mua sản phẩm không phù hợp với ý thích). Mọi thắc mắc khác vui lòng liên hệ qua Shopee chat để được trả lời nhanh nhất.</p><p>#shopeechoice #shopeechoicevietnam #choicevietnam</p></div></div>`,
-        options: [
-            {
-                label: "Size",
-                value: [
-                    {
-                        label: "Size S",
-                        value: "size-s"
-                    },
-                    {
-                        label: "Size M",
-                        value: "size-m"
-                    },
-                    {
-                        label: "Size L",
-                        value: "size-l"
-                    },
-                    {
-                        label: "Size XL",
-                        value: "size-xl"
-                    },
-                    {
-                        label: "Size XXL",
-                        value: "size-xxl"
-                    }
-                ],
-            },
-            {
-                label: "Color",
-                value: [
-                    { label: "White", value: "white" },
-                    { label: "Black", value: "black" },
-                    { label: "Red", value: "red" },
-                    { label: "Yellow", value: "Yellow" }
-                ],
-            }
+    options: [
+      {
+        label: "Size",
+        value: [
+          {
+            label: "Size S",
+            value: "size-s",
+          },
+          {
+            label: "Size M",
+            value: "size-m",
+          },
+          {
+            label: "Size L",
+            value: "size-l",
+          },
+          {
+            label: "Size XL",
+            value: "size-xl",
+          },
+          {
+            label: "Size XXL",
+            value: "size-xxl",
+          },
         ],
-        product_slug: 'product-16',
-        product_price: 2000,
-        discountPrice: 2000,
-        quantity: 30,
-    },
-    {
-        _id: "17",
-        product_name: "Product",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
-        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
-        description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
+      },
+      {
+        label: "Color",
+        value: [
+          { label: "White", value: "white" },
+          { label: "Black", value: "black" },
+          { label: "Red", value: "red" },
+          { label: "Yellow", value: "Yellow" },
+        ],
+      },
+    ],
+    product_slug: "product-16",
+    product_price: 2000,
+    discountPrice: 2000,
+    quantity: 30,
+  },
+  {
+    _id: "17",
+    product_name: "Product",
+    image:
+      "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
+    article:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+    description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
                         </p><p>- Thành phần tự nhiên 100% cotton, chất bông mềm mịn.</p><p>
                         </p><p>- Miếng bông có thiết kế hình vuông, kích thước 6x5cm, cực kỳ vừa vặn khi sử dụng.</p><p>
@@ -1310,18 +1344,19 @@ export const productData = [
                         </p><p>- Thời hạn sử dụng là 3 năm kể từ ngày sản xuất</p><p>
                       
                        </p><p>✪ Lưu ý khi mua hàng: Khách tham khảo kỹ bảng size, mô tả sản phẩm và ảnh cận chất liệu để lựa chọn sản phẩm phù hợp với mình (tránh trường hợp mua sản phẩm không phù hợp với ý thích). Mọi thắc mắc khác vui lòng liên hệ qua Shopee chat để được trả lời nhanh nhất.</p><p>#shopeechoice #shopeechoicevietnam #choicevietnam</p></div></div>`,
-        product_slug: 'product-17',
-        product_price: 2000,
-        discountPrice: 2000,
-        quantity: 30,
-    },
-    {
-
-        _id: "18",
-        product_name: "Product",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
-        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
-        description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
+    product_slug: "product-17",
+    product_price: 2000,
+    discountPrice: 2000,
+    quantity: 30,
+  },
+  {
+    _id: "18",
+    product_name: "Product",
+    image:
+      "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
+    article:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+    description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
                         </p><p>- Thành phần tự nhiên 100% cotton, chất bông mềm mịn.</p><p>
                         </p><p>- Miếng bông có thiết kế hình vuông, kích thước 6x5cm, cực kỳ vừa vặn khi sử dụng.</p><p>
@@ -1356,18 +1391,19 @@ export const productData = [
                         </p><p>- Thời hạn sử dụng là 3 năm kể từ ngày sản xuất</p><p>
                       
   </p><p>✪ Lưu ý khi mua hàng: Khách tham khảo kỹ bảng size, mô tả sản phẩm và ảnh cận chất liệu để lựa chọn sản phẩm phù hợp với mình (tránh trường hợp mua sản phẩm không phù hợp với ý thích). Mọi thắc mắc khác vui lòng liên hệ qua Shopee chat để được trả lời nhanh nhất.</p><p>#shopeechoice #shopeechoicevietnam #choicevietnam</p></div></div>`,
-        product_slug: 'product-18',
-        product_price: 2000,
-        discountPrice: 2000,
-        quantity: 30,
-    },
-    {
-
-        _id: "19",
-        product_name: "Product",
-        image: "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
-        article: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
-        description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
+    product_slug: "product-18",
+    product_price: 2000,
+    discountPrice: 2000,
+    quantity: 30,
+  },
+  {
+    _id: "19",
+    product_name: "Product",
+    image:
+      "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png",
+    article:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel pretium nisl. Integer consequat lorem vitae facilisis dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus",
+    description: `<div><div><p>Tên sản phẩm: [Choice] Bông tẩy trang Lameila XB01 222 miếng cotton pad</p><p>
                     </p><p>1. Tính năng đặc biệt và ưu điểm nổi trội </p><p>
                         </p><p>- Thành phần tự nhiên 100% cotton, chất bông mềm mịn.</p><p>
                         </p><p>- Miếng bông có thiết kế hình vuông, kích thước 6x5cm, cực kỳ vừa vặn khi sử dụng.</p><p>
@@ -1402,9 +1438,9 @@ export const productData = [
                         </p><p>- Thời hạn sử dụng là 3 năm kể từ ngày sản xuất</p><p>
                       
                        </p><p>✪ Lưu ý khi mua hàng: Khách tham khảo kỹ bảng size, mô tả sản phẩm và ảnh cận chất liệu để lựa chọn sản phẩm phù hợp với mình (tránh trường hợp mua sản phẩm không phù hợp với ý thích). Mọi thắc mắc khác vui lòng liên hệ qua Shopee chat để được trả lời nhanh nhất.</p><p>#shopeechoice #shopeechoicevietnam #choicevietnam</p></div></div>`,
-        product_slug: 'product-19',
-        product_price: 50,
-        discountPrice: 50,
-        quantity: 1,
-    },
-]
+    product_slug: "product-19",
+    product_price: 50,
+    discountPrice: 50,
+    quantity: 1,
+  },
+];

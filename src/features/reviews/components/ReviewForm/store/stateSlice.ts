@@ -1,25 +1,24 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Review } from '@/features/reviews/types';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Review } from "@/features/reviews/types";
 
 interface ReviewsState {
-    reviews: Review[];
+  reviews: Review[];
 }
 
 const initialState: ReviewsState = {
-    reviews: [],
+  reviews: [],
 };
 
-
 export const productSlice = createSlice({
-    name: 'submit',
-    initialState,
-    reducers: {
-        addReview(state, action: PayloadAction<Omit<Review, 'user'>>) {
-            const newReview = { ...action.payload, user: 'Anonymous' }; // Replace with actual user data
-            state.reviews.unshift(newReview);
-        },
+  name: "submit",
+  initialState,
+  reducers: {
+    addReview(state, action: PayloadAction<Omit<Review, "user">>) {
+      const newReview = { ...action.payload, user: "Anonymous" }; // Replace with actual user data
+      state.reviews.unshift(newReview);
     },
-})
+  },
+});
 
-export const { addReview } = productSlice.actions
-export default productSlice.reducer
+export const { addReview } = productSlice.actions;
+export default productSlice.reducer;

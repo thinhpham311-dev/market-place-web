@@ -1,17 +1,14 @@
 "use client";
 
 import * as React from "react";
-import { formatToCurrency } from "@/utils/formats"
+import { formatToCurrency } from "@/utils/formats";
 
 interface IOldPriceProps {
-    value: number;
+  value: number;
 }
 
-
 const OldPrice = ({ value }: IOldPriceProps) => (
-    <p className="text-gray-500 line-through text-sm">
-        {formatToCurrency(value)}
-    </p>
+  <p className="text-gray-500 line-through text-sm">{formatToCurrency(value)}</p>
 );
 
-export default OldPrice
+export default OldPrice;

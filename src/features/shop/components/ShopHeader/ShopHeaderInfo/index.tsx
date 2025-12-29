@@ -6,40 +6,34 @@ import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
 
 const ShopHeaderInfo = () => {
-    const { data, loading, error } = useShopInfoContext();
-    const { shop_name, shop_address, shop_phone } = data || {};
+  const { data, loading, error } = useShopInfoContext();
+  const { shop_name, shop_address, shop_phone } = data || {};
 
-    if (loading) {
-        return (
-            <LoadingSkeleton />
-        );
-    }
+  if (loading) {
+    return <LoadingSkeleton />;
+  }
 
-    if (error) {
-        return (
-            <NotFound />
-        );
-    }
+  if (error) {
+    return <NotFound />;
+  }
 
-    return (
-        <ItemContent className="flex justify-center">
-            <ItemTitle className="text-base md:text-lg font-bold">
-                {shop_name?.trim() || "Shop Name"}
-            </ItemTitle>
+  return (
+    <ItemContent className="flex justify-center">
+      <ItemTitle className="text-base md:text-lg font-bold">
+        {shop_name?.trim() || "Shop Name"}
+      </ItemTitle>
 
-            {shop_phone && (
-                <span className="text-sm text-muted-foreground">
-                    📞 {formatPhone({ phone: shop_phone })}
-                </span>
-            )}
+      {shop_phone && (
+        <span className="text-sm text-muted-foreground">
+          📞 {formatPhone({ phone: shop_phone })}
+        </span>
+      )}
 
-            {shop_address && (
-                <span className="text-sm text-muted-foreground line-clamp-2">
-                    📍 {shop_address}
-                </span>
-            )}
-        </ItemContent>
-    );
+      {shop_address && (
+        <span className="text-sm text-muted-foreground line-clamp-2">📍 {shop_address}</span>
+      )}
+    </ItemContent>
+  );
 };
 
 export default ShopHeaderInfo;

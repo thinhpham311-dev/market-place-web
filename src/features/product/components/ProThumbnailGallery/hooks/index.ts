@@ -1,1 +1,1 @@
-export * from "./useSyncCarousels"
+export * from "./useSyncCarousels";

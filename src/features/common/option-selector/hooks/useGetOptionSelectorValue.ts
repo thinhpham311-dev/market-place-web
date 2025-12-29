@@ -8,30 +8,24 @@ import { IOptionInitialState } from "@/features/common/option-selector/interface
 import { OPTION_SELECTOR } from "@/features/common/option-selector/constants";
 
 interface IGetOptionSelectorValue {
-    reducerKey?: string;
-    storeKey: string;
-    initialValue?: IOptionInitialState;
-
+  reducerKey?: string;
+  storeKey: string;
+  initialValue?: IOptionInitialState;
 }
 
 export const useGetOptionSelectorValue = ({
-    reducerKey = OPTION_SELECTOR,
-    storeKey,
-    initialValue = createDefault()
+  reducerKey = OPTION_SELECTOR,
+  storeKey,
+  initialValue = createDefault(),
 }: IGetOptionSelectorValue) => {
-    const state = useAppSelector(
-        selectOptionsSelector(reducerKey, storeKey)
-    );
+  const state = useAppSelector(selectOptionsSelector(reducerKey, storeKey));
 
-    return useMemo(() => {
-        const options = state?.options ?? [];
-        const selected = state?.selectedOptions ?? initialValue.selectedOptions;
+  return useMemo(() => {
+    const selected = state?.selectedOptions ?? initialValue.selectedOptions;
 
-        return {
-            ...(state ?? initialValue),
-
-            optionsCount: options.length,
-            selectedOptions: selected.filter((v: number) => v !== null),
-        };
-    }, [state]);
+    return {
+      ...(state ?? initialValue),
+      selectedOptions: selected.filter((v: number) => v !== null),
+    };
+  }, [state]);
 };

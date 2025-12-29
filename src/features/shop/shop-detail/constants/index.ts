@@ -1,1 +1,1 @@
-export const SHOP_DETAIL = "SHOP_DETAIL"
+export const SHOP_DETAIL = "SHOP_DETAIL";
