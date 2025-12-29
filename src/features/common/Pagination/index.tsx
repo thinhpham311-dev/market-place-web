@@ -8,14 +8,14 @@ import PaginationNextButton from "./components/PaginationNextButton";
 import PaginationDotButtons from "./components/PaginationDotButtons";
 import PaginationLabel from "./components/PaginationLabel";
 import { useHandlePagination } from "@/features/common/pagination/hooks";
-import { IPaginationState } from "@/features/common/pagination/store/initials";
+import { IPaginationInitialValue } from "@/features/common/pagination/interfaces";
 
 interface IPaginationCustomProps {
   reducerKey: string;
   storeKey: string;
   // initialTotal: number;
   // initialLimit: number;
-  initialValue: IPaginationState;
+  initialValue: IPaginationInitialValue;
   isShowDot?: boolean;
   isShowNav?: boolean;
   isShowLabel?: boolean;

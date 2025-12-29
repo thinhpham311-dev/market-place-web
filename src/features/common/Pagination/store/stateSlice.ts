@@ -5,15 +5,6 @@ const stateSlice = createSlice({
   name: "pagination/state",
   initialState,
   reducers: {
-    setInitialValue: (state, action) => {
-      const { storeKey, initialValue } = action.payload;
-      const { totalItems, limit } = initialValue;
-      const totalPages = Math.ceil(totalItems / limit);
-
-      if (!state[storeKey]) {
-        state[storeKey] = initialValue ? { ...initialValue, totalPages } : createDefault();
-      }
-    },
     setPage(state, action) {
       const { storeKey, page } = action.payload;
       state[storeKey].currentPage = page;
@@ -28,5 +19,5 @@ const stateSlice = createSlice({
   },
 });
 
-export const { setPage, setInitialValue, resetPagination } = stateSlice.actions;
+export const { setPage, resetPagination } = stateSlice.actions;
 export default stateSlice.reducer;

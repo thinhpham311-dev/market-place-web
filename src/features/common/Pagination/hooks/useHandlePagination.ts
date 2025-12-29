@@ -1,18 +1,14 @@
-import { useLayoutEffect, useEffect, useMemo, useRef, useCallback } from "react";
+import { useLayoutEffect, useMemo, useCallback } from "react";
 import { useAppDispatch } from "@/lib/hooks";
-import {
-  setPage,
-  setInitialValue,
-  resetPagination,
-} from "@/features/common/pagination/store/stateSlice";
+import { setPage, resetPagination } from "@/features/common/pagination/store/stateSlice";
 import { useGetPaginationValue } from "@/features/common/pagination/hooks";
 import { injectReducer, removeReducer } from "@/store";
 import reducer from "@/features/common/pagination/store";
-import { IPaginationState } from "@/features/common/pagination/store/initials";
+import { IPaginationInitialValue } from "@/features/common/pagination/interfaces";
 
 interface IUseHandlePaginationProps {
   reducerKey: string;
-  initialValue: IPaginationState;
+  initialValue: IPaginationInitialValue;
   siblingCount?: number;
   storeKey: string;
 }
@@ -24,9 +20,10 @@ export function useHandlePagination({
   initialValue,
   siblingCount = 1,
 }: IUseHandlePaginationProps) {
-  const initializedRef = useRef(false);
-  const {} = initialValue;
   const dispatch = useAppDispatch();
+  const { defaultCurrentPage, defaultLimit = 1 } = initialValue;
+
+  // ✅ useEffect thay cho useLayoutEffect (an toàn SSR)
   useLayoutEffect(() => {
     injectReducer(reducerKey, reducer);
 
@@ -35,19 +32,22 @@ export function useHandlePagination({
     };
   }, [reducerKey]);
 
-  useEffect(() => {
-    if (!initializedRef.current && initialValue) {
-      dispatch(setInitialValue({ storeKey, initialValue }));
-      initializedRef.current = true;
-    }
-  }, [dispatch, storeKey, initialValue]);
+  const state = useGetPaginationValue({
+    reducerKey,
+    storeKey,
+    initialValue: {
+      ...initialValue,
+      currentPage: defaultCurrentPage || 1,
+      limit: defaultLimit,
+      totalPages: 1,
+    },
+  });
 
-  const state = useGetPaginationValue({ reducerKey, storeKey, initialValue });
   const { currentPage, totalPages } = state;
 
   const paginationRange = useMemo(
     () => calculatePaginationRange(currentPage, totalPages, siblingCount, DOTS),
-    [totalPages, currentPage, siblingCount],
+    [currentPage, totalPages, siblingCount],
   );
 
   const setPageSafe = useCallback(
@@ -56,7 +56,7 @@ export function useHandlePagination({
         dispatch(setPage({ storeKey, page }));
       }
     },
-    [dispatch, storeKey],
+    [dispatch, storeKey, totalPages],
   );
 
   const resetPaginationSafe = useCallback(() => {

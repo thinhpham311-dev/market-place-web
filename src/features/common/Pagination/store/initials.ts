@@ -1,19 +1,9 @@
-export interface IPaginationState {
-  limit: number;
-  totalItems: number;
-  currentPage: number;
-  totalPages: number;
-}
+import { IPaginationInitialState, IState } from "@/features/common/pagination/interfaces";
 
-export const createDefault = (): IPaginationState => ({
+export const createDefault = (): IPaginationInitialState => ({
   limit: 0,
   currentPage: 1,
   totalPages: 1,
-  totalItems: 1,
 });
-
-export interface IState {
-  [storeKey: string]: IPaginationState;
-}
 
 export const initialState: IState = {};

@@ -49,10 +49,9 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
                     storeKey={PRO_LIST_BY_CATEGORYID}
                     isShowNav
                     initialValue={{
-                      limit: 10,
-                      totalItems,
-                      totalPages: 0,
-                      currentPage: 1,
+                      defaultLimit: 10,
+                      defaultTotalItems: totalItems,
+                      defaultCurrentPage: 1,
                     }}
                   />
                 </div>
@@ -77,10 +76,9 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
                 isShowNav
                 isShowLabel
                 initialValue={{
-                  limit: 20,
-                  currentPage: 1,
-                  totalItems,
-                  totalPages: 0,
+                  defaultLimit: 20,
+                  defaultCurrentPage: 1,
+                  defaultTotalItems: totalItems,
                 }}
               />
             </CardFooter>

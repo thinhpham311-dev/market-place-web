@@ -56,10 +56,9 @@ export default function ProSearchList() {
           isShowDot
           isShowNav
           initialValue={{
-            limit: 15,
-            totalItems,
-            totalPages: 0,
-            currentPage: 1,
+            defaultLimit: 15,
+            defaultTotalItems: totalItems,
+            defaultCurrentPage: 1,
           }}
         />
       </CardContent>

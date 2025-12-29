@@ -2,13 +2,15 @@
 import { useMemo } from "react";
 import { useAppSelector } from "@/lib/hooks";
 import { selectPaginationSeletor } from "@/features/common/pagination/store/selectors";
-import { IPaginationState, createDefault } from "@/features/common/pagination/store/initials";
+import { createDefault } from "@/features/common/pagination/store/initials";
+import { IPaginationInitialState } from "@/features/common/pagination/interfaces";
+
 import { PAGINATION } from "@/features/common/pagination/constants";
 
 interface IGetPriceValue {
   reducerKey?: string;
   storeKey: string;
-  initialValue?: IPaginationState;
+  initialValue?: IPaginationInitialState;
 }
 
 export const useGetPaginationValue = ({
