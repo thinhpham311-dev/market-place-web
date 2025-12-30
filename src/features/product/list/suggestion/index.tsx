@@ -33,11 +33,10 @@ export default function ProSuggestionList() {
           className=" grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3"
         />
         <Pagination
-          reducerKey={PRO_SUGGESTION_LIST}
           storeKey={PRO_SUGGESTION_LIST}
-          isShowDot
-          isShowNav
           initialValue={{
+            isShowDot: true,
+            isShowNav: true,
             defaultLimit: 24,
             defaultTotalItems: totalItems,
             defaultCurrentPage: 1,

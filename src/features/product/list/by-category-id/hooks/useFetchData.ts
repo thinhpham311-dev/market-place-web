@@ -42,7 +42,6 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
     error = null,
     totalItems = 0,
   } = useAppSelector(selectProByCategoryIdByStoreKey(PRO_LIST_BY_CATEGORYID));
-
   // Fetch product list
   useEffect(() => {
     const promise = dispatch(

@@ -45,10 +45,9 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
                 </div>
                 <div>
                   <Pagination
-                    reducerKey={PRO_LIST_BY_CATEGORYID}
                     storeKey={PRO_LIST_BY_CATEGORYID}
-                    isShowNav
                     initialValue={{
+                      isShowNav: true,
                       defaultLimit: 10,
                       defaultTotalItems: totalItems,
                       defaultCurrentPage: 1,
@@ -70,12 +69,11 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
 
             <CardFooter className="p-3 justify-center">
               <Pagination
-                reducerKey={PRO_LIST_BY_CATEGORYID}
                 storeKey={PRO_LIST_BY_CATEGORYID}
-                isShowDot
-                isShowNav
-                isShowLabel
                 initialValue={{
+                  isShowDot: true,
+                  isShowNav: true,
+                  isShowLabel: true,
                   defaultLimit: 20,
                   defaultCurrentPage: 1,
                   defaultTotalItems: totalItems,

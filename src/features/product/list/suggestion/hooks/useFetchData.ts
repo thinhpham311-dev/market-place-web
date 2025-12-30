@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { getProductList } from "../store/dataSlice";
+import { getProductList } from "@/features/product/list/suggestion/store/dataSlice";
 import { selectProSuggestionListByStoreKey } from "@/features/product/list/suggestion/store/selectors";
 import { useGetPaginationValue } from "@/features/common/pagination/hooks";
 //stores
@@ -14,7 +14,6 @@ interface IUseFetchData {
 export function useFetchData({ storeKey }: IUseFetchData) {
   useLayoutEffect(() => {
     injectReducer(storeKey, reducer);
-
     return () => {
       removeReducer(storeKey);
     };
@@ -23,7 +22,6 @@ export function useFetchData({ storeKey }: IUseFetchData) {
   const dispatch = useAppDispatch();
 
   const { currentPage = 1, limit = 15 } = useGetPaginationValue({ storeKey });
-
   const {
     products = [],
     totalItems,

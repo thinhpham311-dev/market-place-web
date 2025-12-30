@@ -51,11 +51,10 @@ export default function ProSearchList() {
           isLoading={loading}
         />
         <Pagination
-          reducerKey={PRO_SEARCH_LIST}
           storeKey={PRO_SEARCH_LIST}
-          isShowDot
-          isShowNav
           initialValue={{
+            isShowDot: true,
+            isShowNav: true,
             defaultLimit: 15,
             defaultTotalItems: totalItems,
             defaultCurrentPage: 1,

@@ -5,9 +5,10 @@ import { useGetPaginationValue } from "@/features/common/pagination/hooks";
 import { injectReducer, removeReducer } from "@/store";
 import reducer from "@/features/common/pagination/store";
 import { IPaginationInitialValue } from "@/features/common/pagination/interfaces";
+import { PAGINATION } from "@/features/common/pagination/constants";
 
 interface IUseHandlePaginationProps {
-  reducerKey: string;
+  reducerKey?: string;
   initialValue: IPaginationInitialValue;
   siblingCount?: number;
   storeKey: string;
@@ -15,15 +16,14 @@ interface IUseHandlePaginationProps {
 const DOTS = "...";
 
 export function useHandlePagination({
-  reducerKey,
+  reducerKey = PAGINATION,
   storeKey,
   initialValue,
   siblingCount = 1,
 }: IUseHandlePaginationProps) {
   const dispatch = useAppDispatch();
-  const { defaultCurrentPage, defaultLimit = 1 } = initialValue;
+  const { defaultCurrentPage, defaultLimit, defaultTotalItems, ...rest } = initialValue;
 
-  // ✅ useEffect thay cho useLayoutEffect (an toàn SSR)
   useLayoutEffect(() => {
     injectReducer(reducerKey, reducer);
 
@@ -36,15 +36,13 @@ export function useHandlePagination({
     reducerKey,
     storeKey,
     initialValue: {
-      ...initialValue,
-      currentPage: defaultCurrentPage || 1,
+      currentPage: defaultCurrentPage,
       limit: defaultLimit,
-      totalPages: 1,
+      totalPages: Math.ceil(defaultTotalItems / defaultLimit),
     },
   });
 
   const { currentPage, totalPages } = state;
-
   const paginationRange = useMemo(
     () => calculatePaginationRange(currentPage, totalPages, siblingCount, DOTS),
     [currentPage, totalPages, siblingCount],
@@ -64,6 +62,7 @@ export function useHandlePagination({
   }, [dispatch, storeKey]);
 
   return {
+    ...rest,
     ...state,
     pages: paginationRange,
     setPage: setPageSafe,

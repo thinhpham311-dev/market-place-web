@@ -11,22 +11,16 @@ import { useHandlePagination } from "@/features/common/pagination/hooks";
 import { IPaginationInitialValue } from "@/features/common/pagination/interfaces";
 
 interface IPaginationCustomProps {
-  reducerKey: string;
   storeKey: string;
-  // initialTotal: number;
-  // initialLimit: number;
   initialValue: IPaginationInitialValue;
-  isShowDot?: boolean;
-  isShowNav?: boolean;
-  isShowLabel?: boolean;
   className?: string;
 }
 
-const Pagination = ({ reducerKey, storeKey, initialValue, ...rest }: IPaginationCustomProps) => {
-  const pagination = useHandlePagination({ reducerKey, storeKey, initialValue });
+const Pagination = ({ storeKey, initialValue }: IPaginationCustomProps) => {
+  const pagination = useHandlePagination({ storeKey, initialValue });
 
   return (
-    <PaginationProvider contextValues={{ ...pagination, ...rest }}>
+    <PaginationProvider contextValues={{ ...pagination }}>
       <PaginationWrapper>
         <PaginationPrevButton />
         <PaginationDotButtons />

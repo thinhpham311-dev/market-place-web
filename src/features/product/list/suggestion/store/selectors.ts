@@ -8,7 +8,6 @@ export const makeSelectProSuggestionListState = (storeKey: string) =>
       products: data?.list,
       loading: data?.loading,
       totalItems: data?.total,
-      status: data?.status,
       error: data?.error,
     }),
   );
