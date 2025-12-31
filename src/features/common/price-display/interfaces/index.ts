@@ -1,12 +1,12 @@
-export interface IPriceDisplayInitialState {
-  currentPrice?: number;
-  flashSalePrice?: number;
+export interface IPriceDisplayInitialValue {
+  defaultCurrentPrice?: number;
+  defaultFlashSalePrice?: number;
   defaultPrice?: number;
-  minPrice?: number;
-  maxPrice?: number;
+  defaultMinPrice?: number;
+  defaultMaxPrice?: number;
 }
 
-export interface IPriceDisplayInitialValue {
+export interface IPriceDisplayInitialState {
   currentPrice?: number;
   flashSalePrice?: number;
   defaultPrice?: number;

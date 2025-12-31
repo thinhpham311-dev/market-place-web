@@ -21,11 +21,11 @@ export default function SkuPriceDisplay({ spu }: { spu: any }) {
     <PriceDisplay
       storeKey={`${PRO_DETAIL}_${sku?.sku_id ?? "default"}`}
       initialValue={{
-        flashSalePrice: 0,
-        maxPrice: 0,
-        minPrice: 0,
+        defaultFlashSalePrice: 0,
+        defaultMaxPrice: 0,
+        defaultMinPrice: 0,
         defaultPrice,
-        currentPrice,
+        defaultCurrentPrice: currentPrice,
       }}
     />
   );
