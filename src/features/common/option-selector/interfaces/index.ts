@@ -2,7 +2,7 @@ import { Option } from "@/features/common/option-selector/types";
 
 export interface IOptionInitialValue {
   initialOptions: Option[];
-  defaultOptionIdx?: (number | null)[];
+  defaultOptionIdx: (number | null)[];
 }
 
 export interface IOptionInitialState {

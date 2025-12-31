@@ -3,7 +3,9 @@ import { IPaginationInitialState, IState } from "@/features/common/pagination/in
 export const createDefault = (): IPaginationInitialState => ({
   limit: 0,
   currentPage: 1,
+  pages: [],
   totalPages: 1,
+  totalItems: 0,
 });
 
 export const initialState: IState = {};

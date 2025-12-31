@@ -25,7 +25,7 @@ export function useHandleOptionSelector({
   storeKey,
   initialValue,
 }: UseHandleOptionSelectorProps) {
-  const { initialOptions = [], defaultOptionIdx = [] } = initialValue;
+  const { initialOptions, defaultOptionIdx } = initialValue;
   const dispatch = useAppDispatch();
 
   // Memoize derived values

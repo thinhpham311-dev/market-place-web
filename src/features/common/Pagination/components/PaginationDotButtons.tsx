@@ -18,7 +18,7 @@ export default function PaginationDotButtons() {
   if (isShowDot) {
     return (
       <>
-        {pages.map((page, index) => {
+        {pages?.map((page, index) => {
           if (page === "...") {
             return (
               <PaginationItem key={`dots-${index}-${currentPage}`}>

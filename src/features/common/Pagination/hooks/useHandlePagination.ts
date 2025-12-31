@@ -6,6 +6,7 @@ import { injectReducer, removeReducer } from "@/store";
 import reducer from "@/features/common/pagination/store";
 import { IPaginationInitialValue } from "@/features/common/pagination/interfaces";
 import { PAGINATION } from "@/features/common/pagination/constants";
+import { calculatePaginationRange } from "@/features/common/pagination/helpers";
 
 interface IUseHandlePaginationProps {
   reducerKey?: string;
@@ -38,11 +39,13 @@ export function useHandlePagination({
     initialValue: {
       currentPage: defaultCurrentPage,
       limit: defaultLimit,
+      totalItems: defaultTotalItems,
       totalPages: Math.ceil(defaultTotalItems / defaultLimit),
     },
   });
 
-  const { currentPage, totalPages } = state;
+  const { currentPage, totalPages, limit: storeLimit } = state;
+
   const paginationRange = useMemo(
     () => calculatePaginationRange(currentPage, totalPages, siblingCount, DOTS),
     [currentPage, totalPages, siblingCount],
@@ -64,57 +67,11 @@ export function useHandlePagination({
   return {
     ...rest,
     ...state,
+    perPage: storeLimit,
     pages: paginationRange,
     setPage: setPageSafe,
     resetPagination: resetPaginationSafe,
     hasPrev: currentPage > 1,
     hasNext: currentPage < totalPages,
   };
-}
-
-function calculatePaginationRange(
-  currentPage: number,
-  totalPages: number,
-  siblingCount: number,
-  DOTS: string,
-): (number | string)[] {
-  const totalPageNumbers = siblingCount * 2 + 5;
-  const firstPage = 1;
-  const lastPage = totalPages;
-
-  if (totalPageNumbers >= totalPages) {
-    return Array.from({ length: totalPages }, (_, i) => i + 1);
-  }
-
-  const leftSibling = Math.max(currentPage - siblingCount, 2);
-  const rightSibling = Math.min(currentPage + siblingCount, totalPages - 1);
-
-  const showLeftDots = leftSibling > 2;
-  const showRightDots = rightSibling < totalPages - 1;
-
-  if (!showLeftDots && showRightDots) {
-    const leftItemCount = 3 + 2 * siblingCount;
-    return [...Array.from({ length: leftItemCount }, (_, i) => i + 1), DOTS, totalPages];
-  }
-
-  if (showLeftDots && !showRightDots) {
-    const rightItemCount = 3 + 2 * siblingCount;
-    return [
-      firstPage,
-      DOTS,
-      ...Array.from({ length: rightItemCount }, (_, i) => totalPages - rightItemCount + 1 + i),
-    ];
-  }
-
-  if (showLeftDots && showRightDots) {
-    return [
-      firstPage,
-      DOTS,
-      ...Array.from({ length: rightSibling - leftSibling + 1 }, (_, i) => leftSibling + i),
-      DOTS,
-      lastPage,
-    ];
-  }
-
-  return Array.from({ length: totalPages }, (_, i) => i + 1);
 }

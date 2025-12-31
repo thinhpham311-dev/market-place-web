@@ -3,23 +3,18 @@
 import React from "react";
 import { PaginationItem } from "@/components/ui/pagination";
 import { Label } from "@/components/ui/label";
-
 import { usePaginationContext } from "@/features/common/pagination/hooks";
 
 export default function PaginationLabel() {
-  const { currentPage, pages, totalItems, perPage, isShowLabel } = usePaginationContext();
+  const { currentPage, totalItems, perPage, isShowLabel } = usePaginationContext();
 
-  const current = currentPage ?? 1;
-  const limit = perPage ?? (Array.isArray(pages) ? pages.length : 10); // ✅ fix here
-
-  const startIndex = (current - 1) * limit + 1;
-  const endIndex = Math.min(current * limit, totalItems ?? 0);
-
+  const startIndex = (currentPage - 1) * perPage + 1;
+  const endIndex = Math.min(currentPage * perPage, totalItems);
   if (isShowLabel) {
     return (
       <PaginationItem className="flex flex-1">
-        <Label htmlFor="Showing">
-          Showing {startIndex}–{endIndex} of {totalItems ?? 0}
+        <Label>
+          Showing {startIndex}–{endIndex} of {totalItems}
         </Label>
       </PaginationItem>
     );

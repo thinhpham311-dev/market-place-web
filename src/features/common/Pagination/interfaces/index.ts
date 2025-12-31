@@ -1,7 +1,9 @@
 export interface IPaginationInitialState {
   limit: number;
+  pages?: (number | string)[];
   currentPage: number;
   totalPages: number;
+  totalItems?: number;
 }
 export interface IState {
   [storeKey: string]: IPaginationInitialState;
