@@ -11,8 +11,6 @@ import { IOptionInitialValue } from "@/features/common/option-selector/interface
 interface IOptionSelectorProps {
   storeKey: string;
   initialValue: IOptionInitialValue;
-  loading?: boolean;
-  error?: string | { message?: string } | null;
   title?: string;
   layout?: "vertical" | "horizontal";
   layoutItems?: "vertical" | "horizontal";

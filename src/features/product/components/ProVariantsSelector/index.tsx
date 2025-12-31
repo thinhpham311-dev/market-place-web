@@ -36,8 +36,6 @@ const ProVariantsSelector = () => {
             initialOptions: variants,
             defaultOptionIdx: [],
           }}
-          loading={isLoading}
-          error={error}
         />
       </CardContent>
     </Card>

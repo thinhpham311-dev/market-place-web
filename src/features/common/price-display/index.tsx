@@ -5,18 +5,16 @@ import PriceWithDiscount from "./components/PriceWithDiscount";
 import PriceRange from "./components/PriceRange";
 import PriceDisplayProvider from "@/features/common/price-display/providers";
 import { useHandlePriceDisplay } from "@/features/common/price-display/hooks";
-import { IPriceDisplay } from "@/features/common/price-display/store/initial";
-import { PRICE_DISPLAY } from "@/features/common/price-display/constants";
+import { IPriceDisplayInitialValue } from "@/features/common/price-display/interfaces";
 
 interface IPriceDisplayProps {
   storeKey: string;
-  initialValue: IPriceDisplay;
+  initialValue: IPriceDisplayInitialValue;
 }
 
 const PriceDisplay = React.forwardRef<HTMLDivElement, IPriceDisplayProps>(
   ({ storeKey, initialValue }, ref) => {
     const priceDisplay = useHandlePriceDisplay({
-      reducerKey: PRICE_DISPLAY,
       storeKey,
       initialValue,
     });

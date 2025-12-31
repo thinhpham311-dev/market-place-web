@@ -1,61 +1,46 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IPriceDisplay, createDefault, initialState } from "./initial";
+import { createSlice } from "@reduxjs/toolkit";
+import { createDefault, initialState } from "./initials";
+import { ensureStoreKeyState } from "@/features/common/price-display/helpers";
 
 const stateSlice = createSlice({
   name: "price/state",
   initialState,
   reducers: {
-    setInitialState(
-      state,
-      action: PayloadAction<{ storeKey: string; initialValue: IPriceDisplay }>,
-    ) {
-      const { storeKey, initialValue } = action.payload;
-
-      if (!state[storeKey]) {
-        state[storeKey] = initialValue ? { ...initialValue } : createDefault();
-      }
-    },
-    setPrice(state, action: PayloadAction<{ storeKey: string; currentPrice: number }>) {
+    setPrice(state, action) {
       const { storeKey, currentPrice } = action.payload;
 
-      if (!state[storeKey]) {
-        state[storeKey] = createDefault();
-      }
+      ensureStoreKeyState(state, storeKey);
       state[storeKey].currentPrice = currentPrice;
     },
-    setMinPrice(state, action: PayloadAction<{ storeKey: string; minPrice: number }>) {
+    setMinPrice(state, action) {
       const { storeKey, minPrice } = action.payload;
 
-      if (!state[storeKey]) {
-        state[storeKey] = createDefault();
-      }
+      ensureStoreKeyState(state, storeKey);
+
       state[storeKey].minPrice = minPrice;
     },
-    setMaxPrice(state, action: PayloadAction<{ storeKey: string; maxPrice: number }>) {
+    setMaxPrice(state, action) {
       const { storeKey, maxPrice } = action.payload;
 
-      if (!state[storeKey]) {
-        state[storeKey] = createDefault();
-      }
+      ensureStoreKeyState(state, storeKey);
+
       state[storeKey].maxPrice = maxPrice;
     },
-    setFlashSalePrice(state, action: PayloadAction<{ storeKey: string; flashSalePrice: number }>) {
+    setFlashSalePrice(state, action) {
       const { storeKey, flashSalePrice } = action.payload;
 
-      if (!state[storeKey]) {
-        state[storeKey] = createDefault();
-      }
+      ensureStoreKeyState(state, storeKey);
+
       state[storeKey].flashSalePrice = flashSalePrice;
     },
-    setDefaultPrice(state, action: PayloadAction<{ storeKey: string; defaultPrice: number }>) {
+    setDefaultPrice(state, action) {
       const { storeKey, defaultPrice } = action.payload;
 
-      if (!state[storeKey]) {
-        state[storeKey] = createDefault();
-      }
+      ensureStoreKeyState(state, storeKey);
+
       state[storeKey].defaultPrice = defaultPrice;
     },
-    resetPrice(state, action: PayloadAction<{ storeKey: string }>) {
+    resetPrice(state, action) {
       const { storeKey } = action.payload;
       state[storeKey] = createDefault();
     },
@@ -63,7 +48,6 @@ const stateSlice = createSlice({
 });
 
 export const {
-  setInitialState,
   setPrice,
   setMinPrice,
   setMaxPrice,

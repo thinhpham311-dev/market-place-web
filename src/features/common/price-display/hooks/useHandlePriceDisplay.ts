@@ -1,61 +1,44 @@
 "use client";
 
-import { useLayoutEffect, useEffect, useMemo, useRef } from "react";
+import { useLayoutEffect } from "react";
 import { useAppDispatch } from "@/lib/hooks";
 import {
-  setInitialState,
   setPrice,
   setFlashSalePrice,
   setDefaultPrice,
   resetPrice,
 } from "@/features/common/price-display/store/stateSlice";
-import { IPriceDisplay } from "@/features/common/price-display/store/initial";
-
+import { IPriceDisplayInitialValue } from "@/features/common/price-display/interfaces";
 import { useGetPriceValue } from "@/features/common/price-display/hooks/useGetPriceValue";
 import { injectReducer, removeReducer } from "@/store";
 import reducer from "@/features/common/price-display/store";
 import { PRICE_DISPLAY } from "@/features/common/price-display/constants";
 
 interface IUseHandlePriceDisplay {
-  reducerKey: string;
+  reducerKey?: string;
   storeKey: string;
-  initialValue: IPriceDisplay;
+  initialValue: IPriceDisplayInitialValue;
 }
 
 export function useHandlePriceDisplay({
-  reducerKey,
+  reducerKey = PRICE_DISPLAY,
   storeKey,
   initialValue,
 }: IUseHandlePriceDisplay) {
   const dispatch = useAppDispatch();
-  const initializedRef = useRef(false);
-
-  const dynamicReducerKey = useMemo(() => `${PRICE_DISPLAY}_${reducerKey}`, [reducerKey]);
 
   useLayoutEffect(() => {
-    injectReducer(dynamicReducerKey, reducer);
+    injectReducer(reducerKey, reducer);
 
     return () => {
-      removeReducer(dynamicReducerKey);
+      removeReducer(reducerKey);
     };
-  }, [dynamicReducerKey]);
+  }, [reducerKey]);
 
-  const price = useGetPriceValue({ reducerKey, storeKey, initialValue });
-
-  useEffect(() => {
-    if (!initializedRef.current && initialValue) {
-      dispatch(
-        setInitialState({
-          storeKey,
-          initialValue,
-        }),
-      );
-      initializedRef.current = true;
-    }
-  }, [dispatch, storeKey, initialValue]);
+  const state = useGetPriceValue({ reducerKey, storeKey, initialState: initialValue });
 
   return {
-    ...price,
+    ...state,
     setPrice: (val: number) => dispatch(setPrice({ storeKey, currentPrice: val })),
     setFlashSalePrice: (val: number) =>
       dispatch(setFlashSalePrice({ storeKey, flashSalePrice: val })),

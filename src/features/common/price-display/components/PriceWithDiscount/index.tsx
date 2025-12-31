@@ -1,15 +1,13 @@
 "use client";
 
+import { useMemo } from "react";
 import PriceText from "./PriceText";
 import OldPrice from "./OldPrice";
 import DiscountBadge from "./DiscountBadge";
 import { usePriceDisplayContext } from "@/features/common/price-display/hooks";
-import LoadingSkeleton from "../Loading";
-import { useMemo } from "react";
 
 const PriceWithDiscount = () => {
-  const { defaultPrice, currentPrice, flashSalePrice, loading } = usePriceDisplayContext();
-  if (loading) return <LoadingSkeleton />;
+  const { defaultPrice, currentPrice, flashSalePrice } = usePriceDisplayContext();
 
   const { current, old, hasDiscount, discountPercent, isFlashSaleActive } = useMemo(() => {
     const hasFlashSale = flashSalePrice && flashSalePrice > 0 && flashSalePrice < currentPrice;
