@@ -9,12 +9,15 @@ import PaginationDotButtons from "./components/PaginationDotButtons";
 import PaginationLabel from "./components/PaginationLabel";
 import { useHandlePagination } from "@/features/common/pagination/hooks";
 import { IPaginationInitialValue } from "@/features/common/pagination/interfaces";
-
+import { injectReducer } from "@/store";
+import reducer from "@/features/common/pagination/store";
+import { PAGINATION } from "@/features/common/pagination/constants";
 interface IPaginationCustomProps {
   storeKey: string;
   initialValue: IPaginationInitialValue;
   className?: string;
 }
+injectReducer(PAGINATION, reducer);
 
 const Pagination = ({ storeKey, initialValue }: IPaginationCustomProps) => {
   const pagination = useHandlePagination({ storeKey, initialValue });

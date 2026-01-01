@@ -13,7 +13,7 @@ interface SortOptionButtonProps {
 const SortByOptionButton: React.FC<SortOptionButtonProps> = ({ option }) => {
   const { setSortBy, sortBy } = useSortByContext();
   const { label, value } = option;
-  const isActive = sortBy.value === value;
+  const isActive = sortBy?.value === value;
 
   return (
     <Button size="sm" className={`px-3 py-1 border rounded-md`} onClick={() => setSortBy(option)}>

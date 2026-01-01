@@ -1,28 +1,34 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initialState, createDefault } from "@/features/common/pagination/store/initials";
-import { ensureStoreKeyState } from "@/features/common/pagination/helpers";
 
 const stateSlice = createSlice({
-  name: "pagination/state",
+  name: "pagination",
   initialState,
   reducers: {
-    setTotalPages(state, action) {
-      const { storeKey, totalItems, limit } = action.payload;
-      ensureStoreKeyState(state, storeKey);
-      const total = Math.ceil(totalItems / limit);
-      state[storeKey].totalPages = total;
+    initPagination(state, action) {
+      const { key, initialValue } = action.payload;
+      if (!state[key]) {
+        state[key] = createDefault();
+      }
+      const totalPages = Math.ceil(initialValue.totalItems / initialValue.limit);
+
+      state[key] = {
+        ...initialValue,
+        totalPages,
+      };
     },
+
     setPage(state, action) {
-      const { storeKey, page } = action.payload;
-      ensureStoreKeyState(state, storeKey);
-      state[storeKey].currentPage = page;
+      const { key, page } = action.payload;
+      state[key].currentPage = page;
     },
+
     resetPagination(state, action) {
-      const { storeKey } = action.payload;
-      state[storeKey] = createDefault();
+      const { key } = action.payload;
+      delete state[key];
     },
   },
 });
 
-export const { setTotalPages, setPage, resetPagination } = stateSlice.actions;
+export const { initPagination, setPage, resetPagination } = stateSlice.actions;
 export default stateSlice.reducer;

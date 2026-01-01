@@ -4,13 +4,13 @@ import { configureStore, Middleware, Reducer } from "@reduxjs/toolkit";
 import { persistStore, persistReducer, PersistConfig } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { Store } from "redux";
-import { smartCacheMiddleware } from "@/middlewares";
+import { smartCacheMiddleware, dynamicInitMiddleware } from "@/middlewares";
 
 interface ExtendedStore extends Store {
   asyncReducers: Record<string, Reducer>;
 }
 
-const middlewares: Middleware[] = [smartCacheMiddleware];
+const middlewares: Middleware[] = [smartCacheMiddleware, dynamicInitMiddleware];
 
 const persistConfig: PersistConfig<RootReducerState> = {
   key: PERSIST_STORE_NAME,

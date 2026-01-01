@@ -15,7 +15,7 @@ interface PaginationContextType {
   resetPagination: () => void;
   totalPages: number;
   totalItems: number;
-  perPage: number;
+  limit: number;
 }
 
 interface PaginationProviderProps {

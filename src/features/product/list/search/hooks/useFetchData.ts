@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getProductList } from "../store/dataSlice";
 import { selectProSearchListByStoreKey } from "@/features/product/list/search/store/selectors";
 import { useGetPaginationValue } from "@/features/common/pagination/hooks";
-import { useGetSortByValue } from "@/features/common/sort/hooks";
+import { useGetSortByValue } from "@/features/common/sort-by/hooks";
 import { useGetFilterValue } from "@/features/common/filter/hooks";
 //stores
 import reducer from "@/features/product/list/search/store";

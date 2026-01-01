@@ -4,20 +4,19 @@ import React from "react";
 import SortByProvider from "./providers";
 import SortByWrapper from "./components/SortByWrapper";
 import SortOptionList from "./components/SortByOptionsList";
-import { useSortBy } from "@/features/common/sort/hooks";
-import { SORT } from "@/features/common/sort/constants";
-import { ISortState } from "@/features/common/sort/store/initials";
+import { useSortBy } from "@/features/common/sort-by/hooks";
+import { ISortInitialValue } from "@/features/common/sort-by/interfaces";
 
 interface ISortByProps {
   storeKey: string;
-  initialValue: ISortState;
+  initialValue: ISortInitialValue;
 }
 
 const SortBy = ({ storeKey, initialValue }: ISortByProps) => {
-  const sortBy = useSortBy({ reducerKey: SORT, storeKey, initialValue });
+  const sortBy = useSortBy({ storeKey, initialValue });
 
   return (
-    <SortByProvider contextValues={sortBy} className="flex flex-row space-x-2">
+    <SortByProvider contextValues={{ ...sortBy }} className="flex flex-row space-x-2">
       <SortByWrapper>
         <SortOptionList />
       </SortByWrapper>

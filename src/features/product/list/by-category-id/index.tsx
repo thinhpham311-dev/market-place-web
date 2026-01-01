@@ -38,8 +38,8 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
                   <SortBy
                     storeKey={PRO_LIST_BY_CATEGORYID}
                     initialValue={{
-                      data: SORTBY_OPTIONS,
-                      sortBy: null,
+                      defaultData: SORTBY_OPTIONS,
+                      defaultValue: null,
                     }}
                   />
                 </div>

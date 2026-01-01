@@ -8,7 +8,7 @@ export interface SortByContextType {
   sortBy: Sort;
   setSortBy: (value: Sort) => void;
   resetSortBy: () => void;
-  options?: readonly Sort[];
+  data?: readonly Sort[];
 }
 
 interface SortByProviderProps {

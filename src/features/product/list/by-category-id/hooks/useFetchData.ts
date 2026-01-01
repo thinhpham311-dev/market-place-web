@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getProductListByCategories } from "../store/dataSlice";
 import { selectProByCategoryIdByStoreKey } from "../store/selectors";
 import { useGetPaginationValue } from "@/features/common/pagination/hooks";
-import { useGetSortByValue } from "@/features/common/sort/hooks";
+// import { useGetSortByValue } from "@/features/common/sort-by/hooks";
 import { useGetFilterValue } from "@/features/common/filter/hooks";
 // Reducer & constants
 import reducer from "@/features/product/list/by-category-id/store";
@@ -34,7 +34,7 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
 
   const { filter } = useGetFilterValue({ storeKey: PRO_LIST_BY_CATEGORYID });
 
-  const { sortBy } = useGetSortByValue({ storeKey: PRO_LIST_BY_CATEGORYID });
+  // const { sortBy } = useGetSortByValue({ storeKey: PRO_LIST_BY_CATEGORYID });
 
   const {
     products = [],
@@ -47,7 +47,7 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
     const promise = dispatch(
       getProductListByCategories({
         limit,
-        sortBy,
+        // sortBy,
         page: currentPage,
         ids: lastId,
         filter,
@@ -57,7 +57,14 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
     return () => {
       promise.abort?.(); // optional chaining in case abort is not available
     };
-  }, [dispatch, lastId, filter, sortBy, currentPage, limit]);
+  }, [
+    dispatch,
+    lastId,
+    filter,
+    // sortBy,
+    currentPage,
+    limit,
+  ]);
 
   return { products, totalItems, loading, error };
 }
