@@ -1,8 +1,7 @@
 import { RootState } from "@/store";
-import { PRICE_DISPLAY } from "@/features/common/price-display/constants";
 
 const makePriceDisplayBaseSelector = (reducerKey: string, storeKey: string) => (state: RootState) =>
-  state[`${PRICE_DISPLAY}_${reducerKey}`]?.state?.[storeKey];
+  state[reducerKey]?.state?.[storeKey];
 
 /**
  * Cache để đảm bảo mỗi selector chỉ được tạo 1 lần

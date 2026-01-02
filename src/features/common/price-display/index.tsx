@@ -6,11 +6,15 @@ import PriceRange from "./components/PriceRange";
 import PriceDisplayProvider from "@/features/common/price-display/providers";
 import { useHandlePriceDisplay } from "@/features/common/price-display/hooks";
 import { IPriceDisplayInitialValue } from "@/features/common/price-display/interfaces";
+import { injectReducer } from "@/store";
+import reducer from "@/features/common/price-display/store";
+import { PRICE_DISPLAY } from "@/features/common/price-display/constants";
 
 interface IPriceDisplayProps {
   storeKey: string;
   initialValue: IPriceDisplayInitialValue;
 }
+injectReducer(PRICE_DISPLAY, reducer);
 
 const PriceDisplay = React.forwardRef<HTMLDivElement, IPriceDisplayProps>(
   ({ storeKey, initialValue }, ref) => {

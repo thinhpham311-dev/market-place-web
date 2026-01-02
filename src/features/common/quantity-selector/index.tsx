@@ -14,6 +14,9 @@ import QuantitySelectorProvider from "./providers";
 import { useHandleQuantitySelector } from "./hooks";
 
 import { IQuantityInitialValue } from "@/features/common/quantity-selector/interfaces";
+import { injectReducer } from "@/store";
+import reducer from "@/features/common/quantity-selector/store";
+import { QUANTITY_COUNTER } from "@/features/common/quantity-selector/constants";
 
 interface IQuantitySelectorProps {
   storeKey: string;
@@ -22,6 +25,8 @@ interface IQuantitySelectorProps {
   title?: string;
   onChangeQuantity?: (value: number) => void;
 }
+
+injectReducer(QUANTITY_COUNTER, reducer);
 
 const QuantitySelector = React.forwardRef<HTMLDivElement, IQuantitySelectorProps>(
   ({ storeKey = "", initialValue, ...rest }, ref) => {

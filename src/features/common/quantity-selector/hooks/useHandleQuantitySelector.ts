@@ -1,23 +1,22 @@
 import { toast } from "sonner";
 
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { IQuantityInitialValue } from "@/features/common/quantity-selector/interfaces";
 import { useAppDispatch } from "@/lib/hooks";
 import { useGetQuantityValue } from "@/features/common/quantity-selector/hooks/useGetQuantityValue";
-import { setQuantity, resetQuantity } from "@/features/common/quantity-selector/store/stateSlice";
-import { injectReducer, removeReducer } from "@/store";
-import reducer from "../store";
-import { QUANTITY_COUNTER } from "@/features/common/quantity-selector/constants";
-
+import {
+  initQuantity,
+  setQuantity,
+  resetQuantity,
+} from "@/features/common/quantity-selector/store/stateSlice";
+import { withEnsureInit } from "@/features/common/quantity-selector/helpers";
 interface IUseHandleQuantitySelector {
-  reducerKey?: string;
   storeKey: string;
   initialValue: IQuantityInitialValue;
   onChangeQuantity?: (value: number) => void;
 }
 
 export function useHandleQuantitySelector({
-  reducerKey = QUANTITY_COUNTER,
   storeKey,
   initialValue,
   onChangeQuantity,
@@ -26,19 +25,10 @@ export function useHandleQuantitySelector({
   const { defaultCurrentQuantity, maxQuantity } = initialValue;
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // ⬅ reducer injection - only once
-  useLayoutEffect(() => {
-    injectReducer(reducerKey, reducer);
-
-    return () => {
-      removeReducer(reducerKey);
-    };
-  }, [dispatch, reducerKey]);
-
   useEffect(() => {
     if (defaultCurrentQuantity != null) {
       dispatch(
-        setQuantity({
+        initQuantity({
           storeKey,
           quantity: defaultCurrentQuantity,
         }),
@@ -75,7 +65,7 @@ export function useHandleQuantitySelector({
     (newQuantity: number) => {
       if (maxQuantity === 0) return;
 
-      dispatch(setQuantity({ storeKey, quantity: newQuantity }));
+      dispatch(withEnsureInit(setQuantity({ key: storeKey, quantity: newQuantity }), [storeKey]));
 
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
@@ -88,7 +78,7 @@ export function useHandleQuantitySelector({
   );
 
   const resetQuantityHandler = useCallback(() => {
-    dispatch(resetQuantity({ storeKey }));
+    dispatch(withEnsureInit(resetQuantity({ key: storeKey }), [storeKey]));
   }, [dispatch, storeKey]);
 
   const isDisabledQuantity = useMemo(() => {

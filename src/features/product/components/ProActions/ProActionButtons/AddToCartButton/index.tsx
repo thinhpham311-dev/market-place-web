@@ -27,6 +27,8 @@ const AddToCartButton = () => {
   const { currentQuantity: qty } = useGetQuantityValue({
     storeKey: `${PRO_DETAIL}_${sku?.sku_id}`,
   });
+
+  console.log("AddToCartButton rendered", qty);
   const data: ICartItemModel | null = useMemo(() => {
     if (!spu || !sku) return null;
     if (!qty) return null;
