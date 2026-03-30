@@ -2,19 +2,24 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 
 import { apiSignIn } from "@/services/AuthService";
 import { IUser } from "@/interfaces/user";
+import { onSignInSuccess } from "@/store/auth/sessionSlice";
+import { setUser } from "@/store/auth/userSlice";
 
 type SignInResponse = {
   message?: string;
   token?: string;
-  user?: unknown;
+  user?: any;
+  hasSession?: boolean;
 };
 
 export function useSignIn() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const signIn = async (values: IUser) => {
@@ -23,6 +28,14 @@ export function useSignIn() {
 
       const response = (await apiSignIn(values)) as { data: SignInResponse };
       const message = response.data?.message || "Signed in successfully.";
+
+      if (response.data?.hasSession || response.data?.token) {
+        dispatch(onSignInSuccess(response.data?.token || "http-only-session"));
+      }
+
+      if (response.data?.user) {
+        dispatch(setUser(response.data.user));
+      }
 
       toast.success(message);
       router.push("/");

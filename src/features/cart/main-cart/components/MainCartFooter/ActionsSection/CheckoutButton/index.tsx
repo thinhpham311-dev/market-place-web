@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import { Button } from "@/components/ui/button";
 import LoadingSkeleton from "./LoadingSkeleton";
 import ErrorMsg from "./ErrorMsg";
@@ -7,6 +9,7 @@ import { CreditCard } from "lucide-react";
 import { useShoppingCartContext, useCartErrorHandler } from "@/features/cart/hooks";
 
 function CheckoutButton() {
+  const router = useRouter();
   const { data, loading, error } = useShoppingCartContext();
   const { cart_items_count = 0 } = data;
 
@@ -25,7 +28,7 @@ function CheckoutButton() {
   const isDisabled = cart_items_count === 0;
 
   return (
-    <Button size="sm" disabled={isDisabled}>
+    <Button size="sm" disabled={isDisabled} onClick={() => router.push("/checkout")}>
       <CreditCard />
       <span>Check Out</span>
     </Button>

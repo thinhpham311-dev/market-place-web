@@ -1,5 +1,9 @@
-//components
+import CheckoutPage from "@/features/checkout";
 
 export default function Page() {
-  return <div className="space-y-10 container  md:p-6 p-3"></div>;
+  return (
+    <div className="container mx-auto space-y-10 p-3 md:p-6">
+      <CheckoutPage />
+    </div>
+  );
 }
