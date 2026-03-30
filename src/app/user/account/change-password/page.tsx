@@ -1,6 +1,5 @@
 "use client";
-//components
-import ChangePasswordCard from "./components/ChangePasswordCard";
+import ChangePasswordCard from "@/features/auth/change-password/components/ChangePasswordCard";
 
 export default function Page() {
   return (

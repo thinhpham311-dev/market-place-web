@@ -7,7 +7,7 @@ const API_NEXT = process.env.NEXT_PUBLIC_BASE_URL;
 
 export async function POST(req: Request): Promise<Response> {
   try {
-    const { limit, sort, page, ids } = await req.json();
+    const { limit, sort, page, ids, filter } = await req.json();
     if (!API_NEXT) {
       return NextResponse.json(
         { message: "Server misconfiguration: API_NEXT not set" },
@@ -15,7 +15,24 @@ export async function POST(req: Request): Promise<Response> {
       );
     }
 
-    const query = qs.stringify({ categoryIds: ids, limit, sort, page });
+    const brandIds = Array.isArray(filter?.brands)
+      ? filter.brands.filter(Boolean)
+      : filter?.brands
+        ? [filter.brands]
+        : [];
+
+    const query = qs.stringify(
+      {
+        categoryIds: ids,
+        brandIds,
+        limit,
+        sort,
+        page,
+      },
+      {
+        arrayFormat: "repeat",
+      },
+    );
     const { data: dataResponse } = await axios.get(
       `${API_NEXT}/v1/api/product/spu/categories/list?${query}`,
       {

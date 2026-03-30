@@ -17,6 +17,8 @@ const categoriesOptions = [
   { name: "In This Shop", value: "in-this-shop" },
 ];
 
+const categoryValues = categoriesOptions.map((option) => option.value) as [string, ...string[]];
+
 // chỉnh defaultValues để có sẵn giá trị mặc định
 const defaultValuesForSearchForm = {
   categories: "in-market-place",
@@ -24,8 +26,14 @@ const defaultValuesForSearchForm = {
 };
 
 const FormSchema = z.object({
-  categories: z.string(),
-  textsearch: z.string(),
+  categories: z.enum(categoryValues, {
+    errorMap: () => ({ message: "Please choose a valid search scope" }),
+  }),
+  textsearch: z
+    .string()
+    .trim()
+    .min(2, "Please enter at least 2 characters")
+    .max(100, "Please enter no more than 100 characters"),
 });
 
 const SearchForm: React.FC = () => {
@@ -46,6 +54,7 @@ const SearchForm: React.FC = () => {
           name="textsearch"
           placeholder="Search..."
           formSchema={FormSchema}
+          isRequired
         />
         <FormSelect
           className="xl:col-span-3 lg:col-span-4 md:col-span-5 col-span-12"
@@ -53,6 +62,7 @@ const SearchForm: React.FC = () => {
           placeholder="All"
           options={categoriesOptions}
           formSchema={FormSchema}
+          isRequired
         />
       </div>
       <div>

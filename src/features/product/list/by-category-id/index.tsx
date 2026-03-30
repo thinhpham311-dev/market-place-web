@@ -6,6 +6,7 @@ import React from "react";
 import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
 import SpuGrid from "@/features/product/components/ProGrid";
 import { Pagination, SortBy, Filter } from "@/features/common";
+import { useFetchData as useBrandFetchData } from "@/features/brand/list/all/hooks";
 
 // // hooks
 import { useFetchData } from "@/features/product/list/by-category-id/hooks";
@@ -15,7 +16,25 @@ import { SORTBY_OPTIONS, FILTER_OPTIONS } from "./constants";
 import { PRO_LIST_BY_CATEGORYID } from "./constants";
 
 const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
-  const { products, totalItems, loading, error } = useFetchData({ lastId });
+  const { products, totalItems, loading, error, status } = useFetchData({ lastId });
+  const { brands = [] } = useBrandFetchData();
+
+  const filterOptions = React.useMemo(() => {
+    const brandFilter = {
+      label: "Brands",
+      key: "brands",
+      type: "checkbox",
+      items: brands.map((brand) => ({
+        key: brand.brand_id || brand._id,
+        label: brand.brand_name || "Brand",
+        value: brand.brand_id || brand._id,
+      })),
+    };
+
+    const otherFilters = FILTER_OPTIONS.filter((item) => item.key !== "brands");
+
+    return [brandFilter, ...otherFilters];
+  }, [brands]);
 
   return (
     <Card className="border-none shadow-nonee md:px-6 px-3">
@@ -24,7 +43,7 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
           <Filter
             storeKey={PRO_LIST_BY_CATEGORYID}
             initialValue={{
-              data: FILTER_OPTIONS,
+              data: filterOptions,
               filter: {},
             }}
           />
@@ -39,7 +58,7 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
                     storeKey={PRO_LIST_BY_CATEGORYID}
                     initialValue={{
                       defaultData: SORTBY_OPTIONS,
-                      defaultValue: null,
+                      defaultValue: SORTBY_OPTIONS[0] ?? null,
                     }}
                   />
                 </div>
@@ -48,9 +67,7 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
                     storeKey={PRO_LIST_BY_CATEGORYID}
                     initialValue={{
                       isShowNav: true,
-                      defaultLimit: 10,
                       defaultTotalItems: totalItems,
-                      defaultCurrentPage: 1,
                     }}
                   />
                 </div>
@@ -61,6 +78,7 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
               <SpuGrid
                 error={error}
                 isLoading={loading}
+                status={status}
                 countLoadItems={20}
                 data={products}
                 className="lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-3"
@@ -74,8 +92,6 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
                   isShowDot: true,
                   isShowNav: true,
                   isShowLabel: true,
-                  defaultLimit: 20,
-                  defaultCurrentPage: 1,
                   defaultTotalItems: totalItems,
                 }}
               />

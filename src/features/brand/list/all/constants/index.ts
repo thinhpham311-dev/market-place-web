@@ -1,0 +1,6 @@
+export const BRAND_ALL_LIST = "BRAND_ALL_LIST";
+export const BRAND_ALL_LIST_CACHE_KEY = "BRAND_ALL_LIST_CACHE_KEY";
+export const BRAND_ALL_LIST_TAG = "BRAND_ALL_LIST_TAG";
+export const BRAND_ALL_LIST_TTL = 5 * 60 * 1000;
+export const BRAND_ALL_LIST_RETRIES = 2;
+export const BRAND_ALL_LIST_RETRY_DELAY = 500;

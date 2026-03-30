@@ -10,9 +10,7 @@ export interface IState {
 }
 
 export interface IPaginationInitialValue {
-  defaultLimit: number;
   defaultTotalItems: number;
-  defaultCurrentPage: number;
   isShowDot?: boolean;
   isShowNav?: boolean;
   isShowLabel?: boolean;

@@ -8,6 +8,10 @@ const CatByCategoryId = dynamic(() => import("@/features/category/list/by-catego
   ssr: false,
   loading: () => <Skeleton className="w-full h-10" />,
 });
+const BrandListSection = dynamic(() => import("@/features/brand/list/all"), {
+  ssr: false,
+  loading: () => <Skeleton className="w-full h-48" />,
+});
 const ProListByCategoryId = dynamic(() => import("@/features/product/list/by-category-id"), {
   ssr: false,
   loading: () => <Skeleton className="w-full h-lvh" />,
@@ -38,6 +42,11 @@ export default function Page({ params }: PageProps) {
     <div className="space-y-5 container mx-auto my-5">
       <CatByCategoryId ids={ids} />
       <ProListByCategoryId lastId={lastId} />
+      <BrandListSection
+        title="Shop By Brand"
+        description="Browse products from the most popular brands in our marketplace."
+        compact
+      />
     </div>
   );
 }

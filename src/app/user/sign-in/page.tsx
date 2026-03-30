@@ -1,6 +1,5 @@
 "use client";
-//components
-import SignInCard from "./components/SignInCard";
+import SignInCard from "@/features/auth/sign-in/components/SignInCard";
 
 export default function Page() {
   return (

@@ -51,18 +51,21 @@ const dataSlice = createSlice({
       .addCase(getProductListByCategories.pending, (state) => {
         state.loading = true;
         state.error = null;
+        state.status = "loading";
       })
       .addCase(getProductListByCategories.fulfilled, (state, action) => {
         const { list, total } = action.payload.metadata;
         state.list = list;
         state.total = total;
         state.loading = false;
+        state.status = "success";
       })
       .addCase(getProductListByCategories.rejected, (state, action) => {
         state.loading = false;
         state.error = (action.payload as string) || "Failed to fetch products";
         state.total = 0;
         state.list = [];
+        state.status = "error";
       });
   },
 });

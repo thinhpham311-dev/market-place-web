@@ -1,5 +1,5 @@
 //components
-import UpdateProfileCard from "./components/UpdateProfileCard";
+import UpdateProfileCard from "@/features/user/profile/components/UpdateProfileCard";
 
 export default function Page() {
   return (

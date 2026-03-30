@@ -11,7 +11,7 @@ export async function apiSignIn(data: IUser) {
 
 export async function apiSignUp(data: IUser) {
   return ApiService.fetchData({
-    url: "/user/register",
+    url: "/sign-up",
     method: "post",
     data,
   });

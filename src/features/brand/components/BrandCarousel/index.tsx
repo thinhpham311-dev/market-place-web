@@ -1,0 +1,59 @@
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { NotFound } from "@/components/layout";
+import { cn } from "@/utils/styles";
+
+import BrandCard from "@/features/brand/components/BrandCard";
+import LoadingSkeleton from "./LoadingSkeleton";
+import type { Brand } from "@/features/brand/types";
+
+interface BrandCarouselProps {
+  data: Brand[];
+  className?: string;
+  isLoading: boolean;
+  error?: string | null;
+  countLoadItems: number;
+  itemsPerPage?: number;
+}
+
+export default function BrandCarousel({
+  data,
+  className,
+  isLoading,
+  error,
+  countLoadItems,
+  itemsPerPage = 12,
+}: BrandCarouselProps) {
+  const hasNoData = !data || data.length === 0;
+
+  if (isLoading && hasNoData) {
+    return <LoadingSkeleton count={countLoadItems} />;
+  }
+
+  if (!isLoading && hasNoData && error) {
+    return <NotFound message={error} />;
+  }
+
+  if (!isLoading && hasNoData) {
+    return <NotFound message="No brands found." />;
+  }
+
+  return (
+    <Carousel>
+      <CarouselContent className="-ml-2">
+        {data.slice(0, itemsPerPage).map((item) => (
+          <CarouselItem key={item._id} className={cn("basis-1/2 pl-2 md:basis-1/4 lg:basis-1/6", className)}>
+            <BrandCard item={item} />
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <CarouselPrevious className="top-1/2 -left-3 -translate-y-1/2 md:-left-5" />
+      <CarouselNext className="top-1/2 -right-3 -translate-y-1/2 md:-right-5" />
+    </Carousel>
+  );
+}

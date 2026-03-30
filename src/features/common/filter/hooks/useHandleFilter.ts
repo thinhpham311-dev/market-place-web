@@ -2,7 +2,13 @@
 
 import { useCallback, useEffect, useRef } from "react";
 import { useAppDispatch } from "@/lib/hooks";
-import { setInitialFilter, setFilter, resetFilter, resetAllFilters } from "../store/stateSlice";
+import {
+  setInitialFilter,
+  setFilter,
+  setFilterData,
+  resetFilter,
+  resetAllFilters,
+} from "../store/stateSlice";
 import { IFilterState } from "@/features/common/filter/store/initials";
 import { injectReducer, removeReducer } from "@/store";
 import reducer from "@/features/common/filter/store";
@@ -38,6 +44,17 @@ export function useHandleFilter({ reducerKey, storeKey, initialValue }: IUseFilt
         }),
       );
       initializedRef.current = true;
+    }
+  }, [dispatch, storeKey, initialValue]);
+
+  useEffect(() => {
+    if (initializedRef.current) {
+      dispatch(
+        setFilterData({
+          storeKey,
+          data: initialValue?.data ?? [],
+        }),
+      );
     }
   }, [dispatch, storeKey, initialValue]);
 

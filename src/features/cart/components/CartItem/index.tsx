@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import CartItemName from "@/features/cart/components/CartItem/CartItemName";
 import CartItemImage from "@/features/cart/components/CartItem/CartItemImage";
 import CartItemPrice from "@/features/cart/components/CartItem/CartItemPrice";
@@ -9,6 +10,7 @@ import { CartItemVariantsView } from "@/features/cart/components/CartItem/CartIt
 import { CartItemQuantityView } from "@/features/cart/components/CartItem/CartItemQuantitySelector";
 import { ICartItemModel } from "@/models/cart";
 import { useRouter } from "next/navigation";
+import { useShoppingCartContext } from "@/features/cart/hooks";
 import CartItemRemove from "./CartItemActions/CartItemRemove";
 
 interface ICartItemProps {
@@ -17,7 +19,9 @@ interface ICartItemProps {
 
 const CartItem = ({ data }: ICartItemProps) => {
   const router = useRouter();
+  const { loading } = useShoppingCartContext();
   const {
+    itemSkuId,
     itemSpuSlug,
     itemShopId,
     itemSpuId,
@@ -29,9 +33,30 @@ const CartItem = ({ data }: ICartItemProps) => {
     itemQuantity,
   } = data;
 
+  const isDeleting = loading.byItem[itemSkuId]?.deleteItem;
+
   const handleRouterLinkToDetail = () => {
     router.push(`/products/${itemSpuSlug}-i.${itemShopId}.${itemSpuId}`);
   };
+
+  if (isDeleting) {
+    return (
+      <Card className="grid grid-cols-5 grid-rows-2 items-center gap-x-1 p-1 md:grid-cols-4">
+        <CardHeader className="col-span-2 row-span-2 p-0 md:col-span-1">
+          <Skeleton className="h-[50px] w-[50px] rounded-md" />
+        </CardHeader>
+        <CardContent className="col-span-3 row-span-3 space-y-3 p-0 md:col-span-3">
+          <div className="grid grid-cols-6 grid-rows-3 items-center gap-2">
+            <Skeleton className="col-span-6 h-5 rounded-md" />
+            <Skeleton className="col-span-3 h-4 rounded-md" />
+            <Skeleton className="col-span-3 h-4 rounded-md" />
+            <Skeleton className="col-span-2 col-start-4 row-span-2 row-end-4 h-9 rounded-md" />
+            <Skeleton className="col-start-6 row-span-2 row-end-4 h-6 w-6 rounded-md justify-self-end" />
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card className="grid md:grid-cols-4 grid-cols-5 grid-rows-2 items-center p-1 gap-x-1">

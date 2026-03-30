@@ -37,9 +37,7 @@ export default function ProSuggestionList() {
           initialValue={{
             isShowDot: true,
             isShowNav: true,
-            defaultLimit: 24,
             defaultTotalItems: totalItems,
-            defaultCurrentPage: 1,
           }}
         />
       </CardContent>

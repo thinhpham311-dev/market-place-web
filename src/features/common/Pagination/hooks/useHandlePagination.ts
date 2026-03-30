@@ -3,6 +3,7 @@ import { useAppDispatch } from "@/lib/hooks";
 import {
   initPagination,
   setPage,
+  setLimit,
   resetPagination,
 } from "@/features/common/pagination/store/stateSlice";
 import { useGetPaginationValue } from "./useGetPaginationValue";
@@ -16,26 +17,19 @@ interface IUseHandlePaginationProps {
 
 export function useHandlePagination({ storeKey, initialValue }: IUseHandlePaginationProps) {
   const dispatch = useAppDispatch();
-  const { defaultCurrentPage, defaultTotalItems, defaultLimit, ...rest } = initialValue;
+  const rest = initialValue;
+
   useEffect(() => {
-    dispatch(
-      initPagination({
-        key: storeKey,
-        initialValue: {
-          currentPage: defaultCurrentPage,
-          totalItems: defaultTotalItems,
-          limit: defaultLimit,
-        },
-      }),
-    );
+    dispatch(initPagination({ key: storeKey }));
+
     return () => {
       dispatch(resetPagination({ key: storeKey }));
     };
-  }, [dispatch, storeKey, defaultCurrentPage, defaultTotalItems]);
+  }, [dispatch, storeKey]);
 
   const pagination = useGetPaginationValue({ storeKey });
 
-  const { currentPage, totalPages } = pagination;
+  const { currentPage, totalPages, limit: storeLimit } = pagination;
 
   const setPageSafe = useCallback(
     (page: number) => {
@@ -46,6 +40,10 @@ export function useHandlePagination({ storeKey, initialValue }: IUseHandlePagina
     [dispatch, storeKey, totalPages],
   );
 
+  const setLimitSafe = useCallback((limit: number) => {
+    dispatch(withEnsureInit(setLimit({ key: storeKey, limit }), [storeKey]));
+  }, [dispatch, storeKey]);
+
   const resetPaginationSafe = useCallback(() => {
     dispatch(withEnsureInit(resetPagination({ key: storeKey }), [storeKey]));
   }, [dispatch, storeKey]);
@@ -53,6 +51,8 @@ export function useHandlePagination({ storeKey, initialValue }: IUseHandlePagina
   return {
     ...rest,
     ...pagination,
+    limit: storeLimit,
+    setLimit: setLimitSafe,
     setPage: setPageSafe,
     resetPagination: resetPaginationSafe,
     hasPrev: currentPage > 1,

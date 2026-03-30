@@ -9,6 +9,10 @@ const CatPopularList = dynamic(() => import("@/features/category/list/popular"),
   ssr: true,
   loading: () => <Skeleton className="w-full h-48" />,
 });
+const BrandListSection = dynamic(() => import("@/features/brand/list/all"), {
+  ssr: true,
+  loading: () => <Skeleton className="w-full h-48" />,
+});
 const ProPopularList = dynamic(() => import("@/features/product/list/popular"), {
   ssr: true,
   loading: () => <Skeleton className="w-full h-48" />,
@@ -27,6 +31,7 @@ export default function HomePage() {
     <div className="space-y-5  container mx-auto">
       <Advertisement />
       <CatPopularList />
+      <BrandListSection />
       <ProPopularList />
       <ProSuggestionList />
     </div>

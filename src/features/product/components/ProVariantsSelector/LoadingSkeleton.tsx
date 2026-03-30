@@ -1,11 +1,5 @@
-import { Skeleton } from "@/components/ui/skeleton";
+import InlineSkeleton from "@/components/shared/feedback/InlineSkeleton";
 
-const LoadingSkeleton = () => {
-  return (
-    <>
-      <Skeleton className="h-[50px] rounded-xl col-span-5 my-3" />
-    </>
-  );
-};
-
-export default LoadingSkeleton;
+export default function LoadingSkeleton() {
+  return <InlineSkeleton className="h-[50px] rounded-xl col-span-5 my-3" />;
+}

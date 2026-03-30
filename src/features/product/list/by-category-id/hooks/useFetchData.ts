@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
 // Actions and selectors
@@ -18,6 +18,7 @@ interface UseFetchDataParams {
 
 export function useFetchData({ lastId }: UseFetchDataParams) {
   const dispatch = useAppDispatch();
+  const [isInitialLoading, setIsInitialLoading] = useState(Boolean(lastId));
 
   // Inject and clean up reducer
   useLayoutEffect(() => {
@@ -41,9 +42,17 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
     loading = false,
     error = null,
     totalItems = 0,
+    status = "idle",
   } = useAppSelector(selectProByCategoryIdByStoreKey(PRO_LIST_BY_CATEGORYID));
   // Fetch product list
   useEffect(() => {
+    if (!lastId) {
+      setIsInitialLoading(false);
+      return;
+    }
+
+    setIsInitialLoading(true);
+
     const promise = dispatch(
       getProductListByCategories({
         limit,
@@ -53,6 +62,10 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
         filter,
       }) as any,
     );
+
+    promise.finally?.(() => {
+      setIsInitialLoading(false);
+    });
 
     return () => {
       promise.abort?.(); // optional chaining in case abort is not available
@@ -66,5 +79,11 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
     limit,
   ]);
 
-  return { products, totalItems, loading, error };
+  return {
+    products,
+    totalItems,
+    loading: isInitialLoading || loading || status === "idle",
+    error,
+    status,
+  };
 }
