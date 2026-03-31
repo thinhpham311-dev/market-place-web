@@ -28,7 +28,7 @@ export default function MiniCartViewMoreButton() {
         size="sm"
         onClick={handleRouterLinkToCart}
       >
-        <span>{t("cart_view_more")}</span>
+        <span>{t("see_more")}</span>
         <ChevronRight />
       </Button>
     );

@@ -8,9 +8,7 @@ import { Counter, ICounterRef } from "@/components/ui/counter";
 
 // hooks
 import { useQuantitySelectorContext } from "../hooks";
-
-//constants
-import { ERROR_QUANTITY_COUNTER } from "@/features/common/quantity-selector/constants";
+import { translateRuntime } from "@/lib/i18n/runtime-translation";
 
 const QuantitySelectorCounter = () => {
   const counterRef = useRef<ICounterRef>(null);
@@ -31,7 +29,7 @@ const QuantitySelectorCounter = () => {
   }, [maxQuantity, resetQuantity]);
 
   const handleUpdateQuantity = (value: number) => {
-    getValidate?.(value, [ERROR_QUANTITY_COUNTER]);
+    getValidate?.(value, [translateRuntime("quantity_limit_warning")]);
     updateQuantity(value);
   };
 

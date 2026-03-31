@@ -275,6 +275,7 @@ export type TranslationKey =
   | "theme_system"
   | "common_something_went_wrong"
   | "common_no_data_found"
+  | "common_no_results"
   | "product_specifications"
   | "product_no_specifications"
   | "product_description_title"
@@ -313,6 +314,7 @@ export type TranslationKey =
   | "auth_check_otp_success"
   | "auth_check_otp_failed"
   | "quantity_reached_maximum"
+  | "quantity_limit_warning"
   | "review_validation_missing"
   | "review_submit"
   | "review_placeholder"
@@ -334,6 +336,13 @@ export type TranslationKey =
   | "cart_remove_tooltip"
   | "cart_add_success_title"
   | "cart_add_success_desc"
+  | "cart_selected_all"
+  | "cart_item_count"
+  | "cart_delete_items"
+  | "cart_voucher_label"
+  | "cart_voucher_desc"
+  | "cart_shipping_label"
+  | "cart_shipping_desc"
   | "sidebar_main_navigation"
   | "sidebar_back_home"
   | "sidebar_toggle"
@@ -655,6 +664,7 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     theme_system: "System",
     common_something_went_wrong: "Something went wrong.",
     common_no_data_found: "No data found.",
+    common_no_results: "No results.",
     product_specifications: "Product Specifications",
     product_no_specifications: "No specifications available",
     product_description_title: "Product Description",
@@ -694,6 +704,8 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     auth_check_otp_success: "Your email has been verified successfully.",
     auth_check_otp_failed: "OTP verification failed. Please try again.",
     quantity_reached_maximum: "Reached maximum quantity!",
+    quantity_limit_warning:
+      "If more quantity is added, purchase limit will be exceeded and price may change",
     review_validation_missing: "Please provide a rating and a comment.",
     review_submit: "Submit",
     review_placeholder: "Write your review here...",
@@ -717,6 +729,13 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     cart_add_success_title: "Added to cart successfully",
     cart_add_success_desc:
       "The product {product} - {variants} x {quantity} has been added to your cart.",
+    cart_selected_all: "Selected All",
+    cart_item_count: "item",
+    cart_delete_items: "Delete",
+    cart_voucher_label: "Voucher:",
+    cart_voucher_desc: "Voucher discount up to 40k VND",
+    cart_shipping_label: "Shipping:",
+    cart_shipping_desc: "Up to 500,000 VND shipping discount with no minimum order",
     sidebar_main_navigation: "Main navigation",
     sidebar_back_home: "Back to home",
     sidebar_toggle: "Toggle sidebar",
@@ -1038,6 +1057,7 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     theme_system: "Hệ thống",
     common_something_went_wrong: "Đã xảy ra lỗi.",
     common_no_data_found: "Không có dữ liệu.",
+    common_no_results: "Không có kết quả.",
     product_specifications: "Thông số sản phẩm",
     product_no_specifications: "Chưa có thông số sản phẩm",
     product_description_title: "Mô tả sản phẩm",
@@ -1077,6 +1097,8 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     auth_check_otp_success: "Email của bạn đã được xác thực thành công.",
     auth_check_otp_failed: "Xác thực OTP thất bại. Vui lòng thử lại.",
     quantity_reached_maximum: "Đã đạt số lượng tối đa!",
+    quantity_limit_warning:
+      "Nếu tăng thêm số lượng, bạn có thể vượt giới hạn mua và giá có thể thay đổi",
     review_validation_missing: "Vui lòng chọn số sao và nhập nhận xét.",
     review_submit: "Gửi đánh giá",
     review_placeholder: "Nhập nhận xét của bạn tại đây...",
@@ -1100,6 +1122,13 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     cart_add_success_title: "Đã thêm vào giỏ hàng thành công",
     cart_add_success_desc:
       "Sản phẩm {product} - {variants} x {quantity} đã được thêm vào giỏ hàng.",
+    cart_selected_all: "Đã chọn tất cả",
+    cart_item_count: "sản phẩm",
+    cart_delete_items: "Xóa",
+    cart_voucher_label: "Voucher:",
+    cart_voucher_desc: "Voucher giảm đến 40k₫",
+    cart_shipping_label: "Vận chuyển:",
+    cart_shipping_desc: "Giảm 500.000₫ phí vận chuyển đơn tối thiểu 0₫",
     sidebar_main_navigation: "Điều hướng chính",
     sidebar_back_home: "Về trang chủ",
     sidebar_toggle: "Bật/tắt thanh bên",
@@ -1421,6 +1450,7 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     theme_system: "システム",
     common_something_went_wrong: "問題が発生しました。",
     common_no_data_found: "データが見つかりません。",
+    common_no_results: "結果がありません。",
     product_specifications: "商品の仕様",
     product_no_specifications: "仕様情報はありません",
     product_description_title: "商品説明",
@@ -1460,6 +1490,8 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     auth_check_otp_success: "メールの確認が完了しました。",
     auth_check_otp_failed: "OTP確認に失敗しました。もう一度お試しください。",
     quantity_reached_maximum: "最大数量に達しました。",
+    quantity_limit_warning:
+      "これ以上数量を増やすと購入上限を超え、価格が変動する可能性があります",
     review_validation_missing: "評価とコメントの両方を入力してください。",
     review_submit: "送信",
     review_placeholder: "レビューを入力してください...",
@@ -1483,6 +1515,13 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     cart_add_success_title: "カートに追加しました",
     cart_add_success_desc:
       "商品 {product} - {variants} x {quantity} をカートに追加しました。",
+    cart_selected_all: "すべて選択",
+    cart_item_count: "商品",
+    cart_delete_items: "削除",
+    cart_voucher_label: "クーポン:",
+    cart_voucher_desc: "最大40,000VNDのクーポン割引",
+    cart_shipping_label: "配送:",
+    cart_shipping_desc: "最低注文金額なしで最大500,000VNDの配送料割引",
     sidebar_main_navigation: "メインナビゲーション",
     sidebar_back_home: "ホームへ戻る",
     sidebar_toggle: "サイドバーを切り替える",

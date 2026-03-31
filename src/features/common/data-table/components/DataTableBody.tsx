@@ -13,6 +13,7 @@ import { ICartItemModel } from "@/models/cart";
 import { Truck, ChevronRight, Tickets, MessagesSquare } from "lucide-react";
 import { useDataTableContext } from "@/features/common/data-table/hooks";
 import { formatToCurrency } from "@/utils/formats";
+import { useTranslation } from "@/lib/hooks";
 
 // ------------------- Sub-components -------------------
 interface IGroupHeaderRowProps {
@@ -22,6 +23,7 @@ interface IGroupHeaderRowProps {
 
 const GroupHeaderRow = React.forwardRef<HTMLTableRowElement, IGroupHeaderRowProps>(
   ({ row, subRows }, ref) => {
+    const { t } = useTranslation();
     const router = useRouter();
 
     const selectedCount = subRows.filter((r) => r.getIsSelected()).length;
@@ -76,7 +78,7 @@ const GroupHeaderRow = React.forwardRef<HTMLTableRowElement, IGroupHeaderRowProp
                 router.push(`/shop/${row.original.itemShopSlug}-s.${row.original.itemShopId}`)
               }
             >
-              View More
+              {t("see_more")}
               <ChevronRight />
             </Button>
           </div>
@@ -113,6 +115,7 @@ interface IInfoRowProps {
 
 const InfoRow = React.forwardRef<HTMLTableRowElement, IInfoRowProps>(
   ({ icon, label, description, totalColumns }, ref) => {
+    const { t } = useTranslation();
     return (
       <TableRow ref={ref}>
         <TableCell colSpan={totalColumns} className="py-2">
@@ -125,7 +128,7 @@ const InfoRow = React.forwardRef<HTMLTableRowElement, IInfoRowProps>(
               <span>{description}</span>
             </div>
             <Button variant="ghost" size="sm">
-              View More
+              {t("see_more")}
               <ChevronRight />
             </Button>
           </div>
@@ -138,6 +141,7 @@ const InfoRow = React.forwardRef<HTMLTableRowElement, IInfoRowProps>(
 InfoRow.displayName = "InfoRow";
 
 const CartTableBody = () => {
+  const { t } = useTranslation();
   const [isMounted, setIsMounted] = useState(false);
 
   // This ensures context is only accessed after component is mounted
@@ -167,7 +171,7 @@ const CartTableBody = () => {
       <TableBody>
         <TableRow>
           <TableCell colSpan={totalColumns} className="h-52 text-center">
-            No results.
+            {t("common_no_results")}
           </TableCell>
         </TableRow>
       </TableBody>
@@ -189,14 +193,14 @@ const CartTableBody = () => {
 
             <InfoRow
               icon={<Tickets />}
-              label="Voucher:"
-              description="Voucher giảm đến 40k₫"
+              label={t("cart_voucher_label")}
+              description={t("cart_voucher_desc")}
               totalColumns={totalColumns}
             />
             <InfoRow
               icon={<Truck />}
-              label="Shipping:"
-              description="Giảm 500.000₫ phí vận chuyển đơn tối thiểu 0₫"
+              label={t("cart_shipping_label")}
+              description={t("cart_shipping_desc")}
               totalColumns={totalColumns}
             />
           </React.Fragment>

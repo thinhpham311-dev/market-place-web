@@ -14,7 +14,7 @@ export default function VoucherSection() {
         <span className="text-md">{t("cart_voucher_code")}:</span>
       </strong>
       <Button variant="ghost" size="sm">
-        {t("cart_view_more")}
+        {t("see_more")}
         <ChevronRight />
       </Button>
     </div>

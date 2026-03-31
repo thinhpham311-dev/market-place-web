@@ -47,13 +47,13 @@ const CartTableFooter = () => {
               onCheckedChange={(value) => table.toggleAllRowsSelected(!!value)}
             />
             <span>
-              Selected All ({items_selected.length}/{total_items})
+              {t("cart_selected_all")} ({items_selected.length}/{total_items})
             </span>
           </Label>
         </TableCell>
         <TableCell>
           <div className="text-center text-sm font-medium min-w-[150px]">
-            ({items_selected.length} item)
+            ({items_selected.length} {t("cart_item_count")})
           </div>
         </TableCell>
         <TableCell>
@@ -70,7 +70,8 @@ const CartTableFooter = () => {
               onClick={handleDeleteSelectedItems}
               className="gap-2"
             >
-              <Trash className="w-4 h-4" /> Delete ({total_items_selected}) Item
+              <Trash className="w-4 h-4" /> {t("cart_delete_items")} ({total_items_selected}){" "}
+              {t("cart_item_count")}
             </Button>
           </div>
         </TableCell>

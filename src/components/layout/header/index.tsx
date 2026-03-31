@@ -2,7 +2,7 @@
 import { usePathname } from "next/navigation";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { ThemeToggle } from "@/components/shared";
-import { UserDropdown, SearchForm, Logo, ShoppingCart, LanguageSwitcher } from "@/components/shared";
+import { UserDropdown, SearchForm, Logo, ShoppingCart } from "@/components/shared";
 
 export default function SiteHeader() {
   const path = usePathname();
@@ -20,7 +20,6 @@ export default function SiteHeader() {
           </div>
           <div className="flex items-center space-x-2">
             {path !== "/cart" && path !== "/checkout" && <ShoppingCart />}
-            <LanguageSwitcher />
             <ThemeToggle />
             <UserDropdown />
           </div>

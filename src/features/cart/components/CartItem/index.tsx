@@ -12,12 +12,14 @@ import { ICartItemModel } from "@/models/cart";
 import { useRouter } from "next/navigation";
 import { useShoppingCartContext } from "@/features/cart/hooks";
 import CartItemRemove from "./CartItemActions/CartItemRemove";
+import { useTranslation } from "@/lib/hooks";
 
 interface ICartItemProps {
   data: ICartItemModel;
 }
 
 const CartItem = ({ data }: ICartItemProps) => {
+  const { t } = useTranslation();
   const router = useRouter();
   const { loading } = useShoppingCartContext();
   const {
@@ -82,7 +84,7 @@ const CartItem = ({ data }: ICartItemProps) => {
 
           {/* Giá: chiếm 3 cột */}
           <div className="col-span-3 row-span-1">
-            <CartItemPrice label="Unit Price:" itemPrice={itemSkuPrice} />
+            <CartItemPrice label={`${t("cart_column_unit")}:`} itemPrice={itemSkuPrice} />
           </div>
 
           {/* Variants selector: chiếm 3 cột */}
