@@ -1,14 +1,16 @@
 import React from "react";
 import { ItemContent, Item, ItemTitle, ItemDescription } from "@/components/ui/item";
+import { useTranslation } from "@/lib/hooks/use-translation";
 
 const ShopStats = () => {
+  const { t } = useTranslation();
   const stats = [
-    { label: "Rating", value: "5.0 ★" },
-    { label: "Products", value: "120" },
-    { label: "Follower", value: "3.2k" },
-    { label: "Joined", value: "2022" },
-    { label: "Response Rate", value: "98%" },
-    { label: "Response Time", value: "1h" },
+    { label: t("shop_rating"), value: "5.0 ★" },
+    { label: t("shop_products"), value: "120" },
+    { label: t("shop_followers"), value: "3.2k" },
+    { label: t("shop_joined"), value: "2022" },
+    { label: t("shop_response_rate"), value: "98%" },
+    { label: t("shop_response_time"), value: "1h" },
   ];
 
   return (

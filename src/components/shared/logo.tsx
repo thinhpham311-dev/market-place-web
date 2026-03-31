@@ -1,8 +1,13 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslation } from "@/lib/hooks";
 
 const Logo: React.FC = () => {
+  const { t } = useTranslation();
+
   return (
     <Link
       href="/"
@@ -13,9 +18,9 @@ const Logo: React.FC = () => {
         loading="lazy"
         width={30}
         height={30}
-        alt="Market Place Logo"
+        alt={t("brand_logo_alt")}
       />
-      <h3 className="font-bold uppercase lg:flex md:flex hidden">Market Place</h3>
+      <h3 className="font-bold uppercase lg:flex md:flex hidden">{t("footer_brand_name")}</h3>
     </Link>
   );
 };

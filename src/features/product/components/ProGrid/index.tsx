@@ -4,6 +4,7 @@ import { ISpuModel } from "@/models/spu";
 import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
 import { cn } from "@/utils/styles";
+import { useTranslation } from "@/lib/hooks/use-translation";
 
 interface SpuGridProps {
   data: ISpuModel[];
@@ -22,6 +23,7 @@ const ProGrid = ({
   status = "success",
   countLoadItems = 12,
 }: SpuGridProps) => {
+  const { t } = useTranslation();
   const hasNoData = !data || data.length === 0;
   const errorMessage = typeof error === "string" ? error : error?.message;
 
@@ -30,11 +32,11 @@ const ProGrid = ({
   }
 
   if (status === "error" && hasNoData && errorMessage) {
-    return <NotFound message={errorMessage || "Something went wrong."} />;
+    return <NotFound message={errorMessage || t("common_something_went_wrong")} />;
   }
 
   if (hasNoData) {
-    return <NotFound />;
+    return <NotFound message={t("common_no_data_found")} />;
   }
   return (
     <div className={cn("grid w-full", className)}>

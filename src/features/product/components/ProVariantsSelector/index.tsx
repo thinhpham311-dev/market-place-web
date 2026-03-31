@@ -8,8 +8,10 @@ import { PRO_DETAIL } from "@/features/product/constants";
 import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
 import { useSpuContext } from "@/features/spu/hooks";
+import { useTranslation } from "@/lib/hooks/use-translation";
 
 const ProVariantsSelector = () => {
+  const { t } = useTranslation();
   const { spu: data, loading: isLoading, error } = useSpuContext();
 
   const hasNoData = !data || Object.keys(data).length === 0;
@@ -18,11 +20,11 @@ const ProVariantsSelector = () => {
   }
 
   if (!isLoading && hasNoData && error) {
-    return <NotFound message={error || "Something went wrong."} />;
+    return <NotFound message={error || t("common_something_went_wrong")} />;
   }
 
   if (!isLoading && hasNoData) {
-    return <NotFound />;
+    return <NotFound message={t("common_no_data_found")} />;
   }
   const variants = data?.product_variations ?? [];
 

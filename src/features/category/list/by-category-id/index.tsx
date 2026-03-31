@@ -9,6 +9,7 @@ import CategoryButtons from "@/features/category/components/CategoryButtons";
 
 // store
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { useTranslation } from "@/lib/hooks";
 import { injectReducer } from "@/store";
 import { getCatListById } from "@/features/category/list/by-category-id/store/dataSlice";
 import { selectCatByCategoryIdByStoreKey } from "./store/selectors";
@@ -25,6 +26,7 @@ import { ICategoryModel } from "@/models/category";
 injectReducer(CAT_LIST_BY_ID, reducer);
 
 const CatByCategoryId = ({ ids }: { ids: string[] }) => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const {
     categories = [],
@@ -53,7 +55,7 @@ const CatByCategoryId = ({ ids }: { ids: string[] }) => {
       <CardHeader className="py-2 px-3 lg:col-span-2 md:col-span-12 col-span-12">
         <CardTitle className="text-lg font-semibold inline-flex items-center space-x-1">
           <BiCategory />
-          <span>All Categories:</span>
+          <span>{t("all_categories")}:</span>
         </CardTitle>
       </CardHeader>
       <CardContent className="p-0 lg:col-span-10 md:col-span-12 col-span-12">

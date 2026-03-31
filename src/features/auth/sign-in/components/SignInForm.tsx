@@ -4,32 +4,9 @@ import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import { FormCheckBox, FormGroup, FormInput } from "@/components/shared";
+import { useTranslation } from "@/lib/hooks";
 import { isValidPhoneNumber } from "@/utils/validates";
 import { useSignIn } from "@/features/auth/sign-in/hooks/useSignIn";
-
-const passwordSchema = z
-  .string()
-  .min(8, "Please enter at least 8 characters")
-  .max(50, "Please enter no more than 50 characters")
-  .refine((value) => !/\s/.test(value), "Password must not contain spaces");
-
-const FormSchema = z.object({
-  phone: z
-    .string()
-    .trim()
-    .nonempty("Phone number is required")
-    .min(10, "Please enter at least 10 characters")
-    .max(25, "Please enter no more than 25 characters")
-    .refine((value) => {
-      if (value) {
-        return isValidPhoneNumber(value, "VN");
-      }
-
-      return true;
-    }, "Invalid number"),
-  password: passwordSchema,
-  remember: z.boolean(),
-});
 
 const defaultValuesForSignInForm = {
   phone: "",
@@ -38,7 +15,31 @@ const defaultValuesForSignInForm = {
 };
 
 export default function SignInForm() {
+  const { t } = useTranslation();
   const { signIn, isSubmitting } = useSignIn();
+  const passwordSchema = z
+    .string()
+    .min(8, t("validation_enter_at_least_8_characters"))
+    .max(50, t("validation_enter_no_more_than_50_characters"))
+    .refine((value) => !/\s/.test(value), t("validation_password_no_spaces"));
+
+  const FormSchema = z.object({
+    phone: z
+      .string()
+      .trim()
+      .nonempty(t("validation_phone_required"))
+      .min(10, t("validation_enter_at_least_10_characters"))
+      .max(25, t("validation_enter_no_more_than_25_characters"))
+      .refine((value) => {
+        if (value) {
+          return isValidPhoneNumber(value, "VN");
+        }
+
+        return true;
+      }, t("validation_invalid_number")),
+    password: passwordSchema,
+    remember: z.boolean(),
+  });
 
   return (
     <FormGroup
@@ -55,8 +56,8 @@ export default function SignInForm() {
     >
       <FormInput
         name="phone"
-        label="Phone"
-        placeholder="Please enter your phone number"
+        label={t("form_phone")}
+        placeholder={t("sign_in_phone_placeholder")}
         formSchema={FormSchema}
         isRequired
         character="+84"
@@ -64,14 +65,14 @@ export default function SignInForm() {
       <FormInput
         inputType="password"
         name="password"
-        label="Password"
-        placeholder="Please enter your password"
+        label={t("form_password")}
+        placeholder={t("sign_in_password_placeholder")}
         formSchema={FormSchema}
         isRequired
       />
-      <FormCheckBox name="remember" label="Remember me" formSchema={FormSchema} />
+      <FormCheckBox name="remember" label={t("form_remember_me")} formSchema={FormSchema} />
       <Button type="submit" className="w-full" variant="outline" disabled={isSubmitting}>
-        {isSubmitting ? "Signing in..." : "Sign In"}
+        {isSubmitting ? t("form_signing_in") : t("sign_in")}
       </Button>
     </FormGroup>
   );

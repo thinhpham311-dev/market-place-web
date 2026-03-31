@@ -1,3 +1,5 @@
+ "use client";
+
 import type { ComponentType } from "react";
 import Link from "next/link";
 import {
@@ -13,28 +15,29 @@ import {
   Store,
   Truck,
 } from "lucide-react";
+import { useTranslation } from "@/lib/hooks";
 
 const customerLinks = [
-  { label: "Help Center", href: "/help-center" },
-  { label: "How to Order", href: "/guide/order" },
-  { label: "Payment Methods", href: "/guide/payment" },
-  { label: "Shipping & Delivery", href: "/guide/shipping" },
-  { label: "Return Policy", href: "/guide/returns" },
+  { labelKey: "footer_help_center", href: "/help-center" },
+  { labelKey: "footer_how_to_order", href: "/guide/order" },
+  { labelKey: "footer_payment_methods", href: "/guide/payment" },
+  { labelKey: "footer_shipping_delivery", href: "/guide/shipping" },
+  { labelKey: "footer_return_policy", href: "/guide/returns" },
 ];
 
 const policyLinks = [
-  { label: "Terms of Service", href: "/legal/terms" },
-  { label: "Privacy Policy", href: "/legal/privacy" },
-  { label: "Dispute Resolution", href: "/legal/dispute" },
-  { label: "Inspection Policy", href: "/legal/inspection" },
-  { label: "Frequently Asked Questions", href: "/faq" },
+  { labelKey: "footer_terms_of_service", href: "/legal/terms" },
+  { labelKey: "footer_privacy_policy", href: "/legal/privacy" },
+  { labelKey: "footer_dispute_resolution", href: "/legal/dispute" },
+  { labelKey: "footer_inspection_policy", href: "/legal/inspection" },
+  { labelKey: "footer_faq", href: "/faq" },
 ];
 
 const sellerLinks = [
-  { label: "Seller Center", href: "/seller" },
-  { label: "Start Selling", href: "/seller/register" },
-  { label: "Listing Guidelines", href: "/seller/policy" },
-  { label: "Service Fees & Commission", href: "/seller/pricing" },
+  { labelKey: "footer_seller_center", href: "/seller" },
+  { labelKey: "footer_start_selling", href: "/seller/register" },
+  { labelKey: "footer_listing_guidelines", href: "/seller/policy" },
+  { labelKey: "footer_service_fees", href: "/seller/pricing" },
 ];
 
 const paymentMethods = ["Visa", "Mastercard", "JCB", "Momo", "ZaloPay", "COD"];
@@ -69,24 +72,38 @@ function FooterBadge({
 }
 
 export default function Footer() {
+  const { t } = useTranslation();
+
+  const resolvedCustomerLinks = customerLinks.map((link) => ({
+    href: link.href,
+    label: t(link.labelKey),
+  }));
+  const resolvedPolicyLinks = policyLinks.map((link) => ({
+    href: link.href,
+    label: t(link.labelKey),
+  }));
+  const resolvedSellerLinks = sellerLinks.map((link) => ({
+    href: link.href,
+    label: t(link.labelKey),
+  }));
+
   return (
     <footer className="mt-12 border-t bg-muted/30">
       <div className="border-b bg-background">
         <div className="container mx-auto grid gap-3 px-6 py-4 md:grid-cols-2 xl:grid-cols-4">
-          <FooterBadge icon={Truck} label="Nationwide Delivery" />
-          <FooterBadge icon={ShieldCheck} label="Secure Payments" />
-          <FooterBadge icon={PackageCheck} label="Easy Returns" />
-          <FooterBadge icon={Headset} label="24/7 Customer Support" />
+          <FooterBadge icon={Truck} label={t("footer_badge_nationwide_delivery")} />
+          <FooterBadge icon={ShieldCheck} label={t("footer_badge_secure_payments")} />
+          <FooterBadge icon={PackageCheck} label={t("footer_badge_easy_returns")} />
+          <FooterBadge icon={Headset} label={t("footer_badge_customer_support")} />
         </div>
       </div>
 
       <div className="container mx-auto grid gap-8 px-6 py-10 lg:grid-cols-12">
         <div className="space-y-4 lg:col-span-4">
           <div>
-            <p className="text-xl font-semibold">Market Place</p>
+            <p className="text-xl font-semibold">{t("footer_brand_name")}</p>
             <p className="mt-3 max-w-xl text-sm leading-6 text-muted-foreground">
-              A multi-category shopping platform with authentic products, fast delivery, and clear
-              post-purchase support for both buyers and sellers.
+              {t("footer_brand_desc")}
             </p>
           </div>
 
@@ -109,35 +126,33 @@ export default function Footer() {
             </div>
             <div className="flex items-center gap-3">
               <Clock3 className="h-4 w-4 shrink-0 text-foreground" />
-              <span>Support available daily from 08:00 to 22:00</span>
+              <span>{t("footer_support_hours")}</span>
             </div>
           </div>
         </div>
 
         <div className="lg:col-span-2">
-          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide">
-            Customer Care
-          </h3>
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide">{t("footer_customer_care")}</h3>
           <ul className="space-y-3">
-            {customerLinks.map((link) => (
+            {resolvedCustomerLinks.map((link) => (
               <FooterLink key={link.label} {...link} />
             ))}
           </ul>
         </div>
 
         <div className="lg:col-span-2">
-          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide">Policies</h3>
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide">{t("footer_policies")}</h3>
           <ul className="space-y-3">
-            {policyLinks.map((link) => (
+            {resolvedPolicyLinks.map((link) => (
               <FooterLink key={link.label} {...link} />
             ))}
           </ul>
         </div>
 
         <div className="lg:col-span-2">
-          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide">For Sellers</h3>
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide">{t("footer_for_sellers")}</h3>
           <ul className="space-y-3">
-            {sellerLinks.map((link) => (
+            {resolvedSellerLinks.map((link) => (
               <FooterLink key={link.label} {...link} />
             ))}
           </ul>
@@ -145,7 +160,7 @@ export default function Footer() {
 
         <div className="space-y-6 lg:col-span-2">
           <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide">Payments</h3>
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide">{t("footer_payments")}</h3>
             <div className="flex flex-wrap gap-2">
               {paymentMethods.map((method) => (
                 <div
@@ -159,7 +174,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide">Shipping</h3>
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide">{t("footer_shipping")}</h3>
             <div className="flex flex-wrap gap-2">
               {shippingPartners.map((partner) => (
                 <div
@@ -177,20 +192,20 @@ export default function Footer() {
       <div className="border-t bg-background">
         <div className="container mx-auto flex flex-col gap-4 px-6 py-4 text-sm text-muted-foreground md:flex-row md:items-center md:justify-between">
           <p>
-            © {new Date().getFullYear()} Market Place. All rights reserved.
+            © {new Date().getFullYear()} {t("footer_brand_name")}. {t("footer_all_rights_reserved")}
           </p>
           <div className="flex flex-wrap gap-4">
             <div className="inline-flex items-center gap-2">
               <BadgeCheck className="h-4 w-4 text-foreground" />
-              <span>Trusted eCommerce Marketplace</span>
+              <span>{t("footer_trusted_marketplace")}</span>
             </div>
             <div className="inline-flex items-center gap-2">
               <CreditCard className="h-4 w-4 text-foreground" />
-              <span>Protected Transactions</span>
+              <span>{t("footer_protected_transactions")}</span>
             </div>
             <div className="inline-flex items-center gap-2">
               <Store className="h-4 w-4 text-foreground" />
-              <span>Support for Sellers and Businesses</span>
+              <span>{t("footer_support_businesses")}</span>
             </div>
           </div>
         </div>

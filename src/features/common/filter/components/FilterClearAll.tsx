@@ -3,9 +3,11 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { useFilterContext } from "@/features/common/filter/hooks";
+import { useTranslation } from "@/lib/hooks";
 
 const FilterClearAll = () => {
   const { handleResetAllFilters } = useFilterContext();
+  const { t } = useTranslation();
 
   return (
     <Button
@@ -14,7 +16,7 @@ const FilterClearAll = () => {
       onClick={handleResetAllFilters}
       className="text-primary hover:text-primary w-full"
     >
-      Clear all
+      {t("clear_all")}
     </Button>
   );
 };

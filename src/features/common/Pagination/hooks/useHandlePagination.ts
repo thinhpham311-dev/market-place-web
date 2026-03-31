@@ -4,6 +4,7 @@ import {
   initPagination,
   setPage,
   setLimit,
+  syncPagination,
   resetPagination,
 } from "@/features/common/pagination/store/stateSlice";
 import { useGetPaginationValue } from "./useGetPaginationValue";
@@ -18,14 +19,42 @@ interface IUseHandlePaginationProps {
 export function useHandlePagination({ storeKey, initialValue }: IUseHandlePaginationProps) {
   const dispatch = useAppDispatch();
   const rest = initialValue;
+  const {
+    defaultCurrentPage,
+    defaultLimit,
+    defaultTotalItems,
+    isShowDot,
+    isShowLabel,
+    isShowNav,
+  } = initialValue;
 
   useEffect(() => {
-    dispatch(initPagination({ key: storeKey }));
+    dispatch(
+      initPagination({
+        key: storeKey,
+        initialValue: {
+          defaultCurrentPage,
+          defaultLimit,
+          defaultTotalItems,
+        },
+      }),
+    );
 
     return () => {
       dispatch(resetPagination({ key: storeKey }));
     };
-  }, [dispatch, storeKey]);
+  }, [dispatch, storeKey, defaultCurrentPage, defaultLimit, defaultTotalItems]);
+
+  useEffect(() => {
+    dispatch(
+      syncPagination({
+        key: storeKey,
+        totalItems: defaultTotalItems,
+        limit: defaultLimit,
+        currentPage: defaultCurrentPage,
+      }),
+    );
+  }, [dispatch, storeKey, defaultCurrentPage, defaultLimit, defaultTotalItems]);
 
   const pagination = useGetPaginationValue({ storeKey });
 
@@ -50,6 +79,9 @@ export function useHandlePagination({ storeKey, initialValue }: IUseHandlePagina
 
   return {
     ...rest,
+    isShowDot,
+    isShowLabel,
+    isShowNav,
     ...pagination,
     limit: storeLimit,
     setLimit: setLimitSafe,

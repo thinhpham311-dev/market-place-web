@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import CheckboxItem from "./CheckboxItem";
 // import { useFilterContext } from "../../hooks";
 import { Filter } from "../../types";
+import { useTranslation } from "@/lib/hooks";
 
 interface IFilterCheckboxProps {
   options: Filter[];
@@ -15,6 +16,7 @@ interface IFilterCheckboxProps {
 
 const FilterCheckbox = ({ options, filterKey, initialItemsToShow = 5 }: IFilterCheckboxProps) => {
   const [showAll, setShowAll] = React.useState(false);
+  const { t } = useTranslation();
 
   const shouldShowMore = options?.length > initialItemsToShow;
   const visibleOptions = showAll ? options : options?.slice(0, initialItemsToShow);
@@ -36,7 +38,7 @@ const FilterCheckbox = ({ options, filterKey, initialItemsToShow = 5 }: IFilterC
             className="p-0 text-sm text-primary"
             onClick={() => setShowAll((prev) => !prev)}
           >
-            {showAll ? "Show less" : "Show more"}
+            {showAll ? t("show_less") : t("show_more")}
           </Button>
         )}
       </CardContent>

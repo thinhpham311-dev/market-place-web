@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { Card, CardContent, CardImage } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { useTranslation } from "@/lib/hooks";
 import { ICartItemModel } from "@/models/cart";
 import { formatToCurrency } from "@/utils/formats";
 import { renderVariants } from "@/features/cart/utils/renderVariants";
@@ -13,17 +14,17 @@ interface CheckoutCartProps {
 }
 
 export default function CheckoutCart({ items }: CheckoutCartProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-semibold">Your Items</h2>
-          <p className="text-sm text-muted-foreground">
-            Review the products included in this order before placing it.
-          </p>
+          <h2 className="text-xl font-semibold">{t("checkout_your_items")}</h2>
+          <p className="text-sm text-muted-foreground">{t("checkout_your_items_desc")}</p>
         </div>
         <Link href="/cart" className="text-sm font-medium text-primary underline-offset-4 hover:underline">
-          Edit cart
+          {t("checkout_edit_cart")}
         </Link>
       </div>
 
@@ -41,10 +42,10 @@ export default function CheckoutCart({ items }: CheckoutCartProps) {
               <div className="min-w-0 flex-1 space-y-2">
                 <p className="line-clamp-2 font-medium">{item.itemSpuName}</p>
                 <div className="flex flex-wrap gap-1">{renderVariants(item.itemSpuVariations, item.itemSkuTierIdx)}</div>
-                <p className="text-sm text-muted-foreground">Shop: {item.itemShopName}</p>
+                <p className="text-sm text-muted-foreground">{t("checkout_shop")}: {item.itemShopName}</p>
               </div>
               <div className="space-y-1 text-right">
-                <p className="text-sm text-muted-foreground">Qty: {item.itemQuantity}</p>
+                <p className="text-sm text-muted-foreground">{t("checkout_qty")}: {item.itemQuantity}</p>
                 <p className="font-semibold">
                   {formatToCurrency(item.itemTotalPrice || item.itemSkuPrice * item.itemQuantity)}
                 </p>
@@ -57,7 +58,7 @@ export default function CheckoutCart({ items }: CheckoutCartProps) {
       {items.length === 0 && (
         <Card>
           <CardContent className="p-6 text-center text-sm text-muted-foreground">
-            No items selected for checkout.
+            {t("checkout_no_items")}
           </CardContent>
         </Card>
       )}

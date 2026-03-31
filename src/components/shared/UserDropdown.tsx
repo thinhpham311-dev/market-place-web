@@ -11,19 +11,20 @@ import {
   DropdownMenuGroup,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "@/lib/hooks";
 // Icons
 import { User, LogOut, LogIn } from "lucide-react";
 
-const menuItems = [
-  { label: "My Account", icon: <User />, path: "/user/account/profile" },
-  { label: "My Purchase", icon: <User />, path: "/user/purchase/orders" },
-  { label: "Sign In", icon: <LogIn />, path: "/user/sign-in" },
-  { label: "Sign Up", icon: <LogIn />, path: "/user/sign-up" },
-  { label: "Sign Out", icon: <LogOut />, path: "/user/sign-in" },
-];
-
 export default function UserDropdown() {
+  const { t } = useTranslation();
   const router = useRouter();
+  const menuItems = [
+    { label: t("header_my_account"), icon: <User />, path: "/user/account/profile" },
+    { label: t("header_my_purchase"), icon: <User />, path: "/user/purchase/orders" },
+    { label: t("sign_in"), icon: <LogIn />, path: "/user/sign-in" },
+    { label: t("sign_up"), icon: <LogIn />, path: "/user/sign-up" },
+    { label: t("header_sign_out"), icon: <LogOut />, path: "/user/sign-in" },
+  ];
 
   const handleNavigation = (path: string) => {
     router.push(path);

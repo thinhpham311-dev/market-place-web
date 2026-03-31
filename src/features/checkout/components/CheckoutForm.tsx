@@ -12,33 +12,38 @@ import CheckoutCart from "@/features/checkout/components/CheckoutCart";
 import CheckoutPayment from "@/features/checkout/components/CheckoutPayment";
 import CheckoutSummary from "@/features/checkout/components/CheckoutSummary";
 import { CheckoutPaymentOption } from "@/features/checkout/types/checkout";
+import { useTranslation } from "@/lib/hooks";
 import { PaymentMethod } from "@/types/payment";
 
-const paymentOptions: CheckoutPaymentOption[] = [
-  {
-    label: "Cash on Delivery",
-    value: "cod",
-    description: "Pay when your order arrives at the delivery address.",
-  },
-  {
-    label: "Bank Transfer",
-    value: "bank_transfer",
-    description: "Transfer the payment after placing the order.",
-  },
-  {
-    label: "Stripe",
-    value: "stripe",
-    description: "Pay securely with your debit or credit card.",
-  },
-];
-
 export default function CheckoutForm() {
+  const { t } = useTranslation();
   const { data, loading } = useShoppingCartContext();
   const { signedIn } = useSelector(
     (state: { auth: { session: { signedIn: boolean } } }) => state.auth.session,
   );
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("cod");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const paymentOptions: CheckoutPaymentOption[] = useMemo(
+    () => [
+      {
+        label: t("checkout_payment_cod"),
+        value: "cod",
+        description: t("checkout_payment_cod_desc"),
+      },
+      {
+        label: t("checkout_payment_bank_transfer"),
+        value: "bank_transfer",
+        description: t("checkout_payment_bank_transfer_desc"),
+      },
+      {
+        label: t("checkout_payment_stripe"),
+        value: "stripe",
+        description: t("checkout_payment_stripe_desc"),
+      },
+    ],
+    [t],
+  );
 
   const checkoutItems = useMemo(() => {
     if (data.cart_selected_items?.length) {
@@ -72,39 +77,38 @@ export default function CheckoutForm() {
 
   const handleSubmit = async () => {
     if (!signedIn) {
-      toast.error("Please sign in before continuing to payment.");
+      toast.error(t("checkout_sign_in_before_payment_error"));
       return;
     }
 
     if (checkoutItems.length === 0) {
-      toast.error("Your checkout is empty. Please add items from the cart first.");
+      toast.error(t("checkout_empty_error"));
       return;
     }
 
     try {
       setIsSubmitting(true);
       await new Promise((resolve) => setTimeout(resolve, 700));
-
-      toast.success(`Order placed successfully with ${paymentMethod.replace("_", " ")}.`);
+      const selectedPaymentLabel =
+        paymentOptions.find((option) => option.value === paymentMethod)?.label ?? paymentMethod;
+      toast.success(`${t("checkout_order_placed_success")} ${selectedPaymentLabel}.`);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-    return (
+  return (
     <div className="grid gap-6 lg:grid-cols-12">
       <div className="space-y-6 lg:col-span-8">
         {!signedIn && (
           <Card>
             <CardContent className="flex flex-col items-start gap-4 p-6 md:flex-row md:items-center md:justify-between">
               <div className="space-y-1">
-                <h2 className="text-xl font-semibold">Sign in to continue</h2>
-                <p className="text-sm text-muted-foreground">
-                  You need to be logged in before you can continue to payment.
-                </p>
+                <h2 className="text-xl font-semibold">{t("checkout_sign_in_continue")}</h2>
+                <p className="text-sm text-muted-foreground">{t("checkout_sign_in_continue_desc")}</p>
               </div>
               <Button asChild>
-                <Link href="/user/sign-in">Go to Sign In</Link>
+                <Link href="/user/sign-in">{t("checkout_go_to_sign_in")}</Link>
               </Button>
             </CardContent>
           </Card>
@@ -136,7 +140,7 @@ export default function CheckoutForm() {
           total={summary.total}
           isSubmitting={isSubmitting}
           disabled={loading.actions.showList || !signedIn}
-          ctaLabel={signedIn ? "Place Order" : "Sign in to continue"}
+          ctaLabel={signedIn ? t("checkout_place_order") : t("checkout_sign_in_continue")}
           onSubmit={handleSubmit}
         />
       </div>

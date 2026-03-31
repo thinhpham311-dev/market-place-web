@@ -6,8 +6,10 @@ import { useSkuContext } from "@/features/sku/hooks";
 import { useSpuContext } from "@/features/spu/hooks";
 import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
+import { useTranslation } from "@/lib/hooks/use-translation";
 
 const ProQuantitySelector = () => {
+  const { t } = useTranslation();
   const { sku } = useSkuContext();
   const { spu, loading: spuLoading, error: spuError } = useSpuContext();
 
@@ -17,8 +19,8 @@ const ProQuantitySelector = () => {
   const showNotFound = !spuLoading && hasNoData && !spuError;
 
   if (showLoading) return <LoadingSkeleton />;
-  if (showError) return <NotFound message={spuError || "Something went wrong."} />;
-  if (showNotFound) return <NotFound />;
+  if (showError) return <NotFound message={spuError || t("common_something_went_wrong")} />;
+  if (showNotFound) return <NotFound message={t("common_no_data_found")} />;
 
   return (
     <QuantitySelector
@@ -27,7 +29,7 @@ const ProQuantitySelector = () => {
         defaultCurrentQuantity: 1,
         maxQuantity: sku?.sku_stock,
       }}
-      title="Quantity"
+      title={t("product_quantity")}
       layout="horizontal"
     />
   );

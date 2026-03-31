@@ -4,8 +4,10 @@ import { useShopInfoContext } from "@/features/shop/hooks";
 import { formatPhone } from "@/utils/formats";
 import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
+import { useTranslation } from "@/lib/hooks/use-translation";
 
 const ShopHeaderInfo = () => {
+  const { t } = useTranslation();
   const { data, loading, error } = useShopInfoContext();
   const { shop_name, shop_address, shop_phone } = data || {};
 
@@ -20,7 +22,7 @@ const ShopHeaderInfo = () => {
   return (
     <ItemContent className="flex justify-center">
       <ItemTitle className="text-base md:text-lg font-bold">
-        {shop_name?.trim() || "Shop Name"}
+        {shop_name?.trim() || t("shop_name_fallback")}
       </ItemTitle>
 
       {shop_phone && (

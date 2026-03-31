@@ -3,8 +3,10 @@ import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { useSpuContext } from "@/features/spu/hooks";
 import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
+import { useTranslation } from "@/lib/hooks/use-translation";
 
 export default function ProTitle() {
+  const { t } = useTranslation();
   const { spu, loading, error } = useSpuContext();
   const hasNoData = !spu || Object.keys(spu).length === 0;
   if (loading && hasNoData) {
@@ -12,11 +14,11 @@ export default function ProTitle() {
   }
 
   if (!loading && hasNoData && error) {
-    return <NotFound message={error || "Something went wrong."} />;
+    return <NotFound message={error || t("common_something_went_wrong")} />;
   }
 
   if (!loading && hasNoData) {
-    return <NotFound />;
+    return <NotFound message={t("common_no_data_found")} />;
   }
   const name = spu?.product_name ?? "";
 

@@ -8,8 +8,10 @@ import { useSpuContext } from "@/features/spu/hooks";
 import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
 import ProSkuPriceDisplay from "./ProSkuPriceDisplay";
+import { useTranslation } from "@/lib/hooks/use-translation";
 
 export default function ProPriceDisplay() {
+  const { t } = useTranslation();
   const { spu, loading: spuLoading, error: spuError } = useSpuContext();
 
   const hasNoData = !spu || Object.keys(spu).length === 0;
@@ -19,11 +21,11 @@ export default function ProPriceDisplay() {
   }
 
   if (!spuLoading && hasNoData && spuError) {
-    return <NotFound message={spuError || "Something went wrong."} />;
+    return <NotFound message={spuError || t("common_something_went_wrong")} />;
   }
 
   if (!spuLoading && hasNoData) {
-    return <NotFound />;
+    return <NotFound message={t("common_no_data_found")} />;
   }
 
   return (

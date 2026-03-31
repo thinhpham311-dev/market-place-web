@@ -15,6 +15,9 @@ import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { Provider } from "react-redux";
 import store, { persistor } from "@/store";
 import { PersistGate } from "redux-persist/integration/react";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { getLanguageFromSubdomain, getSubdomainFromHostname } from "@/lib/i18n/location-subdomain";
+import { setLanguage } from "@/store/settings/languageSlice";
 
 // Features
 import ShoppingCartRoot from "@/features/cart/cart-root";
@@ -26,6 +29,31 @@ const getCookie = (name: string): string | undefined => {
   const parts = value.split(`; ${name}=`);
   return parts.length === 2 ? parts.pop()?.split(";").shift() : undefined;
 };
+
+function AppLanguageEffect() {
+  const dispatch = useAppDispatch();
+  const currentLanguage = useAppSelector((state) => state.settings.language.current);
+
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      const detectedSubdomain = getSubdomainFromHostname(window.location.hostname);
+      const detectedLanguage = getLanguageFromSubdomain(detectedSubdomain);
+
+      if (detectedLanguage && detectedLanguage !== currentLanguage) {
+        dispatch(setLanguage(detectedLanguage));
+        return;
+      }
+    }
+
+    document.documentElement.lang = currentLanguage;
+  }, [currentLanguage, dispatch]);
+
+  React.useEffect(() => {
+    document.documentElement.lang = currentLanguage;
+  }, [currentLanguage]);
+
+  return null;
+}
 
 const AppProvider = ({ children, ...props }: React.ComponentProps<typeof NextThemesProvider>) => {
   const [defaultOpen, setDefaultOpen] = React.useState(false);
@@ -57,6 +85,7 @@ const AppProvider = ({ children, ...props }: React.ComponentProps<typeof NextThe
                 }
                 persistor={persistor}
               >
+                <AppLanguageEffect />
                 <AdminHeader />
                 <Header />
 

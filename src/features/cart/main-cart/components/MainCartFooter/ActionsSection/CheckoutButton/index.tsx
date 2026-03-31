@@ -7,8 +7,10 @@ import LoadingSkeleton from "./LoadingSkeleton";
 import ErrorMsg from "./ErrorMsg";
 import { CreditCard } from "lucide-react";
 import { useShoppingCartContext, useCartErrorHandler } from "@/features/cart/hooks";
+import { useTranslation } from "@/lib/hooks";
 
 function CheckoutButton() {
+  const { t } = useTranslation();
   const router = useRouter();
   const { data, loading, error } = useShoppingCartContext();
   const { cart_items_count = 0 } = data;
@@ -30,7 +32,7 @@ function CheckoutButton() {
   return (
     <Button size="sm" disabled={isDisabled} onClick={() => router.push("/checkout")}>
       <CreditCard />
-      <span>Check Out</span>
+      <span>{t("cart_checkout")}</span>
     </Button>
   );
 }

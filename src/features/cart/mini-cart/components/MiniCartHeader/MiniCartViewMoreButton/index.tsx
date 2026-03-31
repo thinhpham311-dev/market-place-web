@@ -4,8 +4,10 @@ import { Button } from "@/components/ui/button";
 import LoadingSkeleton from "./LoadingSkeleton";
 import { ChevronRight } from "lucide-react";
 import { useShoppingCartContext } from "@/features/cart/hooks";
+import { useTranslation } from "@/lib/hooks";
 
 export default function MiniCartViewMoreButton() {
+  const { t } = useTranslation();
   const router = useRouter();
   const { data, loading } = useShoppingCartContext();
   const { cart_items_count = 0 } = data;
@@ -26,7 +28,7 @@ export default function MiniCartViewMoreButton() {
         size="sm"
         onClick={handleRouterLinkToCart}
       >
-        <span>View More</span>
+        <span>{t("cart_view_more")}</span>
         <ChevronRight />
       </Button>
     );

@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { useTranslation } from "@/lib/hooks";
 import { formatToCurrency } from "@/utils/formats";
 
 interface CheckoutSummaryProps {
@@ -25,39 +26,41 @@ export default function CheckoutSummary({
   total,
   isSubmitting,
   disabled = false,
-  ctaLabel = "Place Order",
+  ctaLabel = "",
   onSubmit,
 }: CheckoutSummaryProps) {
+  const { t } = useTranslation();
+
   return (
     <Card className="sticky top-20">
       <CardHeader>
-        <CardTitle>Order Summary</CardTitle>
+        <CardTitle>{t("checkout_order_summary")}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex items-center justify-between text-sm">
-          <span>Items ({itemCount})</span>
+          <span>{t("checkout_items")} ({itemCount})</span>
           <span>{formatToCurrency(subTotal)}</span>
         </div>
         <div className="flex items-center justify-between text-sm">
-          <span>Estimated Shipping</span>
+          <span>{t("checkout_estimated_shipping")}</span>
           <span>{formatToCurrency(shipping)}</span>
         </div>
         <div className="flex items-center justify-between text-sm">
-          <span>Estimated Tax</span>
+          <span>{t("checkout_estimated_tax")}</span>
           <span>{formatToCurrency(tax)}</span>
         </div>
         <Separator />
         <div className="flex items-center justify-between font-semibold">
-          <span>Total</span>
+          <span>{t("cart_total")}</span>
           <span>{formatToCurrency(total)}</span>
         </div>
       </CardContent>
       <CardFooter className="flex-col gap-3">
         <Button className="w-full" disabled={disabled || isSubmitting} onClick={onSubmit}>
-          {isSubmitting ? "Placing order..." : ctaLabel}
+          {isSubmitting ? t("checkout_placing_order") : ctaLabel || t("checkout_place_order")}
         </Button>
         <p className="text-center text-xs text-muted-foreground">
-          By placing this order, you agree to the store terms, shipping policy, and return policy.
+          {t("checkout_terms_notice")}
         </p>
       </CardFooter>
     </Card>

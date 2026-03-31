@@ -4,6 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ICartItemModel } from "@/models/cart";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useTranslation } from "@/lib/hooks";
 import CartItemCheckbox from "@/features/cart/components/CartItem/CartItemCheckbox";
 import CartItemPrice from "@/features/cart/components/CartItem/CartItemPrice";
 import CartItemName from "@/features/cart/components/CartItem/CartItemName";
@@ -24,6 +25,7 @@ function CartItemCheckboxCell({ item, checked, onCheckedChange }: {
   checked: boolean;
   onCheckedChange: (value: boolean) => void;
 }) {
+  const { t } = useTranslation();
   const isDeleting = useIsDeletingItem(item.itemSkuId);
 
   if (isDeleting) {
@@ -34,7 +36,7 @@ function CartItemCheckboxCell({ item, checked, onCheckedChange }: {
     <CartItemCheckbox
       data={[item]}
       checked={checked}
-      ariaLabel="Select all products"
+      ariaLabel={t("cart_select_all_products")}
       onCheckedChange={onCheckedChange}
     />
   );
@@ -149,104 +151,110 @@ function CartItemActionCell({ item }: { item: ICartItemModel }) {
   );
 }
 
-export const initialColumns: ColumnDef<ICartItemModel>[] = [
-  {
-    id: "select",
-    header: ({ table }) => {
-      const items = table.getSelectedRowModel().rows.map((r) => r.original as ICartItemModel);
-      return (
-        <CartItemCheckbox
-          data={items}
-          checked={table.getIsAllRowsSelected()}
-          ariaLabel="Select all products"
-          onCheckedChange={(val) => table.toggleAllRowsSelected(val)}
-        />
-      );
-    },
-    cell: ({ row }) => {
-      const item = row.original as ICartItemModel;
+export function useCartTableColumns(): ColumnDef<ICartItemModel>[] {
+  const { t } = useTranslation();
 
-      return (
-        <CartItemCheckboxCell
-          item={item}
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(Boolean(value))}
-        />
-      );
+  const columns: ColumnDef<ICartItemModel>[] = [
+    {
+      id: "select",
+      header: ({ table }) => {
+        const items = table.getSelectedRowModel().rows.map((r) => r.original as ICartItemModel);
+        return (
+          <CartItemCheckbox
+            data={items}
+            checked={table.getIsAllRowsSelected()}
+            ariaLabel={t("cart_select_all_products")}
+            onCheckedChange={(val) => table.toggleAllRowsSelected(val)}
+          />
+        );
+      },
+      cell: ({ row }) => {
+        const item = row.original as ICartItemModel;
+
+        return (
+          <CartItemCheckboxCell
+            item={item}
+            checked={row.getIsSelected()}
+            onCheckedChange={(value) => row.toggleSelected(Boolean(value))}
+          />
+        );
+      },
+      enableSorting: false,
+      enableHiding: false,
+      size: 50,
     },
-    enableSorting: false,
-    enableHiding: false,
-    size: 50,
-  },
-  {
-    accessorKey: "itemSpuImage",
-    header: () => <p className="text-left">Image</p>,
-    cell: ({ row }) => {
-      const item = row.original as ICartItemModel;
-      return <CartItemImageCell item={item} />;
+    {
+      accessorKey: "itemSpuImage",
+      header: () => <p className="text-left">{t("cart_column_image")}</p>,
+      cell: ({ row }) => {
+        const item = row.original as ICartItemModel;
+        return <CartItemImageCell item={item} />;
+      },
+      size: 64,
     },
-    size: 64,
-  },
-  {
-    accessorKey: "itemSpuName",
-    header: () => <p className="text-left ">Name</p>,
-    cell: ({ row }) => {
-      const item = row.original as ICartItemModel;
-      return <CartItemNameCell item={item} />;
+    {
+      accessorKey: "itemSpuName",
+      header: () => <p className="text-left ">{t("cart_column_name")}</p>,
+      cell: ({ row }) => {
+        const item = row.original as ICartItemModel;
+        return <CartItemNameCell item={item} />;
+      },
+      size: 150,
     },
-    size: 150,
-  },
-  {
-    accessorKey: "itemSpuVariations",
-    header: () => <p className="text-left px-2.5">Variants</p>,
-    cell: ({ row }) => {
-      const item = row.original as ICartItemModel;
-      return <CartItemVariantsCell item={item} />;
+    {
+      accessorKey: "itemSpuVariations",
+      header: () => <p className="text-left px-2.5">{t("cart_column_variants")}</p>,
+      cell: ({ row }) => {
+        const item = row.original as ICartItemModel;
+        return <CartItemVariantsCell item={item} />;
+      },
+      size: 120,
     },
-    size: 120,
-  },
-  {
-    accessorKey: "itemSkuPrice",
-    header: () => <p className="text-center ">Unit</p>,
-    cell: ({ row }) => {
-      const item = row.original as ICartItemModel;
-      return <CartItemUnitPriceCell item={item} />;
+    {
+      accessorKey: "itemSkuPrice",
+      header: () => <p className="text-center ">{t("cart_column_unit")}</p>,
+      cell: ({ row }) => {
+        const item = row.original as ICartItemModel;
+        return <CartItemUnitPriceCell item={item} />;
+      },
+      size: 100,
     },
-    size: 100,
-  },
-  {
-    accessorKey: "itemQuantity",
-    header: () => <p className="text-center">Quantity</p>,
-    cell: ({ row }) => {
-      const item = row.original as ICartItemModel;
-      return <CartItemQuantityCell item={item} />;
+    {
+      accessorKey: "itemQuantity",
+      header: () => <p className="text-center">{t("cart_column_quantity")}</p>,
+      cell: ({ row }) => {
+        const item = row.original as ICartItemModel;
+        return <CartItemQuantityCell item={item} />;
+      },
+      size: 150,
     },
-    size: 150,
-  },
-  {
-    id: "totalPrice",
-    header: () => <p className="text-center ">Total</p>,
-    cell: ({ row }) => {
-      const item = row.original as ICartItemModel;
-      return <CartItemTotalPriceCell item={item} />;
+    {
+      id: "totalPrice",
+      header: () => <p className="text-center ">{t("cart_column_total")}</p>,
+      cell: ({ row }) => {
+        const item = row.original as ICartItemModel;
+        return <CartItemTotalPriceCell item={item} />;
+      },
+      size: 120,
     },
-    size: 120,
-  },
-  {
-    accessorKey: "actions",
-    header: () => <p className="text-right  px-3">Features</p>,
-    cell: ({ row }) => {
-      const item = row.original as ICartItemModel;
-      return <CartItemActionCell item={item} />;
+    {
+      accessorKey: "actions",
+      header: () => <p className="text-right  px-3">{t("cart_column_features")}</p>,
+      cell: ({ row }) => {
+        const item = row.original as ICartItemModel;
+        return <CartItemActionCell item={item} />;
+      },
+      size: 120,
     },
-    size: 120,
-  },
-  {
-    accessorKey: "itemShopId",
-    cell: () => {
-      return <p>shop Id</p>;
+    {
+      accessorKey: "itemShopId",
+      cell: () => {
+        return <p>shop Id</p>;
+      },
+      enableGrouping: true,
+      enableHiding: true,
     },
-    enableGrouping: true,
-    enableHiding: true,
-  },
-];
+  ];
+
+  return columns;
+}

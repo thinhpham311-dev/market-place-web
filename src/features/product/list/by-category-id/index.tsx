@@ -22,6 +22,7 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
   const filterOptions = React.useMemo(() => {
     const brandFilter = {
       label: "Brands",
+      labelKey: "brands",
       key: "brands",
       type: "checkbox",
       items: brands.map((brand) => ({

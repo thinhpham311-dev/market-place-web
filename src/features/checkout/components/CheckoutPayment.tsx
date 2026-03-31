@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 import { CheckoutPaymentOption } from "@/features/checkout/types/checkout";
+import { useTranslation } from "@/lib/hooks";
 import { PaymentMethod } from "@/types/payment";
 import { cn } from "@/utils/styles";
 
@@ -14,13 +15,13 @@ interface CheckoutPaymentProps {
 }
 
 export default function CheckoutPayment({ options, value, onChange }: CheckoutPaymentProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="space-y-4">
       <div>
-        <h2 className="text-xl font-semibold">Payment Method</h2>
-        <p className="text-sm text-muted-foreground">
-          Choose how you would like to complete this purchase.
-        </p>
+        <h2 className="text-xl font-semibold">{t("checkout_payment_method")}</h2>
+        <p className="text-sm text-muted-foreground">{t("checkout_payment_method_desc")}</p>
       </div>
 
       <div className="grid gap-3">
@@ -45,7 +46,7 @@ export default function CheckoutPayment({ options, value, onChange }: CheckoutPa
                   variant={isActive ? "default" : "outline"}
                   onClick={() => onChange(option.value)}
                 >
-                  {isActive ? "Selected" : "Choose"}
+                  {isActive ? t("checkout_selected") : t("checkout_choose")}
                 </Button>
               </CardContent>
             </Card>

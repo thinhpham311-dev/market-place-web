@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 
 import { useFilterContext } from "@/features/common/filter/hooks";
+import { useTranslation } from "@/lib/hooks";
 import type { Filter } from "../../types";
 
 interface ICheckboxItemProps {
@@ -16,6 +17,7 @@ interface ICheckboxItemProps {
 
 const CheckboxItem = React.memo(({ item, filterKey }: ICheckboxItemProps) => {
   const { filter, handleSetFilter } = useFilterContext();
+  const { t } = useTranslation();
   const { label, value } = item;
 
   const selectedValues: string[] = (filter?.[filterKey] as string[]) || [];
@@ -37,7 +39,7 @@ const CheckboxItem = React.memo(({ item, filterKey }: ICheckboxItemProps) => {
             onCheckedChange={() => handleValueChange(value)}
           />
           <Label htmlFor={`${filterKey}-${value}`} className="text-md">
-            {label}
+            {item.labelKey ? t(item.labelKey) : label}
           </Label>
         </div>
       </CardContent>

@@ -2,6 +2,7 @@ import { FaFacebook, FaTiktok, FaInstagram } from "react-icons/fa";
 import { SiZalo } from "react-icons/si";
 import Breadcrumb from "@/features/common/breadcrumb";
 import { ISpuModel } from "@/models/spu";
+import type { TranslationKey } from "@/lib/i18n/translations";
 
 export const PRO_DETAIL = "PRO_DETAIL";
 
@@ -40,12 +41,12 @@ export const socials = [
   },
 ];
 
-export const breadcrumbs = (product?: ISpuModel) => {
+export const breadcrumbs = (product?: ISpuModel, homeLabel = "Home") => {
   const breadcrumbItems = [
     {
       category_id: "home",
       category_slug: "",
-      category_name: "Home",
+      category_name: homeLabel,
       ancestors: [],
     },
     ...(product?.product_category ?? []),
@@ -82,7 +83,7 @@ export const breadcrumbs = (product?: ISpuModel) => {
 
 export const specs = (product?: ISpuModel) => [
   {
-    label: "Product Name:",
+    labelKey: "product_spec_name" as TranslationKey,
     value: (
       <Breadcrumb
         items={[product]}
@@ -93,7 +94,7 @@ export const specs = (product?: ISpuModel) => [
     ),
   },
   {
-    label: "Categories:",
+    labelKey: "product_spec_categories" as TranslationKey,
     value: product?.product_category ? (
       <Breadcrumb
         items={product.product_category}
@@ -109,7 +110,7 @@ export const specs = (product?: ISpuModel) => [
     ),
   },
   {
-    label: "Shop Name:",
+    labelKey: "product_spec_shop_name" as TranslationKey,
     value: product?.product_shop ? (
       <Breadcrumb
         items={[product.product_shop]}
@@ -121,7 +122,7 @@ export const specs = (product?: ISpuModel) => [
     ),
   },
   {
-    label: "Brand:",
+    labelKey: "product_spec_brand" as TranslationKey,
     value: product?.product_brand ? (
       <Breadcrumb
         items={[product.product_brand]}

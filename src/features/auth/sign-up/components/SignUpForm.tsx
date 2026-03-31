@@ -4,61 +4,9 @@ import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import { FormGroup, FormInput } from "@/components/shared";
+import { useTranslation } from "@/lib/hooks";
 import { isValidPhoneNumber } from "@/utils/validates";
 import { useSignUp } from "@/features/auth/sign-up/hooks/useSignUp";
-
-const passwordSchema = z
-  .string()
-  .min(8, "Please enter at least 8 characters")
-  .max(50, "Please enter no more than 50 characters")
-  .refine((value) => !/\s/.test(value), "Password must not contain spaces")
-  .refine((value) => /[A-Z]/.test(value), "Password must include at least 1 uppercase letter")
-  .refine((value) => /[a-z]/.test(value), "Password must include at least 1 lowercase letter")
-  .refine((value) => /\d/.test(value), "Password must include at least 1 number");
-
-const FormSchema = z
-  .object({
-    firstName: z
-      .string()
-      .trim()
-      .min(2, "Please enter at least 2 characters")
-      .max(50, "Maximum 50 characters")
-      .refine((value) => /^[a-zA-Z\s'-]+$/.test(value), "First name contains invalid characters"),
-    lastName: z
-      .string()
-      .trim()
-      .min(2, "Please enter at least 2 characters")
-      .max(50, "Maximum 50 characters")
-      .refine((value) => /^[a-zA-Z\s'-]+$/.test(value), "Last name contains invalid characters"),
-    email: z
-      .string()
-      .trim()
-      .email("Please enter a valid email address")
-      .or(z.literal("")),
-    phone: z
-      .string()
-      .trim()
-      .nonempty("Phone number is required")
-      .min(10, "Please enter at least 10 characters")
-      .max(25, "Please enter no more than 25 characters")
-      .refine((value) => {
-        if (value) {
-          return isValidPhoneNumber(value, "VN");
-        }
-
-        return true;
-      }, "Invalid number"),
-    password: passwordSchema,
-    confirmPassword: z.string().min(1, "Please confirm your password"),
-  })
-  .refine((values) => values.password === values.confirmPassword, {
-    path: ["confirmPassword"],
-    message: "Passwords do not match",
-  })
-  .refine((values) => values.password !== values.phone, {
-    path: ["password"],
-    message: "Password must not be the same as your phone number",
-  });
 
 const defaultValuesForSignUpForm = {
   firstName: "",
@@ -70,7 +18,56 @@ const defaultValuesForSignUpForm = {
 };
 
 export default function SignUpForm() {
+  const { t } = useTranslation();
   const { signUp, isSubmitting } = useSignUp();
+  const passwordSchema = z
+    .string()
+    .min(8, t("validation_enter_at_least_8_characters"))
+    .max(50, t("validation_enter_no_more_than_50_characters"))
+    .refine((value) => !/\s/.test(value), t("validation_password_no_spaces"))
+    .refine((value) => /[A-Z]/.test(value), t("validation_password_uppercase"))
+    .refine((value) => /[a-z]/.test(value), t("validation_password_lowercase"))
+    .refine((value) => /\d/.test(value), t("validation_password_number"));
+
+  const FormSchema = z
+    .object({
+      firstName: z
+        .string()
+        .trim()
+        .min(2, t("validation_enter_at_least_2_characters"))
+        .max(50, t("validation_enter_no_more_than_50_characters"))
+        .refine((value) => /^[a-zA-Z\s'-]+$/.test(value), t("validation_first_name_invalid_characters")),
+      lastName: z
+        .string()
+        .trim()
+        .min(2, t("validation_enter_at_least_2_characters"))
+        .max(50, t("validation_enter_no_more_than_50_characters"))
+        .refine((value) => /^[a-zA-Z\s'-]+$/.test(value), t("validation_last_name_invalid_characters")),
+      email: z.string().trim().email(t("validation_valid_email")).or(z.literal("")),
+      phone: z
+        .string()
+        .trim()
+        .nonempty(t("validation_phone_required"))
+        .min(10, t("validation_enter_at_least_10_characters"))
+        .max(25, t("validation_enter_no_more_than_25_characters"))
+        .refine((value) => {
+          if (value) {
+            return isValidPhoneNumber(value, "VN");
+          }
+
+          return true;
+        }, t("validation_invalid_number")),
+      password: passwordSchema,
+      confirmPassword: z.string().min(1, t("validation_confirm_password_required")),
+    })
+    .refine((values) => values.password === values.confirmPassword, {
+      path: ["confirmPassword"],
+      message: t("validation_passwords_do_not_match"),
+    })
+    .refine((values) => values.password !== values.phone, {
+      path: ["password"],
+      message: t("validation_password_not_same_as_phone"),
+    });
 
   return (
     <FormGroup
@@ -88,15 +85,15 @@ export default function SignUpForm() {
       <div className="grid gap-4 md:grid-cols-2">
         <FormInput
           name="firstName"
-          label="First Name"
-          placeholder="Enter your first name"
+          label={t("form_first_name")}
+          placeholder={t("sign_up_first_name_placeholder")}
           formSchema={FormSchema}
           isRequired
         />
         <FormInput
           name="lastName"
-          label="Last Name"
-          placeholder="Enter your last name"
+          label={t("form_last_name")}
+          placeholder={t("sign_up_last_name_placeholder")}
           formSchema={FormSchema}
           isRequired
         />
@@ -104,16 +101,16 @@ export default function SignUpForm() {
 
       <FormInput
         name="email"
-        label="Email"
-        placeholder="Enter your email address"
+        label={t("form_email")}
+        placeholder={t("sign_up_email_placeholder")}
         formSchema={FormSchema}
       />
 
       <FormInput
         name="phone"
         character="+84"
-        label="Phone Number"
-        placeholder="Enter your phone number"
+        label={t("form_phone_number")}
+        placeholder={t("sign_up_phone_placeholder")}
         formSchema={FormSchema}
         isRequired
       />
@@ -121,8 +118,8 @@ export default function SignUpForm() {
       <FormInput
         inputType="password"
         name="password"
-        label="Password"
-        placeholder="Create a password"
+        label={t("form_password")}
+        placeholder={t("sign_up_password_placeholder")}
         formSchema={FormSchema}
         isRequired
       />
@@ -130,14 +127,14 @@ export default function SignUpForm() {
       <FormInput
         inputType="password"
         name="confirmPassword"
-        label="Confirm Password"
-        placeholder="Confirm your password"
+        label={t("form_confirm_password")}
+        placeholder={t("sign_up_confirm_password_placeholder")}
         formSchema={FormSchema}
         isRequired
       />
 
       <Button type="submit" className="w-full" variant="outline" disabled={isSubmitting}>
-        {isSubmitting ? "Creating account..." : "Create Account"}
+        {isSubmitting ? t("form_creating_account") : t("form_create_account")}
       </Button>
     </FormGroup>
   );

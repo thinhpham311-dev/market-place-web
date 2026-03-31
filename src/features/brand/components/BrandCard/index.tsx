@@ -34,17 +34,17 @@ export default memo(function BrandCard({ item }: BrandCardProps) {
   return (
     <Card
       onClick={handleNavigation}
-      className="flex h-full cursor-pointer flex-col justify-center rounded-3xl border bg-background"
+      className="rounded-3xl aspect-square flex flex-col justify-center items-center"
     >
-      <CardContent className="mx-auto mt-4 w-20 overflow-hidden rounded-full border bg-white p-0 dark:bg-white">
+      <CardContent className="p-0 rounded-full bg-white dark:bg-white w-1/2 border overflow-hidden">
         <CardImage
           src={imageSrc}
           alt={brand_name || "Brand"}
-          className="aspect-square h-full w-full rounded-full object-cover"
+          className="w-full h-full aspect-square rounded-t-lg cursor-pointer object-cover"
         />
       </CardContent>
-      <CardContent className="p-4">
-        <CardTitle className="line-clamp-2 text-center text-sm font-semibold capitalize">
+      <CardContent className="p-3">
+        <CardTitle className="text-md capitalize cursor-pointer text-black dark:text-white text-center xl:line-clamp-2 line-clamp-1">
           {brand_name || "Brand"}
         </CardTitle>
       </CardContent>

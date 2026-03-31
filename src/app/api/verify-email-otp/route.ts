@@ -1,0 +1,129 @@
+import axios from "axios";
+import qs from "qs";
+import { NextRequest, NextResponse } from "next/server";
+
+import { handleAxiosError } from "@/lib/http/handleAxiosError";
+
+const API_NEXT = process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL;
+const VERIFY_EMAIL_OTP_ENDPOINT =
+  process.env.VERIFY_EMAIL_OTP_ENDPOINT || "/v1/api/user/verify-email-otp";
+const AUTH_COOKIE_NAME = "market_place_session";
+const AUTH_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
+
+type UpstreamAuthData = Record<string, unknown> | null | undefined;
+
+function extractAuthToken(payload: UpstreamAuthData): string | null {
+  if (!payload || typeof payload !== "object") {
+    return null;
+  }
+
+  const directTokenKeys = ["token", "accessToken", "access_token", "authToken", "jwt"] as const;
+
+  for (const key of directTokenKeys) {
+    const value = payload[key];
+    if (typeof value === "string" && value.length > 0) {
+      return value;
+    }
+  }
+
+  const nestedCandidates = [payload.data, payload.metadata, payload.user];
+
+  for (const candidate of nestedCandidates) {
+    if (candidate && typeof candidate === "object") {
+      const nestedToken = extractAuthToken(candidate as Record<string, unknown>);
+      if (nestedToken) {
+        return nestedToken;
+      }
+    }
+  }
+
+  return null;
+}
+
+function appendUpstreamCookies(response: NextResponse, setCookieHeader?: string | string[]) {
+  if (!setCookieHeader) {
+    return false;
+  }
+
+  const cookieValues = Array.isArray(setCookieHeader) ? setCookieHeader : [setCookieHeader];
+  cookieValues.forEach((cookieValue) => {
+    response.headers.append("set-cookie", cookieValue);
+  });
+
+  return cookieValues.length > 0;
+}
+
+export const POST = async (req: NextRequest) => {
+  try {
+    const body = await req.json();
+    const { email, otp } = body ?? {};
+
+    if (!API_NEXT) {
+      return NextResponse.json(
+        { message: "Server misconfiguration: API_NEXT not set" },
+        { status: 500 },
+      );
+    }
+
+    const upstreamResponse = await axios({
+      method: "post",
+      url: `${API_NEXT}${VERIFY_EMAIL_OTP_ENDPOINT}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: qs.stringify({
+        email,
+        otp,
+      }),
+    });
+
+    const { data: dataResponse, headers } = upstreamResponse;
+    const { returnCode, returnMessage, data } = dataResponse;
+
+    if (returnCode === 1) {
+      const token = extractAuthToken(data);
+      const hasUpstreamCookie = Boolean(headers["set-cookie"]);
+      const hasSession = hasUpstreamCookie || Boolean(token);
+      const response = NextResponse.json(
+        {
+          message: returnMessage || "Email verified successfully",
+          user: data?.user ?? data ?? null,
+          token: token || undefined,
+          hasSession,
+        },
+        { status: 200 },
+      );
+
+      const hasForwardedCookie = appendUpstreamCookies(response, headers["set-cookie"]);
+
+      if (!hasForwardedCookie && token) {
+        response.cookies.set({
+          name: AUTH_COOKIE_NAME,
+          value: token,
+          httpOnly: true,
+          sameSite: "lax",
+          secure: process.env.NODE_ENV === "production",
+          maxAge: AUTH_COOKIE_MAX_AGE,
+          path: "/",
+        });
+      }
+
+      return response;
+    }
+
+    return NextResponse.json(
+      { message: returnMessage || "Email verification failed" },
+      { status: 203 },
+    );
+  } catch (error) {
+    const normalized = handleAxiosError(error);
+
+    return NextResponse.json(
+      {
+        message: normalized.message,
+        errors: normalized.errors,
+      },
+      { status: normalized.status },
+    );
+  }
+};

@@ -18,8 +18,10 @@ import { PRO_DETAIL } from "@/features/product/constants";
 
 //icons
 import { MdShoppingCartCheckout } from "react-icons/md";
+import { useTranslation } from "@/lib/hooks/use-translation";
 
 const BuyNowButton = () => {
+  const { t } = useTranslation();
   const { spu } = useSpuContext();
   const { sku } = useSkuContext();
 
@@ -44,7 +46,7 @@ const BuyNowButton = () => {
       href="/checkout"
       size="lg"
       icon={<MdShoppingCartCheckout />}
-      label="Buy Now"
+      label={t("product_buy_now")}
       item={data}
       disabled={isDisabled}
     />

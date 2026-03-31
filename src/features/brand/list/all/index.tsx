@@ -1,12 +1,10 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { ArrowRight } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
+import SectionSeeMoreButton from "@/components/shared/SectionSeeMoreButton";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import BrandCarousel from "@/features/brand/components/BrandCarousel";
 import { useFetchData } from "@/features/brand/list/all/hooks";
+import { useTranslation } from "@/lib/hooks";
 
 interface BrandListSectionProps {
   title?: string;
@@ -19,19 +17,29 @@ export default function BrandListSection({
   description = "Explore top brands available across the marketplace.",
   compact = false,
 }: BrandListSectionProps) {
-  const router = useRouter();
   const { brands, loading, error } = useFetchData();
+  const { t } = useTranslation();
+  const resolvedTitle =
+    title === "Featured Brands"
+      ? t("featured_brands")
+      : title === "Shop By Brand"
+        ? t("shop_by_brand")
+        : title;
+  const resolvedDescription =
+    description === "Explore top brands available across the marketplace."
+      ? t("featured_brands_desc")
+      : description === "Browse products from the most popular brands in our marketplace."
+        ? t("shop_by_brand_desc")
+      : description;
 
   return (
     <Card className="w-full border-none px-3 shadow-none md:px-6">
       <CardHeader className="mb-3 flex-row items-center space-x-3 px-0">
         <div className="flex-1">
-          <CardTitle className="mb-3 capitalize">{title}</CardTitle>
-          <CardDescription className="line-clamp-2">{description}</CardDescription>
+          <CardTitle className="mb-3 capitalize">{resolvedTitle}</CardTitle>
+          <CardDescription className="line-clamp-2">{resolvedDescription}</CardDescription>
         </div>
-        <Button variant="outline" size="icon" className="float-end" onClick={() => router.push("/search")}>
-          <ArrowRight className="h-4 w-4" />
-        </Button>
+        <SectionSeeMoreButton href="/search" />
       </CardHeader>
 
       <CardContent className="px-0">

@@ -12,6 +12,7 @@ import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
 import { cn } from "@/utils/styles";
 import { ISpuModel } from "@/models/spu";
+import { useTranslation } from "@/lib/hooks/use-translation";
 
 interface ISpuCarouselProps {
   data: ISpuModel[];
@@ -30,6 +31,7 @@ const SpuCarousel = ({
   error,
   countLoadItems,
 }: ISpuCarouselProps) => {
+  const { t } = useTranslation();
   const hasNoData = !data || data.length === 0;
 
   if (isLoading && hasNoData) {
@@ -37,11 +39,11 @@ const SpuCarousel = ({
   }
 
   if (!isLoading && hasNoData && error) {
-    return <NotFound message={error.message || "Something went wrong."} />;
+    return <NotFound message={error.message || t("common_something_went_wrong")} />;
   }
 
   if (!isLoading && hasNoData) {
-    return <NotFound />;
+    return <NotFound message={t("common_no_data_found")} />;
   }
 
   return (

@@ -1,10 +1,16 @@
+import { getCurrentCurrencyDisplayConfig } from "@/lib/i18n/currency";
+
 export const formatToCurrency = (
-  cents: number,
-  currency: string = "USD",
-  locale: string = "en-US",
+  amount: number,
+  currency?: string,
+  locale?: string,
 ): string => {
-  return (cents / 1).toLocaleString(locale, {
+  const fallbackConfig = getCurrentCurrencyDisplayConfig();
+  const resolvedCurrency = currency ?? fallbackConfig.currency;
+  const resolvedLocale = locale ?? fallbackConfig.locale;
+
+  return Number(amount || 0).toLocaleString(resolvedLocale, {
     style: "currency",
-    currency: currency,
+    currency: resolvedCurrency,
   });
 };

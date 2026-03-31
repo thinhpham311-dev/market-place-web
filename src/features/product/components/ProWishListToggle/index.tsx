@@ -5,14 +5,17 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 
 import WishListButon from "./WishListButton";
+import { useTranslation } from "@/lib/hooks/use-translation";
 
 export default function ProWishListToggle() {
+  const { t } = useTranslation();
+
   return (
     <Card layout="horizontal" className="border-none shadow-none items-center space-x-3">
       <CardContent className="p-0 ">
         <Label htmlFor="wish-list" className="space-x-3 flex items-center">
           <WishListButon />
-          <span className="text-sm font-bold uppercase">WishList(18,8k)</span>
+          <span className="text-sm font-bold uppercase">{t("product_wishlist")} (18.8k)</span>
         </Label>
       </CardContent>
     </Card>

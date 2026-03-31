@@ -3,6 +3,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { UserCheck, UserPlus } from "lucide-react";
+import { useTranslation } from "@/lib/hooks/use-translation";
 
 interface ShopFollowButtonProps {
   isFollowing: boolean;
@@ -10,17 +11,19 @@ interface ShopFollowButtonProps {
 }
 
 const ShopFollowButton: React.FC<ShopFollowButtonProps> = ({ isFollowing, onToggleFollow }) => {
+  const { t } = useTranslation();
+
   return (
     <Button variant="outline" size="sm" className="w-full" onClick={onToggleFollow}>
       {isFollowing ? (
         <>
           <UserCheck className="w-4 h-4 mr-1" />
-          <span>Following</span>
+          <span>{t("shop_following")}</span>
         </>
       ) : (
         <>
           <UserPlus className="w-4 h-4 mr-1" />
-          <span>Follow</span>
+          <span>{t("shop_follow")}</span>
         </>
       )}
     </Button>

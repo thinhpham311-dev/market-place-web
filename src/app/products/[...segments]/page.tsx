@@ -57,7 +57,7 @@ export default function Page({ params }: { params: { segments: string[] } }) {
       <ProDetail product_id={product_id} shop_id={shop_id} />
       <ProTopPicksList />
       <ProBundleDealList />
-      <ProRelatedList />
+      <ProRelatedList shopId={shop_id} />
     </div>
   );
 }

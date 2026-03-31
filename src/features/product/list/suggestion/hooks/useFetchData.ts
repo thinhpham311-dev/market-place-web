@@ -9,9 +9,17 @@ import { injectReducer, removeReducer } from "@/store";
 
 interface IUseFetchData {
   storeKey: string;
+  defaultLimit?: number;
+  defaultCurrentPage?: number;
+  sortBy?: string;
 }
 
-export function useFetchData({ storeKey }: IUseFetchData) {
+export function useFetchData({
+  storeKey,
+  defaultLimit = 10,
+  defaultCurrentPage = 1,
+  sortBy = "ctime",
+}: IUseFetchData) {
   useLayoutEffect(() => {
     injectReducer(storeKey, reducer);
     return () => {
@@ -21,7 +29,16 @@ export function useFetchData({ storeKey }: IUseFetchData) {
 
   const dispatch = useAppDispatch();
 
-  const { currentPage = 1, limit = 15 } = useGetPaginationValue({ storeKey });
+  const { currentPage, limit } = useGetPaginationValue({
+    storeKey,
+    initialValue: {
+      currentPage: defaultCurrentPage,
+      limit: defaultLimit,
+      totalItems: 0,
+      totalPages: 1,
+      pages: [],
+    },
+  });
   const {
     products = [],
     totalItems,
@@ -33,14 +50,14 @@ export function useFetchData({ storeKey }: IUseFetchData) {
     const promise = dispatch(
       getProductList({
         limit,
-        sortBy: "ctime",
+        sortBy,
         page: currentPage,
       }) as any,
     );
     return () => {
       promise.abort();
     };
-  }, [dispatch, currentPage, limit]);
+  }, [dispatch, currentPage, limit, sortBy]);
 
   return { products, totalItems, loading, error };
 }

@@ -2,12 +2,13 @@
 import { useShoppingCartContext } from "@/features/cart/hooks";
 import { CardContent } from "@/components/ui/card";
 import CartDataTable from "@/features/cart/components/CartDataTable";
-import { initialColumns } from "@/features/cart/main-cart/constants";
+import { useCartTableColumns } from "@/features/cart/main-cart/constants";
 import { MAIN_CART } from "@/features/cart/main-cart/constants";
 import ErrorMsg from "./ErrorMsg";
 import LoadingSkeleton from "./LoadingSkeleton";
 
 export default function MainCartContent() {
+  const initialColumns = useCartTableColumns();
   const { data, loading, error } = useShoppingCartContext();
   const { cart_items = [], cart_items_count, cart_id = "" } = data;
 

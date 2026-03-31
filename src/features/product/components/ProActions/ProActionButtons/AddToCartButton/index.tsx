@@ -19,8 +19,10 @@ import { PRO_DETAIL } from "@/features/product/constants";
 
 //icons
 import { MdAddShoppingCart } from "react-icons/md";
+import { useTranslation } from "@/lib/hooks/use-translation";
 
 const AddToCartButton = () => {
+  const { t } = useTranslation();
   const { spu } = useSpuContext();
   const { sku } = useSkuContext();
 
@@ -46,7 +48,7 @@ const AddToCartButton = () => {
     <CartAddItem
       size="lg"
       icon={<MdAddShoppingCart />}
-      label="Add To Cart"
+      label={t("product_add_to_cart")}
       variant="secondary"
       item={data}
       disabled={isDisabled}
