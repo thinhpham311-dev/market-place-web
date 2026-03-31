@@ -16,8 +16,10 @@ import { postVerifyEmailOtp } from "@/features/auth/check-otp/store/dataSlice";
 import { onSignInSuccess } from "@/store/auth/sessionSlice";
 import { setUser } from "@/store/auth/userSlice";
 import type { VerifyEmailOtpPayload } from "@/features/auth/types/auth";
+import { useTranslation } from "@/lib/hooks/use-translation";
 
 export function useCheckOtp() {
+  const { t } = useTranslation();
   const router = useRouter();
   const dispatch = useAppDispatch();
   const storeKey = CHECK_OTP_DEFAULT_STORE_KEY;
@@ -36,7 +38,7 @@ export function useCheckOtp() {
   const verifyOtp = async (values: VerifyEmailOtpPayload) => {
     try {
       const response = await dispatch(postVerifyEmailOtp(values) as any).unwrap();
-      const message = response.message || "Your email has been verified successfully.";
+      const message = response.message || t("auth_check_otp_success");
 
       if (response.hasSession || response.token) {
         dispatch(onSignInSuccess(response.token || "http-only-session"));
@@ -54,7 +56,7 @@ export function useCheckOtp() {
         (typeof error === "string" && error) ||
         error?.message ||
         error?.response?.data?.message ||
-        "OTP verification failed. Please try again.";
+        t("auth_check_otp_failed");
 
       toast.error(message);
       throw error;

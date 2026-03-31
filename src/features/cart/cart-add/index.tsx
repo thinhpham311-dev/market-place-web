@@ -10,8 +10,9 @@ import { useShoppingCartContext } from "@/features/cart/hooks";
 import { ICartItemModel } from "@/models/cart";
 import CartButtonBase from "@/features/cart/components/CartButtonBase";
 import { ICartButtonBaseProps } from "@/features/cart/components/CartButtonBase";
-import { renderVariants } from "@/features/cart/utils/renderVariants";
+import { renderVariantsText } from "@/features/cart/utils/renderVariants";
 import { showSuccessToast } from "@/features/common/toast-msg";
+import { useTranslation } from "@/lib/hooks/use-translation";
 
 interface CartAddItemProps extends ICartButtonBaseProps {
   item?: ICartItemModel | null;
@@ -20,6 +21,7 @@ interface CartAddItemProps extends ICartButtonBaseProps {
 }
 
 const CartAddItem = ({ item, disabled, href = "", ...rest }: CartAddItemProps) => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const { createItem, loading, error } = useShoppingCartContext();
@@ -29,13 +31,15 @@ const CartAddItem = ({ item, disabled, href = "", ...rest }: CartAddItemProps) =
     createItem(item);
 
     setTimeout(() => {
+      const variantsText = renderVariantsText(item.itemSpuVariations, item.itemSkuTierIdx);
       showSuccessToast({
-        title: "Add To Successfully!",
+        title: t("cart_add_success_title"),
         description: (
           <span className="text-white">
-            The product {item.itemSpuName} -
-            {renderVariants(item.itemSpuVariations, item.itemSkuTierIdx)} x {item.itemQuantity}
-            has been added to your cart.
+            {t("cart_add_success_desc")
+              .replace("{product}", item.itemSpuName)
+              .replace("{variants}", variantsText || "-")
+              .replace("{quantity}", String(item.itemQuantity))}
           </span>
         ),
       });

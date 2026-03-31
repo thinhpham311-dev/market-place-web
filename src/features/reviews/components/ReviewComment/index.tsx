@@ -4,6 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import reducer from "./store";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { setComment, resetComment } from "./store/stateSlice";
+import { useTranslation } from "@/lib/hooks/use-translation";
 
 injectReducer("reviewComment", reducer);
 
@@ -14,6 +15,7 @@ export interface ReviewCommentRef {
 }
 
 const ReviewComment = React.forwardRef<ReviewCommentRef>((_, ref) => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { text } = useAppSelector((state) => state.reviewComment.state);
 
@@ -36,7 +38,7 @@ const ReviewComment = React.forwardRef<ReviewCommentRef>((_, ref) => {
 
   return (
     <Textarea
-      placeholder="Write your review here..."
+      placeholder={t("review_placeholder")}
       value={text}
       onChange={handleChangeText}
       className="w-full border rounded-md p-3"

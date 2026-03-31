@@ -11,10 +11,12 @@ import reducer from "./store";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { addReview } from "./store/stateSlice";
 import { v4 as uuidv4 } from "uuid";
+import { useTranslation } from "@/lib/hooks/use-translation";
 
 injectReducer("reviewForm", reducer);
 
 const ReviewForm = () => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const ratingRef = React.useRef<ReviewStarsRef>(null);
   const commentRef = React.useRef<ReviewCommentRef>(null);
@@ -24,7 +26,7 @@ const ReviewForm = () => {
 
   const handleSubmit = React.useCallback(() => {
     if (rating === 0 || !text.trim()) {
-      alert("Please provide a rating and a comment.");
+      alert(t("review_validation_missing"));
       return;
     }
     dispatch(
@@ -37,7 +39,7 @@ const ReviewForm = () => {
 
     ratingRef.current?.resetRating();
     commentRef.current?.clearComment();
-  }, [dispatch, rating, text, ratingRef, commentRef]);
+  }, [dispatch, rating, text, ratingRef, commentRef, t]);
 
   return (
     <Card className="rounded-none">
@@ -45,7 +47,7 @@ const ReviewForm = () => {
         <ReviewStars ref={ratingRef} />
         <ReviewComment ref={commentRef} />
         <Button onClick={handleSubmit} variant="outline" className="w-full">
-          Submit
+          {t("review_submit")}
         </Button>
       </CardContent>
     </Card>

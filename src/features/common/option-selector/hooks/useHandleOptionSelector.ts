@@ -13,6 +13,7 @@ import { injectReducer, removeReducer } from "@/store";
 import { useGetOptionSelectorValue } from "./useGetOptionSelectorValue";
 import reducer from "@/features/common/option-selector/store";
 import { OPTION_SELECTOR } from "@/features/common/option-selector/constants";
+import { translateRuntime } from "@/lib/i18n/runtime-translation";
 
 interface UseHandleOptionSelectorProps {
   reducerKey?: string;
@@ -112,7 +113,7 @@ export function useHandleOptionSelector({
 
         // Use requestAnimationFrame for better timing with UI updates
         requestAnimationFrame(() => {
-          toast.error("Validation error", {
+          toast.error(translateRuntime("option_validation_error"), {
             description: errorMessages,
           });
         });

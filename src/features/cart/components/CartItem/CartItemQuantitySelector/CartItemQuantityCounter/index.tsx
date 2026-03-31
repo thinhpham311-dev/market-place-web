@@ -6,12 +6,14 @@ import ErrorMsg from "./ErrorMsg";
 import LoadingSkeleton from "./LoadingSkeleton";
 
 import { toast } from "sonner";
+import { useTranslation } from "@/lib/hooks/use-translation";
 
 interface ICartItemQuantityCounterProps {
   data: ICartItemModel;
 }
 
 const CartItemQuantityCounter = ({ data }: ICartItemQuantityCounterProps) => {
+  const { t } = useTranslation();
   const { loading, error, updateQtyItem } = useShoppingCartContext();
 
   const { itemSkuId, itemSpuName, itemQuantity, itemSkuStock } = data;
@@ -24,14 +26,16 @@ const CartItemQuantityCounter = ({ data }: ICartItemQuantityCounterProps) => {
     });
 
     setTimeout(() => {
-      const id = toast.success("update quantity!", {
+      const id = toast.success(t("cart_quantity_updated_title"), {
         description: (
           <span className="text-white">
-            The product {itemSpuName} x {value} has been removed from your cart.
+            {t("cart_quantity_updated_desc")
+              .replace("{product}", itemSpuName)
+              .replace("{quantity}", String(value))}
           </span>
         ),
         action: {
-          label: "Close",
+          label: t("toast_close"),
           onClick: () => {
             toast.dismiss(id);
           },

@@ -23,16 +23,18 @@ import { toast } from "sonner";
 import OptionSelector from "@/features/common/option-selector";
 import { useGetOptionSelectorValue } from "@/features/common/option-selector/hooks";
 import { useShoppingCartContext } from "@/features/cart/hooks";
-import { renderVariants } from "@/features/cart/utils/renderVariants";
+import { renderVariants, renderVariantsText } from "@/features/cart/utils/renderVariants";
 import { checkIsSameVariant } from "@/features/cart/helpers/calculate";
 import { SHOPPING_CART } from "@/features/cart/constants";
 import { ICartItemModel } from "@/models/cart";
+import { useTranslation } from "@/lib/hooks/use-translation";
 
 interface CartItemVariantsDrawerProps {
   data: ICartItemModel;
 }
 
 const CartItemVariantsDrawer = ({ data }: CartItemVariantsDrawerProps) => {
+  const { t } = useTranslation();
   const { updateVariantsItem, loading, error } = useShoppingCartContext();
 
   const { itemId, itemSkuId, itemSpuName, itemSkuTierIdx, itemSpuVariations } = data;
@@ -57,18 +59,21 @@ const CartItemVariantsDrawer = ({ data }: CartItemVariantsDrawerProps) => {
   );
 
   const showSuccessToast = useCallback(() => {
-    const id = toast.success("Update variants!", {
+    const variantsText = renderVariantsText(itemSpuVariations, itemSkuTierIdx);
+    const id = toast.success(t("cart_variants_updated_title"), {
       description: (
         <span className="text-white">
-          The product <b>{itemSpuName}</b> – {variantsLabel} has been updated.
+          {t("cart_variants_updated_desc")
+            .replace("{product}", itemSpuName)
+            .replace("{variants}", variantsText || "-")}
         </span>
       ),
       action: {
-        label: "Close",
+        label: t("toast_close"),
         onClick: () => toast.dismiss(id),
       },
     });
-  }, [itemSpuName, variantsLabel]);
+  }, [itemSpuName, itemSpuVariations, itemSkuTierIdx, t]);
 
   const handleSave = useCallback(() => {
     updateVariantsItem({

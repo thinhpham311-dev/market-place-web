@@ -10,8 +10,9 @@ interface Props {
 export default function BreadcrumbLinkItem({ href, label, icon: Icon }: Props) {
   return (
     <BreadcrumbItem>
-      <BreadcrumbLink href={href} className="flex items-center gap-x-2 text-sm">
-        <Icon size={15} /> {label}
+      <BreadcrumbLink href={href} className="flex items-center gap-x-2.5 text-sm leading-none">
+        <Icon size={15} className="shrink-0" />
+        <span>{label}</span>
       </BreadcrumbLink>
     </BreadcrumbItem>
   );

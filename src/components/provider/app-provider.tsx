@@ -68,24 +68,24 @@ const AppProvider = ({ children, ...props }: React.ComponentProps<typeof NextThe
 
   return (
     <NextThemesProvider {...props}>
-      <SidebarProvider defaultOpen={defaultOpen}>
-        <SidebarNavigation />
+      <Provider store={store}>
+        <ShoppingCartRoot>
+          <PersistGate
+            loading={
+              <div className="h-[100vh] w-full flex items-center justify-center space-x-3 bg-background">
+                <LoadingSpinner />
+                <p>
+                  <strong>Loading...</strong>
+                </p>
+              </div>
+            }
+            persistor={persistor}
+          >
+            <AppLanguageEffect />
+            <SidebarProvider defaultOpen={defaultOpen}>
+              <SidebarNavigation />
 
-        <div className="flex-1 w-full">
-          <Provider store={store}>
-            <ShoppingCartRoot>
-              <PersistGate
-                loading={
-                  <div className="h-[100vh] w-full flex items-center justify-center space-x-3 bg-background">
-                    <LoadingSpinner />
-                    <p>
-                      <strong>Loading...</strong>
-                    </p>
-                  </div>
-                }
-                persistor={persistor}
-              >
-                <AppLanguageEffect />
+              <div className="flex-1 w-full">
                 <AdminHeader />
                 <Header />
 
@@ -93,11 +93,11 @@ const AppProvider = ({ children, ...props }: React.ComponentProps<typeof NextThe
 
                 <Footer />
                 <Toaster />
-              </PersistGate>
-            </ShoppingCartRoot>
-          </Provider>
-        </div>
-      </SidebarProvider>
+              </div>
+            </SidebarProvider>
+          </PersistGate>
+        </ShoppingCartRoot>
+      </Provider>
     </NextThemesProvider>
   );
 };

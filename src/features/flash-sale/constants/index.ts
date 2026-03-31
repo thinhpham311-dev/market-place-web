@@ -1,0 +1,1 @@
+export const FLASH_SALE_LIST = "FLASH_SALE_LIST";

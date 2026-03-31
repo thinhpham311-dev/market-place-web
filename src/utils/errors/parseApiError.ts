@@ -1,5 +1,6 @@
 // parseApiError.ts
 import { NormalizedApiError } from "@/lib/http/handleAxiosError";
+import { translateRuntime } from "@/lib/i18n/runtime-translation";
 
 export type ParsedApiError =
   | { type: "CLIENT"; message: string; status: number }
@@ -13,13 +14,13 @@ export function parseApiError(error: NormalizedApiError): ParsedApiError {
     return {
       type: "SERVER",
       status,
-      message: error.message ?? "Có lỗi hệ thống, vui lòng thử lại sau",
+      message: error.message ?? translateRuntime("api_server_error"),
     };
   }
 
   return {
     type: "CLIENT",
     status,
-    message: error.message ?? "Yêu cầu không hợp lệ",
+    message: error.message ?? translateRuntime("api_invalid_request"),
   };
 }

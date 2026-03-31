@@ -16,8 +16,10 @@ import { selectSignUpByStoreKey } from "@/features/auth/sign-up/store/selectors"
 import { postSignUp } from "@/features/auth/sign-up/store/dataSlice";
 import { onSignInSuccess } from "@/store/auth/sessionSlice";
 import { setUser } from "@/store/auth/userSlice";
+import { useTranslation } from "@/lib/hooks/use-translation";
 
 export function useSignUp() {
+  const { t } = useTranslation();
   const router = useRouter();
   const dispatch = useAppDispatch();
   const storeKey = SIGN_UP_DEFAULT_STORE_KEY;
@@ -36,7 +38,7 @@ export function useSignUp() {
   const signUp = async (values: IUser) => {
     try {
       const response = await dispatch(postSignUp(values) as any).unwrap();
-      const message = response.message || "Your account has been created successfully.";
+      const message = response.message || t("auth_sign_up_success");
 
       if (response.hasSession || response.token) {
         dispatch(onSignInSuccess(response.token || "http-only-session"));
@@ -67,7 +69,7 @@ export function useSignUp() {
         (typeof error === "string" && error) ||
         error?.message ||
         error?.response?.data?.message ||
-        "Sign up failed. Please try again.";
+        t("auth_sign_up_failed");
 
       toast.error(message);
       throw error;

@@ -6,18 +6,21 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { ICartItemModel } from "@/models/cart";
 import CartItem from "@/features/cart/components/CartItem";
 import { AlertTriangle } from "lucide-react";
+import { useTranslation } from "@/lib/hooks/use-translation";
 interface ICartListViewProps {
   data: ICartItemModel[];
 }
 
 const CartListView = ({ data = [] }: ICartListViewProps) => {
+  const { t } = useTranslation();
+
   if (data.length === 0) {
     return (
       <div
         className={`w-full flex flex-col items-center justify-center aspect-square text-center text-muted-foreground`}
       >
         <AlertTriangle className="w-10 h-10 mb-2 text-yellow-500" />
-        <p className="text-sm font-medium">No data found.</p>
+        <p className="text-sm font-medium">{t("common_no_data_found")}</p>
       </div>
     );
   }

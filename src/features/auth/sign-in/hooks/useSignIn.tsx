@@ -9,6 +9,7 @@ import { apiSignIn } from "@/services/AuthService";
 import { IUser } from "@/interfaces/user";
 import { onSignInSuccess } from "@/store/auth/sessionSlice";
 import { setUser } from "@/store/auth/userSlice";
+import { useTranslation } from "@/lib/hooks/use-translation";
 
 type SignInResponse = {
   message?: string;
@@ -18,6 +19,7 @@ type SignInResponse = {
 };
 
 export function useSignIn() {
+  const { t } = useTranslation();
   const router = useRouter();
   const dispatch = useDispatch();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -27,7 +29,7 @@ export function useSignIn() {
       setIsSubmitting(true);
 
       const response = (await apiSignIn(values)) as { data: SignInResponse };
-      const message = response.data?.message || "Signed in successfully.";
+      const message = response.data?.message || t("auth_sign_in_success");
 
       if (response.data?.hasSession || response.data?.token) {
         dispatch(onSignInSuccess(response.data?.token || "http-only-session"));
@@ -42,7 +44,7 @@ export function useSignIn() {
       router.refresh();
     } catch (error: any) {
       const message =
-        error?.response?.data?.message || error?.message || "Sign in failed. Please try again.";
+        error?.response?.data?.message || error?.message || t("auth_sign_in_failed");
 
       toast.error(message);
       throw error;

@@ -4,30 +4,32 @@ import { Breadcrumb, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui
 import { Tally1 } from "lucide-react";
 import BreadcrumbLinkItem from "./components/BreadcrumbLinkItem";
 import { Warehouse, ArrowDownToLine } from "lucide-react";
-
-export const breadcrumbItems = [
-  {
-    label: "Seller Centre",
-    href: "/admin",
-    icon: Warehouse,
-  },
-  {
-    label: "Download",
-    href: "/admin/download",
-    icon: ArrowDownToLine,
-  },
-];
+import { useTranslation } from "@/lib/hooks";
 
 export default function AdminBreadcrumb() {
+  const { t } = useTranslation();
+  const breadcrumbItems = [
+    {
+      label: t("admin_seller_centre"),
+      href: "/admin",
+      icon: Warehouse,
+    },
+    {
+      label: t("admin_download"),
+      href: "/admin/download",
+      icon: ArrowDownToLine,
+    },
+  ];
+
   return (
     <Breadcrumb>
-      <BreadcrumbList>
+      <BreadcrumbList className="gap-2 sm:gap-3">
         {breadcrumbItems.map((item, index) => (
-          <div key={item.href} className="flex items-center">
+          <div key={item.href} className="flex items-center gap-2">
             <BreadcrumbLinkItem href={item.href} label={item.label} icon={item.icon} />
             {index < breadcrumbItems.length - 1 && (
-              <BreadcrumbSeparator>
-                <Tally1 className="ml-0 -mr-2" size={12} />
+              <BreadcrumbSeparator className="mx-0.5">
+                <Tally1 className="text-muted-foreground" size={12} />
               </BreadcrumbSeparator>
             )}
           </div>

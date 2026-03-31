@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Check, Moon, Sun } from "lucide-react";
+import { Check, MonitorCog, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
 import {
@@ -12,14 +12,15 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/lib/hooks";
+import { cn } from "@/utils/styles";
 
 export default function ThemeToggle() {
   const { t } = useTranslation();
   const { setTheme, theme } = useTheme();
   const themeOptions = [
-    { label: t("theme_light"), value: "light" },
-    { label: t("theme_dark"), value: "dark" },
-    { label: t("theme_system"), value: "system" },
+    { label: t("theme_light"), value: "light", icon: Sun },
+    { label: t("theme_dark"), value: "dark", icon: Moon },
+    { label: t("theme_system"), value: "system", icon: MonitorCog },
   ];
 
   const handleSetTheme = (theme: string) => {
@@ -37,13 +38,19 @@ export default function ThemeToggle() {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end">
-        {themeOptions.map(({ label, value }) => (
+        {themeOptions.map(({ label, value, icon: Icon }) => (
           <DropdownMenuItem
             key={value}
             onClick={() => handleSetTheme(value)}
-            className={theme === value ? "bg-stone-100 text-stone-900 dark:bg-stone-800 dark:text-stone-50" : ""}
+            className={cn(
+              theme === value &&
+                (value === "system"
+                  ? "bg-sky-100 text-sky-900 dark:bg-sky-950/60 dark:text-sky-100"
+                  : "bg-stone-100 text-stone-900 dark:bg-stone-800 dark:text-stone-50"),
+            )}
           >
             <Check className={theme === value ? "opacity-100" : "opacity-0"} />
+            <Icon className={cn("h-4 w-4", value === "system" && "text-sky-600 dark:text-sky-300")} />
             <span>{label}</span>
           </DropdownMenuItem>
         ))}

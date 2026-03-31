@@ -25,7 +25,7 @@ export default function ProHotDealList() {
         </span>
       }
       description={t("hot_deals_desc")}
-      seeMoreHref="/categories/1"
+      seeMoreHref="/flash-sale"
     >
       <ProCarousel
         error={error}

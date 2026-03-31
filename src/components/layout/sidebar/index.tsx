@@ -19,79 +19,140 @@ import {
   SidebarHeader,
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
-import { MenuItem } from "@/interfaces/common/menu.interface";
-
-const items: MenuItem[] = [
-  {
-    type: "link",
-    title: "Shop Live",
-    icon: CgMediaLive,
-    url: "/",
-  },
-  {
-    type: "link",
-    title: "Flash Sale",
-    icon: IoIosFlash,
-    url: "/",
-  },
-  {
-    type: "group",
-    title: "Categories",
-    icon: ShoppingBasket,
-    children: [
-      { type: "link", title: "Product Type 1", url: "/category-1" },
-      { type: "link", title: "Product Type 2", url: "/category-2" },
-    ],
-  },
-  {
-    type: "group",
-    title: "Stores Saved",
-    icon: Store,
-    children: [
-      { type: "link", title: "Shop 1", url: "/shop/shop-1" },
-      { type: "link", title: "Shop 2", url: "/shop/shop-2" },
-    ],
-  },
-];
-
-const profileMenuItems: MenuItem[] = [
-  {
-    type: "group",
-    title: "My Account",
-    icon: User,
-    children: [
-      { type: "link", title: "Profile Info", url: "/user/account/profile" },
-      { type: "link", title: "Change Password", url: "/user/account/change-password" },
-      { type: "link", title: "Privacy Settings", url: "/user/account/privacy-settings" },
-    ],
-  },
-  {
-    type: "group",
-    title: "My Purchase",
-    icon: ShoppingBag,
-    children: [{ type: "link", title: "Orders", url: "/user/purchase/orders" }],
-  },
-  {
-    type: "group",
-    title: "Notifications",
-    icon: Bell,
-    children: [
-      { type: "link", title: "Order Update", url: "/user/notifications/order-update" },
-      { type: "link", title: "Promotions", url: "/user/notifications/promotions" },
-      { type: "link", title: "Wallet Update", url: "/user/notifications/wallet-update" },
-      { type: "link", title: "Market Place Update", url: "/user/notifications/marketplace-update" },
-    ],
-  },
-];
+import { LinkMenuItem, MenuItem } from "@/interfaces/common/menu.interface";
+import { useTranslation } from "@/lib/hooks/use-translation";
+import { useFetchData } from "@/features/category/list/popular/hooks";
+import type { Category } from "@/features/category/types";
+import { useSidebarShops } from "./hooks/useSidebarShops";
 
 export default function SidebarNavigation() {
+  const { t } = useTranslation();
   const pathname = usePathname() ?? "/";
   const router = useRouter();
+  const { categories } = useFetchData();
+  const { shops } = useSidebarShops();
   const conditionMenu = useMemo(() => pathname.split("/")[1] === "user", [pathname]);
+  const categoryMenuItems: MenuItem[] = useMemo(() => {
+    if (!categories?.length) {
+      return [];
+    }
+
+    const buildCategoryUrl = (category: Category) => {
+      const categoryIds = [...(category.ancestors ?? []).filter(Boolean), category.category_id];
+      return `/categories/${category.category_slug}-cat.${categoryIds.join(".")}`;
+    };
+
+    const parentCategories = categories.filter(
+      (category) => !category.parent_id || !category.isLeaf || category.level === 0,
+    );
+
+    return parentCategories.map((parent) => {
+      const children = categories
+        .filter((category) => category.parent_id === parent.category_id)
+        .map<LinkMenuItem>((child) => ({
+          type: "link",
+          title: child.category_name || t("categories"),
+          url: buildCategoryUrl(child),
+        }));
+
+      if (children.length === 0) {
+        return {
+          type: "link" as const,
+          title: parent.category_name || t("categories"),
+          url: buildCategoryUrl(parent),
+        };
+      }
+
+      return {
+        type: "group" as const,
+        title: parent.category_name || t("categories"),
+        children,
+      };
+    });
+  }, [categories, t]);
+  const items: MenuItem[] = useMemo(
+    () => [
+      {
+        type: "link",
+        title: t("sidebar_shop_live"),
+        icon: CgMediaLive,
+        url: "/",
+      },
+      {
+        type: "link",
+        title: t("sidebar_flash_sale"),
+        icon: IoIosFlash,
+        url: "/flash-sale",
+      },
+      {
+        type: "group",
+        title: t("sidebar_categories"),
+        icon: ShoppingBasket,
+        children: categoryMenuItems,
+      },
+      {
+        type: "group",
+        title: t("sidebar_shops"),
+        icon: Store,
+        children:
+          shops.length > 0
+            ? shops.map<LinkMenuItem>((shop) => ({
+                type: "link",
+                title: shop.shop_name || t("sidebar_shops"),
+                url: `/shop/${shop.shop_slug}-s.${shop.shop_id}`,
+              }))
+            : [
+                { type: "link", title: t("sidebar_shop_1"), url: "/shop/shop-s.1" },
+                { type: "link", title: t("sidebar_shop_2"), url: "/shop/shop-s.2" },
+              ],
+      },
+    ],
+    [categoryMenuItems, shops, t],
+  );
+  const profileMenuItems: MenuItem[] = useMemo(
+    () => [
+      {
+        type: "group",
+        title: t("header_my_account"),
+        icon: User,
+        children: [
+          { type: "link", title: t("sidebar_profile_info"), url: "/user/account/profile" },
+          { type: "link", title: t("change_password"), url: "/user/account/change-password" },
+          {
+            type: "link",
+            title: t("sidebar_privacy_settings"),
+            url: "/user/account/privacy-settings",
+          },
+        ],
+      },
+      {
+        type: "group",
+        title: t("header_my_purchase"),
+        icon: ShoppingBag,
+        children: [{ type: "link", title: t("sidebar_orders"), url: "/user/purchase/orders" }],
+      },
+      {
+        type: "group",
+        title: t("sidebar_notifications"),
+        icon: Bell,
+        children: [
+          { type: "link", title: t("sidebar_order_update"), url: "/user/notifications/order-update" },
+          { type: "link", title: t("sidebar_promotions"), url: "/user/notifications/promotions" },
+          { type: "link", title: t("sidebar_wallet_update"), url: "/user/notifications/wallet-update" },
+          {
+            type: "link",
+            title: t("sidebar_marketplace_update"),
+            url: "/user/notifications/marketplace-update",
+          },
+        ],
+      },
+    ],
+    [t],
+  );
   const menuToRender = conditionMenu ? profileMenuItems : items;
 
   return (
-    <Sidebar aria-label="Main Navigation">
+    <Sidebar aria-label={t("sidebar_main_navigation")}>
       <SidebarHeader>
         <SidebarGroup>
           <SidebarGroupLabel className="font-bold text-xl px-0">
@@ -104,7 +165,7 @@ export default function SidebarNavigation() {
               <span>
                 <ArrowLeft />
               </span>
-              Back to Home
+              {t("sidebar_back_home")}
             </Button>
           </SidebarGroupLabel>
         </SidebarGroup>
@@ -114,7 +175,11 @@ export default function SidebarNavigation() {
           <SidebarGroupContent className="flex flex-col h-full">
             <SidebarMenu className="flex-1" aria-labelledby="application-group">
               {menuToRender.map((item) => (
-                <MenuItems key={item.title} item={item} pathname={pathname} />
+                <MenuItems
+                  key={item.type === "link" ? item.url : `${item.title}-${item.children?.length ?? 0}`}
+                  item={item}
+                  pathname={pathname}
+                />
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
@@ -124,7 +189,7 @@ export default function SidebarNavigation() {
         {conditionMenu && (
           <SidebarMenuButton className="space-x-1 text-white hover:text-white bg-red-500 hover:bg-red-700">
             <MdLogout className="h-5 w-5" aria-hidden="true" />
-            <span>Log Out</span>
+            <span>{t("header_sign_out")}</span>
           </SidebarMenuButton>
         )}
       </SidebarFooter>

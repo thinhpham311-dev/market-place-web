@@ -9,8 +9,10 @@ import { useDataTableContext } from "@/features/common/data-table/hooks";
 import { useShoppingCartContext } from "@/features/cart/hooks";
 import { Trash } from "lucide-react";
 import { toast } from "sonner";
+import { useTranslation } from "@/lib/hooks/use-translation";
 
 const CartTableFooter = () => {
+  const { t } = useTranslation();
   const { deleteItemsSelected } = useShoppingCartContext();
 
   const { items_selected, total_items, total_items_selected, total_price_items_selected, table } =
@@ -19,10 +21,10 @@ const CartTableFooter = () => {
   const handleDeleteSelectedItems = () => {
     if (items_selected.length > 0) {
       deleteItemsSelected(items_selected);
-      const id = toast.success("Deleted All Product out cart!", {
-        description: <p>All product has been added to your cart.</p>,
+      const id = toast.success(t("cart_deleted_selected_title"), {
+        description: <p>{t("cart_deleted_selected_desc")}</p>,
         action: {
-          label: "Close",
+          label: t("toast_close"),
           onClick: () => toast.dismiss(id),
         },
       });

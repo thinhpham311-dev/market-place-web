@@ -31,9 +31,9 @@ export default function HomePage() {
     <div className="space-y-5  container mx-auto">
       <Advertisement />
       <CatPopularList />
-      <BrandListSection />
       <ProPopularList />
       <ProSuggestionList />
+      <BrandListSection />
     </div>
   );
 }

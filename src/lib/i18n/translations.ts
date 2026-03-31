@@ -300,7 +300,71 @@ export type TranslationKey =
   | "shop_following"
   | "shop_follow"
   | "shop_view"
-  | "shop_name_fallback";
+  | "shop_name_fallback"
+  | "not_found_title"
+  | "not_found_description"
+  | "not_found_back_home"
+  | "not_found_browse_categories"
+  | "toast_close"
+  | "auth_sign_in_success"
+  | "auth_sign_in_failed"
+  | "auth_sign_up_success"
+  | "auth_sign_up_failed"
+  | "auth_check_otp_success"
+  | "auth_check_otp_failed"
+  | "quantity_reached_maximum"
+  | "review_validation_missing"
+  | "review_submit"
+  | "review_placeholder"
+  | "review_average_rating"
+  | "review_distribution"
+  | "review_total_reviews"
+  | "cart_quantity_updated_title"
+  | "cart_quantity_updated_desc"
+  | "cart_load_failed"
+  | "api_server_error"
+  | "api_invalid_request"
+  | "cart_deleted_selected_title"
+  | "cart_deleted_selected_desc"
+  | "option_validation_error"
+  | "cart_variants_updated_title"
+  | "cart_variants_updated_desc"
+  | "cart_item_removed_title"
+  | "cart_item_removed_desc"
+  | "cart_remove_tooltip"
+  | "cart_add_success_title"
+  | "cart_add_success_desc"
+  | "sidebar_main_navigation"
+  | "sidebar_back_home"
+  | "sidebar_toggle"
+  | "sidebar_menu"
+  | "sidebar_shop_live"
+  | "sidebar_flash_sale"
+  | "sidebar_categories"
+  | "sidebar_product_type_1"
+  | "sidebar_product_type_2"
+  | "sidebar_saved_stores"
+  | "sidebar_shops"
+  | "sidebar_shop_1"
+  | "sidebar_shop_2"
+  | "sidebar_profile_info"
+  | "sidebar_privacy_settings"
+  | "sidebar_notifications"
+  | "sidebar_orders"
+  | "sidebar_order_update"
+  | "sidebar_promotions"
+  | "sidebar_wallet_update"
+  | "sidebar_marketplace_update"
+  | "flash_sale_badge"
+  | "flash_sale_title"
+  | "flash_sale_desc"
+  | "flash_sale_highlight_limited"
+  | "flash_sale_highlight_fast"
+  | "flash_sale_highlight_daily"
+  | "flash_sale_label"
+  | "flash_sale_page_desc"
+  | "admin_seller_centre"
+  | "admin_download";
 
 export const translations: Record<SupportedLanguage, Record<TranslationKey, string>> = {
   en: {
@@ -617,6 +681,73 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     shop_follow: "Follow",
     shop_view: "View",
     shop_name_fallback: "Shop Name",
+    not_found_title: "Page not found",
+    not_found_description:
+      "The page you are looking for may have been moved, removed, or never existed in the first place.",
+    not_found_back_home: "Back to home",
+    not_found_browse_categories: "Browse categories",
+    toast_close: "Close",
+    auth_sign_in_success: "Signed in successfully.",
+    auth_sign_in_failed: "Sign in failed. Please try again.",
+    auth_sign_up_success: "Your account has been created successfully.",
+    auth_sign_up_failed: "Sign up failed. Please try again.",
+    auth_check_otp_success: "Your email has been verified successfully.",
+    auth_check_otp_failed: "OTP verification failed. Please try again.",
+    quantity_reached_maximum: "Reached maximum quantity!",
+    review_validation_missing: "Please provide a rating and a comment.",
+    review_submit: "Submit",
+    review_placeholder: "Write your review here...",
+    review_average_rating: "Average Rating",
+    review_distribution: "Rating Distribution",
+    review_total_reviews: "total reviews",
+    cart_quantity_updated_title: "Quantity updated",
+    cart_quantity_updated_desc: "The product {product} x {quantity} has been updated in your cart.",
+    cart_load_failed: "Unable to load cart",
+    api_server_error: "A server error occurred. Please try again later.",
+    api_invalid_request: "Invalid request.",
+    cart_deleted_selected_title: "Selected items removed",
+    cart_deleted_selected_desc: "The selected products have been removed from your cart.",
+    option_validation_error: "Validation error",
+    cart_variants_updated_title: "Variants updated",
+    cart_variants_updated_desc: "The product {product} - {variants} has been updated.",
+    cart_item_removed_title: "Product removed from cart",
+    cart_item_removed_desc:
+      "The product {product} - {variants} x {quantity} has been removed from your cart.",
+    cart_remove_tooltip: "Remove product from shopping cart",
+    cart_add_success_title: "Added to cart successfully",
+    cart_add_success_desc:
+      "The product {product} - {variants} x {quantity} has been added to your cart.",
+    sidebar_main_navigation: "Main navigation",
+    sidebar_back_home: "Back to home",
+    sidebar_toggle: "Toggle sidebar",
+    sidebar_menu: "Menu",
+    sidebar_shop_live: "Shop Live",
+    sidebar_flash_sale: "Flash Sale",
+    sidebar_categories: "Categories",
+    sidebar_product_type_1: "Product Type 1",
+    sidebar_product_type_2: "Product Type 2",
+    sidebar_saved_stores: "Saved stores",
+    sidebar_shops: "Shops",
+    sidebar_shop_1: "Shop 1",
+    sidebar_shop_2: "Shop 2",
+    sidebar_profile_info: "Profile Info",
+    sidebar_privacy_settings: "Privacy Settings",
+    sidebar_notifications: "Notifications",
+    sidebar_orders: "Orders",
+    sidebar_order_update: "Order Update",
+    sidebar_promotions: "Promotions",
+    sidebar_wallet_update: "Wallet Update",
+    sidebar_marketplace_update: "Market Place Update",
+    flash_sale_badge: "Flash sale picks",
+    flash_sale_title: "Flash Sale",
+    flash_sale_desc: "Fast-moving deals, limited-time picks, and products worth grabbing before they are gone.",
+    flash_sale_highlight_limited: "Limited-time prices updated throughout the day.",
+    flash_sale_highlight_fast: "Fast picks surfaced for quick, deal-driven shopping.",
+    flash_sale_highlight_daily: "Fresh sale items collected into one dedicated page.",
+    flash_sale_label: "Flash sale feed",
+    flash_sale_page_desc: "A full-page list of time-sensitive deals gathered from the current hot deal stream.",
+    admin_seller_centre: "Seller Centre",
+    admin_download: "Download",
   },
   vi: {
     see_more: "Xem thêm",
@@ -933,6 +1064,73 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     shop_follow: "Theo dõi",
     shop_view: "Xem shop",
     shop_name_fallback: "Tên shop",
+    not_found_title: "Không tìm thấy trang",
+    not_found_description:
+      "Trang bạn đang tìm có thể đã được di chuyển, bị xóa hoặc chưa từng tồn tại.",
+    not_found_back_home: "Về trang chủ",
+    not_found_browse_categories: "Xem danh mục",
+    toast_close: "Đóng",
+    auth_sign_in_success: "Đăng nhập thành công.",
+    auth_sign_in_failed: "Đăng nhập thất bại. Vui lòng thử lại.",
+    auth_sign_up_success: "Tài khoản của bạn đã được tạo thành công.",
+    auth_sign_up_failed: "Đăng ký thất bại. Vui lòng thử lại.",
+    auth_check_otp_success: "Email của bạn đã được xác thực thành công.",
+    auth_check_otp_failed: "Xác thực OTP thất bại. Vui lòng thử lại.",
+    quantity_reached_maximum: "Đã đạt số lượng tối đa!",
+    review_validation_missing: "Vui lòng chọn số sao và nhập nhận xét.",
+    review_submit: "Gửi đánh giá",
+    review_placeholder: "Nhập nhận xét của bạn tại đây...",
+    review_average_rating: "Đánh giá trung bình",
+    review_distribution: "Phân bố đánh giá",
+    review_total_reviews: "đánh giá",
+    cart_quantity_updated_title: "Đã cập nhật số lượng",
+    cart_quantity_updated_desc: "Sản phẩm {product} x {quantity} đã được cập nhật trong giỏ hàng.",
+    cart_load_failed: "Không thể tải giỏ hàng",
+    api_server_error: "Có lỗi hệ thống, vui lòng thử lại sau.",
+    api_invalid_request: "Yêu cầu không hợp lệ.",
+    cart_deleted_selected_title: "Đã xóa sản phẩm đã chọn",
+    cart_deleted_selected_desc: "Các sản phẩm đã chọn đã được xóa khỏi giỏ hàng.",
+    option_validation_error: "Lỗi xác thực",
+    cart_variants_updated_title: "Đã cập nhật phân loại",
+    cart_variants_updated_desc: "Sản phẩm {product} - {variants} đã được cập nhật.",
+    cart_item_removed_title: "Đã xóa sản phẩm khỏi giỏ hàng",
+    cart_item_removed_desc:
+      "Sản phẩm {product} - {variants} x {quantity} đã được xóa khỏi giỏ hàng.",
+    cart_remove_tooltip: "Xóa sản phẩm khỏi giỏ hàng",
+    cart_add_success_title: "Đã thêm vào giỏ hàng thành công",
+    cart_add_success_desc:
+      "Sản phẩm {product} - {variants} x {quantity} đã được thêm vào giỏ hàng.",
+    sidebar_main_navigation: "Điều hướng chính",
+    sidebar_back_home: "Về trang chủ",
+    sidebar_toggle: "Bật/tắt thanh bên",
+    sidebar_menu: "Menu",
+    sidebar_shop_live: "Mua sắm trực tiếp",
+    sidebar_flash_sale: "Flash Sale",
+    sidebar_categories: "Danh mục",
+    sidebar_product_type_1: "Loại sản phẩm 1",
+    sidebar_product_type_2: "Loại sản phẩm 2",
+    sidebar_saved_stores: "Shop đã lưu",
+    sidebar_shops: "Shop",
+    sidebar_shop_1: "Shop 1",
+    sidebar_shop_2: "Shop 2",
+    sidebar_profile_info: "Thông tin hồ sơ",
+    sidebar_privacy_settings: "Cài đặt riêng tư",
+    sidebar_notifications: "Thông báo",
+    sidebar_orders: "Đơn hàng",
+    sidebar_order_update: "Cập nhật đơn hàng",
+    sidebar_promotions: "Khuyến mãi",
+    sidebar_wallet_update: "Cập nhật ví",
+    sidebar_marketplace_update: "Cập nhật Market Place",
+    flash_sale_badge: "Ưu đãi flash sale",
+    flash_sale_title: "Flash Sale",
+    flash_sale_desc: "Những deal chớp nhoáng, ưu đãi có thời hạn và sản phẩm đáng mua trước khi hết cơ hội.",
+    flash_sale_highlight_limited: "Giá giới hạn được cập nhật liên tục trong ngày.",
+    flash_sale_highlight_fast: "Các deal nổi bật được đưa lên trước để mua nhanh hơn.",
+    flash_sale_highlight_daily: "Sản phẩm giảm giá mới được gom vào một trang riêng.",
+    flash_sale_label: "Luồng flash sale",
+    flash_sale_page_desc: "Trang tổng hợp đầy đủ các sản phẩm ưu đãi theo luồng hot deal hiện tại.",
+    admin_seller_centre: "Kênh người bán",
+    admin_download: "Tải xuống",
   },
   ja: {
     see_more: "もっと見る",
@@ -1249,5 +1447,72 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     shop_follow: "フォロー",
     shop_view: "ショップを見る",
     shop_name_fallback: "ショップ名",
+    not_found_title: "ページが見つかりません",
+    not_found_description:
+      "お探しのページは移動されたか、削除されたか、もともと存在しない可能性があります。",
+    not_found_back_home: "ホームへ戻る",
+    not_found_browse_categories: "カテゴリを見る",
+    toast_close: "閉じる",
+    auth_sign_in_success: "サインインに成功しました。",
+    auth_sign_in_failed: "サインインに失敗しました。もう一度お試しください。",
+    auth_sign_up_success: "アカウントが正常に作成されました。",
+    auth_sign_up_failed: "サインアップに失敗しました。もう一度お試しください。",
+    auth_check_otp_success: "メールの確認が完了しました。",
+    auth_check_otp_failed: "OTP確認に失敗しました。もう一度お試しください。",
+    quantity_reached_maximum: "最大数量に達しました。",
+    review_validation_missing: "評価とコメントの両方を入力してください。",
+    review_submit: "送信",
+    review_placeholder: "レビューを入力してください...",
+    review_average_rating: "平均評価",
+    review_distribution: "評価の内訳",
+    review_total_reviews: "件のレビュー",
+    cart_quantity_updated_title: "数量を更新しました",
+    cart_quantity_updated_desc: "商品 {product} x {quantity} をカート内で更新しました。",
+    cart_load_failed: "カートを読み込めません",
+    api_server_error: "サーバーエラーが発生しました。しばらくしてからもう一度お試しください。",
+    api_invalid_request: "無効なリクエストです。",
+    cart_deleted_selected_title: "選択した商品を削除しました",
+    cart_deleted_selected_desc: "選択した商品はカートから削除されました。",
+    option_validation_error: "入力エラー",
+    cart_variants_updated_title: "バリエーションを更新しました",
+    cart_variants_updated_desc: "商品 {product} - {variants} を更新しました。",
+    cart_item_removed_title: "商品をカートから削除しました",
+    cart_item_removed_desc:
+      "商品 {product} - {variants} x {quantity} をカートから削除しました。",
+    cart_remove_tooltip: "商品をカートから削除",
+    cart_add_success_title: "カートに追加しました",
+    cart_add_success_desc:
+      "商品 {product} - {variants} x {quantity} をカートに追加しました。",
+    sidebar_main_navigation: "メインナビゲーション",
+    sidebar_back_home: "ホームへ戻る",
+    sidebar_toggle: "サイドバーを切り替える",
+    sidebar_menu: "メニュー",
+    sidebar_shop_live: "ライブショッピング",
+    sidebar_flash_sale: "フラッシュセール",
+    sidebar_categories: "カテゴリ",
+    sidebar_product_type_1: "商品タイプ 1",
+    sidebar_product_type_2: "商品タイプ 2",
+    sidebar_saved_stores: "保存したショップ",
+    sidebar_shops: "ショップ",
+    sidebar_shop_1: "ショップ 1",
+    sidebar_shop_2: "ショップ 2",
+    sidebar_profile_info: "プロフィール情報",
+    sidebar_privacy_settings: "プライバシー設定",
+    sidebar_notifications: "通知",
+    sidebar_orders: "注文",
+    sidebar_order_update: "注文更新",
+    sidebar_promotions: "プロモーション",
+    sidebar_wallet_update: "ウォレット更新",
+    sidebar_marketplace_update: "Market Place 更新",
+    flash_sale_badge: "フラッシュセール特集",
+    flash_sale_title: "フラッシュセール",
+    flash_sale_desc: "短時間で動くお得な商品や、売り切れる前にチェックしたい期間限定セールをまとめています。",
+    flash_sale_highlight_limited: "期間限定価格を日中に随時更新します。",
+    flash_sale_highlight_fast: "すばやく買いやすい注目セールを先に表示します。",
+    flash_sale_highlight_daily: "新しいセール商品を専用ページにまとめています。",
+    flash_sale_label: "フラッシュセール一覧",
+    flash_sale_page_desc: "現在の hot deal ストリームから、期間限定のお得商品をまとめた一覧ページです。",
+    admin_seller_centre: "販売者センター",
+    admin_download: "ダウンロード",
   },
 };

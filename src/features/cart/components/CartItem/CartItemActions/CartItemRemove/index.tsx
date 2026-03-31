@@ -8,27 +8,32 @@ import { MdClose } from "react-icons/md";
 import { useShoppingCartContext } from "@/features/cart/hooks";
 import { toast } from "sonner";
 import { ICartItemModel } from "@/models/cart";
-import { renderVariants } from "@/features/cart/utils/renderVariants";
+import { renderVariantsText } from "@/features/cart/utils/renderVariants";
+import { useTranslation } from "@/lib/hooks/use-translation";
 
 interface ICartItemRemoveProps {
   data: ICartItemModel;
 }
 
 const CartItemRemove = ({ data }: ICartItemRemoveProps) => {
+  const { t } = useTranslation();
   const { itemSpuName, itemSpuVariations, itemSkuTierIdx, itemQuantity, itemSkuId } = data;
   const { deleteItem, loading, error } = useShoppingCartContext();
   const onHandleRemove = () => {
     deleteItem(data!);
     setTimeout(() => {
-      const id = toast.success("Deleted Product Out Cart!", {
+      const variantsText = renderVariantsText(itemSpuVariations, itemSkuTierIdx);
+      const id = toast.success(t("cart_item_removed_title"), {
         description: (
           <span className="text-white">
-            The product {itemSpuName} - {renderVariants(itemSpuVariations, itemSkuTierIdx)} x{" "}
-            {itemQuantity} has been removed from your cart.
+            {t("cart_item_removed_desc")
+              .replace("{product}", itemSpuName)
+              .replace("{variants}", variantsText || "-")
+              .replace("{quantity}", String(itemQuantity))}
           </span>
         ),
         action: {
-          label: "Close",
+          label: t("toast_close"),
           onClick: () => {
             toast.dismiss(id);
           },
@@ -53,7 +58,7 @@ const CartItemRemove = ({ data }: ICartItemRemoveProps) => {
             <MdClose color="red" />
           </Button>
         </TooltipTrigger>
-        <TooltipContent>remove product in shopping cart</TooltipContent>
+        <TooltipContent>{t("cart_remove_tooltip")}</TooltipContent>
       </Tooltip>
     </div>
   );

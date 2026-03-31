@@ -10,6 +10,7 @@ import {
   resetQuantity,
 } from "@/features/common/quantity-selector/store/stateSlice";
 import { withEnsureInit } from "@/features/common/quantity-selector/helpers";
+import { translateRuntime } from "@/lib/i18n/runtime-translation";
 interface IUseHandleQuantitySelector {
   storeKey: string;
   initialValue: IQuantityInitialValue;
@@ -47,10 +48,10 @@ export function useHandleQuantitySelector({
     (newQuantity: number, messages: string[]) => {
       if (newQuantity >= maxQuantity) {
         setTimeout(() => {
-          const id = toast.error("Reached maximum quantity!", {
+          const id = toast.error(translateRuntime("quantity_reached_maximum"), {
             description: messages?.join(", "),
             action: {
-              label: "Close",
+              label: translateRuntime("toast_close"),
               onClick: () => toast.dismiss(id),
             },
           });

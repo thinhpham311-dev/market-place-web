@@ -3,12 +3,14 @@ import React from "react";
 import { Card, CardContent, CardDescription } from "@/components/ui/card";
 import ReviewStars from "../ReviewStars";
 import { Review } from "../../types";
+import { useTranslation } from "@/lib/hooks/use-translation";
 
 interface IAverageRatingProps {
   data: Review[];
 }
 
 const AverageRating = ({ data }: IAverageRatingProps) => {
+  const { t } = useTranslation();
   const totalReviews = data?.length;
 
   const averageRating = React.useMemo(() => {
@@ -22,7 +24,9 @@ const AverageRating = ({ data }: IAverageRatingProps) => {
         <CardDescription className="inline-flex items-center space-x-3">
           <ReviewStars readOnly />
           <span>{averageRating} / 5</span>
-          <span>{totalReviews} total reviews</span>
+          <span>
+            {totalReviews} {t("review_total_reviews")}
+          </span>
         </CardDescription>
       </CardContent>
     </Card>

@@ -11,3 +11,12 @@ export const renderVariants = (variants: IVariationModel[], itemTierIdx: number[
       </Badge>
     );
   });
+
+export const renderVariantsText = (variants: IVariationModel[], itemTierIdx: number[]) =>
+  variants
+    .map((variant, index) => {
+      const option = itemTierIdx[index] !== undefined ? variant.value?.[itemTierIdx[index]] : null;
+      return option?.label?.trim() || null;
+    })
+    .filter(Boolean)
+    .join(" / ");
