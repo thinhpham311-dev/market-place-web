@@ -19,7 +19,14 @@ const ShopInfo = ({ shop_id }: IShopProps) => {
   });
 
   return (
-    <ShopInfoProvider contextValues={{ ...shopData }}>
+    <ShopInfoProvider
+      contextValues={{
+        data: shopData.shopInfo,
+        loading: shopData.loading,
+        error: shopData.error,
+        status: shopData.status as "idle" | "loading" | "success" | "error",
+      }}
+    >
       <ShopInfoWrapper>
         <ShopHeader />
         <ShopActions />

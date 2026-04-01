@@ -40,7 +40,7 @@ export default function ProRecommendedList() {
     <ProductListSection
       title={t("recommended_for_you")}
       description={t("recommended_for_you_desc")}
-      seeMoreHref="/categories/1"
+      seeMoreHref="/daily-discover"
       contentClassName="col-span-12"
     >
       <ProCarousel

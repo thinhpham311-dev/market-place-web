@@ -28,6 +28,8 @@ export type TranslationKey =
   | "popular_categories_desc"
   | "featured_brands"
   | "featured_brands_desc"
+  | "all_brands"
+  | "all_brands_desc"
   | "shop_by_brand"
   | "shop_by_brand_desc"
   | "verify_email_otp"
@@ -268,7 +270,43 @@ export type TranslationKey =
   | "validation_enter_at_least_5_characters"
   | "header_my_account"
   | "header_my_purchase"
+  | "header_my_vouchers"
   | "header_sign_out"
+  | "privacy_settings_desc"
+  | "privacy_preferences_title"
+  | "privacy_preferences_desc"
+  | "privacy_section_visibility"
+  | "privacy_section_visibility_desc"
+  | "privacy_section_recommendations"
+  | "privacy_section_recommendations_desc"
+  | "privacy_section_notifications"
+  | "privacy_section_notifications_desc"
+  | "privacy_section_security"
+  | "privacy_section_security_desc"
+  | "privacy_pref_profile_visibility"
+  | "privacy_pref_profile_visibility_desc"
+  | "privacy_pref_personalized_recommendations"
+  | "privacy_pref_personalized_recommendations_desc"
+  | "privacy_pref_order_updates"
+  | "privacy_pref_order_updates_desc"
+  | "privacy_pref_marketing_offers"
+  | "privacy_pref_marketing_offers_desc"
+  | "privacy_pref_trusted_devices"
+  | "privacy_pref_trusted_devices_desc"
+  | "privacy_reset"
+  | "privacy_save_changes"
+  | "privacy_save_success"
+  | "privacy_reset_success"
+  | "privacy_danger_zone_title"
+  | "privacy_danger_zone_desc"
+  | "privacy_request_delete_title"
+  | "privacy_request_delete_desc"
+  | "privacy_request_delete_button"
+  | "privacy_delete_dialog_title"
+  | "privacy_delete_dialog_desc"
+  | "privacy_delete_request_success"
+  | "privacy_cancel"
+  | "privacy_confirm_delete"
   | "theme_toggle_sr_only"
   | "theme_light"
   | "theme_dark"
@@ -373,7 +411,62 @@ export type TranslationKey =
   | "flash_sale_label"
   | "flash_sale_page_desc"
   | "admin_seller_centre"
-  | "admin_download";
+  | "admin_download"
+  | "order_purchase_desc"
+  | "order_total_orders"
+  | "order_total_spent"
+  | "order_processing"
+  | "order_in_progress"
+  | "order_completed"
+  | "order_cancelled"
+  | "order_history_title"
+  | "order_history_desc"
+  | "order_filter_all"
+  | "order_empty"
+  | "order_view_detail"
+  | "order_not_found"
+  | "order_summary"
+  | "order_order_id"
+  | "order_customer"
+  | "order_payment_method"
+  | "order_status"
+  | "order_paid"
+  | "order_unpaid"
+  | "order_delivered"
+  | "order_pending"
+  | "order_guest"
+  | "order_shipping_address"
+  | "order_items"
+  | "order_product"
+  | "order_price"
+  | "order_price_summary"
+  | "order_items_price"
+  | "order_shipping_price"
+  | "order_tax_price"
+  | "order_total_price"
+  | "order_created_at"
+  | "voucher_wallet_desc"
+  | "voucher_available"
+  | "voucher_used"
+  | "voucher_expired"
+  | "voucher_empty"
+  | "voucher_min_spend"
+  | "voucher_discount_amount"
+  | "voucher_valid_until"
+  | "voucher_apply_on_checkout"
+  | "voucher_used_on_order"
+  | "voucher_expired_on"
+  | "voucher_status_saved"
+  | "voucher_code"
+  | "voucher_valid_from"
+  | "voucher_discount_type"
+  | "voucher_discount_value"
+  | "voucher_max_discount"
+  | "voucher_usage_limit"
+  | "voucher_usage_count"
+  | "voucher_shop_id"
+  | "voucher_type_amount"
+  | "voucher_type_percentage";
 
 export const translations: Record<SupportedLanguage, Record<TranslationKey, string>> = {
   en: {
@@ -404,6 +497,8 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     popular_categories_desc: "Categories shoppers browse the most.",
     featured_brands: "Featured Brands",
     featured_brands_desc: "Popular brands worth exploring.",
+    all_brands: "All Brands",
+    all_brands_desc: "Browse the full list of brands available across the marketplace.",
     shop_by_brand: "Shop By Brand",
     shop_by_brand_desc: "Browse products from the most popular brands in our marketplace.",
     verify_email_otp: "Verify Email OTP",
@@ -657,7 +752,56 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     validation_enter_at_least_5_characters: "Please enter at least 5 characters",
     header_my_account: "My Account",
     header_my_purchase: "My Purchase",
+    header_my_vouchers: "Vouchers",
     header_sign_out: "Sign Out",
+    privacy_settings_desc:
+      "Control how your account data, recommendations, and security preferences are handled across the marketplace.",
+    privacy_preferences_title: "Privacy preferences",
+    privacy_preferences_desc:
+      "Review what you share, what gets personalized, and how your account stays protected.",
+    privacy_section_visibility: "Profile visibility",
+    privacy_section_visibility_desc:
+      "Choose how much of your account activity can appear inside the marketplace.",
+    privacy_section_recommendations: "Recommendations",
+    privacy_section_recommendations_desc:
+      "Manage how product suggestions are tailored from your browsing and shopping behavior.",
+    privacy_section_notifications: "Notification privacy",
+    privacy_section_notifications_desc:
+      "Pick which updates and promotional messages can reach your account.",
+    privacy_section_security: "Security and devices",
+    privacy_section_security_desc:
+      "Control how trusted devices and faster sign-in behavior work for you.",
+    privacy_pref_profile_visibility: "Show my profile activity inside the marketplace",
+    privacy_pref_profile_visibility_desc:
+      "Allow your follows and public shopping activity to appear in community-facing experiences when relevant.",
+    privacy_pref_personalized_recommendations: "Use my activity for personalized recommendations",
+    privacy_pref_personalized_recommendations_desc:
+      "Let the marketplace tailor product suggestions based on your searches, views, and purchase history.",
+    privacy_pref_order_updates: "Receive private order updates",
+    privacy_pref_order_updates_desc:
+      "Keep delivery, payment, and return notifications available for your account and order timeline.",
+    privacy_pref_marketing_offers: "Receive marketing offers and campaign alerts",
+    privacy_pref_marketing_offers_desc:
+      "Get promotional messages about sales, vouchers, and limited-time events matched to your interests.",
+    privacy_pref_trusted_devices: "Remember trusted devices for faster sign-in",
+    privacy_pref_trusted_devices_desc:
+      "Reduce repeated verification prompts on devices you use regularly while keeping the account protected.",
+    privacy_reset: "Reset",
+    privacy_save_changes: "Save changes",
+    privacy_save_success: "Privacy settings updated.",
+    privacy_reset_success: "Privacy settings reset to default.",
+    privacy_danger_zone_title: "Danger zone",
+    privacy_danger_zone_desc: "Use this carefully for account actions that are harder to reverse.",
+    privacy_request_delete_title: "Request account deletion",
+    privacy_request_delete_desc:
+      "Start a deletion request for your account and associated personal data after review.",
+    privacy_request_delete_button: "Request deletion",
+    privacy_delete_dialog_title: "Confirm account deletion request",
+    privacy_delete_dialog_desc:
+      "This will submit a deletion request for review. Some order and payment records may still be retained where policy or law requires it.",
+    privacy_delete_request_success: "Your account deletion request has been submitted.",
+    privacy_cancel: "Cancel",
+    privacy_confirm_delete: "Confirm request",
     theme_toggle_sr_only: "Toggle theme",
     theme_light: "Light",
     theme_dark: "Dark",
@@ -767,6 +911,61 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     flash_sale_page_desc: "A full-page list of time-sensitive deals gathered from the current hot deal stream.",
     admin_seller_centre: "Seller Centre",
     admin_download: "Download",
+    order_purchase_desc: "Track, review, and revisit all of your recent purchases in one place.",
+    order_total_orders: "Total orders",
+    order_total_spent: "Total spent",
+    order_processing: "Processing",
+    order_in_progress: "In progress",
+    order_completed: "Completed",
+    order_cancelled: "Cancelled",
+    order_history_title: "Order history",
+    order_history_desc: "Review your recent orders and open any order for more details.",
+    order_filter_all: "All",
+    order_empty: "No orders found for this filter.",
+    order_view_detail: "View detail",
+    order_not_found: "Order not found.",
+    order_summary: "Order Summary",
+    order_order_id: "Order ID:",
+    order_customer: "Customer:",
+    order_payment_method: "Payment Method:",
+    order_status: "Status:",
+    order_paid: "Paid",
+    order_unpaid: "Unpaid",
+    order_delivered: "Delivered",
+    order_pending: "Pending",
+    order_guest: "Guest",
+    order_shipping_address: "Shipping Address",
+    order_items: "Order Items",
+    order_product: "Product",
+    order_price: "Price",
+    order_price_summary: "Price Summary",
+    order_items_price: "Items Price:",
+    order_shipping_price: "Shipping Price:",
+    order_tax_price: "Tax Price:",
+    order_total_price: "Total Price:",
+    order_created_at: "Created at:",
+    voucher_wallet_desc: "Keep track of saved discounts, used coupons, and expired voucher campaigns in one place.",
+    voucher_available: "Available",
+    voucher_used: "Used",
+    voucher_expired: "Expired",
+    voucher_empty: "No vouchers found in this section.",
+    voucher_min_spend: "Minimum spend",
+    voucher_discount_amount: "Discount amount",
+    voucher_valid_until: "Valid until",
+    voucher_apply_on_checkout: "Apply this voucher during checkout when the order qualifies.",
+    voucher_used_on_order: "Used on order",
+    voucher_expired_on: "This voucher is no longer valid.",
+    voucher_status_saved: "This voucher has already been used successfully.",
+    voucher_code: "Code",
+    voucher_valid_from: "Valid from",
+    voucher_discount_type: "Discount type",
+    voucher_discount_value: "Discount value",
+    voucher_max_discount: "Max discount",
+    voucher_usage_limit: "Usage limit",
+    voucher_usage_count: "Used",
+    voucher_shop_id: "Shop ID",
+    voucher_type_amount: "Fixed amount",
+    voucher_type_percentage: "Percentage",
   },
   vi: {
     see_more: "Xem thêm",
@@ -796,6 +995,8 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     popular_categories_desc: "Những danh mục được xem nhiều nhất trên sàn.",
     featured_brands: "Thương hiệu nổi bật",
     featured_brands_desc: "Những thương hiệu nổi bật đáng khám phá.",
+    all_brands: "Tất cả thương hiệu",
+    all_brands_desc: "Khám phá đầy đủ danh sách thương hiệu hiện có trên sàn.",
     shop_by_brand: "Mua sắm theo thương hiệu",
     shop_by_brand_desc: "Khám phá sản phẩm từ những thương hiệu được quan tâm nhiều trên sàn.",
     verify_email_otp: "Xác thực OTP email",
@@ -1050,7 +1251,56 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     validation_enter_at_least_5_characters: "Vui lòng nhập ít nhất 5 ký tự",
     header_my_account: "Tài khoản của tôi",
     header_my_purchase: "Đơn mua của tôi",
+    header_my_vouchers: "Voucher",
     header_sign_out: "Đăng xuất",
+    privacy_settings_desc:
+      "Kiểm soát cách dữ liệu tài khoản, gợi ý cá nhân hóa và tùy chọn bảo mật của bạn được xử lý trên sàn.",
+    privacy_preferences_title: "Tùy chọn riêng tư",
+    privacy_preferences_desc:
+      "Xem lại những gì bạn chia sẻ, những gì được cá nhân hóa và cách tài khoản được bảo vệ.",
+    privacy_section_visibility: "Hiển thị hồ sơ",
+    privacy_section_visibility_desc:
+      "Chọn mức độ hoạt động tài khoản của bạn có thể được hiển thị trong nền tảng.",
+    privacy_section_recommendations: "Gợi ý cá nhân hóa",
+    privacy_section_recommendations_desc:
+      "Quản lý cách hệ thống cá nhân hóa đề xuất sản phẩm dựa trên hành vi mua sắm của bạn.",
+    privacy_section_notifications: "Quyền riêng tư thông báo",
+    privacy_section_notifications_desc:
+      "Chọn những cập nhật và tin nhắn khuyến mãi nào có thể được gửi đến tài khoản của bạn.",
+    privacy_section_security: "Bảo mật và thiết bị",
+    privacy_section_security_desc:
+      "Kiểm soát cách thiết bị tin cậy và trải nghiệm đăng nhập nhanh hoạt động cho bạn.",
+    privacy_pref_profile_visibility: "Hiển thị hoạt động hồ sơ của tôi trong sàn",
+    privacy_pref_profile_visibility_desc:
+      "Cho phép lượt theo dõi và hoạt động mua sắm công khai của bạn xuất hiện trong các khu vực cộng đồng khi phù hợp.",
+    privacy_pref_personalized_recommendations: "Dùng hoạt động của tôi cho gợi ý cá nhân hóa",
+    privacy_pref_personalized_recommendations_desc:
+      "Cho phép hệ thống đề xuất sản phẩm dựa trên lịch sử tìm kiếm, xem và mua hàng của bạn.",
+    privacy_pref_order_updates: "Nhận cập nhật đơn hàng riêng tư",
+    privacy_pref_order_updates_desc:
+      "Giữ các thông báo giao hàng, thanh toán và đổi trả khả dụng cho tài khoản và tiến trình đơn hàng của bạn.",
+    privacy_pref_marketing_offers: "Nhận ưu đãi marketing và cảnh báo chiến dịch",
+    privacy_pref_marketing_offers_desc:
+      "Nhận tin nhắn khuyến mãi về sale, voucher và sự kiện giới hạn phù hợp với sở thích của bạn.",
+    privacy_pref_trusted_devices: "Ghi nhớ thiết bị tin cậy để đăng nhập nhanh hơn",
+    privacy_pref_trusted_devices_desc:
+      "Giảm số lần xác minh lặp lại trên các thiết bị bạn dùng thường xuyên mà vẫn giữ an toàn cho tài khoản.",
+    privacy_reset: "Đặt lại",
+    privacy_save_changes: "Lưu thay đổi",
+    privacy_save_success: "Đã cập nhật cài đặt riêng tư.",
+    privacy_reset_success: "Đã đặt lại cài đặt riêng tư về mặc định.",
+    privacy_danger_zone_title: "Khu vực nhạy cảm",
+    privacy_danger_zone_desc: "Hãy cẩn thận với các hành động tài khoản khó hoàn tác.",
+    privacy_request_delete_title: "Yêu cầu xóa tài khoản",
+    privacy_request_delete_desc:
+      "Bắt đầu gửi yêu cầu xóa tài khoản và dữ liệu cá nhân liên quan sau khi được xem xét.",
+    privacy_request_delete_button: "Yêu cầu xóa",
+    privacy_delete_dialog_title: "Xác nhận yêu cầu xóa tài khoản",
+    privacy_delete_dialog_desc:
+      "Thao tác này sẽ gửi yêu cầu xóa để được xem xét. Một số dữ liệu đơn hàng và thanh toán vẫn có thể được giữ lại theo chính sách hoặc pháp luật.",
+    privacy_delete_request_success: "Yêu cầu xóa tài khoản của bạn đã được gửi.",
+    privacy_cancel: "Hủy",
+    privacy_confirm_delete: "Xác nhận yêu cầu",
     theme_toggle_sr_only: "Chuyển giao diện",
     theme_light: "Sáng",
     theme_dark: "Tối",
@@ -1160,6 +1410,62 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     flash_sale_page_desc: "Trang tổng hợp đầy đủ các sản phẩm ưu đãi theo luồng hot deal hiện tại.",
     admin_seller_centre: "Kênh người bán",
     admin_download: "Tải xuống",
+    order_purchase_desc: "Theo dõi, xem lại và quản lý tất cả đơn mua gần đây của bạn tại một nơi.",
+    order_total_orders: "Tổng đơn hàng",
+    order_total_spent: "Tổng chi tiêu",
+    order_processing: "Đang xử lý",
+    order_in_progress: "Đang thực hiện",
+    order_completed: "Hoàn thành",
+    order_cancelled: "Đã hủy",
+    order_history_title: "Lịch sử đơn hàng",
+    order_history_desc: "Xem lại các đơn gần đây và mở từng đơn để xem chi tiết.",
+    order_filter_all: "Tất cả",
+    order_empty: "Không có đơn hàng nào cho bộ lọc này.",
+    order_view_detail: "Xem chi tiết",
+    order_not_found: "Không tìm thấy đơn hàng.",
+    order_summary: "Tóm tắt đơn hàng",
+    order_order_id: "Mã đơn hàng:",
+    order_customer: "Khách hàng:",
+    order_payment_method: "Phương thức thanh toán:",
+    order_status: "Trạng thái:",
+    order_paid: "Đã thanh toán",
+    order_unpaid: "Chưa thanh toán",
+    order_delivered: "Đã giao",
+    order_pending: "Đang chờ",
+    order_guest: "Khách",
+    order_shipping_address: "Địa chỉ giao hàng",
+    order_items: "Sản phẩm trong đơn",
+    order_product: "Sản phẩm",
+    order_price: "Giá",
+    order_price_summary: "Tóm tắt chi phí",
+    order_items_price: "Tiền hàng:",
+    order_shipping_price: "Phí vận chuyển:",
+    order_tax_price: "Thuế:",
+    order_total_price: "Tổng cộng:",
+    order_created_at: "Tạo lúc:",
+    voucher_wallet_desc:
+      "Theo dõi voucher còn hiệu lực, đã dùng và đã hết hạn trong cùng một nơi.",
+    voucher_available: "Có thể dùng",
+    voucher_used: "Đã dùng",
+    voucher_expired: "Hết hạn",
+    voucher_empty: "Không có voucher nào trong mục này.",
+    voucher_min_spend: "Đơn tối thiểu",
+    voucher_discount_amount: "Giá trị giảm",
+    voucher_valid_until: "Hiệu lực đến",
+    voucher_apply_on_checkout: "Áp dụng voucher này ở bước thanh toán nếu đơn hàng đủ điều kiện.",
+    voucher_used_on_order: "Đã dùng cho đơn",
+    voucher_expired_on: "Voucher này đã hết hiệu lực.",
+    voucher_status_saved: "Voucher này đã được sử dụng thành công.",
+    voucher_code: "Mã",
+    voucher_valid_from: "Hiệu lực từ",
+    voucher_discount_type: "Loại giảm giá",
+    voucher_discount_value: "Mức giảm",
+    voucher_max_discount: "Giảm tối đa",
+    voucher_usage_limit: "Giới hạn lượt dùng",
+    voucher_usage_count: "Đã dùng",
+    voucher_shop_id: "Mã shop",
+    voucher_type_amount: "Giảm tiền cố định",
+    voucher_type_percentage: "Giảm theo phần trăm",
   },
   ja: {
     see_more: "もっと見る",
@@ -1189,6 +1495,8 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     popular_categories_desc: "よく見られているカテゴリをまとめました。",
     featured_brands: "注目ブランド",
     featured_brands_desc: "チェックしておきたい注目ブランドです。",
+    all_brands: "すべてのブランド",
+    all_brands_desc: "マーケットプレイスで取り扱っているブランドをまとめて確認できます。",
     shop_by_brand: "ブランドから探す",
     shop_by_brand_desc: "人気ブランドの商品をブランド別に探せます。",
     verify_email_otp: "メールOTP確認",
@@ -1443,7 +1751,56 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     validation_enter_at_least_5_characters: "5文字以上入力してください",
     header_my_account: "マイアカウント",
     header_my_purchase: "購入履歴",
+    header_my_vouchers: "クーポン",
     header_sign_out: "サインアウト",
+    privacy_settings_desc:
+      "アカウント情報、パーソナライズ、およびセキュリティ設定の扱い方をここで管理できます。",
+    privacy_preferences_title: "プライバシー設定",
+    privacy_preferences_desc:
+      "共有内容、パーソナライズ内容、アカウント保護の方法を確認して調整できます。",
+    privacy_section_visibility: "プロフィールの公開範囲",
+    privacy_section_visibility_desc:
+      "プラットフォーム内であなたのアカウント活動をどこまで表示するかを選択します。",
+    privacy_section_recommendations: "おすすめの最適化",
+    privacy_section_recommendations_desc:
+      "閲覧・検索・購入履歴をもとにしたおすすめ表示の使い方を管理します。",
+    privacy_section_notifications: "通知のプライバシー",
+    privacy_section_notifications_desc:
+      "どの更新通知や販促メッセージを受け取るかを選択できます。",
+    privacy_section_security: "セキュリティと端末",
+    privacy_section_security_desc:
+      "信頼済み端末やサインインの利便性に関する設定を管理します。",
+    privacy_pref_profile_visibility: "マーケットプレイス内でプロフィール活動を表示する",
+    privacy_pref_profile_visibility_desc:
+      "フォローや公開された買い物活動を、必要に応じてコミュニティ向け表示に利用できるようにします。",
+    privacy_pref_personalized_recommendations: "行動履歴をパーソナライズおすすめに利用する",
+    privacy_pref_personalized_recommendations_desc:
+      "検索、閲覧、購入履歴に基づいて商品提案を最適化します。",
+    privacy_pref_order_updates: "注文に関するプライベート更新を受け取る",
+    privacy_pref_order_updates_desc:
+      "配送、支払い、返品に関する通知をアカウントと注文履歴内で受け取ります。",
+    privacy_pref_marketing_offers: "販促オファーやキャンペーン通知を受け取る",
+    privacy_pref_marketing_offers_desc:
+      "セール、クーポン、期間限定イベントに関するお知らせを受け取ります。",
+    privacy_pref_trusted_devices: "信頼済み端末を記憶してサインインを簡単にする",
+    privacy_pref_trusted_devices_desc:
+      "よく使う端末での再認証を減らしつつ、アカウントの安全性を保ちます。",
+    privacy_reset: "リセット",
+    privacy_save_changes: "変更を保存",
+    privacy_save_success: "プライバシー設定を更新しました。",
+    privacy_reset_success: "プライバシー設定を初期状態に戻しました。",
+    privacy_danger_zone_title: "注意が必要な操作",
+    privacy_danger_zone_desc: "元に戻しにくいアカウント操作です。慎重に行ってください。",
+    privacy_request_delete_title: "アカウント削除を申請する",
+    privacy_request_delete_desc:
+      "確認後にアカウントと関連個人情報の削除申請を開始します。",
+    privacy_request_delete_button: "削除を申請",
+    privacy_delete_dialog_title: "アカウント削除申請を確認",
+    privacy_delete_dialog_desc:
+      "この操作により削除申請が送信されます。注文や支払いの一部記録は、規約または法令により保持される場合があります。",
+    privacy_delete_request_success: "アカウント削除申請が送信されました。",
+    privacy_cancel: "キャンセル",
+    privacy_confirm_delete: "申請を確定",
     theme_toggle_sr_only: "テーマを切り替える",
     theme_light: "ライト",
     theme_dark: "ダーク",
@@ -1553,5 +1910,60 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     flash_sale_page_desc: "現在の hot deal ストリームから、期間限定のお得商品をまとめた一覧ページです。",
     admin_seller_centre: "販売者センター",
     admin_download: "ダウンロード",
+    order_purchase_desc: "最近の購入履歴をまとめて確認し、各注文の詳細をすばやく見直せます。",
+    order_total_orders: "注文数",
+    order_total_spent: "合計支出",
+    order_processing: "処理中",
+    order_in_progress: "進行中",
+    order_completed: "完了",
+    order_cancelled: "キャンセル済み",
+    order_history_title: "注文履歴",
+    order_history_desc: "最近の注文を確認し、各注文の詳細ページを開けます。",
+    order_filter_all: "すべて",
+    order_empty: "この条件に一致する注文はありません。",
+    order_view_detail: "詳細を見る",
+    order_not_found: "注文が見つかりません。",
+    order_summary: "注文概要",
+    order_order_id: "注文ID:",
+    order_customer: "顧客:",
+    order_payment_method: "支払い方法:",
+    order_status: "ステータス:",
+    order_paid: "支払い済み",
+    order_unpaid: "未払い",
+    order_delivered: "配送済み",
+    order_pending: "保留中",
+    order_guest: "ゲスト",
+    order_shipping_address: "配送先住所",
+    order_items: "注文商品",
+    order_product: "商品",
+    order_price: "価格",
+    order_price_summary: "料金概要",
+    order_items_price: "商品金額:",
+    order_shipping_price: "配送料:",
+    order_tax_price: "税額:",
+    order_total_price: "合計金額:",
+    order_created_at: "作成日時:",
+    voucher_wallet_desc: "利用可能、使用済み、期限切れのクーポンをまとめて確認できます。",
+    voucher_available: "利用可能",
+    voucher_used: "使用済み",
+    voucher_expired: "期限切れ",
+    voucher_empty: "このセクションにクーポンはありません。",
+    voucher_min_spend: "最低利用金額",
+    voucher_discount_amount: "割引額",
+    voucher_valid_until: "有効期限",
+    voucher_apply_on_checkout: "条件を満たした注文でチェックアウト時に利用できます。",
+    voucher_used_on_order: "使用済み注文",
+    voucher_expired_on: "このクーポンはすでに期限切れです。",
+    voucher_status_saved: "このクーポンはすでに正常に使用されました。",
+    voucher_code: "コード",
+    voucher_valid_from: "開始日",
+    voucher_discount_type: "割引タイプ",
+    voucher_discount_value: "割引値",
+    voucher_max_discount: "最大割引額",
+    voucher_usage_limit: "利用上限",
+    voucher_usage_count: "利用済み",
+    voucher_shop_id: "ショップID",
+    voucher_type_amount: "固定割引",
+    voucher_type_percentage: "割合割引",
   },
 };

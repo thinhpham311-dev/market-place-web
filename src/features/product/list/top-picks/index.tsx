@@ -11,17 +11,27 @@ import { useFetchData } from "@/features/product/list/top-picks/hooks";
 //constants
 import { PRO_TOPPICKS_LIST } from "@/features/product/list/top-picks/constants";
 
-export default function ProTopPicksList() {
+interface ProTopPicksListProps {
+  shopId?: string;
+}
+
+export default function ProTopPicksList({ shopId = "" }: ProTopPicksListProps) {
   const { t } = useTranslation();
   const { products, loading, error } = useFetchData({
     storeKey: PRO_TOPPICKS_LIST,
   });
+  const firstShop = products?.[0]?.product_shop;
+  const resolvedShopId = firstShop?.shop_id || shopId;
+  const resolvedShopSlug = firstShop?.shop_slug || "shop";
+  const shopDetailHref = resolvedShopId
+    ? `/shop/${resolvedShopSlug}-s.${resolvedShopId}`
+    : undefined;
 
   return (
     <ProductListSection
       title={t("top_picks_from_shop")}
       description={t("top_picks_from_shop_desc")}
-      seeMoreHref="/categories/1"
+      seeMoreHref={shopDetailHref}
     >
       <ProCarousel
         countLoadItems={6}

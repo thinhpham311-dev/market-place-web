@@ -19,6 +19,7 @@ interface BrandCarouselProps {
   error?: string | null;
   countLoadItems: number;
   itemsPerPage?: number;
+  logoOnly?: boolean;
 }
 
 export default function BrandCarousel({
@@ -28,11 +29,12 @@ export default function BrandCarousel({
   error,
   countLoadItems,
   itemsPerPage = 12,
+  logoOnly = false,
 }: BrandCarouselProps) {
   const hasNoData = !data || data.length === 0;
 
   if (isLoading && hasNoData) {
-    return <LoadingSkeleton count={countLoadItems} />;
+    return <LoadingSkeleton count={countLoadItems} logoOnly={logoOnly} />;
   }
 
   if (!isLoading && hasNoData && error) {
@@ -48,7 +50,7 @@ export default function BrandCarousel({
       <CarouselContent className="-ml-2">
         {data.slice(0, itemsPerPage).map((item) => (
           <CarouselItem key={item._id} className={cn("basis-1/2 pl-2 md:basis-1/4 lg:basis-1/6", className)}>
-            <BrandCard item={item} />
+            <BrandCard item={item} logoOnly={logoOnly} />
           </CarouselItem>
         ))}
       </CarouselContent>

@@ -5,6 +5,7 @@ import ShopInfoWrapper from "../components/ShopInfoWrapper";
 import ShopHeader from "../components/ShopHeader";
 import ShopStats from "../components/ShopStats";
 import ShopActions from "../components/ShopActions";
+import ShopVoucherSection from "@/features/voucher/list/components/ShopVoucherSection";
 import { useFetchData } from "../hooks";
 import { Card, CardContent } from "@/components/ui/card";
 import { SHOP_DETAIL } from "@/features/shop/shop-detail/constants";
@@ -22,13 +23,21 @@ const ShopDetail = ({ shop_id }: IShopProps) => {
   return (
     <Card className="grid grid-cols-12 border-none shadow-none">
       <CardContent className="col-span-12">
-        <ShopInfoProvider contextValues={{ ...shopData }}>
+        <ShopInfoProvider
+          contextValues={{
+            data: shopData.shopInfo,
+            loading: shopData.loading,
+            error: shopData.error,
+            status: shopData.status as "idle" | "loading" | "success" | "error",
+          }}
+        >
           <ShopInfoWrapper>
             <ShopHeader />
             <ShopActions />
             <ShopStats />
           </ShopInfoWrapper>
         </ShopInfoProvider>
+        <ShopVoucherSection shopId={shop_id} />
       </CardContent>
     </Card>
   );

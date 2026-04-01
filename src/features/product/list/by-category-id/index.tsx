@@ -67,6 +67,7 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
                   <Pagination
                     storeKey={PRO_LIST_BY_CATEGORYID}
                     initialValue={{
+                      defaultLimit: 20,
                       isShowNav: true,
                       defaultTotalItems: totalItems,
                     }}
@@ -86,10 +87,11 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
               />
             </CardContent>
 
-            <CardFooter className="p-3 justify-center">
+            <CardFooter className="justify-center border-t pt-6 pb-3">
               <Pagination
                 storeKey={PRO_LIST_BY_CATEGORYID}
                 initialValue={{
+                  defaultLimit: 20,
                   isShowDot: true,
                   isShowNav: true,
                   isShowLabel: true,

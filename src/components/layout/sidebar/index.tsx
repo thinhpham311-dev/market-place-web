@@ -1,7 +1,7 @@
 "use client";
 import { useMemo } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { ShoppingBasket, Store, User, ArrowLeft, ShoppingBag, Bell } from "lucide-react";
+import { ShoppingBasket, Store, User, ArrowLeft, Bell } from "lucide-react";
 import { IoIosFlash } from "react-icons/io";
 import { MdLogout } from "react-icons/md";
 
@@ -123,13 +123,9 @@ export default function SidebarNavigation() {
             title: t("sidebar_privacy_settings"),
             url: "/user/account/privacy-settings",
           },
+          { type: "link", title: t("header_my_purchase"), url: "/user/purchase" },
+          { type: "link", title: t("header_my_vouchers"), url: "/user/vouchers" },
         ],
-      },
-      {
-        type: "group",
-        title: t("header_my_purchase"),
-        icon: ShoppingBag,
-        children: [{ type: "link", title: t("sidebar_orders"), url: "/user/purchase/orders" }],
       },
       {
         type: "group",

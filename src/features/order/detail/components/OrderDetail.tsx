@@ -15,19 +15,28 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { orderData } from "@/constants/data";
+import { useAppSelector, useTranslation } from "@/lib/hooks";
+import { formatDateTime, formatToCurrency } from "@/utils/formats";
+import { getOrderByIdForCurrentUser } from "@/features/order/utils/normalizeOrder";
 
 export default function OrderDetail() {
+  const { t } = useTranslation();
   const { id } = useParams() ?? {};
   const router = useRouter();
+  const authUser = useAppSelector((state) => state.auth.user);
+  const signedIn = useAppSelector((state) => state.auth.session.signedIn);
 
   const { order } = useMemo(() => {
-    const selectedOrder = orderData?.find((item) => item?._id === id);
+    const selectedOrder = getOrderByIdForCurrentUser(
+      typeof id === "string" ? id : undefined,
+      authUser,
+      signedIn,
+    );
     return { order: selectedOrder };
-  }, [id]);
+  }, [authUser, id, signedIn]);
 
   if (!order) {
-    return <div>Order not found</div>;
+    return <div>{t("order_not_found")}</div>;
   }
 
   return (
@@ -37,27 +46,31 @@ export default function OrderDetail() {
           <Button onClick={() => router.back()} variant="outline" size="icon">
             <ArrowLeft />
           </Button>
-          <CardTitle>Order Summary</CardTitle>
+          <CardTitle>{t("order_summary")}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <strong>Order ID:</strong> {order._id}
+              <strong>{t("order_order_id")}</strong> {order.id}
             </div>
             <div>
-              <strong>User:</strong> {order.user?.name || "Guest"}
+              <strong>{t("order_customer")}</strong> {order.customerName || t("order_guest")}
             </div>
             <div>
-              <strong>Payment Method:</strong> {order.paymentMethod}
+              <strong>{t("order_payment_method")}</strong> {order.paymentMethod}
             </div>
             <div>
-              <strong>Status:</strong>{" "}
+              <strong>{t("order_status")}</strong>{" "}
               <Badge variant={order.isPaid ? "default" : "destructive"}>
-                {order.isPaid ? "Paid" : "Unpaid"}
+                {order.isPaid ? t("order_paid") : t("order_unpaid")}
               </Badge>{" "}
               <Badge variant={order.isDelivered ? "default" : "secondary"}>
-                {order.isDelivered ? "Delivered" : "Pending"}
+                {order.isDelivered ? t("order_delivered") : t("order_pending")}
               </Badge>
+            </div>
+            <div>
+              <strong>{t("order_created_at")}</strong>{" "}
+              {order.createdAt ? formatDateTime(order.createdAt) : "-"}
             </div>
           </div>
         </CardContent>
@@ -65,7 +78,7 @@ export default function OrderDetail() {
 
       <Card className="col-span-3 px-3 md:col-span-1 md:px-6">
         <CardHeader>
-          <CardTitle>Shipping Address</CardTitle>
+          <CardTitle>{t("order_shipping_address")}</CardTitle>
         </CardHeader>
         <CardContent>
           <div>
@@ -81,25 +94,25 @@ export default function OrderDetail() {
 
       <Card className="col-span-3 px-3 md:col-span-2 md:px-6">
         <CardHeader>
-          <CardTitle>Order Items</CardTitle>
+          <CardTitle>{t("order_items")}</CardTitle>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Product</TableHead>
-                <TableHead>Quantity</TableHead>
-                <TableHead>Price</TableHead>
-                <TableHead>Total</TableHead>
+                <TableHead>{t("order_product")}</TableHead>
+                <TableHead>{t("cart_column_quantity")}</TableHead>
+                <TableHead>{t("order_price")}</TableHead>
+                <TableHead>{t("cart_column_total")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {order.items.map((item, index) => (
                 <TableRow key={index}>
-                  <TableCell>{item.product_name}</TableCell>
-                  <TableCell>{item.qty}</TableCell>
-                  <TableCell>${item.product_price.toFixed(2)}</TableCell>
-                  <TableCell>${(item.qty * item.product_price).toFixed(2)}</TableCell>
+                  <TableCell>{item.productName}</TableCell>
+                  <TableCell>{item.quantity}</TableCell>
+                  <TableCell>{formatToCurrency(item.price)}</TableCell>
+                  <TableCell>{formatToCurrency(item.quantity * item.price)}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -109,25 +122,25 @@ export default function OrderDetail() {
 
       <Card className="col-span-3 px-3 md:col-span-1 md:px-6">
         <CardHeader>
-          <CardTitle>Price Summary</CardTitle>
+          <CardTitle>{t("order_price_summary")}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-2">
             <div className="flex justify-between">
-              <span>Items Price:</span>
-              <span>${order.itemsPrice.toFixed(2)}</span>
+              <span>{t("order_items_price")}</span>
+              <span>{formatToCurrency(order.itemsPrice)}</span>
             </div>
             <div className="flex justify-between">
-              <span>Shipping Price:</span>
-              <span>${order.shippingPrice.toFixed(2)}</span>
+              <span>{t("order_shipping_price")}</span>
+              <span>{formatToCurrency(order.shippingPrice)}</span>
             </div>
             <div className="flex justify-between">
-              <span>Tax Price:</span>
-              <span>${order.taxPrice.toFixed(2)}</span>
+              <span>{t("order_tax_price")}</span>
+              <span>{formatToCurrency(order.taxPrice)}</span>
             </div>
             <div className="flex justify-between font-bold">
-              <span>Total Price:</span>
-              <span>${order.totalPrice.toFixed(2)}</span>
+              <span>{t("order_total_price")}</span>
+              <span>{formatToCurrency(order.totalPrice)}</span>
             </div>
           </div>
         </CardContent>

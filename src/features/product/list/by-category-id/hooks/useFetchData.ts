@@ -29,7 +29,7 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
   }, [PRO_LIST_BY_CATEGORYID]);
 
   // Selectors
-  const { currentPage = 1, limit = 15 } = useGetPaginationValue({
+  const { currentPage = 1, limit = 20 } = useGetPaginationValue({
     storeKey: PRO_LIST_BY_CATEGORYID,
   });
 

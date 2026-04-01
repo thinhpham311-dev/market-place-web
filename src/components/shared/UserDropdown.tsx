@@ -20,7 +20,6 @@ export default function UserDropdown() {
   const router = useRouter();
   const menuItems = [
     { label: t("header_my_account"), icon: <User />, path: "/user/account/profile" },
-    { label: t("header_my_purchase"), icon: <User />, path: "/user/purchase/orders" },
     { label: t("sign_in"), icon: <LogIn />, path: "/user/sign-in" },
     { label: t("sign_up"), icon: <LogIn />, path: "/user/sign-up" },
     { label: t("header_sign_out"), icon: <LogOut />, path: "/user/sign-in" },

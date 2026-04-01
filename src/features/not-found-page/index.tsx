@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { SearchX } from "lucide-react";
 
-import Logo from "@/components/shared/Logo";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/lib/hooks/use-translation";
 
@@ -13,9 +12,7 @@ export default function NotFoundPage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-background via-background to-muted/40">
       <div className="container mx-auto flex min-h-screen max-w-5xl flex-col px-4 py-8">
-        <div className="flex justify-center md:justify-start">
-          <Logo />
-        </div>
+      
 
         <div className="flex flex-1 items-center justify-center">
           <section className="w-full max-w-2xl rounded-3xl border bg-card/95 p-8 text-center shadow-sm md:p-12">

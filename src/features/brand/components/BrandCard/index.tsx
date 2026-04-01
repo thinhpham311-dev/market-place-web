@@ -9,9 +9,10 @@ import type { Brand } from "@/features/brand/types";
 
 interface BrandCardProps {
   item: Brand;
+  logoOnly?: boolean;
 }
 
-export default memo(function BrandCard({ item }: BrandCardProps) {
+export default memo(function BrandCard({ item, logoOnly = false }: BrandCardProps) {
   const router = useRouter();
 
   if (!item) {
@@ -34,20 +35,28 @@ export default memo(function BrandCard({ item }: BrandCardProps) {
   return (
     <Card
       onClick={handleNavigation}
-      className="rounded-3xl aspect-square flex flex-col justify-center items-center"
+      className="aspect-square flex flex-col items-center justify-center rounded-3xl"
     >
-      <CardContent className="p-0 rounded-full bg-white dark:bg-white w-1/2 border overflow-hidden">
+      <CardContent
+        className={
+          logoOnly
+            ? "w-full overflow-hidden rounded-2xl border bg-white p-4 dark:bg-white"
+            : "w-1/2 overflow-hidden rounded-full border bg-white p-0 dark:bg-white"
+        }
+      >
         <CardImage
           src={imageSrc}
           alt={brand_name || "Brand"}
-          className="w-full h-full aspect-square rounded-t-lg cursor-pointer object-cover"
+          className="h-full w-full cursor-pointer object-contain"
         />
       </CardContent>
-      <CardContent className="p-3">
-        <CardTitle className="text-md capitalize cursor-pointer text-black dark:text-white text-center xl:line-clamp-2 line-clamp-1">
-          {brand_name || "Brand"}
-        </CardTitle>
-      </CardContent>
+      {!logoOnly ? (
+        <CardContent className="p-3">
+          <CardTitle className="text-md line-clamp-1 cursor-pointer text-center capitalize text-black dark:text-white xl:line-clamp-2">
+            {brand_name || "Brand"}
+          </CardTitle>
+        </CardContent>
+      ) : null}
     </Card>
   );
 });

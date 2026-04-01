@@ -3,15 +3,23 @@ import React from "react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import GalleryCarousel from "./GalleryCarousel";
 import GalleryNavigation from "./GalleryNavigation";
+import LoadingSkeleton from "./LoadingSkeleton";
 import { injectReducer } from "@/store";
 import reducer from "./store";
 import { useSyncCarousels } from "./hooks";
 import { images } from "@/constants/data";
+import { useSpuContext } from "@/features/spu/hooks";
 
 injectReducer("gallery", reducer);
 
 export default function ProThumbnailGallery() {
+  const { spu, loading } = useSpuContext();
   const { current, setApi, navigateTo } = useSyncCarousels();
+  const hasNoData = !spu || Object.keys(spu).length === 0;
+
+  if (loading && hasNoData) {
+    return <LoadingSkeleton />;
+  }
 
   return (
     <Card className="border-none shadow-none space-y-2">

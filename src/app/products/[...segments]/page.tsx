@@ -55,7 +55,7 @@ export default function Page({ params }: { params: { segments: string[] } }) {
   return (
     <div className="space-y-5 md:my-5 container mx-auto">
       <ProDetail product_id={product_id} shop_id={shop_id} />
-      <ProTopPicksList />
+      <ProTopPicksList shopId={shop_id} />
       <ProBundleDealList />
       <ProRelatedList shopId={shop_id} />
     </div>
