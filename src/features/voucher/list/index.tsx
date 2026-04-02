@@ -1,14 +1,20 @@
 "use client";
 
-import { useMemo } from "react";
+import Link from "next/link";
+import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { TicketPercent, WalletCards, CircleCheckBig, Clock3 } from "lucide-react";
+import { toast } from "sonner";
 
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAppSelector, useTranslation } from "@/lib/hooks";
 import { formatToCurrency, formatDateTime } from "@/utils/formats";
 import { useFetchData, type VoucherStatus } from "@/features/voucher/list/hooks/useFetchData";
+import VoucherShopInfoDialog from "@/features/voucher/list/components/VoucherShopInfoDialog";
+import VoucherListLoading from "@/features/voucher/list/components/VoucherListLoading";
 
 const voucherTabs: VoucherStatus[] = ["available", "used", "expired"];
 
@@ -42,8 +48,17 @@ function VoucherDiscountValue({ voucher }: { voucher: ReturnType<typeof useFetch
 
 export default function VoucherListPage() {
   const { t } = useTranslation();
+  const searchParams = useSearchParams();
   const signedIn = useAppSelector((state) => state.auth.session.signedIn);
-  const { vouchers, loading, error, shopId } = useFetchData();
+  const shopId = searchParams.get("shopId") || undefined;
+  const limit = Number(searchParams.get("limit") || 50);
+  const page = Number(searchParams.get("page") || 1);
+  const { vouchers, loading, error, shopId: resolvedShopId } = useFetchData({
+    shopId,
+    limit: Number.isFinite(limit) && limit > 0 ? limit : 50,
+    page: Number.isFinite(page) && page > 0 ? page : 1,
+  });
+  const [claimedVoucherIds, setClaimedVoucherIds] = useState<string[]>([]);
 
   const summary = useMemo(() => {
     return {
@@ -53,18 +68,30 @@ export default function VoucherListPage() {
     };
   }, [vouchers]);
 
-  const resolvedVouchers = signedIn ? vouchers : [];
+  const resolvedVouchers = vouchers;
+
+  const handleClaimVoucher = (voucherId: string) => {
+    if (!signedIn) {
+      toast.error(t("voucher_claim_sign_in"));
+      return;
+    }
+
+    setClaimedVoucherIds((prev) => (prev.includes(voucherId) ? prev : [...prev, voucherId]));
+    toast.success(t("voucher_claim_success"));
+  };
 
   return (
     <div className="container mx-auto space-y-5 px-3 py-5 md:px-6">
-      <section className="grid gap-4 md:grid-cols-3">
+      <section className="grid w-full gap-4 md:grid-cols-3">
         <Card className="border-none bg-gradient-to-r from-orange-50 via-white to-amber-50 shadow-sm md:col-span-3">
           <CardHeader>
             <CardTitle className="flex items-center gap-3 text-2xl">
               <TicketPercent className="h-6 w-6 text-orange-600" />
               {t("header_my_vouchers")}
             </CardTitle>
-            <CardDescription>{t("voucher_wallet_desc")} {shopId ? `#${shopId}` : ""}</CardDescription>
+            <CardDescription>
+              {t("voucher_wallet_desc")} {resolvedShopId ? `#${resolvedShopId}` : ""}
+            </CardDescription>
           </CardHeader>
         </Card>
 
@@ -105,7 +132,7 @@ export default function VoucherListPage() {
         </Card>
       </section>
 
-      <Card className="shadow-sm">
+      <Card className="w-full shadow-sm">
         <CardHeader>
           <CardTitle>{t("header_my_vouchers")}</CardTitle>
           <CardDescription>{error || t("voucher_wallet_desc")}</CardDescription>
@@ -126,33 +153,14 @@ export default function VoucherListPage() {
               return (
                 <TabsContent key={status} value={status} className="space-y-4">
                   {loading ? (
-                    <div className="space-y-4">
-                      {Array.from({ length: 3 }).map((_, index) => (
-                        <Card key={index} className="overflow-hidden border-stone-200 shadow-none">
-                          <CardContent className="flex flex-col gap-4 p-4 md:flex-row md:items-center md:justify-between md:p-5">
-                            <div className="flex items-start gap-4">
-                              <div className="h-11 w-11 rounded-2xl bg-orange-100" />
-                              <div className="space-y-2">
-                                <div className="h-5 w-48 rounded bg-stone-200" />
-                                <div className="h-4 w-72 max-w-full rounded bg-stone-100" />
-                                <div className="h-4 w-40 rounded bg-stone-100" />
-                              </div>
-                            </div>
-                            <div className="space-y-2">
-                              <div className="ml-auto h-4 w-28 rounded bg-stone-100" />
-                              <div className="ml-auto h-7 w-24 rounded bg-orange-100" />
-                            </div>
-                          </CardContent>
-                        </Card>
-                      ))}
-                    </div>
+                    <VoucherListLoading />
                   ) : items.length === 0 ? (
                     <div className="rounded-2xl border border-dashed p-8 text-center text-muted-foreground">
                       {t("voucher_empty")}
                     </div>
                   ) : (
                     items.map((voucher) => (
-                      <Card key={voucher.id} className="overflow-hidden border-stone-200 shadow-none">
+                      <Card key={voucher.discountId} className="overflow-hidden border-stone-200 shadow-none">
                         <CardContent className="flex flex-col gap-4 p-4 md:flex-row md:items-center md:justify-between md:p-5">
                           <div className="flex items-start gap-4">
                             <div className="rounded-2xl bg-orange-100 p-3 text-orange-600">
@@ -168,10 +176,14 @@ export default function VoucherListPage() {
                               ) : null}
                               <div className="grid gap-1 text-sm text-muted-foreground md:grid-cols-2">
                                 {voucher.code ? <p>{t("voucher_code")}: {voucher.code}</p> : null}
-                                {voucher.shopId ? <p>{t("voucher_shop_id")}: {voucher.shopId}</p> : null}
+                                {voucher.shopId ? (
+                                  <div className="flex flex-wrap items-center gap-2">
+                                    <p>{t("voucher_shop_id")}: {voucher.shopId}</p>
+                                    <VoucherShopInfoDialog shopId={voucher.shopId} />
+                                  </div>
+                                ) : null}
                                 <p>{t("voucher_discount_type")}: {t(voucher.discountType === "percentage" ? "voucher_type_percentage" : "voucher_type_amount")}</p>
                                 <p>{t("voucher_discount_value")}: <VoucherDiscountValue voucher={voucher} /></p>
-                                <p>{t("voucher_min_spend")}: {formatToCurrency(voucher.minSpend)}</p>
                                 {voucher.maxDiscountAmount > 0 ? (
                                   <p>{t("voucher_max_discount")}: {formatToCurrency(voucher.maxDiscountAmount)}</p>
                                 ) : null}
@@ -214,6 +226,31 @@ export default function VoucherListPage() {
                             <p className="text-2xl font-semibold text-orange-600">
                               <VoucherDiscountValue voucher={voucher} />
                             </p>
+                            <div className="mt-2 flex flex-wrap items-center justify-between gap-3 text-sm text-muted-foreground md:justify-end md:gap-4">
+                              <span>
+                                {t("voucher_min_spend")}: {formatToCurrency(voucher.minSpend)}
+                              </span>
+                              <div className="flex items-center gap-2">
+                                <Button asChild type="button" size="sm" variant="outline">
+                                  <Link href={`/user/vouchers/${voucher.discountId}${voucher.shopId ? `?shopId=${voucher.shopId}` : ""}`}>
+                                    {t("voucher_view_details")}
+                                  </Link>
+                                </Button>
+                                {status === "available" ? (
+                                  <Button
+                                    type="button"
+                                    size="sm"
+                                    variant={claimedVoucherIds.includes(voucher.discountId) ? "secondary" : "default"}
+                                    onClick={() => handleClaimVoucher(voucher.discountId)}
+                                    disabled={claimedVoucherIds.includes(voucher.discountId)}
+                                  >
+                                    {claimedVoucherIds.includes(voucher.discountId)
+                                      ? t("voucher_claimed")
+                                      : t("voucher_claim")}
+                                  </Button>
+                                ) : null}
+                              </div>
+                            </div>
                             <p className="mt-1 text-sm text-muted-foreground">
                               {status === "available"
                                 ? t("voucher_apply_on_checkout")

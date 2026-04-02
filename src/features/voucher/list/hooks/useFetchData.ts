@@ -12,6 +12,7 @@ import { DEFAULT_VOUCHER_SHOP_ID, VOUCHER_LIST_KEY } from "@/features/voucher/li
 export type VoucherStatus = "available" | "used" | "expired";
 
 export type VoucherItem = {
+  discountId: string;
   id: string;
   title: string;
   description: string;
@@ -54,7 +55,7 @@ function resolveList(payload: Record<string, any> | null | undefined): Record<st
 
 function resolveStatus(item: Record<string, any>, validUntil: string): VoucherStatus {
   const rawStatus = normalizeString(
-    item.status || item.discount_status || item.voucher_status || item.state,
+    item.discount_status_code,
   ).toLowerCase();
 
   if (rawStatus.includes("used")) {
@@ -109,17 +110,16 @@ function mapVoucherItem(item: Record<string, any>, index: number): VoucherItem {
   ).toLowerCase();
 
   return {
-    id: normalizeString(item.discount_id || item.id || item._id || item.code || `voucher_${index + 1}`),
+    discountId: normalizeString(item.discount_id || `voucher_${index + 1}`),
+    id: normalizeString(item.discount_id || `voucher_${index + 1}`),
     title: normalizeString(
-      item.discount_name || item.name || item.title || item.discount_title || item.code || "Voucher",
+      item.discount_name || "Voucher",
     ),
     description: normalizeString(
-      item.description || item.discount_desc || item.sub_title || item.subtitle || "",
+      item.discount_description 
     ),
     code: normalizeString(item.code || item.discount_code || item.voucher_code || ""),
-    minSpend: normalizeNumber(
-      item.min_order_value || item.minSpend || item.minimumSpend || item.min_order_amount,
-    ),
+    minSpend: normalizeNumber(item.discount_min_order_value),
     discountAmount: maxDiscountAmount || discountValue,
     discountType: discountTypeRaw.includes("percent") ? "percentage" : "amount",
     discountValue,

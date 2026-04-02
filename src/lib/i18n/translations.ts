@@ -340,6 +340,14 @@ export type TranslationKey =
   | "shop_follow"
   | "shop_view"
   | "shop_name_fallback"
+  | "product_shipping_title"
+  | "product_shipping_from"
+  | "product_shipping_estimated_fee"
+  | "product_shipping_free"
+  | "product_shipping_eta"
+  | "product_shipping_eta_value"
+  | "product_shipping_free_shipping_note"
+  | "product_shipping_standard_note"
   | "not_found_title"
   | "not_found_description"
   | "not_found_back_home"
@@ -466,7 +474,29 @@ export type TranslationKey =
   | "voucher_usage_count"
   | "voucher_shop_id"
   | "voucher_type_amount"
-  | "voucher_type_percentage";
+  | "voucher_type_percentage"
+  | "voucher_claim"
+  | "voucher_claimed"
+  | "voucher_claim_success"
+  | "voucher_claim_sign_in"
+  | "voucher_view_details"
+  | "voucher_detail_title"
+  | "voucher_detail_desc"
+  | "voucher_detail_not_found"
+  | "voucher_terms_title"
+  | "voucher_usage_title"
+  | "voucher_discount_summary"
+  | "voucher_no_minimum_spend"
+  | "voucher_back_to_list"
+  | "voucher_products_title"
+  | "voucher_products_desc"
+  | "voucher_shop_info"
+  | "voucher_shop_info_desc"
+  | "voucher_shop_info_loading"
+  | "voucher_shop_info_not_found"
+  | "voucher_shop_email"
+  | "voucher_shop_phone"
+  | "voucher_shop_address";
 
 export const translations: Record<SupportedLanguage, Record<TranslationKey, string>> = {
   en: {
@@ -835,6 +865,14 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     shop_follow: "Follow",
     shop_view: "View",
     shop_name_fallback: "Shop Name",
+    product_shipping_title: "Shipping",
+    product_shipping_from: "Ships from",
+    product_shipping_estimated_fee: "Estimated shipping",
+    product_shipping_free: "Free shipping",
+    product_shipping_eta: "Estimated arrival",
+    product_shipping_eta_value: "2-5 business days",
+    product_shipping_free_shipping_note: "This item qualifies for free standard delivery.",
+    product_shipping_standard_note: "Delivery fee may change based on address and selected options.",
     not_found_title: "Page not found",
     not_found_description:
       "The page you are looking for may have been moved, removed, or never existed in the first place.",
@@ -966,6 +1004,28 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     voucher_shop_id: "Shop ID",
     voucher_type_amount: "Fixed amount",
     voucher_type_percentage: "Percentage",
+    voucher_claim: "Claim",
+    voucher_claimed: "Claimed",
+    voucher_claim_success: "Voucher claimed successfully.",
+    voucher_claim_sign_in: "Please sign in to claim vouchers.",
+    voucher_view_details: "View details",
+    voucher_detail_title: "Voucher details",
+    voucher_detail_desc: "Review the offer, eligibility, and usage conditions before you apply or claim this voucher.",
+    voucher_detail_not_found: "Voucher not found.",
+    voucher_terms_title: "Voucher terms",
+    voucher_usage_title: "Usage and eligibility",
+    voucher_discount_summary: "Discount summary",
+    voucher_no_minimum_spend: "No minimum spend",
+    voucher_back_to_list: "Back to vouchers",
+    voucher_products_title: "Products for this voucher",
+    voucher_products_desc: "Browse eligible products that can use this voucher.",
+    voucher_shop_info: "Shop info",
+    voucher_shop_info_desc: "View the seller details for this voucher.",
+    voucher_shop_info_loading: "Loading shop details...",
+    voucher_shop_info_not_found: "Shop information is unavailable.",
+    voucher_shop_email: "Email",
+    voucher_shop_phone: "Phone",
+    voucher_shop_address: "Address",
   },
   vi: {
     see_more: "Xem thêm",
@@ -1334,6 +1394,14 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     shop_follow: "Theo dõi",
     shop_view: "Xem shop",
     shop_name_fallback: "Tên shop",
+    product_shipping_title: "Vận chuyển",
+    product_shipping_from: "Gửi từ",
+    product_shipping_estimated_fee: "Phí vận chuyển dự kiến",
+    product_shipping_free: "Miễn phí vận chuyển",
+    product_shipping_eta: "Dự kiến nhận hàng",
+    product_shipping_eta_value: "2-5 ngày làm việc",
+    product_shipping_free_shipping_note: "Sản phẩm này đủ điều kiện giao tiêu chuẩn miễn phí.",
+    product_shipping_standard_note: "Phí giao hàng có thể thay đổi theo địa chỉ và phân loại đã chọn.",
     not_found_title: "Không tìm thấy trang",
     not_found_description:
       "Trang bạn đang tìm có thể đã được di chuyển, bị xóa hoặc chưa từng tồn tại.",
@@ -1466,6 +1534,28 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     voucher_shop_id: "Mã shop",
     voucher_type_amount: "Giảm tiền cố định",
     voucher_type_percentage: "Giảm theo phần trăm",
+    voucher_claim: "Lưu voucher",
+    voucher_claimed: "Đã lưu",
+    voucher_claim_success: "Đã lưu voucher thành công.",
+    voucher_claim_sign_in: "Vui lòng đăng nhập để lưu voucher.",
+    voucher_view_details: "Xem chi tiết",
+    voucher_detail_title: "Chi tiết voucher",
+    voucher_detail_desc: "Xem ưu đãi, điều kiện áp dụng và cách sử dụng voucher trước khi lưu hoặc dùng.",
+    voucher_detail_not_found: "Không tìm thấy voucher.",
+    voucher_terms_title: "Điều khoản voucher",
+    voucher_usage_title: "Điều kiện và cách dùng",
+    voucher_discount_summary: "Tóm tắt ưu đãi",
+    voucher_no_minimum_spend: "Không yêu cầu giá trị tối thiểu",
+    voucher_back_to_list: "Quay lại danh sách voucher",
+    voucher_products_title: "Sản phẩm áp dụng voucher này",
+    voucher_products_desc: "Xem danh sách sản phẩm đủ điều kiện áp dụng voucher.",
+    voucher_shop_info: "Thông tin shop",
+    voucher_shop_info_desc: "Xem thông tin người bán áp dụng voucher này.",
+    voucher_shop_info_loading: "Đang tải thông tin shop...",
+    voucher_shop_info_not_found: "Không có thông tin shop.",
+    voucher_shop_email: "Email",
+    voucher_shop_phone: "Số điện thoại",
+    voucher_shop_address: "Địa chỉ",
   },
   ja: {
     see_more: "もっと見る",
@@ -1834,6 +1924,14 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     shop_follow: "フォロー",
     shop_view: "ショップを見る",
     shop_name_fallback: "ショップ名",
+    product_shipping_title: "配送情報",
+    product_shipping_from: "発送元",
+    product_shipping_estimated_fee: "配送料の目安",
+    product_shipping_free: "送料無料",
+    product_shipping_eta: "お届け予定",
+    product_shipping_eta_value: "2〜5営業日",
+    product_shipping_free_shipping_note: "この商品は通常配送が無料で利用できます。",
+    product_shipping_standard_note: "配送料は配送先住所や選択したバリエーションによって変わる場合があります。",
     not_found_title: "ページが見つかりません",
     not_found_description:
       "お探しのページは移動されたか、削除されたか、もともと存在しない可能性があります。",
@@ -1965,5 +2063,27 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     voucher_shop_id: "ショップID",
     voucher_type_amount: "固定割引",
     voucher_type_percentage: "割合割引",
+    voucher_claim: "獲得",
+    voucher_claimed: "獲得済み",
+    voucher_claim_success: "クーポンを獲得しました。",
+    voucher_claim_sign_in: "クーポンを獲得するにはサインインしてください。",
+    voucher_view_details: "詳細を見る",
+    voucher_detail_title: "クーポン詳細",
+    voucher_detail_desc: "このクーポンを使う前に、特典内容、対象条件、利用ルールを確認できます。",
+    voucher_detail_not_found: "クーポンが見つかりません。",
+    voucher_terms_title: "クーポン条件",
+    voucher_usage_title: "利用条件",
+    voucher_discount_summary: "割引概要",
+    voucher_no_minimum_spend: "最低利用金額なし",
+    voucher_back_to_list: "クーポン一覧へ戻る",
+    voucher_products_title: "このクーポンの対象商品",
+    voucher_products_desc: "このクーポンを利用できる対象商品を確認できます。",
+    voucher_shop_info: "ショップ情報",
+    voucher_shop_info_desc: "このクーポンを提供しているショップ情報を確認できます。",
+    voucher_shop_info_loading: "ショップ情報を読み込み中...",
+    voucher_shop_info_not_found: "ショップ情報を取得できません。",
+    voucher_shop_email: "メール",
+    voucher_shop_phone: "電話番号",
+    voucher_shop_address: "住所",
   },
 };

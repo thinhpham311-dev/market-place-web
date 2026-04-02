@@ -17,10 +17,12 @@ import ProVariantsSelector from "@/features/product/components/ProVariantsSelect
 import ProSocialsShare from "@/features/product/components/ProSocialsShare";
 import ProWishListToggle from "@/features/product/components/ProWishListToggle";
 import ProPriceDisplay from "@/features/product/components/ProPriceDisplay";
+import ProShippingInfo from "@/features/product/components/ProShippingInfo";
 
 import ProReviewStar from "@/features/product/components/ProReviewStar";
 import ProActions from "@/features/product/components/ProActions";
 import ProShopInfo from "@/features/product/components/ProShopInfo";
+import ShopVoucherSection from "@/features/voucher/list/components/ShopVoucherSection";
 
 interface IProductDetail {
   product_id?: string;
@@ -65,11 +67,15 @@ export default function ProductDetail({ product_id = "", shop_id = "" }: IProduc
             <div className="lg:col-span-3 col-span-3 md:order-1 order-2">
               <ProShopInfo shop_id={shop_id} />
             </div>
+            <div className="lg:col-span-3 col-span-3 md:order-1 order-2">
+              <ShopVoucherSection shopId={shop_id} />
+            </div>
             <div className="lg:col-span-2 col-span-3 md:order-1 order-2">
               <ProDescriptionContent />
             </div>
             <div className="lg:col-span-1 col-span-3 md:order-2 order-1">
               <ProSpecifications />
+              <ProShippingInfo />
             </div>
           </CardContent>
         </Card>

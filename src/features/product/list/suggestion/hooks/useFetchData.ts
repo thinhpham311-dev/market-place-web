@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getProductList } from "@/features/product/list/suggestion/store/dataSlice";
 import { selectProSuggestionListByStoreKey } from "@/features/product/list/suggestion/store/selectors";
 import { useGetPaginationValue } from "@/features/common/pagination/hooks";
+import { SortBy } from "@/types/common/sort";
 //stores
 import reducer from "@/features/product/list/suggestion/store";
 import { injectReducer, removeReducer } from "@/store";
@@ -11,7 +12,7 @@ interface IUseFetchData {
   storeKey: string;
   defaultLimit?: number;
   defaultCurrentPage?: number;
-  sortBy?: string;
+  sortBy?: SortBy | null;
 }
 
 export function useFetchData({
