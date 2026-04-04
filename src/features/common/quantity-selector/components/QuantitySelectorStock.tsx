@@ -10,9 +10,7 @@ const QuantitySelectorStock = () => {
   const { maxQuantity = 0 } = useQuantitySelectorContext();
 
   const message =
-    maxQuantity === 0
-      ? t("product_in_stock")
-      : `${maxQuantity} ${t("product_pieces_available")}`;
+    maxQuantity === 0 ? t("product_in_stock") : `${maxQuantity} ${t("product_pieces_available")}`;
 
   return (
     <CardDescription className="transition-opacity duration-300 basic-full">

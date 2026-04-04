@@ -23,7 +23,10 @@ export default function CheckoutCart({ items }: CheckoutCartProps) {
           <h2 className="text-xl font-semibold">{t("checkout_your_items")}</h2>
           <p className="text-sm text-muted-foreground">{t("checkout_your_items_desc")}</p>
         </div>
-        <Link href="/cart" className="text-sm font-medium text-primary underline-offset-4 hover:underline">
+        <Link
+          href="/cart"
+          className="text-sm font-medium text-primary underline-offset-4 hover:underline"
+        >
           {t("checkout_edit_cart")}
         </Link>
       </div>
@@ -41,11 +44,17 @@ export default function CheckoutCart({ items }: CheckoutCartProps) {
               </div>
               <div className="min-w-0 flex-1 space-y-2">
                 <p className="line-clamp-2 font-medium">{item.itemSpuName}</p>
-                <div className="flex flex-wrap gap-1">{renderVariants(item.itemSpuVariations, item.itemSkuTierIdx)}</div>
-                <p className="text-sm text-muted-foreground">{t("checkout_shop")}: {item.itemShopName}</p>
+                <div className="flex flex-wrap gap-1">
+                  {renderVariants(item.itemSpuVariations, item.itemSkuTierIdx)}
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  {t("checkout_shop")}: {item.itemShopName}
+                </p>
               </div>
               <div className="space-y-1 text-right">
-                <p className="text-sm text-muted-foreground">{t("checkout_qty")}: {item.itemQuantity}</p>
+                <p className="text-sm text-muted-foreground">
+                  {t("checkout_qty")}: {item.itemQuantity}
+                </p>
                 <p className="font-semibold">
                   {formatToCurrency(item.itemTotalPrice || item.itemSkuPrice * item.itemQuantity)}
                 </p>

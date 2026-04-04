@@ -76,7 +76,9 @@ export function useFetchShopInfo({ shopId = "", enabled = true }: UseFetchShopIn
       })
       .catch((err: any) => {
         if (isMounted) {
-          setError(err?.response?.data?.message || err?.message || t("voucher_shop_info_not_found"));
+          setError(
+            err?.response?.data?.message || err?.message || t("voucher_shop_info_not_found"),
+          );
         }
       })
       .finally(() => {

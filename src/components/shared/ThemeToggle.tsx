@@ -50,7 +50,9 @@ export default function ThemeToggle() {
             )}
           >
             <Check className={theme === value ? "opacity-100" : "opacity-0"} />
-            <Icon className={cn("h-4 w-4", value === "system" && "text-sky-600 dark:text-sky-300")} />
+            <Icon
+              className={cn("h-4 w-4", value === "system" && "text-sky-600 dark:text-sky-300")}
+            />
             <span>{label}</span>
           </DropdownMenuItem>
         ))}

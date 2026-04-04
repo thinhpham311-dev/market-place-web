@@ -73,7 +73,13 @@ export default function CheckoutForm() {
       tax,
       total: subTotal + shipping + tax,
     };
-  }, [checkoutItems, data.cart_estimated_shipping, data.cart_estimated_tax, data.cart_selected_items?.length, data.cart_selected_items_total]);
+  }, [
+    checkoutItems,
+    data.cart_estimated_shipping,
+    data.cart_estimated_tax,
+    data.cart_selected_items?.length,
+    data.cart_selected_items_total,
+  ]);
 
   const handleSubmit = async () => {
     if (!signedIn) {
@@ -105,7 +111,9 @@ export default function CheckoutForm() {
             <CardContent className="flex flex-col items-start gap-4 p-6 md:flex-row md:items-center md:justify-between">
               <div className="space-y-1">
                 <h2 className="text-xl font-semibold">{t("checkout_sign_in_continue")}</h2>
-                <p className="text-sm text-muted-foreground">{t("checkout_sign_in_continue_desc")}</p>
+                <p className="text-sm text-muted-foreground">
+                  {t("checkout_sign_in_continue_desc")}
+                </p>
               </div>
               <Button asChild>
                 <Link href="/user/sign-in">{t("checkout_go_to_sign_in")}</Link>

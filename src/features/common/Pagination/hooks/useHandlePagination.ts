@@ -19,14 +19,8 @@ interface IUseHandlePaginationProps {
 export function useHandlePagination({ storeKey, initialValue }: IUseHandlePaginationProps) {
   const dispatch = useAppDispatch();
   const rest = initialValue;
-  const {
-    defaultCurrentPage,
-    defaultLimit,
-    defaultTotalItems,
-    isShowDot,
-    isShowLabel,
-    isShowNav,
-  } = initialValue;
+  const { defaultCurrentPage, defaultLimit, defaultTotalItems, isShowDot, isShowLabel, isShowNav } =
+    initialValue;
 
   useEffect(() => {
     dispatch(
@@ -69,9 +63,12 @@ export function useHandlePagination({ storeKey, initialValue }: IUseHandlePagina
     [dispatch, storeKey, totalPages],
   );
 
-  const setLimitSafe = useCallback((limit: number) => {
-    dispatch(withEnsureInit(setLimit({ key: storeKey, limit }), [storeKey]));
-  }, [dispatch, storeKey]);
+  const setLimitSafe = useCallback(
+    (limit: number) => {
+      dispatch(withEnsureInit(setLimit({ key: storeKey, limit }), [storeKey]));
+    },
+    [dispatch, storeKey],
+  );
 
   const resetPaginationSafe = useCallback(() => {
     dispatch(withEnsureInit(resetPagination({ key: storeKey }), [storeKey]));

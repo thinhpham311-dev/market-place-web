@@ -118,7 +118,12 @@ export default function DailyDiscoverPage() {
 
   const activeFilterConfig =
     quickFilters.find((filter) => filter.key === activeFilter) ?? quickFilters[0];
-  const { products, totalItems = 0, loading, error } = useFetchData({
+  const {
+    products,
+    totalItems = 0,
+    loading,
+    error,
+  } = useFetchData({
     storeKey: DAILY_DISCOVER_LIST,
     defaultLimit: 18,
     sortBy: activeFilterConfig.sortBy,
@@ -129,7 +134,8 @@ export default function DailyDiscoverPage() {
     switch (activeFilter) {
       case "top-rated":
         return nextProducts.sort(
-          (left, right) => (right.product_ratingsAverange ?? 0) - (left.product_ratingsAverange ?? 0),
+          (left, right) =>
+            (right.product_ratingsAverange ?? 0) - (left.product_ratingsAverange ?? 0),
         );
       case "fast-delivery":
         return nextProducts.sort((left, right) => left.product_price - right.product_price);
@@ -143,7 +149,9 @@ export default function DailyDiscoverPage() {
       <section className="overflow-hidden rounded-[28px] border border-orange-200 bg-gradient-to-br from-orange-50 via-white to-amber-100">
         <div className="grid gap-6 px-5 py-8 md:grid-cols-[1.2fr_0.8fr] md:px-8 md:py-10">
           <div className="space-y-4">
-            <Badge className="bg-orange-500 text-white hover:bg-orange-500">{t("fresh_picks_daily")}</Badge>
+            <Badge className="bg-orange-500 text-white hover:bg-orange-500">
+              {t("fresh_picks_daily")}
+            </Badge>
             <div className="space-y-3">
               <h1 className="font-serif text-3xl font-semibold tracking-tight text-stone-900 md:text-5xl">
                 {t("daily_discover")}
@@ -197,7 +205,9 @@ export default function DailyDiscoverPage() {
                 <Compass className="h-4 w-4" />
                 {t("marketplace_feed")}
               </div>
-              <CardTitle className="text-2xl text-stone-900">{t("discover_products_worth_opening")}</CardTitle>
+              <CardTitle className="text-2xl text-stone-900">
+                {t("discover_products_worth_opening")}
+              </CardTitle>
               <CardDescription className="max-w-2xl text-sm leading-6 text-stone-600">
                 {t("discover_products_worth_opening_desc")}
               </CardDescription>

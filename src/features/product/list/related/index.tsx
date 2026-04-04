@@ -18,10 +18,9 @@ export default function ProRelatedList({ shopId = "" }: ProRelatedListProps) {
   const firstShop = products?.[0]?.product_shop;
   const resolvedShopId = firstShop?.shop_id || shopId;
   const resolvedShopSlug = firstShop?.shop_slug || "shop";
-  const shopDetailHref =
-    resolvedShopId
-      ? `/shop/${resolvedShopSlug}-s.${resolvedShopId}`
-      : undefined;
+  const shopDetailHref = resolvedShopId
+    ? `/shop/${resolvedShopSlug}-s.${resolvedShopId}`
+    : undefined;
 
   return (
     <ProductListSection

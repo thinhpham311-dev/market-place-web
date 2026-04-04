@@ -165,7 +165,9 @@ export default function PrivacySettingsCard() {
                         <Checkbox
                           id={item.key}
                           checked={preferences[item.key]}
-                          onCheckedChange={(checked) => handleCheckedChange(item.key, checked === true)}
+                          onCheckedChange={(checked) =>
+                            handleCheckedChange(item.key, checked === true)
+                          }
                           className="mt-1"
                         />
                         <div className="space-y-1">

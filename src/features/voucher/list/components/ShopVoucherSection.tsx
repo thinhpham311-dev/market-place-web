@@ -28,7 +28,9 @@ export default function ShopVoucherSection({ shopId = "" }: ShopVoucherSectionPr
   });
   const [claimedVoucherIds, setClaimedVoucherIds] = useState<string[]>([]);
 
-  const availableVouchers = vouchers.filter((voucher) => voucher.status === "available").slice(0, 3);
+  const availableVouchers = vouchers
+    .filter((voucher) => voucher.status === "available")
+    .slice(0, 3);
 
   const handleClaimVoucher = (voucherId: string) => {
     if (!signedIn) {
@@ -74,57 +76,65 @@ export default function ShopVoucherSection({ shopId = "" }: ShopVoucherSectionPr
 
       <CardContent className="px-0">
         <div className="grid gap-3 md:grid-cols-3">
-        {availableVouchers.map((voucher) => (
-          <Card key={voucher.discountId} className="overflow-hidden border-stone-200 shadow-none">
-            <CardContent className="space-y-3 p-4">
-              <div className="flex items-center justify-between gap-3">
-                <p className="font-semibold">{voucher.title}</p>
-                <Badge className="bg-orange-500 text-white hover:bg-orange-500">
-                  {t("voucher_available")}
-                </Badge>
-              </div>
-              {voucher.description ? (
-                <p className="line-clamp-2 text-sm text-muted-foreground">{voucher.description}</p>
-              ) : null}
-              <div className="space-y-1 text-sm text-muted-foreground">
-                {voucher.validUntil ? (
-                  <p>
-                    {t("voucher_valid_until")}:{" "}
-                    {formatDateTime(voucher.validUntil, {
-                      year: "numeric",
-                      month: "short",
-                      day: "numeric",
-                    })}
+          {availableVouchers.map((voucher) => (
+            <Card key={voucher.discountId} className="overflow-hidden border-stone-200 shadow-none">
+              <CardContent className="space-y-3 p-4">
+                <div className="flex items-center justify-between gap-3">
+                  <p className="font-semibold">{voucher.title}</p>
+                  <Badge className="bg-orange-500 text-white hover:bg-orange-500">
+                    {t("voucher_available")}
+                  </Badge>
+                </div>
+                {voucher.description ? (
+                  <p className="line-clamp-2 text-sm text-muted-foreground">
+                    {voucher.description}
                   </p>
                 ) : null}
-              </div>
-              <p className="text-xl font-semibold text-orange-600">
-                {formatToCurrency(voucher.discountAmount)}
-              </p>
-              <div className="flex flex-wrap items-center justify-between gap-3 text-sm text-muted-foreground">
-                <span>
-                  {t("voucher_min_spend")}: {formatToCurrency(voucher.minSpend)}
-                </span>
-                <div className="flex items-center gap-2">
-                  <Button asChild type="button" size="sm" variant="outline">
-                    <Link href={`/user/vouchers/${voucher.discountId}${voucher.shopId ? `?shopId=${voucher.shopId}` : ""}`}>
-                      {t("voucher_view_details")}
-                    </Link>
-                  </Button>
-                  <Button
-                    type="button"
-                    size="sm"
-                    variant={claimedVoucherIds.includes(voucher.discountId) ? "secondary" : "default"}
-                    onClick={() => handleClaimVoucher(voucher.discountId)}
-                    disabled={claimedVoucherIds.includes(voucher.discountId)}
-                  >
-                    {claimedVoucherIds.includes(voucher.discountId) ? t("voucher_claimed") : t("voucher_claim")}
-                  </Button>
+                <div className="space-y-1 text-sm text-muted-foreground">
+                  {voucher.validUntil ? (
+                    <p>
+                      {t("voucher_valid_until")}:{" "}
+                      {formatDateTime(voucher.validUntil, {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
+                    </p>
+                  ) : null}
                 </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+                <p className="text-xl font-semibold text-orange-600">
+                  {formatToCurrency(voucher.discountAmount)}
+                </p>
+                <div className="flex flex-wrap items-center justify-between gap-3 text-sm text-muted-foreground">
+                  <span>
+                    {t("voucher_min_spend")}: {formatToCurrency(voucher.minSpend)}
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <Button asChild type="button" size="sm" variant="outline">
+                      <Link
+                        href={`/user/vouchers/${voucher.discountId}${voucher.shopId ? `?shopId=${voucher.shopId}` : ""}`}
+                      >
+                        {t("voucher_view_details")}
+                      </Link>
+                    </Button>
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant={
+                        claimedVoucherIds.includes(voucher.discountId) ? "secondary" : "default"
+                      }
+                      onClick={() => handleClaimVoucher(voucher.discountId)}
+                      disabled={claimedVoucherIds.includes(voucher.discountId)}
+                    >
+                      {claimedVoucherIds.includes(voucher.discountId)
+                        ? t("voucher_claimed")
+                        : t("voucher_claim")}
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </CardContent>
     </Card>

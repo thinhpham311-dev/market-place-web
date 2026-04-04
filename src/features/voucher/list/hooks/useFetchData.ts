@@ -48,15 +48,15 @@ function resolveList(payload: Record<string, any> | null | undefined): Record<st
   const directList = Array.isArray(payload.list) ? payload.list : null;
   const metadataList = Array.isArray(payload.metadata?.list) ? payload.metadata.list : null;
   const dataList = Array.isArray(payload.data?.list) ? payload.data.list : null;
-  const nestedMetadataList = Array.isArray(payload.data?.metadata?.list) ? payload.data.metadata.list : null;
+  const nestedMetadataList = Array.isArray(payload.data?.metadata?.list)
+    ? payload.data.metadata.list
+    : null;
 
   return directList || metadataList || dataList || nestedMetadataList || [];
 }
 
 function resolveStatus(item: Record<string, any>, validUntil: string): VoucherStatus {
-  const rawStatus = normalizeString(
-    item.discount_status_code,
-  ).toLowerCase();
+  const rawStatus = normalizeString(item.discount_status_code).toLowerCase();
 
   if (rawStatus.includes("used")) {
     return "used";
@@ -112,12 +112,8 @@ function mapVoucherItem(item: Record<string, any>, index: number): VoucherItem {
   return {
     discountId: normalizeString(item.discount_id || `voucher_${index + 1}`),
     id: normalizeString(item.discount_id || `voucher_${index + 1}`),
-    title: normalizeString(
-      item.discount_name || "Voucher",
-    ),
-    description: normalizeString(
-      item.discount_description 
-    ),
+    title: normalizeString(item.discount_name || "Voucher"),
+    description: normalizeString(item.discount_description),
     code: normalizeString(item.code || item.discount_code || item.voucher_code || ""),
     minSpend: normalizeNumber(item.discount_min_order_value),
     discountAmount: maxDiscountAmount || discountValue,
@@ -126,7 +122,9 @@ function mapVoucherItem(item: Record<string, any>, index: number): VoucherItem {
     maxDiscountAmount,
     validFrom,
     validUntil,
-    usageLimit: normalizeNumber(item.usage_limit || item.limit || item.total_limit || item.quantity),
+    usageLimit: normalizeNumber(
+      item.usage_limit || item.limit || item.total_limit || item.quantity,
+    ),
     usageCount: normalizeNumber(
       item.used_count || item.usage_count || item.used || item.total_used || item.redeemed_count,
     ),

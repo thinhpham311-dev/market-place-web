@@ -28,7 +28,9 @@ export default function CategoryListPage() {
     );
 
     return parentCategories.map((parent) => {
-      const directChildren = categories.filter((category) => category.parent_id === parent.category_id);
+      const directChildren = categories.filter(
+        (category) => category.parent_id === parent.category_id,
+      );
 
       return {
         parent,

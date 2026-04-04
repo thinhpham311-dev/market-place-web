@@ -47,7 +47,8 @@ export default function ProShippingInfo() {
         <div className="flex items-start gap-2">
           <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-stone-500" />
           <p>
-            {t("product_shipping_from")}: <span className="font-medium text-foreground">{shipFrom}</span>
+            {t("product_shipping_from")}:{" "}
+            <span className="font-medium text-foreground">{shipFrom}</span>
           </p>
         </div>
 
@@ -56,7 +57,9 @@ export default function ProShippingInfo() {
           <p>
             {t("product_shipping_estimated_fee")}:{" "}
             <span className="font-medium text-foreground">
-              {estimatedShipping === 0 ? t("product_shipping_free") : formatToCurrency(estimatedShipping)}
+              {estimatedShipping === 0
+                ? t("product_shipping_free")
+                : formatToCurrency(estimatedShipping)}
             </span>
           </p>
         </div>

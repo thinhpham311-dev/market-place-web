@@ -18,7 +18,9 @@ function MenuItems({ item, pathname }: SidebarMenuItemProps) {
         <ul className="ml-4 border-l pl-4">
           {item.children?.map((child) => (
             <MenuItems
-              key={child.type === "link" ? child.url : `${child.title}-${child.children?.length ?? 0}`}
+              key={
+                child.type === "link" ? child.url : `${child.title}-${child.children?.length ?? 0}`
+              }
               item={child}
               pathname={pathname}
             />

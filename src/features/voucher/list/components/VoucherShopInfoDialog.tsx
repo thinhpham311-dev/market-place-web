@@ -37,7 +37,12 @@ export default function VoucherShopInfoDialog({ shopId = "" }: VoucherShopInfoDi
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button type="button" size="sm" variant="ghost" className="h-auto px-0 text-xs text-orange-600">
+        <Button
+          type="button"
+          size="sm"
+          variant="ghost"
+          className="h-auto px-0 text-xs text-orange-600"
+        >
           {t("voucher_shop_info")}
         </Button>
       </DialogTrigger>

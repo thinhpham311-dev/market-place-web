@@ -10,10 +10,7 @@ type EmptyStateProps = {
   className?: string;
 };
 
-export default function EmptyState({
-  message,
-  className,
-}: EmptyStateProps) {
+export default function EmptyState({ message, className }: EmptyStateProps) {
   const { t } = useTranslation();
 
   return (

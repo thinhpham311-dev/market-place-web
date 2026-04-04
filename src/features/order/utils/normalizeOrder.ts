@@ -91,9 +91,9 @@ function matchesOrderToUser(order: OrderViewModel, user?: AuthUserLike) {
 
   return Boolean(
     (userId && normalizeText(order.customerId) === userId) ||
-      (userEmail && normalizeText(order.customerEmail) === userEmail) ||
-      (userPhone && normalizeText(order.customerPhone) === userPhone) ||
-      (userName && normalizeText(order.customerName) === userName),
+    (userEmail && normalizeText(order.customerEmail) === userEmail) ||
+    (userPhone && normalizeText(order.customerPhone) === userPhone) ||
+    (userName && normalizeText(order.customerName) === userName),
   );
 }
 
@@ -162,10 +162,15 @@ export function getOrdersForCurrentUser(user?: AuthUserLike, signedIn: boolean =
     ...order,
     customerName: displayName,
     customerEmail:
-      typeof user?.email === "string" && user.email.trim() ? user.email.trim() : order.customerEmail,
+      typeof user?.email === "string" && user.email.trim()
+        ? user.email.trim()
+        : order.customerEmail,
     customerPhone:
-      typeof user?.phone === "string" && user.phone.trim() ? user.phone.trim() : order.customerPhone,
-    customerId: typeof user?._id === "string" && user._id.trim() ? user._id.trim() : order.customerId,
+      typeof user?.phone === "string" && user.phone.trim()
+        ? user.phone.trim()
+        : order.customerPhone,
+    customerId:
+      typeof user?._id === "string" && user._id.trim() ? user._id.trim() : order.customerId,
     shippingAddress: {
       ...order.shippingAddress,
       fullName: displayName,

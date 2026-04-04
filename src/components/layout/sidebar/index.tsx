@@ -132,9 +132,17 @@ export default function SidebarNavigation() {
         title: t("sidebar_notifications"),
         icon: Bell,
         children: [
-          { type: "link", title: t("sidebar_order_update"), url: "/user/notifications/order-update" },
+          {
+            type: "link",
+            title: t("sidebar_order_update"),
+            url: "/user/notifications/order-update",
+          },
           { type: "link", title: t("sidebar_promotions"), url: "/user/notifications/promotions" },
-          { type: "link", title: t("sidebar_wallet_update"), url: "/user/notifications/wallet-update" },
+          {
+            type: "link",
+            title: t("sidebar_wallet_update"),
+            url: "/user/notifications/wallet-update",
+          },
           {
             type: "link",
             title: t("sidebar_marketplace_update"),
@@ -172,7 +180,9 @@ export default function SidebarNavigation() {
             <SidebarMenu className="flex-1" aria-labelledby="application-group">
               {menuToRender.map((item) => (
                 <MenuItems
-                  key={item.type === "link" ? item.url : `${item.title}-${item.children?.length ?? 0}`}
+                  key={
+                    item.type === "link" ? item.url : `${item.title}-${item.children?.length ?? 0}`
+                  }
                   item={item}
                   pathname={pathname}
                 />

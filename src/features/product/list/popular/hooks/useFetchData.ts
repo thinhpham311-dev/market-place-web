@@ -49,9 +49,7 @@ export function useFetchData({
   } = useAppSelector(selectProPopularListByStoreKey(storeKey));
 
   useEffect(() => {
-    const promise = dispatch(
-      getProductList({ limit, sortBy: "ctime", page: currentPage }) as any,
-    );
+    const promise = dispatch(getProductList({ limit, sortBy: "ctime", page: currentPage }) as any);
     return () => {
       promise.abort();
     };

@@ -10,10 +10,7 @@ export default function LoadingSkeleton({
   return (
     <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6">
       {Array.from({ length: count }).map((_, index) => (
-        <div
-          key={index}
-          className="aspect-square rounded-3xl border bg-background p-4"
-        >
+        <div key={index} className="aspect-square rounded-3xl border bg-background p-4">
           {logoOnly ? (
             <Skeleton className="h-full w-full rounded-2xl" />
           ) : (

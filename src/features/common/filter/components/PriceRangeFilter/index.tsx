@@ -30,9 +30,17 @@ const FilterPriceRange = (
     <Card className="border-none shadow-none">
       <CardContent className="p-0">
         <div className="grid grid-cols-5 items-center gap-y-3">
-          <PriceInput placeholder={t("price_min")} value={0} onChange={(v) => handleInputChange(0, v)} />
+          <PriceInput
+            placeholder={t("price_min")}
+            value={0}
+            onChange={(v) => handleInputChange(0, v)}
+          />
           <span className="text-center">-</span>
-          <PriceInput placeholder={t("price_max")} value={1000} onChange={(v) => handleInputChange(1, v)} />
+          <PriceInput
+            placeholder={t("price_max")}
+            value={1000}
+            onChange={(v) => handleInputChange(1, v)}
+          />
           <PriceApplyButton onClick={handleApply} />
         </div>
       </CardContent>

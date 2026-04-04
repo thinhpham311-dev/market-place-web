@@ -17,9 +17,12 @@ export function useFetchData() {
   }, []);
 
   const dispatch = useAppDispatch();
-  const { brands = [], totalItems = 0, loading = false, error = null } = useAppSelector(
-    selectBrandAllListByStoreKey(BRAND_ALL_LIST),
-  );
+  const {
+    brands = [],
+    totalItems = 0,
+    loading = false,
+    error = null,
+  } = useAppSelector(selectBrandAllListByStoreKey(BRAND_ALL_LIST));
 
   useEffect(() => {
     const promise = dispatch(getBrandAllList({}) as any);

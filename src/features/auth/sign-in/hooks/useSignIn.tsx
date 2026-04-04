@@ -43,8 +43,7 @@ export function useSignIn() {
       router.push("/");
       router.refresh();
     } catch (error: any) {
-      const message =
-        error?.response?.data?.message || error?.message || t("auth_sign_in_failed");
+      const message = error?.response?.data?.message || error?.message || t("auth_sign_in_failed");
 
       toast.error(message);
       throw error;

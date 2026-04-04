@@ -22,7 +22,13 @@ const ShopViewButton: React.FC<ShopViewButtonProps> = ({ slug, id }) => {
   };
 
   return (
-    <Button variant="outline" size="sm" className="w-full" onClick={handleView} disabled={isDisabled}>
+    <Button
+      variant="outline"
+      size="sm"
+      className="w-full"
+      onClick={handleView}
+      disabled={isDisabled}
+    >
       <Eye className="w-4 h-4 mr-1" />
       <span>{t("shop_view")}</span>
     </Button>

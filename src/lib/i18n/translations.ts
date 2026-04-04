@@ -563,8 +563,7 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
       "Quick-shop picks surfaced first inside the current discovery page.",
     daily_discover_top_rated_desc:
       "Products with the strongest visible rating on the current page.",
-    daily_discover_best_value_desc:
-      "Lower-priced items prioritized for value-focused browsing.",
+    daily_discover_best_value_desc: "Lower-priced items prioritized for value-focused browsing.",
     daily_discover_fresh_arrivals_desc: "Newest arrivals in the current discovery stream.",
     daily_discover_trust_fast_dispatch: "Fast dispatch",
     daily_discover_trust_fast_dispatch_desc:
@@ -684,7 +683,8 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     checkout_payment_stripe: "Stripe",
     checkout_payment_stripe_desc: "Pay securely with your debit or credit card.",
     checkout_shipping_details: "Shipping Details",
-    checkout_shipping_details_desc: "Confirm where we should deliver your order and how we can reach you.",
+    checkout_shipping_details_desc:
+      "Confirm where we should deliver your order and how we can reach you.",
     checkout_full_name: "Full Name",
     checkout_recipient_name_placeholder: "Enter the recipient name",
     checkout_email: "Email",
@@ -872,7 +872,8 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     product_shipping_eta: "Estimated arrival",
     product_shipping_eta_value: "2-5 business days",
     product_shipping_free_shipping_note: "This item qualifies for free standard delivery.",
-    product_shipping_standard_note: "Delivery fee may change based on address and selected options.",
+    product_shipping_standard_note:
+      "Delivery fee may change based on address and selected options.",
     not_found_title: "Page not found",
     not_found_description:
       "The page you are looking for may have been moved, removed, or never existed in the first place.",
@@ -941,12 +942,14 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     sidebar_marketplace_update: "Market Place Update",
     flash_sale_badge: "Flash sale picks",
     flash_sale_title: "Flash Sale",
-    flash_sale_desc: "Fast-moving deals, limited-time picks, and products worth grabbing before they are gone.",
+    flash_sale_desc:
+      "Fast-moving deals, limited-time picks, and products worth grabbing before they are gone.",
     flash_sale_highlight_limited: "Limited-time prices updated throughout the day.",
     flash_sale_highlight_fast: "Fast picks surfaced for quick, deal-driven shopping.",
     flash_sale_highlight_daily: "Fresh sale items collected into one dedicated page.",
     flash_sale_label: "Flash sale feed",
-    flash_sale_page_desc: "A full-page list of time-sensitive deals gathered from the current hot deal stream.",
+    flash_sale_page_desc:
+      "A full-page list of time-sensitive deals gathered from the current hot deal stream.",
     admin_seller_centre: "Seller Centre",
     admin_download: "Download",
     order_purchase_desc: "Track, review, and revisit all of your recent purchases in one place.",
@@ -982,7 +985,8 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     order_tax_price: "Tax Price:",
     order_total_price: "Total Price:",
     order_created_at: "Created at:",
-    voucher_wallet_desc: "Keep track of saved discounts, used coupons, and expired voucher campaigns in one place.",
+    voucher_wallet_desc:
+      "Keep track of saved discounts, used coupons, and expired voucher campaigns in one place.",
     voucher_available: "Available",
     voucher_used: "Used",
     voucher_expired: "Expired",
@@ -1010,7 +1014,8 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     voucher_claim_sign_in: "Please sign in to claim vouchers.",
     voucher_view_details: "View details",
     voucher_detail_title: "Voucher details",
-    voucher_detail_desc: "Review the offer, eligibility, and usage conditions before you apply or claim this voucher.",
+    voucher_detail_desc:
+      "Review the offer, eligibility, and usage conditions before you apply or claim this voucher.",
     voucher_detail_not_found: "Voucher not found.",
     voucher_terms_title: "Voucher terms",
     voucher_usage_title: "Usage and eligibility",
@@ -1083,8 +1088,7 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
       "Những sản phẩm phổ biến toàn sàn được gom vào cùng một luồng khám phá.",
     daily_discover_bundle_deals_desc:
       "Các combo giá tốt được ưu tiên hiển thị trong luồng khám phá.",
-    daily_discover_recommended_desc:
-      "Các gợi ý cân bằng dựa trên luồng khám phá mặc định của sàn.",
+    daily_discover_recommended_desc: "Các gợi ý cân bằng dựa trên luồng khám phá mặc định của sàn.",
     daily_discover_trending_desc:
       "Sản phẩm được ưu tiên theo độ phổ biến khi nguồn dữ liệu hỗ trợ.",
     daily_discover_fast_delivery_desc:
@@ -1093,8 +1097,7 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
       "Sản phẩm có điểm đánh giá hiển thị tốt nhất trên trang hiện tại.",
     daily_discover_best_value_desc:
       "Các sản phẩm giá thấp hơn được ưu tiên cho nhu cầu săn giá tốt.",
-    daily_discover_fresh_arrivals_desc:
-      "Những sản phẩm mới nhất trong luồng khám phá hiện tại.",
+    daily_discover_fresh_arrivals_desc: "Những sản phẩm mới nhất trong luồng khám phá hiện tại.",
     daily_discover_trust_fast_dispatch: "Giao nhanh",
     daily_discover_trust_fast_dispatch_desc:
       "Các lựa chọn sẵn sàng giao được ưu tiên cho nhu cầu mua hằng ngày.",
@@ -1102,8 +1105,7 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     daily_discover_trust_trusted_sellers_desc:
       "Sản phẩm được chọn lọc từ các shop có tín hiệu phục vụ đáng tin cậy.",
     daily_discover_trust_hot_pricing: "Giá nổi bật",
-    daily_discover_trust_hot_pricing_desc:
-      "Các sản phẩm phổ biến với mức giá cạnh tranh trên sàn.",
+    daily_discover_trust_hot_pricing_desc: "Các sản phẩm phổ biến với mức giá cạnh tranh trên sàn.",
     all_categories: "Tất cả danh mục",
     all_categories_desc: "Khám phá toàn bộ danh mục hiện có trên sàn.",
     category_subcategories_count: "danh mục con",
@@ -1204,7 +1206,8 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     checkout_go_to_sign_in: "Đi đến đăng nhập",
     checkout_place_order: "Đặt hàng",
     checkout_sign_in_before_payment_error: "Vui lòng đăng nhập trước khi tiếp tục thanh toán.",
-    checkout_empty_error: "Chưa có sản phẩm nào để thanh toán. Hãy thêm sản phẩm từ giỏ hàng trước.",
+    checkout_empty_error:
+      "Chưa có sản phẩm nào để thanh toán. Hãy thêm sản phẩm từ giỏ hàng trước.",
     checkout_order_placed_success: "Đặt hàng thành công với",
     checkout_payment_cod: "Thanh toán khi nhận hàng",
     checkout_payment_cod_desc: "Thanh toán khi đơn hàng được giao đến địa chỉ của bạn.",
@@ -1401,7 +1404,8 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     product_shipping_eta: "Dự kiến nhận hàng",
     product_shipping_eta_value: "2-5 ngày làm việc",
     product_shipping_free_shipping_note: "Sản phẩm này đủ điều kiện giao tiêu chuẩn miễn phí.",
-    product_shipping_standard_note: "Phí giao hàng có thể thay đổi theo địa chỉ và phân loại đã chọn.",
+    product_shipping_standard_note:
+      "Phí giao hàng có thể thay đổi theo địa chỉ và phân loại đã chọn.",
     not_found_title: "Không tìm thấy trang",
     not_found_description:
       "Trang bạn đang tìm có thể đã được di chuyển, bị xóa hoặc chưa từng tồn tại.",
@@ -1470,7 +1474,8 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     sidebar_marketplace_update: "Cập nhật Market Place",
     flash_sale_badge: "Ưu đãi flash sale",
     flash_sale_title: "Flash Sale",
-    flash_sale_desc: "Những deal chớp nhoáng, ưu đãi có thời hạn và sản phẩm đáng mua trước khi hết cơ hội.",
+    flash_sale_desc:
+      "Những deal chớp nhoáng, ưu đãi có thời hạn và sản phẩm đáng mua trước khi hết cơ hội.",
     flash_sale_highlight_limited: "Giá giới hạn được cập nhật liên tục trong ngày.",
     flash_sale_highlight_fast: "Các deal nổi bật được đưa lên trước để mua nhanh hơn.",
     flash_sale_highlight_daily: "Sản phẩm giảm giá mới được gom vào một trang riêng.",
@@ -1511,8 +1516,7 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     order_tax_price: "Thuế:",
     order_total_price: "Tổng cộng:",
     order_created_at: "Tạo lúc:",
-    voucher_wallet_desc:
-      "Theo dõi voucher còn hiệu lực, đã dùng và đã hết hạn trong cùng một nơi.",
+    voucher_wallet_desc: "Theo dõi voucher còn hiệu lực, đã dùng và đã hết hạn trong cùng một nơi.",
     voucher_available: "Có thể dùng",
     voucher_used: "Đã dùng",
     voucher_expired: "Hết hạn",
@@ -1540,7 +1544,8 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     voucher_claim_sign_in: "Vui lòng đăng nhập để lưu voucher.",
     voucher_view_details: "Xem chi tiết",
     voucher_detail_title: "Chi tiết voucher",
-    voucher_detail_desc: "Xem ưu đãi, điều kiện áp dụng và cách sử dụng voucher trước khi lưu hoặc dùng.",
+    voucher_detail_desc:
+      "Xem ưu đãi, điều kiện áp dụng và cách sử dụng voucher trước khi lưu hoặc dùng.",
     voucher_detail_not_found: "Không tìm thấy voucher.",
     voucher_terms_title: "Điều khoản voucher",
     voucher_usage_title: "Điều kiện và cách dùng",
@@ -1590,16 +1595,14 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     shop_by_brand: "ブランドから探す",
     shop_by_brand_desc: "人気ブランドの商品をブランド別に探せます。",
     verify_email_otp: "メールOTP確認",
-    verify_email_otp_desc:
-      "アカウント設定を完了するためにメールに届いたOTPを入力してください。",
+    verify_email_otp_desc: "アカウント設定を完了するためにメールに届いたOTPを入力してください。",
     sign_in: "サインイン",
     sign_up: "サインアップ",
     change_password: "パスワード変更",
     update_profile_user: "プロフィール更新",
     fresh_picks_daily: "毎日の新着ピック",
     discover_products_worth_opening: "見逃せない商品を発見",
-    discover_products_worth_opening_desc:
-      "気になる商品を次々見つけやすい発見フィードです。",
+    discover_products_worth_opening_desc: "気になる商品を次々見つけやすい発見フィードです。",
     items_found: "件の商品",
     marketplace_feed: "マーケットフィード",
     popular_tab: "人気商品",
@@ -1610,30 +1613,22 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     top_rated_tab: "高評価",
     best_value_tab: "お買い得",
     fresh_arrivals_tab: "新着商品",
-    daily_discover_popular_desc:
-      "マーケット全体で人気の商品を同じ発見フィードにまとめています。",
-    daily_discover_bundle_deals_desc:
-      "お得な組み合わせ商品を発見フィード内で優先表示します。",
+    daily_discover_popular_desc: "マーケット全体で人気の商品を同じ発見フィードにまとめています。",
+    daily_discover_bundle_deals_desc: "お得な組み合わせ商品を発見フィード内で優先表示します。",
     daily_discover_recommended_desc:
       "デフォルトの発見フィードを基にしたバランスの良いおすすめです。",
-    daily_discover_trending_desc:
-      "フィードが対応している場合、人気順で商品を表示します。",
-    daily_discover_fast_delivery_desc:
-      "今の発見ページで素早く買いやすい商品を先に表示します。",
-    daily_discover_top_rated_desc:
-      "現在のページで評価が高く見える商品を優先表示します。",
-    daily_discover_best_value_desc:
-      "お得に探したい人向けに、低価格帯の商品を優先表示します。",
+    daily_discover_trending_desc: "フィードが対応している場合、人気順で商品を表示します。",
+    daily_discover_fast_delivery_desc: "今の発見ページで素早く買いやすい商品を先に表示します。",
+    daily_discover_top_rated_desc: "現在のページで評価が高く見える商品を優先表示します。",
+    daily_discover_best_value_desc: "お得に探したい人向けに、低価格帯の商品を優先表示します。",
     daily_discover_fresh_arrivals_desc: "現在の発見フィード内の新着商品です。",
     daily_discover_trust_fast_dispatch: "スピード発送",
     daily_discover_trust_fast_dispatch_desc:
       "日常の買い物向けに、すぐ発送できる商品を優先しています。",
     daily_discover_trust_trusted_sellers: "信頼できるショップ",
-    daily_discover_trust_trusted_sellers_desc:
-      "サービス評価の高いショップの商品を厳選しています。",
+    daily_discover_trust_trusted_sellers_desc: "サービス評価の高いショップの商品を厳選しています。",
     daily_discover_trust_hot_pricing: "注目価格",
-    daily_discover_trust_hot_pricing_desc:
-      "マーケットで競争力のある価格の商品を目立たせています。",
+    daily_discover_trust_hot_pricing_desc: "マーケットで競争力のある価格の商品を目立たせています。",
     all_categories: "すべてのカテゴリ",
     all_categories_desc: "マーケットプレイス内のすべてのカテゴリを一覧できます。",
     category_subcategories_count: "サブカテゴリ",
@@ -1855,11 +1850,9 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     privacy_section_recommendations_desc:
       "閲覧・検索・購入履歴をもとにしたおすすめ表示の使い方を管理します。",
     privacy_section_notifications: "通知のプライバシー",
-    privacy_section_notifications_desc:
-      "どの更新通知や販促メッセージを受け取るかを選択できます。",
+    privacy_section_notifications_desc: "どの更新通知や販促メッセージを受け取るかを選択できます。",
     privacy_section_security: "セキュリティと端末",
-    privacy_section_security_desc:
-      "信頼済み端末やサインインの利便性に関する設定を管理します。",
+    privacy_section_security_desc: "信頼済み端末やサインインの利便性に関する設定を管理します。",
     privacy_pref_profile_visibility: "マーケットプレイス内でプロフィール活動を表示する",
     privacy_pref_profile_visibility_desc:
       "フォローや公開された買い物活動を、必要に応じてコミュニティ向け表示に利用できるようにします。",
@@ -1882,8 +1875,7 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     privacy_danger_zone_title: "注意が必要な操作",
     privacy_danger_zone_desc: "元に戻しにくいアカウント操作です。慎重に行ってください。",
     privacy_request_delete_title: "アカウント削除を申請する",
-    privacy_request_delete_desc:
-      "確認後にアカウントと関連個人情報の削除申請を開始します。",
+    privacy_request_delete_desc: "確認後にアカウントと関連個人情報の削除申請を開始します。",
     privacy_request_delete_button: "削除を申請",
     privacy_delete_dialog_title: "アカウント削除申請を確認",
     privacy_delete_dialog_desc:
@@ -1931,7 +1923,8 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     product_shipping_eta: "お届け予定",
     product_shipping_eta_value: "2〜5営業日",
     product_shipping_free_shipping_note: "この商品は通常配送が無料で利用できます。",
-    product_shipping_standard_note: "配送料は配送先住所や選択したバリエーションによって変わる場合があります。",
+    product_shipping_standard_note:
+      "配送料は配送先住所や選択したバリエーションによって変わる場合があります。",
     not_found_title: "ページが見つかりません",
     not_found_description:
       "お探しのページは移動されたか、削除されたか、もともと存在しない可能性があります。",
@@ -1945,8 +1938,7 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     auth_check_otp_success: "メールの確認が完了しました。",
     auth_check_otp_failed: "OTP確認に失敗しました。もう一度お試しください。",
     quantity_reached_maximum: "最大数量に達しました。",
-    quantity_limit_warning:
-      "これ以上数量を増やすと購入上限を超え、価格が変動する可能性があります",
+    quantity_limit_warning: "これ以上数量を増やすと購入上限を超え、価格が変動する可能性があります",
     review_validation_missing: "評価とコメントの両方を入力してください。",
     review_submit: "送信",
     review_placeholder: "レビューを入力してください...",
@@ -1964,12 +1956,10 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     cart_variants_updated_title: "バリエーションを更新しました",
     cart_variants_updated_desc: "商品 {product} - {variants} を更新しました。",
     cart_item_removed_title: "商品をカートから削除しました",
-    cart_item_removed_desc:
-      "商品 {product} - {variants} x {quantity} をカートから削除しました。",
+    cart_item_removed_desc: "商品 {product} - {variants} x {quantity} をカートから削除しました。",
     cart_remove_tooltip: "商品をカートから削除",
     cart_add_success_title: "カートに追加しました",
-    cart_add_success_desc:
-      "商品 {product} - {variants} x {quantity} をカートに追加しました。",
+    cart_add_success_desc: "商品 {product} - {variants} x {quantity} をカートに追加しました。",
     cart_selected_all: "すべて選択",
     cart_item_count: "商品",
     cart_delete_items: "削除",
@@ -2000,12 +1990,14 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     sidebar_marketplace_update: "Market Place 更新",
     flash_sale_badge: "フラッシュセール特集",
     flash_sale_title: "フラッシュセール",
-    flash_sale_desc: "短時間で動くお得な商品や、売り切れる前にチェックしたい期間限定セールをまとめています。",
+    flash_sale_desc:
+      "短時間で動くお得な商品や、売り切れる前にチェックしたい期間限定セールをまとめています。",
     flash_sale_highlight_limited: "期間限定価格を日中に随時更新します。",
     flash_sale_highlight_fast: "すばやく買いやすい注目セールを先に表示します。",
     flash_sale_highlight_daily: "新しいセール商品を専用ページにまとめています。",
     flash_sale_label: "フラッシュセール一覧",
-    flash_sale_page_desc: "現在の hot deal ストリームから、期間限定のお得商品をまとめた一覧ページです。",
+    flash_sale_page_desc:
+      "現在の hot deal ストリームから、期間限定のお得商品をまとめた一覧ページです。",
     admin_seller_centre: "販売者センター",
     admin_download: "ダウンロード",
     order_purchase_desc: "最近の購入履歴をまとめて確認し、各注文の詳細をすばやく見直せます。",

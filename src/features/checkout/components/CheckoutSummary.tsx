@@ -38,7 +38,9 @@ export default function CheckoutSummary({
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex items-center justify-between text-sm">
-          <span>{t("checkout_items")} ({itemCount})</span>
+          <span>
+            {t("checkout_items")} ({itemCount})
+          </span>
           <span>{formatToCurrency(subTotal)}</span>
         </div>
         <div className="flex items-center justify-between text-sm">
@@ -59,9 +61,7 @@ export default function CheckoutSummary({
         <Button className="w-full" disabled={disabled || isSubmitting} onClick={onSubmit}>
           {isSubmitting ? t("checkout_placing_order") : ctaLabel || t("checkout_place_order")}
         </Button>
-        <p className="text-center text-xs text-muted-foreground">
-          {t("checkout_terms_notice")}
-        </p>
+        <p className="text-center text-xs text-muted-foreground">{t("checkout_terms_notice")}</p>
       </CardFooter>
     </Card>
   );

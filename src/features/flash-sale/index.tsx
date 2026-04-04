@@ -19,7 +19,12 @@ const highlightKeys = [
 
 export default function FlashSalePage() {
   const { t } = useTranslation();
-  const { products, totalItems = 0, loading, error } = useFetchData({
+  const {
+    products,
+    totalItems = 0,
+    loading,
+    error,
+  } = useFetchData({
     storeKey: FLASH_SALE_LIST,
     defaultLimit: 18,
     defaultCurrentPage: 1,

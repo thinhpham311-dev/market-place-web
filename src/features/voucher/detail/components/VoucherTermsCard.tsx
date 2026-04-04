@@ -22,14 +22,20 @@ export default function VoucherTermsCard({ voucher, discountSummary }: VoucherTe
       <CardContent className="grid gap-3 text-sm text-muted-foreground md:grid-cols-2">
         <p>
           {t("voucher_discount_type")}:{" "}
-          {t(voucher.discountType === "percentage" ? "voucher_type_percentage" : "voucher_type_amount")}
+          {t(
+            voucher.discountType === "percentage"
+              ? "voucher_type_percentage"
+              : "voucher_type_amount",
+          )}
         </p>
         <p>
           {t("voucher_discount_value")}: {discountSummary}
         </p>
         <p>
           {t("voucher_min_spend")}:{" "}
-          {voucher.minSpend > 0 ? formatToCurrency(voucher.minSpend) : t("voucher_no_minimum_spend")}
+          {voucher.minSpend > 0
+            ? formatToCurrency(voucher.minSpend)
+            : t("voucher_no_minimum_spend")}
         </p>
         {voucher.maxDiscountAmount > 0 ? (
           <p>

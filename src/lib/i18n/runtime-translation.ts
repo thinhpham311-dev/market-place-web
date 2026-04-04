@@ -18,7 +18,9 @@ function readLanguageFromPersistedStore(): SupportedLanguage | null {
       return null;
     }
 
-    const parsedStore = JSON.parse(rawPersistStore) as { settings?: string | { language?: { current?: string } } };
+    const parsedStore = JSON.parse(rawPersistStore) as {
+      settings?: string | { language?: { current?: string } };
+    };
     const settings =
       typeof parsedStore.settings === "string"
         ? (JSON.parse(parsedStore.settings) as { language?: { current?: string } })
@@ -63,7 +65,12 @@ function readLanguageFromNavigator(): SupportedLanguage | null {
 }
 
 export function getCurrentLanguage(): SupportedLanguage {
-  return readLanguageFromPersistedStore() ?? readLanguageFromDocument() ?? readLanguageFromNavigator() ?? "en";
+  return (
+    readLanguageFromPersistedStore() ??
+    readLanguageFromDocument() ??
+    readLanguageFromNavigator() ??
+    "en"
+  );
 }
 
 export function translateRuntime(key: TranslationKey): string {

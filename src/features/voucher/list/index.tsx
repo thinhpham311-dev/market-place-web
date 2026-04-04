@@ -22,23 +22,34 @@ function VoucherStatusBadge({ status }: { status: VoucherStatus }) {
   const { t } = useTranslation();
 
   if (status === "used") {
-    return <Badge className="bg-emerald-600 text-white hover:bg-emerald-600">{t("voucher_used")}</Badge>;
+    return (
+      <Badge className="bg-emerald-600 text-white hover:bg-emerald-600">{t("voucher_used")}</Badge>
+    );
   }
 
   if (status === "expired") {
     return <Badge variant="secondary">{t("voucher_expired")}</Badge>;
   }
 
-  return <Badge className="bg-orange-500 text-white hover:bg-orange-500">{t("voucher_available")}</Badge>;
+  return (
+    <Badge className="bg-orange-500 text-white hover:bg-orange-500">{t("voucher_available")}</Badge>
+  );
 }
 
-function VoucherDiscountValue({ voucher }: { voucher: ReturnType<typeof useFetchData>["vouchers"][number] }) {
+function VoucherDiscountValue({
+  voucher,
+}: {
+  voucher: ReturnType<typeof useFetchData>["vouchers"][number];
+}) {
   const { t } = useTranslation();
 
   if (voucher.discountType === "percentage") {
     return (
       <span>
-        {voucher.discountValue}% {voucher.maxDiscountAmount > 0 ? `(${t("voucher_max_discount")}: ${formatToCurrency(voucher.maxDiscountAmount)})` : ""}
+        {voucher.discountValue}%{" "}
+        {voucher.maxDiscountAmount > 0
+          ? `(${t("voucher_max_discount")}: ${formatToCurrency(voucher.maxDiscountAmount)})`
+          : ""}
       </span>
     );
   }
@@ -53,7 +64,12 @@ export default function VoucherListPage() {
   const shopId = searchParams.get("shopId") || undefined;
   const limit = Number(searchParams.get("limit") || 50);
   const page = Number(searchParams.get("page") || 1);
-  const { vouchers, loading, error, shopId: resolvedShopId } = useFetchData({
+  const {
+    vouchers,
+    loading,
+    error,
+    shopId: resolvedShopId,
+  } = useFetchData({
     shopId,
     limit: Number.isFinite(limit) && limit > 0 ? limit : 50,
     page: Number.isFinite(page) && page > 0 ? page : 1,
@@ -160,7 +176,10 @@ export default function VoucherListPage() {
                     </div>
                   ) : (
                     items.map((voucher) => (
-                      <Card key={voucher.discountId} className="overflow-hidden border-stone-200 shadow-none">
+                      <Card
+                        key={voucher.discountId}
+                        className="overflow-hidden border-stone-200 shadow-none"
+                      >
                         <CardContent className="flex flex-col gap-4 p-4 md:flex-row md:items-center md:justify-between md:p-5">
                           <div className="flex items-start gap-4">
                             <div className="rounded-2xl bg-orange-100 p-3 text-orange-600">
@@ -172,20 +191,41 @@ export default function VoucherListPage() {
                                 <VoucherStatusBadge status={voucher.status} />
                               </div>
                               {voucher.description ? (
-                                <p className="text-sm text-muted-foreground">{voucher.description}</p>
+                                <p className="text-sm text-muted-foreground">
+                                  {voucher.description}
+                                </p>
                               ) : null}
                               <div className="grid gap-1 text-sm text-muted-foreground md:grid-cols-2">
-                                {voucher.code ? <p>{t("voucher_code")}: {voucher.code}</p> : null}
+                                {voucher.code ? (
+                                  <p>
+                                    {t("voucher_code")}: {voucher.code}
+                                  </p>
+                                ) : null}
                                 {voucher.shopId ? (
                                   <div className="flex flex-wrap items-center gap-2">
-                                    <p>{t("voucher_shop_id")}: {voucher.shopId}</p>
+                                    <p>
+                                      {t("voucher_shop_id")}: {voucher.shopId}
+                                    </p>
                                     <VoucherShopInfoDialog shopId={voucher.shopId} />
                                   </div>
                                 ) : null}
-                                <p>{t("voucher_discount_type")}: {t(voucher.discountType === "percentage" ? "voucher_type_percentage" : "voucher_type_amount")}</p>
-                                <p>{t("voucher_discount_value")}: <VoucherDiscountValue voucher={voucher} /></p>
+                                <p>
+                                  {t("voucher_discount_type")}:{" "}
+                                  {t(
+                                    voucher.discountType === "percentage"
+                                      ? "voucher_type_percentage"
+                                      : "voucher_type_amount",
+                                  )}
+                                </p>
+                                <p>
+                                  {t("voucher_discount_value")}:{" "}
+                                  <VoucherDiscountValue voucher={voucher} />
+                                </p>
                                 {voucher.maxDiscountAmount > 0 ? (
-                                  <p>{t("voucher_max_discount")}: {formatToCurrency(voucher.maxDiscountAmount)}</p>
+                                  <p>
+                                    {t("voucher_max_discount")}:{" "}
+                                    {formatToCurrency(voucher.maxDiscountAmount)}
+                                  </p>
                                 ) : null}
                                 {voucher.validFrom ? (
                                   <p>
@@ -212,17 +252,23 @@ export default function VoucherListPage() {
                                   </p>
                                 ) : null}
                                 {voucher.usageLimit > 0 ? (
-                                  <p>{t("voucher_usage_limit")}: {voucher.usageLimit}</p>
+                                  <p>
+                                    {t("voucher_usage_limit")}: {voucher.usageLimit}
+                                  </p>
                                 ) : null}
                                 {voucher.usageCount > 0 ? (
-                                  <p>{t("voucher_usage_count")}: {voucher.usageCount}</p>
+                                  <p>
+                                    {t("voucher_usage_count")}: {voucher.usageCount}
+                                  </p>
                                 ) : null}
                               </div>
                             </div>
                           </div>
 
                           <div className="text-left md:text-right">
-                            <p className="text-sm text-muted-foreground">{t("voucher_discount_amount")}</p>
+                            <p className="text-sm text-muted-foreground">
+                              {t("voucher_discount_amount")}
+                            </p>
                             <p className="text-2xl font-semibold text-orange-600">
                               <VoucherDiscountValue voucher={voucher} />
                             </p>
@@ -232,7 +278,9 @@ export default function VoucherListPage() {
                               </span>
                               <div className="flex items-center gap-2">
                                 <Button asChild type="button" size="sm" variant="outline">
-                                  <Link href={`/user/vouchers/${voucher.discountId}${voucher.shopId ? `?shopId=${voucher.shopId}` : ""}`}>
+                                  <Link
+                                    href={`/user/vouchers/${voucher.discountId}${voucher.shopId ? `?shopId=${voucher.shopId}` : ""}`}
+                                  >
                                     {t("voucher_view_details")}
                                   </Link>
                                 </Button>
@@ -240,7 +288,11 @@ export default function VoucherListPage() {
                                   <Button
                                     type="button"
                                     size="sm"
-                                    variant={claimedVoucherIds.includes(voucher.discountId) ? "secondary" : "default"}
+                                    variant={
+                                      claimedVoucherIds.includes(voucher.discountId)
+                                        ? "secondary"
+                                        : "default"
+                                    }
                                     onClick={() => handleClaimVoucher(voucher.discountId)}
                                     disabled={claimedVoucherIds.includes(voucher.discountId)}
                                   >

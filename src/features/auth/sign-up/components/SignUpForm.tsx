@@ -36,13 +36,19 @@ export default function SignUpForm() {
         .trim()
         .min(2, t("validation_enter_at_least_2_characters"))
         .max(50, t("validation_enter_no_more_than_50_characters"))
-        .refine((value) => /^[a-zA-Z\s'-]+$/.test(value), t("validation_first_name_invalid_characters")),
+        .refine(
+          (value) => /^[a-zA-Z\s'-]+$/.test(value),
+          t("validation_first_name_invalid_characters"),
+        ),
       lastName: z
         .string()
         .trim()
         .min(2, t("validation_enter_at_least_2_characters"))
         .max(50, t("validation_enter_no_more_than_50_characters"))
-        .refine((value) => /^[a-zA-Z\s'-]+$/.test(value), t("validation_last_name_invalid_characters")),
+        .refine(
+          (value) => /^[a-zA-Z\s'-]+$/.test(value),
+          t("validation_last_name_invalid_characters"),
+        ),
       email: z.string().trim().email(t("validation_valid_email")).or(z.literal("")),
       phone: z
         .string()

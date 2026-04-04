@@ -22,7 +22,9 @@ function resolveList(payload: Record<string, any> | null | undefined): Record<st
   const directList = Array.isArray(payload.list) ? payload.list : null;
   const metadataList = Array.isArray(payload.metadata?.list) ? payload.metadata.list : null;
   const dataList = Array.isArray(payload.data?.list) ? payload.data.list : null;
-  const nestedMetadataList = Array.isArray(payload.data?.metadata?.list) ? payload.data.metadata.list : null;
+  const nestedMetadataList = Array.isArray(payload.data?.metadata?.list)
+    ? payload.data.metadata.list
+    : null;
 
   return directList || metadataList || dataList || nestedMetadataList || [];
 }
@@ -123,7 +125,13 @@ export function useFetchVoucherProducts({
     };
   }, [code, limit, page, shopId]);
 
-  const products = useMemo(() => resolveList(data).map(mapProduct).filter((item) => item.product_id), [data]);
+  const products = useMemo(
+    () =>
+      resolveList(data)
+        .map(mapProduct)
+        .filter((item) => item.product_id),
+    [data],
+  );
 
   return {
     products,

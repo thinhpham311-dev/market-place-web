@@ -8,10 +8,7 @@ import { toast } from "sonner";
 import { IUser } from "@/interfaces/user";
 import reducer from "@/features/auth/sign-up/store";
 import { injectReducer, removeReducer } from "@/store";
-import {
-  SIGN_UP_DEFAULT_STORE_KEY,
-  SIGN_UP_KEY,
-} from "@/features/auth/sign-up/constants";
+import { SIGN_UP_DEFAULT_STORE_KEY, SIGN_UP_KEY } from "@/features/auth/sign-up/constants";
 import { selectSignUpByStoreKey } from "@/features/auth/sign-up/store/selectors";
 import { postSignUp } from "@/features/auth/sign-up/store/dataSlice";
 import { onSignInSuccess } from "@/store/auth/sessionSlice";

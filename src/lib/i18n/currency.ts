@@ -37,7 +37,9 @@ function readLanguageFromPersistedStore(): SupportedLanguage | null {
       return null;
     }
 
-    const parsedStore = JSON.parse(rawPersistStore) as { settings?: string | { language?: { current?: string } } };
+    const parsedStore = JSON.parse(rawPersistStore) as {
+      settings?: string | { language?: { current?: string } };
+    };
     const settings =
       typeof parsedStore.settings === "string"
         ? (JSON.parse(parsedStore.settings) as { language?: { current?: string } })
@@ -105,7 +107,10 @@ function readLanguageFromNavigator(): SupportedLanguage | null {
 
 export function getCurrentCurrencyDisplayConfig(): CurrencyDisplayConfig {
   const resolvedLanguage =
-    readLanguageFromPersistedStore() ?? readLanguageFromDocument() ?? readLanguageFromNavigator() ?? "en";
+    readLanguageFromPersistedStore() ??
+    readLanguageFromDocument() ??
+    readLanguageFromNavigator() ??
+    "en";
 
   return CURRENCY_DISPLAY_CONFIG[resolvedLanguage];
 }

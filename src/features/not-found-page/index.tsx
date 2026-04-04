@@ -12,8 +12,6 @@ export default function NotFoundPage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-background via-background to-muted/40">
       <div className="container mx-auto flex min-h-screen max-w-5xl flex-col px-4 py-8">
-      
-
         <div className="flex flex-1 items-center justify-center">
           <section className="w-full max-w-2xl rounded-3xl border bg-card/95 p-8 text-center shadow-sm md:p-12">
             <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-orange-100 text-orange-600 dark:bg-orange-950/40 dark:text-orange-400">

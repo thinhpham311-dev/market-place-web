@@ -1,9 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import type {
-  VerifyEmailOtpPayload,
-  VerifyEmailOtpResponse,
-} from "@/features/auth/types/auth";
+import type { VerifyEmailOtpPayload, VerifyEmailOtpResponse } from "@/features/auth/types/auth";
 import { apiPostVerifyEmailOtp } from "@/features/auth/check-otp/services";
 
 interface IErrorPayload {

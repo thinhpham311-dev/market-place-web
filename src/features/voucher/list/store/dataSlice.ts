@@ -25,7 +25,9 @@ export const getDiscountList = createAsyncThunk<
     const response = (await apiGetDiscountList(payload)) as { data: DiscountListResponse };
     return response.data;
   } catch (error: any) {
-    return rejectWithValue(error?.response?.data?.message || error?.message || "Failed to fetch vouchers");
+    return rejectWithValue(
+      error?.response?.data?.message || error?.message || "Failed to fetch vouchers",
+    );
   }
 });
 

@@ -30,7 +30,7 @@ export default function BrandListSection({
       ? t("featured_brands_desc")
       : description === "Browse products from the most popular brands in our marketplace."
         ? t("shop_by_brand_desc")
-      : description;
+        : description;
 
   return (
     <Card className="relative w-full overflow-hidden border border-amber-100/70 bg-gradient-to-br from-amber-50 via-orange-50/70 to-rose-50/60 px-3 shadow-none dark:border-amber-900/40 dark:from-stone-950 dark:via-stone-900 dark:to-orange-950/30 md:px-6">

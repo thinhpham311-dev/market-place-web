@@ -20,7 +20,11 @@ function useIsDeletingItem(itemSkuId: string) {
   return Boolean(loading.byItem[itemSkuId]?.deleteItem);
 }
 
-function CartItemCheckboxCell({ item, checked, onCheckedChange }: {
+function CartItemCheckboxCell({
+  item,
+  checked,
+  onCheckedChange,
+}: {
   item: ICartItemModel;
   checked: boolean;
   onCheckedChange: (value: boolean) => void;

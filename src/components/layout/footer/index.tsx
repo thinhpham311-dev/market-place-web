@@ -1,4 +1,4 @@
- "use client";
+"use client";
 
 import type { ComponentType } from "react";
 import Link from "next/link";
@@ -132,7 +132,9 @@ export default function Footer() {
         </div>
 
         <div className="lg:col-span-2">
-          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide">{t("footer_customer_care")}</h3>
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide">
+            {t("footer_customer_care")}
+          </h3>
           <ul className="space-y-3">
             {resolvedCustomerLinks.map((link) => (
               <FooterLink key={link.label} {...link} />
@@ -141,7 +143,9 @@ export default function Footer() {
         </div>
 
         <div className="lg:col-span-2">
-          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide">{t("footer_policies")}</h3>
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide">
+            {t("footer_policies")}
+          </h3>
           <ul className="space-y-3">
             {resolvedPolicyLinks.map((link) => (
               <FooterLink key={link.label} {...link} />
@@ -150,7 +154,9 @@ export default function Footer() {
         </div>
 
         <div className="lg:col-span-2">
-          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide">{t("footer_for_sellers")}</h3>
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide">
+            {t("footer_for_sellers")}
+          </h3>
           <ul className="space-y-3">
             {resolvedSellerLinks.map((link) => (
               <FooterLink key={link.label} {...link} />
@@ -160,7 +166,9 @@ export default function Footer() {
 
         <div className="space-y-6 lg:col-span-2">
           <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide">{t("footer_payments")}</h3>
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide">
+              {t("footer_payments")}
+            </h3>
             <div className="flex flex-wrap gap-2">
               {paymentMethods.map((method) => (
                 <div
@@ -174,7 +182,9 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide">{t("footer_shipping")}</h3>
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide">
+              {t("footer_shipping")}
+            </h3>
             <div className="flex flex-wrap gap-2">
               {shippingPartners.map((partner) => (
                 <div

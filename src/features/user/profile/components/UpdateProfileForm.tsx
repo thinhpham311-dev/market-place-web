@@ -33,12 +33,18 @@ export default function UpdateProfileForm() {
       .trim()
       .min(3, t("validation_enter_at_least_3_characters"))
       .max(25, t("validation_enter_no_more_than_25_characters"))
-      .refine((value) => /^[a-zA-Z0-9._-]+$/.test(value), t("validation_username_invalid_characters")),
+      .refine(
+        (value) => /^[a-zA-Z0-9._-]+$/.test(value),
+        t("validation_username_invalid_characters"),
+      ),
     email: z
       .string()
       .trim()
       .min(1, t("validation_email_required"))
-      .refine((value) => (value ? emailValidator.safeParse(value).success : true), t("validation_invalid_email")),
+      .refine(
+        (value) => (value ? emailValidator.safeParse(value).success : true),
+        t("validation_invalid_email"),
+      ),
     phone: z
       .string()
       .trim()

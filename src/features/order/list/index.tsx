@@ -22,7 +22,11 @@ function OrderStatusBadge({ order }: { order: OrderViewModel }) {
   const { t } = useTranslation();
 
   if (order.status === "completed") {
-    return <Badge className="bg-emerald-600 text-white hover:bg-emerald-600">{t("order_completed")}</Badge>;
+    return (
+      <Badge className="bg-emerald-600 text-white hover:bg-emerald-600">
+        {t("order_completed")}
+      </Badge>
+    );
   }
 
   if (order.status === "cancel") {
@@ -211,7 +215,9 @@ export default function OrderPurchasePage() {
 
                   <div className="flex justify-end">
                     <Button asChild>
-                      <Link href={`/user/purchase/orders/${order.id}`}>{t("order_view_detail")}</Link>
+                      <Link href={`/user/purchase/orders/${order.id}`}>
+                        {t("order_view_detail")}
+                      </Link>
                     </Button>
                   </div>
                 </CardContent>
