@@ -8,6 +8,7 @@ import {
   SKU_KEY_TTL,
   SKU_KEY_TAG,
 } from "@/features/sku/constants";
+import { translateRuntime } from "@/lib/i18n/runtime-translation";
 
 type SkuDetailResponse = {
   metadata: ISkuModel;
@@ -51,7 +52,11 @@ export const getSkuDetail = createAsyncThunk<
 
     return data;
   } catch (error: any) {
-    return rejectWithValue(error?.response?.data || { message: error.message || "Unknown error" });
+    return rejectWithValue(
+      error?.response?.data || {
+        message: error.message || translateRuntime("common_something_went_wrong"),
+      },
+    );
   }
 });
 
@@ -95,9 +100,9 @@ const dataSlice = createSlice({
         if (typeof action.payload === "string") {
           state.error = action.payload;
         } else if (action.payload && typeof action.payload === "object") {
-          state.error = (action.payload as any).message || "Unknown error";
+          state.error = (action.payload as any).message || translateRuntime("common_something_went_wrong");
         } else {
-          state.error = action.error.message || "Unknown error";
+          state.error = action.error.message || translateRuntime("common_something_went_wrong");
         }
       });
   },

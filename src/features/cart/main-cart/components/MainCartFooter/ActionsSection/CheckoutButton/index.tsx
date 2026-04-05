@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import LoadingSkeleton from "./LoadingSkeleton";
@@ -11,7 +11,6 @@ import { useTranslation } from "@/lib/hooks";
 
 function CheckoutButton() {
   const { t } = useTranslation();
-  const router = useRouter();
   const { data, loading, error } = useShoppingCartContext();
   const { cart_items_count = 0 } = data;
 
@@ -29,10 +28,17 @@ function CheckoutButton() {
 
   const isDisabled = cart_items_count === 0;
 
-  return (
-    <Button size="sm" disabled={isDisabled} onClick={() => router.push("/checkout")}>
+  return isDisabled ? (
+    <Button size="sm" disabled>
       <CreditCard />
       <span>{t("cart_checkout")}</span>
+    </Button>
+  ) : (
+    <Button size="sm" asChild>
+      <Link href="/checkout">
+        <CreditCard />
+        <span>{t("cart_checkout")}</span>
+      </Link>
     </Button>
   );
 }

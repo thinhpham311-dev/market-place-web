@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import React, { useMemo, useEffect, useState } from "react";
 import { flexRender } from "@tanstack/react-table";
 import { TableBody, TableRow, TableCell } from "@/components/ui/table";
@@ -24,7 +24,6 @@ interface IGroupHeaderRowProps {
 const GroupHeaderRow = React.forwardRef<HTMLTableRowElement, IGroupHeaderRowProps>(
   ({ row, subRows }, ref) => {
     const { t } = useTranslation();
-    const router = useRouter();
 
     const selectedCount = subRows.filter((r) => r.getIsSelected()).length;
     const isAllSelected = selectedCount === subRows.length && subRows.length > 0;
@@ -71,15 +70,11 @@ const GroupHeaderRow = React.forwardRef<HTMLTableRowElement, IGroupHeaderRowProp
 
         <TableCell className="px-3 py-2">
           <div className="flex items-center justify-end">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() =>
-                router.push(`/shop/${row.original.itemShopSlug}-s.${row.original.itemShopId}`)
-              }
-            >
-              {t("see_more")}
-              <ChevronRight />
+            <Button variant="ghost" size="sm" asChild>
+              <Link href={`/shop/${row.original.itemShopSlug}-s.${row.original.itemShopId}`}>
+                {t("see_more")}
+                <ChevronRight />
+              </Link>
             </Button>
           </div>
         </TableCell>

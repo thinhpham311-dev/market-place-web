@@ -5,6 +5,8 @@ import {
   IProductListResponse,
 } from "@/features/product/list/recommended/interfaces";
 import { initialState } from "./initials";
+import { translateRuntime } from "@/lib/i18n/runtime-translation";
+import { getApiErrorMessage, handleAxiosError } from "@/lib/http/handleAxiosError";
 
 export const getProductList = createAsyncThunk<IProductListResponse, IProductListRequest>(
   "proPopularList/data/getList",
@@ -15,7 +17,7 @@ export const getProductList = createAsyncThunk<IProductListResponse, IProductLis
       };
       return response.data;
     } catch (error: any) {
-      return rejectWithValue(error?.response?.data || error.message);
+      return rejectWithValue(handleAxiosError(error));
     }
   },
 );
@@ -37,7 +39,7 @@ const dataSlice = createSlice({
       })
       .addCase(getProductList.rejected, (state, action) => {
         state.loading = false;
-        state.error = (action.payload as string) || "Failed to fetch categories";
+        state.error = getApiErrorMessage(action.payload, translateRuntime("api_server_error"));
         state.total = 0;
         state.list = [];
       });

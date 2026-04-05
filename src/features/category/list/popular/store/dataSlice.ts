@@ -8,6 +8,8 @@ import {
   CAT_POPULAR_LIST_TTL,
   CAT_POPULAR_LIST_TAG,
 } from "@/features/category/list/popular/constants";
+import { translateRuntime } from "@/lib/i18n/runtime-translation";
+import { getApiErrorMessage } from "@/lib/http/handleAxiosError";
 
 type CategoriesResponse = {
   metadata: {
@@ -53,7 +55,7 @@ export const getCategoryList = createAsyncThunk<
 
     return data;
   } catch (err: any) {
-    return rejectWithValue(err?.message || "Unknown error");
+    return rejectWithValue(getApiErrorMessage(err, translateRuntime("common_something_went_wrong")));
   }
 });
 
@@ -76,7 +78,7 @@ const dataSlice = createSlice({
       })
       .addCase(getCategoryList.rejected, (state, action) => {
         state.loading = false;
-        state.error = (action.payload as string) || "Failed to fetch categories";
+        state.error = getApiErrorMessage(action.payload, translateRuntime("api_server_error"));
         state.total = 0;
         state.list = [];
       });

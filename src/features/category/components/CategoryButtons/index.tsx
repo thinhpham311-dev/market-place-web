@@ -5,27 +5,30 @@ import NotFound from "./NotFound";
 import LoadingSkeleton from "./LoadingSkeleton";
 import { Category } from "@/features/category/types";
 import CategoryButton from "../CategoryButton";
+import { translateRuntime } from "@/lib/i18n/runtime-translation";
 
 interface ButtonsProps {
   data: Category[];
-  error: Error | null;
+  error: Error | string | null;
   ids: string[];
   isLoading?: boolean;
 }
 
 const CategoryButtons: React.FC<ButtonsProps> = ({ data = [], ids, error, isLoading = false }) => {
   const lastId = ids.at(-1);
+  const hasNoData = !data || data.length === 0;
+  const errorMessage = typeof error === "string" ? error : error?.message;
 
-  if (!isLoading && (!data || data.length === 0) && error) {
-    return <NotFound message={error.message || "Something went wrong."} />;
+  if (!isLoading && hasNoData && errorMessage) {
+    return <NotFound message={errorMessage || translateRuntime("common_something_went_wrong")} />;
   }
 
-  if (isLoading && (!data || data.length === 0)) {
+  if (isLoading && hasNoData) {
     return <LoadingSkeleton count={6} className="h-10" />;
   }
 
-  if (!isLoading && (!data || data.length === 0)) {
-    return <NotFound message="No categories found." />;
+  if (!isLoading && hasNoData) {
+    return <NotFound message={translateRuntime("common_no_data_found")} />;
   }
 
   const current = data?.find((cat) => cat.category_id === lastId && cat.isLeaf);

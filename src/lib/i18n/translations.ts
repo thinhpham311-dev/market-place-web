@@ -210,6 +210,7 @@ export type TranslationKey =
   | "validation_enter_no_more_than_8_characters"
   | "validation_invalid_number"
   | "sign_in_phone_placeholder"
+  | "sign_in_email_placeholder"
   | "sign_in_password_placeholder"
   | "form_first_name"
   | "form_last_name"
@@ -259,6 +260,7 @@ export type TranslationKey =
   | "update_profile_gender_placeholder"
   | "update_profile_email_placeholder"
   | "update_profile_address_placeholder"
+  | "profile_missing_user_id"
   | "gender_male"
   | "gender_female"
   | "validation_enter_at_least_3_characters"
@@ -338,6 +340,11 @@ export type TranslationKey =
   | "shop_response_time"
   | "shop_following"
   | "shop_follow"
+  | "shop_follow_sign_in"
+  | "shop_follow_success"
+  | "shop_follow_failed"
+  | "shop_unfollow_success"
+  | "shop_unfollow_failed"
   | "shop_view"
   | "shop_name_fallback"
   | "product_shipping_title"
@@ -722,6 +729,7 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     validation_enter_no_more_than_8_characters: "Please enter no more than 8 characters",
     validation_invalid_number: "Invalid number",
     sign_in_phone_placeholder: "Please enter your phone number",
+    sign_in_email_placeholder: "Please enter your email address",
     sign_in_password_placeholder: "Please enter your password",
     form_first_name: "First Name",
     form_last_name: "Last Name",
@@ -771,6 +779,7 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     update_profile_gender_placeholder: "Please your choose gender",
     update_profile_email_placeholder: "Please enter your email",
     update_profile_address_placeholder: "Please enter your address",
+    profile_missing_user_id: "User id is missing. Please sign in again.",
     gender_male: "male",
     gender_female: "female",
     validation_enter_at_least_3_characters: "Please enter at least 3 characters",
@@ -863,6 +872,11 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     shop_response_time: "Response Time",
     shop_following: "Following",
     shop_follow: "Follow",
+    shop_follow_sign_in: "Please sign in to follow this shop.",
+    shop_follow_success: "Followed shop successfully.",
+    shop_follow_failed: "Unable to follow this shop. Please try again.",
+    shop_unfollow_success: "Unfollowed shop successfully.",
+    shop_unfollow_failed: "Unable to unfollow this shop. Please try again.",
     shop_view: "View",
     shop_name_fallback: "Shop Name",
     product_shipping_title: "Shipping",
@@ -1254,6 +1268,7 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     validation_enter_no_more_than_8_characters: "Vui lòng không nhập quá 8 ký tự",
     validation_invalid_number: "Số điện thoại không hợp lệ",
     sign_in_phone_placeholder: "Vui lòng nhập số điện thoại của bạn",
+    sign_in_email_placeholder: "Vui lòng nhập địa chỉ email của bạn",
     sign_in_password_placeholder: "Vui lòng nhập mật khẩu của bạn",
     form_first_name: "Tên",
     form_last_name: "Họ",
@@ -1303,6 +1318,7 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     update_profile_gender_placeholder: "Vui lòng chọn giới tính",
     update_profile_email_placeholder: "Vui lòng nhập email của bạn",
     update_profile_address_placeholder: "Vui lòng nhập địa chỉ của bạn",
+    profile_missing_user_id: "Thiếu mã người dùng. Vui lòng đăng nhập lại.",
     gender_male: "nam",
     gender_female: "nữ",
     validation_enter_at_least_3_characters: "Vui lòng nhập ít nhất 3 ký tự",
@@ -1395,6 +1411,11 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     shop_response_time: "Thời gian phản hồi",
     shop_following: "Đang theo dõi",
     shop_follow: "Theo dõi",
+    shop_follow_sign_in: "Vui lòng đăng nhập để theo dõi shop này.",
+    shop_follow_success: "Đã theo dõi shop thành công.",
+    shop_follow_failed: "Không thể theo dõi shop. Vui lòng thử lại.",
+    shop_unfollow_success: "Đã bỏ theo dõi shop thành công.",
+    shop_unfollow_failed: "Không thể bỏ theo dõi shop. Vui lòng thử lại.",
     shop_view: "Xem shop",
     shop_name_fallback: "Tên shop",
     product_shipping_title: "Vận chuyển",
@@ -1776,6 +1797,7 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     validation_enter_no_more_than_8_characters: "8文字以内で入力してください",
     validation_invalid_number: "無効な番号です",
     sign_in_phone_placeholder: "電話番号を入力してください",
+    sign_in_email_placeholder: "メールアドレスを入力してください",
     sign_in_password_placeholder: "パスワードを入力してください",
     form_first_name: "名",
     form_last_name: "姓",
@@ -1825,6 +1847,7 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     update_profile_gender_placeholder: "性別を選択してください",
     update_profile_email_placeholder: "メールアドレスを入力してください",
     update_profile_address_placeholder: "住所を入力してください",
+    profile_missing_user_id: "ユーザーIDがありません。もう一度サインインしてください。",
     gender_male: "男性",
     gender_female: "女性",
     validation_enter_at_least_3_characters: "3文字以上入力してください",
@@ -1914,6 +1937,11 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     shop_response_time: "返信時間",
     shop_following: "フォロー中",
     shop_follow: "フォロー",
+    shop_follow_sign_in: "このショップをフォローするにはサインインしてください。",
+    shop_follow_success: "ショップをフォローしました。",
+    shop_follow_failed: "ショップをフォローできませんでした。もう一度お試しください。",
+    shop_unfollow_success: "ショップのフォローを解除しました。",
+    shop_unfollow_failed: "ショップのフォロー解除に失敗しました。もう一度お試しください。",
     shop_view: "ショップを見る",
     shop_name_fallback: "ショップ名",
     product_shipping_title: "配送情報",

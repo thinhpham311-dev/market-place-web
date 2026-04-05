@@ -1,9 +1,11 @@
 import { PERSIST_STORE_NAME } from "@/constants/app/app.constant";
-import type { SupportedLanguage } from "@/store/settings/languageSlice";
 import { translations, type TranslationKey } from "@/lib/i18n/translations";
+import { SUPPORTED_LANGUAGES, type SupportedLanguage } from "@/store/settings/languageSlice";
 
-function isSupportedLanguage(value: string | null | undefined): value is SupportedLanguage {
-  return value === "en" || value === "vi" || value === "ja";
+const FALLBACK_LANGUAGE: SupportedLanguage = "en";
+
+function isSupportedLanguage(value: unknown): value is SupportedLanguage {
+  return typeof value === "string" && SUPPORTED_LANGUAGES.includes(value as SupportedLanguage);
 }
 
 function readLanguageFromPersistedStore(): SupportedLanguage | null {
@@ -69,11 +71,13 @@ export function getCurrentLanguage(): SupportedLanguage {
     readLanguageFromPersistedStore() ??
     readLanguageFromDocument() ??
     readLanguageFromNavigator() ??
-    "en"
+    FALLBACK_LANGUAGE
   );
 }
 
 export function translateRuntime(key: TranslationKey): string {
   const currentLanguage = getCurrentLanguage();
-  return translations[currentLanguage]?.[key] ?? translations.en[key] ?? key;
+  const dictionary = translations[currentLanguage] ?? translations[FALLBACK_LANGUAGE];
+
+  return dictionary[key] ?? translations[FALLBACK_LANGUAGE][key] ?? key;
 }

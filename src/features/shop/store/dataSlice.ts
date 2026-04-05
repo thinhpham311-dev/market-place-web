@@ -8,21 +8,17 @@ import {
   SHOP_KEY_TTL,
   SHOP_KEY_TAG,
 } from "@/features/shop/constants";
+import { translateRuntime } from "@/lib/i18n/runtime-translation";
+import { getApiErrorMessage, handleAxiosError, type NormalizedApiError } from "@/lib/http/handleAxiosError";
 
 type ShopDetailResponse = {
   metadata: IShopModel;
 };
 
-// Định nghĩa error payload
-interface IErrorPayload {
-  message: string;
-  [key: string]: any; // nếu API trả thêm field thì vẫn nhận được
-}
-
 export const getShopById = createAsyncThunk<
   ShopDetailResponse,
   IShopModel,
-  { rejectValue: IErrorPayload | string }
+  { rejectValue: NormalizedApiError }
 >("shopInfoById/data/getList", async (params, { rejectWithValue, dispatch }) => {
   try {
     const data = (await dispatch({
@@ -42,7 +38,7 @@ export const getShopById = createAsyncThunk<
 
     return data;
   } catch (error: any) {
-    return rejectWithValue(error?.response?.data || error.message);
+    return rejectWithValue(handleAxiosError(error));
   }
 });
 
@@ -73,7 +69,7 @@ const dataSlice = createSlice({
       })
       .addCase(getShopById.rejected, (state, action) => {
         state.loading = false;
-        state.error = (action.payload as string) || "Failed to fetch products";
+        state.error = getApiErrorMessage(action.payload ?? action.error, translateRuntime("api_server_error"));
         state.shopInfo = null;
       });
   },

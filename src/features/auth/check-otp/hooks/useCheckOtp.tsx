@@ -14,6 +14,7 @@ import { onSignInSuccess } from "@/store/auth/sessionSlice";
 import { setUser } from "@/store/auth/userSlice";
 import type { VerifyEmailOtpPayload } from "@/features/auth/types/auth";
 import { useTranslation } from "@/lib/hooks/use-translation";
+import { getApiErrorMessage } from "@/lib/http/handleAxiosError";
 
 export function useCheckOtp() {
   const { t } = useTranslation();
@@ -49,11 +50,7 @@ export function useCheckOtp() {
       router.push(response.hasSession || response.token ? "/" : "/user/sign-in");
       router.refresh();
     } catch (error: any) {
-      const message =
-        (typeof error === "string" && error) ||
-        error?.message ||
-        error?.response?.data?.message ||
-        t("auth_check_otp_failed");
+      const message = getApiErrorMessage(error, t("auth_check_otp_failed"));
 
       toast.error(message);
       throw error;

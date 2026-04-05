@@ -7,14 +7,25 @@ import { useTranslation } from "@/lib/hooks/use-translation";
 
 interface ShopFollowButtonProps {
   isFollowing: boolean;
+  disabled?: boolean;
   onToggleFollow: () => void;
 }
 
-const ShopFollowButton: React.FC<ShopFollowButtonProps> = ({ isFollowing, onToggleFollow }) => {
+const ShopFollowButton: React.FC<ShopFollowButtonProps> = ({
+  isFollowing,
+  disabled = false,
+  onToggleFollow,
+}) => {
   const { t } = useTranslation();
 
   return (
-    <Button variant="outline" size="sm" className="w-full" onClick={onToggleFollow}>
+    <Button
+      variant="outline"
+      size="sm"
+      className="w-full"
+      onClick={onToggleFollow}
+      disabled={disabled}
+    >
       {isFollowing ? (
         <>
           <UserCheck className="w-4 h-4 mr-1" />

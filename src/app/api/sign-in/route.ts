@@ -1,9 +1,9 @@
 import axios from "axios";
-import qs from "qs";
 import { NextRequest, NextResponse } from "next/server";
 import { handleAxiosError } from "@/lib/http/handleAxiosError";
 
 const API_NEXT = process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL;
+const API_KEY = process.env.API_KEY || process.env.NEXT_PUBLIC_API_KEY || "";
 const AUTH_COOKIE_NAME = "market_place_session";
 const AUTH_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
 
@@ -53,7 +53,7 @@ function appendUpstreamCookies(response: NextResponse, setCookieHeader?: string 
 export const POST = async (req: NextRequest) => {
   try {
     const body = await req.json();
-    const { phone, password } = body;
+    const { email, password } = body;
 
     if (!API_NEXT) {
       return NextResponse.json(
@@ -64,14 +64,15 @@ export const POST = async (req: NextRequest) => {
 
     const upstreamResponse = await axios({
       method: "post",
-      url: `${API_NEXT}/v1/api/user/welcome-back`,
+      url: `${API_NEXT}/v1/api/user/sign-in`,
       headers: {
         "Content-Type": "application/json",
+        "x-api-key": API_KEY,
       },
-      data: qs.stringify({
-        phone,
+      data: {
+        email,
         password,
-      }),
+      },
     });
 
     const { data: dataResponse, headers } = upstreamResponse;

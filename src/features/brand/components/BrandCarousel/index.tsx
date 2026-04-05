@@ -11,6 +11,7 @@ import { cn } from "@/utils/styles";
 import BrandCard from "@/features/brand/components/BrandCard";
 import LoadingSkeleton from "./LoadingSkeleton";
 import type { Brand } from "@/features/brand/types";
+import { translateRuntime } from "@/lib/i18n/runtime-translation";
 
 interface BrandCarouselProps {
   data: Brand[];
@@ -42,7 +43,7 @@ export default function BrandCarousel({
   }
 
   if (!isLoading && hasNoData) {
-    return <NotFound message="No brands found." />;
+    return <NotFound message={translateRuntime("common_no_data_found")} />;
   }
 
   return (

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import {
   DropdownMenu,
@@ -20,12 +20,6 @@ interface IDropDownMenuOfItemProps {
 }
 
 export default function DropDownMenuOfItem({ order }: IDropDownMenuOfItemProps) {
-  const router = useRouter();
-
-  const handleRouterLinkToDetail = () => {
-    router.push(`/user/purchase/orders/${order.id}`);
-  };
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -41,9 +35,11 @@ export default function DropDownMenuOfItem({ order }: IDropDownMenuOfItemProps) 
           <span>Copy payment ID</span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handleRouterLinkToDetail}>
-          <Receipt />
-          <span>View order detail</span>
+        <DropdownMenuItem asChild>
+          <Link href={`/user/purchase/orders/${order.id}`}>
+            <Receipt />
+            <span>View order detail</span>
+          </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

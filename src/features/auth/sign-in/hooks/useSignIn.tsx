@@ -10,6 +10,7 @@ import { IUser } from "@/interfaces/user";
 import { onSignInSuccess } from "@/store/auth/sessionSlice";
 import { setUser } from "@/store/auth/userSlice";
 import { useTranslation } from "@/lib/hooks/use-translation";
+import { getApiErrorMessage } from "@/lib/http/handleAxiosError";
 
 type SignInResponse = {
   message?: string;
@@ -43,7 +44,7 @@ export function useSignIn() {
       router.push("/");
       router.refresh();
     } catch (error: any) {
-      const message = error?.response?.data?.message || error?.message || t("auth_sign_in_failed");
+      const message = getApiErrorMessage(error, t("auth_sign_in_failed"));
 
       toast.error(message);
       throw error;

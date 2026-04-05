@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getProductList } from "../store/dataSlice";
 import { selectProHotDealListByStoreKey } from "../store/selectors";
+import type { SortBy } from "@/types/common/sort";
 //stores
 import reducer from "@/features/product/list/hot-deal/store";
 import { injectReducer, removeReducer } from "@/store";
@@ -13,7 +14,7 @@ interface UseFetchDataParams {
   storeKey?: string;
   defaultLimit?: number;
   defaultCurrentPage?: number;
-  sortBy?: string;
+  sortBy?: SortBy | null;
 }
 
 export function useFetchData({

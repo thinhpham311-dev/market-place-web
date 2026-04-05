@@ -37,7 +37,6 @@ export default function VoucherProductSection({
           data={products}
           isLoading={loading}
           error={error}
-          status={error ? "error" : loading ? "loading" : "success"}
           countLoadItems={12}
           className="grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4"
         />

@@ -11,7 +11,6 @@ interface SpuGridProps {
   className?: string;
   isLoading: boolean;
   error?: Error | string | null;
-  status?: "idle" | "loading" | "success" | "error";
   countLoadItems?: number;
 }
 
@@ -20,18 +19,17 @@ const ProGrid = ({
   className,
   isLoading,
   error,
-  status = "success",
   countLoadItems = 12,
 }: SpuGridProps) => {
   const { t } = useTranslation();
   const hasNoData = !data || data.length === 0;
   const errorMessage = typeof error === "string" ? error : error?.message;
 
-  if ((isLoading || status === "idle" || status === "loading") && hasNoData) {
+  if (isLoading && hasNoData) {
     return <LoadingSkeleton className={className} count={countLoadItems} />;
   }
 
-  if (status === "error" && hasNoData && errorMessage) {
+  if (hasNoData && errorMessage) {
     return <NotFound message={errorMessage || t("common_something_went_wrong")} />;
   }
 

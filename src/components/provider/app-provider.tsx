@@ -88,9 +88,7 @@ const AppProvider = ({ children, ...props }: React.ComponentProps<typeof NextThe
               <div className="flex-1 w-full">
                 <AdminHeader />
                 <Header />
-
                 <main>{children}</main>
-
                 <Footer />
                 <Toaster />
               </div>

@@ -13,19 +13,34 @@ import ProGrid from "@/features/product/components/ProGrid";
 import { useFetchData } from "@/features/product/list/suggestion/hooks";
 import { DAILY_DISCOVER_LIST } from "@/features/discover/daily-discover/constants";
 import { useTranslation } from "@/lib/hooks";
+import type { TranslationKey } from "@/lib/i18n/translations";
+import type { SortBy } from "@/types/common/sort";
 
-const quickFilters = [
+type QuickFilter = {
+  key: string;
+  labelKey: TranslationKey;
+  descriptionKey: TranslationKey;
+  sortBy: SortBy;
+};
+
+type TrustPoint = {
+  icon: typeof Truck;
+  labelKey: TranslationKey;
+  descriptionKey: TranslationKey;
+};
+
+const quickFilters: QuickFilter[] = [
   {
     key: "popular",
     labelKey: "popular_tab",
     descriptionKey: "daily_discover_popular_desc",
-    sortBy: "pop",
+    sortBy: "popular_desc",
   },
   {
     key: "bundle-deals",
     labelKey: "bundle_deals_tab",
     descriptionKey: "daily_discover_bundle_deals_desc",
-    sortBy: "asc",
+    sortBy: "price_asc",
   },
   {
     key: "recommended",
@@ -37,7 +52,7 @@ const quickFilters = [
     key: "trending",
     labelKey: "trending_deals_tab",
     descriptionKey: "daily_discover_trending_desc",
-    sortBy: "pop",
+    sortBy: "popular_desc",
   },
   {
     key: "fast-delivery",
@@ -55,7 +70,7 @@ const quickFilters = [
     key: "best-value",
     labelKey: "best_value_tab",
     descriptionKey: "daily_discover_best_value_desc",
-    sortBy: "asc",
+    sortBy: "price_asc",
   },
   {
     key: "fresh-arrivals",
@@ -63,9 +78,9 @@ const quickFilters = [
     descriptionKey: "daily_discover_fresh_arrivals_desc",
     sortBy: "ctime",
   },
-];
+] as const;
 
-const trustPoints = [
+const trustPoints: TrustPoint[] = [
   {
     icon: Truck,
     labelKey: "daily_discover_trust_fast_dispatch",
@@ -81,7 +96,7 @@ const trustPoints = [
     labelKey: "daily_discover_trust_hot_pricing",
     descriptionKey: "daily_discover_trust_hot_pricing_desc",
   },
-];
+] as const;
 
 const DEFAULT_FILTER_KEY = "recommended";
 

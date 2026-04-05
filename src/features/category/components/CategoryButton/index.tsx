@@ -1,10 +1,11 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Category } from "@/features/category/types";
 import { cn } from "@/utils/styles";
-import { useNavigationActive } from "@/features/category/hooks/useNavigationActive";
 import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
 
@@ -23,6 +24,8 @@ const CategoryButton: React.FC<CategoryButtonProps> = ({
   isLoading,
   className,
 }) => {
+  const router = useRouter();
+
   if (!lastId) return null;
 
   if (isLoading) {
@@ -34,20 +37,36 @@ const CategoryButton: React.FC<CategoryButtonProps> = ({
   }
 
   const { category_id, category_slug, category_name, ancestors } = category;
+  const ancestorsPath = ancestors && ancestors.length > 0 ? `${ancestors.join(".")}.` : "";
+  const href = `/categories/${category_slug}-cat.${ancestorsPath}${category_id}`;
+  const isCurrent = category_id === lastId;
 
-  const { handleNavigate } = useNavigationActive(lastId);
+  React.useEffect(() => {
+    if (!isCurrent) {
+      router.prefetch(href);
+    }
+  }, [href, isCurrent, router]);
+
+  const handlePrefetch = () => {
+    if (!isCurrent) {
+      router.prefetch(href);
+    }
+  };
 
   return (
     <Button
+      asChild
       className={cn(
         className,
         " line-clamp-1 text-md",
         isActive ? "font-bold underline text-primary" : "text-muted-foreground",
       )}
       variant="outline"
-      onClick={() => handleNavigate(category_slug, category_id, ancestors)}
+      disabled={isCurrent}
     >
-      {category_name}
+      <Link href={href} prefetch={!isCurrent} onMouseEnter={handlePrefetch} onFocus={handlePrefetch}>
+        {category_name}
+      </Link>
     </Button>
   );
 };

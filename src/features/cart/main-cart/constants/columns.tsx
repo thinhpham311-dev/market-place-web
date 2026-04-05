@@ -1,5 +1,5 @@
 "use client";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { ColumnDef } from "@tanstack/react-table";
 import { ICartItemModel } from "@/models/cart";
 import { Button } from "@/components/ui/button";
@@ -68,19 +68,16 @@ function CartItemImageCell({ item }: { item: ICartItemModel }) {
 
 function CartItemNameCell({ item }: { item: ICartItemModel }) {
   const isDeleting = useIsDeletingItem(item.itemSkuId);
-  const router = useRouter();
 
   if (isDeleting) {
     return <Skeleton className="h-5 w-40 rounded-md" />;
   }
 
-  const handleRouterLinkToDetail = () => {
-    router.push(`/products/${item.itemSpuSlug}-i.${item.itemShopId}.${item.itemSpuId}`);
-  };
-
   return (
-    <Button variant="link" onClick={handleRouterLinkToDetail} className="cursor-pointer px-0">
-      <CartItemName itemName={item.itemSpuName} />
+    <Button variant="link" className="cursor-pointer px-0" asChild>
+      <Link href={`/products/${item.itemSpuSlug}-i.${item.itemShopId}.${item.itemSpuId}`}>
+        <CartItemName itemName={item.itemSpuName} />
+      </Link>
     </Button>
   );
 }

@@ -8,20 +8,17 @@ import {
   SPU_KEY_TTL,
   SPU_KEY_TAG,
 } from "@/features/spu/constants";
+import { translateRuntime } from "@/lib/i18n/runtime-translation";
+import { getApiErrorMessage, handleAxiosError, type NormalizedApiError } from "@/lib/http/handleAxiosError";
 
 type SpuDetailResponse = {
   metadata: ISpuModel;
 };
 
-interface IErrorPayload {
-  message: string;
-  [key: string]: any;
-}
-
 export const getSpuDetail = createAsyncThunk<
   SpuDetailResponse,
   ISpuModel,
-  { rejectValue: IErrorPayload | string }
+  { rejectValue: NormalizedApiError }
 >("detail/data/getSpuDetail", async (params, { rejectWithValue, dispatch }) => {
   try {
     const data = (await dispatch({
@@ -41,14 +38,14 @@ export const getSpuDetail = createAsyncThunk<
 
     return data;
   } catch (error: any) {
-    return rejectWithValue(error?.response?.data || error.message);
+    return rejectWithValue(handleAxiosError(error));
   }
 });
 
 interface ISpuDetailState {
   loading: boolean;
   spu: ISpuModel | null;
-  error: IErrorPayload | string | null;
+  error: string | null;
   status: "idle" | "loading" | "success" | "error";
 }
 
@@ -82,13 +79,10 @@ const dataSlice = createSlice({
         state.spu = null;
         state.loading = false;
         state.status = "error";
-        if (typeof action.payload === "string") {
-          state.error = action.payload;
-        } else if (action.payload && typeof action.payload === "object") {
-          state.error = (action.payload as any).message || "Unknown error";
-        } else {
-          state.error = action.error.message || "Unknown error";
-        }
+        state.error = getApiErrorMessage(
+          action.payload ?? action.error,
+          translateRuntime("common_something_went_wrong"),
+        );
       });
   },
 });

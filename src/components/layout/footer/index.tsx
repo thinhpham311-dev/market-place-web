@@ -16,8 +16,14 @@ import {
   Truck,
 } from "lucide-react";
 import { useTranslation } from "@/lib/hooks";
+import type { TranslationKey } from "@/lib/i18n/translations";
 
-const customerLinks = [
+interface FooterNavLink {
+  labelKey: TranslationKey;
+  href: string;
+}
+
+const customerLinks: FooterNavLink[] = [
   { labelKey: "footer_help_center", href: "/help-center" },
   { labelKey: "footer_how_to_order", href: "/guide/order" },
   { labelKey: "footer_payment_methods", href: "/guide/payment" },
@@ -25,7 +31,7 @@ const customerLinks = [
   { labelKey: "footer_return_policy", href: "/guide/returns" },
 ];
 
-const policyLinks = [
+const policyLinks: FooterNavLink[] = [
   { labelKey: "footer_terms_of_service", href: "/legal/terms" },
   { labelKey: "footer_privacy_policy", href: "/legal/privacy" },
   { labelKey: "footer_dispute_resolution", href: "/legal/dispute" },
@@ -33,7 +39,7 @@ const policyLinks = [
   { labelKey: "footer_faq", href: "/faq" },
 ];
 
-const sellerLinks = [
+const sellerLinks: FooterNavLink[] = [
   { labelKey: "footer_seller_center", href: "/seller" },
   { labelKey: "footer_start_selling", href: "/seller/register" },
   { labelKey: "footer_listing_guidelines", href: "/seller/policy" },

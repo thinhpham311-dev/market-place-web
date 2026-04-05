@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { MenuItem } from "@/interfaces/common/menu.interface";
 import { SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 
@@ -36,7 +37,7 @@ function MenuItems({ item, pathname }: SidebarMenuItemProps) {
   return (
     <SidebarMenuItem>
       <SidebarMenuButton asChild>
-        <a
+        <Link
           href={item.url}
           className={`flex items-center space-x-2 p-2 rounded-md ${
             isActive ? "bg-background" : "hover:bg-background"
@@ -45,7 +46,7 @@ function MenuItems({ item, pathname }: SidebarMenuItemProps) {
         >
           {item.icon && <item.icon className="h-5 w-5" aria-hidden />}
           <span>{item.title}</span>
-        </a>
+        </Link>
       </SidebarMenuButton>
     </SidebarMenuItem>
   );

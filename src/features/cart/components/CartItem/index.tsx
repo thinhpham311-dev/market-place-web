@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import CartItemName from "@/features/cart/components/CartItem/CartItemName";
@@ -9,7 +10,6 @@ import CartItemPrice from "@/features/cart/components/CartItem/CartItemPrice";
 import { CartItemVariantsView } from "@/features/cart/components/CartItem/CartItemVariantsSelector";
 import { CartItemQuantityView } from "@/features/cart/components/CartItem/CartItemQuantitySelector";
 import { ICartItemModel } from "@/models/cart";
-import { useRouter } from "next/navigation";
 import { useShoppingCartContext } from "@/features/cart/hooks";
 import CartItemRemove from "./CartItemActions/CartItemRemove";
 import { useTranslation } from "@/lib/hooks";
@@ -20,7 +20,6 @@ interface ICartItemProps {
 
 const CartItem = ({ data }: ICartItemProps) => {
   const { t } = useTranslation();
-  const router = useRouter();
   const { loading } = useShoppingCartContext();
   const {
     itemSkuId,
@@ -36,10 +35,7 @@ const CartItem = ({ data }: ICartItemProps) => {
   } = data;
 
   const isDeleting = loading.byItem[itemSkuId]?.deleteItem;
-
-  const handleRouterLinkToDetail = () => {
-    router.push(`/products/${itemSpuSlug}-i.${itemShopId}.${itemSpuId}`);
-  };
+  const productHref = `/products/${itemSpuSlug}-i.${itemShopId}.${itemSpuId}`;
 
   if (isDeleting) {
     return (
@@ -63,7 +59,7 @@ const CartItem = ({ data }: ICartItemProps) => {
   return (
     <Card className="grid md:grid-cols-4 grid-cols-5 grid-rows-2 items-center p-1 gap-x-1">
       <CardHeader className="md:col-span-1 col-span-2 row-span-2 p-0 ">
-        <div className="cursor-pointer" onClick={handleRouterLinkToDetail}>
+        <Link href={productHref} className="block cursor-pointer">
           <CartItemImage
             _w={50}
             _h={50}
@@ -71,15 +67,15 @@ const CartItem = ({ data }: ICartItemProps) => {
             imgClassName="h-full w-full"
             alt="image not found"
           />
-        </div>
+        </Link>
       </CardHeader>
       <CardContent className="md:col-span-3 col-span-3 row-span-3 p-0 space-y-3 ">
         <div className="grid grid-cols-6 grid-rows-3 items-center">
           {/* Tên item chiếm hết 5 cột */}
           <div className="col-span-6">
-            <div onClick={handleRouterLinkToDetail} className="cursor-pointer">
+            <Link href={productHref} className="block cursor-pointer">
               <CartItemName itemName={itemSpuName} />
-            </div>
+            </Link>
           </div>
 
           {/* Giá: chiếm 3 cột */}

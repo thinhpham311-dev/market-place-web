@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
 // Actions and selectors
@@ -19,6 +19,8 @@ interface UseFetchDataParams {
 export function useFetchData({ lastId }: UseFetchDataParams) {
   const dispatch = useAppDispatch();
   const [isInitialLoading, setIsInitialLoading] = useState(Boolean(lastId));
+  const [isCategoryTransitionLoading, setIsCategoryTransitionLoading] = useState(false);
+  const prevLastIdRef = useRef<string | undefined>(lastId);
 
   // Inject and clean up reducer
   useLayoutEffect(() => {
@@ -44,10 +46,23 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
     totalItems = 0,
     status = "idle",
   } = useAppSelector(selectProByCategoryIdByStoreKey(PRO_LIST_BY_CATEGORYID));
+
+  useEffect(() => {
+    const prevLastId = prevLastIdRef.current;
+    const isCategoryChanged = Boolean(lastId && prevLastId && prevLastId !== lastId);
+
+    if (isCategoryChanged) {
+      setIsCategoryTransitionLoading(true);
+    }
+
+    prevLastIdRef.current = lastId;
+  }, [lastId]);
+
   // Fetch product list
   useEffect(() => {
     if (!lastId) {
       setIsInitialLoading(false);
+      setIsCategoryTransitionLoading(false);
       return;
     }
 
@@ -65,6 +80,7 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
 
     promise.finally?.(() => {
       setIsInitialLoading(false);
+      setIsCategoryTransitionLoading(false);
     });
 
     return () => {
@@ -80,9 +96,9 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
   ]);
 
   return {
-    products,
+    products: isCategoryTransitionLoading ? [] : products,
     totalItems,
-    loading: isInitialLoading || loading || status === "idle",
+    loading: isInitialLoading || isCategoryTransitionLoading || loading || status === "idle",
     error,
     status,
   };

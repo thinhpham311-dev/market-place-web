@@ -33,7 +33,7 @@ export default function ProSuggestionList() {
           error={error}
           data={products}
           isLoading={loading}
-          className=" grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3"
+          className=" grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2"
         />
       </div>
     </ProductListSection>

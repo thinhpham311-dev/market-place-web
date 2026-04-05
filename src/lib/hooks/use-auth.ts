@@ -7,6 +7,7 @@ import { REDIRECT_URL_KEY } from "@/constants/app/app.constant";
 import { useNavigate } from "react-router-dom";
 import useQuery from "./use-query";
 import { IUser } from "@/interfaces/user";
+import { getApiErrorMessage } from "@/lib/http/handleAxiosError";
 
 function useAuth() {
   const dispatch = useDispatch();
@@ -51,7 +52,7 @@ function useAuth() {
     } catch (errors: any) {
       return {
         status: "failed",
-        message: errors?.response?.data?.message || errors.toString(),
+        message: getApiErrorMessage(errors),
       };
     }
   };
@@ -86,7 +87,7 @@ function useAuth() {
     } catch (errors: any) {
       return {
         status: "failed",
-        message: errors?.response?.data?.message || errors.toString(),
+        message: getApiErrorMessage(errors),
       };
     }
   };

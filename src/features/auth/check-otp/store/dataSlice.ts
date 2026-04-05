@@ -2,22 +2,19 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import type { VerifyEmailOtpPayload, VerifyEmailOtpResponse } from "@/features/auth/types/auth";
 import { apiPostVerifyEmailOtp } from "@/features/auth/check-otp/services";
-
-interface IErrorPayload {
-  message: string;
-  [key: string]: any;
-}
+import { translateRuntime } from "@/lib/i18n/runtime-translation";
+import { getApiErrorMessage, handleAxiosError, type NormalizedApiError } from "@/lib/http/handleAxiosError";
 
 export const postVerifyEmailOtp = createAsyncThunk<
   VerifyEmailOtpResponse,
   VerifyEmailOtpPayload,
-  { rejectValue: IErrorPayload | string }
+  { rejectValue: NormalizedApiError }
 >("checkOtp/data/postVerifyEmailOtp", async (params, { rejectWithValue }) => {
   try {
     const response = (await apiPostVerifyEmailOtp(params)) as { data: VerifyEmailOtpResponse };
     return response.data;
   } catch (error: any) {
-    return rejectWithValue(error?.response?.data || error?.message || "OTP verification failed");
+    return rejectWithValue(handleAxiosError(error));
   }
 });
 
@@ -26,7 +23,7 @@ interface ICheckOtpState {
   user: unknown | null;
   hasSession: boolean;
   message: string | null;
-  error: IErrorPayload | string | null;
+  error: string | null;
   status: "idle" | "loading" | "success" | "error";
 }
 
@@ -67,13 +64,10 @@ const dataSlice = createSlice({
         state.hasSession = false;
         state.message = null;
         state.status = "error";
-        if (typeof action.payload === "string") {
-          state.error = action.payload;
-        } else if (action.payload && typeof action.payload === "object") {
-          state.error = action.payload.message || "Unknown error";
-        } else {
-          state.error = action.error.message || "Unknown error";
-        }
+        state.error = getApiErrorMessage(
+          action.payload ?? action.error,
+          translateRuntime("common_something_went_wrong"),
+        );
       });
   },
 });

@@ -5,11 +5,10 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { FormCheckBox, FormGroup, FormInput } from "@/components/shared";
 import { useTranslation } from "@/lib/hooks";
-import { isValidPhoneNumber } from "@/utils/validates";
 import { useSignIn } from "@/features/auth/sign-in/hooks/useSignIn";
 
 const defaultValuesForSignInForm = {
-  phone: "",
+  email: "",
   password: "",
   remember: false,
 };
@@ -24,19 +23,11 @@ export default function SignInForm() {
     .refine((value) => !/\s/.test(value), t("validation_password_no_spaces"));
 
   const FormSchema = z.object({
-    phone: z
+    email: z
       .string()
       .trim()
-      .nonempty(t("validation_phone_required"))
-      .min(10, t("validation_enter_at_least_10_characters"))
-      .max(25, t("validation_enter_no_more_than_25_characters"))
-      .refine((value) => {
-        if (value) {
-          return isValidPhoneNumber(value, "VN");
-        }
-
-        return true;
-      }, t("validation_invalid_number")),
+      .nonempty(t("validation_email_required"))
+      .email(t("validation_invalid_email")),
     password: passwordSchema,
     remember: z.boolean(),
   });
@@ -47,7 +38,7 @@ export default function SignInForm() {
       onHandleSubmit={(values) =>
         signIn({
           _id: "",
-          phone: values.phone,
+          email: values.email,
           password: values.password,
         })
       }
@@ -55,12 +46,11 @@ export default function SignInForm() {
       formSchema={FormSchema}
     >
       <FormInput
-        name="phone"
-        label={t("form_phone")}
-        placeholder={t("sign_in_phone_placeholder")}
+        name="email"
+        label={t("form_email")}
+        placeholder={t("sign_in_email_placeholder")}
         formSchema={FormSchema}
         isRequired
-        character="+84"
       />
       <FormInput
         inputType="password"

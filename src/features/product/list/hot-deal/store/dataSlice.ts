@@ -5,6 +5,8 @@ import {
   IProductListResponse,
 } from "@/features/product/list/hot-deal/interfaces";
 import { initialState } from "./initials";
+import { translateRuntime } from "@/lib/i18n/runtime-translation";
+import { getApiErrorMessage, handleAxiosError } from "@/lib/http/handleAxiosError";
 
 export const getProductList = createAsyncThunk<IProductListResponse, IProductListRequest>(
   "proBundleDealList/data/getList",
@@ -13,7 +15,7 @@ export const getProductList = createAsyncThunk<IProductListResponse, IProductLis
       const response = (await apiPostProductsList(params)) as { data: IProductListResponse };
       return response.data;
     } catch (error: any) {
-      return rejectWithValue(error?.response?.data || error.message);
+      return rejectWithValue(handleAxiosError(error));
     }
   },
 );
@@ -35,7 +37,7 @@ const dataSlice = createSlice({
       })
       .addCase(getProductList.rejected, (state, action) => {
         state.loading = false;
-        state.error = (action.payload as string) || "Failed to fetch products";
+        state.error = getApiErrorMessage(action.payload, translateRuntime("api_server_error"));
         state.total = 0;
         state.list = [];
       });

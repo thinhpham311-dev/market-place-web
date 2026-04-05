@@ -1,21 +1,7 @@
-import dynamic from "next/dynamic";
 import { notFound } from "next/navigation"; // ✅ import notFound
-// import CatByCategoryId from "@/features/category/by-category-id";
-// import ProListByCategoryId from "@/features/product/list/by-category-id";
-import { Skeleton } from "@/components/ui/skeleton";
-
-const CatByCategoryId = dynamic(() => import("@/features/category/list/by-category-id"), {
-  ssr: false,
-  loading: () => <Skeleton className="w-full h-10" />,
-});
-const BrandListSection = dynamic(() => import("@/features/brand/list/all"), {
-  ssr: false,
-  loading: () => <Skeleton className="w-full h-48" />,
-});
-const ProListByCategoryId = dynamic(() => import("@/features/product/list/by-category-id"), {
-  ssr: false,
-  loading: () => <Skeleton className="w-full h-lvh" />,
-});
+import CatByCategoryId from "@/features/category/list/by-category-id";
+import BrandListSection from "@/features/brand/list/all";
+import ProListByCategoryId from "@/features/product/list/by-category-id";
 
 interface PageProps {
   params: { segments?: string[] };
@@ -43,8 +29,8 @@ export default function Page({ params }: PageProps) {
       <CatByCategoryId ids={ids} />
       <ProListByCategoryId lastId={lastId} />
       <BrandListSection
-        title="Shop By Brand"
-        description="Browse products from the most popular brands in our marketplace."
+        titleKey="shop_by_brand"
+        descriptionKey="shop_by_brand_desc"
         compact
       />
     </div>

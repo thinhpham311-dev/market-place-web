@@ -7,7 +7,7 @@ import { useTranslation } from "@/lib/hooks";
 import CategoryCard from "@/features/category/components/CategoryCard";
 import CategoryCardLoadingSkeleton from "@/features/category/components/CategoryCard/LoadingSkeleton";
 import NotFound from "@/components/layout/notfound";
-import { useFetchData } from "@/features/category/list/popular/hooks";
+import { useFetchData } from "@/features/category/list/all/hooks";
 import type { Category } from "@/features/category/types";
 
 type CategoryGroup = {
@@ -18,19 +18,19 @@ type CategoryGroup = {
 export default function CategoryListPage() {
   const { categories, loading, error } = useFetchData();
   const { t } = useTranslation();
+  const hasNoData = !categories?.length;
   const categoryGroups = useMemo<CategoryGroup[]>(() => {
     if (!categories?.length) {
       return [];
     }
 
-    const parentCategories = categories.filter(
-      (category) => !category.parent_id || !category.isLeaf || category.level === 0,
-    );
+    const parentCategories = categories.filter((category: Category) => !category.parent_id || category.level === 0);
 
-    return parentCategories.map((parent) => {
-      const directChildren = categories.filter(
-        (category) => category.parent_id === parent.category_id,
-      );
+    return parentCategories.map((parent: Category) => {
+      const directChildren =
+        parent.children?.length
+          ? parent.children
+          : categories.filter((category: Category) => category.parent_id === parent.category_id);
 
       return {
         parent,
@@ -53,15 +53,13 @@ export default function CategoryListPage() {
               <CategoryCardLoadingSkeleton key={index} />
             ))}
           </div>
-        ) : error ? (
+        ) : hasNoData && error ? (
           <NotFound message={error} />
-        ) : !categories?.length ? (
+        ) : hasNoData ? (
           <NotFound />
         ) : (
           <div className="space-y-8">
             {categoryGroups.map(({ parent, children }) => {
-              const displayChildren = children.length > 0 ? children : [parent];
-
               return (
                 <section key={parent._id || parent.category_id} className="space-y-4">
                   <div className="space-y-1">
@@ -73,11 +71,15 @@ export default function CategoryListPage() {
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6">
-                    {displayChildren.map((category) => (
-                      <CategoryCard key={category._id || category.category_id} item={category} />
-                    ))}
-                  </div>
+                  {children.length > 0 ? (
+                    <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6">
+                      {children.map((category) => (
+                        <CategoryCard key={category._id || category.category_id} item={category} />
+                      ))}
+                    </div>
+                  ) : (
+                    <NotFound />
+                  )}
                 </section>
               );
             })}

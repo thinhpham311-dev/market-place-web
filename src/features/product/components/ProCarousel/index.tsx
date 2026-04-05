@@ -19,7 +19,7 @@ interface ISpuCarouselProps {
   itemsPerPage?: number;
   className?: string;
   isLoading: boolean;
-  error: Error | null;
+  error?: Error | string | null;
   countLoadItems: number;
 }
 
@@ -32,18 +32,18 @@ const SpuCarousel = ({
   countLoadItems,
 }: ISpuCarouselProps) => {
   const { t } = useTranslation();
-  const hasNoData = !data || data.length === 0;
+   const hasNoData = !data || data.length === 0;
+  const errorMessage = typeof error === "string" ? error : error?.message;
 
-  if (isLoading && hasNoData) {
-    return <LoadingSkeleton className={className} count={countLoadItems} />;
+  if (!isLoading && hasNoData && errorMessage) {
+    return <NotFound message={errorMessage || t("common_something_went_wrong")} />;
   }
-
-  if (!isLoading && hasNoData && error) {
-    return <NotFound message={error.message || t("common_something_went_wrong")} />;
+  if (isLoading && hasNoData) {
+    return <LoadingSkeleton count={countLoadItems} />;
   }
 
   if (!isLoading && hasNoData) {
-    return <NotFound message={t("common_no_data_found")} />;
+    return <NotFound />;
   }
 
   return (

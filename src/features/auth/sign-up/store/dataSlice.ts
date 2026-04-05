@@ -3,22 +3,19 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { IUser } from "@/interfaces/user";
 import type { SignUpResponse } from "@/features/auth/types/auth";
 import { apiPostSignUp } from "@/features/auth/sign-up/services";
-
-interface IErrorPayload {
-  message: string;
-  [key: string]: any;
-}
+import { translateRuntime } from "@/lib/i18n/runtime-translation";
+import { getApiErrorMessage, handleAxiosError, type NormalizedApiError } from "@/lib/http/handleAxiosError";
 
 export const postSignUp = createAsyncThunk<
   SignUpResponse,
   IUser,
-  { rejectValue: IErrorPayload | string }
+  { rejectValue: NormalizedApiError }
 >("signUp/data/postSignUp", async (params, { rejectWithValue }) => {
   try {
     const response = (await apiPostSignUp(params)) as { data: SignUpResponse };
     return response.data;
   } catch (error: any) {
-    return rejectWithValue(error?.response?.data || error?.message || "Sign up failed");
+    return rejectWithValue(handleAxiosError(error));
   }
 });
 
@@ -27,7 +24,7 @@ interface ISignUpState {
   user: unknown | null;
   hasSession: boolean;
   message: string | null;
-  error: IErrorPayload | string | null;
+  error: string | null;
   status: "idle" | "loading" | "success" | "error";
 }
 
@@ -68,13 +65,10 @@ const dataSlice = createSlice({
         state.hasSession = false;
         state.message = null;
         state.status = "error";
-        if (typeof action.payload === "string") {
-          state.error = action.payload;
-        } else if (action.payload && typeof action.payload === "object") {
-          state.error = action.payload.message || "Unknown error";
-        } else {
-          state.error = action.error.message || "Unknown error";
-        }
+        state.error = getApiErrorMessage(
+          action.payload ?? action.error,
+          translateRuntime("common_something_went_wrong"),
+        );
       });
   },
 });

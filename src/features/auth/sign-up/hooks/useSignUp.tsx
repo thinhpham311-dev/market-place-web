@@ -14,6 +14,7 @@ import { postSignUp } from "@/features/auth/sign-up/store/dataSlice";
 import { onSignInSuccess } from "@/store/auth/sessionSlice";
 import { setUser } from "@/store/auth/userSlice";
 import { useTranslation } from "@/lib/hooks/use-translation";
+import { getApiErrorMessage } from "@/lib/http/handleAxiosError";
 
 export function useSignUp() {
   const { t } = useTranslation();
@@ -62,11 +63,7 @@ export function useSignUp() {
       router.push("/user/sign-in");
       router.refresh();
     } catch (error: any) {
-      const message =
-        (typeof error === "string" && error) ||
-        error?.message ||
-        error?.response?.data?.message ||
-        t("auth_sign_up_failed");
+      const message = getApiErrorMessage(error, t("auth_sign_up_failed"));
 
       toast.error(message);
       throw error;

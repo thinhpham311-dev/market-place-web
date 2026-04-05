@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import { apiPostShopDetail } from "@/features/shop/services";
 import { useTranslation } from "@/lib/hooks";
+import { getApiErrorMessage } from "@/lib/http/handleAxiosError";
 
 export type VoucherShopInfo = {
   shop_id: string;
@@ -76,9 +77,7 @@ export function useFetchShopInfo({ shopId = "", enabled = true }: UseFetchShopIn
       })
       .catch((err: any) => {
         if (isMounted) {
-          setError(
-            err?.response?.data?.message || err?.message || t("voucher_shop_info_not_found"),
-          );
+          setError(getApiErrorMessage(err, t("voucher_shop_info_not_found")));
         }
       })
       .finally(() => {

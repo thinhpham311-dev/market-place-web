@@ -9,6 +9,8 @@ import {
   BRAND_ALL_LIST_TAG,
   BRAND_ALL_LIST_TTL,
 } from "@/features/brand/list/all/constants";
+import { translateRuntime } from "@/lib/i18n/runtime-translation";
+import { getApiErrorMessage } from "@/lib/http/handleAxiosError";
 
 type BrandResponse = {
   metadata: {
@@ -52,7 +54,7 @@ export const getBrandAllList = createAsyncThunk<BrandResponse, object, { rejectV
 
       return data;
     } catch (error: any) {
-      return rejectWithValue(error?.message || "Unknown error");
+      return rejectWithValue(getApiErrorMessage(error, translateRuntime("common_something_went_wrong")));
     }
   },
 );
@@ -74,7 +76,7 @@ const dataSlice = createSlice({
       })
       .addCase(getBrandAllList.rejected, (state, action) => {
         state.loading = false;
-        state.error = (action.payload as string) || "Failed to fetch brands";
+        state.error = getApiErrorMessage(action.payload, translateRuntime("api_server_error"));
         state.total = 0;
         state.list = [];
       });

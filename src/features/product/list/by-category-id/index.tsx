@@ -16,7 +16,7 @@ import { SORTBY_OPTIONS, FILTER_OPTIONS } from "./constants";
 import { PRO_LIST_BY_CATEGORYID } from "./constants";
 
 const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
-  const { products, totalItems, loading, error, status } = useFetchData({ lastId });
+  const { products, totalItems, loading, error } = useFetchData({ lastId });
   const { brands = [] } = useBrandFetchData();
 
   const filterOptions = React.useMemo(() => {
@@ -25,7 +25,7 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
       labelKey: "brands",
       key: "brands",
       type: "checkbox",
-      items: brands.map((brand) => ({
+      items: brands.map((brand: any) => ({
         key: brand.brand_id || brand._id,
         label: brand.brand_name || "Brand",
         value: brand.brand_id || brand._id,
@@ -80,10 +80,9 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
               <SpuGrid
                 error={error}
                 isLoading={loading}
-                status={status}
                 countLoadItems={20}
                 data={products}
-                className="lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-3"
+                className="lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-2"
               />
             </CardContent>
 

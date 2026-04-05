@@ -1,6 +1,7 @@
 "use client";
 import { useMemo } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ShoppingBasket, Store, User, ArrowLeft, Bell } from "lucide-react";
 import { IoIosFlash } from "react-icons/io";
 import { MdLogout } from "react-icons/md";
@@ -28,7 +29,6 @@ import { useSidebarShops } from "./hooks/useSidebarShops";
 export default function SidebarNavigation() {
   const { t } = useTranslation();
   const pathname = usePathname() ?? "/";
-  const router = useRouter();
   const { categories } = useFetchData();
   const { shops } = useSidebarShops();
   const conditionMenu = useMemo(() => pathname.split("/")[1] === "user", [pathname]);
@@ -43,13 +43,13 @@ export default function SidebarNavigation() {
     };
 
     const parentCategories = categories.filter(
-      (category) => !category.parent_id || !category.isLeaf || category.level === 0,
+      (category: Category) => !category.parent_id || !category.isLeaf || category.level === 0,
     );
 
-    return parentCategories.map((parent) => {
-      const children = categories
-        .filter((category) => category.parent_id === parent.category_id)
-        .map<LinkMenuItem>((child) => ({
+    return parentCategories.map((parent: Category) => {
+      const children: LinkMenuItem[] = categories
+        .filter((category: Category) => category.parent_id === parent.category_id)
+        .map((child: Category): LinkMenuItem => ({
           type: "link",
           title: child.category_name || t("categories"),
           url: buildCategoryUrl(child),
@@ -96,7 +96,7 @@ export default function SidebarNavigation() {
         icon: Store,
         children:
           shops.length > 0
-            ? shops.map<LinkMenuItem>((shop) => ({
+            ? shops.map((shop): LinkMenuItem => ({
                 type: "link",
                 title: shop.shop_name || t("sidebar_shops"),
                 url: `/shop/${shop.shop_slug}-s.${shop.shop_id}`,
@@ -160,16 +160,13 @@ export default function SidebarNavigation() {
       <SidebarHeader>
         <SidebarGroup>
           <SidebarGroupLabel className="font-bold text-xl px-0">
-            <Button
-              type="button"
-              className="w-full"
-              variant="outline"
-              onClick={() => router.push("/")}
-            >
-              <span>
-                <ArrowLeft />
-              </span>
-              {t("sidebar_back_home")}
+            <Button type="button" className="w-full" variant="outline" asChild>
+              <Link href="/">
+                <span>
+                  <ArrowLeft />
+                </span>
+                {t("sidebar_back_home")}
+              </Link>
             </Button>
           </SidebarGroupLabel>
         </SidebarGroup>

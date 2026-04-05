@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
+import AppProvider from "@/components/provider/app-provider";
 
 import "./globals.css";
-
-const AppProvider = dynamic(() => import("@/components/provider/app-provider"), {
-  ssr: false,
-});
 
 export const metadata: Metadata = {
   icons:

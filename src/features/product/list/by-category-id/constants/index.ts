@@ -1,3 +1,5 @@
+import type { Sort } from "@/features/common/sort-by/types";
+
 export const PRO_LIST_BY_CATEGORYID = "PRO_LIST_BY_CATEGORYID";
 export const PRO_LIST_BY_CATEGORYID_CACHE_KEY = "PRO_LIST_BY_CATEGORYID_CACHE_KEY";
 export const PRO_LIST_BY_CATEGORYID_TAG = "PRO_LIST_BY_CATEGORYID_TAG";
@@ -5,7 +7,7 @@ export const PRO_LIST_BY_CATEGORYID_TTL = 5 * 60 * 1000; // 5 minutes
 export const PRO_LIST_BY_CATEGORYID_RETRIES = 2;
 export const PRO_LIST_BY_CATEGORYID_RETRY_DELAY = 500; // 0.5 second
 
-export const SORTBY_OPTIONS = [
+export const SORTBY_OPTIONS: Sort[] = [
   { label: "Newest", labelKey: "sort_newest", value: "ctime" },
   { label: "Popularity", labelKey: "sort_popularity", value: "pop" },
   { label: "Price: Low to High", labelKey: "sort_price_low_to_high", value: "asc" },

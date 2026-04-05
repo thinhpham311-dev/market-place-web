@@ -11,13 +11,14 @@ import LoadingSkeleton from "./LoadingSkeleton";
 import CategoryCard from "../CategoryCard";
 import { cn } from "@/utils/styles";
 import { Category } from "@/features/category/types";
+import { translateRuntime } from "@/lib/i18n/runtime-translation";
 
 interface ProductRowProps {
   data: Category[];
   itemsPerPage?: number;
   className?: string;
   isLoading: boolean;
-  error: Error | null;
+  error: Error | string | null;
   countLoadItems: number;
 }
 
@@ -29,14 +30,17 @@ const CategoryCarousel = ({
   error,
   countLoadItems,
 }: ProductRowProps) => {
-  if (!isLoading && (!data || data.length === 0) && error) {
-    return <NotFound message={error.message || "Something went wrong."} />;
+  const hasNoData = !data || data.length === 0;
+  const errorMessage = typeof error === "string" ? error : error?.message;
+
+  if (!isLoading && hasNoData && errorMessage) {
+    return <NotFound message={errorMessage || translateRuntime("common_something_went_wrong")} />;
   }
-  if (isLoading && (!data || data.length === 0)) {
+  if (isLoading && hasNoData) {
     return <LoadingSkeleton count={countLoadItems} />;
   }
 
-  if (!isLoading && (!data || data.length === 0)) {
+  if (!isLoading && hasNoData) {
     return <NotFound />;
   }
   return (

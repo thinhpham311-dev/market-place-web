@@ -8,6 +8,8 @@ import {
   CAT_LIST_BY_ID_TTL,
   CAT_LIST_BY_ID_TAG,
 } from "@/features/category/list/by-category-id/constants";
+import { translateRuntime } from "@/lib/i18n/runtime-translation";
+import { getApiErrorMessage } from "@/lib/http/handleAxiosError";
 
 type CategoriesResponse = {
   metadata: {
@@ -53,7 +55,7 @@ export const getCatListById = createAsyncThunk<
 
     return data;
   } catch (err: any) {
-    return rejectWithValue(err?.message || "Unknown error");
+    return rejectWithValue(getApiErrorMessage(err, translateRuntime("common_something_went_wrong")));
   }
 });
 
@@ -75,7 +77,7 @@ const dataSlice = createSlice({
       })
       .addCase(getCatListById.rejected, (state, action) => {
         state.loading = false;
-        state.error = (action.payload as string) || "Failed to fetch categories";
+        state.error = getApiErrorMessage(action.payload, translateRuntime("api_server_error"));
         state.total = 0;
         state.list = [];
       });

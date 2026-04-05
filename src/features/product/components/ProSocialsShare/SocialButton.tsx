@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
 
 interface ISocialButtonProps {
   label: string;
@@ -11,16 +10,11 @@ interface ISocialButtonProps {
 }
 
 export default function SocialButton({ label, link, icon }: ISocialButtonProps) {
-  const router = useRouter();
-
   return (
-    <Button
-      key={label.split(" ").join("-")}
-      variant="outline"
-      size="icon"
-      onClick={() => router.push(link)}
-    >
-      {icon}
+    <Button key={label.split(" ").join("-")} variant="outline" size="icon" asChild>
+      <a href={link} target="_blank" rel="noreferrer noopener" aria-label={label}>
+        {icon}
+      </a>
     </Button>
   );
 }
