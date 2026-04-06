@@ -23,28 +23,18 @@ export function useSidebarShops(limit = 24) {
     const fetchShops = async () => {
       try {
         const response = (await ApiService.fetchData({
-          url: "/spu/all",
-          method: "POST",
-          data: {
-            limit,
-            page: 1,
-            sort: "ctime",
-          },
-        })) as SidebarShopsResponse;
+          url: "/shop/active-list",
+          method: "GET",
+          params: { limit },
+        })) as any;
 
-        const products = response?.data?.metadata?.list ?? [];
-        const uniqueShops = new Map<string, IShopModel>();
-
-        products.forEach((product) => {
-          const shop = product?.product_shop;
-
-          if (shop?.shop_id && !uniqueShops.has(shop.shop_id)) {
-            uniqueShops.set(shop.shop_id, shop);
-          }
-        });
+        let shopList = [];
+      
+           shopList = response.data.metadata.list;
+   
 
         if (isMounted) {
-          setShops(Array.from(uniqueShops.values()).slice(0, 8));
+          setShops(shopList.slice(0, 8));
         }
       } catch {
         if (isMounted) {

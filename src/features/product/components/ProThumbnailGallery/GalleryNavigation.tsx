@@ -30,7 +30,7 @@ export default function GalleryNavigation({
         size="icon"
         variant="outline"
       >
-        <ArrowLeft className="w-4 h-4" />
+        <ArrowLeft  />
       </Button>
 
       <Button
@@ -39,7 +39,7 @@ export default function GalleryNavigation({
         size="icon"
         variant="outline"
       >
-        <ArrowRight className="w-4 h-4" />
+        <ArrowRight  />
       </Button>
     </>
   );

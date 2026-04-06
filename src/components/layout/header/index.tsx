@@ -8,7 +8,7 @@ export default function SiteHeader() {
   const path = usePathname();
 
   return (
-    <header className="w-full border-b sticky top-0 bg-background z-10">
+    <header className="w-full border-b sticky top-0 bg-background z-50">
       <div className="flex h-14 items-center px-6 container mx-auto">
         <div className="flex gap-2 w-full justify-between">
           <div className="flex items-center space-x-2">

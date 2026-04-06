@@ -31,6 +31,7 @@ export default function SidebarNavigation() {
   const pathname = usePathname() ?? "/";
   const { categories } = useFetchData();
   const { shops } = useSidebarShops();
+  console.log("shops", shops);
   const conditionMenu = useMemo(() => pathname.split("/")[1] === "user", [pathname]);
   const categoryMenuItems: MenuItem[] = useMemo(() => {
     if (!categories?.length) {
@@ -70,6 +71,22 @@ export default function SidebarNavigation() {
       };
     });
   }, [categories, t]);
+  const shopMenuItems: MenuItem[] = useMemo(() => {
+    if (!shops?.length) {
+      return [
+        { type: "link", title: t("sidebar_shop_1"), url: "/shop/shop-s.1" },
+        { type: "link", title: t("sidebar_shop_2"), url: "/shop/shop-s.2" },
+      ];
+    }
+    return shops.map(
+      (shop): LinkMenuItem => ({
+        type: "link",
+        title: shop.shop_name || t("sidebar_shops"),
+        url: `/shop/${shop.shop_slug}-s.${shop.shop_id}`,
+      }),
+    );
+  }, [shops, t]);
+
   const items: MenuItem[] = useMemo(
     () => [
       {
@@ -94,20 +111,10 @@ export default function SidebarNavigation() {
         type: "group",
         title: t("sidebar_shops"),
         icon: Store,
-        children:
-          shops.length > 0
-            ? shops.map((shop): LinkMenuItem => ({
-                type: "link",
-                title: shop.shop_name || t("sidebar_shops"),
-                url: `/shop/${shop.shop_slug}-s.${shop.shop_id}`,
-              }))
-            : [
-                { type: "link", title: t("sidebar_shop_1"), url: "/shop/shop-s.1" },
-                { type: "link", title: t("sidebar_shop_2"), url: "/shop/shop-s.2" },
-              ],
+        children: shopMenuItems,
       },
     ],
-    [categoryMenuItems, shops, t],
+    [categoryMenuItems, shopMenuItems, t],
   );
   const profileMenuItems: MenuItem[] = useMemo(
     () => [

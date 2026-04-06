@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Tickets, ChevronRight } from "lucide-react";
 import { useTranslation } from "@/lib/hooks";
+import Link from "next/link";
 
 export default function VoucherSection() {
   const { t } = useTranslation();
@@ -13,9 +14,11 @@ export default function VoucherSection() {
         <Tickets />
         <span className="text-md">{t("cart_voucher_code")}:</span>
       </strong>
-      <Button variant="ghost" size="sm">
-        {t("see_more")}
-        <ChevronRight />
+      <Button variant="ghost" size="sm" asChild>
+        <Link href="/user/vouchers">
+          {t("see_more")}
+          <ChevronRight />
+        </Link>
       </Button>
     </div>
   );

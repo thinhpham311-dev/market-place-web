@@ -10,6 +10,7 @@ interface GalleryCarouselProps {
   onSetApi?: (api: CarouselApi) => void;
   current?: number;
   onNavigate?: (index: number) => void;
+  onImageClick?: (index: number) => void;
 }
 
 const GalleryCarousel = ({
@@ -18,11 +19,8 @@ const GalleryCarousel = ({
   onSetApi,
   current,
   onNavigate,
+  onImageClick,
 }: GalleryCarouselProps) => {
-  const handleImageClick = (index: number) => {
-    onNavigate?.(index);
-  };
-
   return (
     <Carousel setApi={onSetApi}>
       <CarouselContent className="-ml-2">
@@ -30,8 +28,8 @@ const GalleryCarousel = ({
           <CarouselItem
             key={i}
             className={cn("relative w-full cursor-pointer pl-2 grid place-items-center", className)}
-            onMouseEnter={() => handleImageClick(i)}
-            onClick={() => handleImageClick(i)}
+            onMouseEnter={() => onNavigate?.(i)}
+            onClick={() => onImageClick?.(i)}
           >
             <div className={cn("w-full h-full ", current === i ? "border-2 border-blue-600" : "")}>
               <ProImage index={i} image={image} />

@@ -20,7 +20,7 @@ function MenuItems({ item, pathname }: SidebarMenuItemProps) {
           {item.children?.map((child) => (
             <MenuItems
               key={
-                child.type === "link" ? child.url : `${child.title}-${child.children?.length ?? 0}`
+                child.type === "link" ? child.url : `${child.title}-${child}`
               }
               item={child}
               pathname={pathname}
