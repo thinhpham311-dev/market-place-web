@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getProductList } from "../store/dataSlice";
 import { selectProTopPickListByStoreKey } from "@/features/product/list/top-picks/store/selectors";
@@ -13,7 +13,7 @@ interface IUseFetchData {
 }
 
 export function useFetchData({ storeKey }: IUseFetchData) {
-  useLayoutEffect(() => {
+  useEffect(() => {
     injectReducer(storeKey, reducer);
     return () => {
       removeReducer(storeKey);

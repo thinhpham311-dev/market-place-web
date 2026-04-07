@@ -1,7 +1,7 @@
 "use client";
 
 import SpuGrid from "@/features/product/components/ProGrid";
-import ProductListSection from "@/features/product/list/shared/components/ProductListSection";
+import ProductListSection from "@/features/product/components/ProductListSection";
 import { useTranslation } from "@/lib/hooks";
 // import LoadMoreTrigger from "@/features/common/infinite-scroll";
 

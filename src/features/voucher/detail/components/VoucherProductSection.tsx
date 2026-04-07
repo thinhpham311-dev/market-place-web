@@ -3,28 +3,11 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import ProGrid from "@/features/product/components/ProGrid";
 import { useTranslation } from "@/lib/hooks";
-import { useFetchVoucherProducts } from "@/features/voucher/detail/hooks/useFetchVoucherProducts";
+import { useVoucherDetailContext } from "@/features/voucher/detail/hooks/useVoucherDetailContext";
 
-interface VoucherProductSectionProps {
-  code?: string;
-  shopId?: string;
-}
-
-export default function VoucherProductSection({
-  code = "",
-  shopId = "",
-}: VoucherProductSectionProps) {
+export default function VoucherProductSection() {
   const { t } = useTranslation();
-  const { products, loading, error } = useFetchVoucherProducts({
-    code,
-    shopId,
-    limit: 12,
-    page: 1,
-  });
-
-  if (!code) {
-    return null;
-  }
+  const { products, productsLoading, productsError } = useVoucherDetailContext();
 
   return (
     <Card className="w-full border-stone-200 shadow-none">
@@ -35,8 +18,8 @@ export default function VoucherProductSection({
       <CardContent>
         <ProGrid
           data={products}
-          isLoading={loading}
-          error={error}
+          isLoading={productsLoading}
+          error={productsError}
           countLoadItems={12}
           className="grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4"
         />

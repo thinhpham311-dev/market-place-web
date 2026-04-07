@@ -1,5 +1,5 @@
 "use client";
-import SignInCard from "@/features/auth/sign-in/components/SignInCard";
+import SignInRoot from "@/features/auth/sign-in/sign-in-root";
 import Image from "next/image";
 
 export default function Page() {
@@ -27,7 +27,7 @@ export default function Page() {
             </div>
           </div>
         </div>
-        <SignInCard />
+        <SignInRoot />
       </div>
     </div>
   );

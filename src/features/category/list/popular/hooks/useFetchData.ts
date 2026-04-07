@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getCategoryList } from "@/features/category/list/popular/store/dataSlice";
 import { selectCatPopularListByStoreKey } from "@/features/category/list/popular/store/selectors";
@@ -10,7 +10,7 @@ import { injectReducer, removeReducer } from "@/store";
 import { CAT_POPULAR_LIST } from "@/features/category/list/popular/constants";
 
 export function useFetchData() {
-  useLayoutEffect(() => {
+  useEffect(() => {
     injectReducer(CAT_POPULAR_LIST, reducer);
 
     return () => {

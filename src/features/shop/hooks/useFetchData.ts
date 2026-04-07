@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
 // // Actions and selectors
@@ -16,17 +16,30 @@ import { SHOP_KEY } from "@/features/shop/constants";
 
 interface IUseFetchDataParams {
   shop_id?: string;
-  storeKey: string;
+  storeKey?: string;
+  enabled?: boolean;
 }
 
-export function useFetchData({ shop_id, storeKey }: IUseFetchDataParams) {
-  useLayoutEffect(() => {
-    const reducerKey = `${SHOP_KEY}_${storeKey}`;
+export function useFetchData({ shop_id = "", storeKey, enabled = true }: IUseFetchDataParams) {
+  const resolvedStoreKey = useMemo(() => {
+    if (storeKey) {
+      return storeKey;
+    }
+
+    return shop_id ? `SHOP_INFO_${shop_id}` : "SHOP_INFO_FALLBACK";
+  }, [shop_id, storeKey]);
+
+  useEffect(() => {
+    if (!enabled || !resolvedStoreKey) {
+      return;
+    }
+
+    const reducerKey = `${SHOP_KEY}_${resolvedStoreKey}`;
     injectReducer(reducerKey, reducer);
     return () => {
       removeReducer(reducerKey);
     };
-  }, [storeKey]);
+  }, [enabled, resolvedStoreKey]);
 
   const dispatch = useAppDispatch();
   const {
@@ -34,10 +47,13 @@ export function useFetchData({ shop_id, storeKey }: IUseFetchDataParams) {
     loading = false,
     error = null,
     status = "",
-  } = useAppSelector(selectShopInfoByStoreKey(storeKey));
+  } = useAppSelector(selectShopInfoByStoreKey(resolvedStoreKey));
 
   useEffect(() => {
-    if (!shop_id) return;
+    if (!enabled || !shop_id) {
+      return;
+    }
+
     const promise = dispatch(
       getShopById({
         shop_id,
@@ -47,7 +63,21 @@ export function useFetchData({ shop_id, storeKey }: IUseFetchDataParams) {
     return () => {
       promise.abort?.();
     };
-  }, [dispatch, shop_id]);
+  }, [dispatch, enabled, shop_id]);
 
-  return { shopInfo, loading, error, status };
+  const shopHref = useMemo(() => {
+    if (!shopInfo?.shop_id) {
+      return undefined;
+    }
+
+    return `/shop/${shopInfo.shop_slug || "shop"}-s.${shopInfo.shop_id}`;
+  }, [shopInfo]);
+
+  return {
+    shopInfo,
+    shopHref,
+    loading,
+    error,
+    status,
+  };
 }

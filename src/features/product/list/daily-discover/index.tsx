@@ -1,8 +1,6 @@
 "use client";
 
-import { startTransition, useMemo } from "react";
 import { Compass, Flame, ShieldCheck, Truck } from "lucide-react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -10,26 +8,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Separator } from "@/components/ui/separator";
 import Pagination from "@/features/common/pagination";
 import ProGrid from "@/features/product/components/ProGrid";
-import { useFetchData } from "@/features/product/list/suggestion/hooks";
-import { DAILY_DISCOVER_LIST } from "@/features/discover/daily-discover/constants";
+import { DAILY_DISCOVER_LIST } from "@/features/product/list/daily-discover/constants";
 import { useTranslation } from "@/lib/hooks";
-import type { TranslationKey } from "@/lib/i18n/translations";
-import type { SortBy } from "@/types/common/sort";
+import { useDailyDiscoverContext } from "@/features/product/list/daily-discover/hooks/useDailyDiscoverContext";
+import type { QuickFilter, TrustPoint } from "@/features/product/list/daily-discover/types";
 
-type QuickFilter = {
-  key: string;
-  labelKey: TranslationKey;
-  descriptionKey: TranslationKey;
-  sortBy: SortBy;
-};
-
-type TrustPoint = {
-  icon: typeof Truck;
-  labelKey: TranslationKey;
-  descriptionKey: TranslationKey;
-};
-
-const quickFilters: QuickFilter[] = [
+export const quickFilters: QuickFilter[] = [
   {
     key: "popular",
     labelKey: "popular_tab",
@@ -98,66 +82,19 @@ const trustPoints: TrustPoint[] = [
   },
 ] as const;
 
-const DEFAULT_FILTER_KEY = "recommended";
+export const DEFAULT_FILTER_KEY = "recommended";
 
 export default function DailyDiscoverPage() {
   const { t } = useTranslation();
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const availableFilterKeys = useMemo(() => quickFilters.map((filter) => filter.key), []);
-  const queryTab = searchParams.get("tab");
-  const activeFilter =
-    queryTab && availableFilterKeys.includes(queryTab as (typeof quickFilters)[number]["key"])
-      ? (queryTab as (typeof quickFilters)[number]["key"])
-      : DEFAULT_FILTER_KEY;
-  const handleSelectFilter = (filterKey: (typeof quickFilters)[number]["key"]) => {
-    if (filterKey === activeFilter) {
-      return;
-    }
-
-    const nextParams = new URLSearchParams(searchParams.toString());
-
-    if (filterKey === DEFAULT_FILTER_KEY) {
-      nextParams.delete("tab");
-    } else {
-      nextParams.set("tab", filterKey);
-    }
-
-    const nextQuery = nextParams.toString();
-
-    startTransition(() => {
-      router.replace(nextQuery ? `${pathname}?${nextQuery}` : pathname, { scroll: false });
-    });
-  };
-
-  const activeFilterConfig =
-    quickFilters.find((filter) => filter.key === activeFilter) ?? quickFilters[0];
   const {
-    products,
-    totalItems = 0,
+    activeFilter,
+    activeFilterConfig,
+    displayProducts,
+    totalItems,
     loading,
     error,
-  } = useFetchData({
-    storeKey: DAILY_DISCOVER_LIST,
-    defaultLimit: 18,
-    sortBy: activeFilterConfig.sortBy,
-  });
-  const displayProducts = useMemo(() => {
-    const nextProducts = [...products];
-
-    switch (activeFilter) {
-      case "top-rated":
-        return nextProducts.sort(
-          (left, right) =>
-            (right.product_ratingsAverange ?? 0) - (left.product_ratingsAverange ?? 0),
-        );
-      case "fast-delivery":
-        return nextProducts.sort((left, right) => left.product_price - right.product_price);
-      default:
-        return nextProducts;
-    }
-  }, [activeFilter, products]);
+    handleSelectFilter,
+  } = useDailyDiscoverContext();
 
   return (
     <div className="container mx-auto my-5 space-y-5 px-3 md:px-6">

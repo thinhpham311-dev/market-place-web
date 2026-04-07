@@ -1,9 +1,9 @@
 "use client";
-import { useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { injectReducer, removeReducer } from "@/store";
 
 export function useDynamicReducer(key: string, reducer: any) {
-  useLayoutEffect(() => {
+  useEffect(() => {
     injectReducer(key, reducer);
     return () => {
       removeReducer(key);

@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import reducer from "@/features/brand/list/all/store";
@@ -8,7 +8,7 @@ import { selectBrandAllListByStoreKey } from "@/features/brand/list/all/store/se
 import { BRAND_ALL_LIST } from "@/features/brand/list/all/constants";
 
 export function useFetchData() {
-  useLayoutEffect(() => {
+  useEffect(() => {
     injectReducer(BRAND_ALL_LIST, reducer);
 
     return () => {

@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getProductList } from "../store/dataSlice";
 import { selectProRelatedListByStoreKey } from "@/features/product/list/related/store/selectors";
@@ -10,7 +10,7 @@ import { injectReducer, removeReducer } from "@/store";
 import { PRO_RELATED_LIST } from "@/features/product/list/related/constants";
 
 export function useFetchData() {
-  useLayoutEffect(() => {
+  useEffect(() => {
     injectReducer(PRO_RELATED_LIST, reducer);
 
     return () => {

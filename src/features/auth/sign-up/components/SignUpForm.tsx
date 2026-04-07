@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { FormGroup, FormInput } from "@/components/shared";
 import { useTranslation } from "@/lib/hooks";
 import { isValidPhoneNumber } from "@/utils/validates";
-import { useSignUp } from "@/features/auth/sign-up/hooks/useSignUp";
+import { useSignUpContext } from "@/features/auth/sign-up/hooks/useSignUpContext";
 
 const defaultValuesForSignUpForm = {
   firstName: "",
@@ -19,7 +19,7 @@ const defaultValuesForSignUpForm = {
 
 export default function SignUpForm() {
   const { t } = useTranslation();
-  const { signUp, isSubmitting } = useSignUp();
+  const { signUp, isSubmitting } = useSignUpContext();
   const passwordSchema = z
     .string()
     .min(8, t("validation_enter_at_least_8_characters"))

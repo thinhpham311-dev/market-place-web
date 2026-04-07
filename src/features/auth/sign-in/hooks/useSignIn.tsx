@@ -1,43 +1,49 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 
-import { apiSignIn } from "@/services/AuthService";
 import { IUser } from "@/interfaces/user";
+import reducer from "@/features/auth/sign-in/store";
+import { injectReducer, removeReducer } from "@/store";
+import { SIGN_IN_DEFAULT_STORE_KEY, SIGN_IN_KEY } from "@/features/auth/sign-in/constants";
+import { selectSignInByStoreKey } from "@/features/auth/sign-in/store/selectors";
+import { postSignIn } from "@/features/auth/sign-in/store/dataSlice";
 import { onSignInSuccess } from "@/store/auth/sessionSlice";
 import { setUser } from "@/store/auth/userSlice";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks/use-storeIO";
 import { useTranslation } from "@/lib/hooks/use-translation";
 import { getApiErrorMessage } from "@/lib/http/handleAxiosError";
-
-type SignInResponse = {
-  message?: string;
-  token?: string;
-  user?: any;
-  hasSession?: boolean;
-};
 
 export function useSignIn() {
   const { t } = useTranslation();
   const router = useRouter();
-  const dispatch = useDispatch();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const dispatch = useAppDispatch();
+  const storeKey = SIGN_IN_DEFAULT_STORE_KEY;
+
+  useEffect(() => {
+    const reducerKey = `${SIGN_IN_KEY}_${storeKey}`;
+    injectReducer(reducerKey, reducer);
+
+    return () => {
+      removeReducer(reducerKey);
+    };
+  }, [storeKey]);
+
+  const { loading: isSubmitting = false } = useAppSelector(selectSignInByStoreKey(storeKey));
 
   const signIn = async (values: IUser) => {
     try {
-      setIsSubmitting(true);
+      const response = await dispatch(postSignIn(values) as any).unwrap();
+      const message = response.message || t("auth_sign_in_success");
 
-      const response = (await apiSignIn(values)) as { data: SignInResponse };
-      const message = response.data?.message || t("auth_sign_in_success");
-
-      if (response.data?.hasSession || response.data?.token) {
-        dispatch(onSignInSuccess(response.data?.token || "http-only-session"));
+      if (response.hasSession || response.token) {
+        dispatch(onSignInSuccess(response.token || "http-only-session"));
       }
 
-      if (response.data?.user) {
-        dispatch(setUser(response.data.user));
+      if (response.user) {
+        dispatch(setUser(response.user));
       }
 
       toast.success(message);
@@ -48,8 +54,6 @@ export function useSignIn() {
 
       toast.error(message);
       throw error;
-    } finally {
-      setIsSubmitting(false);
     }
   };
 

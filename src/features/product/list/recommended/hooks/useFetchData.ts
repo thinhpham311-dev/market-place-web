@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getProductList } from "../store/dataSlice";
 import { selectProRecommendedListByStoreKey } from "@/features/product/list/recommended/store/selectors";
@@ -10,7 +10,7 @@ import { injectReducer, removeReducer } from "@/store";
 import { PRO_RECOMMENDDED_LIST } from "@/features/product/list/recommended/constants";
 
 export function useFetchData() {
-  useLayoutEffect(() => {
+  useEffect(() => {
     injectReducer(PRO_RECOMMENDDED_LIST, reducer);
 
     return () => {

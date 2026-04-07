@@ -2,7 +2,7 @@
 
 //components
 import ProCarousel from "@/features/product/components/ProCarousel";
-import ProductListSection from "@/features/product/list/shared/components/ProductListSection";
+import ProductListSection from "@/features/product/components/ProductListSection";
 import { useTranslation } from "@/lib/hooks";
 
 //datas

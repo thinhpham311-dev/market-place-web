@@ -1,6 +1,6 @@
 "use client";
 
-import ProductListSection from "@/features/product/list/shared/components/ProductListSection";
+import ProductListSection from "@/features/product/components/ProductListSection";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 

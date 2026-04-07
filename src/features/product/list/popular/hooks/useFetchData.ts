@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getProductList } from "../store/dataSlice";
 import { selectProPopularListByStoreKey } from "../store/selectors";
@@ -21,7 +21,7 @@ export function useFetchData({
   defaultLimit = 12,
   defaultCurrentPage = 1,
 }: IUseFetchDataParams = {}) {
-  useLayoutEffect(() => {
+  useEffect(() => {
     injectReducer(storeKey, reducer);
 
     return () => {

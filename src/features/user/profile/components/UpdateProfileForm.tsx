@@ -7,21 +7,15 @@ import { Button } from "@/components/ui/button";
 import { FormGroup, FormInput, FormSelect } from "@/components/shared";
 import { useTranslation } from "@/lib/hooks";
 import { isValidPhoneNumber } from "@/utils/validates";
+import { useUserProfileContext } from "@/features/user/profile/hooks/useUserProfileContext";
+import { type UserProfileFormValues } from "@/features/user/profile/providers";
 
 const emailValidator = z.string().email();
 const genderValues = ["male", "female"] as const;
 
-const defaultValuesForUpdateProfileForm = {
-  fullname: "",
-  username: "",
-  email: "",
-  phone: "",
-  gender: "",
-  address: "",
-};
-
 export default function UpdateProfileForm() {
   const { t } = useTranslation();
+  const { formDefaults, profile } = useUserProfileContext();
   const FormSchema = z.object({
     fullname: z
       .string()
@@ -68,9 +62,10 @@ export default function UpdateProfileForm() {
   });
 
   return (
-    <FormGroup
-      defaultValues={defaultValuesForUpdateProfileForm}
-      onHandleSubmit={(values) => {
+    <FormGroup<UserProfileFormValues>
+      key={profile?.id || "profile-form"}
+      defaultValues={formDefaults}
+      onHandleSubmit={(values: UserProfileFormValues) => {
         console.log(values);
       }}
       className="grid grid-cols-2 gap-5"

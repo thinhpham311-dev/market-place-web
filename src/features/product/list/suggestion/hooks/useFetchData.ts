@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getProductList } from "@/features/product/list/suggestion/store/dataSlice";
 import { selectProSuggestionListByStoreKey } from "@/features/product/list/suggestion/store/selectors";
@@ -21,7 +21,7 @@ export function useFetchData({
   defaultCurrentPage = 1,
   sortBy = "ctime",
 }: IUseFetchData) {
-  useLayoutEffect(() => {
+  useEffect(() => {
     injectReducer(storeKey, reducer);
     return () => {
       removeReducer(storeKey);

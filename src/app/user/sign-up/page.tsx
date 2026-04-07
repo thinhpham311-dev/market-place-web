@@ -1,5 +1,6 @@
-import SignUpCard from "@/features/auth/sign-up/components/SignUpCard";
 import Image from "next/image";
+
+import SignUpRoot from "@/features/auth/sign-up/sign-up-root";
 
 export default function Page() {
   return (
@@ -26,7 +27,7 @@ export default function Page() {
             </div>
           </div>
         </div>
-        <SignUpCard />
+        <SignUpRoot />
       </div>
     </div>
   );

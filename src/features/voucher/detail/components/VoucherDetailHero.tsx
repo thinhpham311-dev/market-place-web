@@ -6,22 +6,11 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useTranslation } from "@/lib/hooks";
-import type { VoucherItem } from "@/features/voucher/list/hooks/useFetchData";
+import { useVoucherDetailContext } from "@/features/voucher/detail/hooks/useVoucherDetailContext";
 
-interface VoucherDetailHeroProps {
-  voucher: VoucherItem;
-  discountSummary: string;
-  isClaimed: boolean;
-  onClaim: () => void;
-}
-
-export default function VoucherDetailHero({
-  voucher,
-  discountSummary,
-  isClaimed,
-  onClaim,
-}: VoucherDetailHeroProps) {
+export default function VoucherDetailHero() {
   const { t } = useTranslation();
+  const { voucher, discountSummary, isClaimed, onClaim } = useVoucherDetailContext();
 
   return (
     <Card className="w-full overflow-hidden border-none shadow-sm">

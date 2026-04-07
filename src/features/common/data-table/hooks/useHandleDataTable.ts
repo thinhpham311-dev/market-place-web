@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useEffect, useRef, useCallback, useMemo } from "react";
+import { useEffect, useRef, useCallback, useMemo } from "react";
 import {
   setInitialState,
   setGrouping,
@@ -40,7 +40,7 @@ export const useHandleDataTable = ({
 
   const dispatch = useAppDispatch();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     injectReducer(reducerKey, reducer);
     return () => removeReducer(reducerKey);
   }, [reducerKey]);

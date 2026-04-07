@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getProductList } from "../store/dataSlice";
 import { selectProBundleDealListByStoreKey } from "@/features/product/list/bundle-deal/store/selectors";
@@ -10,7 +10,7 @@ import { injectReducer, removeReducer } from "@/store";
 import { PRO_BUNDLE_DEAL_LIST } from "@/features/product/list/bundle-deal/constants";
 
 export function useFetchData() {
-  useLayoutEffect(() => {
+  useEffect(() => {
     injectReducer(PRO_BUNDLE_DEAL_LIST, reducer);
 
     return () => {

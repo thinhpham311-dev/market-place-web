@@ -1,10 +1,10 @@
 //components
-import UpdateProfileCard from "@/features/user/profile/components/UpdateProfileCard";
+import UserProfileRoot from "@/features/user/profile/user-profile-root";
 
 export default function Page() {
   return (
     <div className=" container mx-auto md:p-6 p-3">
-      <UpdateProfileCard />
+      <UserProfileRoot />
     </div>
   );
 }

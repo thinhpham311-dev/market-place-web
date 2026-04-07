@@ -1,18 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
 import { TicketPercent, WalletCards, CircleCheckBig, Clock3 } from "lucide-react";
-import { toast } from "sonner";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useAppSelector, useTranslation } from "@/lib/hooks";
+import { useTranslation } from "@/lib/hooks";
 import { formatToCurrency, formatDateTime } from "@/utils/formats";
-import { useFetchData, type VoucherStatus } from "@/features/voucher/list/hooks/useFetchData";
+import { useVoucherListContext } from "@/features/voucher/list/hooks/useVoucherListContext";
+import type { VoucherItem, VoucherStatus } from "@/features/voucher/list/types";
 import VoucherShopInfoDialog from "@/features/voucher/list/components/VoucherShopInfoDialog";
 import VoucherListLoading from "@/features/voucher/list/components/VoucherListLoading";
 
@@ -39,7 +37,7 @@ function VoucherStatusBadge({ status }: { status: VoucherStatus }) {
 function VoucherDiscountValue({
   voucher,
 }: {
-  voucher: ReturnType<typeof useFetchData>["vouchers"][number];
+  voucher: VoucherItem;
 }) {
   const { t } = useTranslation();
 
@@ -59,42 +57,17 @@ function VoucherDiscountValue({
 
 export default function VoucherListPage() {
   const { t } = useTranslation();
-  const searchParams = useSearchParams();
-  const signedIn = useAppSelector((state) => state.auth.session.signedIn);
-  const shopId = searchParams.get("shopId") || undefined;
-  const limit = Number(searchParams.get("limit") || 50);
-  const page = Number(searchParams.get("page") || 1);
   const {
     vouchers,
     loading,
     error,
     shopId: resolvedShopId,
-  } = useFetchData({
-    shopId,
-    limit: Number.isFinite(limit) && limit > 0 ? limit : 50,
-    page: Number.isFinite(page) && page > 0 ? page : 1,
-  });
-  const [claimedVoucherIds, setClaimedVoucherIds] = useState<string[]>([]);
-
-  const summary = useMemo(() => {
-    return {
-      available: vouchers.filter((voucher) => voucher.status === "available").length,
-      used: vouchers.filter((voucher) => voucher.status === "used").length,
-      expired: vouchers.filter((voucher) => voucher.status === "expired").length,
-    };
-  }, [vouchers]);
+    summary,
+    claimedVoucherIds,
+    handleClaimVoucher,
+  } = useVoucherListContext();
 
   const resolvedVouchers = vouchers;
-
-  const handleClaimVoucher = (voucherId: string) => {
-    if (!signedIn) {
-      toast.error(t("voucher_claim_sign_in"));
-      return;
-    }
-
-    setClaimedVoucherIds((prev) => (prev.includes(voucherId) ? prev : [...prev, voucherId]));
-    toast.success(t("voucher_claim_success"));
-  };
 
   return (
     <div className="container mx-auto space-y-5 px-3 py-5 md:px-6">

@@ -3,15 +3,11 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useTranslation } from "@/lib/hooks";
 import { formatDateTime, formatToCurrency } from "@/utils/formats";
-import type { VoucherItem } from "@/features/voucher/list/hooks/useFetchData";
+import { useVoucherDetailContext } from "@/features/voucher/detail/hooks/useVoucherDetailContext";
 
-interface VoucherTermsCardProps {
-  voucher: VoucherItem;
-  discountSummary: string;
-}
-
-export default function VoucherTermsCard({ voucher, discountSummary }: VoucherTermsCardProps) {
+export default function VoucherTermsCard() {
   const { t } = useTranslation();
+  const { voucher, discountSummary } = useVoucherDetailContext();
 
   return (
     <Card className="h-full border-stone-200 shadow-none lg:col-span-2">

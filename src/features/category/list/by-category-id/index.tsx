@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 
 // ui
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,48 +6,20 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 // components
 import CategoryButtons from "@/features/category/components/CategoryButtons";
 
-// store
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { useTranslation } from "@/lib/hooks";
-import { injectReducer } from "@/store";
-import { getCatListById } from "@/features/category/list/by-category-id/store/dataSlice";
-import { selectCatByCategoryIdByStoreKey } from "./store/selectors";
-import reducer from "@/features/category/list/by-category-id/store";
+import { useFetchData } from "@/features/category/list/by-category-id/hooks";
 
 // icons
 import { BiCategory } from "react-icons/bi";
 
-//constants
-import { CAT_LIST_BY_ID } from "./constants";
-
-import { ICategoryModel } from "@/models/category";
-
-injectReducer(CAT_LIST_BY_ID, reducer);
-
 const CatByCategoryId = ({ ids }: { ids: string[] }) => {
   const { t } = useTranslation();
-  const dispatch = useAppDispatch();
   const {
     categories = [],
     loading = false,
     error = null,
-  } = useAppSelector(selectCatByCategoryIdByStoreKey(CAT_LIST_BY_ID));
-
-  const validIds = React.useMemo(() => ids.filter(Boolean), [ids]);
-
-  React.useEffect(() => {
-    if (!validIds || validIds.length === 0) return;
-
-    const promise = dispatch(
-      getCatListById({
-        category_id: validIds[0],
-      } as ICategoryModel) as any,
-    );
-
-    return () => {
-      promise.abort();
-    };
-  }, [dispatch, validIds]);
+    validIds,
+  } = useFetchData({ ids });
 
   return (
     <Card className="md:mx-6 mx-3 grid grid-cols-12 items-center sticky left-0 top-[60px] bg-white z-10">

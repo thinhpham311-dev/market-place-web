@@ -31,8 +31,7 @@ export default function SidebarNavigation() {
   const pathname = usePathname() ?? "/";
   const { categories } = useFetchData();
   const { shops } = useSidebarShops();
-  console.log("shops", shops);
-  const conditionMenu = useMemo(() => pathname.split("/")[1] === "user", [pathname]);
+  const conditionMenu = pathname.split("/")[1] === "user";
   const categoryMenuItems: MenuItem[] = useMemo(() => {
     if (!categories?.length) {
       return [];
@@ -43,18 +42,26 @@ export default function SidebarNavigation() {
       return `/categories/${category.category_slug}-cat.${categoryIds.join(".")}`;
     };
 
-    const parentCategories = categories.filter(
-      (category: Category) => !category.parent_id || !category.isLeaf || category.level === 0,
-    );
+    const parentCategories: Category[] = [];
+    const childrenByParentId = new Map<string, LinkMenuItem[]>();
+
+    categories.forEach((category: Category) => {
+      if (!category.parent_id || !category.isLeaf || category.level === 0) {
+        parentCategories.push(category);
+        return;
+      }
+
+      const existingChildren = childrenByParentId.get(category.parent_id) ?? [];
+      existingChildren.push({
+        type: "link",
+        title: category.category_name || t("categories"),
+        url: buildCategoryUrl(category),
+      });
+      childrenByParentId.set(category.parent_id, existingChildren);
+    });
 
     return parentCategories.map((parent: Category) => {
-      const children: LinkMenuItem[] = categories
-        .filter((category: Category) => category.parent_id === parent.category_id)
-        .map((child: Category): LinkMenuItem => ({
-          type: "link",
-          title: child.category_name || t("categories"),
-          url: buildCategoryUrl(child),
-        }));
+      const children = childrenByParentId.get(parent.category_id) ?? [];
 
       if (children.length === 0) {
         return {

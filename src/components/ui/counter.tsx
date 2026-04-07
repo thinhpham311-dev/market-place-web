@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useLayoutEffect, forwardRef, useImperativeHandle, memo } from "react";
+import React, { useState, useEffect, forwardRef, useImperativeHandle, memo } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, Minus } from "lucide-react";
@@ -36,7 +36,7 @@ export const Counter = memo(
     ) => {
       const [localCount, setLocalCount] = useState<number>(initialValue);
 
-      useLayoutEffect(() => {
+      useEffect(() => {
         setLocalCount(initialValue);
       }, [initialValue]);
 

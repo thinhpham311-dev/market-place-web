@@ -11,6 +11,8 @@ import NotFound from "@/components/layout/notfound";
 import { useAppSelector, useTranslation } from "@/lib/hooks";
 import { formatToCurrency } from "@/utils/formats";
 import { useFetchData } from "@/features/voucher/list/hooks/useFetchData";
+import { useFetchVoucherProducts } from "@/features/voucher/detail/hooks/useFetchVoucherProducts";
+import VoucherDetailProvider from "@/features/voucher/detail/providers";
 import VoucherDetailHero from "@/features/voucher/detail/components/VoucherDetailHero";
 import VoucherDetailLoading from "@/features/voucher/detail/components/VoucherDetailLoading";
 import VoucherProductSection from "@/features/voucher/detail/components/VoucherProductSection";
@@ -36,6 +38,16 @@ export default function VoucherDetailPage() {
     () => vouchers.find((item) => item.discountId === voucherId || item.id === voucherId) ?? null,
     [voucherId, vouchers],
   );
+  const {
+    products,
+    loading: productsLoading,
+    error: productsError,
+  } = useFetchVoucherProducts({
+    code: voucher?.code || "",
+    shopId: voucher?.shopId || "",
+    limit: 12,
+    page: 1,
+  });
 
   const discountSummary =
     voucher?.discountType === "percentage"
@@ -77,21 +89,28 @@ export default function VoucherDetailPage() {
         </Link>
       </Button>
 
-      <div className="w-full space-y-5">
-        <VoucherDetailHero
-          voucher={voucher}
-          discountSummary={discountSummary}
-          isClaimed={isClaimed}
-          onClaim={handleClaim}
-        />
+      <VoucherDetailProvider
+        contextValues={{
+          voucher,
+          discountSummary,
+          isClaimed,
+          onClaim: handleClaim,
+          products,
+          productsLoading,
+          productsError,
+        }}
+      >
+        <div className="w-full space-y-5">
+          <VoucherDetailHero />
 
-        <div className="grid w-full gap-5 lg:grid-cols-3">
-          <VoucherTermsCard voucher={voucher} discountSummary={discountSummary} />
-          <VoucherUsageCard voucher={voucher} />
+          <div className="grid w-full gap-5 lg:grid-cols-3">
+            <VoucherTermsCard />
+            <VoucherUsageCard />
+          </div>
+
+          <VoucherProductSection />
         </div>
-
-        <VoucherProductSection code={voucher.code} shopId={voucher.shopId} />
-      </div>
+      </VoucherDetailProvider>
     </div>
   );
 }

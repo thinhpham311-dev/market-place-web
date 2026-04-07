@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useLayoutEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useAppDispatch } from "@/lib/hooks";
 import { setSortBy, resetSortBy } from "@/features/common/sort-by/store/stateSlice";
 import { useGetSortByValue } from "@/features/common/sort-by/hooks";
@@ -21,7 +21,7 @@ export function useSortBy({ storeKey, initialValue, reducerKey = SORTBY }: IUseS
   const { defaultData, defaultValue } = initialValue;
 
   /* ---------------- inject / remove reducer ---------------- */
-  useLayoutEffect(() => {
+  useEffect(() => {
     injectReducer(reducerKey, reducer);
     return () => {
       removeReducer(reducerKey);

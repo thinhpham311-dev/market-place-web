@@ -1,7 +1,7 @@
 "use client";
 import ProGrid from "@/features/product/components/ProGrid";
 import Pagination from "@/features/common/pagination";
-import ProductListSection from "@/features/product/list/shared/components/ProductListSection";
+import ProductListSection from "@/features/product/components/ProductListSection";
 import { useTranslation } from "@/lib/hooks";
 
 //hooks

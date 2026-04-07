@@ -1,6 +1,6 @@
 "use client";
 import { toast } from "sonner";
-import { useLayoutEffect, useEffect, useCallback, useMemo } from "react";
+import { useEffect, useCallback, useMemo } from "react";
 import { useAppDispatch } from "@/lib/hooks";
 import {
   setOptionsCount,
@@ -36,7 +36,7 @@ export function useHandleOptionSelector({
   );
 
   // Setup reducer
-  useLayoutEffect(() => {
+  useEffect(() => {
     injectReducer(reducerKey, reducer);
     return () => removeReducer(reducerKey);
   }, [reducerKey]);

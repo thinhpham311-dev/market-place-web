@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
 // Actions and selectors
@@ -28,7 +28,7 @@ export function useFetchData({
   sku_tier_idx,
   optionsCount,
 }: IUseFetchDataParams) {
-  useLayoutEffect(() => {
+  useEffect(() => {
     const reducerKey = `${SKU_KEY}_${storeKey}`;
     injectReducer(reducerKey, reducer);
     return () => {

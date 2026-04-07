@@ -16,7 +16,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { useTranslation } from "@/lib/hooks";
 import { formatPhone } from "@/utils/formats";
-import { useFetchShopInfo } from "@/features/voucher/list/hooks/useFetchShopInfo";
+import { useFetchData } from "@/features/shop/hooks";
 
 interface VoucherShopInfoDialogProps {
   shopId?: string;
@@ -25,8 +25,8 @@ interface VoucherShopInfoDialogProps {
 export default function VoucherShopInfoDialog({ shopId = "" }: VoucherShopInfoDialogProps) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-  const { shopInfo, shopHref, loading, error } = useFetchShopInfo({
-    shopId,
+  const { shopInfo, shopHref, loading, error } = useFetchData({
+    shop_id: shopId,
     enabled: open,
   });
 

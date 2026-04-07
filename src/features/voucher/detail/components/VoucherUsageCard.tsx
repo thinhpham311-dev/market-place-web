@@ -2,14 +2,11 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useTranslation } from "@/lib/hooks";
-import type { VoucherItem } from "@/features/voucher/list/hooks/useFetchData";
+import { useVoucherDetailContext } from "@/features/voucher/detail/hooks/useVoucherDetailContext";
 
-interface VoucherUsageCardProps {
-  voucher: VoucherItem;
-}
-
-export default function VoucherUsageCard({ voucher }: VoucherUsageCardProps) {
+export default function VoucherUsageCard() {
   const { t } = useTranslation();
+  const { voucher } = useVoucherDetailContext();
 
   return (
     <Card className="h-full border-stone-200 shadow-none">

@@ -1,9 +1,7 @@
 "use client";
 
-import * as React from "react";
 import { memo } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import LoadingSkeleton from "./LoadingSkeleton";
 import { Card, CardContent, CardTitle, CardDescription, CardImage } from "@/components/ui/card";
 import { ISpuModel } from "@/models/spu";
@@ -16,8 +14,6 @@ interface ISpuCardProps {
 }
 
 const ProCard = ({ item, isLoading }: ISpuCardProps) => {
-  const router = useRouter();
-
   if (isLoading) {
     return <LoadingSkeleton />;
   }
@@ -30,17 +26,10 @@ const ProCard = ({ item, isLoading }: ISpuCardProps) => {
     item;
 
   const productHref = `/products/${product_slug}-i.${product_shop.shop_id}.${product_id}`;
-
-  React.useEffect(() => {
-    router.prefetch(productHref);
-  }, [productHref, router]);
-
-  const handlePrefetch = () => {
-    router.prefetch(productHref);
-  };
+  const formattedPrice = formatToCurrency(product_price);
 
   return (
-    <Link href={productHref} prefetch onMouseEnter={handlePrefetch} onFocus={handlePrefetch} className="block h-full">
+    <Link href={productHref} className="block h-full">
       <Card className="flex flex-col justify-start h-full w-full col-span-1 overflow-hidden transition-shadow hover:shadow-md">
         <CardImage
           src={
@@ -55,7 +44,7 @@ const ProCard = ({ item, isLoading }: ISpuCardProps) => {
             <p>{product_name}</p>
           </CardTitle>
           <CardDescription className="space-x-3 mb-2 inline">
-            {formatToCurrency(product_price) && <p>{formatToCurrency(product_price)}</p>}
+            {formattedPrice && <p>{formattedPrice}</p>}
           </CardDescription>
         </CardContent>
       </Card>

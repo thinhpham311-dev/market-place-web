@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getProductList } from "../store/dataSlice";
 import { selectProSearchListByStoreKey } from "@/features/product/list/search/store/selectors";
@@ -17,7 +17,7 @@ interface IUseFetchData {
 }
 
 export function useFetchData({ storeKey, keyword }: IUseFetchData) {
-  useLayoutEffect(() => {
+  useEffect(() => {
     injectReducer(storeKey, reducer);
 
     return () => {

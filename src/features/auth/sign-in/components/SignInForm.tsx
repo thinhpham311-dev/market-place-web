@@ -5,9 +5,10 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { FormCheckBox, FormGroup, FormInput } from "@/components/shared";
 import { useTranslation } from "@/lib/hooks";
-import { useSignIn } from "@/features/auth/sign-in/hooks/useSignIn";
+import { useSignInContext } from "@/features/auth/sign-in/hooks/useSignInContext";
+import type { SignInFormValues } from "@/features/auth/sign-in/types";
 
-const defaultValuesForSignInForm = {
+const defaultValuesForSignInForm: SignInFormValues = {
   email: "",
   password: "",
   remember: false,
@@ -15,7 +16,7 @@ const defaultValuesForSignInForm = {
 
 export default function SignInForm() {
   const { t } = useTranslation();
-  const { signIn, isSubmitting } = useSignIn();
+  const { signIn, isSubmitting } = useSignInContext();
   const passwordSchema = z
     .string()
     .min(8, t("validation_enter_at_least_8_characters"))
@@ -33,9 +34,9 @@ export default function SignInForm() {
   });
 
   return (
-    <FormGroup
+    <FormGroup<SignInFormValues>
       defaultValues={defaultValuesForSignInForm}
-      onHandleSubmit={(values) =>
+      onHandleSubmit={(values: SignInFormValues) =>
         signIn({
           _id: "",
           email: values.email,

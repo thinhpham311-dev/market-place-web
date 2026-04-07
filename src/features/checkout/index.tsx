@@ -1,5 +1,5 @@
-import CheckoutForm from "@/features/checkout/components/CheckoutForm";
+import CheckoutRoot from "@/features/checkout/checkout-root";
 
 export default function CheckoutPage() {
-  return <CheckoutForm />;
+  return <CheckoutRoot />;
 }

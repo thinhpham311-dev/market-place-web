@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getAllCategoryList } from "@/features/category/list/all/store/dataSlice";
 import { selectCatAllListByStoreKey } from "@/features/category/list/all/store/selectors";
@@ -7,7 +7,7 @@ import { injectReducer, removeReducer } from "@/store";
 import { CAT_ALL_LIST } from "@/features/category/list/all/constants";
 
 export function useFetchData() {
-  useLayoutEffect(() => {
+  useEffect(() => {
     injectReducer(CAT_ALL_LIST, reducer);
 
     return () => {

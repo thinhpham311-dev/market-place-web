@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
 // Actions and selectors
@@ -23,7 +23,7 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
   const prevLastIdRef = useRef<string | undefined>(lastId);
 
   // Inject and clean up reducer
-  useLayoutEffect(() => {
+  useEffect(() => {
     injectReducer(PRO_LIST_BY_CATEGORYID, reducer);
     return () => {
       removeReducer(PRO_LIST_BY_CATEGORYID);

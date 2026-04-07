@@ -1,5 +1,5 @@
-import DailyDiscoverPage from "@/features/discover/daily-discover";
+import DailyDiscoverRoot from "@/features/product/list/daily-discover/daily-discover-root";
 
 export default function Page() {
-  return <DailyDiscoverPage />;
+  return <DailyDiscoverRoot />;
 }
