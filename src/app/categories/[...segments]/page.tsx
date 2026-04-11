@@ -13,13 +13,13 @@ interface PageProps {
 
 function ProListSkeleton() {
   return (
-    <Card className="border-none shadow-none md:px-6 px-3">
-      <CardContent className="px-0 grid grid-cols-12 gap-3">
-        <div className="col-span-2 space-y-3">
+    <Card className="border-none px-3 shadow-none md:px-6">
+      <CardContent className="grid items-stretch gap-3 px-0 md:grid-cols-12">
+        <div className="space-y-3 md:col-span-3 lg:col-span-2">
           <Skeleton className="h-[400px] w-full" />
         </div>
-        <div className="col-span-10 flex flex-col space-y-3">
-          <Card className="h-full">
+        <div className="flex h-full flex-col md:col-span-9 lg:col-span-10">
+          <Card className="flex h-full flex-col">
             <CardContent className="p-3">
               <ProductCardGridSkeleton
                 count={20}

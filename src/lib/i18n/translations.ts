@@ -22,6 +22,15 @@ export type TranslationKey =
   | "top_picks_from_shop_desc"
   | "search_products"
   | "search_products_desc"
+  | "search_by_image"
+  | "search_summary_title"
+  | "search_keyword_label"
+  | "search_image_label"
+  | "search_image_captured"
+  | "search_image_results_title"
+  | "search_image_results_desc"
+  | "search_image_results_error"
+  | "search_empty_state"
   | "daily_discover"
   | "daily_discover_desc"
   | "popular_categories"
@@ -559,6 +568,17 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     top_picks_from_shop_desc: "Standout picks selected from this shop.",
     search_products: "Search Products",
     search_products_desc: "Explore products that match what you're looking for.",
+    search_by_image: "Search by image",
+    search_summary_title: "Search summary",
+    search_keyword_label: "Keyword",
+    search_image_label: "Image",
+    search_image_captured: "Captured product image",
+    search_image_results_title: "Matches from your image",
+    search_image_results_desc:
+      "We compare your captured photo with product thumbnails to surface visually similar items.",
+    search_image_results_error:
+      "We could not analyze the captured image. Please try another photo.",
+    search_empty_state: "Enter a keyword or capture a product image to start searching.",
     daily_discover: "Daily Discover",
     daily_discover_desc: "Fresh finds, trending picks, and everyday deals.",
     popular_categories: "Popular Categories",
@@ -1136,6 +1156,17 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     top_picks_from_shop_desc: "Những sản phẩm nổi bật của shop.",
     search_products: "Tìm kiếm sản phẩm",
     search_products_desc: "Xem các sản phẩm phù hợp với nhu cầu tìm kiếm của bạn.",
+    search_by_image: "Tìm bằng hình ảnh",
+    search_summary_title: "Tóm tắt tìm kiếm",
+    search_keyword_label: "Từ khóa",
+    search_image_label: "Hình ảnh",
+    search_image_captured: "Ảnh sản phẩm đã chụp",
+    search_image_results_title: "Sản phẩm gần giống từ ảnh",
+    search_image_results_desc:
+      "Hệ thống so khớp ảnh bạn chụp với thumbnail sản phẩm để gợi ý các mặt hàng gần giống.",
+    search_image_results_error:
+      "Không thể phân tích ảnh vừa chụp. Hãy thử lại với một ảnh khác.",
+    search_empty_state: "Nhập từ khóa hoặc chụp ảnh sản phẩm để bắt đầu tìm kiếm.",
     daily_discover: "Khám phá mỗi ngày",
     daily_discover_desc: "Gợi ý mới, deal hot và sản phẩm đáng xem mỗi ngày.",
     popular_categories: "Danh mục phổ biến",
@@ -1710,6 +1741,17 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     top_picks_from_shop_desc: "このショップの注目商品を集めました。",
     search_products: "商品検索",
     search_products_desc: "探している条件に合う商品を見つけやすく表示します。",
+    search_by_image: "画像で検索",
+    search_summary_title: "検索サマリー",
+    search_keyword_label: "キーワード",
+    search_image_label: "画像",
+    search_image_captured: "撮影した商品画像",
+    search_image_results_title: "画像から近い商品",
+    search_image_results_desc:
+      "撮影した画像と商品サムネイルを比較し、見た目が近い商品を表示します。",
+    search_image_results_error:
+      "撮影した画像を解析できませんでした。別の画像でもう一度お試しください。",
+    search_empty_state: "キーワードを入力するか商品画像を撮影して検索を開始してください。",
     daily_discover: "毎日の発見",
     daily_discover_desc: "毎日更新される注目商品とお得な商品です。",
     popular_categories: "人気カテゴリ",

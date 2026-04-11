@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getCatListById } from "@/features/category/list/by-category-id/store/dataSlice";
 import { selectCatByCategoryIdByStoreKey } from "@/features/category/list/by-category-id/store/selectors";
@@ -12,6 +12,8 @@ interface UseFetchDataParams {
 }
 
 export function useFetchData({ ids }: UseFetchDataParams) {
+  const [resolvedRequestKey, setResolvedRequestKey] = useState<string | null>(null);
+
   useEffect(() => {
     injectReducer(CAT_LIST_BY_ID, reducer);
 
@@ -22,6 +24,7 @@ export function useFetchData({ ids }: UseFetchDataParams) {
 
   const dispatch = useAppDispatch();
   const validIds = useMemo(() => ids.filter(Boolean), [ids]);
+  const requestKey = useMemo(() => JSON.stringify(validIds), [validIds]);
 
   const {
     categories = [],
@@ -30,8 +33,11 @@ export function useFetchData({ ids }: UseFetchDataParams) {
     error = null,
   } = useAppSelector(selectCatByCategoryIdByStoreKey(CAT_LIST_BY_ID));
 
+  const isRequestLoading = validIds.length > 0 && resolvedRequestKey !== requestKey;
+
   useEffect(() => {
     if (validIds.length === 0) {
+      setResolvedRequestKey(null);
       return;
     }
 
@@ -41,15 +47,19 @@ export function useFetchData({ ids }: UseFetchDataParams) {
       } as ICategoryModel) as any,
     );
 
+    promise.finally?.(() => {
+      setResolvedRequestKey(requestKey);
+    });
+
     return () => {
       promise.abort?.();
     };
-  }, [dispatch, validIds]);
+  }, [dispatch, requestKey, validIds]);
 
   return {
-    categories,
+    categories: isRequestLoading ? [] : categories,
     totalItems,
-    loading,
+    loading: isRequestLoading || loading,
     error,
     validIds,
   };

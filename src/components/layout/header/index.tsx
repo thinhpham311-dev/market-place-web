@@ -6,6 +6,7 @@ import { UserDropdown, SearchForm, Logo, ShoppingCart } from "@/components/share
 
 export default function SiteHeader() {
   const path = usePathname();
+  const isShopDetailPage = path?.startsWith("/shop/");
 
   return (
     <header className="w-full border-b sticky top-0 bg-background z-50">
@@ -16,7 +17,7 @@ export default function SiteHeader() {
             <Logo />
           </div>
           <div className="flex-1 lg:flex md:flex hidden items-center">
-            <SearchForm />
+            <SearchForm showCategorySelect={isShopDetailPage} />
           </div>
           <div className="flex items-center space-x-2">
             {path !== "/cart" && path !== "/checkout" && <ShoppingCart />}

@@ -38,9 +38,9 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
   }, [brands]);
 
   return (
-    <Card className="border-none shadow-nonee md:px-6 px-3">
-      <CardContent className="px-0 grid grid-cols-12 gap-3">
-        <div className="col-span-2 space-y-3">
+    <Card className="border-none px-3 shadow-none md:px-6">
+      <CardContent className="grid items-stretch gap-3 px-0 md:grid-cols-12">
+        <div className="space-y-3 md:col-span-3 lg:col-span-2">
           <Filter
             storeKey={PRO_LIST_BY_CATEGORYID}
             initialValue={{
@@ -50,10 +50,10 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
           />
         </div>
 
-        <div className="col-span-10 flex flex-col space-y-3">
-          <Card className="h-full">
+        <div className="flex h-full flex-col md:col-span-9 lg:col-span-10">
+          <Card className="flex h-full flex-col">
             <CardHeader className="p-3">
-              <div className="flex gap-4 justify-between items-center">
+              <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <div className="flex-1">
                   <SortBy
                     storeKey={PRO_LIST_BY_CATEGORYID}
@@ -63,7 +63,7 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
                     }}
                   />
                 </div>
-                <div>
+                <div className="shrink-0">
                   <Pagination
                     storeKey={PRO_LIST_BY_CATEGORYID}
                     initialValue={{
@@ -76,7 +76,7 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
               </div>
             </CardHeader>
 
-            <CardContent className="p-3">
+            <CardContent className="flex-1 p-3">
               <SpuGrid
                 error={error}
                 isLoading={loading}
@@ -86,7 +86,7 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
               />
             </CardContent>
 
-            <CardFooter className="justify-center border-t pt-6 pb-3">
+            <CardFooter className="mt-auto justify-center border-t pb-3 pt-6">
               <Pagination
                 storeKey={PRO_LIST_BY_CATEGORYID}
                 initialValue={{

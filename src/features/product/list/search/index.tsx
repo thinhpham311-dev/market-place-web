@@ -10,19 +10,19 @@ import { useFetchData } from "@/features/product/list/search/hooks";
 ///constants
 import { PRO_SEARCH_LIST } from "@/features/product/list/search/constants";
 
-export default function ProSearchList() {
+interface ProSearchListProps {
+  keyword?: string;
+}
+
+export default function ProSearchList({ keyword = "" }: ProSearchListProps) {
   const { t } = useTranslation();
   const { products, totalItems, error, loading } = useFetchData({
-    keyword: "",
+    keyword,
     storeKey: PRO_SEARCH_LIST,
   });
 
   return (
-    <ProductListSection
-      title={t("search_products")}
-      description={t("search_products_desc")}
-      seeMoreHref="/categories/1"
-    >
+    <ProductListSection title={t("search_products")} description={t("search_products_desc")}>
       <div className="space-y-3">
         <ProGrid
           countLoadItems={12}

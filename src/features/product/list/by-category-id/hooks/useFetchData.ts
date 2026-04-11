@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
 // Actions and selectors
@@ -18,9 +18,7 @@ interface UseFetchDataParams {
 
 export function useFetchData({ lastId }: UseFetchDataParams) {
   const dispatch = useAppDispatch();
-  const [isInitialLoading, setIsInitialLoading] = useState(Boolean(lastId));
-  const [isCategoryTransitionLoading, setIsCategoryTransitionLoading] = useState(false);
-  const prevLastIdRef = useRef<string | undefined>(lastId);
+  const [resolvedRequestKey, setResolvedRequestKey] = useState<string | null>(null);
 
   // Inject and clean up reducer
   useEffect(() => {
@@ -47,26 +45,19 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
     status = "idle",
   } = useAppSelector(selectProByCategoryIdByStoreKey(PRO_LIST_BY_CATEGORYID));
 
-  useEffect(() => {
-    const prevLastId = prevLastIdRef.current;
-    const isCategoryChanged = Boolean(lastId && prevLastId && prevLastId !== lastId);
+  const requestKey = useMemo(
+    () => JSON.stringify({ lastId, currentPage, limit, filter }),
+    [lastId, currentPage, limit, filter],
+  );
 
-    if (isCategoryChanged) {
-      setIsCategoryTransitionLoading(true);
-    }
-
-    prevLastIdRef.current = lastId;
-  }, [lastId]);
+  const isRequestLoading = Boolean(lastId) && resolvedRequestKey !== requestKey;
 
   // Fetch product list
   useEffect(() => {
     if (!lastId) {
-      setIsInitialLoading(false);
-      setIsCategoryTransitionLoading(false);
+      setResolvedRequestKey(null);
       return;
     }
-
-    setIsInitialLoading(true);
 
     const promise = dispatch(
       getProductListByCategories({
@@ -79,8 +70,7 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
     );
 
     promise.finally?.(() => {
-      setIsInitialLoading(false);
-      setIsCategoryTransitionLoading(false);
+      setResolvedRequestKey(requestKey);
     });
 
     return () => {
@@ -88,6 +78,7 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
     };
   }, [
     dispatch,
+    requestKey,
     lastId,
     filter,
     // sortBy,
@@ -96,9 +87,9 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
   ]);
 
   return {
-    products: isCategoryTransitionLoading ? [] : products,
+    products: isRequestLoading ? [] : products,
     totalItems,
-    loading: isInitialLoading || isCategoryTransitionLoading || loading || status === "idle",
+    loading: isRequestLoading || loading || status === "idle",
     error,
     status,
   };
