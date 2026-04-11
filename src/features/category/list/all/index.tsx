@@ -78,8 +78,8 @@ export default function CategoryListPage() {
                       ))}
                     </div>
                   ) : (
-                    <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6">
-                      <CategoryCard item={parent} />
+                    <div className="grid grid-cols-1 aspect-auto py-10">
+          <NotFound />
                     </div>
                   )}
                 </section>

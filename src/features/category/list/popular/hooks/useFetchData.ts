@@ -4,7 +4,7 @@ import { getCategoryList } from "@/features/category/list/popular/store/dataSlic
 import { selectCatPopularListByStoreKey } from "@/features/category/list/popular/store/selectors";
 //stores
 import reducer from "@/features/category/list/popular/store";
-import { injectReducer, removeReducer } from "@/store";
+import { injectReducer } from "@/store";
 
 //constants
 import { CAT_POPULAR_LIST } from "@/features/category/list/popular/constants";
@@ -12,10 +12,6 @@ import { CAT_POPULAR_LIST } from "@/features/category/list/popular/constants";
 export function useFetchData() {
   useEffect(() => {
     injectReducer(CAT_POPULAR_LIST, reducer);
-
-    return () => {
-      removeReducer(CAT_POPULAR_LIST);
-    };
   }, [CAT_POPULAR_LIST]);
 
   const dispatch = useAppDispatch();

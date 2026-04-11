@@ -7,11 +7,25 @@ interface SidebarMenuItemProps {
   pathname: string;
 }
 
+function isMenuItemActive(item: MenuItem, pathname: string): boolean {
+  if (item.type === "link") {
+    return pathname === item.url;
+  }
+
+  return item.children?.some((child) => isMenuItemActive(child, pathname)) ?? false;
+}
+
 function MenuItems({ item, pathname }: SidebarMenuItemProps) {
   if (item.type === "group") {
+    const isActiveGroup = isMenuItemActive(item, pathname);
+
     return (
       <SidebarMenuItem>
-        <div className="flex items-center space-x-2 p-2 font-medium">
+        <div
+          className={`flex items-center space-x-2 rounded-md p-2 font-medium ${
+            isActiveGroup ? "bg-sidebar-accent text-sidebar-accent-foreground" : ""
+          }`}
+        >
           {item.icon && <item.icon className="h-5 w-5" />}
           <span>{item.title}</span>
         </div>
@@ -31,17 +45,14 @@ function MenuItems({ item, pathname }: SidebarMenuItemProps) {
     );
   }
 
-  // 👇 item is LinkMenuItem here (auto narrow)
-  const isActive = pathname === item?.url;
+  const isActive = isMenuItemActive(item, pathname);
 
   return (
     <SidebarMenuItem>
-      <SidebarMenuButton asChild>
+      <SidebarMenuButton asChild isActive={isActive}>
         <Link
           href={item.url}
-          className={`flex items-center space-x-2 p-2 rounded-md ${
-            isActive ? "bg-background" : "hover:bg-background"
-          }`}
+          className="flex items-center space-x-2 rounded-md p-2"
           aria-current={isActive ? "page" : undefined}
         >
           {item.icon && <item.icon className="h-5 w-5" aria-hidden />}

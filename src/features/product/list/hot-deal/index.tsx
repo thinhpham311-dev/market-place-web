@@ -17,6 +17,7 @@ export default function ProHotDealList() {
   const { products = [], loading, error = null } = useFetchData();
 
   return (
+    <div id="flash-sale">
     <ProductListSection
       title={
         <span className="flex items-center space-x-2">
@@ -26,14 +27,15 @@ export default function ProHotDealList() {
       }
       description={t("hot_deals_desc")}
       seeMoreHref="/flash-sale"
-    >
+      >
       <ProCarousel
         error={error}
         countLoadItems={6}
         data={products}
         isLoading={loading}
         className="lg:basis-1/6 md:basis-1/4 basis-1/3"
-      />
+        />
     </ProductListSection>
+        </div>
   );
 }

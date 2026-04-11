@@ -417,6 +417,37 @@ export type TranslationKey =
   | "sidebar_promotions"
   | "sidebar_wallet_update"
   | "sidebar_marketplace_update"
+  | "shop_live_desc"
+  | "shop_live_watch_now"
+  | "shop_live_card_fashion"
+  | "shop_live_card_fashion_desc"
+  | "shop_live_card_beauty"
+  | "shop_live_card_beauty_desc"
+  | "shop_live_card_home"
+  | "shop_live_card_home_desc"
+  | "shop_live_card_tech"
+  | "shop_live_card_tech_desc"
+  | "shop_live_card_essentials"
+  | "shop_live_card_essentials_desc"
+  | "shop_live_now"
+  | "shop_live_join_now"
+  | "shop_live_viewers"
+  | "shop_live_hero_title"
+  | "shop_live_hero_desc"
+  | "shop_live_stat_hosts"
+  | "shop_live_stat_viewers"
+  | "shop_live_stat_deals"
+  | "shop_live_popup_title"
+  | "shop_live_popup_desc"
+  | "shop_live_hosted_by"
+  | "shop_live_featured_product"
+  | "shop_live_duration"
+  | "shop_live_live_chat"
+  | "shop_live_chat_tip"
+  | "shop_live_view_products"
+  | "shop_live_chat_comment_1"
+  | "shop_live_chat_comment_2"
+  | "shop_live_chat_comment_3"
   | "flash_sale_badge"
   | "flash_sale_title"
   | "flash_sale_desc"
@@ -954,6 +985,43 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     sidebar_promotions: "Promotions",
     sidebar_wallet_update: "Wallet Update",
     sidebar_marketplace_update: "Market Place Update",
+    shop_live_desc: "Watch curated live sessions, trending drops, and host-led product demos.",
+    shop_live_watch_now: "Watch now",
+    shop_live_card_fashion: "Style picks live",
+    shop_live_card_fashion_desc:
+      "Join hosts showcasing outfit combos, new arrivals, and quick styling tips.",
+    shop_live_card_beauty: "Beauty room on air",
+    shop_live_card_beauty_desc:
+      "See real-time product swatches, routines, and limited live offers.",
+    shop_live_card_home: "Home refresh stream",
+    shop_live_card_home_desc:
+      "Browse decor, storage, and kitchen finds with practical setup ideas.",
+    shop_live_card_tech: "Tech deals live",
+    shop_live_card_tech_desc:
+      "Catch gadget demos, quick comparisons, and limited stream-only prices.",
+    shop_live_card_essentials: "Daily essentials live",
+    shop_live_card_essentials_desc:
+      "Find everyday picks, bundle offers, and easy wins for repeat purchases.",
+    shop_live_now: "Live now",
+    shop_live_join_now: "Join stream",
+    shop_live_viewers: "watching",
+    shop_live_hero_title: "Catch live sellers, product demos, and limited offers in one place.",
+    shop_live_hero_desc:
+      "A more energetic shopping lane with hosts, fast-moving deals, and live recommendations that update throughout the day.",
+    shop_live_stat_hosts: "Hosts on air",
+    shop_live_stat_viewers: "Active viewers",
+    shop_live_stat_deals: "Live deals",
+    shop_live_popup_title: "Live product review",
+    shop_live_popup_desc: "Watch a live review stream and browse highlighted products.",
+    shop_live_hosted_by: "Hosted by",
+    shop_live_featured_product: "Featured stream",
+    shop_live_duration: "Duration",
+    shop_live_live_chat: "Live chat",
+    shop_live_chat_tip: "Viewer reactions and quick product questions are happening right now.",
+    shop_live_view_products: "View products",
+    shop_live_chat_comment_1: "Can you show the material quality up close?",
+    shop_live_chat_comment_2: "The color looks better on live than in photos.",
+    shop_live_chat_comment_3: "Please pin the featured item for",
     flash_sale_badge: "Flash sale picks",
     flash_sale_title: "Flash Sale",
     flash_sale_desc:
@@ -1493,6 +1561,44 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     sidebar_promotions: "Khuyến mãi",
     sidebar_wallet_update: "Cập nhật ví",
     sidebar_marketplace_update: "Cập nhật Market Place",
+    shop_live_desc:
+      "Theo dõi các phiên live nổi bật, sản phẩm đang hot và phần giới thiệu trực tiếp từ host.",
+    shop_live_watch_now: "Xem ngay",
+    shop_live_card_fashion: "Live xu hướng thời trang",
+    shop_live_card_fashion_desc:
+      "Khám phá outfit mix-match, hàng mới về và mẹo phối đồ ngay trong livestream.",
+    shop_live_card_beauty: "Phòng live làm đẹp",
+    shop_live_card_beauty_desc:
+      "Xem swatch thực tế, routine chăm sóc và ưu đãi chỉ có trong phiên live.",
+    shop_live_card_home: "Live làm mới không gian sống",
+    shop_live_card_home_desc:
+      "Khám phá đồ decor, lưu trữ và đồ bếp cùng các gợi ý setup thực tế.",
+    shop_live_card_tech: "Live deal công nghệ",
+    shop_live_card_tech_desc:
+      "Xem demo gadget, so sánh nhanh và mức giá chỉ mở trong lúc livestream.",
+    shop_live_card_essentials: "Live nhu yếu phẩm mỗi ngày",
+    shop_live_card_essentials_desc:
+      "Khám phá sản phẩm dùng hàng ngày, combo tiện lợi và các deal dễ chốt.",
+    shop_live_now: "Đang live",
+    shop_live_join_now: "Vào xem",
+    shop_live_viewers: "đang xem",
+    shop_live_hero_title: "Xem seller lên sóng, demo sản phẩm và deal giới hạn tại một nơi.",
+    shop_live_hero_desc:
+      "Một khu mua sắm sôi động hơn với host trực tiếp, deal thay đổi nhanh và các gợi ý đang được quan tâm trong ngày.",
+    shop_live_stat_hosts: "Host đang phát",
+    shop_live_stat_viewers: "Người xem",
+    shop_live_stat_deals: "Deal trực tiếp",
+    shop_live_popup_title: "Livestream review sản phẩm",
+    shop_live_popup_desc: "Xem phiên live review và khám phá sản phẩm đang được giới thiệu.",
+    shop_live_hosted_by: "Host",
+    shop_live_featured_product: "Phiên nổi bật",
+    shop_live_duration: "Thời lượng",
+    shop_live_live_chat: "Trò chuyện trực tiếp",
+    shop_live_chat_tip: "Bình luận và câu hỏi về sản phẩm đang được cập nhật ngay lúc này.",
+    shop_live_view_products: "Xem sản phẩm",
+    shop_live_chat_comment_1: "Cho mình xem cận chất liệu với.",
+    shop_live_chat_comment_2: "Màu lên live nhìn đẹp hơn ảnh nhiều.",
+    shop_live_chat_comment_3: "Ghim giúp mình sản phẩm đang review:",
     flash_sale_badge: "Ưu đãi flash sale",
     flash_sale_title: "Flash Sale",
     flash_sale_desc:
@@ -2016,6 +2122,44 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     sidebar_promotions: "プロモーション",
     sidebar_wallet_update: "ウォレット更新",
     sidebar_marketplace_update: "Market Place 更新",
+    shop_live_desc:
+      "注目のライブ配信、人気商品、配信者による実演紹介をまとめてチェックできます。",
+    shop_live_watch_now: "今すぐ見る",
+    shop_live_card_fashion: "ファッションライブ",
+    shop_live_card_fashion_desc:
+      "コーデ提案、新着アイテム、着こなしのコツをライブでチェック。",
+    shop_live_card_beauty: "ビューティーライブ",
+    shop_live_card_beauty_desc:
+      "色味の見え方、ルーティン紹介、ライブ限定オファーをリアルタイムで確認。",
+    shop_live_card_home: "ホームアイテムライブ",
+    shop_live_card_home_desc:
+      "インテリア、収納、キッチン用品を実用的な見せ方と一緒に紹介します。",
+    shop_live_card_tech: "テックライブセール",
+    shop_live_card_tech_desc:
+      "ガジェット実演、かんたん比較、配信限定価格をまとめてチェック。",
+    shop_live_card_essentials: "デイリー必需品ライブ",
+    shop_live_card_essentials_desc:
+      "日用品、まとめ買い提案、お得に買いやすい定番商品を紹介します。",
+    shop_live_now: "ライブ中",
+    shop_live_join_now: "配信を見る",
+    shop_live_viewers: "視聴中",
+    shop_live_hero_title: "ライブ販売、商品デモ、限定オファーをまとめてチェック。",
+    shop_live_hero_desc:
+      "配信者による紹介、動きの速いお得情報、その日の注目商品をひとつのセクションで見つけられます。",
+    shop_live_stat_hosts: "配信中のホスト",
+    shop_live_stat_viewers: "視聴者数",
+    shop_live_stat_deals: "ライブ限定特価",
+    shop_live_popup_title: "商品レビューライブ",
+    shop_live_popup_desc: "ライブレビューを見ながら、紹介中の商品をすぐ確認できます。",
+    shop_live_hosted_by: "配信ホスト",
+    shop_live_featured_product: "注目配信",
+    shop_live_duration: "配信時間",
+    shop_live_live_chat: "ライブチャット",
+    shop_live_chat_tip: "視聴者コメントや商品に関する質問がリアルタイムで流れています。",
+    shop_live_view_products: "商品を見る",
+    shop_live_chat_comment_1: "素材感をもっと近くで見せてもらえますか？",
+    shop_live_chat_comment_2: "写真よりライブのほうが色味が分かりやすいです。",
+    shop_live_chat_comment_3: "この配信の商品を固定してください:",
     flash_sale_badge: "フラッシュセール特集",
     flash_sale_title: "フラッシュセール",
     flash_sale_desc:

@@ -23,60 +23,17 @@ import { Button } from "@/components/ui/button";
 import { LinkMenuItem, MenuItem } from "@/interfaces/common/menu.interface";
 import { useTranslation } from "@/lib/hooks/use-translation";
 import { useFetchData } from "@/features/category/list/popular/hooks";
-import type { Category } from "@/features/category/types";
 import { useSidebarShops } from "./hooks/useSidebarShops";
+import { buildCategoryMenuItems } from "@/features/category/utils/build-category-menu-items";
 
 export default function SidebarNavigation() {
   const { t } = useTranslation();
   const pathname = usePathname() ?? "/";
   const { categories } = useFetchData();
   const { shops } = useSidebarShops();
-  const conditionMenu = pathname.split("/")[1] === "user";
+  const isUserPage = pathname.split("/")[1] === "user";
   const categoryMenuItems: MenuItem[] = useMemo(() => {
-    if (!categories?.length) {
-      return [];
-    }
-
-    const buildCategoryUrl = (category: Category) => {
-      const categoryIds = [...(category.ancestors ?? []).filter(Boolean), category.category_id];
-      return `/categories/${category.category_slug}-cat.${categoryIds.join(".")}`;
-    };
-
-    const parentCategories: Category[] = [];
-    const childrenByParentId = new Map<string, LinkMenuItem[]>();
-
-    categories.forEach((category: Category) => {
-      if (!category.parent_id || !category.isLeaf || category.level === 0) {
-        parentCategories.push(category);
-        return;
-      }
-
-      const existingChildren = childrenByParentId.get(category.parent_id) ?? [];
-      existingChildren.push({
-        type: "link",
-        title: category.category_name || t("categories"),
-        url: buildCategoryUrl(category),
-      });
-      childrenByParentId.set(category.parent_id, existingChildren);
-    });
-
-    return parentCategories.map((parent: Category) => {
-      const children = childrenByParentId.get(parent.category_id) ?? [];
-
-      if (children.length === 0) {
-        return {
-          type: "link" as const,
-          title: parent.category_name || t("categories"),
-          url: buildCategoryUrl(parent),
-        };
-      }
-
-      return {
-        type: "group" as const,
-        title: parent.category_name || t("categories"),
-        children,
-      };
-    });
+    return buildCategoryMenuItems(categories ?? [], t("categories"));
   }, [categories, t]);
   const shopMenuItems: MenuItem[] = useMemo(() => {
     if (!shops?.length) {
@@ -100,13 +57,13 @@ export default function SidebarNavigation() {
         type: "link",
         title: t("sidebar_shop_live"),
         icon: CgMediaLive,
-        url: "/",
+        url: "/#live-shops",
       },
       {
         type: "link",
         title: t("sidebar_flash_sale"),
         icon: IoIosFlash,
-        url: "/flash-sale",
+        url: "/#flash-sale",
       },
       {
         type: "group",
@@ -167,7 +124,7 @@ export default function SidebarNavigation() {
     ],
     [t],
   );
-  const menuToRender = conditionMenu ? profileMenuItems : items;
+  const menuToRender = isUserPage ? profileMenuItems : items;
 
   return (
     <Sidebar aria-label={t("sidebar_main_navigation")}>
@@ -203,7 +160,7 @@ export default function SidebarNavigation() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        {conditionMenu && (
+        {isUserPage  && (
           <SidebarMenuButton className="space-x-1 text-white hover:text-white bg-red-500 hover:bg-red-700">
             <MdLogout className="h-5 w-5" aria-hidden="true" />
             <span>{t("header_sign_out")}</span>
