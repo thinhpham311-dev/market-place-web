@@ -66,22 +66,26 @@ const liveSessions = [
 
 export default function ShopLiveSection() {
   const { t } = useTranslation();
-  const [activeSessionId, setActiveSessionId] = useState<(typeof liveSessions)[number]["id"] | null>(
-    null,
-  );
+  const [activeSessionId, setActiveSessionId] = useState<
+    (typeof liveSessions)[number]["id"] | null
+  >(null);
   const activeSession = liveSessions.find((session) => session.id === activeSessionId) ?? null;
 
   const liveComments = activeSession
     ? [
         { id: 1, user: "Linh", message: t("shop_live_chat_comment_1") },
         { id: 2, user: "Minh", message: t("shop_live_chat_comment_2") },
-        { id: 3, user: "Hana", message: `${t("shop_live_chat_comment_3")} ${t(activeSession.titleKey)}` },
+        {
+          id: 3,
+          user: "Hana",
+          message: `${t("shop_live_chat_comment_3")} ${t(activeSession.titleKey)}`,
+        },
       ]
     : [];
 
   return (
     <div id="live-shops">
-      <section className="md:px-6 px-3" >
+      <section className="md:px-6 px-3">
         <div className="overflow-hidden rounded-[28px] border border-orange-200 bg-gradient-to-b from-orange-50 via-orange-50 to-white shadow-sm">
           <div className="flex flex-col gap-4 border-b border-orange-100 bg-gradient-to-r from-[#ee4d2d] to-[#ff7337] px-4 py-4 text-white md:flex-row md:items-center md:justify-between md:px-6">
             <div className="space-y-2">
@@ -169,7 +173,10 @@ export default function ShopLiveSection() {
         </div>
       </section>
 
-      <Dialog open={Boolean(activeSession)} onOpenChange={(open) => !open && setActiveSessionId(null)}>
+      <Dialog
+        open={Boolean(activeSession)}
+        onOpenChange={(open) => !open && setActiveSessionId(null)}
+      >
         <DialogContent className="inset-0 left-0 top-0 h-screen max-h-screen w-screen max-w-none translate-x-0 translate-y-0 rounded-none border-none bg-white p-0 shadow-none">
           {activeSession ? (
             <>
@@ -240,7 +247,9 @@ export default function ShopLiveSection() {
 
                 <div className="flex min-h-0 flex-col bg-orange-50">
                   <div className="border-b border-orange-100 p-5">
-                    <h4 className="text-lg font-semibold text-stone-900">{t("shop_live_live_chat")}</h4>
+                    <h4 className="text-lg font-semibold text-stone-900">
+                      {t("shop_live_live_chat")}
+                    </h4>
                     <p className="mt-1 text-sm text-stone-600">{t("shop_live_chat_tip")}</p>
                   </div>
 
@@ -248,13 +257,18 @@ export default function ShopLiveSection() {
                     {liveComments.map((comment) => (
                       <div key={comment.id} className="rounded-2xl bg-white p-4 shadow-sm">
                         <div className="text-sm font-semibold text-stone-900">{comment.user}</div>
-                        <div className="mt-1 text-sm leading-6 text-stone-600">{comment.message}</div>
+                        <div className="mt-1 text-sm leading-6 text-stone-600">
+                          {comment.message}
+                        </div>
                       </div>
                     ))}
                   </div>
 
                   <div className="border-t border-orange-100 p-5">
-                    <Button asChild className="w-full rounded-full bg-[#ee4d2d] text-white hover:bg-[#d94426]">
+                    <Button
+                      asChild
+                      className="w-full rounded-full bg-[#ee4d2d] text-white hover:bg-[#d94426]"
+                    >
                       <Link href={activeSession.href}>{t("shop_live_view_products")}</Link>
                     </Button>
                   </div>

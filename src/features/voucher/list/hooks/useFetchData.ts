@@ -8,13 +8,14 @@ import { injectReducer, removeReducer } from "@/store";
 import { getDiscountList } from "@/features/voucher/list/store/dataSlice";
 import { selectVoucherListByStoreKey } from "@/features/voucher/list/store/selectors";
 import { DEFAULT_VOUCHER_SHOP_ID, VOUCHER_LIST_KEY } from "@/features/voucher/list/constants";
-import {
-  mapVoucherItem,
-  resolveVoucherList,
-} from "@/features/voucher/list/utils/normalizeVoucher";
+import { mapVoucherItem, resolveVoucherList } from "@/features/voucher/list/utils/normalizeVoucher";
 import type { UseVoucherFetchDataParams } from "@/features/voucher/list/types";
 
-export type { VoucherItem, VoucherStatus, UseVoucherFetchDataParams } from "@/features/voucher/list/types";
+export type {
+  VoucherItem,
+  VoucherStatus,
+  UseVoucherFetchDataParams,
+} from "@/features/voucher/list/types";
 
 export function useFetchData(params: UseVoucherFetchDataParams = {}) {
   const dispatch = useAppDispatch();

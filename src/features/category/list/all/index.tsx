@@ -24,13 +24,14 @@ export default function CategoryListPage() {
       return [];
     }
 
-    const parentCategories = categories.filter((category: Category) => !category.parent_id || category.level === 0);
+    const parentCategories = categories.filter(
+      (category: Category) => !category.parent_id || category.level === 0,
+    );
 
     return parentCategories.map((parent: Category) => {
-      const directChildren =
-        parent.children?.length
-          ? parent.children
-          : categories.filter((category: Category) => category.parent_id === parent.category_id);
+      const directChildren = parent.children?.length
+        ? parent.children
+        : categories.filter((category: Category) => category.parent_id === parent.category_id);
 
       return {
         parent,
@@ -79,7 +80,7 @@ export default function CategoryListPage() {
                     </div>
                   ) : (
                     <div className="grid grid-cols-1 aspect-auto py-10">
-          <NotFound />
+                      <NotFound />
                     </div>
                   )}
                 </section>

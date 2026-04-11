@@ -3,7 +3,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { VerifyEmailOtpPayload, VerifyEmailOtpResponse } from "@/features/auth/types/auth";
 import { apiPostVerifyEmailOtp } from "@/features/auth/check-otp/services";
 import { translateRuntime } from "@/lib/i18n/runtime-translation";
-import { getApiErrorMessage, handleAxiosError, type NormalizedApiError } from "@/lib/http/handleAxiosError";
+import {
+  getApiErrorMessage,
+  handleAxiosError,
+  type NormalizedApiError,
+} from "@/lib/http/handleAxiosError";
 
 export const postVerifyEmailOtp = createAsyncThunk<
   VerifyEmailOtpResponse,

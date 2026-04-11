@@ -20,15 +20,19 @@ export async function POST(
     const authorization = req.headers.get("authorization") || "";
     const cookie = req.headers.get("cookie") || "";
 
-    const { data } = await axios.post(`${API_NEXT}/v1/api/shop/follow/${params.shopId}`, undefined, {
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": API_KEY,
-        ...(authorization ? { Authorization: authorization } : {}),
-        ...(cookie ? { Cookie: cookie } : {}),
+    const { data } = await axios.post(
+      `${API_NEXT}/v1/api/shop/follow/${params.shopId}`,
+      undefined,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": API_KEY,
+          ...(authorization ? { Authorization: authorization } : {}),
+          ...(cookie ? { Cookie: cookie } : {}),
+        },
+        withCredentials: true,
       },
-      withCredentials: true,
-    });
+    );
 
     return NextResponse.json(data);
   } catch (error: unknown) {

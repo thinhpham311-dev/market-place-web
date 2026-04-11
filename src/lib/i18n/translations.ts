@@ -1571,8 +1571,7 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     shop_live_card_beauty_desc:
       "Xem swatch thực tế, routine chăm sóc và ưu đãi chỉ có trong phiên live.",
     shop_live_card_home: "Live làm mới không gian sống",
-    shop_live_card_home_desc:
-      "Khám phá đồ decor, lưu trữ và đồ bếp cùng các gợi ý setup thực tế.",
+    shop_live_card_home_desc: "Khám phá đồ decor, lưu trữ và đồ bếp cùng các gợi ý setup thực tế.",
     shop_live_card_tech: "Live deal công nghệ",
     shop_live_card_tech_desc:
       "Xem demo gadget, so sánh nhanh và mức giá chỉ mở trong lúc livestream.",
@@ -2122,21 +2121,17 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     sidebar_promotions: "プロモーション",
     sidebar_wallet_update: "ウォレット更新",
     sidebar_marketplace_update: "Market Place 更新",
-    shop_live_desc:
-      "注目のライブ配信、人気商品、配信者による実演紹介をまとめてチェックできます。",
+    shop_live_desc: "注目のライブ配信、人気商品、配信者による実演紹介をまとめてチェックできます。",
     shop_live_watch_now: "今すぐ見る",
     shop_live_card_fashion: "ファッションライブ",
-    shop_live_card_fashion_desc:
-      "コーデ提案、新着アイテム、着こなしのコツをライブでチェック。",
+    shop_live_card_fashion_desc: "コーデ提案、新着アイテム、着こなしのコツをライブでチェック。",
     shop_live_card_beauty: "ビューティーライブ",
     shop_live_card_beauty_desc:
       "色味の見え方、ルーティン紹介、ライブ限定オファーをリアルタイムで確認。",
     shop_live_card_home: "ホームアイテムライブ",
-    shop_live_card_home_desc:
-      "インテリア、収納、キッチン用品を実用的な見せ方と一緒に紹介します。",
+    shop_live_card_home_desc: "インテリア、収納、キッチン用品を実用的な見せ方と一緒に紹介します。",
     shop_live_card_tech: "テックライブセール",
-    shop_live_card_tech_desc:
-      "ガジェット実演、かんたん比較、配信限定価格をまとめてチェック。",
+    shop_live_card_tech_desc: "ガジェット実演、かんたん比較、配信限定価格をまとめてチェック。",
     shop_live_card_essentials: "デイリー必需品ライブ",
     shop_live_card_essentials_desc:
       "日用品、まとめ買い提案、お得に買いやすい定番商品を紹介します。",

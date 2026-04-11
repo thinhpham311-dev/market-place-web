@@ -58,11 +58,7 @@ export default function CheckoutForm() {
 
         <Card>
           <CardContent className="p-6">
-            <CheckoutAddress
-              values={addressValues}
-              errors={{}}
-              onChange={setAddressValue}
-            />
+            <CheckoutAddress values={addressValues} errors={{}} onChange={setAddressValue} />
           </CardContent>
         </Card>
 

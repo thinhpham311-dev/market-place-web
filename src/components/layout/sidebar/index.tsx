@@ -160,7 +160,7 @@ export default function SidebarNavigation() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        {isUserPage  && (
+        {isUserPage && (
           <SidebarMenuButton className="space-x-1 text-white hover:text-white bg-red-500 hover:bg-red-700">
             <MdLogout className="h-5 w-5" aria-hidden="true" />
             <span>{t("header_sign_out")}</span>

@@ -12,11 +12,7 @@ interface VoucherListProviderProps {
 
 export const VoucherListContext = React.createContext<VoucherListContextType | null>(null);
 
-const VoucherListProvider = ({
-  children,
-  className,
-  contextValues,
-}: VoucherListProviderProps) => {
+const VoucherListProvider = ({ children, className, contextValues }: VoucherListProviderProps) => {
   return (
     <VoucherListContext.Provider value={contextValues}>
       <div className={cn(className)}>{children}</div>

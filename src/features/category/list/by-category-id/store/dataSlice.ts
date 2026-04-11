@@ -55,7 +55,9 @@ export const getCatListById = createAsyncThunk<
 
     return data;
   } catch (err: any) {
-    return rejectWithValue(getApiErrorMessage(err, translateRuntime("common_something_went_wrong")));
+    return rejectWithValue(
+      getApiErrorMessage(err, translateRuntime("common_something_went_wrong")),
+    );
   }
 });
 

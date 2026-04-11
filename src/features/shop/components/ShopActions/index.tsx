@@ -77,7 +77,9 @@ const ShopActions = () => {
       );
     } catch (error: any) {
       setIsFollowing(previousValue);
-      toast.error(getApiErrorMessage(error, t(nextValue ? "shop_follow_failed" : "shop_unfollow_failed")));
+      toast.error(
+        getApiErrorMessage(error, t(nextValue ? "shop_follow_failed" : "shop_unfollow_failed")),
+      );
     } finally {
       setIsSubmitting(false);
     }

@@ -4,7 +4,11 @@ import type { IUser } from "@/interfaces/user";
 import type { SignUpResponse } from "@/features/auth/types/auth";
 import { apiPostSignUp } from "@/features/auth/sign-up/services";
 import { translateRuntime } from "@/lib/i18n/runtime-translation";
-import { getApiErrorMessage, handleAxiosError, type NormalizedApiError } from "@/lib/http/handleAxiosError";
+import {
+  getApiErrorMessage,
+  handleAxiosError,
+  type NormalizedApiError,
+} from "@/lib/http/handleAxiosError";
 
 export const postSignUp = createAsyncThunk<
   SignUpResponse,

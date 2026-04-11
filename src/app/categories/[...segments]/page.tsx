@@ -21,7 +21,10 @@ function ProListSkeleton() {
         <div className="col-span-10 flex flex-col space-y-3">
           <Card className="h-full">
             <CardContent className="p-3">
-               <ProductCardGridSkeleton count={20} className="lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-2" />
+              <ProductCardGridSkeleton
+                count={20}
+                className="lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-2"
+              />
             </CardContent>
           </Card>
         </div>
@@ -53,11 +56,7 @@ export default function Page({ params }: PageProps) {
       <Suspense fallback={<ProListSkeleton />}>
         <ProListByCategoryId lastId={lastId} />
       </Suspense>
-      <BrandListSection
-        titleKey="shop_by_brand"
-        descriptionKey="shop_by_brand_desc"
-        compact
-      />
+      <BrandListSection titleKey="shop_by_brand" descriptionKey="shop_by_brand_desc" compact />
     </div>
   );
 }

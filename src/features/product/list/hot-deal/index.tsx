@@ -18,24 +18,24 @@ export default function ProHotDealList() {
 
   return (
     <div id="flash-sale">
-    <ProductListSection
-      title={
-        <span className="flex items-center space-x-2">
-          <FaHotjar color="#f73e48" />
-          <span>{t("hot_deals")}</span>
-        </span>
-      }
-      description={t("hot_deals_desc")}
-      seeMoreHref="/flash-sale"
+      <ProductListSection
+        title={
+          <span className="flex items-center space-x-2">
+            <FaHotjar color="#f73e48" />
+            <span>{t("hot_deals")}</span>
+          </span>
+        }
+        description={t("hot_deals_desc")}
+        seeMoreHref="/flash-sale"
       >
-      <ProCarousel
-        error={error}
-        countLoadItems={6}
-        data={products}
-        isLoading={loading}
-        className="lg:basis-1/6 md:basis-1/4 basis-1/3"
+        <ProCarousel
+          error={error}
+          countLoadItems={6}
+          data={products}
+          isLoading={loading}
+          className="lg:basis-1/6 md:basis-1/4 basis-1/3"
         />
-    </ProductListSection>
-        </div>
+      </ProductListSection>
+    </div>
   );
 }

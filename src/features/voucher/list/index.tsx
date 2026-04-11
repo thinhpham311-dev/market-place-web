@@ -34,11 +34,7 @@ function VoucherStatusBadge({ status }: { status: VoucherStatus }) {
   );
 }
 
-function VoucherDiscountValue({
-  voucher,
-}: {
-  voucher: VoucherItem;
-}) {
+function VoucherDiscountValue({ voucher }: { voucher: VoucherItem }) {
   const { t } = useTranslation();
 
   if (voucher.discountType === "percentage") {

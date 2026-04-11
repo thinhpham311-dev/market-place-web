@@ -54,7 +54,9 @@ export const getBrandAllList = createAsyncThunk<BrandResponse, object, { rejectV
 
       return data;
     } catch (error: any) {
-      return rejectWithValue(getApiErrorMessage(error, translateRuntime("common_something_went_wrong")));
+      return rejectWithValue(
+        getApiErrorMessage(error, translateRuntime("common_something_went_wrong")),
+      );
     }
   },
 );

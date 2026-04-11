@@ -26,10 +26,7 @@ export function resolveVoucherList(
   return directList || metadataList || dataList || nestedMetadataList || [];
 }
 
-export function resolveVoucherStatus(
-  item: Record<string, any>,
-  validUntil: string,
-): VoucherStatus {
+export function resolveVoucherStatus(item: Record<string, any>, validUntil: string): VoucherStatus {
   const rawStatus = normalizeString(item.discount_status_code).toLowerCase();
 
   if (rawStatus.includes("used")) {
@@ -96,7 +93,9 @@ export function mapVoucherItem(item: Record<string, any>, index: number): Vouche
     maxDiscountAmount,
     validFrom,
     validUntil,
-    usageLimit: normalizeNumber(item.usage_limit || item.limit || item.total_limit || item.quantity),
+    usageLimit: normalizeNumber(
+      item.usage_limit || item.limit || item.total_limit || item.quantity,
+    ),
     usageCount: normalizeNumber(
       item.used_count || item.usage_count || item.used || item.total_used || item.redeemed_count,
     ),

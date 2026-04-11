@@ -14,12 +14,7 @@ import { BiCategory } from "react-icons/bi";
 
 const CatByCategoryId = ({ ids }: { ids: string[] }) => {
   const { t } = useTranslation();
-  const {
-    categories = [],
-    loading = false,
-    error = null,
-    validIds,
-  } = useFetchData({ ids });
+  const { categories = [], loading = false, error = null, validIds } = useFetchData({ ids });
 
   return (
     <Card className="md:mx-6 mx-3 grid grid-cols-12 items-center sticky left-0 top-[60px] bg-white z-10">

@@ -100,7 +100,8 @@ const dataSlice = createSlice({
         if (typeof action.payload === "string") {
           state.error = action.payload;
         } else if (action.payload && typeof action.payload === "object") {
-          state.error = (action.payload as any).message || translateRuntime("common_something_went_wrong");
+          state.error =
+            (action.payload as any).message || translateRuntime("common_something_went_wrong");
         } else {
           state.error = action.error.message || translateRuntime("common_something_went_wrong");
         }

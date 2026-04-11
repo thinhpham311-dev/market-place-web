@@ -64,7 +64,12 @@ const CategoryButton: React.FC<CategoryButtonProps> = ({
       variant="outline"
       disabled={isCurrent}
     >
-      <Link href={href} prefetch={!isCurrent} onMouseEnter={handlePrefetch} onFocus={handlePrefetch}>
+      <Link
+        href={href}
+        prefetch={!isCurrent}
+        onMouseEnter={handlePrefetch}
+        onFocus={handlePrefetch}
+      >
         {category_name}
       </Link>
     </Button>

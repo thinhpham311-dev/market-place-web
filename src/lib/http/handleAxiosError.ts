@@ -9,7 +9,11 @@ export interface NormalizedApiError {
 }
 
 function normalizeErrorMessage(message: string | undefined, status?: number): string {
-  if (!message || message === "Unknown error" || message.startsWith("Request failed with status code")) {
+  if (
+    !message ||
+    message === "Unknown error" ||
+    message.startsWith("Request failed with status code")
+  ) {
     return (status ?? 500) >= 500
       ? translateRuntime("api_server_error")
       : translateRuntime("api_invalid_request");

@@ -16,20 +16,18 @@ const ShopViewButton: React.FC<ShopViewButtonProps> = ({ slug, id }) => {
   const isDisabled = !id;
   const href = `/shop/${slug || "shop"}-s.${id}`;
 
-  return (
-    isDisabled ? (
-      <Button variant="outline" size="sm" className="w-full" disabled>
+  return isDisabled ? (
+    <Button variant="outline" size="sm" className="w-full" disabled>
+      <Eye className="w-4 h-4 mr-1" />
+      <span>{t("shop_view")}</span>
+    </Button>
+  ) : (
+    <Button variant="outline" size="sm" className="w-full" asChild>
+      <Link href={href}>
         <Eye className="w-4 h-4 mr-1" />
         <span>{t("shop_view")}</span>
-      </Button>
-    ) : (
-      <Button variant="outline" size="sm" className="w-full" asChild>
-        <Link href={href}>
-          <Eye className="w-4 h-4 mr-1" />
-          <span>{t("shop_view")}</span>
-        </Link>
-      </Button>
-    )
+      </Link>
+    </Button>
   );
 };
 

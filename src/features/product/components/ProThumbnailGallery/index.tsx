@@ -1,7 +1,15 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
+import { X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import GalleryCarousel from "./GalleryCarousel";
 import GalleryNavigation from "./GalleryNavigation";
 import LoadingSkeleton from "./LoadingSkeleton";
@@ -68,7 +76,10 @@ export default function ProThumbnailGallery() {
       </Card>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-5xl border-none p-4">
+        <DialogContent
+          hideCloseButton
+          className="product-gallery-popup w-screen max-w-screen border-none bg-transparent p-4 shadow-none"
+        >
           <DialogTitle className="sr-only">Product gallery</DialogTitle>
           <DialogDescription className="sr-only">
             Gallery popup for product thumbnails.
@@ -77,6 +88,17 @@ export default function ProThumbnailGallery() {
             <div className="absolute left-4 top-4 z-10 rounded-full bg-black/70 px-3 py-1 text-sm font-medium text-white">
               {current + 1} / {galleryItems.length}
             </div>
+            <DialogClose asChild>
+              <Button
+                type="button"
+                size="icon"
+                variant="secondary"
+                className="absolute right-4 top-4 z-20 rounded-full bg-black/70 text-white hover:bg-black/85 hover:text-white"
+              >
+                <X className="h-5 w-5" />
+                <span className="sr-only">Close gallery</span>
+              </Button>
+            </DialogClose>
             <ImageGallery
               ref={galleryRef}
               items={galleryItems}

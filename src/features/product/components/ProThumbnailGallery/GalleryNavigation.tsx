@@ -30,7 +30,7 @@ export default function GalleryNavigation({
         size="icon"
         variant="outline"
       >
-        <ArrowLeft  />
+        <ArrowLeft />
       </Button>
 
       <Button
@@ -39,7 +39,7 @@ export default function GalleryNavigation({
         size="icon"
         variant="outline"
       >
-        <ArrowRight  />
+        <ArrowRight />
       </Button>
     </>
   );

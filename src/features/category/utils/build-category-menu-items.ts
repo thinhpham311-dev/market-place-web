@@ -1,10 +1,7 @@
 import { LinkMenuItem, MenuItem } from "@/interfaces/common/menu.interface";
 import type { Category } from "@/features/category/types";
 
-export function buildCategoryMenuItems(
-  categories: Category[],
-  fallbackTitle: string,
-): MenuItem[] {
+export function buildCategoryMenuItems(categories: Category[], fallbackTitle: string): MenuItem[] {
   if (!categories?.length) {
     return [];
   }

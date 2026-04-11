@@ -3,7 +3,10 @@
 import { useCallback, useEffect, useMemo } from "react";
 import { toast } from "sonner";
 import { useShoppingCartContext } from "@/features/cart/hooks";
-import type { CheckoutAddressValues, CheckoutPaymentOption } from "@/features/checkout/types/checkout";
+import type {
+  CheckoutAddressValues,
+  CheckoutPaymentOption,
+} from "@/features/checkout/types/checkout";
 import { useAppDispatch, useAppSelector, useTranslation } from "@/lib/hooks";
 import reducer from "@/features/checkout/store";
 import { injectReducer, removeReducer } from "@/store";
@@ -82,13 +85,7 @@ export function useCheckoutData() {
       tax,
       total: subTotal + shipping + tax,
     };
-  }, [
-    checkoutItems,
-    data.cart_selected_items_total,
-    selectedItems.length,
-    shipping,
-    tax,
-  ]);
+  }, [checkoutItems, data.cart_selected_items_total, selectedItems.length, shipping, tax]);
 
   const setAddressValue = useCallback(
     <K extends keyof CheckoutAddressValues>(key: K, value: CheckoutAddressValues[K]) => {

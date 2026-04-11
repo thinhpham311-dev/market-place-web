@@ -32,7 +32,7 @@ const SpuCarousel = ({
   countLoadItems,
 }: ISpuCarouselProps) => {
   const { t } = useTranslation();
-   const hasNoData = !data || data.length === 0;
+  const hasNoData = !data || data.length === 0;
   const errorMessage = typeof error === "string" ? error : error?.message;
 
   if (!isLoading && hasNoData && errorMessage) {

@@ -14,13 +14,7 @@ interface SpuGridProps {
   countLoadItems?: number;
 }
 
-const ProGrid = ({
-  data,
-  className,
-  isLoading,
-  error,
-  countLoadItems = 12,
-}: SpuGridProps) => {
+const ProGrid = ({ data, className, isLoading, error, countLoadItems = 12 }: SpuGridProps) => {
   const { t } = useTranslation();
   const hasNoData = !data || data.length === 0;
   const errorMessage = typeof error === "string" ? error : error?.message;

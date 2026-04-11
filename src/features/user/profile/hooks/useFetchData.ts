@@ -45,11 +45,7 @@ function resolveProfilePayload(payload: ProfileApiPayload): ProfileApiPayload {
     return null;
   }
 
-  return (
-    (payload.metadata as ProfileApiPayload) ??
-    (payload.data as ProfileApiPayload) ??
-    payload
-  );
+  return (payload.metadata as ProfileApiPayload) ?? (payload.data as ProfileApiPayload) ?? payload;
 }
 
 function buildFormDefaults(source: ProfileApiPayload): UserProfileFormValues {

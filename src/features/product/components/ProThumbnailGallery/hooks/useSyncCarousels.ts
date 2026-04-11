@@ -24,9 +24,8 @@ export const useSyncCarousels = () => {
   /** ✅ Navigate both carousels programmatically */
   const navigateTo = useCallback(
     (index: number) => {
-      if (!apis.main || !apis.thumbnail) return;
-      apis.thumbnail.scrollTo(index);
-      apis.main.scrollTo(index);
+      apis.thumbnail?.scrollTo(index);
+      apis.main?.scrollTo(index);
       dispatch(setCurrent(index));
     },
     [apis.main, apis.thumbnail, dispatch],

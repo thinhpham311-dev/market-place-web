@@ -7,7 +7,10 @@ import { injectReducer, removeReducer } from "@/store";
 import { getVoucherProducts } from "@/features/voucher/detail/store/dataSlice";
 import { selectVoucherProductsByStoreKey } from "@/features/voucher/detail/store/selectors";
 import { VOUCHER_DETAIL_PRODUCTS_KEY } from "@/features/voucher/detail/constants";
-import { mapVoucherProduct, resolveVoucherProductList } from "@/features/voucher/detail/utils/normalizeVoucherProducts";
+import {
+  mapVoucherProduct,
+  resolveVoucherProductList,
+} from "@/features/voucher/detail/utils/normalizeVoucherProducts";
 import type { UseFetchVoucherProductsParams } from "@/features/voucher/detail/types";
 
 export function useFetchVoucherProducts({
@@ -50,7 +53,10 @@ export function useFetchVoucherProducts({
   }, [code, dispatch, limit, page, shopId]);
 
   const products = useMemo(
-    () => resolveVoucherProductList(data).map(mapVoucherProduct).filter((item) => item.product_id),
+    () =>
+      resolveVoucherProductList(data)
+        .map(mapVoucherProduct)
+        .filter((item) => item.product_id),
     [data],
   );
 

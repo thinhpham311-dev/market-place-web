@@ -9,7 +9,11 @@ import {
   SPU_KEY_TAG,
 } from "@/features/spu/constants";
 import { translateRuntime } from "@/lib/i18n/runtime-translation";
-import { getApiErrorMessage, handleAxiosError, type NormalizedApiError } from "@/lib/http/handleAxiosError";
+import {
+  getApiErrorMessage,
+  handleAxiosError,
+  type NormalizedApiError,
+} from "@/lib/http/handleAxiosError";
 
 type SpuDetailResponse = {
   metadata: ISpuModel;

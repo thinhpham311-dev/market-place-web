@@ -9,7 +9,11 @@ import {
   SHOP_KEY_TAG,
 } from "@/features/shop/constants";
 import { translateRuntime } from "@/lib/i18n/runtime-translation";
-import { getApiErrorMessage, handleAxiosError, type NormalizedApiError } from "@/lib/http/handleAxiosError";
+import {
+  getApiErrorMessage,
+  handleAxiosError,
+  type NormalizedApiError,
+} from "@/lib/http/handleAxiosError";
 
 type ShopDetailResponse = {
   metadata: IShopModel;
@@ -69,7 +73,10 @@ const dataSlice = createSlice({
       })
       .addCase(getShopById.rejected, (state, action) => {
         state.loading = false;
-        state.error = getApiErrorMessage(action.payload ?? action.error, translateRuntime("api_server_error"));
+        state.error = getApiErrorMessage(
+          action.payload ?? action.error,
+          translateRuntime("api_server_error"),
+        );
         state.shopInfo = null;
       });
   },
