@@ -6,6 +6,8 @@ import { Toaster } from "@/components/ui/sonner";
 
 // Layout components
 import { Header, Footer, SidebarNavigation, AdminHeader } from "@/components/layout";
+import HeaderLoadingSkeleton from "@/components/layout/header/LoadingSkeleton";
+import AdminHeaderLoadingSkeleton from "@/components/layout/admin-header/LoadingSkeleton";
 
 // UI components
 import { SidebarProvider } from "@/components/ui/sidebar";
@@ -72,11 +74,15 @@ const AppProvider = ({ children, ...props }: React.ComponentProps<typeof NextThe
         <ShoppingCartRoot>
           <PersistGate
             loading={
-              <div className="h-[100vh] w-full flex items-center justify-center space-x-3 bg-background">
-                <LoadingSpinner />
-                <p>
-                  <strong>Loading...</strong>
-                </p>
+              <div className="min-h-screen w-full bg-background">
+                <AdminHeaderLoadingSkeleton />
+                <HeaderLoadingSkeleton />
+                <div className="flex min-h-[calc(100vh-94px)] items-center justify-center space-x-3">
+                  <LoadingSpinner />
+                  <p>
+                    <strong>Loading...</strong>
+                  </p>
+                </div>
               </div>
             }
             persistor={persistor}

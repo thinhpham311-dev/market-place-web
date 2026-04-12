@@ -8,6 +8,13 @@ import { PlayCircle, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -113,62 +120,78 @@ export default function ShopLiveSection() {
             </Button>
           </div>
 
-          <div className="grid gap-4 p-4 md:grid-cols-2 xl:grid-cols-5 md:p-6">
-            {liveSessions.map((session) => (
-              <article
-                key={session.id}
-                className="group overflow-hidden rounded-3xl border border-orange-100 bg-white transition-all hover:-translate-y-1 hover:shadow-md"
-              >
-                <Link href={session.href} className="block">
-                  <div className="relative aspect-[16/11] overflow-hidden bg-orange-100">
-                    <Image
-                      src={session.image}
-                      alt={t(session.titleKey)}
-                      fill
-                      sizes="(min-width: 768px) 33vw, 100vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-x-0 top-0 flex items-center justify-between p-3">
-                      <Badge className="gap-2 bg-[#ee4d2d] text-white hover:bg-[#ee4d2d]">
-                        <span className="h-2 w-2 rounded-full bg-white" />
-                        {t("shop_live_now")}
-                      </Badge>
-                      <Badge variant="secondary" className="bg-white/95 text-stone-900">
-                        {session.duration}
-                      </Badge>
-                    </div>
-                  </div>
-                </Link>
-
-                <div className="space-y-4 p-4">
-                  <div className="space-y-2">
-                    <h3 className="line-clamp-1 text-lg font-semibold text-stone-900">
-                      {t(session.titleKey)}
-                    </h3>
-                    <p className="line-clamp-2 text-sm leading-6 text-stone-600">
-                      {t(session.descriptionKey)}
-                    </p>
-                  </div>
-
-                  <div className="flex items-center justify-between rounded-2xl bg-orange-50 px-3 py-2 text-sm">
-                    <span className="inline-flex items-center gap-2 text-stone-700">
-                      <Users className="h-4 w-4 text-[#ee4d2d]" />
-                      {session.viewers} {t("shop_live_viewers")}
-                    </span>
-                    <span className="font-medium text-[#ee4d2d]">{t("shop_live_join_now")}</span>
-                  </div>
-
-                  <Button
-                    type="button"
-                    className="w-full rounded-full bg-[#ee4d2d] text-white hover:bg-[#d94426]"
-                    onClick={() => setActiveSessionId(session.id)}
+          <div className="px-4 py-4 md:px-6 md:py-6">
+            <Carousel
+              opts={{
+                align: "start",
+                dragFree: true,
+              }}
+              className="px-1 md:px-2"
+            >
+              <CarouselContent className="-ml-4">
+                {liveSessions.map((session) => (
+                  <CarouselItem
+                    key={session.id}
+                    className="pl-4 sm:basis-1/5 xl:basis-1/5 2xl:basis-1/4"
                   >
-                    <PlayCircle className="h-4 w-4" />
-                    {t("shop_live_watch_now")}
-                  </Button>
-                </div>
-              </article>
-            ))}
+                    <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-orange-100 bg-white transition-all hover:-translate-y-1 hover:shadow-md">
+                      <Link href={session.href} className="block">
+                        <div className="relative aspect-[16/11] overflow-hidden bg-orange-100">
+                          <Image
+                            src={session.image}
+                            alt={t(session.titleKey)}
+                            fill
+                            sizes="(min-width: 1536px) 25vw, (min-width: 1280px) 33vw, (min-width: 640px) 50vw, 100vw"
+                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                          />
+                          <div className="absolute inset-x-0 top-0 flex items-center justify-between p-3">
+                            <Badge className="gap-2 bg-[#ee4d2d] text-white hover:bg-[#ee4d2d]">
+                              <span className="h-2 w-2 rounded-full bg-white" />
+                              {t("shop_live_now")}
+                            </Badge>
+                            <Badge variant="secondary" className="bg-white/95 text-stone-900">
+                              {session.duration}
+                            </Badge>
+                          </div>
+                        </div>
+                      </Link>
+
+                      <div className="flex flex-1 flex-col space-y-4 p-4">
+                        <div className="space-y-2">
+                          <h3 className="line-clamp-1 text-lg font-semibold text-stone-900">
+                            {t(session.titleKey)}
+                          </h3>
+                          <p className="line-clamp-2 text-sm leading-6 text-stone-600">
+                            {t(session.descriptionKey)}
+                          </p>
+                        </div>
+
+                        <div className="flex items-center justify-between rounded-2xl bg-orange-50 px-3 py-2 text-sm">
+                          <span className="inline-flex items-center gap-2 text-stone-700">
+                            <Users className="h-4 w-4 text-[#ee4d2d]" />
+                            {session.viewers} {t("shop_live_viewers")}
+                          </span>
+                          <span className="font-medium text-[#ee4d2d]">
+                            {t("shop_live_join_now")}
+                          </span>
+                        </div>
+
+                        <Button
+                          type="button"
+                          className="mt-auto w-full rounded-full bg-[#ee4d2d] text-white hover:bg-[#d94426]"
+                          onClick={() => setActiveSessionId(session.id)}
+                        >
+                          <PlayCircle className="h-4 w-4" />
+                          {t("shop_live_watch_now")}
+                        </Button>
+                      </div>
+                    </article>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="left-0 top-[calc(50%-1rem)] h-10 w-10 border-orange-200 bg-white text-[#ee4d2d] shadow-sm hover:bg-orange-50 disabled:opacity-50 md:-left-2" />
+              <CarouselNext className="right-0 top-[calc(50%-1rem)] h-10 w-10 border-orange-200 bg-white text-[#ee4d2d] shadow-sm hover:bg-orange-50 disabled:opacity-50 md:-right-2" />
+            </Carousel>
           </div>
         </div>
       </section>
