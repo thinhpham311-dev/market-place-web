@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
 //ui
@@ -26,6 +26,8 @@ const SearchForm: React.FC<SearchFormProps> = ({ showCategorySelect = false }) =
   const router = useRouter();
   const pathname = usePathname();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const searchInputRef = useRef<HTMLInputElement | null>(null);
+  const [isMacLikeDevice, setIsMacLikeDevice] = useState(false);
   const categoriesOptions = [
     { name: t("search_scope_marketplace"), value: "in-market-place" },
     { name: t("search_scope_shop"), value: "in-this-shop" },
@@ -50,9 +52,58 @@ const SearchForm: React.FC<SearchFormProps> = ({ showCategorySelect = false }) =
     textsearch: "",
   };
 
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const navigatorWithUserAgentData = window.navigator as Navigator & {
+      userAgentData?: { platform?: string };
+    };
+    const platform =
+      navigatorWithUserAgentData.userAgentData?.platform ??
+      window.navigator.platform ??
+      window.navigator.userAgent;
+
+    setIsMacLikeDevice(/Mac|iPhone|iPad|iPod/i.test(platform));
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (!(event.metaKey || event.ctrlKey) || event.key.toLowerCase() !== "k") {
+        return;
+      }
+
+      const activeElement = document.activeElement;
+      const isTypingTarget =
+        activeElement instanceof HTMLInputElement ||
+        activeElement instanceof HTMLTextAreaElement ||
+        activeElement instanceof HTMLSelectElement ||
+        (activeElement instanceof HTMLElement && activeElement.isContentEditable);
+
+      if (isTypingTarget && activeElement === searchInputRef.current) {
+        return;
+      }
+
+      event.preventDefault();
+      searchInputRef.current?.focus();
+      searchInputRef.current?.select();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  const shortcutLabel = isMacLikeDevice ? "\u2318K" : "Ctrl K";
+
   const onSubmit = (values: z.infer<typeof FormSchema>) => {
     const params = new URLSearchParams();
-    params.set("keyword", values.textsearch.trim());
+    const keyword = values.textsearch.trim();
+
+    if (keyword) {
+      params.set("keyword", keyword);
+    }
 
     if (showCategorySelect && values.categories) {
       params.set("scope", values.categories);
@@ -116,6 +167,15 @@ const SearchForm: React.FC<SearchFormProps> = ({ showCategorySelect = false }) =
           className={showCategorySelect ? "xl:col-span-9 lg:col-span-8 md:col-span-7 col-span-12" : "col-span-12"}
           name="textsearch"
           placeholder={t("search_placeholder")}
+          inputClassName="pr-20"
+          inputRef={searchInputRef}
+          endAdornment={
+            <div className="pointer-events-none absolute inset-y-0 right-3 hidden items-center sm:flex">
+              <span className="rounded-md border border-stone-200 bg-stone-50 px-2 py-1 text-[11px] font-medium uppercase tracking-wide text-stone-500 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-400">
+                {shortcutLabel}
+              </span>
+            </div>
+          }
           formSchema={FormSchema}
           isRequired
         />

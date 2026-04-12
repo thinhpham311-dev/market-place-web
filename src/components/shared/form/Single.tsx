@@ -46,11 +46,14 @@ interface IFormFieldProps<T extends FieldValues> {
   formControl?: Control<T>;
   placeholder?: string;
   className?: string;
+  inputClassName?: string;
   defaultValue?: string;
   options?: OptionType[];
   inputType?: string;
   value?: string;
   children?: ReactNode;
+  endAdornment?: ReactNode;
+  inputRef?: React.Ref<HTMLInputElement>;
   formSchema?: z.ZodType<T>;
   isRequired?: boolean;
 }
@@ -104,7 +107,10 @@ export const FormInput = <T extends FieldValues>({
   inputType = "text",
   formSchema,
   className,
+  inputClassName,
   character = "",
+  endAdornment,
+  inputRef,
   isRequired = false,
 }: IFormFieldProps<T>) => {
   if (!formSchema) {
@@ -133,26 +139,31 @@ export const FormInput = <T extends FieldValues>({
                 </FormLabel>
               )}
               <FormControl>
-                <Input
-                  id={name.split("").join("-")}
-                  type={inputType}
-                  placeholder={placeholder}
-                  value={displayValue} // Display value with character
-                  name={name}
-                  className={cn(
-                    "border ",
-                    hasError ? "border-red-500 focus:ring-red-500" : "border-gray-300",
-                  )}
-                  onChange={(e) => {
-                    // Remove the `character` prefix before updating the value
-                    const rawValue = e.target.value.startsWith(character)
-                      ? e.target.value.slice(character.length)
-                      : e.target.value;
-                    field.onChange(rawValue);
-                  }}
-                  required={false}
-                  autoComplete="off"
-                />
+                <div className="relative">
+                  <Input
+                    id={name.split("").join("-")}
+                    type={inputType}
+                    placeholder={placeholder}
+                    value={displayValue} // Display value with character
+                    name={name}
+                    className={cn(
+                      "border ",
+                      hasError ? "border-red-500 focus:ring-red-500" : "border-gray-300",
+                      inputClassName,
+                    )}
+                    onChange={(e) => {
+                      // Remove the `character` prefix before updating the value
+                      const rawValue = e.target.value.startsWith(character)
+                        ? e.target.value.slice(character.length)
+                        : e.target.value;
+                      field.onChange(rawValue);
+                    }}
+                    required={false}
+                    autoComplete="off"
+                    ref={inputRef}
+                  />
+                  {endAdornment}
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>
