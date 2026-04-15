@@ -9,6 +9,7 @@ export default function SignInRoot() {
 
   return (
     <SignInProvider
+        className="flex flex-1 w-auto mx-10"
       contextValues={{
         signIn: signInData.signIn,
         isSubmitting: signInData.isSubmitting,
