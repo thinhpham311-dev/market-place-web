@@ -56,9 +56,12 @@ export default function ProThumbnailGallery() {
           <div className="absolute left-2 top-2 z-10 rounded-full bg-black/70 px-3 py-1 text-xs font-medium text-white">
             {current + 1} / {images.length}
           </div>
-          <GalleryCarousel data={images}          
-             onImageClick={handleOpenGallery}
- onSetApi={(api) => setApi("main", api)} onNavigate={navigateTo} />
+          <GalleryCarousel
+            data={images}
+            onImageClick={handleOpenGallery}
+            onSetApi={(api) => setApi("main", api)}
+            onNavigate={navigateTo}
+          />
         </CardContent>
 
         <CardFooter className="relative p-0">

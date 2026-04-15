@@ -1164,8 +1164,7 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     search_image_results_title: "Sản phẩm gần giống từ ảnh",
     search_image_results_desc:
       "Hệ thống so khớp ảnh bạn chụp với thumbnail sản phẩm để gợi ý các mặt hàng gần giống.",
-    search_image_results_error:
-      "Không thể phân tích ảnh vừa chụp. Hãy thử lại với một ảnh khác.",
+    search_image_results_error: "Không thể phân tích ảnh vừa chụp. Hãy thử lại với một ảnh khác.",
     search_empty_state: "Nhập từ khóa hoặc chụp ảnh sản phẩm để bắt đầu tìm kiếm.",
     daily_discover: "Khám phá mỗi ngày",
     daily_discover_desc: "Gợi ý mới, deal hot và sản phẩm đáng xem mỗi ngày.",

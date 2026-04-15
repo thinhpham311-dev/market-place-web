@@ -6,18 +6,18 @@ import { useParams, useSearchParams } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
 import { toast } from "sonner";
 
-import { Button } from "@/components/ui/button";
 import NotFound from "@/components/layout/notfound";
+import { Button } from "@/components/ui/button";
 import { useAppSelector, useTranslation } from "@/lib/hooks";
 import { formatToCurrency } from "@/utils/formats";
-import { useFetchData } from "@/features/voucher/list/hooks/useFetchData";
-import { useFetchVoucherProducts } from "@/features/voucher/detail/hooks/useFetchVoucherProducts";
-import VoucherDetailProvider from "@/features/voucher/detail/providers";
+import { useFetchData as useFetchVoucherProducts } from "@/features/voucher/detail/hooks/useFetchData";
 import VoucherDetailHero from "@/features/voucher/detail/components/VoucherDetailHero";
 import VoucherDetailLoading from "@/features/voucher/detail/components/VoucherDetailLoading";
 import VoucherProductSection from "@/features/voucher/detail/components/VoucherProductSection";
 import VoucherTermsCard from "@/features/voucher/detail/components/VoucherTermsCard";
 import VoucherUsageCard from "@/features/voucher/detail/components/VoucherUsageCard";
+import VoucherDetailProvider from "@/features/voucher/detail/providers";
+import { useFetchData as useFetchVoucherList } from "@/features/voucher/list/hooks/useFetchData";
 
 export default function VoucherDetailPage() {
   const { t } = useTranslation();
@@ -28,7 +28,13 @@ export default function VoucherDetailPage() {
 
   const voucherId = typeof params?.id === "string" ? params.id : "";
   const shopId = searchParams.get("shopId") || "";
-  const { vouchers, loading, error } = useFetchData({
+
+  const {
+    vouchers,
+    loading: voucherLoading,
+    error: voucherError,
+    shopId: resolvedShopId,
+  } = useFetchVoucherList({
     shopId,
     limit: 50,
     page: 1,
@@ -38,27 +44,39 @@ export default function VoucherDetailPage() {
     () => vouchers.find((item) => item.discountId === voucherId || item.id === voucherId) ?? null,
     [voucherId, vouchers],
   );
+
   const {
     products,
     loading: productsLoading,
     error: productsError,
   } = useFetchVoucherProducts({
     code: voucher?.code || "",
-    shopId: voucher?.shopId || "",
+    shopId: voucher?.shopId || resolvedShopId,
     limit: 12,
     page: 1,
   });
 
-  const discountSummary =
-    voucher?.discountType === "percentage"
-      ? `${voucher.discountValue}%${
-          voucher.maxDiscountAmount > 0
-            ? ` (${t("voucher_max_discount")}: ${formatToCurrency(voucher.maxDiscountAmount)})`
-            : ""
-        }`
-      : formatToCurrency(voucher?.discountValue || voucher?.discountAmount || 0);
+  const discountSummary = useMemo(() => {
+    if (!voucher) {
+      return "";
+    }
+
+    if (voucher.discountType === "percentage") {
+      return `${voucher.discountValue}%${
+        voucher.maxDiscountAmount > 0
+          ? ` (${t("voucher_max_discount")}: ${formatToCurrency(voucher.maxDiscountAmount)})`
+          : ""
+      }`;
+    }
+
+    return formatToCurrency(voucher.discountValue || voucher.discountAmount || 0);
+  }, [t, voucher]);
 
   const handleClaim = () => {
+    if (!voucher || voucher.status !== "available") {
+      return;
+    }
+
     if (!signedIn) {
       toast.error(t("voucher_claim_sign_in"));
       return;
@@ -68,12 +86,12 @@ export default function VoucherDetailPage() {
     toast.success(t("voucher_claim_success"));
   };
 
-  if (loading) {
+  if (voucherLoading) {
     return <VoucherDetailLoading />;
   }
 
-  if (error && !voucher) {
-    return <NotFound message={error} />;
+  if (voucherError && !voucher) {
+    return <NotFound message={voucherError} />;
   }
 
   if (!voucher) {

@@ -15,7 +15,8 @@ export async function POST(req: Request): Promise<Response> {
       );
     }
 
-    const query = qs.stringify({ categoryIds: ids });
+    // Backend expects: /v1/api/brand/categories/list?categoriesId=929936
+    const query = qs.stringify({ categoriesId: ids });
     const { data: dataResponse } = await axios.get(
       `${API_NEXT}/v1/api/brand/categories/list?${query}`,
       {

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { MenuItem } from "@/interfaces/common/menu.interface";
+import { memo } from "react";
 import { SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 
 interface SidebarMenuItemProps {
@@ -61,4 +62,4 @@ function MenuItems({ item, pathname }: SidebarMenuItemProps) {
   );
 }
 
-export default MenuItems;
+export default memo(MenuItems);

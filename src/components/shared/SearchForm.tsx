@@ -105,7 +105,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ showCategorySelect = false }) =
       params.set("keyword", keyword);
     }
 
-    if (showCategorySelect && values.categories) {
+    if (showCategorySelect && typeof values.categories === "string") {
       params.set("scope", values.categories);
     }
 
@@ -164,7 +164,11 @@ const SearchForm: React.FC<SearchFormProps> = ({ showCategorySelect = false }) =
       />
       <div className="grid grid-cols-12 gap-x-2 flex-1">
         <FormInput
-          className={showCategorySelect ? "xl:col-span-9 lg:col-span-8 md:col-span-7 col-span-12" : "col-span-12"}
+          className={
+            showCategorySelect
+              ? "xl:col-span-9 lg:col-span-8 md:col-span-7 col-span-12"
+              : "col-span-12"
+          }
           name="textsearch"
           placeholder={t("search_placeholder")}
           inputClassName="pr-20"

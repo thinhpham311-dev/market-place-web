@@ -66,7 +66,7 @@ export default function SearchPageContent() {
           search: keyword || undefined,
           sortBy: "ctime",
         } as any);
-        const products = response.data.metadata.list || [];
+        const products = ((((response as any)?.data as any)?.metadata?.list ?? []) as ISpuModel[]) || [];
 
         const scoredProducts = (
           await Promise.all(

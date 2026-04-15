@@ -20,13 +20,13 @@ export const getProductListByCategories = createAsyncThunk<
   IProductListRequest
 >(
   "proListByCategoryId/data/getList",
-  async (params: IProductListRequest, { rejectWithValue, dispatch }) => {
+  async (_: IProductListRequest, { rejectWithValue, dispatch }) => {
     try {
       const data = (await dispatch({
         type: "api/fetch",
         payload: {
           key: PRO_LIST_BY_CATEGORYID_CACHE_KEY,
-          params,
+          params: _,
           apiFn: apiPostProductsListByCategories,
           options: {
             TTL: PRO_LIST_BY_CATEGORYID_TTL,

@@ -64,8 +64,8 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
         limit,
         // sortBy,
         page: currentPage,
-        ids: lastId,
         filter,
+        ids: lastId,
       }) as any,
     );
 

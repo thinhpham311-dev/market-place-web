@@ -6,7 +6,7 @@ import React from "react";
 import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
 import SpuGrid from "@/features/product/components/ProGrid";
 import { Pagination, SortBy, Filter } from "@/features/common";
-import { useFetchData as useBrandFetchData } from "@/features/brand/list/all/hooks";
+import { useFetchData as useBrandFetchData } from "@/features/brand/list/by-category-id/hooks";
 
 // // hooks
 import { useFetchData } from "@/features/product/list/by-category-id/hooks";
@@ -17,7 +17,7 @@ import { PRO_LIST_BY_CATEGORYID } from "./constants";
 
 const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
   const { products, totalItems, loading, error } = useFetchData({ lastId });
-  const { brands = [] } = useBrandFetchData();
+  const { brands = [] } = useBrandFetchData({ lastId });
 
   const filterOptions = React.useMemo(() => {
     const brandFilter = {

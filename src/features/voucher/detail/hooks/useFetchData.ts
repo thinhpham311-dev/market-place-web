@@ -13,7 +13,7 @@ import {
 } from "@/features/voucher/detail/utils/normalizeVoucherProducts";
 import type { UseFetchVoucherProductsParams } from "@/features/voucher/detail/types";
 
-export function useFetchVoucherProducts({
+export function useFetchData({
   code = "",
   shopId = "",
   limit = 12,
