@@ -70,11 +70,11 @@ export default function ProductDetail({ product_id = "", shop_id = "" }: IProduc
             <div className="lg:col-span-3 col-span-3 md:order-1 order-2">
               <ShopVoucherSection shopId={shop_id} />
             </div>
-            <div className="lg:col-span-2 col-span-3 md:order-1 order-2">
+            <div className="lg:col-span-2 col-span-3 md:order-1 order-2 space-y-5">
+              <ProSpecifications />
               <ProDescriptionContent />
             </div>
             <div className="lg:col-span-1 col-span-3 md:order-2 order-1">
-              <ProSpecifications />
               <ProShippingInfo />
             </div>
           </CardContent>

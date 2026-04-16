@@ -33,7 +33,7 @@ export default function ProSpecifications() {
     );
   }
   return (
-    <Card className="sticky top-[70px] left-0 rounded-none">
+    <Card className="rounded-none">
       <CardTitle className="bg-sidebar-foreground text-background p-3">
         {t("product_specifications")}
       </CardTitle>

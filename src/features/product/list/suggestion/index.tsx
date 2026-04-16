@@ -22,7 +22,7 @@ export default function ProSuggestionList() {
       title={t("daily_discover")}
       description={t("daily_discover_desc")}
       seeMoreHref="/daily-discover"
-      className="shadow-nonee"
+      className="shadow-none"
       headerClassName="col-span-12 mb-3 flex-row items-center"
       titleWrapperClassName="flex-1 p-0 text-center md:text-left"
       contentClassName="col-span-12 space-y-3"

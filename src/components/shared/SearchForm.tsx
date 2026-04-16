@@ -15,7 +15,7 @@ import { Camera, Search } from "lucide-react";
 //libs
 import { z } from "zod";
 import { useTranslation } from "@/lib/hooks";
-import { SEARCH_IMAGE_SESSION_KEY } from "@/features/search/constants";
+import { SEARCH_IMAGE_SESSION_KEY } from "@/features/product/list/search-image/constants";
 
 type SearchFormProps = {
   showCategorySelect?: boolean;

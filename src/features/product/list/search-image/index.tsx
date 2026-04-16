@@ -12,15 +12,10 @@ import ProGrid from "@/features/product/components/ProGrid";
 import ProSearchList from "@/features/product/list/search";
 import { apiPostProductsList } from "@/features/product/list/search/services";
 import { ISpuModel } from "@/models/spu";
-import { SEARCH_IMAGE_SESSION_KEY } from "@/features/search/constants";
+import { SEARCH_IMAGE_SESSION_KEY, IMAGE_RESULT_LIMIT, PRODUCT_SAMPLE_LIMIT } from "@/features/product/list/search-image/constants";
+import {ScoredProduct} from "./types"
+import { createAverageHash, getHammingDistance } from "@/features/product/list/search-image/utils";
 
-type ScoredProduct = {
-  product: ISpuModel;
-  score: number;
-};
-
-const IMAGE_RESULT_LIMIT = 12;
-const PRODUCT_SAMPLE_LIMIT = 24;
 
 export default function SearchPageContent() {
   const { t } = useTranslation();
@@ -124,8 +119,8 @@ export default function SearchPageContent() {
   }
 
   return (
-    <div className="container mx-auto my-5 space-y-6 px-3 md:px-6">
-      <div className="rounded-2xl border bg-card p-4 shadow-sm">
+    <div className="container mx-auto my-5 space-y-6 ">
+      <div className="rounded-2xl border-none bg-card px-3 md:px-6 shadow-none">
         <div className="flex flex-col gap-4 md:flex-row md:items-center">
           {imagePreview ? (
             <Image
@@ -183,56 +178,4 @@ export default function SearchPageContent() {
       {shouldShowTextResults ? <ProSearchList keyword={keyword} /> : null}
     </div>
   );
-}
-
-async function createAverageHash(imageSrc: string) {
-  const image = await loadImage(imageSrc);
-  const canvas = document.createElement("canvas");
-  canvas.width = 8;
-  canvas.height = 8;
-  const context = canvas.getContext("2d", { willReadFrequently: true });
-
-  if (!context) {
-    throw new Error("Canvas context is not available");
-  }
-
-  context.drawImage(image, 0, 0, 8, 8);
-
-  const imageData = context.getImageData(0, 0, 8, 8).data;
-  const grayscaleValues: number[] = [];
-
-  for (let index = 0; index < imageData.length; index += 4) {
-    const red = imageData[index];
-    const green = imageData[index + 1];
-    const blue = imageData[index + 2];
-    grayscaleValues.push(red * 0.299 + green * 0.587 + blue * 0.114);
-  }
-
-  const average =
-    grayscaleValues.reduce((total, value) => total + value, 0) / grayscaleValues.length;
-
-  return grayscaleValues.map((value) => (value >= average ? "1" : "0")).join("");
-}
-
-async function loadImage(src: string) {
-  return new Promise<HTMLImageElement>((resolve, reject) => {
-    const image = new window.Image();
-    image.crossOrigin = "anonymous";
-    image.decoding = "async";
-    image.onload = () => resolve(image);
-    image.onerror = () => reject(new Error("Failed to load image"));
-    image.src = src;
-  });
-}
-
-function getHammingDistance(left: string, right: string) {
-  let distance = 0;
-
-  for (let index = 0; index < left.length; index += 1) {
-    if (left[index] !== right[index]) {
-      distance += 1;
-    }
-  }
-
-  return distance;
 }

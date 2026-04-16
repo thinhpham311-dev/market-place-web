@@ -37,7 +37,7 @@ export default function ProShippingInfo() {
   const shipFrom = spu.product_shop?.shop_name?.trim() || t("shop_name_fallback");
 
   return (
-    <div className="my-4 space-y-3 rounded-2xl border border-stone-200/80 bg-stone-50/60 p-4">
+    <div className=" space-y-3 rounded-2xl border border-stone-200/80 bg-stone-50/60 p-4">
       <div className="flex items-center gap-2">
         <Truck className="h-4 w-4 text-orange-600" />
         <h3 className="font-semibold">{t("product_shipping_title")}</h3>

@@ -12,7 +12,7 @@ import { formatToCurrency, formatDateTime } from "@/utils/formats";
 import { useVoucherListContext } from "@/features/voucher/list/hooks/useVoucherListContext";
 import type { VoucherItem, VoucherStatus } from "@/features/voucher/list/types";
 import VoucherShopInfoDialog from "@/features/voucher/list/components/VoucherShopInfoDialog";
-import VoucherListLoading from "@/features/voucher/list/components/VoucherListLoading";
+import LoadingSkeleton from "@/features/voucher/list/components/LoadingSkeleton";
 
 const voucherTabs: VoucherStatus[] = ["available", "used", "expired"];
 
@@ -138,7 +138,7 @@ export default function VoucherListPage() {
               return (
                 <TabsContent key={status} value={status} className="space-y-4">
                   {loading ? (
-                    <VoucherListLoading />
+                    <LoadingSkeleton />
                   ) : items.length === 0 ? (
                     <div className="rounded-2xl border border-dashed p-8 text-center text-muted-foreground">
                       {t("voucher_empty")}

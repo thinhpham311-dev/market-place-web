@@ -82,17 +82,7 @@ export const breadcrumbs = (product?: ISpuModel, homeLabel = "Home") => {
 };
 
 export const specs = (product?: ISpuModel) => [
-  {
-    labelKey: "product_spec_name" as TranslationKey,
-    value: (
-      <Breadcrumb
-        items={[product]}
-        isDisableLast
-        getHref={(item) => `/${item.product_slug}.${item.product_id}`}
-        getLabel={(item) => item?.product_name}
-      />
-    ),
-  },
+  
   {
     labelKey: "product_spec_categories" as TranslationKey,
     value: product?.product_category ? (
@@ -107,6 +97,17 @@ export const specs = (product?: ISpuModel) => [
       />
     ) : (
       "-"
+    ),
+  },
+  {
+    labelKey: "product_spec_name" as TranslationKey,
+    value: (
+      <Breadcrumb
+        items={[product]}
+        isDisableLast
+        getHref={(item) => `/${item.product_slug}.${item.product_id}`}
+        getLabel={(item) => item?.product_name}
+      />
     ),
   },
   {
