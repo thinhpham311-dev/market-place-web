@@ -114,7 +114,7 @@ export const specs = (product?: ISpuModel) => [
     value: product?.product_shop ? (
       <Breadcrumb
         items={[product.product_shop]}
-        getHref={(item) => `/shop/${item.shop_id}`}
+        getHref={(item) => `/shop/${item.shop_slug}-s.${item.shop_id}`}
         getLabel={(item) => item.shop_name}
       />
     ) : (
@@ -126,7 +126,7 @@ export const specs = (product?: ISpuModel) => [
     value: product?.product_brand ? (
       <Breadcrumb
         items={[product.product_brand]}
-        getHref={(item) => `/brand/${item.brand_slug}`}
+        getHref={(item) => `/brands/${item.brand_slug}-b.${item.brand_id}`}
         getLabel={(item) => item.brand_name}
       />
     ) : (

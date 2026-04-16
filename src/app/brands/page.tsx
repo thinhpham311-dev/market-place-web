@@ -1,6 +1,7 @@
 import BrandListPage from "@/features/brand/list/all";
 
 export default function Page() {
+
   return (
     <div className="container mx-auto my-5">
       <BrandListPage
