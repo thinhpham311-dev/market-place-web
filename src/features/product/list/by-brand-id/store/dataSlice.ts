@@ -15,10 +15,7 @@ import { initialState } from "./initials";
 import { translateRuntime } from "@/lib/i18n/runtime-translation";
 import { getApiErrorMessage } from "@/lib/http/handleAxiosError";
 
-export const getProductListByBrand = createAsyncThunk<
-  IProductListResponse,
-  IProductListRequest
->(
+export const getProductListByBrand = createAsyncThunk<IProductListResponse, IProductListRequest>(
   "proListByBrandId/data/getList",
   async (_: IProductListRequest, { rejectWithValue, dispatch }) => {
     try {

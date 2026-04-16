@@ -4,9 +4,6 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 // Actions and selectors
 import { getProductListByBrand } from "@/features/product/list/by-brand-id/store/dataSlice";
 import { selectProByBrandIdByStoreKey } from "@/features/product/list/by-brand-id/store/selectors";
-import { useGetPaginationValue } from "@/features/common/pagination/hooks";
-// import { useGetSortByValue } from "@/features/common/sort-by/hooks";
-import { useGetFilterValue } from "@/features/common/filter/hooks";
 // Reducer & constants
 import reducer from "@/features/product/list/by-brand-id/store";
 import { injectReducer, removeReducer } from "@/store";
@@ -28,15 +25,6 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
     };
   }, [PRO_LIST_BY_BRANDID]);
 
-  // Selectors
-  const { currentPage = 1, limit = 20 } = useGetPaginationValue({
-    storeKey: PRO_LIST_BY_BRANDID,
-  });
-
-  const { filter } = useGetFilterValue({ storeKey: PRO_LIST_BY_BRANDID });
-
-  // const { sortBy } = useGetSortByValue({ storeKey: PRO_LIST_BY_CATEGORYID });
-
   const {
     products = [],
     loading = false,
@@ -45,10 +33,7 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
     status = "idle",
   } = useAppSelector(selectProByBrandIdByStoreKey(PRO_LIST_BY_BRANDID));
 
-  const requestKey = useMemo(
-    () => JSON.stringify({ lastId, currentPage, limit, filter }),
-    [lastId, currentPage, limit, filter],
-  );
+  const requestKey = useMemo(() => JSON.stringify({ lastId }), [lastId]);
 
   const isRequestLoading = Boolean(lastId) && resolvedRequestKey !== requestKey;
 
@@ -61,10 +46,9 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
 
     const promise = dispatch(
       getProductListByBrand({
-        limit,
+        limit: 50,
         // sortBy,
-        page: currentPage,
-        filter,
+        page: 1,
         ids: lastId,
       }) as any,
     );
@@ -80,12 +64,8 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
     dispatch,
     requestKey,
     lastId,
-    filter,
     // sortBy,
-    currentPage,
-    limit,
   ]);
-
 
   return {
     products: isRequestLoading ? [] : products,

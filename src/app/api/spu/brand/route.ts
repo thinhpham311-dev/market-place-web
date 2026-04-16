@@ -8,7 +8,7 @@ const API_NEXT = process.env.NEXT_PUBLIC_BASE_URL;
 export async function POST(req: Request): Promise<Response> {
   try {
     const { limit, sort, page, ids } = await req.json();
-    console.log("brand id",ids)
+    console.log("brand id", ids);
     if (!API_NEXT) {
       return NextResponse.json(
         { message: "Server misconfiguration: API_NEXT not set" },

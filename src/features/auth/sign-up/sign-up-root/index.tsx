@@ -9,7 +9,7 @@ export default function SignUpRoot() {
 
   return (
     <SignUpProvider
-    className="flex flex-1 w-auto mx-10"
+      className="flex flex-1 w-auto mx-10"
       contextValues={{
         signUp: signUpData.signUp,
         isSubmitting: signUpData.isSubmitting,

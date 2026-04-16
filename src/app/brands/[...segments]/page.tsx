@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import ProListByBrandId from "@/features/product/list/by-brand-id";
 
 export default function Page({ params }: { params: { segments: string[] } }) {
-   const fullSlug = params?.segments?.join("/") || "";
+  const fullSlug = params?.segments?.join("/") || "";
 
   const match = fullSlug.match(/(.*)-b\.([\w.]+)/);
 

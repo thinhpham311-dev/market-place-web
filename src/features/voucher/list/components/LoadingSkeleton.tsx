@@ -2,7 +2,7 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 
-export default function VoucherListLoading() {
+export default function LoadingSkeleton() {
   return (
     <div className="space-y-4">
       {Array.from({ length: 3 }).map((_, index) => (

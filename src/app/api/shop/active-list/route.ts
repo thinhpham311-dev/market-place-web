@@ -26,14 +26,14 @@ export async function GET(req: Request): Promise<Response> {
     });
 
     if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        return NextResponse.json(
-          {
-            message: errorData.message || `API error: ${response.status} ${response.statusText}`,
-            errors: errorData.errors || [],
-          },
-          { status: response.status }
-        );
+      const errorData = await response.json().catch(() => ({}));
+      return NextResponse.json(
+        {
+          message: errorData.message || `API error: ${response.status} ${response.statusText}`,
+          errors: errorData.errors || [],
+        },
+        { status: response.status },
+      );
     }
 
     const data = await response.json();

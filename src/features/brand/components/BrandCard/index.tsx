@@ -23,7 +23,6 @@ export default memo(function BrandCard({ item, logoOnly = false }: BrandCardProp
     logo ??
     "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png";
 
-
   return (
     <Link href={`/brands/${brand_slug}-b.${brand_id}`} className="block">
       <Card className="aspect-square flex flex-col items-center justify-center rounded-3xl transition-shadow hover:shadow-md">
