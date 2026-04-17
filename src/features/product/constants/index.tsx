@@ -82,7 +82,6 @@ export const breadcrumbs = (product?: ISpuModel, homeLabel = "Home") => {
 };
 
 export const specs = (product?: ISpuModel) => [
-  
   {
     labelKey: "product_spec_categories" as TranslationKey,
     value: product?.product_category ? (

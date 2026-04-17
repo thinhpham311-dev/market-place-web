@@ -11,17 +11,15 @@ import SpuGrid from "@/features/product/components/ProGrid";
 // // constants
 import { SORTBY_OPTIONS, FILTER_OPTIONS } from "./constants";
 import { PRO_LIST_BY_BRANDID } from "./constants";
- 
 
 const ProListByBrandId = ({ lastId }: { lastId?: string }) => {
   const { products, totalItems, loading, error } = useFetchData({ lastId });
-    const { brands = [] } = useBrandFetchData({ lastId });
+  const { brands = [] } = useBrandFetchData({ lastId });
 
   const filterOptions = React.useMemo(() => {
-
     const otherFilters = FILTER_OPTIONS.filter((item) => item.key !== "brands");
 
-    return [ ...otherFilters];
+    return [...otherFilters];
   }, [brands]);
   return (
     <Card className="border-none px-3 shadow-none md:px-6">

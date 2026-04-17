@@ -15,4 +15,5 @@ export interface IProductState {
   error: string | null;
   list: ISpuModel[];
   total: number;
+  status: "idle" | "loading" | "success" | "error";
 }

@@ -6,7 +6,7 @@ import {
 } from "@/features/product/list/hot-deal/interfaces";
 import { initialState } from "./initials";
 import { translateRuntime } from "@/lib/i18n/runtime-translation";
-import { getApiErrorMessage, handleAxiosError } from "@/lib/http/handleAxiosError";
+import { getApiErrorMessage } from "@/lib/http/handleAxiosError";
 
 export const getProductList = createAsyncThunk<IProductListResponse, IProductListRequest>(
   "proBundleDealList/data/getList",
@@ -17,7 +17,9 @@ export const getProductList = createAsyncThunk<IProductListResponse, IProductLis
       };
       return response.data;
     } catch (error: any) {
-      return rejectWithValue(handleAxiosError(error));
+      return rejectWithValue(
+        getApiErrorMessage(error, translateRuntime("common_something_went_wrong")),
+      );
     }
   },
 );
@@ -39,7 +41,7 @@ const dataSlice = createSlice({
       })
       .addCase(getProductList.rejected, (state, action) => {
         state.loading = false;
-        state.error = getApiErrorMessage(action.payload, translateRuntime("api_server_error"));
+        state.error = action.payload as string;
         state.total = 0;
         state.list = [];
       });

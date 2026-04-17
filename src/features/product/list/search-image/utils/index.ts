@@ -1,4 +1,3 @@
-
 export async function createAverageHash(imageSrc: string) {
   const image = await loadImage(imageSrc);
   const canvas = document.createElement("canvas");

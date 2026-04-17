@@ -4,5 +4,6 @@ export const initialState: IProductState = {
   loading: false,
   list: [],
   total: 0,
+  status: "idle",
   error: null,
 };

@@ -62,11 +62,12 @@ const dataSlice = createSlice({
         state.list = list;
         state.total = total;
         state.loading = false;
+        state.error = null;
         state.status = "success";
       })
       .addCase(getProductListByCategories.rejected, (state, action) => {
         state.loading = false;
-        state.error = getApiErrorMessage(action.payload, translateRuntime("api_server_error"));
+        state.error = action.payload as string;
         state.total = 0;
         state.list = [];
         state.status = "error";

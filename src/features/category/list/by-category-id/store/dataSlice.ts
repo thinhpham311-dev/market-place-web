@@ -79,7 +79,7 @@ const dataSlice = createSlice({
       })
       .addCase(getCatListById.rejected, (state, action) => {
         state.loading = false;
-        state.error = getApiErrorMessage(action.payload, translateRuntime("api_server_error"));
+        state.error = action.payload as string;
         state.total = 0;
         state.list = [];
       });

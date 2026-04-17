@@ -27,7 +27,7 @@ export default function ProRelatedList({ shopId = "" }: ProRelatedListProps) {
       title={t("from_the_same_shop")}
       description={t("from_the_same_shop_desc")}
       seeMoreHref={shopDetailHref}
-      className="shadow-nonee"
+      className="shadow-none"
     >
       <ProCarousel
         error={error}

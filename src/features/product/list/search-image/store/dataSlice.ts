@@ -1,15 +1,18 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { apiPostProductsList } from "@/features/product/list/top-picks/services";
+import { apiPostProductsList } from "@/features/product/list/search-image/services";
 import {
   IProductListRequest,
   IProductListResponse,
-} from "@/features/product/list/top-picks/interfaces";
+} from "@/features/product/list/search/interfaces";
 import { initialState } from "./initials";
 import { translateRuntime } from "@/lib/i18n/runtime-translation";
 import { getApiErrorMessage } from "@/lib/http/handleAxiosError";
 
-export const getProductList = createAsyncThunk<IProductListResponse, IProductListRequest>(
-  "proTopPicksList/data/getList",
+export const getProductListBySearchImage = createAsyncThunk<
+  IProductListResponse,
+  IProductListRequest
+>(
+  "proSearchListBySearchImage/data/getList",
   async (params: IProductListRequest, { rejectWithValue }) => {
     try {
       const response = (await apiPostProductsList(params)) as {
@@ -25,17 +28,17 @@ export const getProductList = createAsyncThunk<IProductListResponse, IProductLis
 );
 
 const dataSlice = createSlice({
-  name: "proTopPicksList/data",
+  name: "proSearchList/data",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getProductList.pending, (state) => {
+      .addCase(getProductListBySearchImage.pending, (state) => {
         state.loading = true;
         state.error = null;
         state.status = "loading";
       })
-      .addCase(getProductList.fulfilled, (state, action) => {
+      .addCase(getProductListBySearchImage.fulfilled, (state, action) => {
         const { list, total } = action.payload.metadata;
         state.list = list;
         state.total = total;
@@ -43,11 +46,12 @@ const dataSlice = createSlice({
         state.error = null;
         state.status = "success";
       })
-      .addCase(getProductList.rejected, (state, action) => {
+      .addCase(getProductListBySearchImage.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
         state.total = 0;
         state.list = [];
+        state.error = null;
         state.status = "error";
       });
   },

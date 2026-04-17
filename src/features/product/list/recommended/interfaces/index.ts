@@ -12,6 +12,7 @@ export interface IProductListResponse {
 
 export interface IProductState {
   loading: boolean;
+  status: "idle" | "loading" | "success" | "error";
   error: string | null;
   list: ISpuModel[];
   total: number;

@@ -12,10 +12,13 @@ import ProGrid from "@/features/product/components/ProGrid";
 import ProSearchList from "@/features/product/list/search";
 import { apiPostProductsList } from "@/features/product/list/search/services";
 import { ISpuModel } from "@/models/spu";
-import { SEARCH_IMAGE_SESSION_KEY, IMAGE_RESULT_LIMIT, PRODUCT_SAMPLE_LIMIT } from "@/features/product/list/search-image/constants";
-import {ScoredProduct} from "./types"
+import {
+  IMAGE_RESULT_LIMIT,
+  PRODUCT_SAMPLE_LIMIT,
+} from "@/features/product/list/search-image/constants";
+import { SEARCH_IMAGE_SESSION_KEY } from "@/constants/app/app.constant";
+import { ScoredProduct } from "./types";
 import { createAverageHash, getHammingDistance } from "@/features/product/list/search-image/utils";
-
 
 export default function SearchPageContent() {
   const { t } = useTranslation();

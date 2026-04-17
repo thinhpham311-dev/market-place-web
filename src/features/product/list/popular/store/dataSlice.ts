@@ -6,7 +6,7 @@ import {
 } from "@/features/product/list/popular/interfaces";
 import { initialState } from "./initials";
 import { translateRuntime } from "@/lib/i18n/runtime-translation";
-import { getApiErrorMessage, handleAxiosError } from "@/lib/http/handleAxiosError";
+import { getApiErrorMessage } from "@/lib/http/handleAxiosError";
 
 export const getProductList = createAsyncThunk<IProductListResponse, IProductListRequest>(
   "proPopularList/data/getList",
@@ -15,7 +15,9 @@ export const getProductList = createAsyncThunk<IProductListResponse, IProductLis
       const response = (await apiPostProductsList(params)) as { data: IProductListResponse };
       return response.data;
     } catch (error: any) {
-      return rejectWithValue(handleAxiosError(error));
+      return rejectWithValue(
+        getApiErrorMessage(error, translateRuntime("common_something_went_wrong")),
+      );
     }
   },
 );
@@ -28,18 +30,23 @@ const dataSlice = createSlice({
     builder
       .addCase(getProductList.pending, (state) => {
         state.loading = true;
+        state.error = null;
+        state.status = "loading";
       })
       .addCase(getProductList.fulfilled, (state, action) => {
         const { list, total } = action.payload.metadata;
         state.list = list;
         state.total = total;
         state.loading = false;
+        state.error = null;
+        state.status = "success";
       })
       .addCase(getProductList.rejected, (state, action) => {
         state.loading = false;
-        state.error = getApiErrorMessage(action.payload, translateRuntime("api_server_error"));
+        state.error = action.payload as string;
         state.total = 0;
         state.list = [];
+        state.status = "error";
       });
   },
 });

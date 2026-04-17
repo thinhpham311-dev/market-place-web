@@ -15,7 +15,7 @@ import { Camera, Search } from "lucide-react";
 //libs
 import { z } from "zod";
 import { useTranslation } from "@/lib/hooks";
-import { SEARCH_IMAGE_SESSION_KEY } from "@/features/product/list/search-image/constants";
+import { SEARCH_SESSION_KEY } from "@/constants/app/app.constant";
 
 type SearchFormProps = {
   showCategorySelect?: boolean;
@@ -110,7 +110,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ showCategorySelect = false }) =
     }
 
     if (typeof window !== "undefined") {
-      window.sessionStorage.removeItem(SEARCH_IMAGE_SESSION_KEY);
+      window.sessionStorage.removeItem(SEARCH_SESSION_KEY);
     }
 
     router.push(`/search?${params.toString()}`);
@@ -130,7 +130,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ showCategorySelect = false }) =
         return;
       }
 
-      window.sessionStorage.setItem(SEARCH_IMAGE_SESSION_KEY, reader.result);
+      window.sessionStorage.setItem(SEARCH_SESSION_KEY, reader.result);
 
       const params = new URLSearchParams();
       params.set("imageSearch", "1");
