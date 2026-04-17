@@ -31,6 +31,7 @@ export type TranslationKey =
   | "search_image_results_desc"
   | "search_image_results_error"
   | "search_empty_state"
+  | "search_image_missing"
   | "daily_discover"
   | "daily_discover_desc"
   | "popular_categories"
@@ -579,6 +580,7 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     search_image_results_error:
       "We could not analyze the captured image. Please try another photo.",
     search_empty_state: "Enter a keyword or capture a product image to start searching.",
+    search_image_missing: "Please provide an image to search by.",
     daily_discover: "Daily Discover",
     daily_discover_desc: "Fresh finds, trending picks, and everyday deals.",
     popular_categories: "Popular Categories",
@@ -1166,6 +1168,8 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
       "Hệ thống so khớp ảnh bạn chụp với thumbnail sản phẩm để gợi ý các mặt hàng gần giống.",
     search_image_results_error: "Không thể phân tích ảnh vừa chụp. Hãy thử lại với một ảnh khác.",
     search_empty_state: "Nhập từ khóa hoặc chụp ảnh sản phẩm để bắt đầu tìm kiếm.",
+    search_image_missing: "Vui lòng cấp quyền truy cập camera để sử dụng tính năng tìm kiếm bằng hình ảnh.",
+
     daily_discover: "Khám phá mỗi ngày",
     daily_discover_desc: "Gợi ý mới, deal hot và sản phẩm đáng xem mỗi ngày.",
     popular_categories: "Danh mục phổ biến",
@@ -1751,6 +1755,7 @@ export const translations: Record<SupportedLanguage, Record<TranslationKey, stri
     search_image_results_error:
       "撮影した画像を解析できませんでした。別の画像でもう一度お試しください。",
     search_empty_state: "キーワードを入力するか商品画像を撮影して検索を開始してください。",
+        search_image_missing: "商品画像が見つかりません。キーワードで検索するか、別の画像を撮影してみてください。",
     daily_discover: "毎日の発見",
     daily_discover_desc: "毎日更新される注目商品とお得な商品です。",
     popular_categories: "人気カテゴリ",
