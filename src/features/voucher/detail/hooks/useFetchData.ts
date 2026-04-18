@@ -6,12 +6,18 @@ import reducer from "@/features/voucher/detail/store";
 import { injectReducer, removeReducer } from "@/store";
 import { getVoucherProducts } from "@/features/voucher/detail/store/dataSlice";
 import { selectVoucherProductsByStoreKey } from "@/features/voucher/detail/store/selectors";
-import { VOUCHER_DETAIL_PRODUCTS_KEY } from "@/features/voucher/detail/constants";
+import { VOUCHER_DETAIL_PRODUCTS } from "@/features/voucher/detail/constants";
 import {
   mapVoucherProduct,
   resolveVoucherProductList,
 } from "@/features/voucher/detail/utils/normalizeVoucherProducts";
-import type { UseFetchVoucherProductsParams } from "@/features/voucher/detail/types";
+
+interface UseFetchVoucherProductsParams {
+  code?: string;
+  shopId?: string;
+  limit?: number;
+  page?: number;
+}
 
 export function useFetchData({
   code = "",
@@ -22,15 +28,15 @@ export function useFetchData({
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    injectReducer(VOUCHER_DETAIL_PRODUCTS_KEY, reducer);
+    injectReducer(VOUCHER_DETAIL_PRODUCTS, reducer);
 
     return () => {
-      removeReducer(VOUCHER_DETAIL_PRODUCTS_KEY);
+      removeReducer(VOUCHER_DETAIL_PRODUCTS);
     };
   }, []);
 
   const { loading, error, data } = useAppSelector(
-    selectVoucherProductsByStoreKey(VOUCHER_DETAIL_PRODUCTS_KEY),
+    selectVoucherProductsByStoreKey(VOUCHER_DETAIL_PRODUCTS),
   );
 
   useEffect(() => {

@@ -3,53 +3,18 @@
 import Link from "next/link";
 import { TicketPercent, WalletCards, CircleCheckBig, Clock3 } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import VoucherStatusBadge from "@/features/voucher/list/components/VoucherStatusBadge";
+import VoucherDiscountValue from "@/features/voucher/list/components/VoucherDiscountValue";
 import { useTranslation } from "@/lib/hooks";
 import { formatToCurrency, formatDateTime } from "@/utils/formats";
 import { useVoucherListContext } from "@/features/voucher/list/hooks/useVoucherListContext";
-import type { VoucherItem, VoucherStatus } from "@/features/voucher/list/types";
 import VoucherShopInfoDialog from "@/features/voucher/list/components/VoucherShopInfoDialog";
 import LoadingSkeleton from "@/features/voucher/list/components/LoadingSkeleton";
-
-const voucherTabs: VoucherStatus[] = ["available", "used", "expired"];
-
-function VoucherStatusBadge({ status }: { status: VoucherStatus }) {
-  const { t } = useTranslation();
-
-  if (status === "used") {
-    return (
-      <Badge className="bg-emerald-600 text-white hover:bg-emerald-600">{t("voucher_used")}</Badge>
-    );
-  }
-
-  if (status === "expired") {
-    return <Badge variant="secondary">{t("voucher_expired")}</Badge>;
-  }
-
-  return (
-    <Badge className="bg-orange-500 text-white hover:bg-orange-500">{t("voucher_available")}</Badge>
-  );
-}
-
-function VoucherDiscountValue({ voucher }: { voucher: VoucherItem }) {
-  const { t } = useTranslation();
-
-  if (voucher.discountType === "percentage") {
-    return (
-      <span>
-        {voucher.discountValue}%{" "}
-        {voucher.maxDiscountAmount > 0
-          ? `(${t("voucher_max_discount")}: ${formatToCurrency(voucher.maxDiscountAmount)})`
-          : ""}
-      </span>
-    );
-  }
-
-  return <span>{formatToCurrency(voucher.discountValue || voucher.discountAmount)}</span>;
-}
+import { voucherTabs } from "@/features/voucher/list/constants";
+import { IVoucherModel } from "@/models/discount";
 
 export default function VoucherListPage() {
   const { t } = useTranslation();
@@ -125,15 +90,15 @@ export default function VoucherListPage() {
         <CardContent>
           <Tabs defaultValue="available" className="space-y-4">
             <TabsList className="h-auto flex-wrap justify-start rounded-2xl p-1">
-              {voucherTabs.map((status) => (
+              {voucherTabs.map((status:string) => (
                 <TabsTrigger key={status} value={status} className="rounded-xl">
                   {t(`voucher_${status}` as never)}
                 </TabsTrigger>
               ))}
             </TabsList>
 
-            {voucherTabs.map((status) => {
-              const items = resolvedVouchers.filter((voucher) => voucher.status === status);
+            {voucherTabs.map((status: string) => {
+              const items = resolvedVouchers.filter((voucher: IVoucherModel) => voucher.status === status);
 
               return (
                 <TabsContent key={status} value={status} className="space-y-4">
@@ -144,7 +109,7 @@ export default function VoucherListPage() {
                       {t("voucher_empty")}
                     </div>
                   ) : (
-                    items.map((voucher) => (
+                    items.map((voucher: IVoucherModel) => (
                       <Card
                         key={voucher.discountId}
                         className="overflow-hidden border-stone-200 shadow-none"

@@ -1,2 +1,2 @@
 export * from "./useFetchData";
-export * from "./useVisualSearch"
+export * from "./useVisualSearch";

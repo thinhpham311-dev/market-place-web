@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getProductList } from "@/features/product/list/suggestion/store/dataSlice";
 import { selectProSuggestionListByStoreKey } from "@/features/product/list/suggestion/store/selectors";
-import { useGetPaginationValue } from "@/features/common/pagination/hooks";
 import { SortBy } from "@/types/common/sort";
 //stores
 import reducer from "@/features/product/list/suggestion/store";
@@ -30,16 +29,6 @@ export function useFetchData({
 
   const dispatch = useAppDispatch();
 
-  const { currentPage, limit } = useGetPaginationValue({
-    storeKey,
-    initialValue: {
-      currentPage: defaultCurrentPage,
-      limit: defaultLimit,
-      totalItems: 0,
-      totalPages: 1,
-      pages: [],
-    },
-  });
   const {
     products = [],
     totalItems,
@@ -50,15 +39,15 @@ export function useFetchData({
   useEffect(() => {
     const promise = dispatch(
       getProductList({
-        limit,
+        limit: defaultLimit,
         sortBy,
-        page: currentPage,
+        page: defaultCurrentPage,
       }) as any,
     );
     return () => {
       promise.abort();
     };
-  }, [dispatch, currentPage, limit, sortBy]);
+  }, [dispatch, defaultCurrentPage, defaultLimit, sortBy]);
 
   return { products, totalItems, loading, error };
 }

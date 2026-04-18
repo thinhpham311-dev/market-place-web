@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { apiPostSkuDetail } from "@/features/sku/services";
-import { ISkuModel } from "@/models/sku";
 import {
   SKU_KEY_CACHE_KEY,
   SKU_KEY_RETRY_DELAY,
@@ -9,24 +8,13 @@ import {
   SKU_KEY_TAG,
 } from "@/features/sku/constants";
 import { translateRuntime } from "@/lib/i18n/runtime-translation";
-
-type SkuDetailResponse = {
-  metadata: ISkuModel;
-};
-
-interface IErrorPayload {
-  message: string;
-  [key: string]: any;
-}
-
-interface IGetSkuDetailParams extends ISkuModel {
-  optionsCount: number;
-}
+import {ISkuRequest, ISkuResponse} from "@/features/sku/interfaces";
+import { getApiErrorMessage } from "@/lib/http/handleAxiosError";
+import { initialState } from "./initials";
 
 export const getSkuDetail = createAsyncThunk<
-  SkuDetailResponse,
-  IGetSkuDetailParams,
-  { rejectValue: IErrorPayload | string }
+  ISkuResponse,
+  ISkuRequest
 >("detail/data/getSkuDetail", async (params, { rejectWithValue, dispatch }) => {
   try {
     const { sku_tier_idx, optionsCount } = params;
@@ -48,31 +36,16 @@ export const getSkuDetail = createAsyncThunk<
           tags: [SKU_KEY_TAG],
         },
       },
-    })) as unknown as SkuDetailResponse;
+    })) as unknown as ISkuResponse;
 
     return data;
   } catch (error: any) {
-    return rejectWithValue(
-      error?.response?.data || {
-        message: error.message || translateRuntime("common_something_went_wrong"),
-      },
-    );
+   return rejectWithValue(
+        getApiErrorMessage(error, translateRuntime("common_something_went_wrong")),
+      );
   }
 });
 
-interface ISkuDetailState {
-  loading: boolean;
-  sku: ISkuModel | null;
-  error: IErrorPayload | string | null;
-  status: "idle" | "loading" | "success" | "error";
-}
-
-const initialState: ISkuDetailState = {
-  loading: false,
-  sku: null,
-  status: "idle",
-  error: null,
-};
 
 const dataSlice = createSlice({
   name: "detail/data",
@@ -97,14 +70,7 @@ const dataSlice = createSlice({
         state.sku = null;
         state.loading = false;
         state.status = "error";
-        if (typeof action.payload === "string") {
-          state.error = action.payload;
-        } else if (action.payload && typeof action.payload === "object") {
-          state.error =
-            (action.payload as any).message || translateRuntime("common_something_went_wrong");
-        } else {
-          state.error = action.error.message || translateRuntime("common_something_went_wrong");
-        }
+        state.error = action.payload as string;
       });
   },
 });

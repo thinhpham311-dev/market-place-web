@@ -32,6 +32,8 @@ const dataSlice = createSlice({
     builder
       .addCase(getProductList.pending, (state) => {
         state.loading = true;
+        state.error = null;
+        state.status = "loading";
       })
       .addCase(getProductList.fulfilled, (state, action) => {
         const { list, total } = action.payload.metadata;

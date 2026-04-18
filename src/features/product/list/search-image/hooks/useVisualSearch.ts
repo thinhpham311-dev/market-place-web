@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import { ISpuModel } from "@/models/spu";
-import {
-  createAverageHash,
-  getHammingDistance,
-} from "@/features/product/list/search-image/utils";
+import { createAverageHash, getHammingDistance } from "@/features/product/list/search-image/utils";
 import { IMAGE_RESULT_LIMIT } from "@/features/product/list/search-image/constants";
 import { useTranslation } from "@/lib/hooks";
 
@@ -14,13 +11,8 @@ export interface UseVisualSearchParams {
   error: unknown;
 }
 
-export function useVisualSearch({
-  imagePreview,
-  products,
-  loading,
-  error,
-}: UseVisualSearchParams) {
-      const { t } = useTranslation();
+export function useVisualSearch({ imagePreview, products, loading, error }: UseVisualSearchParams) {
+  const { t } = useTranslation();
 
   const [results, setResults] = useState<ISpuModel[]>([]);
   const [visualLoading, setVisualLoading] = useState(false);
@@ -70,7 +62,7 @@ export function useVisualSearch({
               } catch {
                 return null;
               }
-            })
+            }),
           )
         )
           .filter(Boolean)

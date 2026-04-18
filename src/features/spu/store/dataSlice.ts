@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { apiPostSpuDetail } from "@/features/spu/services";
-import { ISpuModel } from "@/models/spu";
 import {
   SPU_KEY_CACHE_KEY,
   SPU_KEY_RETRY_DELAY,
@@ -9,56 +8,37 @@ import {
   SPU_KEY_TAG,
 } from "@/features/spu/constants";
 import { translateRuntime } from "@/lib/i18n/runtime-translation";
-import {
-  getApiErrorMessage,
-  handleAxiosError,
-  type NormalizedApiError,
-} from "@/lib/http/handleAxiosError";
+import { getApiErrorMessage } from "@/lib/http/handleAxiosError";
+import { initialState } from "./initials";
+import { ISpuRequest, ISpuResponse } from "@/features/spu/interfaces";
 
-type SpuDetailResponse = {
-  metadata: ISpuModel;
-};
-
-export const getSpuDetail = createAsyncThunk<
-  SpuDetailResponse,
-  ISpuModel,
-  { rejectValue: NormalizedApiError }
->("detail/data/getSpuDetail", async (params, { rejectWithValue, dispatch }) => {
-  try {
-    const data = (await dispatch({
-      type: "api/fetch",
-      payload: {
-        key: SPU_KEY_CACHE_KEY,
-        params,
-        apiFn: apiPostSpuDetail,
-        options: {
-          TTL: SPU_KEY_TTL,
-          retries: SPU_KEY_RETRIES,
-          retryDelay: SPU_KEY_RETRY_DELAY,
-          tags: [SPU_KEY_TAG],
+export const getSpuDetail = createAsyncThunk<ISpuResponse, ISpuRequest>(
+  "detail/data/getSpuDetail",
+  async (params, { rejectWithValue, dispatch }) => {
+    try {
+      const data = (await dispatch({
+        type: "api/fetch",
+        payload: {
+          key: SPU_KEY_CACHE_KEY,
+          params,
+          apiFn: apiPostSpuDetail,
+          options: {
+            TTL: SPU_KEY_TTL,
+            retries: SPU_KEY_RETRIES,
+            retryDelay: SPU_KEY_RETRY_DELAY,
+            tags: [SPU_KEY_TAG],
+          },
         },
-      },
-    })) as unknown as SpuDetailResponse;
+      })) as unknown as ISpuResponse;
 
-    return data;
-  } catch (error: any) {
-    return rejectWithValue(handleAxiosError(error));
-  }
-});
-
-interface ISpuDetailState {
-  loading: boolean;
-  spu: ISpuModel | null;
-  error: string | null;
-  status: "idle" | "loading" | "success" | "error";
-}
-
-const initialState: ISpuDetailState = {
-  loading: false,
-  spu: null,
-  status: "idle",
-  error: null,
-};
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(
+        getApiErrorMessage(error, translateRuntime("common_something_went_wrong")),
+      );
+    }
+  },
+);
 
 const dataSlice = createSlice({
   name: "detail/data",
@@ -83,10 +63,7 @@ const dataSlice = createSlice({
         state.spu = null;
         state.loading = false;
         state.status = "error";
-        state.error = getApiErrorMessage(
-          action.payload ?? action.error,
-          translateRuntime("common_something_went_wrong"),
-        );
+        state.error = action.payload as string;
       });
   },
 });

@@ -23,15 +23,9 @@ export default function SearchPageContent() {
   const { t } = useTranslation();
   const searchParams = useSearchParams();
 
-  const keyword = useMemo(
-    () => searchParams.get("keyword")?.trim() ?? "",
-    [searchParams]
-  );
+  const keyword = useMemo(() => searchParams.get("keyword")?.trim() ?? "", [searchParams]);
 
-  const imageName = useMemo(
-    () => searchParams.get("imageName")?.trim() ?? "",
-    [searchParams]
-  );
+  const imageName = useMemo(() => searchParams.get("imageName")?.trim() ?? "", [searchParams]);
 
   const isImageSearch = searchParams.get("imageSearch") === "1";
 
@@ -53,9 +47,7 @@ export default function SearchPageContent() {
       return;
     }
 
-    const stored = window.sessionStorage.getItem(
-      SEARCH_IMAGE_SESSION_KEY
-    );
+    const stored = window.sessionStorage.getItem(SEARCH_IMAGE_SESSION_KEY);
 
     setImagePreview(stored || "");
   }, [isImageSearch]);
@@ -71,23 +63,21 @@ export default function SearchPageContent() {
     imagePreview,
     products,
     loading,
-    error
+    error,
   });
 
   /**
    * Merge states
    */
   const finalLoading = loading || visualLoading;
-  const finalError =
-    (typeof error === "string" ? error : null) || visualError;
+  const finalError = (typeof error === "string" ? error : null) || visualError;
 
   /**
    * Conditions
    */
   const shouldShowTextResults = keyword.length >= 2;
   const shouldShowVisualSection = isImageSearch;
-  const hasSearchInput =
-    shouldShowTextResults || shouldShowVisualSection;
+  const hasSearchInput = shouldShowTextResults || shouldShowVisualSection;
 
   /**
    * Empty
@@ -136,16 +126,12 @@ export default function SearchPageContent() {
           )}
 
           <div className="space-y-2">
-            <p className="text-lg font-semibold">
-              {t("search_summary_title")}
-            </p>
+            <p className="text-lg font-semibold">{t("search_summary_title")}</p>
 
             {keyword && (
               <p className="text-sm text-muted-foreground">
                 {t("search_keyword_label")}:{" "}
-                <span className="font-medium text-foreground">
-                  {keyword}
-                </span>
+                <span className="font-medium text-foreground">{keyword}</span>
               </p>
             )}
 
@@ -178,9 +164,7 @@ export default function SearchPageContent() {
       )}
 
       {/* Text */}
-      {shouldShowTextResults && (
-        <ProSearchList keyword={keyword} />
-      )}
+      {shouldShowTextResults && <ProSearchList keyword={keyword} />}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 export type VoucherStatus = "available" | "used" | "expired";
 
-export type VoucherItem = {
+export interface IVoucherModel {
   discountId: string;
   id: string;
   title: string;
@@ -30,14 +30,4 @@ export interface VoucherSummary {
   available: number;
   used: number;
   expired: number;
-}
-
-export interface VoucherListContextType {
-  vouchers: VoucherItem[];
-  loading: boolean;
-  error: string | null;
-  shopId?: string;
-  summary: VoucherSummary;
-  claimedVoucherIds: string[];
-  handleClaimVoucher: (voucherId: string) => void;
 }
