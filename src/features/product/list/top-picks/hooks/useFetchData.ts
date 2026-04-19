@@ -17,11 +17,12 @@ interface IUseFetchData {
   sortBy?: SortBy | null;
 }
 
-export function useFetchData({ storeKey, 
-    defaultLimit = 10,
+export function useFetchData({
+  storeKey,
+  defaultLimit = 10,
   defaultCurrentPage = 1,
   sortBy = "ctime",
- }: IUseFetchData) {
+}: IUseFetchData) {
   useEffect(() => {
     injectReducer(storeKey, reducer);
     return () => {
@@ -39,10 +40,13 @@ export function useFetchData({ storeKey,
   } = useAppSelector(selectProTopPickListByStoreKey(storeKey));
 
   useEffect(() => {
-    const promise = dispatch(getProductList({ 
-      limit: defaultLimit, 
-      sortBy, 
-      page: defaultCurrentPage }) as any);
+    const promise = dispatch(
+      getProductList({
+        limit: defaultLimit,
+        sortBy,
+        page: defaultCurrentPage,
+      }) as any,
+    );
     return () => {
       promise.abort();
     };

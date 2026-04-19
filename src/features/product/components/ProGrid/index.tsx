@@ -18,7 +18,6 @@ const ProGrid = ({ data, className, isLoading, error, countLoadItems = 12 }: Spu
   const { t } = useTranslation();
   const hasNoData = !data || data.length === 0;
   const errorMessage = typeof error === "string" ? error : error?.message;
-  console.log(error);
   if (isLoading && hasNoData) {
     return <LoadingSkeleton className={className} count={countLoadItems} />;
   }

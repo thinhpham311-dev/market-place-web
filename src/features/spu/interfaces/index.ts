@@ -5,7 +5,7 @@ export type ISpuRequest = {
 };
 
 export interface ISpuResponse {
-  metadata:ISpuModel;
+  metadata: ISpuModel;
 }
 
 export interface ISpuState {

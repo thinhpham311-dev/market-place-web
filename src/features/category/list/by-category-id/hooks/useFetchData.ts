@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getCatListById } from "@/features/category/list/by-category-id/store/dataSlice";
 import { selectCatByCategoryIdByStoreKey } from "@/features/category/list/by-category-id/store/selectors";
@@ -12,8 +12,11 @@ interface UseFetchDataParams {
 }
 
 export function useFetchData({ ids }: UseFetchDataParams) {
-  const [resolvedRequestKey, setResolvedRequestKey] = useState<string | null>(null);
+  const dispatch = useAppDispatch();
 
+  /**
+   * Inject reducer only once
+   */
   useEffect(() => {
     injectReducer(CAT_LIST_BY_ID, reducer);
 
@@ -22,45 +25,38 @@ export function useFetchData({ ids }: UseFetchDataParams) {
     };
   }, []);
 
-  const dispatch = useAppDispatch();
-  const validIds = useMemo(() => ids.filter(Boolean), [ids]);
-  const requestKey = useMemo(() => JSON.stringify(validIds), [validIds]);
+
+  /**
+   * Prevent duplicate API calls
+   */
+  const lastRequestKeyRef = useRef<string>("");
 
   const {
     categories = [],
     totalItems = 0,
     loading = false,
     error = null,
-  } = useAppSelector(selectCatByCategoryIdByStoreKey(CAT_LIST_BY_ID));
-
-  const isRequestLoading = validIds.length > 0 && resolvedRequestKey !== requestKey;
+  } = useAppSelector(
+    selectCatByCategoryIdByStoreKey(CAT_LIST_BY_ID)
+  );
 
   useEffect(() => {
-    if (validIds.length === 0) {
-      setResolvedRequestKey(null);
-      return;
-    }
-
     const promise = dispatch(
       getCatListById({
-        category_id: validIds[0],
-      } as ICategoryModel) as any,
+        category_id: ids[0],
+      } as ICategoryModel) as any
     );
 
-    promise.finally?.(() => {
-      setResolvedRequestKey(requestKey);
-    });
-
     return () => {
-      promise.abort?.();
+      promise?.abort?.();
     };
-  }, [dispatch, requestKey, validIds]);
+  }, [dispatch, ids]);
 
   return {
-    categories: isRequestLoading ? [] : categories,
+    categories,
     totalItems,
-    loading: isRequestLoading || loading,
+    loading,
     error,
-    validIds,
+    ids,
   };
 }

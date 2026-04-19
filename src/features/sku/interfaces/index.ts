@@ -1,12 +1,11 @@
 import { ISkuModel } from "@/models/sku";
 
-
 export interface ISkuRequest extends ISkuModel {
   optionsCount: number;
 }
 
 export interface ISkuResponse {
-  metadata:ISkuModel;
+  metadata: ISkuModel;
 }
 
 export interface ISkuState {

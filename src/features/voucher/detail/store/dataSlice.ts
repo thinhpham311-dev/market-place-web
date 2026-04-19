@@ -2,8 +2,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { apiGetVoucherProducts } from "@/features/voucher/detail/services";
 import { getApiErrorMessage } from "@/lib/http/handleAxiosError";
 import { translateRuntime } from "@/lib/i18n/runtime-translation";
-import {initialState} from "./initials";
-import { IVoucherProductsRequest, IVoucherProductsResponse } from "@/features/voucher/detail/interfaces";
+import { initialState } from "./initials";
+import {
+  IVoucherProductsRequest,
+  IVoucherProductsResponse,
+} from "@/features/voucher/detail/interfaces";
 
 export const getVoucherProducts = createAsyncThunk<
   IVoucherProductsResponse,
@@ -36,7 +39,7 @@ const dataSlice = createSlice({
         state.status = "loading";
       })
       .addCase(getVoucherProducts.fulfilled, (state, action) => {
-        const {list, total} = action.payload.metadata;
+        const { list, total } = action.payload.metadata;
         state.loading = false;
         state.data = action.payload;
         state.total = total;

@@ -22,54 +22,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useTranslation } from "@/lib/hooks";
-
-const liveSessions = [
-  {
-    id: "fashion",
-    image: "/O1CN01gRUkNN1sW5HWJb8Me_!!6000000005773-2-tps-200-200.avif",
-    href: "/daily-discover",
-    titleKey: "shop_live_card_fashion",
-    descriptionKey: "shop_live_card_fashion_desc",
-    viewers: "12.4k",
-    duration: "48 min",
-  },
-  {
-    id: "beauty",
-    image: "/O1CN01Si2Chv1URSNSZI3w2_!!6000000002514-2-tps-200-200.avif",
-    href: "/flash-sale",
-    titleKey: "shop_live_card_beauty",
-    descriptionKey: "shop_live_card_beauty_desc",
-    viewers: "8.9k",
-    duration: "36 min",
-  },
-  {
-    id: "home",
-    image: "/O1CN01kxhWs527Gi6Fzc3zF_!!6000000007770-2-tps-200-200.avif",
-    href: "/categories",
-    titleKey: "shop_live_card_home",
-    descriptionKey: "shop_live_card_home_desc",
-    viewers: "6.2k",
-    duration: "52 min",
-  },
-  {
-    id: "tech",
-    image: "/O1CN01WD8L611FtC7zB5hSv_!!6000000000544-2-tps-200-200.avif",
-    href: "/daily-discover?tab=trending",
-    titleKey: "shop_live_card_tech",
-    descriptionKey: "shop_live_card_tech_desc",
-    viewers: "10.1k",
-    duration: "41 min",
-  },
-  {
-    id: "essentials",
-    image: "/O1CN01Sksz1Z1YcgYJqip4w_!!6000000003080-2-tps-200-200.avif",
-    href: "/daily-discover?tab=best-value",
-    titleKey: "shop_live_card_essentials",
-    descriptionKey: "shop_live_card_essentials_desc",
-    viewers: "7.4k",
-    duration: "29 min",
-  },
-] as const;
+import { liveSessions } from "./constants";
 
 export default function ShopLiveSection() {
   const { t } = useTranslation();

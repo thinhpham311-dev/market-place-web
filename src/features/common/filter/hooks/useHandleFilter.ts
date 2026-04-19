@@ -22,58 +22,97 @@ interface IUseFilterParams {
 
 export function useHandleFilter({ reducerKey, storeKey, initialValue }: IUseFilterParams) {
   const dispatch = useAppDispatch();
-  const initializedRef = useRef(false);
+  const isInitializedRef = useRef(false);
 
+  /**
+   * Inject dynamic reducer on mount
+   */
   useEffect(() => {
     injectReducer(reducerKey, reducer);
-    return () => removeReducer(reducerKey);
+
+    return () => {
+      removeReducer(reducerKey);
+    };
   }, [reducerKey]);
 
+  /**
+   * Get filter state from dynamic reducer
+   */
   const state = useGetFilterValue({
     reducerKey,
     storeKey,
     initialValue,
   });
-
+  /**
+   * Initialize filter only once
+   */
   useEffect(() => {
-    if (!initializedRef.current && initialValue) {
-      dispatch(
-        setInitialFilter({
-          storeKey,
-          initialValue,
-        }),
-      );
-      initializedRef.current = true;
-    }
+    if (isInitializedRef.current || !initialValue) return;
+
+    dispatch(
+      setInitialFilter({
+        storeKey,
+        initialValue,
+      }),
+    );
+
+    isInitializedRef.current = true;
   }, [dispatch, storeKey, initialValue]);
 
+  /**
+   * Sync filter data when initialValue changes
+   */
   useEffect(() => {
-    if (initializedRef.current) {
-      dispatch(
-        setFilterData({
-          storeKey,
-          data: initialValue?.data ?? [],
-        }),
-      );
-    }
-  }, [dispatch, storeKey, initialValue]);
+    if (!isInitializedRef.current) return;
 
+    dispatch(
+      setFilterData({
+        storeKey,
+        data: initialValue?.data ?? [],
+      }),
+    );
+  }, [dispatch, storeKey, initialValue?.data]);
+
+  /**
+   * Set single filter field
+   */
   const handleSetFilter = useCallback(
-    <T = unknown>(key: string, value: T) => {
-      dispatch(setFilter({ storeKey, key, value }));
+    <T>(key: string, value: T) => {
+      dispatch(
+        setFilter({
+          storeKey,
+          key,
+          value,
+        }),
+      );
     },
     [dispatch, storeKey],
   );
 
+  /**
+   * Reset one filter field
+   */
   const handleResetFilter = useCallback(
     (key: string) => {
-      dispatch(resetFilter({ storeKey, key }));
+      dispatch(
+        resetFilter({
+          storeKey,
+          key,
+        }),
+      );
     },
     [dispatch, storeKey],
   );
 
+  /**
+   * Reset all filters
+   */
   const handleResetAllFilters = useCallback(() => {
-    dispatch(resetAllFilters({ storeKey }));
+    dispatch(
+      resetAllFilters({
+        storeKey,
+      }),
+    );
   }, [dispatch, storeKey]);
 
   return {

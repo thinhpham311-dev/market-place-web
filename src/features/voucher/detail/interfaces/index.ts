@@ -1,4 +1,4 @@
-import  { IVoucherModel } from "@/models/discount";
+import { IVoucherModel } from "@/models/discount";
 
 export interface IVoucherProductsRequest {
   code?: string;
@@ -16,16 +16,15 @@ export interface IVoucherProductsState {
 }
 
 export interface IVoucherProductsResponse {
-    metadata: {
-        list: Record<string, any>;
-        total: number
-    };
-};
+  metadata: {
+    list: Record<string, any>;
+    total: number;
+  };
+}
 
 export interface VoucherDetailContextType {
   voucher: IVoucherModel;
   discountSummary: string;
   isClaimed: boolean;
   onClaim: () => void;
- 
 }

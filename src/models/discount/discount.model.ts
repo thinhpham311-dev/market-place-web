@@ -18,7 +18,7 @@ export interface IVoucherModel {
   shopId: string;
   status: VoucherStatus;
   orderId?: string;
-};
+}
 
 export interface UseVoucherFetchDataParams {
   shopId?: string;

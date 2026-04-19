@@ -1,8 +1,8 @@
 import { Badge } from "@/components/ui/badge";
 import { useTranslation } from "@/lib/hooks";
-import {VoucherStatus} from "@/models/discount";
+import { VoucherStatus } from "@/models/discount";
 
- function VoucherStatusBadge({ status }: { status: VoucherStatus }) {
+function VoucherStatusBadge({ status }: { status: VoucherStatus }) {
   const { t } = useTranslation();
 
   if (status === "used") {
@@ -20,4 +20,4 @@ import {VoucherStatus} from "@/models/discount";
   );
 }
 
-export default VoucherStatusBadge
+export default VoucherStatusBadge;

@@ -9,7 +9,7 @@ const LoadingSkeleton = () => {
   return (
     <Card className="flex flex-col justify-start h-full w-full col-span-1">
       <Skeleton className="aspect-square rounded-t-lg " />
-      <CardContent className="p-3 w-full">
+      <CardContent className="p-3 w-full space-y-1">
         <Skeleton className="h-4 w-full" />
         <Skeleton className="h-4 w-1/2" />
       </CardContent>

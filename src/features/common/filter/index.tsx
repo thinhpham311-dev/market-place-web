@@ -17,7 +17,6 @@ interface IFilterProps {
 
 const Filter = ({ storeKey, ...rest }: IFilterProps) => {
   const filter = useHandleFilter({ reducerKey: FILTER, storeKey, ...rest });
-
   return (
     <FilterProvider contextValues={filter}>
       <FilterWarpper>

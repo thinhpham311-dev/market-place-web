@@ -18,7 +18,6 @@ interface BrandCarouselProps {
   className?: string;
   isLoading: boolean;
   error?: string | null;
-  countLoadItems: number;
   itemsPerPage?: number;
   logoOnly?: boolean;
 }
@@ -28,14 +27,13 @@ export default function BrandCarousel({
   className,
   isLoading,
   error,
-  countLoadItems,
   itemsPerPage = 12,
   logoOnly = false,
 }: BrandCarouselProps) {
   const hasNoData = !data || data.length === 0;
 
   if (isLoading && hasNoData) {
-    return <LoadingSkeleton count={countLoadItems} logoOnly={logoOnly} />;
+    return <LoadingSkeleton count={6} logoOnly={logoOnly} />;
   }
 
   if (!isLoading && hasNoData && error) {

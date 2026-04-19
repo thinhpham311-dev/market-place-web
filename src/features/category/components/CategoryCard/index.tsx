@@ -17,6 +17,12 @@ interface IItemProps {
 }
 
 const CategoryCard = ({ item, isLoading }: IItemProps) => {
+
+  const { parent_id, category_id, category_slug, category_name, image } = item;
+  const parentPath = parent_id ? `${parent_id}.` : "";
+  const categoryHref = `/categories/${category_slug}-cat.${parentPath}${category_id}`;
+
+
   if (isLoading) {
     return <LoadingSkeleton />;
   }
@@ -24,10 +30,6 @@ const CategoryCard = ({ item, isLoading }: IItemProps) => {
   if (!item) {
     return <NotFound />;
   }
-
-  const { parent_id, category_id, category_slug, category_name, image } = item;
-  const parentPath = parent_id ? `${parent_id}.` : "";
-  const categoryHref = `/categories/${category_slug}-cat.${parentPath}${category_id}`;
 
   return (
     <Link href={categoryHref} className="block">

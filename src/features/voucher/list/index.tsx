@@ -90,7 +90,7 @@ export default function VoucherListPage() {
         <CardContent>
           <Tabs defaultValue="available" className="space-y-4">
             <TabsList className="h-auto flex-wrap justify-start rounded-2xl p-1">
-              {voucherTabs.map((status:string) => (
+              {voucherTabs.map((status: string) => (
                 <TabsTrigger key={status} value={status} className="rounded-xl">
                   {t(`voucher_${status}` as never)}
                 </TabsTrigger>
@@ -98,7 +98,9 @@ export default function VoucherListPage() {
             </TabsList>
 
             {voucherTabs.map((status: string) => {
-              const items = resolvedVouchers.filter((voucher: IVoucherModel) => voucher.status === status);
+              const items = resolvedVouchers.filter(
+                (voucher: IVoucherModel) => voucher.status === status,
+              );
 
               return (
                 <TabsContent key={status} value={status} className="space-y-4">

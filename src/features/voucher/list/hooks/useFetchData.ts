@@ -10,7 +10,7 @@ import { selectVoucherListByStoreKey } from "@/features/voucher/list/store/selec
 import { DEFAULT_VOUCHER_SHOP_ID, VOUCHER_LIST_KEY } from "@/features/voucher/list/constants";
 import { mapVoucherItem, resolveVoucherList } from "@/features/voucher/list/utils/normalizeVoucher";
 
-interface IUseFetchDataParams{
+interface IUseFetchDataParams {
   shopId?: string;
   limit?: number;
   page?: number;
