@@ -7,11 +7,11 @@ import { useAppSelector, useTranslation } from "@/lib/hooks";
 import { useFetchData } from "@/features/voucher/list/hooks/useFetchData";
 import VoucherListProvider from "@/features/voucher/list/providers";
 
-interface IVoucherListRoot {
-  children: React.ReactNode
+interface IVoucherDetailRoot{
+    children: React.ReactNode
 }
 
-export default function VoucherListRoot({children}: IVoucherListRoot) {
+export default function VoucherDetailRoot({children}: IVoucherDetailRoot) {
   const { t } = useTranslation();
   const searchParams = useSearchParams();
   const signedIn = useAppSelector((state) => state.auth.session.signedIn);
@@ -22,6 +22,7 @@ export default function VoucherListRoot({children}: IVoucherListRoot) {
     vouchers,
     loading,
     error,
+    shopId: resolvedShopId,
   } = useFetchData({
     shopId,
     limit: Number.isFinite(limit) && limit > 0 ? limit : 50,
@@ -29,37 +30,18 @@ export default function VoucherListRoot({children}: IVoucherListRoot) {
   });
   const [claimedVoucherIds, setClaimedVoucherIds] = useState<string[]>([]);
 
-  const summary = useMemo(
-    () => ({
-      available: vouchers.filter((voucher) => voucher.status === "available").length,
-      used: vouchers.filter((voucher) => voucher.status === "used").length,
-      expired: vouchers.filter((voucher) => voucher.status === "expired").length,
-    }),
-    [vouchers],
-  );
-
-  const handleClaimVoucher = (voucherId: string) => {
-    if (!signedIn) {
-      toast.error(t("voucher_claim_sign_in"));
-      return;
-    }
-
-    setClaimedVoucherIds((prev) => (prev.includes(voucherId) ? prev : [...prev, voucherId]));
-    toast.success(t("voucher_claim_success"));
-  };
-
+  
   return (
     <VoucherListProvider
       contextValues={{
         vouchers,
         loading,
         error,
-        summary,
+        shopId: resolvedShopId,
         claimedVoucherIds,
-        handleClaimVoucher,
       }}
     >
-      {children}
+        {children}
     </VoucherListProvider>
   );
 }

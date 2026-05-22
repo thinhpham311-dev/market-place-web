@@ -131,7 +131,7 @@ export default function OrderPurchasePage() {
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <div>
               <CardTitle>{t("order_history_title")}</CardTitle>
-              <CardDescription>{t("order_history_desc")}</CardDescription>
+              <CardDescription>{t("order_purchase_desc")}</CardDescription>
             </div>
             <div className="flex flex-wrap gap-2">
               {filterKeys.map((filterKey) => (

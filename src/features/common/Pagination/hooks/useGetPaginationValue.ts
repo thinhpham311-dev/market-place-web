@@ -13,10 +13,12 @@ interface IGetPriceValue {
   initialValue?: IPaginationInitialState;
 }
 
+const DEFAULT_PAGINATION_VALUE = createDefault();
+
 export const useGetPaginationValue = ({
   reducerKey = PAGINATION,
   storeKey,
-  initialValue = createDefault(),
+  initialValue = DEFAULT_PAGINATION_VALUE,
 }: IGetPriceValue) => {
   const state = useAppSelector(selectPaginationByKey(reducerKey, storeKey));
 

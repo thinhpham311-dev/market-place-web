@@ -53,6 +53,5 @@ export function useFetchData(params: IUseFetchDataParams) {
     vouchers,
     loading,
     error,
-    shopId,
   };
 }

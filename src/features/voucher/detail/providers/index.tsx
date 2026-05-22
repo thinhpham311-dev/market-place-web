@@ -2,7 +2,7 @@
 
 import React from "react";
 import { cn } from "@/utils/styles";
-import type { VoucherDetailContextType } from "@/features/voucher/detail/types";
+import type { VoucherDetailContextType } from "@/features/voucher/detail/interfaces";
 
 interface VoucherDetailProviderProps {
   children?: React.ReactNode;

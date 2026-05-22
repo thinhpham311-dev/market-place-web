@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useAppDispatch } from "@/lib/hooks";
 import {
   initPagination,
@@ -18,7 +18,6 @@ interface IUseHandlePaginationProps {
 
 export function useHandlePagination({ storeKey, initialValue }: IUseHandlePaginationProps) {
   const dispatch = useAppDispatch();
-  const rest = initialValue;
   const { defaultCurrentPage, defaultLimit, defaultTotalItems, isShowDot, isShowLabel, isShowNav } =
     initialValue;
 
@@ -74,17 +73,30 @@ export function useHandlePagination({ storeKey, initialValue }: IUseHandlePagina
     dispatch(withEnsureInit(resetPagination({ key: storeKey }), [storeKey]));
   }, [dispatch, storeKey]);
 
-  return {
-    ...rest,
-    isShowDot,
-    isShowLabel,
-    isShowNav,
-    ...pagination,
-    limit: storeLimit,
-    setLimit: setLimitSafe,
-    setPage: setPageSafe,
-    resetPagination: resetPaginationSafe,
-    hasPrev: currentPage > 1,
-    hasNext: currentPage < totalPages,
-  };
+  return useMemo(
+    () => ({
+      isShowDot,
+      isShowLabel,
+      isShowNav,
+      ...pagination,
+      limit: storeLimit,
+      setLimit: setLimitSafe,
+      setPage: setPageSafe,
+      resetPagination: resetPaginationSafe,
+      hasPrev: currentPage > 1,
+      hasNext: currentPage < totalPages,
+    }),
+    [
+      currentPage,
+      isShowDot,
+      isShowLabel,
+      isShowNav,
+      pagination,
+      resetPaginationSafe,
+      setLimitSafe,
+      setPageSafe,
+      storeLimit,
+      totalPages,
+    ],
+  );
 }

@@ -9,22 +9,19 @@ import { toast } from "sonner";
 import NotFound from "@/components/layout/notfound";
 import { Button } from "@/components/ui/button";
 import { useAppSelector, useTranslation } from "@/lib/hooks";
-import { formatToCurrency } from "@/utils/formats";
-import { useFetchData as useFetchVoucherProducts } from "@/features/voucher/detail/hooks/useFetchData";
+
+import { useFetchData as useFetchVoucherList } from "@/features/voucher/list/hooks/useFetchData";
 import VoucherDetailHero from "@/features/voucher/detail/components/VoucherDetailHero";
 import VoucherDetailLoading from "@/features/voucher/detail/components/VoucherDetailLoading";
 import VoucherProductSection from "@/features/voucher/detail/components/VoucherProductSection";
 import VoucherTermsCard from "@/features/voucher/detail/components/VoucherTermsCard";
 import VoucherUsageCard from "@/features/voucher/detail/components/VoucherUsageCard";
-import VoucherDetailProvider from "@/features/voucher/detail/providers";
-import { useFetchData as useFetchVoucherList } from "@/features/voucher/list/hooks/useFetchData";
+import VoucherDetailRoot from "./voucher-root-detail";
 
-export default function VoucherDetailPage() {
+export default function VoucherDetail() {
   const { t } = useTranslation();
   const params = useParams<{ id?: string }>();
   const searchParams = useSearchParams();
-  const signedIn = useAppSelector((state) => state.auth.session.signedIn);
-  const [isClaimed, setIsClaimed] = useState(false);
 
   const voucherId = typeof params?.id === "string" ? params.id : "";
   const shopId = searchParams.get("shopId") || "";
@@ -33,7 +30,6 @@ export default function VoucherDetailPage() {
     vouchers,
     loading: voucherLoading,
     error: voucherError,
-    shopId: resolvedShopId,
   } = useFetchVoucherList({
     shopId,
     limit: 50,
@@ -45,46 +41,6 @@ export default function VoucherDetailPage() {
     [voucherId, vouchers],
   );
 
-  const {
-    products,
-    loading: productsLoading,
-    error: productsError,
-  } = useFetchVoucherProducts({
-    code: voucher?.code || "",
-    shopId: voucher?.shopId || resolvedShopId,
-    limit: 12,
-    page: 1,
-  });
-
-  const discountSummary = useMemo(() => {
-    if (!voucher) {
-      return "";
-    }
-
-    if (voucher.discountType === "percentage") {
-      return `${voucher.discountValue}%${
-        voucher.maxDiscountAmount > 0
-          ? ` (${t("voucher_max_discount")}: ${formatToCurrency(voucher.maxDiscountAmount)})`
-          : ""
-      }`;
-    }
-
-    return formatToCurrency(voucher.discountValue || voucher.discountAmount || 0);
-  }, [t, voucher]);
-
-  const handleClaim = () => {
-    if (!voucher || voucher.status !== "available") {
-      return;
-    }
-
-    if (!signedIn) {
-      toast.error(t("voucher_claim_sign_in"));
-      return;
-    }
-
-    setIsClaimed(true);
-    toast.success(t("voucher_claim_success"));
-  };
 
   if (voucherLoading) {
     return <VoucherDetailLoading />;
@@ -99,6 +55,7 @@ export default function VoucherDetailPage() {
   }
 
   return (
+    <VoucherDetailRoot>
     <div className="container mx-auto space-y-5 px-3 py-5 md:px-6">
       <Button asChild variant="ghost" className="px-0">
         <Link href={`/user/vouchers${voucher.shopId ? `?shopId=${voucher.shopId}` : ""}`}>
@@ -107,17 +64,6 @@ export default function VoucherDetailPage() {
         </Link>
       </Button>
 
-      <VoucherDetailProvider
-        contextValues={{
-          voucher,
-          discountSummary,
-          isClaimed,
-          onClaim: handleClaim,
-          products,
-          productsLoading,
-          productsError,
-        }}
-      >
         <div className="w-full space-y-5">
           <VoucherDetailHero />
 
@@ -126,9 +72,12 @@ export default function VoucherDetailPage() {
             <VoucherUsageCard />
           </div>
 
-          <VoucherProductSection />
+          <VoucherProductSection 
+            code={voucher.code}
+            shopId={voucher.shopId}
+          />
         </div>
-      </VoucherDetailProvider>
     </div>
+    </VoucherDetailRoot>
   );
 }

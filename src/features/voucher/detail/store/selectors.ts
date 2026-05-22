@@ -1,8 +1,8 @@
 import { RootState } from "@/store";
-import { VOUCHER_DETAIL_PRODUCTS_KEY } from "@/features/voucher/detail/constants";
+import { VOUCHER_DETAIL_PRODUCTS } from "@/features/voucher/detail/constants";
 
 export const selectVoucherProductsByStoreKey =
-  (storeKey: string = VOUCHER_DETAIL_PRODUCTS_KEY) =>
+  (storeKey: string = VOUCHER_DETAIL_PRODUCTS) =>
   (state: RootState) => {
     const data = state[storeKey];
 

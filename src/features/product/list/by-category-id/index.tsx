@@ -64,14 +64,14 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
                   />
                 </div>
                 <div className="shrink-0">
-                  <Pagination
+                  {/* <Pagination
                     storeKey={PRO_LIST_BY_CATEGORYID}
                     initialValue={{
                       defaultLimit: 20,
                       isShowNav: true,
                       defaultTotalItems: totalItems,
                     }}
-                  />
+                  /> */}
                 </div>
               </div>
             </CardHeader>
@@ -86,7 +86,7 @@ const ProListByCategoryId = ({ lastId }: { lastId?: string }) => {
               />
             </CardContent>
 
-            <CardFooter className="mt-auto justify-center border-t pb-3 pt-6">
+            <CardFooter className="mt-auto justify-center border-t pb-3 pt-3">
               <Pagination
                 storeKey={PRO_LIST_BY_CATEGORYID}
                 initialValue={{

@@ -45,7 +45,7 @@ export default function BrandListSection({
 
       <CardContent className="relative space-y-5 px-0 py-5 md:py-6">
         <BrandCarousel
-          countLoadItems={resolvedCountLoadItems}
+          itemsPerPage={resolvedCountLoadItems}
           data={brands}
           isLoading={loading}
           error={error}

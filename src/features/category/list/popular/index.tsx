@@ -13,7 +13,7 @@ const CatPopularList: React.FC = () => {
   const { t } = useTranslation();
 
   return (
-    <Card className="border-none shadow-nonee rounded-none md:px-6 px-3 w-full">
+    <Card className="border-none shadow-none rounded-none md:px-6 px-3 w-full">
       <CardHeader className="flex-row items-center px-0 space-x-3 mb-3">
         <div className="flex-1">
           <CardTitle className="mb-3 capitalize">{t("popular_categories")}</CardTitle>

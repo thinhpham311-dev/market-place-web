@@ -15,6 +15,7 @@ import VoucherShopInfoDialog from "@/features/voucher/list/components/VoucherSho
 import LoadingSkeleton from "@/features/voucher/list/components/LoadingSkeleton";
 import { voucherTabs } from "@/features/voucher/list/constants";
 import { IVoucherModel } from "@/models/discount";
+import VoucherListRoot from "./voucher-list-root"
 
 export default function VoucherListPage() {
   const { t } = useTranslation();
@@ -31,6 +32,7 @@ export default function VoucherListPage() {
   const resolvedVouchers = vouchers;
 
   return (
+    <VoucherListRoot>
     <div className="container mx-auto space-y-5 px-3 py-5 md:px-6">
       <section className="grid w-full gap-4 md:grid-cols-3">
         <Card className="border-none bg-gradient-to-r from-orange-50 via-white to-amber-50 shadow-sm md:col-span-3">
@@ -258,5 +260,7 @@ export default function VoucherListPage() {
         </CardContent>
       </Card>
     </div>
+        </VoucherListRoot>
+
   );
 }

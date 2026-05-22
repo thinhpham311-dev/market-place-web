@@ -1,13 +1,25 @@
 "use client";
 
+import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import ProGrid from "@/features/product/components/ProGrid";
+import { useParams, useSearchParams } from "next/navigation";
 import { useTranslation } from "@/lib/hooks";
-import { useVoucherDetailContext } from "@/features/voucher/detail/hooks/useVoucherDetailContext";
+import { useFetchData } from "@/features/voucher/detail/hooks";
 
-export default function VoucherProductSection() {
+interface IVoucherProductSection {
+  code: string;
+  shopId: string;
+}
+
+export default function VoucherProductSection({
+code, shopId
+}: IVoucherProductSection) {
   const { t } = useTranslation();
-  const { products, productsLoading, productsError } = useVoucherDetailContext();
+
+  const { products, loading, error } = useFetchData({
+    code, shopId
+  });
 
   return (
     <Card className="w-full border-stone-200 shadow-none">
@@ -18,8 +30,8 @@ export default function VoucherProductSection() {
       <CardContent>
         <ProGrid
           data={products}
-          isLoading={productsLoading}
-          error={productsError}
+          isLoading={loading}
+          error={error}
           countLoadItems={12}
           className="grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4"
         />
