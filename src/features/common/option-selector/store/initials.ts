@@ -3,7 +3,7 @@ import { IOptionInitialState, IState } from "@/features/common/option-selector/i
 // default value for a single store
 export const createDefault = (): IOptionInitialState => ({
   selectedOptions: [],
-  validationErrors: [],
+  validationErrors: {},
   optionsCount: 0,
 });
 

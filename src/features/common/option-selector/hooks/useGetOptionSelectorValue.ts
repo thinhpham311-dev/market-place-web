@@ -21,11 +21,9 @@ export const useGetOptionSelectorValue = ({
   const state = useAppSelector(selectOptionsSelector(reducerKey, storeKey));
 
   return useMemo(() => {
-    const selected = state?.selectedOptions ?? initialValue.selectedOptions;
-
     return {
       ...(state ?? initialValue),
-      selectedOptions: selected.filter((v: number) => v !== null),
+      selectedOptions: state?.selectedOptions ?? initialValue.selectedOptions,
     };
-  }, [state]);
+  }, [initialValue, state]);
 };

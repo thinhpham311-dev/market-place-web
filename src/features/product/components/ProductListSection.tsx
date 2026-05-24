@@ -11,6 +11,8 @@ interface ProductListSectionProps {
   description: ReactNode;
   children: ReactNode;
   seeMoreHref?: string;
+  seeMoreIconOnly?: boolean;
+  seeMoreButtonClassName?: string;
   className?: string;
   headerClassName?: string;
   contentClassName?: string;
@@ -24,6 +26,8 @@ export default function ProductListSection({
   description,
   children,
   seeMoreHref,
+  seeMoreIconOnly,
+  seeMoreButtonClassName,
   className,
   headerClassName,
   contentClassName,
@@ -41,7 +45,13 @@ export default function ProductListSection({
           </CardDescription>
         </div>
 
-        {seeMoreHref ? <SectionSeeMoreButton href={seeMoreHref} /> : null}
+        {seeMoreHref ? (
+          <SectionSeeMoreButton
+            href={seeMoreHref}
+            iconOnly={seeMoreIconOnly}
+            className={seeMoreButtonClassName}
+          />
+        ) : null}
       </CardHeader>
 
       <CardContent className={cn("col-span-12", contentClassName)}>{children}</CardContent>

@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import ProDetail from "@/features/product";
 import ProBundleDealList from "@/features/product/list/bundle-deal";
-import ProTopPicksList from "@/features/product/list/top-picks";
 import ProRelatedList from "@/features/product/list/related";
 
 export default function Page({ params }: { params: { segments: string[] } }) {
@@ -25,7 +24,6 @@ export default function Page({ params }: { params: { segments: string[] } }) {
   return (
     <div className="space-y-5 md:my-5 container mx-auto">
       <ProDetail product_id={product_id} shop_id={shop_id} />
-      <ProTopPicksList shopId={shop_id} />
       <ProBundleDealList />
       <ProRelatedList shopId={shop_id} />
     </div>

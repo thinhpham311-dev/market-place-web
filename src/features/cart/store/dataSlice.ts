@@ -16,13 +16,14 @@ import {
   SHOPPING_CART_TTL,
   SHOPPING_CART_TAG,
 } from "@/features/cart/constants";
-import { initialState } from "@/features/cart/store/initial";
+import { createDefault, initialState } from "@/features/cart/store/initial";
 import {
   setItemLoading,
   setActionLoading,
   setItemError,
   setActionError,
 } from "@/features/cart/helpers/stateHelpers";
+import { recalculateTotals } from "@/features/cart/helpers/calculate";
 import { getApiErrorMessage, NormalizedApiError } from "@/lib/http/handleAxiosError";
 import { translateRuntime } from "@/lib/i18n/runtime-translation";
 
@@ -146,7 +147,21 @@ export const deleteItemsAllOutCart = createAsyncThunk<
 const cartSlice = createSlice({
   name: `cart/data`,
   initialState,
-  reducers: {},
+  reducers: {
+    setItemsSelected: (
+      state,
+      action: { payload: { storeKey: string; items: ICartItemModel[] } },
+    ) => {
+      const { storeKey, items } = action.payload;
+
+      if (!state[storeKey]) {
+        state[storeKey] = createDefault();
+      }
+
+      state[storeKey].data.cart_selected_items = items;
+      recalculateTotals(state[storeKey].data);
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getItemsInCart.pending, (state, action) => {
@@ -283,5 +298,7 @@ const cartSlice = createSlice({
       });
   },
 });
+
+export const { setItemsSelected } = cartSlice.actions;
 
 export default cartSlice.reducer;

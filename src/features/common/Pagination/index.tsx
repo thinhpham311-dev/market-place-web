@@ -21,9 +21,8 @@ injectReducer(PAGINATION, reducer);
 
 const Pagination = ({ storeKey, initialValue }: IPaginationCustomProps) => {
   const pagination = useHandlePagination({ storeKey, initialValue });
-  console.log("pagination render", pagination);
   return (
-    <PaginationProvider contextValues={{ ...pagination }}>
+    <PaginationProvider contextValues={pagination}>
       <PaginationWrapper>
         <PaginationPrevButton />
         <PaginationDotButtons />
@@ -34,4 +33,4 @@ const Pagination = ({ storeKey, initialValue }: IPaginationCustomProps) => {
   );
 };
 
-export default React.memo(Pagination);
+export default Pagination;

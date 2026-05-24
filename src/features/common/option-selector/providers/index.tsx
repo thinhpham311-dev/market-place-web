@@ -28,10 +28,9 @@ const OptionSelectorProvider = ({
   children,
   className,
   contextValues,
-  ...rest
 }: IOptionSelectorProviderProps) => {
   return (
-    <OptionSelectorContext.Provider value={{ ...contextValues, ...rest }}>
+    <OptionSelectorContext.Provider value={contextValues}>
       <div className={cn(className)}>{children}</div>
     </OptionSelectorContext.Provider>
   );

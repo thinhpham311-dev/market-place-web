@@ -29,14 +29,16 @@ const stateSlice = createSlice({
 
     setPage(state, action) {
       const { key, page } = action.payload;
-      state[key].currentPage = page;
+      const paginationState = ensureStoreKeyState(state, key);
+      paginationState.currentPage = page;
     },
 
     setLimit(state, action) {
       const { key, limit } = action.payload;
-      state[key].limit = limit;
-      state[key].totalPages = calculateTotalPages(state[key].totalItems, limit);
-      state[key].currentPage = Math.min(state[key].currentPage, state[key].totalPages);
+      const paginationState = ensureStoreKeyState(state, key);
+      paginationState.limit = limit;
+      paginationState.totalPages = calculateTotalPages(paginationState.totalItems, limit);
+      paginationState.currentPage = Math.min(paginationState.currentPage, paginationState.totalPages);
     },
 
     syncPagination(state, action) {

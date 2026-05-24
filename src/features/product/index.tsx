@@ -22,6 +22,7 @@ import ProShippingInfo from "@/features/product/components/ProShippingInfo";
 import ProReviewStar from "@/features/product/components/ProReviewStar";
 import ProActions from "@/features/product/components/ProActions";
 import ProShopInfo from "@/features/product/components/ProShopInfo";
+import ProTopPicksList from "@/features/product/list/top-picks";
 import ShopVoucherSection from "@/features/voucher/list/components/ShopVoucherSection";
 
 interface IProductDetail {
@@ -74,8 +75,9 @@ export default function ProductDetail({ product_id = "", shop_id = "" }: IProduc
               <ProSpecifications />
               <ProDescriptionContent />
             </div>
-            <div className="lg:col-span-1 col-span-3 md:order-2 order-1">
+            <div className="lg:col-span-1 col-span-3 md:order-2 order-1 space-y-5">
               <ProShippingInfo />
+              <ProTopPicksList shopId={shop_id} />
             </div>
           </CardContent>
         </Card>

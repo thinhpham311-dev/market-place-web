@@ -7,15 +7,17 @@ import { Card, CardContent, CardTitle, CardDescription, CardImage } from "@/comp
 import { ISpuModel } from "@/models/spu";
 import NotFound from "./NotFound";
 import { formatToCurrency } from "@/utils/formats";
+import { cn } from "@/utils/styles";
 
 interface ISpuCardProps {
   item: ISpuModel;
   isLoading?: boolean;
+  orientation?: "vertical" | "horizontal";
 }
 
-const ProCard = ({ item, isLoading }: ISpuCardProps) => {
+const ProCard = ({ item, isLoading, orientation = "vertical" }: ISpuCardProps) => {
   if (isLoading) {
-    return <LoadingSkeleton />;
+    return <LoadingSkeleton orientation={orientation} />;
   }
 
   if (!item) {
@@ -27,23 +29,32 @@ const ProCard = ({ item, isLoading }: ISpuCardProps) => {
 
   const productHref = `/products/${product_slug}-i.${product_shop.shop_id}.${product_id}`;
   const formattedPrice = formatToCurrency(product_price);
+  const isHorizontal = orientation === "horizontal";
 
   return (
     <Link href={productHref} className="block h-full">
-      <Card className="flex flex-col justify-start h-full w-full col-span-1 overflow-hidden transition-shadow hover:shadow-md">
+      <Card
+        className={cn(
+          "h-full w-full col-span-1 overflow-hidden transition-shadow hover:shadow-md",
+          isHorizontal ? "flex flex-row items-stretch" : "flex flex-col justify-start",
+        )}
+      >
         <CardImage
           src={
             product_image ??
             "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png"
           }
           alt={product_name || "Product image"}
-          className="aspect-square rounded-t-lg cursor-pointer"
+          className={cn(
+            "cursor-pointer",
+            isHorizontal ? "h-full w-24 shrink-0 rounded-l-lg object-cover" : "aspect-square rounded-t-lg",
+          )}
         />
-        <CardContent className="p-3 w-full">
+        <CardContent className={cn("w-full p-3", isHorizontal && "flex min-w-0 flex-col justify-center")}>
           <CardTitle className="text-md capitalize line-clamp-2 cursor-pointer">
             <p>{product_name}</p>
           </CardTitle>
-          <CardDescription className="space-x-3 mb-2 inline">
+          <CardDescription className="mb-2 inline space-x-3">
             {formattedPrice && <p>{formattedPrice}</p>}
           </CardDescription>
         </CardContent>

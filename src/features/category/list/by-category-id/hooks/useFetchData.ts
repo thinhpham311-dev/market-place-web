@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { getCatListById } from "@/features/category/list/by-category-id/store/dataSlice";
 import { selectCatByCategoryIdByStoreKey } from "@/features/category/list/by-category-id/store/selectors";
@@ -13,6 +13,7 @@ interface UseFetchDataParams {
 
 export function useFetchData({ ids }: UseFetchDataParams) {
   const dispatch = useAppDispatch();
+  const [isBootstrapping, setIsBootstrapping] = useState(true);
 
   /**
    * Inject reducer only once
@@ -25,12 +26,6 @@ export function useFetchData({ ids }: UseFetchDataParams) {
     };
   }, []);
 
-
-  /**
-   * Prevent duplicate API calls
-   */
-  const lastRequestKeyRef = useRef<string>("");
-
   const {
     categories = [],
     totalItems = 0,
@@ -41,13 +36,24 @@ export function useFetchData({ ids }: UseFetchDataParams) {
   );
 
   useEffect(() => {
+    let isActive = true;
+    setIsBootstrapping(true);
+
     const promise = dispatch(
       getCatListById({
         category_id: ids[0],
       } as ICategoryModel) as any
     );
 
+    promise
+      ?.finally?.(() => {
+        if (isActive) {
+          setIsBootstrapping(false);
+        }
+      });
+
     return () => {
+      isActive = false;
       promise?.abort?.();
     };
   }, [dispatch, ids]);
@@ -55,7 +61,7 @@ export function useFetchData({ ids }: UseFetchDataParams) {
   return {
     categories,
     totalItems,
-    loading,
+    loading: loading || isBootstrapping,
     error,
     ids,
   };

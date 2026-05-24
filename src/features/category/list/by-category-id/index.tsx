@@ -1,6 +1,5 @@
 "use client";
 
-import { memo } from "react";
 // ui
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 

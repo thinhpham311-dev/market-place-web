@@ -1,6 +1,6 @@
 "use client";
 
-import React, { memo } from "react";
+import React, { memo, useMemo } from "react";
 import OptionSelectorWrapper from "./OptionSelectorWrapper";
 import OptionSelectorTitle from "./OptionSelectorTitle";
 import OptionSelectorList from "./OptionSelectorList";
@@ -17,14 +17,18 @@ interface IOptionSelectorProps {
 }
 
 const OptionSelector = React.forwardRef<HTMLDivElement, IOptionSelectorProps>(
-  ({ storeKey, initialValue, ...rest }, ref) => {
+  ({ storeKey, initialValue, title, layout, layoutItems }, ref) => {
     const optionSelector = useHandleOptionSelector({
       storeKey,
       initialValue,
     });
+    const contextValues = useMemo(
+      () => ({ ...optionSelector, title, layout, layoutItems }),
+      [layout, layoutItems, optionSelector, title],
+    );
 
     return (
-      <OptionSelectorProvider contextValues={{ ...optionSelector, ...rest }}>
+      <OptionSelectorProvider contextValues={contextValues}>
         {/* 👇 ref phải gắn vào DOM */}
         <div ref={ref}>
           <OptionSelectorWrapper>

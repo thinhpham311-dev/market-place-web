@@ -1,7 +1,7 @@
 "use client";
 
 //components
-import ProCarousel from "@/features/product/components/ProCarousel";
+import ProGrid from "@/features/product/components/ProGrid";
 import ProductListSection from "@/features/product/components/ProductListSection";
 import { useTranslation } from "@/lib/hooks";
 
@@ -20,6 +20,7 @@ export default function ProTopPicksList({ shopId = "" }: ProTopPicksListProps) {
   const { products, loading, error } = useFetchData({
     storeKey: PRO_TOPPICKS_LIST,
   });
+  const limitedProducts = products.slice(0, 5);
   const firstShop = products?.[0]?.product_shop;
   const resolvedShopId = firstShop?.shop_id || shopId;
   const resolvedShopSlug = firstShop?.shop_slug || "shop";
@@ -32,13 +33,21 @@ export default function ProTopPicksList({ shopId = "" }: ProTopPicksListProps) {
       title={t("top_picks_from_shop")}
       description={t("top_picks_from_shop_desc")}
       seeMoreHref={shopDetailHref}
+      seeMoreIconOnly
+      className="rounded-2xl border border-stone-200/80 bg-white shadow-sm"
+      headerClassName="mb-0 flex-row items-start justify-between gap-3 space-y-0 p-0"
+      contentClassName="p-0 pt-4"
+      titleWrapperClassName="min-w-0"
+      titleClassName="mb-1"
+      descriptionClassName="line-clamp-2"
     >
-      <ProCarousel
-        countLoadItems={6}
+      <ProGrid
+        countLoadItems={5}
         error={error}
-        data={products}
+        data={limitedProducts}
         isLoading={loading}
-        className="lg:basis-1/6 md:basis-1/4 basis-1/3"
+        cardOrientation="horizontal"
+        className="grid-cols-1 gap-3"
       />
     </ProductListSection>
   );

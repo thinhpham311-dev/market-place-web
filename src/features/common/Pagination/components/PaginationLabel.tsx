@@ -8,8 +8,9 @@ import { usePaginationContext } from "@/features/common/pagination/hooks";
 export default function PaginationLabel() {
   const { currentPage, totalItems, limit, isShowLabel } = usePaginationContext();
 
-  const startIndex = (currentPage - 1) * limit + 1;
-  const endIndex = Math.min(currentPage * limit, totalItems);
+  const hasItems = totalItems > 0;
+  const startIndex = hasItems ? (currentPage - 1) * limit + 1 : 0;
+  const endIndex = hasItems ? Math.min(currentPage * limit, totalItems) : 0;
 
   if (isShowLabel) {
     return (

@@ -9,6 +9,7 @@ import {
   deleteItemsSelectedOutCart,
   deleteItemsAllOutCart,
   updateVariantsItemInCart,
+  setItemsSelected,
 } from "@/features/cart/store/dataSlice";
 import reducer from "@/features/cart/store";
 import { ICartItemModel } from "@/models/cart";
@@ -122,11 +123,19 @@ export const useHandleShoppingCart = ({ reducerKey, storeKey, userId }: IUseCart
     );
   }, [dispatch, storeKey, userId]);
 
+  const handleSetItemsSelected = useCallback(
+    (items: ICartItemModel[]) => {
+      dispatch(setItemsSelected({ storeKey, items }));
+    },
+    [dispatch, storeKey],
+  );
+
   return {
     ...state,
     createItem: handleCreateItem,
     updateQtyItem: handleUpdateQtyItem,
     updateVariantsItem: handleUpdateVariantsItem,
+    setItemsSelected: handleSetItemsSelected,
     deleteItem: handleDeleteItem,
     deleteItemsAll: handleDeleteItemsAll,
     deleteItemsSelected: handleDeleteItemsSelected,

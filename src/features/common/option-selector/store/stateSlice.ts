@@ -6,6 +6,17 @@ const optionSlice = createSlice({
   name: "option/state",
   initialState,
   reducers: {
+    setSelectedOptions: (
+      state,
+      action: PayloadAction<{
+        storeKey: string;
+        selectedOptions: (number | null)[];
+      }>,
+    ) => {
+      const { storeKey, selectedOptions } = action.payload;
+      ensureStoreKeyState(state, storeKey);
+      state[storeKey].selectedOptions = selectedOptions;
+    },
     setSelectedOption: (
       state,
       action: PayloadAction<{
@@ -45,12 +56,18 @@ const optionSlice = createSlice({
       const { storeKey } = action.payload;
       ensureStoreKeyState(state, storeKey);
       state[storeKey].selectedOptions = [];
-      state[storeKey].validationErrors = [];
+      state[storeKey].validationErrors = {};
     },
   },
 });
 
-export const { setSelectedOption, setOptionsCount, setValidationErrors, resetOptions } =
+export const {
+  setSelectedOption,
+  setSelectedOptions,
+  setOptionsCount,
+  setValidationErrors,
+  resetOptions,
+} =
   optionSlice.actions;
 
 export default optionSlice.reducer;

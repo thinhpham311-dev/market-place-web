@@ -5,6 +5,7 @@ import { useAppDispatch } from "@/lib/hooks";
 import {
   setOptionsCount,
   setSelectedOption,
+  setSelectedOptions,
   setValidationErrors,
   resetOptions,
 } from "@/features/common/option-selector/store/stateSlice";
@@ -55,16 +56,12 @@ export function useHandleOptionSelector({
   useEffect(() => {
     if (!hasDefaultOptions) return;
 
-    defaultOptionIdx.forEach((value, index) => {
-      if (value != null) {
-        dispatch(
-          setSelectedOption({
-            storeKey,
-            currentValue: { index, value },
-          }),
-        );
-      }
-    });
+    dispatch(
+      setSelectedOptions({
+        storeKey,
+        selectedOptions: [...defaultOptionIdx],
+      }),
+    );
   }, [dispatch, storeKey, defaultOptionIdx, hasDefaultOptions]);
 
   // Get current state
@@ -73,7 +70,7 @@ export function useHandleOptionSelector({
     initialValue: {
       selectedOptions: defaultOptionIdx,
       optionsCount: initialOptions.length,
-      validationErrors: [],
+      validationErrors: {},
     },
   });
 
@@ -130,16 +127,12 @@ export function useHandleOptionSelector({
     dispatch(setValidationErrors({ storeKey, errors: {} }));
 
     if (hasDefaultOptions) {
-      defaultOptionIdx.forEach((value, index) => {
-        if (value != null) {
-          dispatch(
-            setSelectedOption({
-              storeKey,
-              currentValue: { index, value },
-            }),
-          );
-        }
-      });
+      dispatch(
+        setSelectedOptions({
+          storeKey,
+          selectedOptions: [...defaultOptionIdx],
+        }),
+      );
     }
   }, [dispatch, storeKey, defaultOptionIdx, hasDefaultOptions]);
 
@@ -148,16 +141,28 @@ export function useHandleOptionSelector({
     dispatch(setValidationErrors({ storeKey, errors: {} }));
   }, [dispatch, storeKey]);
 
-  return {
-    options: initialOptions,
-    selectedOptions,
-    optionsCount,
-    validationErrors,
-    defaultOptionIdx,
-    handleChooseOption,
-    handleResetOption,
-    resetValidationErrors,
-    hasValidationErrors: Object.keys(validationErrors).length > 0,
-    hasSelectedOptions: selectedOptions.some((value: number | string) => value != null),
-  };
+  return useMemo(
+    () => ({
+      options: initialOptions,
+      selectedOptions,
+      optionsCount,
+      validationErrors,
+      defaultOptionIdx,
+      handleChooseOption,
+      handleResetOption,
+      resetValidationErrors,
+      hasValidationErrors: Object.keys(validationErrors).length > 0,
+      hasSelectedOptions: selectedOptions.some((value: number | string) => value != null),
+    }),
+    [
+      defaultOptionIdx,
+      handleChooseOption,
+      handleResetOption,
+      initialOptions,
+      optionsCount,
+      resetValidationErrors,
+      selectedOptions,
+      validationErrors,
+    ],
+  );
 }

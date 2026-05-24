@@ -12,9 +12,17 @@ interface SpuGridProps {
   isLoading: boolean;
   error?: Error | string | null;
   countLoadItems?: number;
+  cardOrientation?: "vertical" | "horizontal";
 }
 
-const ProGrid = ({ data, className, isLoading, error, countLoadItems = 12 }: SpuGridProps) => {
+const ProGrid = ({
+  data,
+  className,
+  isLoading,
+  error,
+  countLoadItems = 12,
+  cardOrientation = "vertical",
+}: SpuGridProps) => {
   const { t } = useTranslation();
   const hasNoData = !data || data.length === 0;
   const errorMessage = typeof error === "string" ? error : error?.message;
@@ -32,7 +40,7 @@ const ProGrid = ({ data, className, isLoading, error, countLoadItems = 12 }: Spu
   return (
     <div className={cn("grid w-full", className)}>
       {data.map((item) => (
-        <SpuCard key={item.product_id} item={item} isLoading={false} />
+        <SpuCard key={item.product_id} item={item} isLoading={false} orientation={cardOrientation} />
       ))}
     </div>
   );

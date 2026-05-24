@@ -16,25 +16,40 @@ interface IUseHandlePaginationProps {
   storeKey: string;
 }
 
+const activePaginationInstances = new Map<string, number>();
+
 export function useHandlePagination({ storeKey, initialValue }: IUseHandlePaginationProps) {
   const dispatch = useAppDispatch();
   const { defaultCurrentPage, defaultLimit, defaultTotalItems, isShowDot, isShowLabel, isShowNav } =
     initialValue;
 
   useEffect(() => {
-    dispatch(
-      initPagination({
-        key: storeKey,
-        initialValue: {
-          defaultCurrentPage,
-          defaultLimit,
-          defaultTotalItems,
-        },
-      }),
-    );
+    const activeInstances = activePaginationInstances.get(storeKey) ?? 0;
+    activePaginationInstances.set(storeKey, activeInstances + 1);
+
+    if (activeInstances === 0) {
+      dispatch(
+        initPagination({
+          key: storeKey,
+          initialValue: {
+            defaultCurrentPage,
+            defaultLimit,
+            defaultTotalItems,
+          },
+        }),
+      );
+    }
 
     return () => {
-      dispatch(resetPagination({ key: storeKey }));
+      const nextActiveInstances = Math.max((activePaginationInstances.get(storeKey) ?? 1) - 1, 0);
+
+      if (nextActiveInstances === 0) {
+        activePaginationInstances.delete(storeKey);
+        dispatch(resetPagination({ key: storeKey }));
+        return;
+      }
+
+      activePaginationInstances.set(storeKey, nextActiveInstances);
     };
   }, [dispatch, storeKey, defaultCurrentPage, defaultLimit, defaultTotalItems]);
 
@@ -44,10 +59,9 @@ export function useHandlePagination({ storeKey, initialValue }: IUseHandlePagina
         key: storeKey,
         totalItems: defaultTotalItems,
         limit: defaultLimit,
-        currentPage: defaultCurrentPage,
       }),
     );
-  }, [dispatch, storeKey, defaultCurrentPage, defaultLimit, defaultTotalItems]);
+  }, [dispatch, storeKey, defaultLimit, defaultTotalItems]);
 
   const pagination = useGetPaginationValue({ storeKey });
 

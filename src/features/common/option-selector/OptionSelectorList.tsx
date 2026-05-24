@@ -8,13 +8,38 @@ import { useOptionSelectorContext } from "@/features/common/option-selector/hook
 import { Option } from "@/features/common/option-selector/types";
 
 const OptionSelectorList = () => {
-  const { options } = useOptionSelectorContext();
+  const {
+    options,
+    selectedOptions,
+    validationErrors,
+    handleChooseOption,
+    resetValidationErrors,
+  } = useOptionSelectorContext();
+
+  React.useEffect(() => {
+    if (!Object.keys(validationErrors).length) return;
+
+    const handlePointerDown = () => {
+      resetValidationErrors();
+    };
+
+    window.addEventListener("pointerdown", handlePointerDown, { once: true });
+    return () => window.removeEventListener("pointerdown", handlePointerDown);
+  }, [resetValidationErrors, validationErrors]);
+
   return (
     <CardContent className="p-0 space-y-5 w-full">
       {options.map((_: Option | null, i: number) => {
         return (
-          <React.Fragment key={`${_?.options}_${i}`}>
-            <OptionSelectorCard label={_?.label} value={_?.value as Option[]} index={i} />
+          <React.Fragment key={`${_?.label}-${i}`}>
+            <OptionSelectorCard
+              label={_?.label}
+              value={_?.value as Option[]}
+              index={i}
+              selectedIndex={typeof selectedOptions[i] === "number" ? selectedOptions[i] : null}
+              validationError={validationErrors?.[i]}
+              onChoose={handleChooseOption}
+            />
           </React.Fragment>
         );
       })}
