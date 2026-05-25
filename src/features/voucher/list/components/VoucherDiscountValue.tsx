@@ -1,4 +1,3 @@
-import { Badge } from "@/components/ui/badge";
 import { useTranslation } from "@/lib/hooks";
 import { IVoucherModel } from "@/models/discount";
 import { formatToCurrency } from "@/utils/formats";

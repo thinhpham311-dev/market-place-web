@@ -55,6 +55,7 @@ export default function VoucherListRoot({ children, shopId, limit, page }: IVouc
         vouchers,
         loading,
         error,
+        shopId: resolvedShopId,
         summary,
         claimedVoucherIds,
         handleClaimVoucher,

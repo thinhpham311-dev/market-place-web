@@ -58,7 +58,7 @@ export default function VoucherDetail({
   }
 
   return (
-    <VoucherDetailRoot shopId={shopId} limit={limit} page={page}>
+    <VoucherDetailRoot voucher={voucher}>
     <div className="container mx-auto space-y-5 px-3 py-5 md:px-6">
       <Button asChild variant="ghost" className="px-0">
         <Link href={`/user/vouchers${voucher.shopId ? `?shopId=${voucher.shopId}` : ""}`}>

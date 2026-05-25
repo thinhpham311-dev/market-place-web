@@ -1,9 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import ProGrid from "@/features/product/components/ProGrid";
-import { useParams, useSearchParams } from "next/navigation";
 import { useTranslation } from "@/lib/hooks";
 import { useFetchData } from "@/features/voucher/detail/hooks";
 

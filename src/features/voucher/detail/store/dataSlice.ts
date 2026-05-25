@@ -41,7 +41,7 @@ const dataSlice = createSlice({
       .addCase(getVoucherProducts.fulfilled, (state, action) => {
         const { list, total } = action.payload.metadata;
         state.loading = false;
-        state.data = action.payload;
+        state.data = list;
         state.total = total;
         state.status = "success";
       })
