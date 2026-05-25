@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 // Actions and selectors
 import { getProductListByCategories } from "../store/dataSlice";
 import { selectProByCategoryIdByStoreKey } from "../store/selectors";
-import { useGetPaginationValue } from "@/features/common/pagination/hooks";
+import { useGetPaginationValue } from "@/features/common/pagination/hooks/index";
 // import { useGetSortByValue } from "@/features/common/sort-by/hooks";
 import { useGetFilterValue } from "@/features/common/filter/hooks";
 // Reducer & constants

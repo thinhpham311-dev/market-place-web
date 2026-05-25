@@ -5,7 +5,7 @@ import { Flame, TimerReset, Zap } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import Pagination from "@/features/common/pagination";
+import Pagination from "@/features/common/pagination/index";
 import ProGrid from "@/features/product/components/ProGrid";
 import { FLASH_SALE_LIST } from "@/features/flash-sale/constants";
 import { useFetchData } from "@/features/product/list/hot-deal/hooks";
