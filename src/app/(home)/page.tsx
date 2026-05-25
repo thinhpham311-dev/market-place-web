@@ -14,13 +14,15 @@ const ShopLiveSection = dynamic(() => import("@/features/shop-live"), {
 
 export default function HomePage() {
   return (
-    <div className="space-y-5  container mx-auto">
-      <Advertisement />
-      <CatPopularList />
-      <ProHotDealList />
-      <ShopLiveSection />
-      <ProPopularList />
-      <ProSuggestionList />
+    <div className="space-y-5">
+      <div className="container mx-auto space-y-5">
+        <Advertisement />
+        <CatPopularList />
+        <ProHotDealList />
+        <ShopLiveSection />
+        <ProPopularList />
+        <ProSuggestionList />
+      </div>
       <BrandListSection />
     </div>
   );

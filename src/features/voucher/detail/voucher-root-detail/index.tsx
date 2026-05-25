@@ -1,35 +1,28 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
-import { toast } from "sonner";
-import { useAppSelector, useTranslation } from "@/lib/hooks";
 import { useFetchData } from "@/features/voucher/list/hooks/useFetchData";
 import VoucherListProvider from "@/features/voucher/list/providers";
 
 interface IVoucherDetailRoot{
-    children: React.ReactNode
+    children: React.ReactNode;
+    shopId?: string;
+    limit?: string;
+    page?: string;
 }
 
-export default function VoucherDetailRoot({children}: IVoucherDetailRoot) {
-  const { t } = useTranslation();
-  const searchParams = useSearchParams();
-  const signedIn = useAppSelector((state) => state.auth.session.signedIn);
-  const shopId = searchParams.get("shopId") || undefined;
-  const limit = Number(searchParams.get("limit") || 50);
-  const page = Number(searchParams.get("page") || 1);
+export default function VoucherDetailRoot({ children, shopId, limit, page }: IVoucherDetailRoot) {
+  const resolvedShopId = shopId || undefined;
+  const resolvedLimit = Number(limit || 50);
+  const resolvedPage = Number(page || 1);
   const {
     vouchers,
     loading,
     error,
-    shopId: resolvedShopId,
   } = useFetchData({
-    shopId,
-    limit: Number.isFinite(limit) && limit > 0 ? limit : 50,
-    page: Number.isFinite(page) && page > 0 ? page : 1,
+    shopId: resolvedShopId,
+    limit: Number.isFinite(resolvedLimit) && resolvedLimit > 0 ? resolvedLimit : 50,
+    page: Number.isFinite(resolvedPage) && resolvedPage > 0 ? resolvedPage : 1,
   });
-  const [claimedVoucherIds, setClaimedVoucherIds] = useState<string[]>([]);
-
   
   return (
     <VoucherListProvider
@@ -38,7 +31,7 @@ export default function VoucherDetailRoot({children}: IVoucherDetailRoot) {
         loading,
         error,
         shopId: resolvedShopId,
-        claimedVoucherIds,
+        claimedVoucherIds: [],
       }}
     >
         {children}

@@ -1,6 +1,6 @@
 "use client";
-import { useMemo, startTransition } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useRef, startTransition } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
 import { Compass } from "lucide-react";
 
@@ -18,31 +18,90 @@ import {
 import { useTranslation } from "@/lib/hooks";
 import { quickFilters, trustPoints } from "@/features/product/list/daily-discover/constants";
 import type { DailyDiscoverFilterKey } from "@/features/product/list/daily-discover/types";
+import { useGetPaginationValue } from "@/features/common/pagination/hooks";
+import { useAppDispatch } from "@/lib/hooks";
+import { setPage } from "@/features/common/pagination/store/stateSlice";
+import { withEnsureInit } from "@/features/common/pagination/helpers";
 
-export default function DailyDiscover() {
+const getPageFromValue = (value?: string | null) => {
+  const parsedPage = Number(value);
+  return Number.isInteger(parsedPage) && parsedPage > 0 ? parsedPage : 1;
+};
+
+function PaginationUrlSync({ initialPage }: { initialPage: number }) {
+  const pathname = usePathname();
+  const { currentPage } = useGetPaginationValue({
+    storeKey: DAILY_DISCOVER_LIST,
+    initialValue: {
+      currentPage: initialPage,
+      limit: 18,
+      totalItems: 0,
+      totalPages: 1,
+      pages: [],
+    },
+  });
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const urlPage = getPageFromValue(params.get("page"));
+
+    if (urlPage === currentPage) {
+      return;
+    }
+
+    params.set("page", String(currentPage));
+    const nextUrl = params.toString() ? `${pathname}?${params.toString()}` : pathname;
+
+    window.history.replaceState(window.history.state, "", nextUrl);
+  }, [currentPage, pathname]);
+
+  return null;
+}
+
+export default function DailyDiscover({
+  initialPage = 1,
+  initialTab,
+}: {
+  initialPage?: number;
+  initialTab?: string;
+}) {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const previousActiveFilterRef = useRef<DailyDiscoverFilterKey | null>(null);
   const availableFilterKeys = useMemo(() => quickFilters.map((filter) => filter.key), []);
-  const queryTab = searchParams.get("tab");
   const activeFilter =
-    queryTab && availableFilterKeys.includes(queryTab as DailyDiscoverFilterKey)
-      ? (queryTab as DailyDiscoverFilterKey)
+    initialTab && availableFilterKeys.includes(initialTab as DailyDiscoverFilterKey)
+      ? (initialTab as DailyDiscoverFilterKey)
       : DEFAULT_FILTER_KEY;
+  const { currentPage } = useGetPaginationValue({
+    storeKey: DAILY_DISCOVER_LIST,
+    initialValue: {
+      currentPage: initialPage,
+      limit: 18,
+      totalItems: 0,
+      totalPages: 1,
+      pages: [],
+    },
+  });
 
   const handleSelectFilter = (filterKey: DailyDiscoverFilterKey) => {
     if (filterKey === activeFilter) {
       return;
     }
 
-    const nextParams = new URLSearchParams(searchParams.toString());
+    const nextParams = new URLSearchParams(
+      typeof window !== "undefined" ? window.location.search : "",
+    );
+    nextParams.set("tab", filterKey);
+    nextParams.set("page", "1");
 
-    if (filterKey === DEFAULT_FILTER_KEY) {
-      nextParams.delete("tab");
-    } else {
-      nextParams.set("tab", filterKey);
-    }
+    dispatch(withEnsureInit(setPage({ key: DAILY_DISCOVER_LIST, page: 1 }), [DAILY_DISCOVER_LIST]));
 
     const nextQuery = nextParams.toString();
 
@@ -50,6 +109,19 @@ export default function DailyDiscover() {
       router.replace(nextQuery ? `${pathname}?${nextQuery}` : pathname, { scroll: false });
     });
   };
+
+  useEffect(() => {
+    if (previousActiveFilterRef.current === null) {
+      previousActiveFilterRef.current = activeFilter;
+      return;
+    }
+
+    if (previousActiveFilterRef.current !== activeFilter && currentPage !== 1) {
+      dispatch(withEnsureInit(setPage({ key: DAILY_DISCOVER_LIST, page: 1 }), [DAILY_DISCOVER_LIST]));
+    }
+
+    previousActiveFilterRef.current = activeFilter;
+  }, [activeFilter, currentPage, dispatch]);
 
   const activeFilterConfig =
     quickFilters.find((filter: any) => filter.key === activeFilter) ?? quickFilters[0];
@@ -62,6 +134,7 @@ export default function DailyDiscover() {
   } = useFetchData({
     storeKey: DAILY_DISCOVER_LIST,
     defaultLimit: 18,
+    defaultCurrentPage: initialPage,
     sortBy: activeFilterConfig.sortBy,
   });
 
@@ -83,6 +156,7 @@ export default function DailyDiscover() {
 
   return (
     <div className="container mx-auto my-5 space-y-5 px-3 md:px-6">
+      <PaginationUrlSync initialPage={initialPage} />
       <section className="overflow-hidden rounded-[28px] border border-orange-200 bg-gradient-to-br from-orange-50 via-white to-amber-100">
         <div className="grid gap-6 px-5 py-8 md:grid-cols-[1.2fr_0.8fr] md:px-8 md:py-10">
           <div className="space-y-4">
@@ -191,7 +265,7 @@ export default function DailyDiscover() {
               isShowNav: true,
               isShowLabel: true,
               defaultLimit: 18,
-              defaultCurrentPage: 1,
+              defaultCurrentPage: initialPage,
               defaultTotalItems: totalItems,
             }}
           />

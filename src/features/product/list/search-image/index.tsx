@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
 import { Camera, Search as SearchIcon } from "lucide-react";
 
 import { useTranslation } from "@/lib/hooks";
@@ -19,15 +18,19 @@ import {
 
 import { SEARCH_IMAGE_SESSION_KEY } from "@/constants/app/app.constant";
 
-export default function SearchPageContent() {
+export default function SearchPageContent({
+  keyword: initialKeyword,
+  imageName: initialImageName,
+  imageSearch,
+}: {
+  keyword?: string;
+  imageName?: string;
+  imageSearch?: string;
+}) {
   const { t } = useTranslation();
-  const searchParams = useSearchParams();
-
-  const keyword = useMemo(() => searchParams.get("keyword")?.trim() ?? "", [searchParams]);
-
-  const imageName = useMemo(() => searchParams.get("imageName")?.trim() ?? "", [searchParams]);
-
-  const isImageSearch = searchParams.get("imageSearch") === "1";
+  const keyword = useMemo(() => initialKeyword?.trim() ?? "", [initialKeyword]);
+  const imageName = useMemo(() => initialImageName?.trim() ?? "", [initialImageName]);
+  const isImageSearch = imageSearch === "1";
 
   const [imagePreview, setImagePreview] = useState("");
 

@@ -25,6 +25,22 @@ const CategoryButton: React.FC<CategoryButtonProps> = ({
   className,
 }) => {
   const router = useRouter();
+  const hasValidCategory = Boolean(category && lastId);
+  const { category_id, category_slug, category_name, ancestors } = category ?? {};
+  const ancestorsPath =
+    Array.isArray(ancestors) && ancestors.length > 0 ? `${ancestors.join(".")}.` : "";
+  const href = hasValidCategory
+    ? `/categories/${category_slug}-cat.${ancestorsPath}${category_id}`
+    : "";
+  const isCurrent = hasValidCategory ? category_id === lastId : false;
+
+  React.useEffect(() => {
+    if (!href || isCurrent) {
+      return;
+    }
+
+    router.prefetch(href);
+  }, [href, isCurrent, router]);
 
   if (!lastId) return null;
 
@@ -35,17 +51,6 @@ const CategoryButton: React.FC<CategoryButtonProps> = ({
   if (!category) {
     return <NotFound />;
   }
-
-  const { category_id, category_slug, category_name, ancestors } = category;
-  const ancestorsPath = ancestors && ancestors.length > 0 ? `${ancestors.join(".")}.` : "";
-  const href = `/categories/${category_slug}-cat.${ancestorsPath}${category_id}`;
-  const isCurrent = category_id === lastId;
-
-  React.useEffect(() => {
-    if (!isCurrent) {
-      router.prefetch(href);
-    }
-  }, [href, isCurrent, router]);
 
   const handlePrefetch = () => {
     if (!isCurrent) {

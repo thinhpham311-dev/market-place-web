@@ -1,17 +1,19 @@
-"use client";
-
-import { useMemo } from "react";
-import { useSearchParams } from "next/navigation";
-
 import CheckOtpCard from "@/features/auth/check-otp/components/CheckOtpCard";
 
-export default function Page() {
-  const searchParams = useSearchParams();
-  const email = useMemo(() => searchParams.get("email") || "", [searchParams]);
+interface PageProps {
+  searchParams?: {
+    email?: string | string[];
+  };
+}
 
+const getEmailFromSearchParams = (email?: string | string[]) => {
+  return Array.isArray(email) ? email[0] ?? "" : email ?? "";
+};
+
+export default function Page({ searchParams }: PageProps) {
   return (
     <div className="container mx-auto p-3 md:p-6">
-      <CheckOtpCard email={email} />
+      <CheckOtpCard email={getEmailFromSearchParams(searchParams?.email)} />
     </div>
   );
 }

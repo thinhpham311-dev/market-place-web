@@ -11,12 +11,21 @@ import { useGetFilterValue } from "@/features/common/filter/hooks";
 import reducer from "@/features/product/list/by-category-id/store";
 import { injectReducer, removeReducer } from "@/store";
 import { PRO_LIST_BY_CATEGORYID } from "@/features/product/list/by-category-id/constants";
+import type { Sort } from "@/features/common/sort-by/types";
+import { useGetSortByValue } from "@/features/common/sort-by/hooks";
+import { SORTBY_OPTIONS } from "../constants";
 
 interface UseFetchDataParams {
   lastId?: string;
+  initialPage?: number;
+  initialSort?: Sort;
 }
 
-export function useFetchData({ lastId }: UseFetchDataParams) {
+export function useFetchData({
+  lastId,
+  initialPage = 1,
+  initialSort = SORTBY_OPTIONS[0],
+}: UseFetchDataParams) {
   const dispatch = useAppDispatch();
   const [resolvedRequestKey, setResolvedRequestKey] = useState<string | null>(null);
 
@@ -31,11 +40,24 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
   // Selectors
   const { currentPage = 1, limit = 20 } = useGetPaginationValue({
     storeKey: PRO_LIST_BY_CATEGORYID,
+    initialValue: {
+      currentPage: initialPage,
+      limit: 20,
+      pages: [],
+      totalItems: 0,
+      totalPages: 1,
+    },
   });
 
   const { filter } = useGetFilterValue({ storeKey: PRO_LIST_BY_CATEGORYID });
 
-  // const { sortBy } = useGetSortByValue({ storeKey: PRO_LIST_BY_CATEGORYID });
+  const { sortBy } = useGetSortByValue({
+    storeKey: PRO_LIST_BY_CATEGORYID,
+    initialState: {
+      data: SORTBY_OPTIONS,
+      sortBy: initialSort,
+    },
+  });
 
   const {
     products = [],
@@ -46,8 +68,8 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
   } = useAppSelector(selectProByCategoryIdByStoreKey(PRO_LIST_BY_CATEGORYID));
 
   const requestKey = useMemo(
-    () => JSON.stringify({ lastId, currentPage, limit, filter }),
-    [lastId, currentPage, limit, filter],
+    () => JSON.stringify({ lastId, currentPage, limit, filter, sortBy }),
+    [lastId, currentPage, limit, filter, sortBy],
   );
 
   const isRequestLoading = Boolean(lastId) && resolvedRequestKey !== requestKey;
@@ -62,7 +84,7 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
     const promise = dispatch(
       getProductListByCategories({
         limit,
-        // sortBy,
+        sortBy,
         page: currentPage,
         filter,
         ids: lastId,
@@ -81,7 +103,7 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
     requestKey,
     lastId,
     filter,
-    // sortBy,
+    sortBy,
     currentPage,
     limit,
   ]);

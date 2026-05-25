@@ -1,14 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
-import { useParams, useSearchParams } from "next/navigation";
+import { useMemo } from "react";
 import { ChevronLeft } from "lucide-react";
-import { toast } from "sonner";
 
 import NotFound from "@/components/layout/notfound";
 import { Button } from "@/components/ui/button";
-import { useAppSelector, useTranslation } from "@/lib/hooks";
+import { useTranslation } from "@/lib/hooks";
 
 import { useFetchData as useFetchVoucherList } from "@/features/voucher/list/hooks/useFetchData";
 import VoucherDetailHero from "@/features/voucher/detail/components/VoucherDetailHero";
@@ -18,13 +16,18 @@ import VoucherTermsCard from "@/features/voucher/detail/components/VoucherTermsC
 import VoucherUsageCard from "@/features/voucher/detail/components/VoucherUsageCard";
 import VoucherDetailRoot from "./voucher-root-detail";
 
-export default function VoucherDetail() {
+export default function VoucherDetail({
+  voucherId = "",
+  shopId = "",
+  limit,
+  page,
+}: {
+  voucherId?: string;
+  shopId?: string;
+  limit?: string;
+  page?: string;
+}) {
   const { t } = useTranslation();
-  const params = useParams<{ id?: string }>();
-  const searchParams = useSearchParams();
-
-  const voucherId = typeof params?.id === "string" ? params.id : "";
-  const shopId = searchParams.get("shopId") || "";
 
   const {
     vouchers,
@@ -32,8 +35,8 @@ export default function VoucherDetail() {
     error: voucherError,
   } = useFetchVoucherList({
     shopId,
-    limit: 50,
-    page: 1,
+    limit: Number.isFinite(Number(limit)) && Number(limit) > 0 ? Number(limit) : 50,
+    page: Number.isFinite(Number(page)) && Number(page) > 0 ? Number(page) : 1,
   });
 
   const voucher = useMemo(
@@ -55,7 +58,7 @@ export default function VoucherDetail() {
   }
 
   return (
-    <VoucherDetailRoot>
+    <VoucherDetailRoot shopId={shopId} limit={limit} page={page}>
     <div className="container mx-auto space-y-5 px-3 py-5 md:px-6">
       <Button asChild variant="ghost" className="px-0">
         <Link href={`/user/vouchers${voucher.shopId ? `?shopId=${voucher.shopId}` : ""}`}>

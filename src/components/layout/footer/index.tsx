@@ -94,7 +94,7 @@ export default function Footer() {
   }));
 
   return (
-    <footer className="mt-12 border-t bg-muted/30">
+    <footer className=" border-t bg-muted/30">
       <div className="border-b bg-background">
         <div className="container mx-auto grid gap-3 px-6 py-4 md:grid-cols-2 xl:grid-cols-4">
           <FooterBadge icon={Truck} label={t("footer_badge_nationwide_delivery")} />

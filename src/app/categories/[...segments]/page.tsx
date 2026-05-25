@@ -9,6 +9,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 interface PageProps {
   params: { segments?: string[] };
+  searchParams?: {
+    page?: string | string[];
+    sort?: string | string[];
+  };
 }
 
 function ProListSkeleton() {
@@ -33,8 +37,21 @@ function ProListSkeleton() {
   );
 }
 
-export default function Page({ params }: PageProps) {
+const getPageFromSearchParams = (page?: string | string[]) => {
+  const rawPage = Array.isArray(page) ? page[0] : page;
+  const parsedPage = Number(rawPage);
+
+  return Number.isInteger(parsedPage) && parsedPage > 0 ? parsedPage : 1;
+};
+
+const getSortFromSearchParams = (sort?: string | string[]) => {
+  return Array.isArray(sort) ? sort[0] : sort;
+};
+
+export default function Page({ params, searchParams }: PageProps) {
   const fullSlug = params?.segments?.join("/") || "";
+  const currentPage = getPageFromSearchParams(searchParams?.page);
+  const currentSort = getSortFromSearchParams(searchParams?.sort);
 
   const match = fullSlug.match(/(.*)-cat\.([\w.]+)/);
 
@@ -54,7 +71,11 @@ export default function Page({ params }: PageProps) {
     <div className="space-y-5 container mx-auto my-5">
       <CatByCategoryId ids={ids} />
       <Suspense fallback={<ProListSkeleton />}>
-        <ProListByCategoryId lastId={lastId} />
+        <ProListByCategoryId
+          lastId={lastId}
+          initialPage={currentPage}
+          initialSortValue={currentSort}
+        />
       </Suspense>
       <BrandListSection titleKey="shop_by_brand" descriptionKey="shop_by_brand_desc" compact />
     </div>
