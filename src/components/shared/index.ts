@@ -1,6 +1,6 @@
-export * from "./Form";
+export * from "./form";
 export * from "../ui/navigation-menu";
-export { default as Logo } from "./Logo";
+export { default as Logo } from "./logo";
 export { default as SearchForm } from "./SearchForm";
 export { default as ThemeToggle } from "./ThemeToggle";
 export { default as UserDropdown } from "./UserDropdown";
