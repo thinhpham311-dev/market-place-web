@@ -22,7 +22,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { LinkMenuItem, MenuItem } from "@/interfaces/common/menu.interface";
 import { useTranslation } from "@/lib/hooks/use-translation";
-import { useFetchData } from "@/features/category/list/popular/hooks";
+import { useFetchData } from "@/features/category/list/all/hooks";
 import { useSidebarShops } from "./hooks/useSidebarShops";
 import { buildCategoryMenuItems } from "@/features/category/utils/build-category-menu-items";
 
@@ -124,7 +124,10 @@ export default function SidebarNavigation() {
     ],
     [t],
   );
-  const menuToRender = isUserPage ? profileMenuItems : items;
+  const menuToRender = useMemo(
+    () => (isUserPage ? [...items, ...profileMenuItems] : items),
+    [isUserPage, items, profileMenuItems],
+  );
 
   return (
     <Sidebar aria-label={t("sidebar_main_navigation")}>

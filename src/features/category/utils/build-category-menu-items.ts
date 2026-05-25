@@ -11,28 +11,23 @@ export function buildCategoryMenuItems(categories: Category[], fallbackTitle: st
     return `/categories/${category.category_slug}-cat.${categoryIds.join(".")}`;
   };
 
-  const parentCategories: Category[] = [];
-  const childrenByParentId = new Map<string, LinkMenuItem[]>();
-
-  categories.forEach((category: Category) => {
-    if (!category.parent_id || !category.isLeaf || category.level === 0) {
-      parentCategories.push(category);
-      return;
-    }
-
-    const existingChildren = childrenByParentId.get(category.parent_id) ?? [];
-    existingChildren.push({
-      type: "link",
-      title: category.category_name || fallbackTitle,
-      url: buildCategoryUrl(category),
-    });
-    childrenByParentId.set(category.parent_id, existingChildren);
-  });
+  const parentCategories = categories.filter(
+    (category) => !category.parent_id || category.level === 0,
+  );
 
   return parentCategories.map((parent: Category) => {
-    const children = childrenByParentId.get(parent.category_id) ?? [];
+    const directChildren =
+      (parent.children?.length ?? 0) > 0
+        ? parent.children!
+        : categories.filter((category) => category.parent_id === parent.category_id);
 
-    if (children.length === 0) {
+    const childMenuItems: LinkMenuItem[] = directChildren.map((child) => ({
+      type: "link",
+      title: child.category_name || fallbackTitle,
+      url: buildCategoryUrl(child),
+    }));
+
+    if (childMenuItems.length === 0) {
       return {
         type: "link" as const,
         title: parent.category_name || fallbackTitle,
@@ -43,7 +38,8 @@ export function buildCategoryMenuItems(categories: Category[], fallbackTitle: st
     return {
       type: "group" as const,
       title: parent.category_name || fallbackTitle,
-      children,
+      url: buildCategoryUrl(parent),
+      children: childMenuItems,
     };
   });
 }

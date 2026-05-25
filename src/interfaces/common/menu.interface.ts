@@ -10,6 +10,7 @@ export interface LinkMenuItem extends BaseMenuItem {
 
 export interface GroupMenuItem extends BaseMenuItem {
   type: "group";
+  url?: string;
   children?: MenuItem[];
 }
 

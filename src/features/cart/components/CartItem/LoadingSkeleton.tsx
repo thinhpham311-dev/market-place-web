@@ -8,7 +8,7 @@ export default function LoadingSkeleton() {
     <div className="space-y-4">
       <Card className="grid grid-cols-5 grid-rows-2 items-center gap-x-3 p-3 md:grid-cols-4 gap-3">
         <CardHeader className="col-span-2 row-span-2 md:col-span-1">
-          <Skeleton className="h-[60px] w-[60px] rounded-md" />
+          <Skeleton className="aspect-square rounded-md" />
         </CardHeader>
         <CardContent className="col-span-3 row-span-3 space-y-3 p-0 md:col-span-3">
           <div className="grid grid-cols-6 grid-rows-3 items-center gap-2">

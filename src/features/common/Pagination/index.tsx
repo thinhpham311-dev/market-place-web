@@ -33,4 +33,19 @@ const Pagination = ({ storeKey, initialValue }: IPaginationCustomProps) => {
   );
 };
 
-export default Pagination;
+export default React.memo(Pagination, (prevProps, nextProps) => {
+  if (prevProps.storeKey !== nextProps.storeKey) return false;
+  if (prevProps.className !== nextProps.className) return false;
+
+  const prevVal = prevProps.initialValue;
+  const nextVal = nextProps.initialValue;
+
+  return (
+    prevVal?.defaultTotalItems === nextVal?.defaultTotalItems &&
+    prevVal?.defaultLimit === nextVal?.defaultLimit &&
+    prevVal?.defaultCurrentPage === nextVal?.defaultCurrentPage &&
+    prevVal?.isShowDot === nextVal?.isShowDot &&
+    prevVal?.isShowNav === nextVal?.isShowNav &&
+    prevVal?.isShowLabel === nextVal?.isShowLabel
+  );
+});

@@ -13,23 +13,43 @@ function isMenuItemActive(item: MenuItem, pathname: string): boolean {
     return pathname === item.url;
   }
 
+  if (item.url && pathname === item.url) {
+    return true;
+  }
+
   return item.children?.some((child) => isMenuItemActive(child, pathname)) ?? false;
 }
 
 function MenuItems({ item, pathname }: SidebarMenuItemProps) {
   if (item.type === "group") {
     const isActiveGroup = isMenuItemActive(item, pathname);
+    const isParentLinkActive = Boolean(item.url && pathname === item.url);
 
     return (
       <SidebarMenuItem>
-        <div
-          className={`flex items-center space-x-2 rounded-md p-2 font-medium ${
-            isActiveGroup ? "bg-sidebar-accent text-sidebar-accent-foreground" : ""
-          }`}
-        >
-          {item.icon && <item.icon className="h-5 w-5" />}
-          <span>{item.title}</span>
-        </div>
+        {item.url ? (
+          <SidebarMenuButton asChild isActive={isParentLinkActive}>
+            <Link
+              href={item.url}
+              className={`flex items-center space-x-2 rounded-md p-2 font-medium ${
+                isActiveGroup ? "bg-sidebar-accent text-sidebar-accent-foreground" : ""
+              }`}
+              aria-current={isParentLinkActive ? "page" : undefined}
+            >
+              {item.icon && <item.icon className="h-5 w-5" aria-hidden />}
+              <span>{item.title}</span>
+            </Link>
+          </SidebarMenuButton>
+        ) : (
+          <div
+            className={`flex items-center space-x-2 rounded-md p-2 font-medium ${
+              isActiveGroup ? "bg-sidebar-accent text-sidebar-accent-foreground" : ""
+            }`}
+          >
+            {item.icon && <item.icon className="h-5 w-5" />}
+            <span>{item.title}</span>
+          </div>
+        )}
 
         <ul className="ml-4 border-l pl-4">
           {item.children?.map((child) => (

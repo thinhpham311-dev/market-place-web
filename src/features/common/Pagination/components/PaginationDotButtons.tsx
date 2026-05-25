@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 import { usePaginationContext } from "@/features/common/pagination/hooks";
 
-export default function PaginationDotButtons() {
+const PaginationDotButtons = () => {
   const { currentPage, pages, setPage, isShowDot } = usePaginationContext();
 
   const handlePageChange = (page: number) => {
@@ -40,4 +40,6 @@ export default function PaginationDotButtons() {
       </>
     );
   }
-}
+};
+
+export default React.memo(PaginationDotButtons);

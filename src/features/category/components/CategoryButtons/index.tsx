@@ -42,7 +42,6 @@ const CategoryButtons: React.FC<ButtonsProps> = ({ data = [], ids, error, isLoad
               isLoading={isLoading}
               category={current}
               isActive={current.category_id === lastId}
-              lastId={lastId}
             />
           </div>
         </CardContent>
@@ -63,7 +62,6 @@ const CategoryButtons: React.FC<ButtonsProps> = ({ data = [], ids, error, isLoad
                   isLoading={isLoading}
                   category={category}
                   isActive={category?.category_id === lastId}
-                  lastId={lastId}
                 />
               ))}
             <ScrollBar orientation="horizontal" />

@@ -5,7 +5,7 @@ import { PaginationItem } from "@/components/ui/pagination";
 import { Label } from "@/components/ui/label";
 import { usePaginationContext } from "@/features/common/pagination/hooks";
 
-export default function PaginationLabel() {
+const PaginationLabel = () => {
   const { currentPage, totalItems, limit, isShowLabel } = usePaginationContext();
 
   const hasItems = totalItems > 0;
@@ -21,4 +21,6 @@ export default function PaginationLabel() {
       </PaginationItem>
     );
   }
-}
+};
+
+export default React.memo(PaginationLabel);

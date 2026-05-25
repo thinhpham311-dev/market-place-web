@@ -28,7 +28,13 @@ const getPageFromValue = (value?: string | null) => {
   return Number.isInteger(parsedPage) && parsedPage > 0 ? parsedPage : 1;
 };
 
-function PaginationUrlSync({ initialPage }: { initialPage: number }) {
+function PaginationUrlSync({
+  initialPage,
+  activeFilter,
+}: {
+  initialPage: number;
+  activeFilter: string;
+}) {
   const pathname = usePathname();
   const { currentPage } = useGetPaginationValue({
     storeKey: DAILY_DISCOVER_LIST,
@@ -47,17 +53,24 @@ function PaginationUrlSync({ initialPage }: { initialPage: number }) {
     }
 
     const params = new URLSearchParams(window.location.search);
-    const urlPage = getPageFromValue(params.get("page"));
+    const rawPage = params.get("page");
+    const urlPage = getPageFromValue(rawPage);
+    const urlTab = params.get("tab");
 
-    if (urlPage === currentPage) {
+    if (
+      rawPage === String(currentPage) &&
+      urlPage === currentPage &&
+      urlTab === activeFilter
+    ) {
       return;
     }
 
     params.set("page", String(currentPage));
+    params.set("tab", activeFilter);
     const nextUrl = params.toString() ? `${pathname}?${params.toString()}` : pathname;
 
     window.history.replaceState(window.history.state, "", nextUrl);
-  }, [currentPage, pathname]);
+  }, [currentPage, activeFilter, pathname]);
 
   return null;
 }
@@ -123,6 +136,10 @@ export default function DailyDiscover({
     previousActiveFilterRef.current = activeFilter;
   }, [activeFilter, currentPage, dispatch]);
 
+  useEffect(() => {
+    dispatch(withEnsureInit(setPage({ key: DAILY_DISCOVER_LIST, page: initialPage }), [DAILY_DISCOVER_LIST]));
+  }, [dispatch, initialPage]);
+
   const activeFilterConfig =
     quickFilters.find((filter: any) => filter.key === activeFilter) ?? quickFilters[0];
 
@@ -156,7 +173,7 @@ export default function DailyDiscover({
 
   return (
     <div className="container mx-auto my-5 space-y-5 px-3 md:px-6">
-      <PaginationUrlSync initialPage={initialPage} />
+      <PaginationUrlSync initialPage={initialPage} activeFilter={activeFilter} />
       <section className="overflow-hidden rounded-[28px] border border-orange-200 bg-gradient-to-br from-orange-50 via-white to-amber-100">
         <div className="grid gap-6 px-5 py-8 md:grid-cols-[1.2fr_0.8fr] md:px-8 md:py-10">
           <div className="space-y-4">

@@ -5,7 +5,7 @@ import { PaginationItem, PaginationNext } from "@/components/ui/pagination";
 import { usePaginationContext } from "@/features/common/pagination/hooks";
 import { cn } from "@/utils/styles";
 
-export default function PaginationNextButton() {
+const PaginationNextButton = () => {
   const { currentPage, pages, setPage, hasNext, isShowNav } = usePaginationContext();
 
   const handleNext = () => {
@@ -26,4 +26,6 @@ export default function PaginationNextButton() {
       </PaginationItem>
     );
   }
-}
+};
+
+export default React.memo(PaginationNextButton);

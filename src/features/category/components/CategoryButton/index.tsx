@@ -12,7 +12,6 @@ import NotFound from "./NotFound";
 interface CategoryButtonProps {
   category: Category;
   isActive: boolean;
-  lastId?: string;
   isLoading?: boolean;
   className?: string;
 }
@@ -20,29 +19,20 @@ interface CategoryButtonProps {
 const CategoryButton: React.FC<CategoryButtonProps> = ({
   category,
   isActive,
-  lastId,
   isLoading,
   className,
 }) => {
   const router = useRouter();
-  const hasValidCategory = Boolean(category && lastId);
+
   const { category_id, category_slug, category_name, ancestors } = category ?? {};
-  const ancestorsPath =
-    Array.isArray(ancestors) && ancestors.length > 0 ? `${ancestors.join(".")}.` : "";
-  const href = hasValidCategory
-    ? `/categories/${category_slug}-cat.${ancestorsPath}${category_id}`
-    : "";
-  const isCurrent = hasValidCategory ? category_id === lastId : false;
+  const ancestorsPath = ancestors?.length ? `${ancestors.join(".")}.` : "";
+  const href = category_id ? `/categories/${category_slug}-cat.${ancestorsPath}${category_id}` : "";
 
   React.useEffect(() => {
-    if (!href || isCurrent) {
-      return;
+    if (href && !isActive) {
+      router.prefetch(href);
     }
-
-    router.prefetch(href);
-  }, [href, isCurrent, router]);
-
-  if (!lastId) return null;
+  }, [href, isActive, router]);
 
   if (isLoading) {
     return <LoadingSkeleton className="h-10" />;
@@ -53,7 +43,7 @@ const CategoryButton: React.FC<CategoryButtonProps> = ({
   }
 
   const handlePrefetch = () => {
-    if (!isCurrent) {
+    if (href && !isActive) {
       router.prefetch(href);
     }
   };
@@ -63,15 +53,15 @@ const CategoryButton: React.FC<CategoryButtonProps> = ({
       asChild
       className={cn(
         className,
-        " line-clamp-1 text-md",
+        "line-clamp-1 text-md",
         isActive ? "font-bold underline text-primary" : "text-muted-foreground",
       )}
       variant="outline"
-      disabled={isCurrent}
+      disabled={isActive}
     >
       <Link
         href={href}
-        prefetch={!isCurrent}
+        prefetch={!isActive}
         onMouseEnter={handlePrefetch}
         onFocus={handlePrefetch}
       >
