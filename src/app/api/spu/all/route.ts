@@ -7,7 +7,7 @@ const API_NEXT = process.env.NEXT_PUBLIC_BASE_URL;
 
 export async function POST(req: Request): Promise<Response> {
   try {
-    const { limit, sort, page } = await req.json();
+    const { limit, sort, page, search, filter } = await req.json();
 
     if (!API_NEXT) {
       return NextResponse.json(
@@ -16,7 +16,7 @@ export async function POST(req: Request): Promise<Response> {
       );
     }
 
-    const query = qs.stringify({ limit, sort, page });
+    const query = qs.stringify({ limit, sort, page, search, filter }, { skipNulls: true });
     const { data: dataResponse } = await axios.get(
       `${API_NEXT}/v1/api/product/spu/all/list?${query}`,
       {

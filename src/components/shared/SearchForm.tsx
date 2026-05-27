@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { useFormContext } from "react-hook-form";
 
 //ui
 import { Button } from "@/components/ui/button";
@@ -11,6 +12,9 @@ import { FormGroup, FormSelect, FormInput } from "@/components/shared";
 
 //icons
 import { Camera, Search } from "lucide-react";
+import { useLiveSearch } from "@/hooks/useLiveSearch";
+import { SearchDropdown } from "@/components/SearchDropdown";
+import { cn } from "@/utils/styles";
 
 //libs
 import { z } from "zod";
@@ -19,6 +23,130 @@ import { SEARCH_SESSION_KEY } from "@/constants/app/app.constant";
 
 type SearchFormProps = {
   showCategorySelect?: boolean;
+};
+
+interface SearchInputWrapperProps {
+  showCategorySelect: boolean;
+  searchInputRef: any;
+  shortcutLabel: string;
+  FormSchema: any;
+  t: any;
+}
+
+const SearchInputWrapper: React.FC<SearchInputWrapperProps> = ({
+  showCategorySelect,
+  searchInputRef,
+  shortcutLabel,
+  FormSchema,
+  t,
+}) => {
+  const { watch, setValue } = useFormContext();
+  const textsearch = watch("textsearch") || "";
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const router = useRouter();
+
+  // Hook callbacks
+  const handleSelectProduct = (product: any) => {
+    setValue("textsearch", product.name);
+    const params = new URLSearchParams();
+    params.set("keyword", product.name);
+    router.push(`/search?${params.toString()}`);
+  };
+
+  const handleSearchSubmit = (keyword: string) => {
+    setValue("textsearch", keyword);
+    const params = new URLSearchParams();
+    params.set("keyword", keyword);
+    router.push(`/search?${params.toString()}`);
+  };
+
+  const {
+    query,
+    setQuery,
+    results,
+    loading,
+    error,
+    isOpen,
+    setIsOpen,
+    history,
+    activeIndex,
+    setActiveIndex,
+    handleKeyDown,
+    removeHistoryItem,
+    clearHistory,
+    selectSuggestedProduct,
+    selectHistoryTerm,
+  } = useLiveSearch({
+    onSelectProduct: handleSelectProduct,
+    onSearchSubmit: handleSearchSubmit,
+  });
+
+  // Sync Form State with Live Search query
+  useEffect(() => {
+    setQuery(textsearch);
+  }, [textsearch, setQuery]);
+
+  // Click outside listener
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [setIsOpen]);
+
+  return (
+    <div
+      ref={containerRef}
+      className={cn(
+        "relative",
+        showCategorySelect
+          ? "xl:col-span-9 lg:col-span-8 md:col-span-7 col-span-12"
+          : "col-span-12"
+      )}
+    >
+      <FormInput
+        className="w-full"
+        name="textsearch"
+        placeholder={t("search_placeholder")}
+        inputClassName="pr-20"
+        inputRef={searchInputRef}
+        endAdornment={
+          <div className="absolute inset-y-0 right-3 flex items-center gap-2">
+            {loading && <span className="animate-spin h-4 w-4 border-2 border-primary border-t-transparent rounded-full" />}
+            <span className="pointer-events-none hidden sm:inline-block rounded-md border border-stone-200 bg-stone-50 px-2 py-1 text-[11px] font-medium uppercase tracking-wide text-stone-500 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-400">
+              {shortcutLabel}
+            </span>
+          </div>
+        }
+        formSchema={FormSchema}
+        onKeyDown={handleKeyDown}
+        onFocus={() => {
+          if (query.trim() !== "") setIsOpen(true);
+        }}
+      />
+
+      <SearchDropdown
+        isOpen={isOpen}
+        query={query}
+        results={results}
+        loading={loading}
+        error={error}
+        history={history}
+        activeIndex={activeIndex}
+        onSetActiveIndex={setActiveIndex}
+        onSelectProduct={selectSuggestedProduct}
+        onSelectHistory={(term) => {
+          selectHistoryTerm(term);
+          setValue("textsearch", term);
+        }}
+        onRemoveHistoryItem={removeHistoryItem}
+        onClearHistory={clearHistory}
+      />
+    </div>
+  );
 };
 
 const SearchForm: React.FC<SearchFormProps> = ({ showCategorySelect = false }) => {
@@ -41,11 +169,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ showCategorySelect = false }) =
           }),
         }
       : {}),
-    textsearch: z
-      .string()
-      .trim()
-      .min(2, t("validation_enter_at_least_2_characters"))
-      .max(100, t("validation_enter_no_more_than_100_characters")),
+    textsearch: z.string().trim(),
   });
   const defaultValuesForSearchForm = {
     ...(showCategorySelect ? { categories: "in-market-place" } : {}),
@@ -163,25 +287,12 @@ const SearchForm: React.FC<SearchFormProps> = ({ showCategorySelect = false }) =
         onChange={handleSelectImage}
       />
       <div className="grid grid-cols-12 gap-x-2 flex-1">
-        <FormInput
-          className={
-            showCategorySelect
-              ? "xl:col-span-9 lg:col-span-8 md:col-span-7 col-span-12"
-              : "col-span-12"
-          }
-          name="textsearch"
-          placeholder={t("search_placeholder")}
-          inputClassName="pr-20"
-          inputRef={searchInputRef}
-          endAdornment={
-            <div className="pointer-events-none absolute inset-y-0 right-3 hidden items-center sm:flex">
-              <span className="rounded-md border border-stone-200 bg-stone-50 px-2 py-1 text-[11px] font-medium uppercase tracking-wide text-stone-500 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-400">
-                {shortcutLabel}
-              </span>
-            </div>
-          }
-          formSchema={FormSchema}
-          isRequired
+        <SearchInputWrapper
+          showCategorySelect={showCategorySelect}
+          searchInputRef={searchInputRef}
+          shortcutLabel={shortcutLabel}
+          FormSchema={FormSchema}
+          t={t}
         />
         {showCategorySelect && (
           <FormSelect

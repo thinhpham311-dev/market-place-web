@@ -12,10 +12,12 @@ interface IGetPriceValue {
   initialState?: ISortInitialState;
 }
 
+const DEFAULT_SORTBY_VALUE = createDefault();
+
 export const useGetSortByValue = ({
   reducerKey = SORTBY,
   storeKey,
-  initialState = createDefault(),
+  initialState = DEFAULT_SORTBY_VALUE,
 }: IGetPriceValue) => {
   const state = useAppSelector(selectSortBySelector(reducerKey, storeKey));
 

@@ -11,10 +11,12 @@ interface IGetFilterValue {
   initialValue?: IFilterState;
 }
 
+const DEFAULT_FILTER_VALUE = createDefault();
+
 export const useGetFilterValue = ({
   reducerKey = FILTER,
   storeKey,
-  initialValue = createDefault(),
+  initialValue = DEFAULT_FILTER_VALUE,
 }: IGetFilterValue) => {
   const state = useAppSelector(selectFilterSelector(reducerKey, storeKey));
 

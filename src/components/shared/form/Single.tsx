@@ -56,6 +56,9 @@ interface IFormFieldProps<T extends FieldValues> {
   inputRef?: React.Ref<HTMLInputElement>;
   formSchema?: z.ZodType<T>;
   isRequired?: boolean;
+  onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
 }
 
 interface IFormProps<T extends FieldValues> extends Omit<IFormFieldProps<T>, "name"> {
@@ -112,6 +115,9 @@ export const FormInput = <T extends FieldValues>({
   endAdornment,
   inputRef,
   isRequired = false,
+  onKeyDown,
+  onFocus,
+  onBlur,
 }: IFormFieldProps<T>) => {
   if (!formSchema) {
     throw new Error("formSchema is required for FormInput.");
@@ -158,6 +164,9 @@ export const FormInput = <T extends FieldValues>({
                         : e.target.value;
                       field.onChange(rawValue);
                     }}
+                    onKeyDown={onKeyDown}
+                    onFocus={onFocus}
+                    onBlur={onBlur}
                     required={false}
                     autoComplete="off"
                     ref={inputRef}
