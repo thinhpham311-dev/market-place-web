@@ -11,24 +11,6 @@ export interface ProductItem {
 export interface SearchProductResponse {
   data: ProductItem[];
 }
-
-/**
- * Searches for products (SPUs) based on a keyword.
- * Supports Axios request cancellation via AbortSignal.
- *
- * @param q The search keyword.
- * @param signal AbortSignal to cancel previous requests.
- * @returns Promise containing the AxiosResponse with SearchProductResponse.
- */
-export async function apiSearchProducts(q: string, signal?: AbortSignal) {
-  return ApiService.fetchData<SearchProductResponse>({
-    url: "/v1/api/product/spu/search",
-    method: "get",
-    params: { q },
-    signal,
-  });
-}
-
 /**
  * Fetches search suggestions for autocomplete matching the keyword.
  *
@@ -39,7 +21,7 @@ export async function apiSearchProducts(q: string, signal?: AbortSignal) {
  */
 export async function apiSearchSuggestions(q: string, limit = 5, signal?: AbortSignal) {
   return ApiService.fetchData<SearchProductResponse>({
-    url: "/v1/api/search/suggest",
+    url: "/search/suggest",
     method: "get",
     params: { q, limit },
     signal,
