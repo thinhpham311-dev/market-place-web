@@ -13,7 +13,7 @@ import { FormGroup, FormSelect, FormInput } from "@/components/shared";
 //icons
 import { Camera, Search } from "lucide-react";
 import { useLiveSearch } from "@/hooks/useLiveSearch";
-import { SearchDropdown } from "@/components/shared/SearchForm/SearchDropdown";
+import { SearchDropdown } from "@/components/shared/SearchForm/components/SearchDropdown";
 import { cn } from "@/utils/styles";
 
 //libs

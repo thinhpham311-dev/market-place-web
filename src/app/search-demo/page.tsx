@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
-import { SearchInput } from "@/components/shared/SearchForm/SearchInput";
-import { SearchDropdown } from "@/components/shared/SearchForm/SearchDropdown";
+import { SearchInput } from "@/components/shared/SearchForm/components/SearchInput";
+import { SearchDropdown } from "@/components/shared/SearchForm/components/SearchDropdown";
 import { useLiveSearch } from "@/hooks/useLiveSearch";
 import { ProductItem } from "@/services/product.service";
 import { Terminal, Database, Keyboard, Sparkles, CheckCircle2, History } from "lucide-react";
