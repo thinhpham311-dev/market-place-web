@@ -1,5 +1,4 @@
 "use client";
-import { useMemo } from "react";
 import { useAppSelector } from "@/lib/hooks";
 import { selectPaginationByKey } from "@/features/common/pagination/store/selectors";
 import { createDefault } from "@/features/common/pagination/store/initials";
@@ -22,11 +21,5 @@ export const useGetPaginationValue = ({
 }: IGetPriceValue) => {
   const state = useAppSelector(selectPaginationByKey(reducerKey, storeKey));
 
-  return useMemo(() => {
-    if (!state) {
-      return initialValue;
-    }
-
-    return state;
-  }, [state, initialValue]);
+  return state || initialValue;
 };

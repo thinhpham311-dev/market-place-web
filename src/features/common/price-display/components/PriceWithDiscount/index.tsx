@@ -1,6 +1,5 @@
 "use client";
 
-import { useMemo } from "react";
 import PriceText from "./PriceText";
 import OldPrice from "./OldPrice";
 import DiscountBadge from "./DiscountBadge";
@@ -9,30 +8,21 @@ import { usePriceDisplayContext } from "@/features/common/price-display/hooks";
 const PriceWithDiscount = () => {
   const { defaultPrice, currentPrice, flashSalePrice } = usePriceDisplayContext();
 
-  const { current, old, hasDiscount, discountPercent, isFlashSaleActive } = useMemo(() => {
-    const hasFlashSale = flashSalePrice && flashSalePrice > 0 && flashSalePrice < currentPrice;
+  const hasFlashSale = flashSalePrice && flashSalePrice > 0 && flashSalePrice < currentPrice;
+  const hasDefaultDiscount = !hasFlashSale && defaultPrice && defaultPrice > currentPrice;
 
-    const hasDefaultDiscount = !hasFlashSale && defaultPrice && defaultPrice > currentPrice;
+  const current = hasFlashSale ? flashSalePrice : currentPrice;
+  const old = hasFlashSale ? currentPrice : hasDefaultDiscount ? defaultPrice : undefined;
 
-    const current = hasFlashSale ? flashSalePrice : currentPrice;
-    const old = hasFlashSale ? currentPrice : hasDefaultDiscount ? defaultPrice : undefined;
+  let discountPercent = 0;
+  if (hasFlashSale && currentPrice > 0) {
+    discountPercent = Math.round(((currentPrice - flashSalePrice) / currentPrice) * 100);
+  } else if (hasDefaultDiscount && defaultPrice) {
+    discountPercent = Math.round(((defaultPrice - currentPrice) / defaultPrice) * 100);
+  }
 
-    let discountPercent = 0;
-
-    if (hasFlashSale && currentPrice > 0) {
-      discountPercent = Math.round(((currentPrice - flashSalePrice) / currentPrice) * 100);
-    } else if (hasDefaultDiscount && defaultPrice) {
-      discountPercent = Math.round(((defaultPrice - currentPrice) / defaultPrice) * 100);
-    }
-
-    return {
-      current,
-      old,
-      discountPercent,
-      hasDiscount: discountPercent > 0,
-      isFlashSaleActive: !!hasFlashSale,
-    };
-  }, [defaultPrice, currentPrice, flashSalePrice]);
+  const hasDiscount = discountPercent > 0;
+  const isFlashSaleActive = !!hasFlashSale;
 
   return (
     <div className="price-with-discount">

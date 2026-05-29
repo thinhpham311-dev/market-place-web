@@ -1,6 +1,5 @@
 "use client";
 
-import { useMemo } from "react";
 import useSWR from "swr";
 
 import ApiService from "@/services/ApiService";
@@ -26,5 +25,5 @@ export function useSidebarShops(limit = 8) {
     revalidateOnFocus: false, // Optional: Avoid excessive re-fetches when window gains focus
   });
 
-  return useMemo(() => ({ shops }), [shops]);
+  return { shops };
 }

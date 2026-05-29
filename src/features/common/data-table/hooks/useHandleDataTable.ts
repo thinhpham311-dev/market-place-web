@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useCallback, useMemo } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import {
   setInitialState,
   setGrouping,
@@ -35,8 +35,8 @@ export const useHandleDataTable = ({
   initialColumns = [],
 }: IUseCartTable) => {
   const initializedRef = useRef(false);
-  const data = useMemo(() => initialData, [initialData]);
-  const columns = useMemo(() => initialColumns, [initialColumns]);
+  const data = initialData;
+  const columns = initialColumns;
 
   const dispatch = useAppDispatch();
 

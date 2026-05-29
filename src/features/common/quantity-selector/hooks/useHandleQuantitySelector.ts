@@ -1,6 +1,6 @@
 import { toast } from "sonner";
 
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { IQuantityInitialValue } from "@/features/common/quantity-selector/interfaces";
 import { useAppDispatch } from "@/lib/hooks";
 import { useGetQuantityValue } from "@/features/common/quantity-selector/hooks/useGetQuantityValue";
@@ -82,9 +82,7 @@ export function useHandleQuantitySelector({
     dispatch(withEnsureInit(resetQuantity({ key: storeKey }), [storeKey]));
   }, [dispatch, storeKey]);
 
-  const isDisabledQuantity = useMemo(() => {
-    return !maxQuantity || maxQuantity === 0;
-  }, [maxQuantity]);
+  const isDisabledQuantity = !maxQuantity || maxQuantity === 0;
 
   return {
     isDisabledQuantity,

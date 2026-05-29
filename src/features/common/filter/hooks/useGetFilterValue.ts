@@ -1,5 +1,4 @@
 "use client";
-import { useMemo } from "react";
 import { useAppSelector } from "@/lib/hooks";
 import { selectFilterSelector } from "@/features/common/filter/store/selectors";
 import { IFilterState, createDefault } from "@/features/common/filter/store/initials";
@@ -20,11 +19,5 @@ export const useGetFilterValue = ({
 }: IGetFilterValue) => {
   const state = useAppSelector(selectFilterSelector(reducerKey, storeKey));
 
-  return useMemo(() => {
-    if (!state) {
-      return initialValue;
-    }
-
-    return state;
-  }, [state, initialValue]);
+  return state || initialValue;
 };

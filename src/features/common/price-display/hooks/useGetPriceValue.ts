@@ -1,5 +1,4 @@
 "use client";
-import { useMemo } from "react";
 import { useAppSelector } from "@/lib/hooks";
 import { selectPriceDisplaySelector } from "@/features/common/price-display/store/selectors";
 import { createDefault } from "@/features/common/price-display/store/initials";
@@ -19,11 +18,5 @@ export const useGetPriceValue = ({
 }: IGetPriceValue) => {
   const state = useAppSelector(selectPriceDisplaySelector(reducerKey, storeKey));
 
-  return useMemo(() => {
-    if (!state) {
-      return initialState;
-    }
-
-    return state;
-  }, [state, initialState]);
+  return state || initialState;
 };

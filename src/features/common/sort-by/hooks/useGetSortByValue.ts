@@ -1,5 +1,4 @@
 "use client";
-import { useMemo } from "react";
 import { useAppSelector } from "@/lib/hooks";
 import { selectSortBySelector } from "@/features/common/sort-by/store/selectors";
 import { createDefault } from "@/features/common/sort-by/store/initials";
@@ -21,11 +20,5 @@ export const useGetSortByValue = ({
 }: IGetPriceValue) => {
   const state = useAppSelector(selectSortBySelector(reducerKey, storeKey));
 
-  return useMemo(() => {
-    if (!state) {
-      return initialState;
-    }
-
-    return state;
-  }, [state, initialState]);
+  return state || initialState;
 };

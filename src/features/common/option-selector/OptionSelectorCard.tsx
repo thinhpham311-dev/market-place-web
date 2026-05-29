@@ -27,10 +27,7 @@ function OptionSelectorCard({
   validationError,
   onChoose,
 }: IOptionSelectorProps) {
-  const selectedValue = React.useMemo(
-    () => (typeof selectedIndex === "number" ? value[selectedIndex]?.value : undefined),
-    [selectedIndex, value],
-  );
+  const selectedValue = typeof selectedIndex === "number" ? value[selectedIndex]?.value : undefined;
 
   const handleValueChange = React.useCallback((val?: string) => {
     const idx = value.findIndex((v) => v.value === val);

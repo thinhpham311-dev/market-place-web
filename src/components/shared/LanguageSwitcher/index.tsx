@@ -1,7 +1,5 @@
 "use client";
 
-import { useMemo } from "react";
-
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -24,10 +22,7 @@ const languages = [
 export default function LanguageSwitcher() {
   const currentLang = useAppSelector((state) => state.settings.language.current);
   const { t } = useTranslation();
-  const currentLanguage = useMemo(
-    () => languages.find((lang) => lang.locale === currentLang) ?? languages[0],
-    [currentLang],
-  );
+  const currentLanguage = languages.find((lang) => lang.locale === currentLang) ?? languages[0];
 
   return (
     <DropdownMenu>

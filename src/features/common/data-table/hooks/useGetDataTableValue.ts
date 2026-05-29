@@ -1,5 +1,4 @@
 "use client";
-import { useMemo } from "react";
 import { useAppSelector } from "@/lib/hooks";
 import { selectDataTableStoreKey } from "@/features/common/data-table/store/selectors";
 import { createDefault, IDataTable } from "@/features/common/data-table/store/initials";
@@ -18,11 +17,5 @@ export const useGetDataTableValue = ({
 }: IGetDataTableValue) => {
   const state = useAppSelector(selectDataTableStoreKey(reducerKey, storeKey));
 
-  return useMemo(() => {
-    if (!state) {
-      return initialValue;
-    }
-
-    return state;
-  }, [state, initialValue]);
+  return state || initialValue;
 };

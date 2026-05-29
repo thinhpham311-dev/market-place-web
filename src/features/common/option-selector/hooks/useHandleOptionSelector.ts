@@ -31,10 +31,7 @@ export function useHandleOptionSelector({
   const dispatch = useAppDispatch();
 
   // Memoize derived values
-  const hasDefaultOptions = useMemo(
-    () => defaultOptionIdx.some((value) => value != null),
-    [defaultOptionIdx],
-  );
+  const hasDefaultOptions = defaultOptionIdx.some((value) => value != null);
 
   // Setup reducer
   useEffect(() => {
