@@ -8,7 +8,7 @@ import LoadingSkeleton from "./LoadingSkeleton";
 
 export default function MiniCartContent() {
   const { data, loading, error } = useShoppingCartContext();
-  const { cart_items = [], cart_items_count = 0 } = data;
+  const { cart_items = [], cart_items_count = 5 } = data;
   const showListError = error?.actions.showList;
 
   const { shouldRenderError, errorMessage } = useCartErrorHandler(showListError, "SHOW_LIST");

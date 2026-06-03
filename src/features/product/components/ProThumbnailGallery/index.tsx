@@ -1,5 +1,6 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+
+import React, { useEffect, useRef, useState, memo } from "react";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -22,8 +23,11 @@ import ImageGallery from "react-image-gallery";
 
 injectReducer("gallery", reducer);
 
-export default function ProThumbnailGallery() {
-  const { spu, loading } = useSpuContext();
+function ProThumbnailGallery() {
+  const { spu, loading } = useSpuContext((state) => ({
+    spu: state.spu,
+    loading: state.loading,
+  }));
   const { current, setApi, navigateTo } = useSyncCarousels();
   const [open, setOpen] = useState(false);
   const galleryRef = useRef<ImageGallery | null>(null);
@@ -116,3 +120,5 @@ export default function ProThumbnailGallery() {
     </>
   );
 }
+
+export default memo(ProThumbnailGallery);

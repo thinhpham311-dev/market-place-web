@@ -5,19 +5,15 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function LoadingSkeleton() {
   return (
-    <div className="space-y-4">
-      <Card className="grid grid-cols-5 grid-rows-3 items-center gap-x-3 p-3 md:grid-cols-4 gap-3">
-        <CardHeader className="col-span-2 row-span-2 md:col-span-1">
-          <Skeleton className="aspect-square rounded-md" />
+    <div className="grid grid-cols-1 gap-3">
+      <Card layout="horizontal" className=" justify-start h-full w-full col-span-1 gap-2">
+        <CardHeader className="p-2">
+          <Skeleton className="aspect-square h-full w-full rounded-t-lg " />
         </CardHeader>
-        <CardContent className="col-span-3 row-span-3 space-y-3 md:col-span-3">
-          <div className="grid grid-cols-6 grid-rows-3 items-center gap-2">
-            <Skeleton className="col-span-6 h-5 rounded-md" />
-            <Skeleton className="col-span-3 h-4 rounded-md" />
-            <Skeleton className="col-span-3 h-4 rounded-md" />
-            <Skeleton className="col-span-2 col-start-4 row-span-2 row-end-4 h-9 rounded-md" />
-            <Skeleton className="col-start-6 row-span-2 row-end-4 h-6 w-6 rounded-md justify-self-end" />
-          </div>
+        <CardContent className="p-2 w-full space-y-2">
+          <Skeleton className="h-4 w-full" />
+          <Skeleton className="h-4 w-full" />
+          <Skeleton className="h-4 w-1/3" />
         </CardContent>
       </Card>
     </div>

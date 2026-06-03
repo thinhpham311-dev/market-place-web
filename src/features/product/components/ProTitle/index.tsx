@@ -1,13 +1,19 @@
 "use client";
+
+import React, { memo } from "react";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { useSpuContext } from "@/features/spu/hooks";
 import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
 import { useTranslation } from "@/lib/hooks/use-translation";
 
-export default function ProTitle() {
+function ProTitle() {
   const { t } = useTranslation();
-  const { spu, loading, error } = useSpuContext();
+  const { spu, loading, error } = useSpuContext((state) => ({
+    spu: state.spu,
+    loading: state.loading,
+    error: state.error,
+  }));
   const hasNoData = !spu || Object.keys(spu).length === 0;
   if (loading && hasNoData) {
     return <LoadingSkeleton />;
@@ -30,3 +36,5 @@ export default function ProTitle() {
     </Card>
   );
 }
+
+export default memo(ProTitle);

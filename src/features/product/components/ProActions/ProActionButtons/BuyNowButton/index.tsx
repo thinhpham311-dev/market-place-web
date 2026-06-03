@@ -20,14 +20,19 @@ import { PRO_DETAIL } from "@/features/product/constants";
 import { MdShoppingCartCheckout } from "react-icons/md";
 import { useTranslation } from "@/lib/hooks/use-translation";
 
+const spuSelector = (state: any) => state.spu;
+const skuSelector = (state: any) => state.sku;
+
 const BuyNowButton = () => {
   const { t } = useTranslation();
-  const { spu } = useSpuContext();
-  const { sku } = useSkuContext();
+  const spu = useSpuContext(spuSelector);
+  const sku = useSkuContext(skuSelector);
 
   const { currentQuantity: qty } = useGetQuantityValue({
     storeKey: `${PRO_DETAIL}_${sku?.sku_id}`,
   });
+
+  const icon = useMemo(() => <MdShoppingCartCheckout />, []);
 
   const data: ICartItemModel | null = useMemo(() => {
     if (!spu || !sku) return null;
@@ -39,13 +44,13 @@ const BuyNowButton = () => {
     });
   }, [spu, sku, qty]);
 
-  const isDisabled = !data || qty >= sku.sku_stock;
+  const isDisabled = !data || !sku || qty >= sku.sku_stock;
 
   return (
     <CartBuyNow
       href="/checkout"
       size="lg"
-      icon={<MdShoppingCartCheckout />}
+      icon={icon}
       label={t("product_buy_now")}
       item={data}
       disabled={isDisabled}

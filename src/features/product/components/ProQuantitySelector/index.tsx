@@ -1,5 +1,6 @@
 "use client";
 
+import React, { memo } from "react";
 import { QuantitySelector } from "@/features/common";
 import { PRO_DETAIL } from "@/features/product/constants";
 import { useSkuContext } from "@/features/sku/hooks";
@@ -10,8 +11,14 @@ import { useTranslation } from "@/lib/hooks/use-translation";
 
 const ProQuantitySelector = () => {
   const { t } = useTranslation();
-  const { sku } = useSkuContext();
-  const { spu, loading: spuLoading, error: spuError } = useSpuContext();
+  const { sku } = useSkuContext((state) => ({
+    sku: state.sku,
+  }));
+  const { spu, loading: spuLoading, error: spuError } = useSpuContext((state) => ({
+    spu: state.spu,
+    loading: state.loading,
+    error: state.error,
+  }));
 
   const hasNoData = !spu || Object.keys(spu).length === 0;
   const showLoading = spuLoading && hasNoData;
@@ -27,7 +34,7 @@ const ProQuantitySelector = () => {
       storeKey={`${PRO_DETAIL}_${sku?.sku_id ?? "default"}`}
       initialValue={{
         defaultCurrentQuantity: 1,
-        maxQuantity: sku?.sku_stock,
+        maxQuantity: sku?.sku_stock ?? 0,
       }}
       title={t("product_quantity")}
       layout="horizontal"
@@ -35,4 +42,4 @@ const ProQuantitySelector = () => {
   );
 };
 
-export default ProQuantitySelector;
+export default memo(ProQuantitySelector);

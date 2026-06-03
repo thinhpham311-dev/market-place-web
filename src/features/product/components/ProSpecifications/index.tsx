@@ -1,5 +1,6 @@
 "use client";
-import * as React from "react";
+
+import React, { memo } from "react";
 import { Card, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import SpecificationItem from "./SpecificationItem";
 import { useSpuContext } from "@/features/spu/hooks";
@@ -8,9 +9,13 @@ import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
 import { useTranslation } from "@/lib/hooks/use-translation";
 
-export default function ProSpecifications() {
+function ProSpecifications() {
   const { t } = useTranslation();
-  const { spu, loading, error } = useSpuContext();
+  const { spu, loading, error } = useSpuContext((state) => ({
+    spu: state.spu,
+    loading: state.loading,
+    error: state.error,
+  }));
   const hasNoData = !spu || Object.keys(spu).length === 0;
   if (loading && hasNoData) {
     return <LoadingSkeleton />;
@@ -23,7 +28,7 @@ export default function ProSpecifications() {
   if (!loading && hasNoData) {
     return <NotFound message={t("common_no_data_found")} />;
   }
-  const specsList = specs(spu);
+  const specsList = specs(spu ?? undefined);
 
   if (!specsList || specsList.length === 0) {
     return (
@@ -51,3 +56,5 @@ export default function ProSpecifications() {
     </Card>
   );
 }
+
+export default memo(ProSpecifications);

@@ -15,16 +15,12 @@ export async function GET(req: Request): Promise<Response> {
 
     const { searchParams } = new URL(req.url);
     const limit = searchParams.get("limit") || "12";
-    const authorization = req.headers.get("authorization");
-    const cookie = req.headers.get("cookie");
 
     const { data } = await axios.get(`${API_NEXT}/v1/api/search/recent`, {
       params: { limit },
       headers: {
         "Content-Type": "application/json",
         "x-api-key": process.env.NEXT_PUBLIC_API_KEY || "",
-        ...(authorization ? { Authorization: authorization } : {}),
-        ...(cookie ? { cookie } : {}),
       },
     });
 

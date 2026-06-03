@@ -1,13 +1,13 @@
 "use client";
 
-import * as React from "react";
+import React, { memo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 
 import WishListButon from "./WishListButton";
 import { useTranslation } from "@/lib/hooks/use-translation";
 
-export default function ProWishListToggle() {
+function ProWishListToggle() {
   const { t } = useTranslation();
 
   return (
@@ -21,3 +21,5 @@ export default function ProWishListToggle() {
     </Card>
   );
 }
+
+export default memo(ProWishListToggle);

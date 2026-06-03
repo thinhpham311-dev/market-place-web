@@ -3,7 +3,6 @@ import { useAppSelector } from "@/lib/hooks";
 import { selectQuantitySelector } from "@/features/common/quantity-selector/store/selectors";
 import { IQuantityInitialState } from "@/features/common/quantity-selector/interfaces";
 
-import { createDefault } from "@/features/common/quantity-selector/store/initials";
 import { QUANTITY_COUNTER } from "@/features/common/quantity-selector/constants";
 
 interface IGetQuantityValue {
@@ -12,10 +11,12 @@ interface IGetQuantityValue {
   initialState?: IQuantityInitialState;
 }
 
+const DEFAULT_INITIAL_STATE = { currentQuantity: 1 };
+
 export function useGetQuantityValue({
   reducerKey = QUANTITY_COUNTER,
   storeKey,
-  initialState = createDefault(),
+  initialState = DEFAULT_INITIAL_STATE,
 }: IGetQuantityValue) {
   const state = useAppSelector(selectQuantitySelector(reducerKey, storeKey));
   return state || initialState;

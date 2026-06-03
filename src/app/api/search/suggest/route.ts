@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import axios from "axios";
+import { handleAxiosError } from "@/lib/http/handleAxiosError";
 
 const API_NEXT = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -22,16 +23,19 @@ export async function GET(req: Request) {
         timeout: 4000,
       });
 
-      const fetched = data?.metadata?.data || data?.data;
-      if (Array.isArray(fetched) && fetched.length > 0) {
-        return NextResponse.json({
-          ...data,
-          data: fetched
-        });
-      }
-    } catch (error) {
-      console.warn("Suggest proxy failed, falling back to mock data:", error);
-    }
+      return NextResponse.json(data);
+
+    } catch (error: unknown) {
+    const normalized = handleAxiosError(error);
+
+    return NextResponse.json(
+      {
+        message: normalized.message,
+        errors: normalized.errors,
+      },
+      { status: normalized.status },
+    );
+  }
   }
 
 }

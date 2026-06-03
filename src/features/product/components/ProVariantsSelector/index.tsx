@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import React, { memo } from "react";
 
 import { Card, CardContent } from "@/components/ui/card";
 import OptionSelector from "@/features/common/option-selector";
@@ -10,9 +10,16 @@ import NotFound from "./NotFound";
 import { useSpuContext } from "@/features/spu/hooks";
 import { useTranslation } from "@/lib/hooks/use-translation";
 
+const EMPTY_VARIANTS: any[] = [];
+const DEFAULT_OPTION_IDX: number[] = [];
+
 const ProVariantsSelector = () => {
   const { t } = useTranslation();
-  const { spu: data, loading: isLoading, error } = useSpuContext();
+  const { spu: data, loading: isLoading, error } = useSpuContext((state) => ({
+    spu: state.spu,
+    loading: state.loading,
+    error: state.error,
+  }));
 
   const hasNoData = !data || Object.keys(data).length === 0;
   if (isLoading && hasNoData) {
@@ -26,7 +33,7 @@ const ProVariantsSelector = () => {
   if (!isLoading && hasNoData) {
     return <NotFound message={t("common_no_data_found")} />;
   }
-  const variants = data?.product_variations ?? [];
+  const variants = data?.product_variations ?? EMPTY_VARIANTS;
 
   return (
     <Card className="border-none shadow-none rounded-none">
@@ -36,7 +43,7 @@ const ProVariantsSelector = () => {
           storeKey={`${PRO_DETAIL}_${data?.product_id}`}
           initialValue={{
             initialOptions: variants,
-            defaultOptionIdx: [],
+            defaultOptionIdx: DEFAULT_OPTION_IDX,
           }}
         />
       </CardContent>
@@ -44,4 +51,4 @@ const ProVariantsSelector = () => {
   );
 };
 
-export default ProVariantsSelector;
+export default memo(ProVariantsSelector);

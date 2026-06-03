@@ -13,10 +13,12 @@ interface IGetOptionSelectorValue {
   initialValue?: IOptionInitialState;
 }
 
+const DEFAULT_INITIAL_VALUE = createDefault();
+
 export const useGetOptionSelectorValue = ({
   reducerKey = OPTION_SELECTOR,
   storeKey,
-  initialValue = createDefault(),
+  initialValue = DEFAULT_INITIAL_VALUE,
 }: IGetOptionSelectorValue) => {
   const state = useAppSelector(selectOptionsSelector(reducerKey, storeKey));
 

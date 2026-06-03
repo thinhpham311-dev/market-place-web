@@ -1,5 +1,5 @@
 "use client";
-import * as React from "react";
+import React, { memo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import ReviewStars from "@/features/reviews/components/ReviewStars";
 import { useSpuContext } from "@/features/spu/hooks";
@@ -7,9 +7,13 @@ import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
 import { useTranslation } from "@/lib/hooks/use-translation";
 
-export default function ProDescriptionContent() {
+function ProReviewStar() {
   const { t } = useTranslation();
-  const { spu, loading, error } = useSpuContext();
+  const { spu, loading, error } = useSpuContext((state) => ({
+    spu: state.spu,
+    loading: state.loading,
+    error: state.error,
+  }));
 
   const hasNoData = !spu || Object.keys(spu).length === 0;
   if (loading && hasNoData) {
@@ -33,3 +37,5 @@ export default function ProDescriptionContent() {
     </Card>
   );
 }
+
+export default memo(ProReviewStar);

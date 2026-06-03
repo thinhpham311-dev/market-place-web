@@ -1,12 +1,12 @@
 "use client";
 
-import * as React from "react";
+import React, { memo } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import SocialButton from "./SocialButton";
 import { socials } from "@/features/product/constants";
 import { useTranslation } from "@/lib/hooks/use-translation";
 
-export default function SkuSocialsShare() {
+function SkuSocialsShare() {
   const { t } = useTranslation();
 
   return (
@@ -24,3 +24,5 @@ export default function SkuSocialsShare() {
     </Card>
   );
 }
+
+export default memo(SkuSocialsShare);

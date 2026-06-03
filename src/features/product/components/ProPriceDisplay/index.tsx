@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import React, { memo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 
 import { useSpuContext } from "@/features/spu/hooks";
@@ -10,9 +10,13 @@ import NotFound from "./NotFound";
 import ProSkuPriceDisplay from "./ProSkuPriceDisplay";
 import { useTranslation } from "@/lib/hooks/use-translation";
 
-export default function ProPriceDisplay() {
+function ProPriceDisplay() {
   const { t } = useTranslation();
-  const { spu, loading: spuLoading, error: spuError } = useSpuContext();
+  const { spu, loading: spuLoading, error: spuError } = useSpuContext((state) => ({
+    spu: state.spu,
+    loading: state.loading,
+    error: state.error,
+  }));
 
   const hasNoData = !spu || Object.keys(spu).length === 0;
 
@@ -36,3 +40,5 @@ export default function ProPriceDisplay() {
     </Card>
   );
 }
+
+export default memo(ProPriceDisplay);

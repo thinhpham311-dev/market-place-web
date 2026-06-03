@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
 // Actions and selectors
@@ -44,13 +44,16 @@ export function useFetchData({
     status = "",
   } = useAppSelector(selectSkuDetailByStoreKey(storeKey));
 
+  const sku_tier_idx_str = JSON.stringify(sku_tier_idx);
+  const memoizedSkuTierIdx = useMemo(() => sku_tier_idx, [sku_tier_idx_str]);
+
   useEffect(() => {
     if (!product_id) return;
-    if (!sku_tier_idx) return;
+    if (!memoizedSkuTierIdx) return;
     const promise = dispatch(
       getSkuDetail({
         product_id,
-        sku_tier_idx,
+        sku_tier_idx: memoizedSkuTierIdx,
         optionsCount,
       } as { optionsCount: number } & ISkuModel) as any,
     );
@@ -58,7 +61,7 @@ export function useFetchData({
     return () => {
       promise.abort?.();
     };
-  }, [dispatch, product_id, sku_tier_idx, optionsCount]);
+  }, [dispatch, product_id, memoizedSkuTierIdx, optionsCount]);
 
   return { sku, loading, error, status };
 }

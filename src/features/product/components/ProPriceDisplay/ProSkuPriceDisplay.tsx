@@ -6,7 +6,10 @@ import { useSkuContext } from "@/features/sku/hooks";
 import LoadingSkeleton from "./LoadingSkeleton";
 
 export default function SkuPriceDisplay({ spu }: { spu: any }) {
-  const { sku, loading: skuLoading } = useSkuContext();
+  const { sku, loading: skuLoading } = useSkuContext((state) => ({
+    sku: state.sku,
+    loading: state.loading,
+  }));
 
   const defaultPrice = spu?.product_price;
   const currentPrice = sku?.sku_price ?? defaultPrice;

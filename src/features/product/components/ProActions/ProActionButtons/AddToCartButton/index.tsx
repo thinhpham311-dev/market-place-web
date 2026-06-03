@@ -21,16 +21,21 @@ import { PRO_DETAIL } from "@/features/product/constants";
 import { MdAddShoppingCart } from "react-icons/md";
 import { useTranslation } from "@/lib/hooks/use-translation";
 
+const spuSelector = (state: any) => state.spu;
+const skuSelector = (state: any) => state.sku;
+
 const AddToCartButton = () => {
   const { t } = useTranslation();
-  const { spu } = useSpuContext();
-  const { sku } = useSkuContext();
+  const spu = useSpuContext(spuSelector);
+  const sku = useSkuContext(skuSelector);
 
   const { currentQuantity: qty } = useGetQuantityValue({
     storeKey: `${PRO_DETAIL}_${sku?.sku_id}`,
   });
 
-  console.log("AddToCartButton rendered", qty);
+  const icon = useMemo(() => <MdAddShoppingCart />, []);
+
+  console.log("AddToCartButton rendered");
   const data: ICartItemModel | null = useMemo(() => {
     if (!spu || !sku) return null;
     if (!qty) return null;
@@ -42,12 +47,12 @@ const AddToCartButton = () => {
     });
   }, [spu, sku, qty]);
 
-  const isDisabled = !data || qty >= sku.sku_stock;
+  const isDisabled = !data || !sku || qty >= sku.sku_stock;
 
   return (
     <CartAddItem
       size="lg"
-      icon={<MdAddShoppingCart />}
+      icon={icon}
       label={t("product_add_to_cart")}
       variant="secondary"
       item={data}

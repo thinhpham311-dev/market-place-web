@@ -1,5 +1,6 @@
 "use client";
 
+import React, { memo } from "react";
 import { Box, MapPin, ShieldCheck, Truck } from "lucide-react";
 
 import { useSpuContext } from "@/features/spu/hooks";
@@ -20,7 +21,7 @@ function getEstimatedShipping(productPrice: number) {
   return 30000;
 }
 
-export default function ProShippingInfo() {
+function ProShippingInfo() {
   const { t } = useTranslation();
   const { spu, loading } = useSpuContext();
   const hasNoData = !spu || Object.keys(spu).length === 0;
@@ -84,3 +85,5 @@ export default function ProShippingInfo() {
     </div>
   );
 }
+
+export default memo(ProShippingInfo);
