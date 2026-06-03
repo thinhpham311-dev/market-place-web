@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
 // Actions and selectors
@@ -33,7 +33,7 @@ export function useFetchData({ lastId }: UseFetchDataParams) {
     status = "idle",
   } = useAppSelector(selectProByBrandIdByStoreKey(PRO_LIST_BY_BRANDID));
 
-  const requestKey = useMemo(() => JSON.stringify({ lastId }), [lastId]);
+  const requestKey = JSON.stringify({ lastId });
 
   const isRequestLoading = Boolean(lastId) && resolvedRequestKey !== requestKey;
 

@@ -33,12 +33,8 @@ const ShopActions = () => {
   const signedIn = useAppSelector((state) => state.auth.session.signedIn);
   const { data } = useShopInfoContext();
   const { shop_id, shop_slug } = data || {};
-  const initialFollowState = React.useMemo(
-    () =>
-      resolveFollowState(
-        data?.is_following ?? data?.isFollowed ?? data?.is_followed ?? data?.following,
-      ),
-    [data],
+  const initialFollowState = resolveFollowState(
+    data?.is_following ?? data?.isFollowed ?? data?.is_followed ?? data?.following,
   );
 
   const [isFollowing, setIsFollowing] = React.useState(initialFollowState);

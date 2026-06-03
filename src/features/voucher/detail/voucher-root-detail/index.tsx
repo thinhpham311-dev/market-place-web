@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 
 import { useAppSelector, useTranslation } from "@/lib/hooks";
@@ -32,7 +32,7 @@ export default function VoucherDetailRoot({ children, voucher }: IVoucherDetailR
   const signedIn = useAppSelector((state) => state.auth.session.signedIn);
   const [claimedVoucherIds, setClaimedVoucherIds] = useState<string[]>([]);
 
-  const discountSummary = useMemo(() => formatDiscountSummary(voucher, t), [voucher, t]);
+  const discountSummary = formatDiscountSummary(voucher, t);
   const isClaimed = claimedVoucherIds.includes(voucher.discountId);
 
   const onClaim = () => {

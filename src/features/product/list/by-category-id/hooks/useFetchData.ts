@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
 // Actions and selectors
@@ -67,10 +67,7 @@ export function useFetchData({
     status = "idle",
   } = useAppSelector(selectProByCategoryIdByStoreKey(PRO_LIST_BY_CATEGORYID));
 
-  const requestKey = useMemo(
-    () => JSON.stringify({ lastId, currentPage, limit, filter, sortBy }),
-    [lastId, currentPage, limit, filter, sortBy],
-  );
+  const requestKey = JSON.stringify({ lastId, currentPage, limit, filter, sortBy });
 
   const isRequestLoading = Boolean(lastId) && resolvedRequestKey !== requestKey;
 
@@ -98,15 +95,7 @@ export function useFetchData({
     return () => {
       promise.abort?.(); // optional chaining in case abort is not available
     };
-  }, [
-    dispatch,
-    requestKey,
-    lastId,
-    filter,
-    sortBy,
-    currentPage,
-    limit,
-  ]);
+  }, [dispatch, requestKey, lastId, filter, sortBy, currentPage, limit]);
 
   return {
     products: isRequestLoading ? [] : products,

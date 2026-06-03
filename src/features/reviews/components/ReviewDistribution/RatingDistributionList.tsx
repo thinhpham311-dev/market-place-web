@@ -10,13 +10,11 @@ interface IRatingDistributionList {
 const RatingDistributionList = ({ data }: IRatingDistributionList) => {
   const totalReviews = data.length;
 
-  const ratingDistribution = React.useMemo(() => {
-    const distribution = Array(5).fill(0);
-    data.forEach((review: Review) => {
-      distribution[review.rating - 1]++;
-    });
-    return distribution.reverse();
-  }, [data]);
+  const ratingDistribution = Array(5).fill(0);
+  data.forEach((review: Review) => {
+    ratingDistribution[review.rating - 1]++;
+  });
+  ratingDistribution.reverse();
 
   return (
     <ul className="space-y-2">

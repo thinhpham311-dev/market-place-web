@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React from "react";
 import { cn } from "@/utils/styles";
 
 interface PaginationContextType {
@@ -31,10 +31,8 @@ const PaginationProvider: React.FC<PaginationProviderProps> = ({
   className,
   contextValues,
 }) => {
-  const value = useMemo(() => contextValues, [contextValues]);
-
   return (
-    <PaginationContext.Provider value={value}>
+    <PaginationContext.Provider value={contextValues}>
       <div className={cn(className)}>{children}</div>
     </PaginationContext.Provider>
   );

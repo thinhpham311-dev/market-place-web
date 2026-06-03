@@ -1,8 +1,6 @@
 "use client";
 
-import React from "react";
 import { useFetchData } from "./hooks";
-import { useFetchData as useBrandFetchData } from "@/features/brand/list/by-category-id/hooks";
 
 import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
 import { Pagination, SortBy, Filter } from "@/features/common";
@@ -12,15 +10,11 @@ import SpuGrid from "@/features/product/components/ProGrid";
 import { SORTBY_OPTIONS, FILTER_OPTIONS } from "./constants";
 import { PRO_LIST_BY_BRANDID } from "./constants";
 
+const filterOptions = FILTER_OPTIONS.filter((item) => item.key !== "brands");
+
 const ProListByBrandId = ({ lastId }: { lastId?: string }) => {
   const { products, totalItems, loading, error } = useFetchData({ lastId });
-  const { brands = [] } = useBrandFetchData({ lastId });
 
-  const filterOptions = React.useMemo(() => {
-    const otherFilters = FILTER_OPTIONS.filter((item) => item.key !== "brands");
-
-    return [...otherFilters];
-  }, [brands]);
   return (
     <Card className="border-none px-3 shadow-none md:px-6">
       <CardContent className="grid items-stretch gap-3 px-0 md:grid-cols-12">

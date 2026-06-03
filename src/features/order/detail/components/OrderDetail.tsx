@@ -1,6 +1,5 @@
 "use client";
 
-import { useMemo } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 
@@ -26,14 +25,11 @@ export default function OrderDetail() {
   const authUser = useAppSelector((state) => state.auth.user);
   const signedIn = useAppSelector((state) => state.auth.session.signedIn);
 
-  const { order } = useMemo(() => {
-    const selectedOrder = getOrderByIdForCurrentUser(
-      typeof id === "string" ? id : undefined,
-      authUser,
-      signedIn,
-    );
-    return { order: selectedOrder };
-  }, [authUser, id, signedIn]);
+  const order = getOrderByIdForCurrentUser(
+    typeof id === "string" ? id : undefined,
+    authUser,
+    signedIn,
+  );
 
   if (!order) {
     return <div>{t("order_not_found")}</div>;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect } from "react";
 import {
   getItemsInCart,
   createItemInCart,
@@ -28,7 +28,7 @@ interface IUseCart {
 
 export const useHandleShoppingCart = ({ reducerKey, storeKey, userId }: IUseCart) => {
   const dispatch = useAppDispatch();
-  const dynamicReducerKey = useMemo(() => `${SHOPPING_CART}_${reducerKey}`, [reducerKey]);
+  const dynamicReducerKey = `${SHOPPING_CART}_${reducerKey}`;
   useEffect(() => {
     injectReducer(dynamicReducerKey, reducer);
 

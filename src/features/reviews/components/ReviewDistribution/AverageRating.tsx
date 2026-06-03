@@ -13,10 +13,8 @@ const AverageRating = ({ data }: IAverageRatingProps) => {
   const { t } = useTranslation();
   const totalReviews = data?.length;
 
-  const averageRating = React.useMemo(() => {
-    const totalRating = data?.reduce((sum: number, review: Review) => sum + review.rating, 0);
-    return totalReviews > 0 ? (totalRating / totalReviews).toFixed(1) : "0.0";
-  }, [data]);
+  const totalRating = data?.reduce((sum: number, review: Review) => sum + review.rating, 0);
+  const averageRating = totalReviews > 0 ? (totalRating / totalReviews).toFixed(1) : "0.0";
 
   return (
     <Card className="rounded-none">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Camera, Search as SearchIcon } from "lucide-react";
 
@@ -28,8 +28,8 @@ export default function SearchPageContent({
   imageSearch?: string;
 }) {
   const { t } = useTranslation();
-  const keyword = useMemo(() => initialKeyword?.trim() ?? "", [initialKeyword]);
-  const imageName = useMemo(() => initialImageName?.trim() ?? "", [initialImageName]);
+  const keyword = initialKeyword?.trim() ?? "";
+  const imageName = initialImageName?.trim() ?? "";
   const isImageSearch = imageSearch === "1";
 
   const [imagePreview, setImagePreview] = useState("");

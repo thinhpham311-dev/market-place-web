@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo } from "react";
 import { ChevronLeft } from "lucide-react";
 
 import NotFound from "@/components/layout/notfound";
@@ -39,11 +38,8 @@ export default function VoucherDetail({
     page: Number.isFinite(Number(page)) && Number(page) > 0 ? Number(page) : 1,
   });
 
-  const voucher = useMemo(
-    () => vouchers.find((item) => item.discountId === voucherId || item.id === voucherId) ?? null,
-    [voucherId, vouchers],
-  );
-
+  const voucher =
+    vouchers.find((item) => item.discountId === voucherId || item.id === voucherId) ?? null;
 
   if (voucherLoading) {
     return <VoucherDetailLoading />;
@@ -59,13 +55,13 @@ export default function VoucherDetail({
 
   return (
     <VoucherDetailRoot voucher={voucher}>
-    <div className="container mx-auto space-y-5 px-3 py-5 md:px-6">
-      <Button asChild variant="ghost" className="px-0">
-        <Link href={`/user/vouchers${voucher.shopId ? `?shopId=${voucher.shopId}` : ""}`}>
-          <ChevronLeft className="h-4 w-4" />
-          {t("voucher_back_to_list")}
-        </Link>
-      </Button>
+      <div className="container mx-auto space-y-5 px-3 py-5 md:px-6">
+        <Button asChild variant="ghost" className="px-0">
+          <Link href={`/user/vouchers${voucher.shopId ? `?shopId=${voucher.shopId}` : ""}`}>
+            <ChevronLeft className="h-4 w-4" />
+            {t("voucher_back_to_list")}
+          </Link>
+        </Button>
 
         <div className="w-full space-y-5">
           <VoucherDetailHero />
@@ -75,12 +71,9 @@ export default function VoucherDetail({
             <VoucherUsageCard />
           </div>
 
-          <VoucherProductSection 
-            code={voucher.code}
-            shopId={voucher.shopId}
-          />
+          <VoucherProductSection code={voucher.code} shopId={voucher.shopId} />
         </div>
-    </div>
+      </div>
     </VoucherDetailRoot>
   );
 }

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
 // // Actions and selectors
@@ -21,13 +21,7 @@ interface IUseFetchDataParams {
 }
 
 export function useFetchData({ shop_id = "", storeKey, enabled = true }: IUseFetchDataParams) {
-  const resolvedStoreKey = useMemo(() => {
-    if (storeKey) {
-      return storeKey;
-    }
-
-    return shop_id ? `SHOP_INFO_${shop_id}` : "SHOP_INFO_FALLBACK";
-  }, [shop_id, storeKey]);
+  const resolvedStoreKey = storeKey || (shop_id ? `SHOP_INFO_${shop_id}` : "SHOP_INFO_FALLBACK");
 
   useEffect(() => {
     if (!enabled || !resolvedStoreKey) {
@@ -65,13 +59,9 @@ export function useFetchData({ shop_id = "", storeKey, enabled = true }: IUseFet
     };
   }, [dispatch, enabled, shop_id]);
 
-  const shopHref = useMemo(() => {
-    if (!shopInfo?.shop_id) {
-      return undefined;
-    }
-
-    return `/shop/${shopInfo.shop_slug || "shop"}-s.${shopInfo.shop_id}`;
-  }, [shopInfo]);
+  const shopHref = shopInfo?.shop_id
+    ? `/shop/${shopInfo.shop_slug || "shop"}-s.${shopInfo.shop_id}`
+    : undefined;
 
   return {
     shopInfo,

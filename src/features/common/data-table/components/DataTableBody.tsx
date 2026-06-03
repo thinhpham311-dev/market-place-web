@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React, { useMemo, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { flexRender } from "@tanstack/react-table";
 import { TableBody, TableRow, TableCell } from "@/components/ui/table";
 import type { Row } from "@tanstack/react-table";
@@ -29,14 +29,9 @@ const GroupHeaderRow = React.forwardRef<HTMLTableRowElement, IGroupHeaderRowProp
     const isAllSelected = selectedCount === subRows.length && subRows.length > 0;
     const isSomeSelected = selectedCount > 0 && selectedCount < subRows.length;
 
-    const groupTotal = useMemo(
-      () =>
-        subRows.reduce(
-          (sum, r) =>
-            sum + Number(r.original.itemSkuPrice || 0) * Number(r.original.itemQuantity || 0),
-          0,
-        ),
-      [subRows],
+    const groupTotal = subRows.reduce(
+      (sum, r) => sum + Number(r.original.itemSkuPrice || 0) * Number(r.original.itemQuantity || 0),
+      0,
     );
 
     return (
