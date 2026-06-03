@@ -17,6 +17,8 @@ export const ja: TranslationDictionary = {
     hot_deals_desc: "今チェックしたい注目のセール商品です。",
     recommended_for_you: "あなたへのおすすめ",
     recommended_for_you_desc: "次に見たくなる商品をまとめて表示します。",
+    recent_products: "最近見た商品",
+    recent_products_desc: "最近見た、または操作した商品です。",
     from_the_same_shop: "同じショップの商品",
     from_the_same_shop_desc: "このショップの他の商品もまとめて見られます。",
     top_picks_from_shop: "ショップのおすすめ",

@@ -16,6 +16,8 @@ export type TranslationKey =
   | "hot_deals_desc"
   | "recommended_for_you"
   | "recommended_for_you_desc"
+  | "recent_products"
+  | "recent_products_desc"
   | "from_the_same_shop"
   | "from_the_same_shop_desc"
   | "top_picks_from_shop"

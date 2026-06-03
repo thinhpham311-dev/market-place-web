@@ -17,6 +17,8 @@ export const en: TranslationDictionary = {
     hot_deals_desc: "Limited-time offers worth catching now.",
     recommended_for_you: "Recommended For You",
     recommended_for_you_desc: "Picked to match what shoppers are likely to want next.",
+    recent_products: "Recently Viewed Products",
+    recent_products_desc: "Products you viewed or interacted with recently.",
     from_the_same_shop: "From The Same Shop",
     from_the_same_shop_desc: "More items from the shop you're viewing now.",
     top_picks_from_shop: "Top Picks from Shop",

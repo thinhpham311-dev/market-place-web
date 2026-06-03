@@ -1,0 +1,1 @@
+export const PRO_RECENT_LIST = "PRO_RECENT_LIST";

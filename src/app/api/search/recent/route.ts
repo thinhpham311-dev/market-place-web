@@ -1,0 +1,43 @@
+import axios from "axios";
+import { NextResponse } from "next/server";
+import { handleAxiosError } from "@/lib/http/handleAxiosError";
+
+const API_NEXT = process.env.NEXT_PUBLIC_BASE_URL;
+
+export async function GET(req: Request): Promise<Response> {
+  try {
+    if (!API_NEXT) {
+      return NextResponse.json(
+        { message: "Server misconfiguration: API_NEXT not set" },
+        { status: 500 },
+      );
+    }
+
+    const { searchParams } = new URL(req.url);
+    const limit = searchParams.get("limit") || "12";
+    const authorization = req.headers.get("authorization");
+    const cookie = req.headers.get("cookie");
+
+    const { data } = await axios.get(`${API_NEXT}/v1/api/search/recent`, {
+      params: { limit },
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": process.env.NEXT_PUBLIC_API_KEY || "",
+        ...(authorization ? { Authorization: authorization } : {}),
+        ...(cookie ? { cookie } : {}),
+      },
+    });
+
+    return NextResponse.json(data);
+  } catch (error: unknown) {
+    const normalized = handleAxiosError(error);
+
+    return NextResponse.json(
+      {
+        message: normalized.message,
+        errors: normalized.errors,
+      },
+      { status: normalized.status },
+    );
+  }
+}

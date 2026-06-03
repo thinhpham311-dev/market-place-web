@@ -17,6 +17,8 @@ export const vi: TranslationDictionary = {
     hot_deals_desc: "Những deal nóng đáng mua ngay lúc này.",
     recommended_for_you: "Dành cho bạn",
     recommended_for_you_desc: "Các gợi ý phù hợp để bạn xem nhanh và dễ chọn hơn.",
+    recent_products: "Sản phẩm gần đây",
+    recent_products_desc: "Những sản phẩm bạn đã xem hoặc tương tác gần đây.",
     from_the_same_shop: "Cùng cửa hàng",
     from_the_same_shop_desc: "Xem thêm sản phẩm khác từ shop này.",
     top_picks_from_shop: "Lựa chọn nổi bật từ shop",
