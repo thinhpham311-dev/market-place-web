@@ -104,7 +104,7 @@ const SearchInputWrapper: React.FC<SearchInputWrapperProps> = ({
         "relative",
         showCategorySelect
           ? "xl:col-span-9 lg:col-span-8 md:col-span-7 col-span-12"
-          : "col-span-12"
+          : "col-span-12",
       )}
     >
       <FormInput
@@ -115,7 +115,9 @@ const SearchInputWrapper: React.FC<SearchInputWrapperProps> = ({
         inputRef={searchInputRef}
         endAdornment={
           <div className="absolute inset-y-0 right-3 flex items-center gap-2">
-            {loading && <span className="animate-spin h-4 w-4 border-2 border-primary border-t-transparent rounded-full" />}
+            {loading && (
+              <span className="animate-spin h-4 w-4 border-2 border-primary border-t-transparent rounded-full" />
+            )}
             <span className="pointer-events-none hidden sm:inline-block rounded-md border border-stone-200 bg-stone-50 px-2 py-1 text-[11px] font-medium uppercase tracking-wide text-stone-500 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-400">
               {shortcutLabel}
             </span>

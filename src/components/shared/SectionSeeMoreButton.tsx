@@ -25,7 +25,11 @@ export default function SectionSeeMoreButton({
   return (
     <Button
       variant="outline"
-      className={iconOnly ? `rounded-full px-0 w-9 h-9 ${className || ""}`.trim() : `rounded-full px-4 ${className || ""}`.trim()}
+      className={
+        iconOnly
+          ? `rounded-full px-0 w-9 h-9 ${className || ""}`.trim()
+          : `rounded-full px-4 ${className || ""}`.trim()
+      }
       asChild
     >
       <Link href={href} aria-label={buttonLabel} title={buttonLabel}>

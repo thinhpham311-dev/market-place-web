@@ -90,4 +90,3 @@ export default function ProductDetail({ product_id = "", shop_id = "" }: IProduc
     </ProWrapper>
   );
 }
-

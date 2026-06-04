@@ -3,8 +3,8 @@ import Image from "next/image";
 import { cn } from "@/utils/styles";
 
 interface CartItemImageProps {
-  _w: number;
-  _h: number;
+  _w?: number;
+  _h?: number;
   src?: string;
   alt: string;
   className?: string;
@@ -18,8 +18,8 @@ const CartItemImage: React.FC<CartItemImageProps> = ({
   src = DEFAULT_IMAGE,
   alt,
   imgClassName,
-  _w,
-  _h,
+  _w = 0,
+  _h = 0,
 }) => {
   return (
     <Image

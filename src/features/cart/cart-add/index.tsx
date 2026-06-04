@@ -16,30 +16,35 @@ import { useTranslation } from "@/lib/hooks/use-translation";
 
 interface CartAddItemProps extends ICartButtonBaseProps {
   item?: ICartItemModel | null;
+  getItem?: () => ICartItemModel | null;
   disabled?: boolean;
   href?: string;
 }
 
-const CartAddItem = ({ item, disabled, href = "", ...rest }: CartAddItemProps) => {
+const CartAddItem = ({ item, getItem, disabled, href = "", ...rest }: CartAddItemProps) => {
   const { t } = useTranslation();
   const router = useRouter();
 
   const { createItem, loading, error } = useShoppingCartContext();
 
   const handleAddToCart = () => {
-    if (!item) return;
-    createItem(item);
+    const resolvedItem = getItem ? getItem() : item;
+    if (!resolvedItem) return;
+    createItem(resolvedItem);
 
     setTimeout(() => {
-      const variantsText = renderVariantsText(item.itemSpuVariations, item.itemSkuTierIdx);
+      const variantsText = renderVariantsText(
+        resolvedItem.itemSpuVariations,
+        resolvedItem.itemSkuTierIdx,
+      );
       showSuccessToast({
         title: t("cart_add_success_title"),
         description: (
           <span className="text-white">
             {t("cart_add_success_desc")
-              .replace("{product}", item.itemSpuName)
+              .replace("{product}", resolvedItem.itemSpuName)
               .replace("{variants}", variantsText || "-")
-              .replace("{quantity}", String(item.itemQuantity))}
+              .replace("{quantity}", String(resolvedItem.itemQuantity))}
           </span>
         ),
       });

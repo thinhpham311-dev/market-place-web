@@ -57,11 +57,7 @@ function PaginationUrlSync({
     const urlPage = getPageFromValue(rawPage);
     const urlTab = params.get("tab");
 
-    if (
-      rawPage === String(currentPage) &&
-      urlPage === currentPage &&
-      urlTab === activeFilter
-    ) {
+    if (rawPage === String(currentPage) && urlPage === currentPage && urlTab === activeFilter) {
       return;
     }
 
@@ -130,14 +126,20 @@ export default function DailyDiscover({
     }
 
     if (previousActiveFilterRef.current !== activeFilter && currentPage !== 1) {
-      dispatch(withEnsureInit(setPage({ key: DAILY_DISCOVER_LIST, page: 1 }), [DAILY_DISCOVER_LIST]));
+      dispatch(
+        withEnsureInit(setPage({ key: DAILY_DISCOVER_LIST, page: 1 }), [DAILY_DISCOVER_LIST]),
+      );
     }
 
     previousActiveFilterRef.current = activeFilter;
   }, [activeFilter, currentPage, dispatch]);
 
   useEffect(() => {
-    dispatch(withEnsureInit(setPage({ key: DAILY_DISCOVER_LIST, page: initialPage }), [DAILY_DISCOVER_LIST]));
+    dispatch(
+      withEnsureInit(setPage({ key: DAILY_DISCOVER_LIST, page: initialPage }), [
+        DAILY_DISCOVER_LIST,
+      ]),
+    );
   }, [dispatch, initialPage]);
 
   const activeFilterConfig =

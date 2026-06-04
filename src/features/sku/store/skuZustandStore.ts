@@ -16,3 +16,8 @@ export const useSkuStore = create<ISkuState>((set) => ({
   status: "",
   setSkuData: (data) => set(data),
 }));
+
+export const selectSku = (state: ISkuState) => state.sku;
+export const selectSkuLoading = (state: ISkuState) => state.loading;
+export const selectSkuError = (state: ISkuState) => state.error;
+export const selectSkuStatus = (state: ISkuState) => state.status;

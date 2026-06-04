@@ -80,7 +80,7 @@ const dataSlice = createSlice({
       })
       .addCase(getAllCategoryList.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload as string
+        state.error = action.payload as string;
         state.total = 0;
         state.list = [];
       });

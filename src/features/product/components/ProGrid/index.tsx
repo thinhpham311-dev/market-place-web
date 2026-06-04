@@ -40,7 +40,12 @@ const ProGrid = ({
   return (
     <div className={cn("grid w-full", className)}>
       {data.map((item) => (
-        <SpuCard key={item.product_id} item={item} isLoading={false} orientation={cardOrientation} />
+        <SpuCard
+          key={item.product_id}
+          item={item}
+          isLoading={false}
+          orientation={cardOrientation}
+        />
       ))}
     </div>
   );

@@ -67,16 +67,14 @@ export const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
             "flex h-12 w-full rounded-xl border border-input bg-background pl-12 pr-24 text-base ring-offset-background",
             "placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2",
             "focus-visible:ring-primary focus-visible:ring-offset-1 focus-visible:border-primary",
-            "transition-all duration-200 ease-in-out shadow-sm"
+            "transition-all duration-200 ease-in-out shadow-sm",
           )}
           {...props}
         />
 
         {/* Action Indicators (Spinner, Clear, Hotkey hint) */}
         <div className="absolute right-3 flex items-center space-x-2">
-          {loading && (
-            <Loader2 className="h-5 w-5 animate-spin text-primary mr-1" />
-          )}
+          {loading && <Loader2 className="h-5 w-5 animate-spin text-primary mr-1" />}
 
           {value && !loading && (
             <button
@@ -85,7 +83,7 @@ export const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
               className={cn(
                 "rounded-full p-1 text-muted-foreground hover:bg-muted hover:text-foreground",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-                "transition-colors"
+                "transition-colors",
               )}
               aria-label="Clear search input"
             >
@@ -94,16 +92,18 @@ export const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
           )}
 
           {/* Shortcut badge hint */}
-          <kbd className={cn(
-            "pointer-events-none select-none hidden sm:inline-flex h-6 items-center gap-1 rounded border",
-            "bg-muted px-2 font-mono text-[10px] font-medium text-muted-foreground opacity-100 border-border"
-          )}>
+          <kbd
+            className={cn(
+              "pointer-events-none select-none hidden sm:inline-flex h-6 items-center gap-1 rounded border",
+              "bg-muted px-2 font-mono text-[10px] font-medium text-muted-foreground opacity-100 border-border",
+            )}
+          >
             <span>{isMac ? "⌘" : "Ctrl"}</span>K
           </kbd>
         </div>
       </div>
     );
-  }
+  },
 );
 
 SearchInput.displayName = "SearchInput";

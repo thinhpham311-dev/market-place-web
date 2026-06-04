@@ -96,9 +96,11 @@ const CategoryListUrlSync = ({
         data: SORTBY_OPTIONS,
       }),
     );
-    dispatch(withEnsureInit(setPage({ key: PRO_LIST_BY_CATEGORYID, page: initialPage }), [
-      PRO_LIST_BY_CATEGORYID,
-    ]));
+    dispatch(
+      withEnsureInit(setPage({ key: PRO_LIST_BY_CATEGORYID, page: initialPage }), [
+        PRO_LIST_BY_CATEGORYID,
+      ]),
+    );
   }, [dispatch, initialPage, initialSort]);
 
   React.useEffect(() => {
@@ -110,9 +112,9 @@ const CategoryListUrlSync = ({
     }
 
     if (previousSortRef.current !== currentSortValue && currentPage !== 1) {
-      dispatch(withEnsureInit(setPage({ key: PRO_LIST_BY_CATEGORYID, page: 1 }), [
-        PRO_LIST_BY_CATEGORYID,
-      ]));
+      dispatch(
+        withEnsureInit(setPage({ key: PRO_LIST_BY_CATEGORYID, page: 1 }), [PRO_LIST_BY_CATEGORYID]),
+      );
     }
 
     previousSortRef.current = currentSortValue;

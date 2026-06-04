@@ -50,11 +50,17 @@ const ProCard = ({ item, isLoading, orientation = "vertical" }: ISpuCardProps) =
         alt={product_name || "Product image"}
         className={cn(
           productHref && "cursor-pointer",
-          isHorizontal ? "h-full w-24 shrink-0 rounded-l-lg object-cover" : "aspect-square rounded-t-lg",
+          isHorizontal
+            ? "h-full w-24 shrink-0 rounded-l-lg object-cover"
+            : "aspect-square rounded-t-lg",
         )}
       />
-      <CardContent className={cn("w-full p-3", isHorizontal && "flex min-w-0 flex-col justify-center")}>
-        <CardTitle className={cn("text-md capitalize line-clamp-2", productHref && "cursor-pointer")}>
+      <CardContent
+        className={cn("w-full p-3", isHorizontal && "flex min-w-0 flex-col justify-center")}
+      >
+        <CardTitle
+          className={cn("text-md capitalize line-clamp-2", productHref && "cursor-pointer")}
+        >
           <p>{product_name}</p>
         </CardTitle>
         <CardDescription className="mb-2 inline space-x-3">

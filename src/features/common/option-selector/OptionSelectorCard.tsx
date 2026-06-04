@@ -29,11 +29,14 @@ function OptionSelectorCard({
 }: IOptionSelectorProps) {
   const selectedValue = typeof selectedIndex === "number" ? value[selectedIndex]?.value : undefined;
 
-  const handleValueChange = React.useCallback((val?: string) => {
-    const idx = value.findIndex((v) => v.value === val);
-    const option = idx !== -1 ? idx : null;
-    onChoose(index, option);
-  }, [index, onChoose, value]);
+  const handleValueChange = React.useCallback(
+    (val?: string) => {
+      const idx = value.findIndex((v) => v.value === val);
+      const option = idx !== -1 ? idx : null;
+      onChoose(index, option);
+    },
+    [index, onChoose, value],
+  );
 
   return (
     <Card

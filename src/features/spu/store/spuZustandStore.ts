@@ -16,3 +16,8 @@ export const useSpuStore = create<ISpuState>((set) => ({
   status: "",
   setSpuData: (data) => set(data),
 }));
+
+export const selectSpu = (state: ISpuState) => state.spu;
+export const selectSpuLoading = (state: ISpuState) => state.loading;
+export const selectSpuError = (state: ISpuState) => state.error;
+export const selectSpuStatus = (state: ISpuState) => state.status;

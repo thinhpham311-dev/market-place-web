@@ -3,7 +3,7 @@
 import React, { memo } from "react";
 import { Card, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import SpecificationItem from "./SpecificationItem";
-import { useSpuContext } from "@/features/spu/hooks";
+import { useSpuDetailData } from "@/features/spu/hooks";
 import { specs } from "@/features/product/constants";
 import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
@@ -11,21 +11,17 @@ import { useTranslation } from "@/lib/hooks/use-translation";
 
 function ProSpecifications() {
   const { t } = useTranslation();
-  const { spu, loading, error } = useSpuContext((state) => ({
-    spu: state.spu,
-    loading: state.loading,
-    error: state.error,
-  }));
-  const hasNoData = !spu || Object.keys(spu).length === 0;
-  if (loading && hasNoData) {
+  const { spu, showLoading, showError, showNotFound, errorMessage } = useSpuDetailData();
+
+  if (showLoading) {
     return <LoadingSkeleton />;
   }
 
-  if (!loading && hasNoData && error) {
-    return <NotFound message={error || t("common_something_went_wrong")} />;
+  if (showError) {
+    return <NotFound message={errorMessage} />;
   }
 
-  if (!loading && hasNoData) {
+  if (showNotFound) {
     return <NotFound message={t("common_no_data_found")} />;
   }
   const specsList = specs(spu ?? undefined);

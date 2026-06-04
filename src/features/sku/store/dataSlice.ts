@@ -53,7 +53,6 @@ const dataSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getSkuDetail.pending, (state) => {
-        state.sku = null;
         state.loading = true;
         state.status = "loading";
         state.error = null;

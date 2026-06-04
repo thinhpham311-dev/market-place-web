@@ -4,7 +4,6 @@ import { handleAxiosError } from "@/lib/http/handleAxiosError";
 
 const API_NEXT = process.env.NEXT_PUBLIC_BASE_URL;
 
-
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const q = searchParams.get("q") || "";
@@ -24,18 +23,16 @@ export async function GET(req: Request) {
       });
 
       return NextResponse.json(data);
-
     } catch (error: unknown) {
-    const normalized = handleAxiosError(error);
+      const normalized = handleAxiosError(error);
 
-    return NextResponse.json(
-      {
-        message: normalized.message,
-        errors: normalized.errors,
-      },
-      { status: normalized.status },
-    );
+      return NextResponse.json(
+        {
+          message: normalized.message,
+          errors: normalized.errors,
+        },
+        { status: normalized.status },
+      );
+    }
   }
-  }
-
 }

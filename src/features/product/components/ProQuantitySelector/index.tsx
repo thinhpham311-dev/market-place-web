@@ -4,29 +4,19 @@ import React, { memo } from "react";
 import { QuantitySelector } from "@/features/common";
 import { PRO_DETAIL } from "@/features/product/constants";
 import { useSkuContext } from "@/features/sku/hooks";
-import { useSpuContext } from "@/features/spu/hooks";
+import { selectSku } from "@/features/sku/store/skuZustandStore";
+import { useSpuDetailData } from "@/features/spu/hooks";
 import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
 import { useTranslation } from "@/lib/hooks/use-translation";
 
 const ProQuantitySelector = () => {
   const { t } = useTranslation();
-  const { sku } = useSkuContext((state) => ({
-    sku: state.sku,
-  }));
-  const { spu, loading: spuLoading, error: spuError } = useSpuContext((state) => ({
-    spu: state.spu,
-    loading: state.loading,
-    error: state.error,
-  }));
-
-  const hasNoData = !spu || Object.keys(spu).length === 0;
-  const showLoading = spuLoading && hasNoData;
-  const showError = !spuLoading && hasNoData && spuError;
-  const showNotFound = !spuLoading && hasNoData && !spuError;
+  const sku = useSkuContext(selectSku);
+  const { showLoading, showError, showNotFound, errorMessage } = useSpuDetailData();
 
   if (showLoading) return <LoadingSkeleton />;
-  if (showError) return <NotFound message={spuError || t("common_something_went_wrong")} />;
+  if (showError) return <NotFound message={errorMessage} />;
   if (showNotFound) return <NotFound message={t("common_no_data_found")} />;
 
   return (

@@ -67,7 +67,6 @@ export const {
   setOptionsCount,
   setValidationErrors,
   resetOptions,
-} =
-  optionSlice.actions;
+} = optionSlice.actions;
 
 export default optionSlice.reducer;

@@ -7,7 +7,7 @@ import OptionSelector from "@/features/common/option-selector";
 import { PRO_DETAIL } from "@/features/product/constants";
 import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
-import { useSpuContext } from "@/features/spu/hooks";
+import { useSpuDetailData } from "@/features/spu/hooks";
 import { useTranslation } from "@/lib/hooks/use-translation";
 
 const EMPTY_VARIANTS: any[] = [];
@@ -15,22 +15,17 @@ const DEFAULT_OPTION_IDX: number[] = [];
 
 const ProVariantsSelector = () => {
   const { t } = useTranslation();
-  const { spu: data, loading: isLoading, error } = useSpuContext((state) => ({
-    spu: state.spu,
-    loading: state.loading,
-    error: state.error,
-  }));
+  const { spu: data, showLoading, showError, showNotFound, errorMessage } = useSpuDetailData();
 
-  const hasNoData = !data || Object.keys(data).length === 0;
-  if (isLoading && hasNoData) {
+  if (showLoading) {
     return <LoadingSkeleton />;
   }
 
-  if (!isLoading && hasNoData && error) {
-    return <NotFound message={error || t("common_something_went_wrong")} />;
+  if (showError) {
+    return <NotFound message={errorMessage} />;
   }
 
-  if (!isLoading && hasNoData) {
+  if (showNotFound) {
     return <NotFound message={t("common_no_data_found")} />;
   }
   const variants = data?.product_variations ?? EMPTY_VARIANTS;

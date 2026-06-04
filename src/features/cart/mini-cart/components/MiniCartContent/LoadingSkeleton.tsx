@@ -5,7 +5,11 @@ import { cn } from "@/utils/styles";
 const LoadingSkeleton = ({ className, count }: { className?: string; count: number }) => (
   <div className={cn(className, "grid grid-cols-1 gap-3")}>
     {Array.from({ length: count }).map((_, index) => (
-      <Card layout="horizontal" key={index} className=" justify-start h-full w-full col-span-1 gap-2">
+      <Card
+        layout="horizontal"
+        key={index}
+        className=" justify-start h-full w-full col-span-1 gap-2"
+      >
         <CardHeader className="p-2">
           <Skeleton className="aspect-square h-full w-full rounded-t-lg " />
         </CardHeader>

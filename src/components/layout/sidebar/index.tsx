@@ -32,10 +32,7 @@ export default function SidebarNavigation() {
   const { shops } = useSidebarShops();
   const isUserPage = pathname.split("/")[1] === "user";
 
-  const categoryMenuItems: MenuItem[] = buildCategoryMenuItems(
-    categories ?? [],
-    t("categories"),
-  );
+  const categoryMenuItems: MenuItem[] = buildCategoryMenuItems(categories ?? [], t("categories"));
 
   const shopMenuItems: MenuItem[] = !shops?.length
     ? [

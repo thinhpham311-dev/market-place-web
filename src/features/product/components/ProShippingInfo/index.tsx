@@ -3,7 +3,7 @@
 import React, { memo } from "react";
 import { Box, MapPin, ShieldCheck, Truck } from "lucide-react";
 
-import { useSpuContext } from "@/features/spu/hooks";
+import { useSpuDetailData } from "@/features/spu/hooks";
 import { useTranslation } from "@/lib/hooks";
 import { formatToCurrency } from "@/utils/formats";
 
@@ -23,14 +23,13 @@ function getEstimatedShipping(productPrice: number) {
 
 function ProShippingInfo() {
   const { t } = useTranslation();
-  const { spu, loading } = useSpuContext();
-  const hasNoData = !spu || Object.keys(spu).length === 0;
+  const { spu, showLoading, hasNoData } = useSpuDetailData();
 
-  if (loading && hasNoData) {
+  if (showLoading) {
     return <LoadingSkeleton />;
   }
 
-  if (hasNoData) {
+  if (hasNoData || !spu) {
     return null;
   }
 

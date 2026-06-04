@@ -1,18 +1,20 @@
 "use client";
 
-import React, { memo, useMemo } from "react";
+import React, { memo, useMemo, useCallback } from "react";
+import { useStore } from "react-redux";
 
 //hooks
-import { useSpuContext } from "@/features/spu/hooks";
 import { useSkuContext } from "@/features/sku/hooks";
+import { useSpuStore } from "@/features/spu/store/spuZustandStore";
+import { useSkuStore } from "@/features/sku/store/skuZustandStore";
 
-import { ICartItemModel } from "@/models/cart";
 import CartAddItem from "@/features/cart/cart-add";
 
 import { mapCartItem } from "@/features/cart/helpers";
 
 //actions & selectors
-import { useGetQuantityValue } from "@/features/common/quantity-selector/hooks/useGetQuantityValue";
+import { selectQuantitySelector } from "@/features/common/quantity-selector/store/selectors";
+import { QUANTITY_COUNTER } from "@/features/common/quantity-selector/constants";
 
 ///constants
 import { PRO_DETAIL } from "@/features/product/constants";
@@ -21,33 +23,31 @@ import { PRO_DETAIL } from "@/features/product/constants";
 import { MdAddShoppingCart } from "react-icons/md";
 import { useTranslation } from "@/lib/hooks/use-translation";
 
-const spuSelector = (state: any) => state.spu;
-const skuSelector = (state: any) => state.sku;
-
 const AddToCartButton = () => {
   const { t } = useTranslation();
-  const spu = useSpuContext(spuSelector);
-  const sku = useSkuContext(skuSelector);
+  const store = useStore();
 
-  const { currentQuantity: qty } = useGetQuantityValue({
-    storeKey: `${PRO_DETAIL}_${sku?.sku_id}`,
-  });
+  const isOutOfStock = useSkuContext((state) => !state.sku || state.sku.sku_stock <= 0);
 
-  const icon = useMemo(() => <MdAddShoppingCart />, []);
-
-  console.log("AddToCartButton rendered");
-  const data: ICartItemModel | null = useMemo(() => {
+  const handleGetItem = useCallback(() => {
+    const spu = useSpuStore.getState().spu;
+    const sku = useSkuStore.getState().sku;
     if (!spu || !sku) return null;
-    if (!qty) return null;
+
+    const state = store.getState();
+    const qtyState = selectQuantitySelector(QUANTITY_COUNTER, `${PRO_DETAIL}_${sku.sku_id}`)(state);
+    const qty = qtyState?.currentQuantity ?? 1;
 
     return mapCartItem({
       spu,
       sku,
       itemQuantity: qty,
     });
-  }, [spu, sku, qty]);
+  }, [store]);
 
-  const isDisabled = !data || !sku || qty >= sku.sku_stock;
+  const icon = useMemo(() => <MdAddShoppingCart />, []);
+
+  console.log("AddToCartButton rendered");
 
   return (
     <CartAddItem
@@ -55,8 +55,8 @@ const AddToCartButton = () => {
       icon={icon}
       label={t("product_add_to_cart")}
       variant="secondary"
-      item={data}
-      disabled={isDisabled}
+      getItem={handleGetItem}
+      disabled={isOutOfStock}
     />
   );
 };

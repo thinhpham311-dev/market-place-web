@@ -38,7 +38,10 @@ const stateSlice = createSlice({
       const paginationState = ensureStoreKeyState(state, key);
       paginationState.limit = limit;
       paginationState.totalPages = calculateTotalPages(paginationState.totalItems, limit);
-      paginationState.currentPage = Math.min(paginationState.currentPage, paginationState.totalPages);
+      paginationState.currentPage = Math.min(
+        paginationState.currentPage,
+        paginationState.totalPages,
+      );
     },
 
     syncPagination(state, action) {

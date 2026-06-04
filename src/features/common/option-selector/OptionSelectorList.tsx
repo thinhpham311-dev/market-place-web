@@ -8,13 +8,8 @@ import { useOptionSelectorContext } from "@/features/common/option-selector/hook
 import { Option } from "@/features/common/option-selector/types";
 
 const OptionSelectorList = () => {
-  const {
-    options,
-    selectedOptions,
-    validationErrors,
-    handleChooseOption,
-    resetValidationErrors,
-  } = useOptionSelectorContext();
+  const { options, selectedOptions, validationErrors, handleChooseOption, resetValidationErrors } =
+    useOptionSelectorContext();
 
   React.useEffect(() => {
     if (!Object.keys(validationErrors).length) return;

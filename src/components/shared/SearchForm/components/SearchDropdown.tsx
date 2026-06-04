@@ -12,33 +12,31 @@ const formatPrice = (price: number) => {
 };
 
 // Highlight search keyword on text matching case-insensitively
-const HighlightText = React.memo<{ text: string; highlight: string }>(
-  ({ text, highlight }) => {
-    if (!highlight.trim()) {
-      return <span>{text}</span>;
-    }
-
-    const escapedHighlight = highlight.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const regex = new RegExp(`(${escapedHighlight})`, "gi");
-    const parts = text.split(regex);
-
-    return (
-      <span>
-        {parts.map((part, index) =>
-          regex.test(part) ? (
-            <mark key={index} className="bg-transparent text-primary font-bold">
-              {part}
-            </mark>
-          ) : (
-            <span key={index} className="text-foreground">
-              {part}
-            </span>
-          )
-        )}
-      </span>
-    );
+const HighlightText = React.memo<{ text: string; highlight: string }>(({ text, highlight }) => {
+  if (!highlight.trim()) {
+    return <span>{text}</span>;
   }
-);
+
+  const escapedHighlight = highlight.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const regex = new RegExp(`(${escapedHighlight})`, "gi");
+  const parts = text.split(regex);
+
+  return (
+    <span>
+      {parts.map((part, index) =>
+        regex.test(part) ? (
+          <mark key={index} className="bg-transparent text-primary font-bold">
+            {part}
+          </mark>
+        ) : (
+          <span key={index} className="text-foreground">
+            {part}
+          </span>
+        ),
+      )}
+    </span>
+  );
+});
 HighlightText.displayName = "HighlightText";
 
 // Memoized Product Item Component to optimize rendering performance
@@ -57,7 +55,7 @@ const ProductRow = React.memo<{
         "flex items-center gap-4 px-4 py-3 cursor-pointer transition-all duration-150 rounded-xl",
         isActive
           ? "bg-accent/80 text-accent-foreground shadow-sm translate-x-1"
-          : "hover:bg-muted/50 text-foreground"
+          : "hover:bg-muted/50 text-foreground",
       )}
       role="option"
       aria-selected={isActive}
@@ -83,15 +81,13 @@ const ProductRow = React.memo<{
           <HighlightText text={product.name} highlight={query} />
         </h4>
         <div className="flex items-center gap-3 mt-1">
-          <span className="font-semibold text-sm text-primary">
-            {formatPrice(product.price)}
-          </span>
+          <span className="font-semibold text-sm text-primary">{formatPrice(product.price)}</span>
           <span
             className={cn(
               "inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-medium leading-none",
               product.inStock
                 ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400 border border-emerald-200/50"
-                : "bg-red-50 text-red-700 dark:bg-red-950/30 dark:text-red-400 border border-red-200/50"
+                : "bg-red-50 text-red-700 dark:bg-red-950/30 dark:text-red-400 border border-red-200/50",
             )}
           >
             {product.inStock ? "In Stock" : "Out of Stock"}
@@ -100,9 +96,7 @@ const ProductRow = React.memo<{
       </div>
 
       {/* Enter Action Indicator (shown on active keyboard selection) */}
-      {isActive && (
-        <ArrowRight className="h-4 w-4 text-primary animate-pulse flex-shrink-0" />
-      )}
+      {isActive && <ArrowRight className="h-4 w-4 text-primary animate-pulse flex-shrink-0" />}
     </div>
   );
 });
@@ -122,7 +116,7 @@ const HistoryRow = React.memo<{
       onMouseEnter={onMouseEnter}
       className={cn(
         "flex items-center justify-between px-4 py-2.5 cursor-pointer transition-all duration-150 rounded-lg",
-        isActive ? "bg-accent/80 text-accent-foreground" : "hover:bg-muted/50 text-foreground"
+        isActive ? "bg-accent/80 text-accent-foreground" : "hover:bg-muted/50 text-foreground",
       )}
       role="option"
       aria-selected={isActive}
@@ -181,7 +175,7 @@ export const SearchDropdown: React.FC<SearchDropdownProps> = ({
     <div
       className={cn(
         "absolute top-full left-0 z-50 mt-2 w-full overflow-hidden rounded-2xl border border-border bg-popover text-popover-foreground shadow-2xl",
-        "backdrop-blur-md bg-opacity-95 dark:bg-opacity-95 transition-all duration-200 ease-out"
+        "backdrop-blur-md bg-opacity-95 dark:bg-opacity-95 transition-all duration-200 ease-out",
       )}
       role="listbox"
       aria-label="Search suggestions"
@@ -241,7 +235,8 @@ export const SearchDropdown: React.FC<SearchDropdownProps> = ({
               </div>
               <h4 className="font-semibold text-sm mb-1 text-foreground">No Products Found</h4>
               <p className="text-xs text-muted-foreground max-w-xs">
-                We couldn&apos;t find any matches for &ldquo;{query}&rdquo;. Check spelling or try something else.
+                We couldn&apos;t find any matches for &ldquo;{query}&rdquo;. Check spelling or try
+                something else.
               </p>
             </div>
           )}

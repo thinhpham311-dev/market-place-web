@@ -10,13 +10,12 @@ interface IVoucherProductSection {
   shopId: string;
 }
 
-export default function VoucherProductSection({
-code, shopId
-}: IVoucherProductSection) {
+export default function VoucherProductSection({ code, shopId }: IVoucherProductSection) {
   const { t } = useTranslation();
 
   const { products, loading, error } = useFetchData({
-    code, shopId
+    code,
+    shopId,
   });
 
   return (

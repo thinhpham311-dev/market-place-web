@@ -13,7 +13,11 @@ interface UseLiveSearchOptions {
   limit?: number;
 }
 
-export function useLiveSearch({ onSelectProduct, onSearchSubmit, limit = 5 }: UseLiveSearchOptions = {}) {
+export function useLiveSearch({
+  onSelectProduct,
+  onSearchSubmit,
+  limit = 5,
+}: UseLiveSearchOptions = {}) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<ProductItem[]>([]);
   const [loading, setLoading] = useState(false);
@@ -106,7 +110,7 @@ export function useLiveSearch({ onSelectProduct, onSearchSubmit, limit = 5 }: Us
     try {
       const response = await apiSearchSuggestions(keyword, limit, controller.signal);
       const resBody = response.data as any;
-      
+
       let rawResults: any[] = [];
       if (resBody) {
         if (Array.isArray(resBody.data)) {
@@ -128,28 +132,31 @@ export function useLiveSearch({ onSelectProduct, onSearchSubmit, limit = 5 }: Us
             inStock: item.inStock !== undefined ? item.inStock : true,
           };
         }
-        
+
         // If it's a backend suggestions text item (text, score, product_id)
         if (item.text) {
           const formattedName = item.text
             .split("-")
             .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
             .join(" ");
-            
+
           return {
             id: item.product_id || item.id || idx,
             name: formattedName,
-            thumbnail: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=300&auto=format&fit=crop&q=80",
+            thumbnail:
+              "https://images.unsplash.com/photo-1542272604-787c3835535d?w=300&auto=format&fit=crop&q=80",
             price: item.price || 120000,
             inStock: true,
           };
         }
-        
+
         // Fallback mapping
         return {
           id: item.id || idx,
           name: item.name || "Suggested Product",
-          thumbnail: item.thumbnail || "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=100&q=80",
+          thumbnail:
+            item.thumbnail ||
+            "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=100&q=80",
           price: item.price || 0,
           inStock: true,
         };
@@ -243,14 +250,17 @@ export function useLiveSearch({ onSelectProduct, onSearchSubmit, limit = 5 }: Us
       setIsOpen(false);
       setActiveIndex(-1);
     },
-    [onSelectProduct, saveToHistory]
+    [onSelectProduct, saveToHistory],
   );
 
-  const selectHistoryTerm = useCallback((term: string) => {
-    setQuery(term);
-    saveToHistory(term);
-    setActiveIndex(-1);
-  }, [saveToHistory]);
+  const selectHistoryTerm = useCallback(
+    (term: string) => {
+      setQuery(term);
+      saveToHistory(term);
+      setActiveIndex(-1);
+    },
+    [saveToHistory],
+  );
 
   const triggerSearchSubmit = useCallback(() => {
     const trimmed = query.trim();
@@ -321,7 +331,7 @@ export function useLiveSearch({ onSelectProduct, onSearchSubmit, limit = 5 }: Us
       selectSuggestedProduct,
       selectHistoryTerm,
       triggerSearchSubmit,
-    ]
+    ],
   );
 
   return {

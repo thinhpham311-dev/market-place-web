@@ -38,9 +38,7 @@ const CartItem = ({ data }: ICartItemProps) => {
   const productHref = `/products/${itemSpuSlug}-i.${itemShopId}.${itemSpuId}`;
 
   if (isDeleting) {
-    return (
-      <LoadingSkeleton/>
-    );
+    return <LoadingSkeleton />;
   }
 
   return (
@@ -48,8 +46,7 @@ const CartItem = ({ data }: ICartItemProps) => {
       <CardHeader className="md:col-span-1 col-span-2 row-span-2 p-0 ">
         <Link href={productHref} className="block cursor-pointer">
           <CartItemImage
-            _w={50}
-            _h={50}
+            className="aspect-square h-full w-full object-cover rounded-md"
             src={itemSpuImage}
             imgClassName="h-full w-full"
             alt="image not found"

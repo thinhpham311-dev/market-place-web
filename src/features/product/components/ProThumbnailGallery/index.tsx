@@ -18,20 +18,16 @@ import { injectReducer } from "@/store";
 import reducer from "./store";
 import { useSyncCarousels } from "./hooks";
 import { images } from "@/constants/data";
-import { useSpuContext } from "@/features/spu/hooks";
+import { useSpuDetailData } from "@/features/spu/hooks";
 import ImageGallery from "react-image-gallery";
 
 injectReducer("gallery", reducer);
 
 function ProThumbnailGallery() {
-  const { spu, loading } = useSpuContext((state) => ({
-    spu: state.spu,
-    loading: state.loading,
-  }));
+  const { showLoading } = useSpuDetailData();
   const { current, setApi, navigateTo } = useSyncCarousels();
   const [open, setOpen] = useState(false);
   const galleryRef = useRef<ImageGallery | null>(null);
-  const hasNoData = !spu || Object.keys(spu).length === 0;
   const galleryItems = images.map((image, index) => ({
     original: image,
     thumbnail: image,
@@ -44,7 +40,7 @@ function ProThumbnailGallery() {
     galleryRef.current?.slideToIndex(current);
   }, [current, open]);
 
-  if (loading && hasNoData) {
+  if (showLoading) {
     return <LoadingSkeleton />;
   }
 

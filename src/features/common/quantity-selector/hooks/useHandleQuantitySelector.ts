@@ -30,12 +30,18 @@ export function useHandleQuantitySelector({
     if (defaultCurrentQuantity != null) {
       dispatch(
         initQuantity({
-          storeKey,
-          quantity: defaultCurrentQuantity,
+          key: storeKey,
+          initialValue: {
+            currentQuantity: defaultCurrentQuantity,
+            maxQuantity,
+          },
         }),
       );
     }
-  }, [dispatch, storeKey, defaultCurrentQuantity]);
+    return () => {
+      dispatch(resetQuantity({ key: storeKey }));
+    };
+  }, [dispatch, storeKey, defaultCurrentQuantity, maxQuantity]);
 
   const { currentQuantity } = useGetQuantityValue({
     storeKey,
@@ -46,6 +52,7 @@ export function useHandleQuantitySelector({
 
   const getValidateQuantity = useCallback(
     (newQuantity: number, messages: string[]) => {
+      if (!maxQuantity || maxQuantity === 0) return;
       if (newQuantity >= maxQuantity) {
         setTimeout(() => {
           const id = toast.error(translateRuntime("quantity_reached_maximum"), {

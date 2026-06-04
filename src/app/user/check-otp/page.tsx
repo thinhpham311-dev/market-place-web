@@ -7,7 +7,7 @@ interface PageProps {
 }
 
 const getEmailFromSearchParams = (email?: string | string[]) => {
-  return Array.isArray(email) ? email[0] ?? "" : email ?? "";
+  return Array.isArray(email) ? (email[0] ?? "") : (email ?? "");
 };
 
 export default function Page({ searchParams }: PageProps) {

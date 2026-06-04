@@ -31,9 +31,7 @@ export function useFetchData({ ids }: UseFetchDataParams) {
     totalItems = 0,
     loading = false,
     error = null,
-  } = useAppSelector(
-    selectCatByCategoryIdByStoreKey(CAT_LIST_BY_ID)
-  );
+  } = useAppSelector(selectCatByCategoryIdByStoreKey(CAT_LIST_BY_ID));
 
   useEffect(() => {
     let isActive = true;
@@ -42,15 +40,14 @@ export function useFetchData({ ids }: UseFetchDataParams) {
     const promise = dispatch(
       getCatListById({
         category_id: ids[0],
-      } as ICategoryModel) as any
+      } as ICategoryModel) as any,
     );
 
-    promise
-      ?.finally?.(() => {
-        if (isActive) {
-          setIsBootstrapping(false);
-        }
-      });
+    promise?.finally?.(() => {
+      if (isActive) {
+        setIsBootstrapping(false);
+      }
+    });
 
     return () => {
       isActive = false;
