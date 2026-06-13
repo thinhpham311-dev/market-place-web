@@ -23,12 +23,15 @@ const CartItemImage: React.FC<CartItemImageProps> = ({
 }) => {
   return (
     <Image
-      src={src}
+      src={
+        src ??
+        "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png"
+      }
       alt={alt}
       className={cn(imgClassName, "aspect-square")}
-      priority
       width={_w}
       height={_h}
+      priority
     />
   );
 };
