@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SpuCard from "../ProCard";
 import { ISpuModel } from "@/models/spu";
 import LoadingSkeleton from "./LoadingSkeleton";
@@ -24,19 +24,64 @@ const ProGrid = ({
   cardOrientation = "vertical",
 }: SpuGridProps) => {
   const { t } = useTranslation();
+
+  const [showError, setShowError] = useState(false);
+
   const hasNoData = !data || data.length === 0;
-  const errorMessage = typeof error === "string" ? error : error?.message;
-  if (isLoading && hasNoData) {
-    return <LoadingSkeleton className={className} count={countLoadItems} />;
+  const errorMessage =
+    typeof error === "string" ? error : error?.message;
+
+  useEffect(() => {
+    if (!errorMessage) {
+      setShowError(false);
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setShowError(true);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [errorMessage]);
+
+  // Loading thật
+  if (isLoading) {
+    return (
+      <LoadingSkeleton
+        className={className}
+        count={countLoadItems}
+      />
+    );
   }
 
-  if (hasNoData && errorMessage) {
-    return <NotFound message={errorMessage || t("common_something_went_wrong")} />;
+  // Delay error 3s
+  if (errorMessage && !showError) {
+    return (
+      <LoadingSkeleton
+        className={className}
+        count={countLoadItems}
+      />
+    );
   }
 
+  // Error
+  if (errorMessage && showError) {
+    return (
+      <NotFound
+        message={errorMessage}
+      />
+    );
+  }
+
+  // No data
   if (hasNoData) {
-    return <NotFound message={t("common_no_data_found")} />;
+    return (
+      <NotFound
+        message={t("common_no_data_found")}
+      />
+    );
   }
+
   return (
     <div className={cn("grid w-full", className)}>
       {data.map((item) => (

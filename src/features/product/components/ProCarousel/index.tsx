@@ -1,5 +1,6 @@
 "use client";
 
+import {useEffect, useState} from "react";
 import {
   Carousel,
   CarouselContent,
@@ -32,20 +33,62 @@ const SpuCarousel = ({
   countLoadItems,
 }: ISpuCarouselProps) => {
   const { t } = useTranslation();
+  const [showError, setShowError] = useState(false);
+
   const hasNoData = !data || data.length === 0;
-  const errorMessage = typeof error === "string" ? error : error?.message;
+  const errorMessage =
+    typeof error === "string" ? error : error?.message;
 
-  if (!isLoading && hasNoData && errorMessage) {
-    return <NotFound message={errorMessage || t("common_something_went_wrong")} />;
-  }
-  if (isLoading && hasNoData) {
-    return <LoadingSkeleton count={countLoadItems} />;
+  useEffect(() => {
+    if (!errorMessage) {
+      setShowError(false);
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setShowError(true);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [errorMessage]);
+
+  // Loading thật
+  if (isLoading) {
+    return (
+      <LoadingSkeleton
+        className={className}
+        count={countLoadItems}
+      />
+    );
   }
 
-  if (!isLoading && hasNoData) {
-    return <NotFound />;
+  // Delay error 3s
+  if (errorMessage && !showError) {
+    return (
+      <LoadingSkeleton
+        className={className}
+        count={countLoadItems}
+      />
+    );
   }
 
+  // Error
+  if (errorMessage && showError) {
+    return (
+      <NotFound
+        message={errorMessage}
+      />
+    );
+  }
+
+  // No data
+  if (hasNoData) {
+    return (
+      <NotFound
+        message={t("common_no_data_found")}
+      />
+    );
+  }
   return (
     <Carousel>
       <CarouselContent className="-ml-2">
