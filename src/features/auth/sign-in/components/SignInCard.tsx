@@ -9,10 +9,10 @@ export default function SignInCard() {
   const { t } = useTranslation();
   return (
     <Card className="mx-auto w-full px-3 py-10">
-      <CardHeader className="flex flex-row items-center justify-start gap-x-3 px-0 md:px-12">
+      <CardHeader className="flex flex-row items-center justify-start gap-x-3 px-10 md:px-12">
         <CardTitle>{t("sign_in")}</CardTitle>
       </CardHeader>
-      <CardContent className="px-0 md:px-12">
+      <CardContent className="px-10 md:px-12">
         <SignInForm />
       </CardContent>
     </Card>

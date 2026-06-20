@@ -5,7 +5,7 @@ import SignUpRoot from "@/features/auth/sign-up/sign-up-root";
 export default function Page() {
   return (
     <div className="w-full bg-[#ee4d2d] py-12 md:py-20 lg:py-28 min-h-[600px] flex items-center">
-      <div className="container mx-auto flex items-center lg:justify-between justify-center px-4 md:px-6">
+      <div className="container mx-auto grid lg:grid-cols-2 grid-cols-1 items-center lg:justify-between justify-center px-4 md:px-6">
         <div className="hidden lg:flex flex-col text-white max-w-[600px] gap-y-8 relative">
           <div className="flex flex-col gap-y-4">
             <h1 className="text-5xl font-semibold leading-tight drop-shadow-sm">

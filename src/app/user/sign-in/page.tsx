@@ -5,20 +5,21 @@ import Image from "next/image";
 export default function Page() {
   return (
     <div className="w-full bg-[#ee4d2d] py-12 md:py-20 lg:py-28 min-h-[600px] flex items-center">
-      <div className="container mx-auto flex items-center lg:justify-between justify-center px-4 md:px-6">
-        <div className="hidden lg:flex flex-col text-white max-w-1/2 gap-y-8 relative">
-          <div className="flex flex-col gap-y-4">
-            <h1 className="text-5xl font-semibold leading-tight drop-shadow-sm">
+      <div className="container mx-auto grid lg:grid-cols-2 grid-cols-1 items-center lg:justify-between justify-center px-4 md:px-6">
+        <div className="hidden lg:flex flex-col text-white gap-y-8 relative">
+          <div className="flex flex-1 flex-col gap-y-4">
+            <h1 className="text-5xl font-semibold leading-tight">
               Mua sắm thả ga
               <br />
               trên Mini Market
             </h1>
-            <p className="text-2xl drop-shadow-sm">
-              Nền tảng thương mại điện tử yêu thích ở Đông Nam Á & Đài Loan.
+            <p className="text-2xl">
+              Nền tảng thương mại điện tử yêu thích ở 
+              Đông Nam Á & Đài Loan.
             </p>
           </div>
 
-          <div className="flex items-center gap-2 mt-4 flex-wrap">
+          <div className="flex flex-1 items-center gap-2 mt-4 flex-wrap">
             <div className="relative w-32 h-32 rounded-2xl overflow-hidden shadow-2xl border-4 border-white/30 transform -rotate-6 hover:rotate-0 transition duration-300">
               <Image
                 src="/O1CN01Si2Chv1URSNSZI3w2_!!6000000002514-2-tps-200-200.avif"

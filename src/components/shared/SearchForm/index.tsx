@@ -27,6 +27,7 @@ type SearchFormProps = {
 
 interface SearchInputWrapperProps {
   showCategorySelect: boolean;
+  pathname: string | null;
   searchInputRef: any;
   shortcutLabel: string;
   FormSchema: any;
@@ -35,6 +36,7 @@ interface SearchInputWrapperProps {
 
 const SearchInputWrapper: React.FC<SearchInputWrapperProps> = ({
   showCategorySelect,
+  pathname,
   searchInputRef,
   shortcutLabel,
   FormSchema,
@@ -85,6 +87,17 @@ const SearchInputWrapper: React.FC<SearchInputWrapperProps> = ({
   useEffect(() => {
     setQuery(textsearch);
   }, [textsearch, setQuery]);
+
+  useEffect(() => {
+    if (pathname === "/search") {
+      return;
+    }
+
+    setValue("textsearch", "", { shouldDirty: false, shouldTouch: false });
+    setQuery("");
+    setIsOpen(false);
+    setActiveIndex(-1);
+  }, [pathname, setActiveIndex, setIsOpen, setQuery, setValue]);
 
   // Click outside listener
   useEffect(() => {
@@ -291,6 +304,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ showCategorySelect = false }) =
       <div className="grid grid-cols-12 gap-x-2 flex-1">
         <SearchInputWrapper
           showCategorySelect={showCategorySelect}
+          pathname={pathname}
           searchInputRef={searchInputRef}
           shortcutLabel={shortcutLabel}
           FormSchema={FormSchema}
