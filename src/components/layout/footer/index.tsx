@@ -1,6 +1,7 @@
 "use client";
 
 import type { ComponentType } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import {
   BadgeCheck,
@@ -107,7 +108,18 @@ export default function Footer() {
       <div className="container mx-auto grid gap-8 px-6 py-10 lg:grid-cols-12">
         <div className="space-y-4 lg:col-span-4">
           <div>
-            <p className="text-xl font-semibold">{t("footer_brand_name")}</p>
+            <div className="flex items-center gap-2">
+              <Image
+                src="https://res.cloudinary.com/di6zporch/image/upload/t_Banner 16:9/v1730777885/market-place-logo_iz3rdk.svg"
+                loading="lazy"
+                width={30}
+                height={30}
+                alt={t("brand_logo_alt")}
+              />
+              <p className="font-title text-[30px] font-bold leading-none">
+                {t("footer_brand_name")}
+              </p>
+            </div>
             <p className="mt-3 max-w-xl text-sm leading-6 text-muted-foreground">
               {t("footer_brand_desc")}
             </p>

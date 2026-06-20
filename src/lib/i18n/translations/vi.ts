@@ -150,8 +150,8 @@ export const vi: TranslationDictionary = {
   footer_badge_secure_payments: "Thanh toán an toàn",
   footer_badge_easy_returns: "Đổi trả dễ dàng",
   footer_badge_customer_support: "Hỗ trợ khách hàng 24/7",
-  footer_brand_name: "Market Place",
-  brand_logo_alt: "Logo Market Place",
+  footer_brand_name: "Mini Market",
+  brand_logo_alt: "Logo Mini Market",
   footer_brand_desc:
     "Nền tảng mua sắm đa ngành hàng với sản phẩm chính hãng, giao hàng nhanh và hỗ trợ sau mua rõ ràng cho cả người mua lẫn người bán.",
   footer_support_hours: "Hỗ trợ hằng ngày từ 08:00 đến 22:00",
@@ -454,7 +454,7 @@ export const vi: TranslationDictionary = {
   sidebar_order_update: "Cập nhật đơn hàng",
   sidebar_promotions: "Khuyến mãi",
   sidebar_wallet_update: "Cập nhật ví",
-  sidebar_marketplace_update: "Cập nhật Market Place",
+  sidebar_marketplace_update: "Cập nhật Mini Market",
   shop_live_desc:
     "Theo dõi các phiên live nổi bật, sản phẩm đang hot và phần giới thiệu trực tiếp từ host.",
   shop_live_watch_now: "Xem ngay",

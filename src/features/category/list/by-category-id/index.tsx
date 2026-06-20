@@ -18,7 +18,7 @@ const CatByCategoryId = ({ ids }: { ids: string[] }) => {
   return (
     <Card className="md:mx-6 mx-3 grid grid-cols-12 items-center sticky left-0 top-[60px] bg-white z-10">
       <CardHeader className="py-2 px-3 lg:col-span-2 md:col-span-12 col-span-12">
-        <CardTitle className="text-lg font-semibold inline-flex items-center space-x-1">
+        <CardTitle className="font-title text-lg font-semibold inline-flex items-center space-x-1">
           <BiCategory />
           <span>{t("all_categories")}:</span>
         </CardTitle>

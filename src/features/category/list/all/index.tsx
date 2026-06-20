@@ -43,7 +43,7 @@ export default function CategoryListPage() {
   return (
     <Card className="border-none shadow-none rounded-none px-3 md:px-6">
       <CardHeader className="px-0">
-        <CardTitle>{t("all_categories")}</CardTitle>
+        <CardTitle className="font-title">{t("all_categories")}</CardTitle>
         <CardDescription>{t("all_categories_desc")}</CardDescription>
       </CardHeader>
 
@@ -64,7 +64,7 @@ export default function CategoryListPage() {
               return (
                 <section key={parent._id || parent.category_id} className="space-y-4">
                   <div className="space-y-1">
-                    <h2 className="text-lg font-semibold">{parent.category_name}</h2>
+                    <h2 className="font-title text-lg font-semibold">{parent.category_name}</h2>
                     <p className="text-sm text-muted-foreground">
                       {children.length > 0
                         ? `${children.length} ${t("category_subcategories_count")}`

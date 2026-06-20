@@ -16,7 +16,7 @@ const CatPopularList: React.FC = () => {
     <Card className="border-none shadow-none rounded-none md:px-6 px-3 w-full">
       <CardHeader className="flex-row items-center px-0 space-x-3 mb-3">
         <div className="flex-1">
-          <CardTitle className="mb-3 capitalize">{t("popular_categories")}</CardTitle>
+          <CardTitle className="font-title mb-3 capitalize">{t("popular_categories")}</CardTitle>
           <CardDescription className="md:line-clamp-2 line-clamp-1">
             {t("popular_categories_desc")}
           </CardDescription>

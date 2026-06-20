@@ -11,7 +11,7 @@ export default function Page() {
             <h1 className="text-5xl font-semibold leading-tight drop-shadow-sm">
               Mua sắm thả ga
               <br />
-              trên Market Place
+              trên Mini Market
             </h1>
             <p className="text-2xl drop-shadow-sm">
               Nền tảng thương mại điện tử yêu thích ở Đông Nam Á & Đài Loan.

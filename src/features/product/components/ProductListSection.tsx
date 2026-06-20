@@ -39,7 +39,9 @@ export default function ProductListSection({
     <Card className={cn("grid grid-cols-12 border-none shadow-none", className)}>
       <CardHeader className={cn("col-span-12 mb-3 flex-row items-center", headerClassName)}>
         <div className={cn("flex-1 p-0", titleWrapperClassName)}>
-          <CardTitle className={cn("mb-3 capitalize", titleClassName)}>{title}</CardTitle>
+          <CardTitle className={cn("font-title mb-3 capitalize", titleClassName)}>
+            {title}
+          </CardTitle>
           <CardDescription className={cn("md:line-clamp-2 line-clamp-1", descriptionClassName)}>
             {description}
           </CardDescription>

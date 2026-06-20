@@ -38,7 +38,7 @@ export default function BrandListSection({
         {!compact || !logoOnly ? (
           <CardHeader className="mb-0 px-0 pt-5 md:pt-6">
             <div className="flex-1">
-              <CardTitle className="capitalize">{resolvedTitle}</CardTitle>
+              <CardTitle className="font-title capitalize">{resolvedTitle}</CardTitle>
               <CardDescription className="mt-3 line-clamp-2">{resolvedDescription}</CardDescription>
             </div>
           </CardHeader>

@@ -58,8 +58,10 @@ export default function ShopLiveSection() {
                   {t("shop_live_now")}
                 </span>
               </div>
-              <h2 className="text-2xl font-semibold md:text-3xl">{t("sidebar_shop_live")}</h2>
-              <p className="max-w-2xl text-sm text-white/90 md:text-base">{t("shop_live_desc")}</p>
+              <h2 className="font-title text-2xl font-semibold md:text-3xl">
+                {t("sidebar_shop_live")}
+              </h2>
+              <p className="text-sm text-white/90 md:text-base">{t("shop_live_desc")}</p>
             </div>
 
             <Button

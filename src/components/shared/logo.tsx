@@ -11,7 +11,7 @@ const Logo: React.FC = () => {
   return (
     <Link
       href="/"
-      className="md:flex hidden items-center justify-center space-x-1 cursor-pointer px-3 ml-0"
+      className="md:flex hidden items-center justify-center gap-2 cursor-pointer px-3 ml-0"
     >
       <Image
         src="https://res.cloudinary.com/di6zporch/image/upload/t_Banner 16:9/v1730777885/market-place-logo_iz3rdk.svg"
@@ -20,7 +20,9 @@ const Logo: React.FC = () => {
         height={30}
         alt={t("brand_logo_alt")}
       />
-      <h3 className="font-bold uppercase lg:flex md:flex hidden">{t("footer_brand_name")}</h3>
+      <h3 className="font-title text-[30px] font-bold leading-none lg:flex md:flex hidden">
+        {t("footer_brand_name")}
+      </h3>
     </Link>
   );
 };
