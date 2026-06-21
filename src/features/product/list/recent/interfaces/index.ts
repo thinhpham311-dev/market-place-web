@@ -1,16 +1,18 @@
 import { ISpuModel } from "@/models/spu";
+import { IFilter } from "@/types/common";
 
-export interface IRecentProductListRequest {
-  limit?: number;
-  signal?: AbortSignal;
+export type IProductListRequest = IFilter;
+
+export interface IProductListResponse {
+  metadata: {
+    list: ISpuModel[];
+    total: number;
+  };
 }
 
-export interface IRecentProductListResponse {
-  metadata?: {
-    list?: ISpuModel[];
-    data?: ISpuModel[];
-    total?: number;
-  };
-  data?: ISpuModel[];
-  list?: ISpuModel[];
+export interface IProductState {
+  loading: boolean;
+  error: string | null;
+  list: ISpuModel[];
+  total: number;
 }

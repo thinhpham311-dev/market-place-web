@@ -12,7 +12,7 @@ import NotFound from "@/components/layout/notfound";
 import { useAppSelector, useTranslation } from "@/lib/hooks";
 import { formatDateTime, formatToCurrency } from "@/utils/formats";
 import { useFetchData } from "@/features/voucher/list/hooks/useFetchData";
-import ShopVoucherSectionLoading from "@/features/voucher/list/components/ShopVoucherSectionLoading";
+import LoadingSkeleton from "@/features/voucher/list/components/LoadingSkeleton";
 
 interface ShopVoucherSectionProps {
   shopId?: string;
@@ -43,7 +43,7 @@ export default function ShopVoucherSection({ shopId = "" }: ShopVoucherSectionPr
   };
 
   if (loading) {
-    return <ShopVoucherSectionLoading />;
+    return <LoadingSkeleton />;
   }
 
   if (error && availableVouchers.length === 0) {
@@ -59,7 +59,7 @@ export default function ShopVoucherSection({ shopId = "" }: ShopVoucherSectionPr
       <CardHeader className="px-0 pb-4">
         <div className="flex items-start justify-between gap-4">
           <div className="space-y-2">
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center font-title gap-2">
               <TicketPercent className="h-5 w-5 text-orange-600" />
               {t("header_my_vouchers")}
             </CardTitle>
@@ -79,7 +79,7 @@ export default function ShopVoucherSection({ shopId = "" }: ShopVoucherSectionPr
           {availableVouchers.map((voucher) => (
             <Card key={voucher.discountId} className="overflow-hidden border-stone-200 shadow-none">
               <CardContent className="space-y-3 p-4">
-                <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center justify-between gap-y-3">
                   <p className="font-semibold">{voucher.title}</p>
                   <Badge className="bg-orange-500 text-white hover:bg-orange-500">
                     {t("voucher_available")}

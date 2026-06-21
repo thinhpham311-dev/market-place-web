@@ -1,0 +1,9 @@
+import { IProductState } from "@/features/product/list/popular/interfaces";
+
+export const initialState: IProductState = {
+  loading: false,
+  list: [],
+  total: 0,
+  error: null,
+  status: "idle",
+};

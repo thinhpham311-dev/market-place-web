@@ -1,63 +1,53 @@
-import { useEffect, useState } from "react";
-import { ISpuModel } from "@/models/spu";
-import {
-  IRecentProductListRequest,
-  IRecentProductListResponse,
-} from "@/features/product/list/recent/interfaces";
-import { apiGetRecentProducts } from "@/features/product/list/recent/services";
-import { useTranslation } from "@/lib/hooks";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { getProductList } from "../store/dataSlice";
+import { selectProRecentListByStoreKey } from "../store/selectors";
+import type { SortBy } from "@/types/common/sort";
+//stores
+import reducer from "@/features/product/list/hot-deal/store";
+import { injectReducer, removeReducer } from "@/store";
 
-function normalizeRecentProducts(payload: IRecentProductListResponse | ISpuModel[]): ISpuModel[] {
-  if (Array.isArray(payload)) {
-    return payload;
-  }
+//constants
+import { PRO_RECENT_LIST } from "@/features/product/list/recent/constants";
 
-  const candidates = [
-    payload?.metadata?.list,
-    payload?.metadata?.data,
-    payload?.data,
-    payload?.list,
-  ];
-
-  return candidates.find(Array.isArray) ?? [];
+interface UseFetchDataParams {
+  storeKey?: string;
+  defaultLimit?: number;
+  defaultCurrentPage?: number;
+  sortBy?: SortBy | null;
 }
 
-export function useFetchData({ limit = 12 }: IRecentProductListRequest = {}) {
-  const { t } = useTranslation();
-  const [products, setProducts] = useState<ISpuModel[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
+export function useFetchData({
+  storeKey = PRO_RECENT_LIST,
+  defaultLimit = 12,
+  defaultCurrentPage = 1,
+  sortBy = "ctime",
+}: UseFetchDataParams = {}) {
   useEffect(() => {
-    const controller = new AbortController();
-
-    async function fetchRecentProducts() {
-      setLoading(true);
-      setError(null);
-
-      try {
-        const response = await apiGetRecentProducts({ limit, signal: controller.signal });
-        setProducts(normalizeRecentProducts(response.data as IRecentProductListResponse));
-      } catch (error: any) {
-        if (error?.name === "CanceledError" || error?.code === "ERR_CANCELED") {
-          return;
-        }
-
-        setProducts([]);
-        setError(error?.message || t("common_something_went_wrong"));
-      } finally {
-        if (!controller.signal.aborted) {
-          setLoading(false);
-        }
-      }
-    }
-
-    fetchRecentProducts();
+    injectReducer(storeKey, reducer);
 
     return () => {
-      controller.abort();
+      removeReducer(storeKey);
     };
-  }, [limit, t]);
+  }, [storeKey]);
 
-  return { products, loading, error };
+  const dispatch = useAppDispatch();
+
+  const {
+    products = [],
+    totalItems,
+    loading,
+    error = null,
+  } = useAppSelector(selectProRecentListByStoreKey(storeKey));
+
+  useEffect(() => {
+    const promise = dispatch(
+      getProductList({ limit: defaultLimit, sortBy, page: defaultCurrentPage }) as any,
+    );
+    return () => {
+      promise.abort();
+    };
+  }, [defaultCurrentPage, defaultLimit, dispatch, sortBy]);
+
+  return { products, totalItems, loading, error };
 }

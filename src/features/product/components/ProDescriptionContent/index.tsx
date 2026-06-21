@@ -37,7 +37,7 @@ function ProDescriptionContent() {
   return (
     <Card className="rounded-none">
       <CardHeader className="bg-sidebar-foreground p-3">
-        <CardTitle className="text-background">{t("product_description_title")}</CardTitle>
+        <CardTitle className="text-background font-title">{t("product_description_title")}</CardTitle>
       </CardHeader>
       <CardContent className="p-3">{content}</CardContent>
     </Card>

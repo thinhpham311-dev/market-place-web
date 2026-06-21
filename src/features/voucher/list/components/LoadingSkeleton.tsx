@@ -1,10 +1,15 @@
 "use client";
-
+import ProductListSection from "@/features/product/components/ProductListSection";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent } from "@/components/ui/card";
 
 export default function LoadingSkeleton() {
   return (
-    <div className="space-y-4">
+        <ProductListSection
+      title={<Skeleton className="h-7 w-48" />}
+      description={<Skeleton className="h-4 w-72 max-w-full" />}
+    >
+      <div className="grid gap-3 md:grid-cols-3">
       {Array.from({ length: 3 }).map((_, index) => (
         <Card key={index} className="overflow-hidden border-stone-200 shadow-none">
           <CardContent className="flex flex-col gap-4 p-4 md:flex-row md:items-center md:justify-between md:p-5">
@@ -24,5 +29,6 @@ export default function LoadingSkeleton() {
         </Card>
       ))}
     </div>
+      </ProductListSection>
   );
 }

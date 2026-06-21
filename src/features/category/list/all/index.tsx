@@ -42,12 +42,12 @@ export default function CategoryListPage() {
 
   return (
     <Card className="border-none shadow-none rounded-none px-3 md:px-6">
-      <CardHeader className="px-0">
+      <CardHeader className="border-b border-stone-200 px-0 pb-4 dark:border-stone-800">
         <CardTitle className="font-title">{t("all_categories")}</CardTitle>
         <CardDescription>{t("all_categories_desc")}</CardDescription>
       </CardHeader>
 
-      <CardContent className="px-0">
+      <CardContent className="px-0 pt-4">
         {loading ? (
           <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6">
             {Array.from({ length: 12 }).map((_, index) => (

@@ -35,7 +35,7 @@ function ProSpecifications() {
   }
   return (
     <Card className="rounded-none">
-      <CardTitle className="bg-sidebar-foreground text-background p-3">
+      <CardTitle className="bg-sidebar-foreground text-background font-title p-3">
         {t("product_specifications")}
       </CardTitle>
 

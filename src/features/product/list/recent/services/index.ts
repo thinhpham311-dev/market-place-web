@@ -1,11 +1,10 @@
 import ApiService from "@/services/ApiService";
-import { IRecentProductListRequest } from "@/features/product/list/recent/interfaces";
+import { IProductListRequest } from "@/features/product/list/bundle-deal/interfaces";
 
-export async function apiGetRecentProducts({ limit, signal }: IRecentProductListRequest) {
+export async function apiPostProductsList(data: IProductListRequest) {
   return ApiService.fetchData({
-    url: "/search/recent",
-    method: "GET",
-    params: { limit },
-    signal,
+    url: `/spu/all`,
+    method: "POST",
+    data,
   });
 }

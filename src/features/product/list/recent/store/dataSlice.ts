@@ -1,15 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { apiPostProductsList } from "@/features/product/list/hot-deal/services";
+import { apiPostProductsList } from "@/features/product/list/recent/services";
 import {
   IProductListRequest,
   IProductListResponse,
-} from "@/features/product/list/hot-deal/interfaces";
+} from "@/features/product/list/recent/interfaces";
 import { initialState } from "./initials";
 import { translateRuntime } from "@/lib/i18n/runtime-translation";
 import { getApiErrorMessage } from "@/lib/http/handleAxiosError";
 
 export const getProductList = createAsyncThunk<IProductListResponse, IProductListRequest>(
-  "proHotDealList/data/getList",
+  "proRecentList/data/getList",
   async (params: IProductListRequest, { rejectWithValue }) => {
     try {
       const response = (await apiPostProductsList(params)) as { data: IProductListResponse };
@@ -23,7 +23,7 @@ export const getProductList = createAsyncThunk<IProductListResponse, IProductLis
 );
 
 const dataSlice = createSlice({
-  name: "proHotDealList/data",
+  name: "proRecentList/data",
   initialState,
   reducers: {},
   extraReducers: (builder) => {

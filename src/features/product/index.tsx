@@ -69,6 +69,9 @@ export default function ProductDetail({ product_id = "", shop_id = "" }: IProduc
               </CardContent>
             </Card>
           </div>
+          <div className="lg:col-span-3 col-span-3 order-1">
+            Sản phẩm đính kèm
+          </div>
           <div className="lg:col-span-3 col-span-3 md:order-1 order-2">
             <ProShopInfo shop_id={shop_id} />
           </div>
