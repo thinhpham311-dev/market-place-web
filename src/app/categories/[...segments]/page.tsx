@@ -12,6 +12,7 @@ interface PageProps {
   searchParams?: {
     page?: string | string[];
     sort?: string | string[];
+    [key: string]: string | string[] | undefined;
   };
 }
 
@@ -48,10 +49,33 @@ const getSortFromSearchParams = (sort?: string | string[]) => {
   return Array.isArray(sort) ? sort[0] : sort;
 };
 
+const FILTER_KEYS = ["brands", "conditions", "promotions", "services", "ratings"];
+
+const getFiltersFromSearchParams = (searchParams?: PageProps["searchParams"]) => {
+  const filters: Record<string, any> = {};
+  if (!searchParams) return filters;
+
+  FILTER_KEYS.forEach((key) => {
+    const val = searchParams[key];
+    if (val) {
+      if (key === "ratings") {
+        const rawArr = Array.isArray(val) ? val : val.split(",");
+        filters[key] = rawArr.map((n) => Number(n.trim())).filter((n) => !isNaN(n));
+      } else {
+        const rawArr = Array.isArray(val) ? val : val.split(",");
+        filters[key] = rawArr.map((s) => s.trim()).filter(Boolean);
+      }
+    }
+  });
+
+  return filters;
+};
+
 export default function Page({ params, searchParams }: PageProps) {
   const fullSlug = params?.segments?.join("/") || "";
   const currentPage = getPageFromSearchParams(searchParams?.page);
   const currentSort = getSortFromSearchParams(searchParams?.sort);
+  const currentFilters = getFiltersFromSearchParams(searchParams);
 
   const match = fullSlug.match(/(.*)-cat\.([\w.]+)/);
 
@@ -75,6 +99,7 @@ export default function Page({ params, searchParams }: PageProps) {
           lastId={lastId}
           initialPage={currentPage}
           initialSortValue={currentSort}
+          initialFilter={currentFilters}
         />
       </Suspense>
       <BrandListSection titleKey="shop_by_brand" descriptionKey="shop_by_brand_desc" compact />

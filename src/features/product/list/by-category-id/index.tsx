@@ -15,6 +15,7 @@ import { withEnsureInit } from "@/features/common/pagination/helpers";
 import { useGetSortByValue } from "@/features/common/sort-by/hooks";
 import { setSortBy } from "@/features/common/sort-by/store/stateSlice";
 import type { Sort } from "@/features/common/sort-by/types";
+import { useGetFilterValue } from "@/features/common/filter/hooks";
 
 // // hooks
 import { useFetchData } from "@/features/product/list/by-category-id/hooks";
@@ -42,6 +43,8 @@ const CategoryListUrlSync = ({
   const dispatch = useAppDispatch();
   const pathname = usePathname();
   const previousSortRef = React.useRef<string | null>(null);
+  const previousFilterRef = React.useRef<string | null>(null);
+
   const { currentPage } = useGetPaginationValue({
     storeKey: PRO_LIST_BY_CATEGORYID,
     initialValue: {
@@ -52,6 +55,7 @@ const CategoryListUrlSync = ({
       totalPages: 1,
     },
   });
+
   const { sortBy } = useGetSortByValue({
     storeKey: PRO_LIST_BY_CATEGORYID,
     initialState: {
@@ -59,6 +63,8 @@ const CategoryListUrlSync = ({
       sortBy: initialSort,
     },
   });
+
+  const { filter } = useGetFilterValue({ storeKey: PRO_LIST_BY_CATEGORYID });
 
   React.useEffect(() => {
     if (typeof window === "undefined") {
@@ -72,7 +78,29 @@ const CategoryListUrlSync = ({
     const urlSort = getSortOption(params.get("sort"));
     const nextSort = sortBy ?? initialSort;
 
+    // Sync filters to URL parameters
+    const filterKeys = ["brands", "conditions", "promotions", "services", "ratings"];
+    let hasFilterChanged = false;
+
+    filterKeys.forEach((key) => {
+      const reduxVal = filter?.[key] || [];
+      const urlVal = params.get(key) || "";
+
+      const reduxStr = Array.isArray(reduxVal) ? [...reduxVal].sort().join(",") : "";
+      const urlStr = urlVal ? urlVal.split(",").sort().join(",") : "";
+
+      if (reduxStr !== urlStr) {
+        hasFilterChanged = true;
+        if (reduxStr) {
+          params.set(key, reduxStr);
+        } else {
+          params.delete(key);
+        }
+      }
+    });
+
     if (
+      !hasFilterChanged &&
       rawPage === String(currentPage) &&
       rawSort === nextSort.value &&
       urlPage === currentPage &&
@@ -86,7 +114,7 @@ const CategoryListUrlSync = ({
     const nextUrl = params.toString() ? `${pathname}?${params.toString()}` : pathname;
 
     window.history.replaceState(window.history.state, "", nextUrl);
-  }, [currentPage, initialSort, pathname, sortBy]);
+  }, [currentPage, initialSort, pathname, sortBy, filter]);
 
   React.useEffect(() => {
     dispatch(
@@ -103,6 +131,7 @@ const CategoryListUrlSync = ({
     );
   }, [dispatch, initialPage, initialSort]);
 
+  // Reset page to 1 when sort changes
   React.useEffect(() => {
     const currentSortValue = sortBy?.value ?? initialSort.value;
 
@@ -120,6 +149,32 @@ const CategoryListUrlSync = ({
     previousSortRef.current = currentSortValue;
   }, [currentPage, dispatch, initialSort.value, sortBy]);
 
+  // Reset page to 1 when filters change
+  React.useEffect(() => {
+    const filterKeys = ["brands", "conditions", "promotions", "services", "ratings"];
+    const currentFilterStr = filterKeys
+      .map((key) => {
+        const val = filter?.[key] || [];
+        return Array.isArray(val) ? [...val].sort().join(",") : "";
+      })
+      .join("|");
+
+    if (previousFilterRef.current === null) {
+      previousFilterRef.current = currentFilterStr;
+      return;
+    }
+
+    if (previousFilterRef.current !== currentFilterStr) {
+      if (currentPage !== 1) {
+        dispatch(
+          withEnsureInit(setPage({ key: PRO_LIST_BY_CATEGORYID, page: 1 }), [PRO_LIST_BY_CATEGORYID]),
+        );
+      }
+    }
+
+    previousFilterRef.current = currentFilterStr;
+  }, [currentPage, dispatch, filter]);
+
   return null;
 };
 
@@ -127,10 +182,12 @@ const ProListByCategoryId = ({
   lastId,
   initialPage = 1,
   initialSortValue,
+  initialFilter = {},
 }: {
   lastId?: string;
   initialPage?: number;
   initialSortValue?: string;
+  initialFilter?: Record<string, any>;
 }) => {
   const initialSort = React.useMemo(() => getSortOption(initialSortValue), [initialSortValue]);
   const { products, totalItems, loading, error } = useFetchData({
@@ -167,7 +224,7 @@ const ProListByCategoryId = ({
             storeKey={PRO_LIST_BY_CATEGORYID}
             initialValue={{
               data: filterOptions,
-              filter: {},
+              filter: initialFilter,
             }}
           />
         </div>

@@ -20,10 +20,12 @@ const CheckboxItem = React.memo(({ item, filterKey }: ICheckboxItemProps) => {
   const { t } = useTranslation();
   const { label, value } = item;
 
-  const selectedValues: string[] = (filter?.[filterKey] as string[]) || [];
-  const handleValueChange = (val: string) => {
-    const newSelectedValues = selectedValues.includes(val)
-      ? selectedValues.filter((v) => v !== val)
+  const selectedValues: any[] = (filter?.[filterKey] as any[]) || [];
+  const handleValueChange = (val: any) => {
+    const stringVal = String(val);
+    const exists = selectedValues.some((v) => String(v) === stringVal);
+    const newSelectedValues = exists
+      ? selectedValues.filter((v) => String(v) !== stringVal)
       : [...selectedValues, val];
 
     handleSetFilter(filterKey, newSelectedValues);
@@ -35,7 +37,7 @@ const CheckboxItem = React.memo(({ item, filterKey }: ICheckboxItemProps) => {
         <div className="flex items-center gap-x-3">
           <Checkbox
             id={`${filterKey}-${value}`}
-            checked={selectedValues.includes(value)}
+            checked={selectedValues.some((v) => String(v) === String(value))}
             onCheckedChange={() => handleValueChange(value)}
           />
           <Label htmlFor={`${filterKey}-${value}`} className="text-md">
