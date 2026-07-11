@@ -47,7 +47,6 @@ const AddToCartButton = () => {
 
   const icon = useMemo(() => <MdAddShoppingCart />, []);
 
-  console.log("AddToCartButton rendered");
 
   return (
     <CartAddItem
