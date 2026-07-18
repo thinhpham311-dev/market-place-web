@@ -2,7 +2,7 @@ import BrandListPage from "@/features/brand/list/all";
 
 export default function Page() {
   return (
-    <div className="container mx-auto my-5">
+    <div className=" mx-auto ">
       <BrandListPage
         titleKey="all_brands"
         descriptionKey="all_brands_desc"
