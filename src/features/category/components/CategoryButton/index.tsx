@@ -54,7 +54,7 @@ const CategoryButton: React.FC<CategoryButtonProps> = ({
       className={cn(
         className,
         "line-clamp-1 text-md",
-        isActive ? "font-bold underline text-primary" : "text-muted-foreground",
+        isActive ? "font-bold underline underline-offset-4 text-primary" : "text-muted-foreground",
       )}
       variant="outline"
       disabled={isActive}

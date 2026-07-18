@@ -17,7 +17,7 @@ export default function ProductCardGridSkeleton({
       {Array.from({ length: count }).map((_, index) => (
         <Card key={index} className="col-span-1 flex h-full w-full flex-col justify-start">
           <Skeleton className="aspect-square rounded-t-lg" />
-          <CardContent className="w-full p-3">
+          <CardContent className="w-full p-3 space-y-2">
             <Skeleton className="h-4 w-full" />
             <Skeleton className="h-4 w-1/2" />
           </CardContent>

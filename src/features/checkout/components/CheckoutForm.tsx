@@ -45,7 +45,16 @@ export default function CheckoutForm() {
             </CardContent>
           </Card>
         )}
-
+        <Card>
+          <CardContent className="p-6">
+            <CheckoutCart items={checkoutItems} />
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-6">
+            <CheckoutAddress values={addressValues} errors={{}} onChange={setAddressValue} />
+          </CardContent>
+        </Card>
         <Card>
           <CardContent className="p-6">
             <CheckoutPayment
@@ -53,18 +62,6 @@ export default function CheckoutForm() {
               value={paymentMethod}
               onChange={setPaymentMethod}
             />
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-6">
-            <CheckoutAddress values={addressValues} errors={{}} onChange={setAddressValue} />
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-6">
-            <CheckoutCart items={checkoutItems} />
           </CardContent>
         </Card>
       </div>
