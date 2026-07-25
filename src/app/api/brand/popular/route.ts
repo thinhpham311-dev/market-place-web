@@ -6,7 +6,7 @@ import { handleAxiosError } from "@/lib/http/handleAxiosError";
 const API_NEXT = process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL;
 const API_KEY = process.env.API_KEY || process.env.NEXT_PUBLIC_API_KEY || "";
 
-export async function POST(request: Request): Promise<Response> {
+export async function POST(): Promise<Response> {
   try {
     if (!API_NEXT) {
       return NextResponse.json(
@@ -15,24 +15,7 @@ export async function POST(request: Request): Promise<Response> {
       );
     }
 
-    let search = "";
-    let category_id = "";
-    try {
-      const body = await request.json();
-      search = body?.search || "";
-      category_id = body?.category_id || "";
-    } catch {
-      // Empty or invalid body
-    }
-
-    const queryParams = new URLSearchParams();
-    if (search) queryParams.set("search", search);
-    if (category_id) queryParams.set("category_id", category_id);
-
-    const queryString = queryParams.toString();
-    const url = `${API_NEXT}/v1/api/brand/all/list${queryString ? `?${queryString}` : ""}`;
-
-    const { data } = await axios.get(url, {
+    const { data } = await axios.get(`${API_NEXT}/v1/api/brand/popular/list`, {
       headers: {
         "Content-Type": "application/json",
         "x-api-key": API_KEY,

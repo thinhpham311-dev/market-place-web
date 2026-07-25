@@ -1,14 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { apiPostBrandAllList } from "@/features/brand/list/all/services";
+import { apiPostBrandPopularList } from "@/features/brand/list/popular/services";
 import type { IBrandModel } from "@/models/brand";
 import {
-  BRAND_ALL_LIST_CACHE_KEY,
-  BRAND_ALL_LIST_RETRIES,
-  BRAND_ALL_LIST_RETRY_DELAY,
-  BRAND_ALL_LIST_TAG,
-  BRAND_ALL_LIST_TTL,
-} from "@/features/brand/list/all/constants";
+  BRAND_POPULAR_LIST_CACHE_KEY,
+  BRAND_POPULAR_LIST_RETRIES,
+  BRAND_POPULAR_LIST_RETRY_DELAY,
+  BRAND_POPULAR_LIST_TAG,
+  BRAND_POPULAR_LIST_TTL,
+} from "@/features/brand/list/popular/constants";
 import { translateRuntime } from "@/lib/i18n/runtime-translation";
 import { getApiErrorMessage } from "@/lib/http/handleAxiosError";
 
@@ -33,29 +33,25 @@ const initialState: BrandState = {
   total: 0,
 };
 
-export const getBrandAllList = createAsyncThunk<
-  BrandResponse,
-  { search?: string; category_id?: string } | undefined,
-  { rejectValue: string }
->(
+export const getBrandPopularList = createAsyncThunk<BrandResponse, object, { rejectValue: string }>(
   "brandAllList/data/getList",
-  async (arg, { rejectWithValue, dispatch }) => {
-    const params = arg || {};
+  async (_, { rejectWithValue, dispatch }) => {
     try {
       const data = (await dispatch({
         type: "api/fetch",
         payload: {
-          key: `${BRAND_ALL_LIST_CACHE_KEY}_${params.search || ""}_${params.category_id || ""}`,
-          params: params,
-          apiFn: apiPostBrandAllList,
+          key: BRAND_POPULAR_LIST_CACHE_KEY,
+          params: {},
+          apiFn: apiPostBrandPopularList,
           options: {
-            TTL: BRAND_ALL_LIST_TTL,
-            retries: BRAND_ALL_LIST_RETRIES,
-            retryDelay: BRAND_ALL_LIST_RETRY_DELAY,
-            tags: [BRAND_ALL_LIST_TAG],
+            TTL: BRAND_POPULAR_LIST_TTL,
+            retries: BRAND_POPULAR_LIST_RETRIES,
+            retryDelay: BRAND_POPULAR_LIST_RETRY_DELAY,
+            tags: [BRAND_POPULAR_LIST_TAG],
           },
         },
       })) as unknown as BrandResponse;
+
       return data;
     } catch (error: any) {
       return rejectWithValue(
@@ -66,21 +62,21 @@ export const getBrandAllList = createAsyncThunk<
 );
 
 const dataSlice = createSlice({
-  name: "brandAllList/data",
+  name: "brandPopularList/data",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getBrandAllList.pending, (state) => {
+      .addCase(getBrandPopularList.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(getBrandAllList.fulfilled, (state, action) => {
+      .addCase(getBrandPopularList.fulfilled, (state, action) => {
         state.list = action.payload.metadata.list;
         state.total = action.payload.metadata.total;
         state.loading = false;
       })
-      .addCase(getBrandAllList.rejected, (state, action) => {
+      .addCase(getBrandPopularList.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
         state.total = 0;

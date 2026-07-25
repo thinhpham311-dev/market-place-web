@@ -216,7 +216,7 @@ const ProListByCategoryId = ({
   }, [brands]);
 
   return (
-    <Card className="border-none px-3 shadow-none md:px-6">
+    <Card className="border-none px-3 shadow-none md:px-6 bg-transparent dark:bg-transparent">
       <CategoryListUrlSync initialPage={initialPage} initialSort={initialSort} />
       <CardContent className="grid items-stretch gap-3 px-0 md:grid-cols-12">
         <div className="space-y-3 md:col-span-3 lg:col-span-2">

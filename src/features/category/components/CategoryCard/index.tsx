@@ -31,7 +31,7 @@ const CategoryCard = ({ item, isLoading }: IItemProps) => {
 
   return (
     <Link href={categoryHref} className="block">
-      <Card className="rounded-3xl aspect-square flex flex-col justify-center items-center transition-shadow hover:shadow-md">
+      <Card className="rounded-3xl aspect-square flex flex-col justify-center items-center transition-all duration-300 hover:shadow-md border border-amber-100/50 bg-gradient-to-br from-amber-50/60 to-rose-50/40 hover:from-amber-100/80 hover:to-rose-100/60 dark:border-amber-950/40 dark:from-stone-900/80 dark:to-orange-950/20 dark:hover:from-stone-800 dark:hover:to-orange-900/30">
         <CardContent className="p-0 rounded-full bg-white dark:bg-white w-1/2 border overflow-hidden">
           <CardImage
             src={

@@ -17,11 +17,12 @@ export default memo(function BrandCard({ item, logoOnly = false }: BrandCardProp
     return null;
   }
 
-  const { brand_id, brand_slug, brand_name, image, logo } = item;
+  const { brand_id, brand_slug, brand_name, image, logo, brand_logo } = item;
+  const rawSrc = image ?? logo ?? brand_logo;
   const imageSrc =
-    image ??
-    logo ??
-    "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png";
+    !rawSrc || rawSrc === "https://example.com/images/brand.png"
+      ? "https://res.cloudinary.com/dgincjt1i/image/upload/v1751873400/Image-not-found_qxnjwm.png"
+      : rawSrc;
 
   return (
     <Link href={`/brands/${brand_slug}-b.${brand_id}`} className="block">

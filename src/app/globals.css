@@ -125,3 +125,51 @@ body {
     height: 48px;
   }
 }
+
+.bg-categories-page {
+  position: relative;
+  isolation: isolate;
+}
+
+.bg-categories-page::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  bottom: -40px;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  z-index: -10;
+  pointer-events: none;
+  
+  /* Cấu hình màu thương hiệu Amber/Rose nhẹ nhàng ở Light Mode */
+  --glow-light-1: rgba(245, 158, 11, 0.08); /* Amber-500 */
+  --glow-light-2: rgba(244, 63, 94, 0.04);  /* Rose-500 */
+  --grid-light: rgba(217, 119, 6, 0.05);   /* Amber-600 */
+  --bg-gradient-light: linear-gradient(135deg, rgba(254, 243, 199, 0.2) 0%, rgba(255, 228, 230, 0.15) 100%);
+  
+  /* Cấu hình màu thương hiệu ở Dark Mode */
+  --glow-dark-1: rgba(245, 158, 11, 0.05);  /* Amber-500 */
+  --glow-dark-2: rgba(244, 63, 94, 0.025); /* Rose-500 */
+  --grid-dark: rgba(245, 158, 11, 0.025);  /* Amber-500 */
+  --bg-gradient-dark: linear-gradient(135deg, transparent 0%, rgba(120, 53, 4, 0.04) 100%);
+  
+  background-image: 
+    radial-gradient(circle at 15% 20%, var(--glow-light-1) 0%, transparent 55%),
+    radial-gradient(circle at 85% 80%, var(--glow-light-2) 0%, transparent 55%),
+    radial-gradient(var(--grid-light) 1.2px, transparent 1.2px),
+    var(--bg-gradient-light);
+  background-size: 100% 100%, 100% 100%, 24px 24px, 100% 100%;
+  background-position: 0 0, 0 0, 12px 12px, 0 0;
+  background-color: hsl(var(--background));
+  transition: all 0.3s ease;
+}
+
+.dark .bg-categories-page::before {
+  background-image: 
+    radial-gradient(circle at 15% 20%, var(--glow-dark-1) 0%, transparent 55%),
+    radial-gradient(circle at 85% 80%, var(--glow-dark-2) 0%, transparent 55%),
+    radial-gradient(var(--grid-dark) 1.2px, transparent 1.2px),
+    var(--bg-gradient-dark);
+}
+

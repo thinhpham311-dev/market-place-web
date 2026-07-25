@@ -41,8 +41,8 @@ export default function CategoryListPage() {
   }, [categories]);
 
   return (
-    <Card className="border-none shadow-none rounded-none px-3 md:px-6">
-      <CardHeader className="border-b border-stone-200 px-0 pb-4 dark:border-stone-800">
+    <Card className="border-none shadow-none rounded-none px-3 md:px-6 bg-transparent dark:bg-transparent">
+      <CardHeader className="border-b border-stone-200 px-0 pb-4 dark:border-stone-800 text-center">
         <CardTitle className="font-title">{t("all_categories")}</CardTitle>
         <CardDescription>{t("all_categories_desc")}</CardDescription>
       </CardHeader>
@@ -62,7 +62,10 @@ export default function CategoryListPage() {
           <div className="space-y-8">
             {categoryGroups.map(({ parent, children }) => {
               return (
-                <section key={parent._id || parent.category_id} className="space-y-4">
+                <section
+                  key={parent._id || parent.category_id}
+                  className="space-y-4 border border-amber-100/70 dark:border-amber-900/30 rounded-3xl p-5 md:p-6 bg-white/40 dark:bg-stone-900/30 backdrop-blur-sm shadow-sm"
+                >
                   <div className="space-y-1">
                     <h2 className="font-title text-lg font-semibold">{parent.category_name}</h2>
                     <p className="text-sm text-muted-foreground">

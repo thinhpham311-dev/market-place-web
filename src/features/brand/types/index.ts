@@ -5,4 +5,5 @@ export type Brand = {
   brand_slug?: string;
   image?: string;
   logo?: string;
+  brand_logo?: string;
 };

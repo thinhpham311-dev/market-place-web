@@ -49,7 +49,7 @@ export default function BrandCarousel({
       <CarouselContent className="-ml-2">
         {data.slice(0, itemsPerPage).map((item) => (
           <CarouselItem
-            key={item._id}
+            key={item.brand_id}
             className={cn("basis-1/2 pl-2 md:basis-1/4 lg:basis-1/6", className)}
           >
             <BrandCard item={item} logoOnly={logoOnly} />

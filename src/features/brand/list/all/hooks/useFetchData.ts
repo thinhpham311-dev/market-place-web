@@ -7,7 +7,7 @@ import { getBrandAllList } from "@/features/brand/list/all/store/dataSlice";
 import { selectBrandAllListByStoreKey } from "@/features/brand/list/all/store/selectors";
 import { BRAND_ALL_LIST } from "@/features/brand/list/all/constants";
 
-export function useFetchData() {
+export function useFetchData(params?: { search?: string; category_id?: string }) {
   useEffect(() => {
     injectReducer(BRAND_ALL_LIST, reducer);
 
@@ -17,6 +17,9 @@ export function useFetchData() {
   }, []);
 
   const dispatch = useAppDispatch();
+  const searchVal = params?.search || "";
+  const categoryIdVal = params?.category_id || "";
+
   const {
     brands = [],
     totalItems = 0,
@@ -25,12 +28,14 @@ export function useFetchData() {
   } = useAppSelector(selectBrandAllListByStoreKey(BRAND_ALL_LIST));
 
   useEffect(() => {
-    const promise = dispatch(getBrandAllList({}) as any);
+    const promise = dispatch(
+      getBrandAllList({ search: searchVal, category_id: categoryIdVal }) as any,
+    );
 
     return () => {
       promise.abort?.();
     };
-  }, [dispatch]);
+  }, [dispatch, searchVal, categoryIdVal]);
 
   return { brands, totalItems, loading, error };
 }

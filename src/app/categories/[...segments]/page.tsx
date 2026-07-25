@@ -92,7 +92,9 @@ export default function Page({ params, searchParams }: PageProps) {
   }
 
   return (
-    <div className="space-y-5 container mx-auto my-5">
+    <div className=" my-5 bg-categories-page">
+
+    <div className="space-y-5 container mx-auto ">
       <CatByCategoryId ids={ids} />
       <Suspense fallback={<ProListSkeleton />}>
         <ProListByCategoryId
@@ -100,9 +102,10 @@ export default function Page({ params, searchParams }: PageProps) {
           initialPage={currentPage}
           initialSortValue={currentSort}
           initialFilter={currentFilters}
-        />
+          />
       </Suspense>
-      <BrandListSection titleKey="shop_by_brand" descriptionKey="shop_by_brand_desc" compact />
     </div>
+      <BrandListSection titleKey="shop_by_brand" descriptionKey="shop_by_brand_desc" compact />
+          </div>
   );
 }

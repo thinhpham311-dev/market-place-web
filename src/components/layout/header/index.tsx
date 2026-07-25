@@ -3,11 +3,14 @@ import { usePathname } from "next/navigation";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { ThemeToggle } from "@/components/shared";
 import { UserDropdown, SearchForm, Logo, ShoppingCart } from "@/components/shared";
+import { HIDE_CART_ROUTES } from "@/constants/app/routes.constant";
 
 export default function SiteHeader() {
-  const path = usePathname();
-  const isShopDetailPage = path?.startsWith("/shop/");
-
+const pathname = usePathname();
+  const isShopDetailPage = pathname?.startsWith("/shop/");
+  const hideCart = HIDE_CART_ROUTES.some((route) =>
+    pathname.startsWith(route)
+  );
   return (
     <header className="w-full border-b sticky top-0 bg-background z-50">
       <div className="flex h-14 items-center px-6 container mx-auto">
@@ -20,7 +23,7 @@ export default function SiteHeader() {
             <SearchForm showCategorySelect={isShopDetailPage} />
           </div>
           <div className="flex items-center space-x-2">
-            {path !== "/cart" && path !== "/checkout" && <ShoppingCart />}
+            {!hideCart && <ShoppingCart />}
             <ThemeToggle />
             <UserDropdown />
           </div>

@@ -1,16 +1,64 @@
 "use client";
 
-import BrandListSection from "@/features/brand/list/all";
+import SectionSeeMoreButton from "@/components/shared/SectionSeeMoreButton";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import BrandCarousel from "@/features/brand/components/BrandCarousel";
+import { useFetchData } from "@/features/brand/list/popular/hooks";
+import { useTranslation } from "@/lib/hooks";
+import type { TranslationKey } from "@/lib/i18n/translations";
 
-export default function BrandListPopular() {
+interface BrandListSectionProps {
+  titleKey?: TranslationKey;
+  descriptionKey?: TranslationKey;
+  compact?: boolean;
+  logoOnly?: boolean;
+  showSeeMore?: boolean;
+  countLoadItems?: number;
+}
+
+export default function BrandListSection({
+  titleKey = "featured_brands",
+  descriptionKey = "featured_brands_desc",
+  compact = false,
+  logoOnly = true,
+  showSeeMore = true,
+  countLoadItems,
+}: BrandListSectionProps) {
+  const { brands, loading, error } = useFetchData();
+  const { t } = useTranslation();
+  const resolvedTitle = t(titleKey);
+  const resolvedDescription = t(descriptionKey);
+  const resolvedCountLoadItems = countLoadItems ?? (compact ? 6 : 8);
+
   return (
-    <BrandListSection
-      titleKey="featured_brands"
-      descriptionKey="featured_brands_desc"
-      compact={false}
-      logoOnly={true}
-      showSeeMore={true}
-      countLoadItems={8}
-    />
+    <Card className="relative w-full overflow-hidden rounded-none border-x-0 border-y border-amber-100/70 bg-gradient-to-br from-amber-50 via-orange-50/70 to-rose-50/60 shadow-none dark:border-amber-900/40 dark:from-stone-950 dark:via-stone-900 dark:to-orange-950/30">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-[radial-gradient(circle_at_top_left,_rgba(251,191,36,0.18),_transparent_55%)] dark:bg-[radial-gradient(circle_at_top_left,_rgba(251,191,36,0.12),_transparent_55%)]" />
+      <div className="pointer-events-none absolute -right-8 bottom-0 h-28 w-28 rounded-full bg-orange-200/30 blur-3xl dark:bg-orange-700/15" />
+      <div className="container mx-auto px-3 md:px-6">
+        {!compact || !logoOnly ? (
+          <CardHeader className="mb-0 px-0 pt-5 md:pt-6">
+            <div className="flex-1">
+              <CardTitle className="font-title capitalize">{resolvedTitle}</CardTitle>
+              <CardDescription className="mt-3 line-clamp-2">{resolvedDescription}</CardDescription>
+            </div>
+          </CardHeader>
+        ) : null}
+
+        <CardContent className="relative space-y-5 px-0 py-5 md:py-6">
+          <BrandCarousel
+            itemsPerPage={resolvedCountLoadItems}
+            data={brands}
+            isLoading={loading}
+            error={error}
+            logoOnly={logoOnly}
+          />
+          {showSeeMore ? (
+            <div className="flex justify-center">
+              <SectionSeeMoreButton href="/brands" />
+            </div>
+          ) : null}
+        </CardContent>
+      </div>
+    </Card>
   );
 }
