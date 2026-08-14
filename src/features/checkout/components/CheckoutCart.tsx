@@ -15,7 +15,7 @@ interface CheckoutCartProps {
 
 export default function CheckoutCart({ items }: CheckoutCartProps) {
   const { t } = useTranslation();
-
+  console.log("🚀 ~ file: CheckoutCart.tsx:22 ~ CheckoutCart ~ items:", items);
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-4">

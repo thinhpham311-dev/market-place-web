@@ -1,8 +1,8 @@
-import { IShoppingCart, IState, ItemKey, ActionKey } from "@/features/cart/types";
+import { ICheckout, IState, ItemKey, ActionKey } from "@/features/checkout/types";
 import { NormalizedApiError } from "@/lib/http/handleAxiosError";
 
 import { createDefault } from "@/features/checkout/store/initials";
-export const ensureStoreKeyState = (state: IState, storeKey: string): IShoppingCart => {
+export const ensureStoreKeyState = (state: IState, storeKey: string): ICheckout => {
   if (!state[storeKey]) {
     state[storeKey] = createDefault();
   }
