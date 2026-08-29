@@ -5,7 +5,10 @@ import type { RootState, AppDispatch } from "@/store";
 const inflight: Record<string, Promise<any> | undefined> = {};
 
 function stableStringify(obj: any): string {
-  return JSON.stringify(obj, Object.keys(obj).sort());
+  if (obj === null || typeof obj !== "object") return JSON.stringify(obj);
+  if (Array.isArray(obj)) return `[${obj.map(stableStringify).join(",")}]`;
+  const sortedKeys = Object.keys(obj).sort();
+  return `{${sortedKeys.map((k) => `${JSON.stringify(k)}:${stableStringify(obj[k])}`).join(",")}`;
 }
 
 function makeCacheKey(prefix: string, params?: object) {

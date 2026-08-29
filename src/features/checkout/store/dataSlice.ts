@@ -8,13 +8,15 @@ import {
   CHECKOUT_KEY_TTL,
   CHECKOUT_KEY_TAG,
 } from "@/features/checkout/constants";
-import { initialState } from "./initials";
+import { IState } from "../types";
 import { translateRuntime } from "@/lib/i18n/runtime-translation";
 import { getApiErrorMessage, NormalizedApiError } from "@/lib/http/handleAxiosError";
 import {
   setActionLoading,
   setActionError,
 } from "@/features/checkout/helpers/stateHelpers";
+
+const initialState: IState = {};
 
 type CartResponse = {
   metadata: ICartModel;

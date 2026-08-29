@@ -13,7 +13,7 @@ const CartItemQuantityView = ({ currentQuantity }: ICartItemQuantityViewProps) =
     <Tooltip>
       <div className="line-clamp-1">
         <TooltipTrigger asChild>
-          <p className="text-sm font-medium text-center">
+          <p className="text-sm font-medium text-start">
             <strong>{t("checkout_qty")}:</strong> {currentQuantity}
           </p>
         </TooltipTrigger>

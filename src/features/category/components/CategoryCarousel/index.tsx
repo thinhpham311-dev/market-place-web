@@ -60,4 +60,4 @@ const CategoryCarousel = ({
   );
 };
 
-export default CategoryCarousel;
+export default React.memo(CategoryCarousel);

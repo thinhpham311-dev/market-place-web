@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import CartItemName from "@/features/cart/components/CartItem/CartItemName";
 import CartItemImage from "@/features/cart/components/CartItem/CartItemImage";
 import CartItemPrice from "@/features/cart/components/CartItem/CartItemPrice";
@@ -13,6 +13,7 @@ import { useShoppingCartContext } from "@/features/cart/hooks";
 import CartItemRemove from "./CartItemActions/CartItemRemove";
 import { useTranslation } from "@/lib/hooks";
 import LoadingSkeleton from "./LoadingSkeleton";
+import CartItemGetVouchers from "./CartItemGetVouchers";
 
 interface ICartItemProps {
   data: ICartItemModel;
@@ -42,47 +43,48 @@ const CartItem = ({ data }: ICartItemProps) => {
   }
 
   return (
-    <Card className="grid md:grid-cols-4 grid-cols-5 grid-rows-2 items-center p-1 gap-x-1">
-      <CardHeader className="md:col-span-1 col-span-2 row-span-2 p-0 ">
-        <Link href={productHref} className="block cursor-pointer">
-          <CartItemImage
-            className="aspect-square h-full w-full object-cover rounded-md"
-            src={itemSpuImage}
-            imgClassName="h-full w-full"
-            alt="image not found"
-          />
-        </Link>
-      </CardHeader>
-      <CardContent className="md:col-span-3 col-span-3 row-span-3 p-0 space-y-3 ">
-        <div className="grid grid-cols-6 grid-rows-3 items-center">
-          {/* Tên item chiếm hết 5 cột */}
-          <div className="col-span-6">
-            <Link href={productHref} className="block cursor-pointer">
-              <CartItemName itemName={itemSpuName} />
-            </Link>
-          </div>
+    <Card className="flex flex-col w-full overflow-hidden border shadow-sm">
+      <div className="flex flex-row items-start p-2.5 gap-2.5 w-full">
+        {/* Column 1: Product Image */}
+        <CardHeader className="w-16 h-16 shrink-0 p-0">
+          <Link href={productHref} className="block cursor-pointer">
+            <CartItemImage
+              className="aspect-square h-full w-full object-cover rounded-md"
+              src={itemSpuImage}
+              imgClassName="h-full w-full"
+              alt="image not found"
+            />
+          </Link>
+        </CardHeader>
 
-          {/* Giá: chiếm 3 cột */}
-          <div className="col-span-3 row-span-1">
+        {/* Column 2: Main Info (Name, Price, Quantity) */}
+        <CardContent className="flex-1 p-0 min-w-0 space-y-1.5">
+          <Link href={productHref} className="block cursor-pointer">
+            <CartItemName itemName={itemSpuName} />
+          </Link>
+
+          <div className="flex items-center justify-between gap-2">
             <CartItemPrice label={`${t("cart_column_unit")}:`} itemPrice={itemSkuPrice} />
           </div>
 
-          {/* Variants selector: chiếm 3 cột */}
-          <div className="col-span-3 row-span-1">
-            <CartItemVariantsView itemVariants={itemSpuVariations} itemTierIdx={itemSkuTierIdx} />
-          </div>
-          <div className="col-span-2 row-span-2 row-end-4 col-start-4">
+          <div className="pt-1 flex items-center justify-between gap-2 flex-wrap">
             <CartItemQuantityView currentQuantity={itemQuantity} />
+            <CartItemGetVouchers data={data} />
           </div>
+        </CardContent>
 
-          {/* Actions: chiếm 2 cột (ngang 2 hàng) */}
-          <div className="col-auto row-span-2 row-end-4 col-start-6">
-            <CartItemRemove data={data} />
-          </div>
+        {/* Column 3: Delete Button positioned at top-right */}
+        <div className="shrink-0 flex items-start justify-end pt-0.5">
+          <CartItemRemove data={data} />
         </div>
-      </CardContent>
+      </div>
+
+      {/* Full-width CardFooter at bottom */}
+      <CardFooter className="w-full px-2.5 py-1.5 bg-slate-100/90 dark:bg-slate-800/60 border-t border-slate-200/80 dark:border-slate-700/60 flex flex-col items-stretch">
+        <CartItemVariantsView itemVariants={itemSpuVariations} itemTierIdx={itemSkuTierIdx} />
+      </CardFooter>
     </Card>
   );
 };
 
-export default CartItem;
+export default React.memo(CartItem);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 import {
   setInitialState,
   setGrouping,
@@ -9,6 +9,7 @@ import {
 import {
   GroupingState,
   VisibilityState,
+  RowSelectionState,
   useReactTable,
   Updater,
   getCoreRowModel,
@@ -26,6 +27,7 @@ interface IUseCartTable {
   initialValue: IDataTable;
   initialData: any[];
   initialColumns: any[];
+  onRowSelectionChange?: (items: any[]) => void;
 }
 export const useHandleDataTable = ({
   reducerKey,
@@ -33,10 +35,12 @@ export const useHandleDataTable = ({
   initialValue,
   initialData = [],
   initialColumns = [],
+  onRowSelectionChange,
 }: IUseCartTable) => {
   const initializedRef = useRef(false);
   const data = initialData;
   const columns = initialColumns;
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   const dispatch = useAppDispatch();
 
@@ -86,12 +90,32 @@ export const useHandleDataTable = ({
     state: {
       grouping,
       columnVisibility,
+      rowSelection,
     },
     onGroupingChange: setGroupingTable,
     onColumnVisibilityChange: setColumnVisibilityTable,
+    onRowSelectionChange: setRowSelection,
     getCoreRowModel: getCoreRowModel(),
     getGroupedRowModel: getGroupedRowModel(),
   });
+
+  useEffect(() => {
+    if (onRowSelectionChange) {
+      const selectedLeafRows: any[] = [];
+      const traverse = (rows: any[]) => {
+        for (const r of rows) {
+          if (r.getIsSelected() && !r.getIsGrouped()) {
+            selectedLeafRows.push(r.original);
+          }
+          if (r.subRows && r.subRows.length > 0) {
+            traverse(r.subRows);
+          }
+        }
+      };
+      traverse(table.getRowModel().rows);
+      onRowSelectionChange(selectedLeafRows);
+    }
+  }, [rowSelection, data, table, onRowSelectionChange]);
 
   const total_items = initialData.length;
 

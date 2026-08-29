@@ -228,8 +228,7 @@ export function useLiveSearch({
       return;
     }
 
-    // Trigger loading and debounce search
-    setLoading(true);
+    // Trigger debounce search without instant skeleton loading flicker
     setIsOpen(true);
     debouncedSearch(trimmed);
   }, [query, debouncedSearch]);

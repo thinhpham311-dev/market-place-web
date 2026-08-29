@@ -1,6 +1,6 @@
 "use client";
 
-import {useEffect, useState} from "react";
+import { memo, useEffect, useState } from "react";
 import {
   Carousel,
   CarouselContent,
@@ -36,8 +36,7 @@ const SpuCarousel = ({
   const [showError, setShowError] = useState(false);
 
   const hasNoData = !data || data.length === 0;
-  const errorMessage =
-    typeof error === "string" ? error : error?.message;
+  const errorMessage = typeof error === "string" ? error : error?.message;
 
   useEffect(() => {
     if (!errorMessage) {
@@ -52,43 +51,18 @@ const SpuCarousel = ({
     return () => clearTimeout(timer);
   }, [errorMessage]);
 
-  // Loading thật
-  if (isLoading) {
-    return (
-      <LoadingSkeleton
-        className={className}
-        count={countLoadItems}
-      />
-    );
+  if (isLoading || (errorMessage && !showError)) {
+    return <LoadingSkeleton className={className} count={countLoadItems} />;
   }
 
-  // Delay error 3s
-  if (errorMessage && !showError) {
-    return (
-      <LoadingSkeleton
-        className={className}
-        count={countLoadItems}
-      />
-    );
-  }
-
-  // Error
   if (errorMessage && showError) {
-    return (
-      <NotFound
-        message={errorMessage}
-      />
-    );
+    return <NotFound message={errorMessage} />;
   }
 
-  // No data
   if (hasNoData) {
-    return (
-      <NotFound
-        message={t("common_no_data_found")}
-      />
-    );
+    return <NotFound message={t("common_no_data_found")} />;
   }
+
   return (
     <Carousel>
       <CarouselContent className="-ml-2">
@@ -104,4 +78,4 @@ const SpuCarousel = ({
   );
 };
 
-export default SpuCarousel;
+export default memo(SpuCarousel);

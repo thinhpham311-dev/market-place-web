@@ -17,4 +17,6 @@ export interface ICartItemModel {
   itemUserId?: string;
   itemQuantity: number;
   itemTotalPrice?: number;
+  itemOriginalPrice?: number;
+  itemDiscount?: number;
 }

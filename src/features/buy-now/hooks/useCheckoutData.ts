@@ -69,12 +69,12 @@ export function useCheckoutData() {
       try {
         setIsLoading(true);
         // 1. Fetch SPU detail
-        const spuRes = await apiPostSpuDetail({ product_id } as any);
+        const spuRes: any = await apiPostSpuDetail({ product_id } as any);
         const spuData = spuRes.data?.metadata || spuRes.data;
 
         // 2. Fetch SKU detail
         const skuTierIdxArray = sku_tier_idx ? sku_tier_idx.split(",").map(Number) : [];
-        const skuRes = await apiPostSkuDetail({
+        const skuRes: any = await apiPostSkuDetail({
           product_id,
           sku_tier_idx: skuTierIdxArray,
         } as any);
@@ -100,7 +100,7 @@ export function useCheckoutData() {
             },
           ];
 
-          const reviewRes = await apiPostCheckoutReview({
+          const reviewRes: any = await apiPostCheckoutReview({
             cartId,
             userId,
             shop_order_ids,

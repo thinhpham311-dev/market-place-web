@@ -16,15 +16,18 @@ interface IDataTableProps<TData extends Record<string, any>> {
   initialColumns: ColumnDef<TData>[];
   initialValue: IDataTable;
   initialData: TData[];
+  onRowSelectionChange?: (items: TData[]) => void;
 }
 
 function DataTable<TData extends Record<string, any>>({
   storeKey,
+  onRowSelectionChange,
   ...rest
 }: IDataTableProps<TData>) {
   const dataTable = useHandleDataTable({
     reducerKey: DATA_TABLE,
     storeKey,
+    onRowSelectionChange,
     ...rest,
   });
 

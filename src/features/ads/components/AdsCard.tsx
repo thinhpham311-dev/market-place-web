@@ -28,4 +28,4 @@ const AdsCard = ({ item: { image } }: IItemProps) => {
   );
 };
 
-export default AdsCard;
+export default React.memo(AdsCard);

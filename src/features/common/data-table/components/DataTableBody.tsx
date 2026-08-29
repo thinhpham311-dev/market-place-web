@@ -43,7 +43,7 @@ const GroupHeaderRow = React.forwardRef<HTMLTableRowElement, IGroupHeaderRowProp
               className="font-semibold text-sm whitespace-nowrap inline-flex items-center space-x-4"
             >
               <Checkbox
-                checked={isAllSelected}
+                checked={isAllSelected ? true : isSomeSelected ? "indeterminate" : false}
                 id={`group-${row.id}`}
                 onCheckedChange={() => {
                   const newValue = !(isAllSelected || isSomeSelected);
@@ -181,18 +181,7 @@ const CartTableBody = () => {
               <SubRow key={subRow.id} subRow={subRow} />
             ))}
 
-            <InfoRow
-              icon={<Tickets />}
-              label={t("cart_voucher_label")}
-              description={t("cart_voucher_desc")}
-              totalColumns={totalColumns}
-            />
-            <InfoRow
-              icon={<Truck />}
-              label={t("cart_shipping_label")}
-              description={t("cart_shipping_desc")}
-              totalColumns={totalColumns}
-            />
+           
           </React.Fragment>
         );
       })}

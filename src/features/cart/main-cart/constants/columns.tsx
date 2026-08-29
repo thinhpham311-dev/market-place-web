@@ -20,6 +20,8 @@ function useIsDeletingItem(itemSkuId: string) {
   return Boolean(loading.byItem[itemSkuId]?.deleteItem);
 }
 
+import { Checkbox } from "@/components/ui/checkbox";
+
 function CartItemCheckboxCell({
   item,
   checked,
@@ -29,7 +31,6 @@ function CartItemCheckboxCell({
   checked: boolean;
   onCheckedChange: (value: boolean) => void;
 }) {
-  const { t } = useTranslation();
   const isDeleting = useIsDeletingItem(item.itemSkuId);
 
   if (isDeleting) {
@@ -37,11 +38,10 @@ function CartItemCheckboxCell({
   }
 
   return (
-    <CartItemCheckbox
-      data={[item]}
+    <Checkbox
       checked={checked}
-      ariaLabel={t("cart_select_all_products")}
-      onCheckedChange={onCheckedChange}
+      aria-label="Select item"
+      onCheckedChange={(value) => onCheckedChange(Boolean(value))}
     />
   );
 }
@@ -66,6 +66,8 @@ function CartItemImageCell({ item }: { item: ICartItemModel }) {
   );
 }
 
+import CartItemGetVouchers from "@/features/cart/components/CartItem/CartItemGetVouchers";
+
 function CartItemNameCell({ item }: { item: ICartItemModel }) {
   const isDeleting = useIsDeletingItem(item.itemSkuId);
 
@@ -74,11 +76,14 @@ function CartItemNameCell({ item }: { item: ICartItemModel }) {
   }
 
   return (
-    <Button variant="link" className="cursor-pointer px-0" asChild>
-      <Link href={`/products/${item.itemSpuSlug}-i.${item.itemShopId}.${item.itemSpuId}`}>
-        <CartItemName itemName={item.itemSpuName} />
-      </Link>
-    </Button>
+    <div className="flex flex-col items-start gap-1">
+      <Button variant="link" className="cursor-pointer px-0 text-left h-auto py-0 whitespace-normal line-clamp-2" asChild>
+        <Link href={`/products/${item.itemSpuSlug}-i.${item.itemShopId}.${item.itemSpuId}`}>
+          <CartItemName itemName={item.itemSpuName} />
+        </Link>
+      </Button>
+      <CartItemGetVouchers data={item} />
+    </div>
   );
 }
 
@@ -101,7 +106,7 @@ function CartItemUnitPriceCell({ item }: { item: ICartItemModel }) {
 
   return (
     <div className="flex justify-center">
-      <CartItemPrice itemPrice={item.itemSkuPrice} />
+      <CartItemPrice itemPrice={item.itemSkuPrice} originalPrice={item.itemOriginalPrice} />
     </div>
   );
 }
@@ -127,9 +132,16 @@ function CartItemTotalPriceCell({ item }: { item: ICartItemModel }) {
     return <Skeleton className="h-5 w-24 rounded-md" />;
   }
 
+  const originalTotalPrice = item.itemOriginalPrice
+    ? item.itemOriginalPrice * item.itemQuantity
+    : undefined;
+
   return (
     <div className="flex justify-center">
-      <CartItemPrice itemPrice={item.itemTotalPrice} />
+      <CartItemPrice
+        itemPrice={item.itemTotalPrice ?? item.itemSkuPrice * item.itemQuantity}
+        originalPrice={originalTotalPrice}
+      />
     </div>
   );
 }
@@ -159,13 +171,13 @@ export function useCartTableColumns(): ColumnDef<ICartItemModel>[] {
     {
       id: "select",
       header: ({ table }) => {
-        const items = table.getSelectedRowModel().rows.map((r) => r.original as ICartItemModel);
+        const isAllSelected = table.getIsAllRowsSelected();
+        const isSomeSelected = table.getIsSomeRowsSelected();
         return (
-          <CartItemCheckbox
-            data={items}
-            checked={table.getIsAllRowsSelected()}
-            ariaLabel={t("cart_select_all_products")}
-            onCheckedChange={(val) => table.toggleAllRowsSelected(val)}
+          <Checkbox
+            checked={isAllSelected ? true : isSomeSelected ? "indeterminate" : false}
+            aria-label={t("cart_select_all_products")}
+            onCheckedChange={(val) => table.toggleAllRowsSelected(Boolean(val))}
           />
         );
       },

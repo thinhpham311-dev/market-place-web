@@ -42,11 +42,11 @@ export const injectReducer = (key: string, reducer: Reducer): typeof store | fal
   return store;
 };
 
-export const removeReducer = (key: string) => {
-  if (store.asyncReducers[key]) {
-    delete store.asyncReducers[key];
-    store.replaceReducer(rootReducer(store.asyncReducers));
-  }
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const removeReducer = (_key?: string) => {
+  // Preserve injected reducers in memory across route navigations/unmounts
+  // to avoid destroying cached state and causing global Redux store resets.
+  return;
 };
 
 export type RootState = ReturnType<typeof store.getState>;
