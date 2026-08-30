@@ -35,8 +35,8 @@ const GroupHeaderRow = React.forwardRef<HTMLTableRowElement, IGroupHeaderRowProp
     );
 
     return (
-      <TableRow ref={ref} className="font-medium cursor-pointer">
-        <TableCell colSpan={row.getVisibleCells().length - 3} className="py-2">
+      <TableRow ref={ref} className="font-medium cursor-pointer bg-slate-100/80 dark:bg-slate-800/60 hover:bg-slate-200/80 dark:hover:bg-slate-800 transition-colors">
+        <TableCell colSpan={row.getVisibleCells().length - 3} className="py-2.5">
           <div className="flex items-center gap-2">
             <Label
               htmlFor={`group-${row.id}`}

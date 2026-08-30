@@ -101,7 +101,7 @@ function CartItemUnitPriceCell({ item }: { item: ICartItemModel }) {
   const isDeleting = useIsDeletingItem(item.itemSkuId);
 
   if (isDeleting) {
-    return <Skeleton className="h-5 w-20 rounded-md" />;
+    return <Skeleton className="h-5 w-full rounded-md" />;
   }
 
   return (
@@ -115,7 +115,7 @@ function CartItemQuantityCell({ item }: { item: ICartItemModel }) {
   const isDeleting = useIsDeletingItem(item.itemSkuId);
 
   if (isDeleting) {
-    return <Skeleton className="h-9 w-28 rounded-md" />;
+    return <Skeleton className="h-9 w-full rounded-md" />;
   }
 
   return (
@@ -230,7 +230,7 @@ export function useCartTableColumns(): ColumnDef<ICartItemModel>[] {
         const item = row.original as ICartItemModel;
         return <CartItemUnitPriceCell item={item} />;
       },
-      size: 100,
+      size: 120,
     },
     {
       accessorKey: "itemQuantity",
