@@ -22,7 +22,7 @@ const ShopFollowButton: React.FC<ShopFollowButtonProps> = ({
     <Button
       variant="outline"
       size="sm"
-      className="w-full"
+      className="w-full text-stone-900 dark:text-stone-100"
       onClick={onToggleFollow}
       disabled={disabled}
     >

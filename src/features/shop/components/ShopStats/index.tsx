@@ -58,8 +58,12 @@ const ShopStats = () => {
         {stats.map((item) => (
           <Item key={item.label} size="sm" className="p-0">
             <ItemContent className="flex flex-row justify-between text-sm md:text-base">
-              <ItemTitle className="font-semibold">{item.label}: </ItemTitle>
-              <ItemDescription>{item.value}</ItemDescription>
+              <ItemTitle className="font-semibold" style={{ color: "inherit" }}>
+                {item.label}:{" "}
+              </ItemTitle>
+              <ItemDescription style={{ color: "inherit" }} className="opacity-80">
+                {item.value}
+              </ItemDescription>
             </ItemContent>
           </Item>
         ))}

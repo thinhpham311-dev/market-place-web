@@ -20,6 +20,7 @@ export type TranslationKey =
   | "recent_products_desc"
   | "from_the_same_shop"
   | "from_the_same_shop_desc"
+  | "products_from_shop"
   | "top_picks_from_shop"
   | "top_picks_from_shop_desc"
   | "search_products"

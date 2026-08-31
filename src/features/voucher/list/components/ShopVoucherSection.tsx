@@ -55,8 +55,8 @@ export default function ShopVoucherSection({ shopId = "" }: ShopVoucherSectionPr
   }
 
   return (
-    <Card className="border-none shadow-none">
-      <CardHeader className="px-0 pb-4">
+    <Card className="border shadow-none">
+      <CardHeader className="px-5 pb-4">
         <div className="flex items-start justify-between gap-4">
           <div className="space-y-2">
             <CardTitle className="flex items-center font-title gap-2">
@@ -74,7 +74,7 @@ export default function ShopVoucherSection({ shopId = "" }: ShopVoucherSectionPr
         </div>
       </CardHeader>
 
-      <CardContent className="px-0">
+      <CardContent className="px-5">
         <div className="grid gap-3 md:grid-cols-3">
           {availableVouchers.map((voucher) => (
             <Card key={voucher.discountId} className="overflow-hidden border-stone-200 shadow-none">

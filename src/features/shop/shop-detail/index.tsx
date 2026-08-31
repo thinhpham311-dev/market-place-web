@@ -6,6 +6,7 @@ import ShopHeader from "../components/ShopHeader";
 import ShopStats from "../components/ShopStats";
 import ShopActions from "../components/ShopActions";
 import ShopVoucherSection from "@/features/voucher/list/components/ShopVoucherSection";
+import ProListByShopId from "@/features/product/list/by-shop-id";
 import { useFetchData } from "../hooks";
 import { Card, CardContent } from "@/components/ui/card";
 import { SHOP_DETAIL } from "@/features/shop/shop-detail/constants";
@@ -20,9 +21,18 @@ const ShopDetail = ({ shop_id }: IShopProps) => {
     storeKey: SHOP_DETAIL,
   });
 
+  const shopBgColor = shopData.shopInfo?.shop_bg_color;
+  const shopTextColor = shopData.shopInfo?.shop_text_color;
+
   return (
-    <Card className="grid grid-cols-12 border-none shadow-none">
-      <CardContent className="col-span-12">
+    <Card
+      className="grid grid-cols-12 border-none shadow-none"
+      style={{
+        ...(shopBgColor ? { backgroundColor: shopBgColor } : {}),
+        ...(shopTextColor ? { color: shopTextColor } : {}),
+      }}
+    >
+      <CardContent className="col-span-12 space-y-5">
         <ShopInfoProvider
           contextValues={{
             data: shopData.shopInfo,
@@ -38,6 +48,7 @@ const ShopDetail = ({ shop_id }: IShopProps) => {
           </ShopInfoWrapper>
         </ShopInfoProvider>
         <ShopVoucherSection shopId={shop_id} />
+        <ProListByShopId lastId={shop_id} />
       </CardContent>
     </Card>
   );

@@ -20,6 +20,7 @@ export const vi: TranslationDictionary = {
   recent_products_desc: "Những sản phẩm bạn đã xem hoặc tương tác gần đây.",
   from_the_same_shop: "Cùng cửa hàng",
   from_the_same_shop_desc: "Xem thêm sản phẩm khác từ shop này.",
+  products_from_shop: "Sản phẩm từ Shop",
   top_picks_from_shop: "Lựa chọn nổi bật từ shop",
   top_picks_from_shop_desc: "Những sản phẩm nổi bật của shop.",
   search_products: "Tìm kiếm sản phẩm",

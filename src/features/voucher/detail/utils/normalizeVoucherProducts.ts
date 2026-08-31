@@ -37,6 +37,14 @@ export function mapVoucherProduct(item: Record<string, any>): ISpuModel {
           shop_phone: normalizeString(item.shop_phone || item.shopPhone),
           shop_address: normalizeString(item.shop_address || item.shopAddress),
           shop_slug: normalizeString(item.shop_slug || item.shopSlug || "shop"),
+          shop_article_bg_color: normalizeString(
+            item.shop_article_bg_color || item.shopArticleBgColor,
+          ),
+          shop_bg_color: normalizeString(item.shop_bg_color || item.shopBgColor),
+          shop_article_text_color: normalizeString(
+            item.shop_article_text_color || item.shopArticleTextColor,
+          ),
+          shop_text_color: normalizeString(item.shop_text_color || item.shopTextColor),
         };
 
   return {
@@ -49,6 +57,10 @@ export function mapVoucherProduct(item: Record<string, any>): ISpuModel {
       shop_phone: normalizeString(shop.shop_phone),
       shop_address: normalizeString(shop.shop_address),
       shop_slug: normalizeString(shop.shop_slug || "shop"),
+      shop_article_bg_color: normalizeString(shop.shop_article_bg_color),
+      shop_bg_color: normalizeString(shop.shop_bg_color),
+      shop_article_text_color: normalizeString(shop.shop_article_text_color),
+      shop_text_color: normalizeString(shop.shop_text_color),
     },
     product_category: Array.isArray(item.product_category)
       ? item.product_category.map(normalizeString).filter(Boolean)

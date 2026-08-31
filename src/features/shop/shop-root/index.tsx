@@ -1,3 +1,4 @@
+"use client";
 import ShopInfoProvider from "../providers";
 import ShopInfoWrapper from "../components/ShopInfoWrapper";
 import ShopHeader from "../components/ShopHeader";

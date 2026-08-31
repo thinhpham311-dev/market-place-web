@@ -5,6 +5,10 @@ export interface IShopModel {
   shop_phone?: string;
   shop_address?: string;
   shop_slug: string;
+  shop_article_bg_color?: string;
+  shop_bg_color?: string;
+  shop_article_text_color?: string;
+  shop_text_color?: string;
   shop_total_product?: number | string;
   total_product?: number | string;
   total_products?: number | string;

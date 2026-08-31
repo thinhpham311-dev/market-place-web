@@ -20,6 +20,7 @@ export const en: TranslationDictionary = {
   recent_products_desc: "Products you viewed or interacted with recently.",
   from_the_same_shop: "From The Same Shop",
   from_the_same_shop_desc: "More items from the shop you're viewing now.",
+  products_from_shop: "Products from Shop",
   top_picks_from_shop: "Top Picks from Shop",
   top_picks_from_shop_desc: "Standout picks selected from this shop.",
   search_products: "Search Products",

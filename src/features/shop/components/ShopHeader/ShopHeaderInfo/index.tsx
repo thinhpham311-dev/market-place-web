@@ -21,18 +21,20 @@ const ShopHeaderInfo = () => {
 
   return (
     <ItemContent className="flex justify-center">
-      <ItemTitle className="text-base md:text-lg font-bold">
+      <ItemTitle className="text-base md:text-lg font-bold" style={{ color: "inherit" }}>
         {shop_name?.trim() || t("shop_name_fallback")}
       </ItemTitle>
 
       {shop_phone && (
-        <span className="text-sm text-muted-foreground">
+        <span className="text-sm opacity-80" style={{ color: "inherit" }}>
           📞 {formatPhone({ phone: shop_phone })}
         </span>
       )}
 
       {shop_address && (
-        <span className="text-sm text-muted-foreground line-clamp-2">📍 {shop_address}</span>
+        <span className="text-sm opacity-80 line-clamp-2" style={{ color: "inherit" }}>
+          📍 {shop_address}
+        </span>
       )}
     </ItemContent>
   );
