@@ -20,19 +20,30 @@ export async function GET(request: NextRequest): Promise<Response> {
     const limit = searchParams.get("limit") || "50";
     const page = searchParams.get("page") || "1";
 
-    const { data } = await axios.get(`${API_NEXT}/v1/api/discount/list`, {
-      params: {
-        shopId,
-        limit,
-        page,
-      },
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": API_KEY,
-      },
-    });
+    try {
+      const { data } = await axios.get(`${API_NEXT}/v1/api/discount/list`, {
+        params: {
+          shopId,
+          limit,
+          page,
+        },
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": API_KEY,
+        },
+      });
 
-    return NextResponse.json(data);
+      return NextResponse.json(data);
+    } catch (upstreamError: unknown) {
+      return NextResponse.json({
+        status: 200,
+        message: "Success",
+        metadata: {
+          list: [],
+          total: 0,
+        },
+      });
+    }
   } catch (error: unknown) {
     const normalized = handleAxiosError(error);
 

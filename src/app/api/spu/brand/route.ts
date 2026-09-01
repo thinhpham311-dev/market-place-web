@@ -7,8 +7,22 @@ const API_NEXT = process.env.NEXT_PUBLIC_BASE_URL;
 
 export async function POST(req: Request): Promise<Response> {
   try {
-    const { limit, sort, page, ids } = await req.json();
-    console.log("brand id", ids);
+    const { searchParams: urlParams } = new URL(req.url);
+    let brandId = urlParams.get("brandId") || urlParams.get("ids") || "";
+    let limit = urlParams.get("limit") || "";
+    let sort = urlParams.get("sort") || "";
+    let page = urlParams.get("page") || "";
+
+    try {
+      const body = await req.json();
+      if (!brandId) brandId = body?.ids || body?.brandId || "";
+      if (!limit) limit = body?.limit || "";
+      if (!sort) sort = body?.sort || "";
+      if (!page) page = body?.page || "";
+    } catch {
+      // Empty or invalid body
+    }
+
     if (!API_NEXT) {
       return NextResponse.json(
         { message: "Server misconfiguration: API_NEXT not set" },
@@ -18,12 +32,13 @@ export async function POST(req: Request): Promise<Response> {
 
     const query = qs.stringify(
       {
-        brandId: ids,
-        limit,
-        sort,
-        page,
+        brandId,
+        limit: limit || undefined,
+        sort: sort || undefined,
+        page: page || undefined,
       },
       {
+        skipNulls: true,
         arrayFormat: "repeat",
       },
     );

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import SectionSeeMoreButton from "@/components/shared/SectionSeeMoreButton";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import BrandCarousel from "@/features/brand/components/BrandCarousel";
@@ -21,6 +22,8 @@ interface BrandListSectionProps {
   logoOnly?: boolean;
   showSeeMore?: boolean;
   countLoadItems?: number;
+  initialSearch?: string;
+  initialCategoryId?: string;
 }
 
 export default function BrandListSection({
@@ -30,13 +33,38 @@ export default function BrandListSection({
   logoOnly = true,
   showSeeMore = true,
   countLoadItems,
+  initialSearch = "",
+  initialCategoryId = "all",
 }: BrandListSectionProps) {
   const { t } = useTranslation();
   
-  const [searchInput, setSearchInput] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategoryId, setSelectedCategoryId] = useState("all");
+  const pathname = usePathname();
+  
+  const [searchInput, setSearchInput] = useState(initialSearch);
+  const [searchQuery, setSearchQuery] = useState(initialSearch);
+  const [selectedCategoryId, setSelectedCategoryId] = useState(initialCategoryId);
   const [allCategories, setAllCategories] = useState<any[]>([]);
+
+  // Sync current filter/search parameters to browser URL endpoint
+  useEffect(() => {
+    if (compact) return;
+
+    const params = new URLSearchParams();
+    if (searchQuery) {
+      params.set("search", searchQuery);
+    }
+    params.set("category_id", selectedCategoryId || "all");
+
+    const queryString = params.toString();
+    const newUrl = queryString ? `${pathname}?${queryString}` : pathname;
+
+    if (typeof window !== "undefined") {
+      const currentUrl = `${window.location.pathname}${window.location.search}`;
+      if (currentUrl !== newUrl) {
+        window.history.replaceState(null, "", newUrl);
+      }
+    }
+  }, [searchQuery, selectedCategoryId, pathname, compact]);
 
   // Debounce search input to avoid hitting API on every keystroke
   useEffect(() => {
@@ -238,7 +266,7 @@ export default function BrandListSection({
                     : "border-amber-100 hover:bg-amber-50/50 hover:border-amber-300 dark:border-stone-800 dark:hover:bg-stone-800"
                 }`}
               >
-                {t("all_categories") || "All Categories"}
+                {t("all_categories")}
               </Button>
               {categoriesWithBrands.map((cat: any) => (
                 <Button

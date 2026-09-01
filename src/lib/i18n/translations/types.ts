@@ -546,6 +546,7 @@ export type TranslationKey =
   | "voucher_discount_summary"
   | "voucher_no_minimum_spend"
   | "voucher_back_to_list"
+  | "voucher_back_to_shop"
   | "voucher_products_title"
   | "voucher_products_desc"
   | "voucher_shop_info"

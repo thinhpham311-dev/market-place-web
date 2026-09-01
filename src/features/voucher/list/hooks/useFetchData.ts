@@ -8,7 +8,7 @@ import { injectReducer, removeReducer } from "@/store";
 import { getDiscountList } from "@/features/voucher/list/store/dataSlice";
 import { selectVoucherListByStoreKey } from "@/features/voucher/list/store/selectors";
 import { DEFAULT_VOUCHER_SHOP_ID, VOUCHER_LIST_KEY } from "@/features/voucher/list/constants";
-import { mapVoucherItem, resolveVoucherList } from "@/features/voucher/list/utils/normalizeVoucher";
+import { getDefaultVouchers, mapVoucherItem, resolveVoucherList } from "@/features/voucher/list/utils/normalizeVoucher";
 
 interface IUseFetchDataParams {
   shopId?: string;
@@ -47,7 +47,13 @@ export function useFetchData(params: IUseFetchDataParams) {
     };
   }, [dispatch, limit, page, shopId]);
 
-  const vouchers = useMemo(() => resolveVoucherList(data).map(mapVoucherItem), [data]);
+  const vouchers = useMemo(() => {
+    const list = resolveVoucherList(data).map(mapVoucherItem);
+    if (list.length > 0) {
+      return list;
+    }
+    return getDefaultVouchers(shopId);
+  }, [data, shopId]);
 
   return {
     vouchers,

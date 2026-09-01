@@ -7,7 +7,18 @@ const API_NEXT = process.env.NEXT_PUBLIC_BASE_URL;
 
 export async function POST(req: Request): Promise<Response> {
   try {
-    const { ids } = await req.json();
+    const { searchParams: urlParams } = new URL(req.url);
+    let ids: any = urlParams.get("categoriesId") || urlParams.get("ids") || "";
+
+    try {
+      const body = await req.json();
+      if (!ids) {
+        ids = body?.ids || body?.categoriesId || "";
+      }
+    } catch {
+      // Empty or invalid body
+    }
+
     if (!API_NEXT) {
       return NextResponse.json(
         { message: "Server misconfiguration: API_NEXT not set" },

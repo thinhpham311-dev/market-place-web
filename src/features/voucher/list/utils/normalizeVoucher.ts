@@ -26,6 +26,69 @@ export function resolveVoucherList(
   return directList || metadataList || dataList || nestedMetadataList || [];
 }
 
+export function getDefaultVouchers(shopId: string): VoucherItem[] {
+  const targetShopId = shopId || "568915";
+  return [
+    {
+      discountId: `voucher_40k_${targetShopId}`,
+      id: `voucher_40k_${targetShopId}`,
+      title: "Voucher Giảm 40.000₫",
+      description: "Giảm 40.000₫ cho tất cả sản phẩm thuộc cửa hàng",
+      code: `SHOP40K_${targetShopId}`,
+      minSpend: 0,
+      discountAmount: 40000,
+      discountType: "amount",
+      discountValue: 40000,
+      maxDiscountAmount: 40000,
+      validFrom: new Date().toISOString(),
+      validUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+      usageLimit: 100,
+      usageCount: 12,
+      shopId: targetShopId,
+      orderId: "",
+      status: "available",
+    },
+    {
+      discountId: `voucher_15pct_${targetShopId}`,
+      id: `voucher_15pct_${targetShopId}`,
+      title: "Voucher Giảm 15%",
+      description: "Giảm 15% tối đa 50.000₫ cho đơn từ 150.000₫",
+      code: `SHOP15_${targetShopId}`,
+      minSpend: 150000,
+      discountAmount: 25000,
+      discountType: "percentage",
+      discountValue: 15,
+      maxDiscountAmount: 50000,
+      validFrom: new Date().toISOString(),
+      validUntil: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000).toISOString(),
+      usageLimit: 50,
+      usageCount: 5,
+      shopId: targetShopId,
+      orderId: "",
+      status: "available",
+    },
+    {
+      discountId: `voucher_freeship_${targetShopId}`,
+      id: `voucher_freeship_${targetShopId}`,
+      title: "Voucher Miễn Phí Vận Chuyển",
+      description: "Miễn phí vận chuyển tối đa 30.000₫ cho đơn từ 99.000₫",
+      code: `FREESHIP_${targetShopId}`,
+      minSpend: 99000,
+      discountAmount: 30000,
+      discountType: "amount",
+      discountValue: 30000,
+      maxDiscountAmount: 30000,
+      validFrom: new Date().toISOString(),
+      validUntil: new Date(Date.now() + 20 * 24 * 60 * 60 * 1000).toISOString(),
+      usageLimit: 200,
+      usageCount: 45,
+      shopId: targetShopId,
+      orderId: "",
+      status: "available",
+    },
+  ];
+}
+
 export function resolveVoucherStatus(item: Record<string, any>, validUntil: string): VoucherStatus {
   const rawStatus = normalizeString(item.discount_status_code).toLowerCase();
 

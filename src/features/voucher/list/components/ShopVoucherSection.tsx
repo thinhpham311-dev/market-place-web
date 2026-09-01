@@ -26,6 +26,7 @@ export default function ShopVoucherSection({ shopId = "" }: ShopVoucherSectionPr
     limit: 6,
     page: 1,
   });
+
   const [claimedVoucherIds, setClaimedVoucherIds] = useState<string[]>([]);
 
   const availableVouchers = vouchers
@@ -55,8 +56,8 @@ export default function ShopVoucherSection({ shopId = "" }: ShopVoucherSectionPr
   }
 
   return (
-    <Card className="border shadow-none">
-      <CardHeader className="px-5 pb-4">
+    <Card className="border shadow-none my-3">
+      <CardHeader className="p-3 pb-4">
         <div className="flex items-start justify-between gap-4">
           <div className="space-y-2">
             <CardTitle className="flex items-center font-title gap-2">
@@ -68,13 +69,13 @@ export default function ShopVoucherSection({ shopId = "" }: ShopVoucherSectionPr
 
           {shopId ? (
             <Button asChild type="button" size="sm" variant="outline">
-              <Link href={`/user/vouchers?shopId=${shopId}`}>{t("see_more")}</Link>
+              <Link href={`/vouchers?shopId=${shopId}`}>{t("see_more")}</Link>
             </Button>
           ) : null}
         </div>
       </CardHeader>
 
-      <CardContent className="px-5">
+      <CardContent className="p-3">
         <div className="grid gap-3 md:grid-cols-3">
           {availableVouchers.map((voucher) => (
             <Card key={voucher.discountId} className="overflow-hidden border-stone-200 shadow-none">
@@ -112,7 +113,7 @@ export default function ShopVoucherSection({ shopId = "" }: ShopVoucherSectionPr
                   <div className="flex items-center gap-2">
                     <Button asChild type="button" size="sm" variant="outline">
                       <Link
-                        href={`/user/vouchers/${voucher.discountId}${voucher.shopId ? `?shopId=${voucher.shopId}` : ""}`}
+                        href={`/vouchers/${voucher.discountId}${voucher.shopId || shopId ? `?shopId=${voucher.shopId || shopId}` : ""}`}
                       >
                         {t("voucher_view_details")}
                       </Link>

@@ -583,6 +583,7 @@ export const en: TranslationDictionary = {
   voucher_discount_summary: "Discount summary",
   voucher_no_minimum_spend: "No minimum spend",
   voucher_back_to_list: "Back to vouchers",
+  voucher_back_to_shop: "Back to Shop",
   voucher_products_title: "Products for this voucher",
   voucher_products_desc: "Browse eligible products that can use this voucher.",
   voucher_shop_info: "Shop info",

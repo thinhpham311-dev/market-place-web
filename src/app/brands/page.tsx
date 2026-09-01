@@ -1,8 +1,21 @@
 import BrandListPage from "@/features/brand/list/all";
 
-export default function Page() {
+interface PageProps {
+  searchParams?: {
+    search?: string | string[];
+    category_id?: string | string[];
+    limit?: string | string[];
+    page?: string | string[];
+  };
+}
+
+const getSingleValue = (value?: string | string[]) => {
+  return Array.isArray(value) ? value[0] : value;
+};
+
+export default function Page({ searchParams }: PageProps) {
   return (
-    <div className=" mx-auto ">
+    <div className="mx-auto">
       <BrandListPage
         titleKey="all_brands"
         descriptionKey="all_brands_desc"
@@ -10,6 +23,8 @@ export default function Page() {
         logoOnly={false}
         showSeeMore={false}
         countLoadItems={12}
+        initialSearch={getSingleValue(searchParams?.search)}
+        initialCategoryId={getSingleValue(searchParams?.category_id)}
       />
     </div>
   );

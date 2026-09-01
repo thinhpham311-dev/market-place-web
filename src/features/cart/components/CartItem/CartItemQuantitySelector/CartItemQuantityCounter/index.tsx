@@ -19,7 +19,6 @@ const CartItemQuantityCounter = ({ data }: ICartItemQuantityCounterProps) => {
   const { itemSkuId, itemSpuName, itemQuantity, itemSkuStock } = data;
 
   const handleQuantityChange = (value: number) => {
-    console.log(value);
     updateQtyItem({
       ...data,
       itemQuantity: value,

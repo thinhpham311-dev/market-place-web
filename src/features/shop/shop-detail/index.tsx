@@ -26,13 +26,13 @@ const ShopDetail = ({ shop_id }: IShopProps) => {
 
   return (
     <Card
-      className="grid grid-cols-12 border-none shadow-none"
+      className="w-full grid grid-cols-12 border-none shadow-none rounded-none"
       style={{
         ...(shopBgColor ? { backgroundColor: shopBgColor } : {}),
         ...(shopTextColor ? { color: shopTextColor } : {}),
       }}
     >
-      <CardContent className="col-span-12 space-y-5">
+      <CardContent className="col-span-12 container mx-auto px-4 md:px-6">
         <ShopInfoProvider
           contextValues={{
             data: shopData.shopInfo,

@@ -88,7 +88,7 @@ export default function SidebarNavigation() {
           url: "/user/account/privacy-settings",
         },
         { type: "link", title: t("header_my_purchase"), url: "/user/purchase" },
-        { type: "link", title: t("header_my_vouchers"), url: "/user/vouchers" },
+        { type: "link", title: t("header_my_vouchers"), url: "/vouchers" },
       ],
     },
     {

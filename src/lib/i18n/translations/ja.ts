@@ -567,6 +567,7 @@ export const ja: TranslationDictionary = {
   voucher_discount_summary: "割引概要",
   voucher_no_minimum_spend: "最低利用金額なし",
   voucher_back_to_list: "クーポン一覧へ戻る",
+  voucher_back_to_shop: "ショップに戻る",
   voucher_products_title: "このクーポンの対象商品",
   voucher_products_desc: "このクーポンを利用できる対象商品を確認できます。",
   voucher_shop_info: "ショップ情報",

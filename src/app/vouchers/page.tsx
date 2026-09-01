@@ -1,4 +1,4 @@
-import VoucherListRoot from "@/features/voucher/list/voucher-list-root";
+import VoucherListPage from "@/features/voucher/list";
 
 interface PageProps {
   searchParams?: {
@@ -14,7 +14,7 @@ const getSingleValue = (value?: string | string[]) => {
 
 export default function Page({ searchParams }: PageProps) {
   return (
-    <VoucherListRoot
+    <VoucherListPage
       shopId={getSingleValue(searchParams?.shopId)}
       limit={getSingleValue(searchParams?.limit)}
       page={getSingleValue(searchParams?.page)}

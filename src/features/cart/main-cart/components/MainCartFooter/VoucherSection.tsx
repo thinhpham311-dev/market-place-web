@@ -15,7 +15,7 @@ export default function VoucherSection() {
         <span className="text-md">{t("cart_voucher_code")}:</span>
       </strong>
       <Button variant="ghost" size="sm" asChild>
-        <Link href="/user/vouchers">
+        <Link href="/vouchers">
           {t("see_more")}
           <ChevronRight />
         </Link>

@@ -22,7 +22,7 @@ const ProListByShopIdContent = ({ lastId, shopId }: ProListByShopIdProps) => {
 
   return (
     <Card className="border-none px-3 shadow-none md:px-0 bg-transparent text-inherit">
-      <CardHeader className="px-0 pt-3 pb-3">
+      <CardHeader className="p-3">
         <h2 className="text-xl font-bold">{t("products_from_shop")}</h2>
       </CardHeader>
       <CardContent className="grid items-stretch gap-3 px-0 md:grid-cols-12">

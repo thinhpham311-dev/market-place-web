@@ -16,10 +16,12 @@ export default async function Page({ params }: { params: { segments: string[] } 
   const shop_id = ids.at(-1);
 
   return (
-    <div className="container space-y-5 mx-auto my-5">
+    <div className="space-y-5">
       <ShopDetail shop_id={shop_id} />
-      <ProRecommendedList />
-      <ProHotDealList />
+      <div className="container mx-auto space-y-5">
+        <ProRecommendedList />
+        <ProHotDealList />
+      </div>
     </div>
   );
 }

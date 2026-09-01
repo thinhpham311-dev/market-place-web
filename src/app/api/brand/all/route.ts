@@ -15,19 +15,27 @@ export async function POST(request: Request): Promise<Response> {
       );
     }
 
-    let search = "";
-    let category_id = "";
+    const { searchParams: urlParams } = new URL(request.url);
+    let search = urlParams.get("search") || "";
+    let category_id = urlParams.get("category_id") || "";
+    let limit = urlParams.get("limit") || "";
+    let page = urlParams.get("page") || "";
+
     try {
       const body = await request.json();
-      search = body?.search || "";
-      category_id = body?.category_id || "";
+      if (!search) search = body?.search || "";
+      if (!category_id) category_id = body?.category_id || "";
+      if (!limit) limit = body?.limit || "";
+      if (!page) page = body?.page || "";
     } catch {
       // Empty or invalid body
     }
 
     const queryParams = new URLSearchParams();
     if (search) queryParams.set("search", search);
-    if (category_id) queryParams.set("category_id", category_id);
+    if (category_id && category_id !== "all") queryParams.set("category_id", category_id);
+    if (limit) queryParams.set("limit", String(limit));
+    if (page) queryParams.set("page", String(page));
 
     const queryString = queryParams.toString();
     const url = `${API_NEXT}/v1/api/brand/all/list${queryString ? `?${queryString}` : ""}`;

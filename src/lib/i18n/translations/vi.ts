@@ -580,6 +580,7 @@ export const vi: TranslationDictionary = {
   voucher_discount_summary: "Tóm tắt ưu đãi",
   voucher_no_minimum_spend: "Không yêu cầu giá trị tối thiểu",
   voucher_back_to_list: "Quay lại danh sách voucher",
+  voucher_back_to_shop: "Quay lại Shop",
   voucher_products_title: "Sản phẩm áp dụng voucher này",
   voucher_products_desc: "Xem danh sách sản phẩm đủ điều kiện áp dụng voucher.",
   voucher_shop_info: "Thông tin shop",
