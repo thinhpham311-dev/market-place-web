@@ -34,7 +34,7 @@ export async function GET(request: NextRequest): Promise<Response> {
       });
 
       return NextResponse.json(data);
-    } catch (upstreamError: unknown) {
+    } catch {
       return NextResponse.json({
         status: 200,
         message: "Success",

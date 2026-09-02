@@ -12,7 +12,6 @@ export default function ActionsSection() {
   const { data } = useShoppingCartContext();
 
   const {
-    cart_sub_total = 0,
     cart_total_discount = 0,
     cart_selected_items_count = 0,
     cart_selected_items_total = 0,

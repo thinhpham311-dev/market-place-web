@@ -41,7 +41,7 @@ export async function GET(request: NextRequest): Promise<Response> {
       });
 
       return NextResponse.json(data);
-    } catch (upstreamError: unknown) {
+    } catch {
       // Fallback: If upstream discount product search returns 404, try fetching products by shopId
       const targetShopId = shopId || "962794";
       try {

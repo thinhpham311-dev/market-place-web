@@ -401,6 +401,9 @@ export const en: TranslationDictionary = {
   product_shipping_eta_value: "2-5 business days",
   product_shipping_free_shipping_note: "This item qualifies for free standard delivery.",
   product_shipping_standard_note: "Delivery fee may change based on address and selected options.",
+  product_select_variation_required: "Please select product variation",
+  product_out_of_stock: "This product is out of stock",
+  product_variation: "Variation",
   not_found_title: "Page not found",
   not_found_description:
     "The page you are looking for may have been moved, removed, or never existed in the first place.",

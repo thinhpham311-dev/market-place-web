@@ -30,6 +30,10 @@ const ProVariantsSelector = () => {
   }
   const variants = data?.product_variations ?? EMPTY_VARIANTS;
 
+  if (!variants || variants.length === 0) {
+    return null;
+  }
+
   return (
     <Card className="border-none shadow-none rounded-none">
       <CardContent className="p-3 flex flex-col gap-1">

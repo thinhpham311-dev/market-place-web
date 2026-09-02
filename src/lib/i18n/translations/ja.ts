@@ -392,6 +392,9 @@ export const ja: TranslationDictionary = {
   product_shipping_free_shipping_note: "この商品は通常配送が無料で利用できます。",
   product_shipping_standard_note:
     "配送料は配送先住所や選択したバリエーションによって変わる場合があります。",
+  product_select_variation_required: "商品のバリエーションを選択してください",
+  product_out_of_stock: "この商品は現在在庫切れです",
+  product_variation: "バリエーション",
   not_found_title: "ページが見つかりません",
   not_found_description:
     "お探しのページは移動されたか、削除されたか、もともと存在しない可能性があります。",

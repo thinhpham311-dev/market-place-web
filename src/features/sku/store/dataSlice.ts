@@ -18,8 +18,14 @@ export const getSkuDetail = createAsyncThunk<ISkuResponse, ISkuRequest>(
     try {
       const { sku_tier_idx, optionsCount } = params;
 
-      if (!sku_tier_idx || sku_tier_idx.length !== optionsCount) {
-        return rejectWithValue({ message: "Not enough options selected" });
+      if (optionsCount > 0) {
+        if (
+          !Array.isArray(sku_tier_idx) ||
+          sku_tier_idx.length !== optionsCount ||
+          sku_tier_idx.some((idx) => typeof idx !== "number" || isNaN(idx) || idx < 0)
+        ) {
+          return rejectWithValue({ message: "Not enough options selected" });
+        }
       }
 
       const data = (await dispatch({
@@ -49,7 +55,14 @@ export const getSkuDetail = createAsyncThunk<ISkuResponse, ISkuRequest>(
 const dataSlice = createSlice({
   name: "detail/data",
   initialState,
-  reducers: {},
+  reducers: {
+    clearSku: (state) => {
+      state.sku = null;
+      state.loading = false;
+      state.status = "idle";
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getSkuDetail.pending, (state) => {
@@ -72,5 +85,7 @@ const dataSlice = createSlice({
       });
   },
 });
+
+export const { clearSku } = dataSlice.actions;
 
 export default dataSlice.reducer;

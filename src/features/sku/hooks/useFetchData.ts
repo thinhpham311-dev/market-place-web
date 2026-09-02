@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
 // Actions and selectors
 import { selectSkuDetailByStoreKey } from "../store/selectors";
-import { getSkuDetail } from "../store/dataSlice";
+import { getSkuDetail, clearSku } from "../store/dataSlice";
 
 // Reducer & constants
 import reducer from "@/features/sku/store";
@@ -49,11 +49,21 @@ export function useFetchData({
 
   useEffect(() => {
     if (!product_id) return;
-    if (!memoizedSkuTierIdx) return;
+    if (optionsCount > 0) {
+      if (
+        !memoizedSkuTierIdx ||
+        memoizedSkuTierIdx.length !== optionsCount ||
+        memoizedSkuTierIdx.some((idx) => typeof idx !== "number" || isNaN(idx) || idx < 0)
+      ) {
+        dispatch(clearSku());
+        return;
+      }
+    }
+
     const promise = dispatch(
       getSkuDetail({
         product_id,
-        sku_tier_idx: memoizedSkuTierIdx,
+        sku_tier_idx: (memoizedSkuTierIdx ?? []) as number[],
         optionsCount,
       } as { optionsCount: number } & ISkuModel) as any,
     );

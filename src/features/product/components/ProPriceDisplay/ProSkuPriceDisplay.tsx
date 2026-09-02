@@ -8,7 +8,7 @@ import LoadingSkeleton from "./LoadingSkeleton";
 export default function SkuPriceDisplay({ spu }: { spu: any }) {
   const { sku, showLoading } = useSkuDetailData();
 
-  const defaultPrice = spu?.product_price;
+  const defaultPrice = spu?.product_price ?? 0;
   const currentPrice = sku?.sku_price ?? defaultPrice;
 
   if (showLoading) {
@@ -17,7 +17,7 @@ export default function SkuPriceDisplay({ spu }: { spu: any }) {
 
   return (
     <PriceDisplay
-      storeKey={`${PRO_DETAIL}_${sku?.sku_id ?? "default"}`}
+      storeKey={`${PRO_DETAIL}_${spu?.product_id ?? "default"}`}
       initialValue={{
         defaultFlashSalePrice: 0,
         defaultMaxPrice: 0,

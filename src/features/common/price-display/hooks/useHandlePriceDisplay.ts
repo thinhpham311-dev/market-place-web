@@ -43,7 +43,15 @@ export function useHandlePriceDisplay({ storeKey, initialValue }: IUseHandlePric
     return () => {
       dispatch(resetPrice({ key: storeKey }));
     };
-  }, [dispatch, storeKey, defaultPrice, defaultFlashSalePrice]);
+  }, [
+    dispatch,
+    storeKey,
+    defaultPrice,
+    defaultFlashSalePrice,
+    defaultCurrentPrice,
+    defaultMaxPrice,
+    defaultMinPrice,
+  ]);
 
   const state = useGetPriceValue({ storeKey });
 

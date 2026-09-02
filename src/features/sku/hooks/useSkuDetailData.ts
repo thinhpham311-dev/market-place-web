@@ -18,7 +18,7 @@ export function useSkuDetailData() {
   const hasNoData = !sku || Object.keys(sku).length === 0;
   const showLoading = loading && hasNoData;
   const showError = !loading && hasNoData && !!error;
-  const showNotFound = !loading && hasNoData && !error;
+  const showNotFound = false;
   const errorMessage = error || t("common_something_went_wrong");
 
   return {

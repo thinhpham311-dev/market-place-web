@@ -8,19 +8,8 @@ import { useOptionSelectorContext } from "@/features/common/option-selector/hook
 import { Option } from "@/features/common/option-selector/types";
 
 const OptionSelectorList = () => {
-  const { options, selectedOptions, validationErrors, handleChooseOption, resetValidationErrors } =
+  const { options, selectedOptions, validationErrors, handleChooseOption } =
     useOptionSelectorContext();
-
-  React.useEffect(() => {
-    if (!Object.keys(validationErrors).length) return;
-
-    const handlePointerDown = () => {
-      resetValidationErrors();
-    };
-
-    window.addEventListener("pointerdown", handlePointerDown, { once: true });
-    return () => window.removeEventListener("pointerdown", handlePointerDown);
-  }, [resetValidationErrors, validationErrors]);
 
   return (
     <CardContent className="p-0 space-y-5 w-full">

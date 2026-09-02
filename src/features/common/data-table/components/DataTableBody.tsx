@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ICartItemModel } from "@/models/cart";
 
-import { Truck, ChevronRight, Tickets, MessagesSquare } from "lucide-react";
+import { ChevronRight, MessagesSquare } from "lucide-react";
 import { useDataTableContext } from "@/features/common/data-table/hooks";
 import { formatToCurrency } from "@/utils/formats";
 import { useTranslation } from "@/lib/hooks";

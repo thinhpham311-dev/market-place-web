@@ -1,5 +1,4 @@
 "use client";
-import { toast } from "sonner";
 import { useEffect, useCallback, useMemo } from "react";
 import { useAppDispatch } from "@/lib/hooks";
 import {
@@ -14,7 +13,6 @@ import { injectReducer, removeReducer } from "@/store";
 import { useGetOptionSelectorValue } from "./useGetOptionSelectorValue";
 import reducer from "@/features/common/option-selector/store";
 import { OPTION_SELECTOR } from "@/features/common/option-selector/constants";
-import { translateRuntime } from "@/lib/i18n/runtime-translation";
 
 interface UseHandleOptionSelectorProps {
   reducerKey?: string;
@@ -71,28 +69,9 @@ export function useHandleOptionSelector({
     },
   });
 
-  // Memoize validation logic
-  const getValidationErrors = useCallback(
-    (currentValues: (number | null | undefined)[]) => {
-      const errors: Record<number, string> = {};
-
-      initialOptions.forEach((option, index) => {
-        if (currentValues[index] === null) {
-          errors[index] = `${option.label} is required.`;
-        }
-      });
-
-      return errors;
-    },
-    [initialOptions],
-  );
-
-  // Handle option selection with validation
+  // Handle option selection with validation cleanup
   const handleChooseOption = useCallback(
     (index: number, value: number | null) => {
-      const updatedValues = [...selectedOptions];
-      updatedValues[index] = value ?? null;
-
       dispatch(
         setSelectedOption({
           storeKey,
@@ -100,22 +79,14 @@ export function useHandleOptionSelector({
         }),
       );
 
-      const errors = getValidationErrors(updatedValues);
-
-      if (Object.keys(errors).length > 0) {
-        const errorMessages = Object.values(errors).join(", ");
-
-        // Use requestAnimationFrame for better timing with UI updates
-        requestAnimationFrame(() => {
-          toast.error(translateRuntime("option_validation_error"), {
-            description: errorMessages,
-          });
-        });
+      // If this option had a validation error, clear it
+      if (validationErrors && validationErrors[index]) {
+        const updatedErrors = { ...validationErrors };
+        delete updatedErrors[index];
+        dispatch(setValidationErrors({ storeKey, errors: updatedErrors }));
       }
-
-      dispatch(setValidationErrors({ storeKey, errors }));
     },
-    [dispatch, storeKey, selectedOptions, getValidationErrors],
+    [dispatch, storeKey, validationErrors],
   );
 
   // Reset options to defaults

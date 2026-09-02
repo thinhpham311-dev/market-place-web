@@ -2,7 +2,6 @@ import dynamic from "next/dynamic";
 
 import Advertisement from "@/features/ads";
 import CatPopularList from "@/features/category/list/popular";
-import BrandListSection from "@/features/brand/list/popular";
 import ProHotDealList from "@/features/product/list/hot-deal";
 import ProPopularList from "@/features/product/list/popular";
 import ProRecentList from "@/features/product/list/recent";

@@ -1,19 +1,37 @@
 "use client";
 
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import { QuantitySelector } from "@/features/common";
 import { PRO_DETAIL } from "@/features/product/constants";
 import { useSkuContext } from "@/features/sku/hooks";
 import { selectSku } from "@/features/sku/store/skuZustandStore";
 import { useSpuDetailData } from "@/features/spu/hooks";
+import { useAppDispatch } from "@/lib/hooks";
+import { setQuantity } from "@/features/common/quantity-selector/store/stateSlice";
 import LoadingSkeleton from "./LoadingSkeleton";
 import NotFound from "./NotFound";
 import { useTranslation } from "@/lib/hooks/use-translation";
 
 const ProQuantitySelector = () => {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
   const sku = useSkuContext(selectSku);
-  const { showLoading, showError, showNotFound, errorMessage } = useSpuDetailData();
+  const { spu, showLoading, showError, showNotFound, errorMessage } = useSpuDetailData();
+
+  const skuId = sku?.sku_id;
+  const productId = spu?.product_id;
+
+  // Reset quantity to 1 whenever selected variant / SKU changes
+  useEffect(() => {
+    if (productId) {
+      dispatch(
+        setQuantity({
+          key: `${PRO_DETAIL}_${productId}`,
+          quantity: 1,
+        }),
+      );
+    }
+  }, [skuId, productId, dispatch]);
 
   if (showLoading) return <LoadingSkeleton />;
   if (showError) return <NotFound message={errorMessage} />;
@@ -21,7 +39,7 @@ const ProQuantitySelector = () => {
 
   return (
     <QuantitySelector
-      storeKey={`${PRO_DETAIL}_${sku?.sku_id ?? "default"}`}
+      storeKey={`${PRO_DETAIL}_${spu?.product_id ?? "default"}`}
       initialValue={{
         defaultCurrentQuantity: 1,
         maxQuantity: sku?.sku_stock ?? 0,

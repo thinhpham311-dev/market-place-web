@@ -5,7 +5,6 @@ import { ICartItemModel } from "@/models/cart";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTranslation } from "@/lib/hooks";
-import CartItemCheckbox from "@/features/cart/components/CartItem/CartItemCheckbox";
 import CartItemPrice from "@/features/cart/components/CartItem/CartItemPrice";
 import CartItemName from "@/features/cart/components/CartItem/CartItemName";
 import CartItemImage from "@/features/cart/components/CartItem/CartItemImage";

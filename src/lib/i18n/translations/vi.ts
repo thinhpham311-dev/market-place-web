@@ -400,6 +400,9 @@ export const vi: TranslationDictionary = {
   product_shipping_free_shipping_note: "Sản phẩm này đủ điều kiện giao tiêu chuẩn miễn phí.",
   product_shipping_standard_note:
     "Phí giao hàng có thể thay đổi theo địa chỉ và phân loại đã chọn.",
+  product_select_variation_required: "Vui lòng chọn phân loại hàng",
+  product_out_of_stock: "Sản phẩm tạm thời hết hàng",
+  product_variation: "Phân loại",
   not_found_title: "Không tìm thấy trang",
   not_found_description:
     "Trang bạn đang tìm có thể đã được di chuyển, bị xóa hoặc chưa từng tồn tại.",
