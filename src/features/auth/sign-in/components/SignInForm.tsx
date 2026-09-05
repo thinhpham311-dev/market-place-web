@@ -32,7 +32,6 @@ export default function SignInForm() {
     password: passwordSchema,
     remember: z.boolean(),
   });
-
   return (
     <FormGroup<SignInFormValues>
       defaultValues={defaultValuesForSignInForm}

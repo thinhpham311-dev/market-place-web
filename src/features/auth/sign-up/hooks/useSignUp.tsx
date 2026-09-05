@@ -34,6 +34,8 @@ export function useSignUp() {
   const { loading: isSubmitting = false } = useAppSelector(selectSignUpByStoreKey(storeKey));
 
   const signUp = async (values: IUser) => {
+        console.log(values)
+
     try {
       const response = await dispatch(postSignUp(values) as any).unwrap();
       const message = response.message || t("auth_sign_up_success");

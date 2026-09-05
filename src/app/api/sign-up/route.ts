@@ -54,6 +54,7 @@ function appendUpstreamCookies(response: NextResponse, setCookieHeader?: string 
 export const POST = async (req: NextRequest) => {
   try {
     const body = await req.json();
+    console.log("Received sign-up request body:", body);
     const { email, phone, password, confirmPassword, firstName, lastName } = body ?? {};
 
     if (!API_NEXT) {
