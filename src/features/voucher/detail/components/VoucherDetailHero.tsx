@@ -22,17 +22,17 @@ export default function VoucherDetailHero() {
                 <TicketPercent className="h-6 w-6" />
               </div>
               <div>
-                <CardTitle className="text-2xl">{voucher.title}</CardTitle>
+                <CardTitle className="text-2xl dark:text-black text-white">{voucher.title}</CardTitle>
                 <CardDescription>{t("voucher_detail_desc")}</CardDescription>
               </div>
             </div>
             <div className="flex flex-wrap gap-2">
-              <Badge className="bg-orange-500 text-white hover:bg-orange-500">
+              <Badge className="bg-orange-500  hover:bg-orange-500">
                 {t(`voucher_${voucher.status}` as never)}
               </Badge>
-              {voucher.code ? <Badge variant="outline">{voucher.code}</Badge> : null}
+              {voucher.code ? <Badge variant="outline" className="dark:text-black text-white">{voucher.code}</Badge> : null}
               {voucher.shopId ? (
-                <Badge variant="outline" className="gap-1">
+                <Badge variant="outline" className="gap-1 dark:text-black text-white">
                   <Store className="h-3.5 w-3.5" />
                   {voucher.shopId}
                 </Badge>

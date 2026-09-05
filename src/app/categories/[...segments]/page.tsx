@@ -92,7 +92,6 @@ export default function Page({ params, searchParams }: PageProps) {
   }
 
   return (
-    // <div className=" m-0 bg-categories-page">
 
     <div className="space-y-5 my-5 container mx-auto ">
       <CatByCategoryId ids={ids} />
@@ -106,6 +105,5 @@ export default function Page({ params, searchParams }: PageProps) {
       </Suspense>
       <BrandListSection titleKey="shop_by_brand" descriptionKey="shop_by_brand_desc" compact />
     </div>
-          // </div>
   );
 }
