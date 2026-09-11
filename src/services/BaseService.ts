@@ -17,7 +17,6 @@ const BaseService = axios.create({
 BaseService.interceptors.request.use(
   (config) => {
     const accessToken = store.getState()?.auth?.session?.token;
-
     if (accessToken) {
       config.headers[REQUEST_HEADER_AUTH_KEY] = `${TOKEN_TYPE}${accessToken}`;
     }

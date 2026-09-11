@@ -27,6 +27,7 @@ function useAuth() {
         email: values.email,
         password: values.password,
       })) as { data: { token: string; user?: IUser } };
+      console.log("signIn resp", resp);
       if (resp.data) {
         const { token } = resp.data;
         dispatch(onSignInSuccess(token));

@@ -35,7 +35,9 @@ export function useSignIn() {
 
   const signIn = async (values: IUser) => {
     try {
+      console.log("signIn values", values);
       const response = await dispatch(postSignIn(values) as any).unwrap();
+      console.log("signIn response", response);
       const message = response.message || t("auth_sign_in_success");
 
       if (response.hasSession || response.token) {
