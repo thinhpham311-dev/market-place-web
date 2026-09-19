@@ -87,7 +87,7 @@ export default function ShopLiveSection() {
                 {liveSessions.map((session) => (
                   <CarouselItem
                     key={session.id}
-                    className="pl-4 sm:basis-1/5 xl:basis-1/5 2xl:basis-1/4"
+                    className="basis-full pl-4 md:basis-1/3 xl:basis-1/4 2xl:basis-1/6"
                   >
                     <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-orange-100 bg-white transition-all hover:-translate-y-1 hover:shadow-md">
                       <Link href={session.href} className="block">
@@ -96,7 +96,7 @@ export default function ShopLiveSection() {
                             src={session.image}
                             alt={t(session.titleKey)}
                             fill
-                            sizes="(min-width: 1536px) 25vw, (min-width: 1280px) 33vw, (min-width: 640px) 50vw, 100vw"
+                            sizes="(min-width: 1536px) 17vw, (min-width: 1280px) 25vw, (min-width: 768px) 33vw, 100vw"
                             className="object-cover transition-transform duration-500 group-hover:scale-105"
                           />
                           <div className="absolute inset-x-0 top-0 flex items-center justify-between p-3">

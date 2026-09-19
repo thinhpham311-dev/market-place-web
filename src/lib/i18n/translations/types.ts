@@ -453,6 +453,8 @@ export type TranslationKey =
   | "shop_live_card_tech_desc"
   | "shop_live_card_essentials"
   | "shop_live_card_essentials_desc"
+  | "shop_live_card_trending"
+  | "shop_live_card_trending_desc"
   | "shop_live_now"
   | "shop_live_join_now"
   | "shop_live_viewers"

@@ -13,7 +13,16 @@ import { PRO_LIST_BY_BRANDID } from "./constants";
 const filterOptions = FILTER_OPTIONS.filter((item) => item.key !== "brands");
 
 const ProListByBrandId = ({ lastId }: { lastId?: string }) => {
-  const { products, totalItems, loading, error } = useFetchData({ lastId });
+  const {
+    products,
+    totalItems,
+    loading,
+    error,
+    paramPage,
+    paramLimit,
+    matchedSort,
+    initialFilter,
+  } = useFetchData({ lastId });
 
   return (
     <Card className="border-none px-3 shadow-none md:px-6">
@@ -23,7 +32,7 @@ const ProListByBrandId = ({ lastId }: { lastId?: string }) => {
             storeKey={PRO_LIST_BY_BRANDID}
             initialValue={{
               data: filterOptions,
-              filter: {},
+              filter: initialFilter,
             }}
           />
         </div>
@@ -37,7 +46,7 @@ const ProListByBrandId = ({ lastId }: { lastId?: string }) => {
                     storeKey={PRO_LIST_BY_BRANDID}
                     initialValue={{
                       defaultData: SORTBY_OPTIONS,
-                      defaultValue: SORTBY_OPTIONS[0] ?? null,
+                      defaultValue: matchedSort ?? SORTBY_OPTIONS[0],
                     }}
                   />
                 </div>
@@ -45,7 +54,8 @@ const ProListByBrandId = ({ lastId }: { lastId?: string }) => {
                   <Pagination
                     storeKey={PRO_LIST_BY_BRANDID}
                     initialValue={{
-                      defaultLimit: 20,
+                      defaultCurrentPage: paramPage,
+                      defaultLimit: paramLimit,
                       isShowNav: true,
                       defaultTotalItems: totalItems,
                     }}
@@ -58,7 +68,7 @@ const ProListByBrandId = ({ lastId }: { lastId?: string }) => {
               <SpuGrid
                 error={error}
                 isLoading={loading}
-                countLoadItems={20}
+                countLoadItems={paramLimit}
                 data={products}
                 className="lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-2"
               />
@@ -68,7 +78,8 @@ const ProListByBrandId = ({ lastId }: { lastId?: string }) => {
               <Pagination
                 storeKey={PRO_LIST_BY_BRANDID}
                 initialValue={{
-                  defaultLimit: 20,
+                  defaultCurrentPage: paramPage,
+                  defaultLimit: paramLimit,
                   isShowDot: true,
                   isShowNav: true,
                   isShowLabel: true,

@@ -12,13 +12,20 @@ export async function POST(req: Request): Promise<Response> {
     let limit = urlParams.get("limit") || "";
     let sort = urlParams.get("sort") || "";
     let page = urlParams.get("page") || "";
+    let filter: any = {};
 
     try {
       const body = await req.json();
       if (!brandId) brandId = body?.ids || body?.brandId || "";
       if (!limit) limit = body?.limit || "";
-      if (!sort) sort = body?.sort || "";
+      if (!sort) {
+        const rawSort = body?.sort || body?.sortBy;
+        sort = typeof rawSort === "object" ? rawSort?.value : rawSort || "";
+      }
       if (!page) page = body?.page || "";
+      if (body?.filter && typeof body.filter === "object") {
+        filter = body.filter;
+      }
     } catch {
       // Empty or invalid body
     }
@@ -36,6 +43,7 @@ export async function POST(req: Request): Promise<Response> {
         limit: limit || undefined,
         sort: sort || undefined,
         page: page || undefined,
+        ...filter,
       },
       {
         skipNulls: true,

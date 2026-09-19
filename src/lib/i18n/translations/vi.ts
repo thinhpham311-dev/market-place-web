@@ -484,6 +484,9 @@ export const vi: TranslationDictionary = {
   shop_live_card_essentials: "Live nhu yếu phẩm mỗi ngày",
   shop_live_card_essentials_desc:
     "Khám phá sản phẩm dùng hàng ngày, combo tiện lợi và các deal dễ chốt.",
+  shop_live_card_trending: "Live xu hướng thịnh hành",
+  shop_live_card_trending_desc:
+    "Khám phá các sản phẩm hot nhất, gợi ý phối đồ và ưu đãi độc quyền từ host.",
   shop_live_now: "Đang live",
   shop_live_join_now: "Vào xem",
   shop_live_viewers: "đang xem",

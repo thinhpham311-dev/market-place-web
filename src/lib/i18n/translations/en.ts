@@ -485,6 +485,9 @@ export const en: TranslationDictionary = {
   shop_live_card_essentials: "Daily essentials live",
   shop_live_card_essentials_desc:
     "Find everyday picks, bundle offers, and easy wins for repeat purchases.",
+  shop_live_card_trending: "Trending picks live",
+  shop_live_card_trending_desc:
+    "Discover top trending products, outfit styling, and exclusive live deals.",
   shop_live_now: "Live now",
   shop_live_join_now: "Join stream",
   shop_live_viewers: "watching",

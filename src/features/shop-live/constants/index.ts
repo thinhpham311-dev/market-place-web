@@ -44,4 +44,13 @@ export const liveSessions = [
     viewers: "7.4k",
     duration: "29 min",
   },
+  {
+    id: "trending",
+    image: "/O1CN01gRUkNN1sW5HWJb8Me_!!6000000005773-2-tps-200-200.avif",
+    href: "/daily-discover?tab=trending",
+    titleKey: "shop_live_card_trending",
+    descriptionKey: "shop_live_card_trending_desc",
+    viewers: "15.8k",
+    duration: "15 min",
+  },
 ] as const;

@@ -8,7 +8,7 @@ const API_NEXT = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const POST = async (req: NextRequest) => {
   try {
-    const body = await req.json();
+    const {email, password} = await req.json();
 
     if (!API_NEXT) {
       return NextResponse.json(
@@ -16,15 +16,20 @@ export const POST = async (req: NextRequest) => {
         { status: 500 },
       );
     }
+    // ✅ Tạo payload gửi lên server
+    const payload = {
+      email, password
+    };
 
+    // Nếu server yêu cầu form-urlencoded:
+    const query = qs.parse(payload);
     const { data: dataResponse } = await axios.post(`${API_NEXT}/v1/api/user/sign-in`, 
-    body, {
+    query, {
       headers: {
         "Content-Type": "application/json",
         "x-api-key": process.env.NEXT_PUBLIC_API_KEY || "",
       },
     });
-  
     return NextResponse.json(dataResponse);
   } catch (error) {
     const normalized = handleAxiosError(error);

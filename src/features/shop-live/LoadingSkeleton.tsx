@@ -33,8 +33,8 @@ export default function LoadingSkeleton() {
           <Skeleton className="h-10 w-40 rounded-full bg-white/80" />
         </div>
 
-        <div className="grid gap-4 p-4 md:grid-cols-2 md:p-6 xl:grid-cols-5">
-          {Array.from({ length: 5 }).map((_, index) => (
+        <div className="grid grid-cols-1 gap-4 p-4 md:grid-cols-3 md:p-6 xl:grid-cols-4 2xl:grid-cols-6">
+          {Array.from({ length: 6 }).map((_, index) => (
             <ShopLiveCardSkeleton key={index} />
           ))}
         </div>

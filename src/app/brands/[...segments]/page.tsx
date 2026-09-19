@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import ProListByBrandId from "@/features/product/list/by-brand-id";
 
@@ -20,7 +21,9 @@ export default function Page({ params }: { params: { segments: string[] } }) {
 
   return (
     <div className="container mx-auto my-5">
-      <ProListByBrandId lastId={brand_id} />
+      <Suspense fallback={null}>
+        <ProListByBrandId lastId={brand_id} />
+      </Suspense>
     </div>
   );
 }

@@ -471,6 +471,8 @@ export const ja: TranslationDictionary = {
   shop_live_card_tech_desc: "ガジェット実演、かんたん比較、配信限定価格をまとめてチェック。",
   shop_live_card_essentials: "デイリー必需品ライブ",
   shop_live_card_essentials_desc: "日用品、まとめ買い提案、お得に買いやすい定番商品を紹介します。",
+  shop_live_card_trending: "トレンド注目ライブ",
+  shop_live_card_trending_desc: "話題の人気商品、おすすめコーデ、配信限定のお得なセールをまとめて紹介。",
   shop_live_now: "ライブ中",
   shop_live_join_now: "配信を見る",
   shop_live_viewers: "視聴中",
